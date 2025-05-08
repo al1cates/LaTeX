@@ -1,0 +1,47 @@
+\babel@toc {spanish}{}\relax 
+\thispagestyle {empty}
+\contentsline {chapter}{\numberline {0}Espacios vectoriales}{4}{chapter.0}%
+\contentsline {section}{\numberline {0.1}Ecuaciones de subespacio}{4}{section.0.1}%
+\contentsline {section}{\numberline {0.2}Retículo de subespacios}{7}{section.0.2}%
+\contentsline {section}{\numberline {0.3}Aplicaciones lineales}{8}{section.0.3}%
+\contentsline {section}{\numberline {0.4}Espacios duales}{9}{section.0.4}%
+\contentsline {section}{\numberline {0.5}Anuladores}{10}{section.0.5}%
+\contentsline {chapter}{\numberline {1}Espacios afines y proyectivos}{12}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introducción}{12}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Modelos gráficos de espacios proyectivos reales}{14}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Coordenadas homogéneas}{15}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Cambios de base}{18}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Determinación de subespacios por sus ecuaciones}{20}{section.1.5}%
+\contentsline {section}{\numberline {1.6}El espacio afín dentro del proyectivo}{21}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Principio de dualidad}{23}{section.1.7}%
+\contentsline {chapter}{\numberline {2}Proyectividades e involuciones}{25}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Proyectividades}{25}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Afinidades}{27}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Teorema fundamental de la geometría proyectiva}{30}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Proyectividades entre rectas de un plano}{31}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Involuciones}{38}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Segundo teorema de Desargues}{39}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Teorema de Fano}{41}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Cuaterna armónica}{42}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Transformaciones entre haces de rectas}{43}{section.2.9}%
+\contentsline {chapter}{\numberline {3}Teoremas de configuración}{47}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Homologías, homotecias y traslaciones}{47}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Teorema de Pappus}{51}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Teorema de Desargues}{52}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Geometría ortogonal}{53}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Formas cuadráticas}{53}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Ortogonalidad}{55}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Descomposición de Sylvester}{60}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Descomposición de Witt}{61}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Cuádricas en el espacio proyectivo}{65}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Introducción}{65}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Estudio de las cuádricas en dimensiones pequeñas}{66}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Posición relativa de una cuádrica y una recta}{67}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Polaridad inducida por una cuádrica}{70}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Ecuación tangencial de una cuádrica}{71}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Razón doble de cuatro puntos sobre una cónica}{73}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Clasificación proyectiva de las cuádricas}{73}{section.5.7}%
+\contentsline {chapter}{\numberline {6}Cuádricas en el espacio afín}{79}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Introducción}{79}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Posición relativa de una cuádrica y un hiperplano}{80}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Clasificación afín de las cuádricas}{87}{section.6.3}%

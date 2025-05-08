@@ -1,0 +1,30 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {0}Espacios métricos}{3}{chapter.0}%
+\contentsline {section}{\numberline {0.1}Introducción}{3}{section.0.1}%
+\contentsline {section}{\numberline {0.2}Bolas y abiertos en un espacio métrico}{4}{section.0.2}%
+\contentsline {chapter}{\numberline {1}Espacios topológicos}{7}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introducción}{7}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Cerrados en un espacio topológico}{9}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Puntos interiores y adherentes}{9}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Puntos de acumulación y aislados}{12}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Subespacios topológicos}{13}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Base de una topología}{15}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Aplicaciones continuas}{16}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Homeomorfismos}{18}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Topología cociente}{21}{section.1.9}%
+\contentsline {section}{\numberline {1.10}Topología producto}{23}{section.1.10}%
+\contentsline {chapter}{\numberline {2}Conexidad}{25}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introducción}{25}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Propiedades de la conexidad}{26}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Conexidad de los subespacios de $\mathbb R$}{27}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Componentes conexas de un espacio topológico}{28}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Arcoconexidad}{30}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Componentes arcoconexas}{34}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Compacidad}{36}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introducción}{36}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Propiedades de la compacidad}{38}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Compactaciones}{40}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Axiomas de separación}{45}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Espacios Hausdorff}{45}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Espacios regulares}{47}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Espacios normales}{48}{section.4.3}%
