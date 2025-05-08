@@ -1,0 +1,128 @@
+%------------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage{aligned-overset}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish, es-noshorthands, activeacute]{babel} % es-noshorthands para que no haya problemas con tikz
+\usepackage[fixlanguage]{babelbib}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{faktor}
+\usepackage{fancyhdr}
+\usepackage[left = 2.5cm, right = 2.5cm, top = 2.5cm, bottom = 2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{makeidx}
+
+%------------------------------------------------------------------------------------------------------%
+
+% DEFINICIONES, TEOREMAS Y DEMÁS
+
+\numberwithin{equation}{section} % para que la numeración de las ecuaciones vaya acorde a las secciones
+
+\theoremstyle{plain}
+\newtheorem{theorem}[equation]{Teorema}
+\newtheorem{proposition}[equation]{Proposición}
+\newtheorem{lemma}[equation]{Lema}
+\newtheorem{corollary}[equation]{Corolario}
+
+\theoremstyle{definition}
+\newtheorem{definition}[equation]{Definición}
+\newtheorem{example}[equation]{Ejemplo}
+
+%------------------------------------------------------------------------------------------------------%
+
+% COMANDOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+\newcommand{\I}{\mathbb I}
+\newcommand{\T}{\mathbb T}
+\newcommand{\K}{\mathbb K}
+\newcommand{\angles}[1]{\langle #1 \rangle}
+
+\newcommand{\integral}[4][t]{\int_{#2}^{#3} #4 \, d#1}
+\newcommand{\sgn}{\textup{sgn}}
+\newcommand{\real}{\textup{Re}}
+\newcommand{\imag}{\textup{Im}}
+
+\DeclareMathOperator*{\supes}{sup\,es\,} % supremo esencial
+\newcommand{\nconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$n \to \infty$\phantom{.}}}}
+\newcommand{\Nconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$N \to \infty$\phantom{.}}}}
+\newcommand{\kconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$k \to \infty$\phantom{.}}}}
+\newcommand{\iconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$i \to \infty$\phantom{.}}}}
+
+%------------------------------------------------------------------------------------------------------%
+
+% ENCABEZADOS Y PIES DE PÁGINA
+
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyhead[L]{\slshape\nouppercase\leftmark}
+\fancyhead[R]{\thepage}
+
+\fancyfoot{}
+
+%------------------------------------------------------------------------------------------------------%
+
+% ASTERISCOS
+
+\makeatletter
+\newcommand{\stars}{}
+\DeclareRobustCommand{\stars}[1]{\stars@{#1}}
+\newcommand{\stars@}[1]{%
+  \ifcase#1\relax\or\stars@one\or\stars@two\or\stars@three\or\stars@four
+  \else ??\fi
+}
+\newcommand{\stars@char}{$\scriptstyle*$}
+\newcommand{\stars@base}[1]{%
+  $\m@th\vcenter{\offinterlineskip\ialign{\hfil##\hfil\cr#1\crcr}}$%
+}
+\newcommand{\stars@one}{%
+  \stars@base{\stars@char}%
+}
+\newcommand{\stars@two}{%
+  \stars@base{\stars@char\cr\stars@char}%
+}
+\newcommand{\stars@three}{%
+  \stars@base{\stars@char\cr\stars@char\stars@char}%
+}
+\newcommand{\stars@four}{%
+  \stars@base{\stars@char\stars@char\cr\stars@char\stars@char}%
+}
+\makeatother
+
+\newcommand{\asts}[1]{\textup{\stars{#1}}}
+
+% chanchullo para poder usar \stars{} en expresiones matemáticas
+
+%------------------------------------------------------------------------------------------------------%
+
+% OTROS AJUSTES
+
+% \renewcommand{\thesection}{\arabic{section}}
+
+\setlist[enumerate]{label={\normalfont({\alph*})}}
+
+\makeatletter % título opcional de los teoremas en negrita
+\def\th@plain{
+  \thm@notefont{}
+  \itshape
+}
+\def\th@definition{
+  \thm@notefont{}
+  \normalfont
+}
+\makeatother
+
+\selectbiblanguage{spanish}
+
+\setlength{\headheight}{14.5pt}

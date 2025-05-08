@@ -1,0 +1,237 @@
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 9in}, top=1.5in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+
+\parindent=0pt
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{Análisis Matemático III}}
+\fancyhead[R]{\textbf{Examen final - 2019/02/11}}
+
+\begin{document}
+\begin{center}
+    \textbf{Segunda parte}
+\end{center}
+\textbf{1. } Sea $f \colon \to \R^2 \to \R$ la función definida por
+\[f(x,y)=
+\begin{cases}
+\frac{\arctan(|x|^\alpha y)}{x^4+y^4} & $si$ \ x \neq (0,0) \\
+0 & $si$ \ x = (0,0)
+\end{cases}
+\]
+Vamos a demostrar primero la desigualdad $|\arctan(x)| \leq |x| \ \forall \ x \in \R$. Para cualquier $x>0$ aplicamos el teorema del valor medio a la función $g \colon [0,x] \to \R$ definida por $g(x) = \arctan(x)$ y tenemos que existe $c \in (0,x)$ tal que
+\[\arctan(x) = \frac{x}{1+c^2} \leq x\]
+luego $|\arctan(x)| \leq |x|$. Para $x < 0$, tenemos que
+\[\arctan(-x) = -\arctan(x) \leq -x \implies |\arctan(x)| \leq |x|\]
+El caso $x = 0$ es trivial. Veamos que \textbf{$f$ es continua en $(0,0)$ si y solo si $\alpha > 3$}.
+
+\vspace{2mm}
+Si $\alpha > 3$, entonces
+\[
+\begin{aligned}[t]
+\biggr|\frac{\arctan(|x|^\alpha y)}{x^4 + y^4}\biggl| &\leq \frac{|x|^\alpha |y|}{x^4+y^4} = \frac{|x|^3 |y|}{x^4+y^4}|x|^{\alpha-3} = \frac{{|x^4|}^{3/4} \cdot {|y^4|}^{1/4}}{x^4+y^4}|x|^{\alpha-3}
+\\
+&\leq \frac{{(x^4+y^4)}^{3/4} \cdot {(x^4+y^4)}^{1/4}}{x^4+y^4}|x|^{\alpha-3} = |x|^{\alpha-3} \xrightarrow{(x,y) \to (0,0)} 0
+\end{aligned}
+\]
+ya que $\alpha-3>0$. Por la regla del sándwich,
+\[\lim_{(x,y) \to (0,0)} f(x,y) = 0 = f(0,0)\]
+luego $f$ es continua en $0$.
+
+\vspace{2mm}
+Si $\alpha < 3$, entonces tomamos la sucesión $\{(\frac{1}{k},\frac{1}{k})\}$ (que es adecuada) y tenemos que
+\[f\biggr(\frac{1}{k},\frac{1}{k} \biggl) = \frac{\arctan(\frac{1}{k^{\alpha+1}})}{\frac{2}{k^4}} = \frac{1}{2} \cdot \frac{\arctan(\frac{1}{k^{\alpha+1}})}{\frac{1}{k^{\alpha+1}}} \cdot \frac{1}{\frac{1}{k^{3-\alpha}}} \longrightarrow \infty\]
+ya que
+\begin{itemize}
+    \item $\displaystyle \lim_{t \to 0}\frac{\arctan(t)}{t} \overset{\textrm{L'H}}{=} \lim_{t \to 0}\frac{\frac{1}{1+t^2}}{1} = 1$ y por tanto, $\displaystyle \lim_{k \to \infty}\frac{\arctan(\frac{1}{k^{\alpha+1}})}{\frac{1}{k^{\alpha+1}}} = 1$.
+    \item $\displaystyle \lim_{k \to \infty} k^{3-\alpha} = \infty$ por ser $3 - \alpha > 0$.
+\end{itemize}
+Si fuese $\alpha = 3$, entonces el límite de la sucesión $\{f(\frac{1}{k},\frac{1}{k})\}$ es $\frac{1}{2} \neq 0 = f(0,0)$, así que $f$ tampoco es continua en $(0,0)$.
+
+\vspace{2mm}
+Estudiemos la existencia de las derivadas parciales en $(0,0)$:
+\begin{itemize}
+    \item $\displaystyle D_1f(0,0) = \lim_{t \to 0} \frac{f(t,0)-f(0,0)}{t} = \lim_{t \to 0} 0 = 0$
+    \item $\displaystyle D_2f(0,0) = \lim_{t \to 0} \frac{f(0,t)-f(0,0)}{t} = \lim_{t \to 0} 0 = 0$
+\end{itemize}
+Por tanto, la única candidata a ser la diferencial de $f$ en $(0,0)$ es la aplicación lineal nula. Tenemos que $f$ es diferenciable en $(0,0)$ si y solo si el límite
+\[\lim_{(x,y) \to (0,0)}\frac{f(x,y) - f(0,0)}{\sqrt{x^2+y^2}} = \lim_{(x,y) \to (0,0)} \frac{\arctan(|x|^\alpha y)}{\sqrt{x^2+y^2}(x^4+y^4)} = \lim_{(x,y) \to (0,0)} h(x,y)\]
+existe y vale $0$. Veamos que \textbf{$f$ es diferenciable en $(0,0)$ si y solo si $\alpha > 4$}.
+
+\vspace{2mm}
+Si $\alpha > 4$, entonces
+\[
+\begin{aligned}[t]
+\biggr|\frac{\arctan(|x|^\alpha y)}{\sqrt{x^2+y^2}(x^4 + y^4)}\biggl| &\leq \frac{|x|^\alpha |y|}{\sqrt{x^2+y^2}(x^4+y^4)} = \frac{x^4 |y|}{\sqrt{x^2+y^2}(x^4+y^4)}|x|^{\alpha-4} \\
+&\leq \frac{\sqrt{x^2+y^2}}{\sqrt{x^2+y^2}} \cdot \frac{x^4+y^4}{x^4+y^4} \cdot |x|^{\alpha-4} = |x|^{\alpha-4} \xrightarrow{(x,y) \to (0,0)} 0
+\end{aligned}
+\]
+ya que $\alpha-4 > 0$. Por la regla del sándwich,
+\[\lim_{(x,y) \to (0,0)}h(x,y) = 0\]
+luego $f$ es diferenciable en $(0,0)$.
+
+\vspace{2mm}
+Si $\alpha < 4$, entonces tomamos la sucesión $\{(\frac{1}{k},\frac{1}{k})\}$ (que es adecuada) y tenemos que
+\[h\biggr(\frac{1}{k},\frac{1}{k} \biggl) = \frac{\arctan(\frac{1}{k^{\alpha+1}})}{\frac{\sqrt{2}}{k} \cdot \frac{2}{k^4}} = \frac{1}{2\sqrt{2}} \cdot \frac{\arctan(\frac{1}{k^{\alpha+1}})}{\frac{1}{k^{\alpha+1}}} \cdot \frac{1}{\frac{1}{k^{4-\alpha}}} \longrightarrow \infty\]
+ya que
+\begin{itemize}
+    \item $\displaystyle \lim_{k \to \infty}\frac{\arctan(\frac{1}{k^{\alpha+1}})}{\frac{1}{k^{\alpha+1}}} = 1$ por el mismo motivo de antes.
+    \item $\displaystyle \lim_{k \to \infty} k^{4-\alpha} = \infty$ por ser $4 - \alpha > 0$.
+\end{itemize}
+Si fuese $\alpha = 4$, entonces el límite de la sucesión $\{h(\frac{1}{k},\frac{1}{k})\}$ es $\frac{1}{2\sqrt{2}} \neq 0$, así que $f$ tampoco es diferenciable en $(0,0)$.
+
+\vspace{2mm}
+\textbf{2. }
+
+\vspace{2mm}
+\textbf{(a) } Llamamos $f(x,y) = \frac{\sen(xy)}{x^2+y^2}$. Veamos que el límite no existe. Tomando las sucesiones $\{(\frac{1}{k},\frac{1}{k})\}, \{(0,\frac{1}{k})\}$ (que son adecuadas), tenemos que
+\begin{itemize}
+    \item $\displaystyle f\biggl(\frac{1}{k},\frac{1}{k} \biggr) = \frac{\sen(\frac{1}{k^2})}{\frac{2}{k^2}} = \frac{1}{2} \cdot \frac{\sen(\frac{1}{k^2})}{\frac{1}{k^2}} \longrightarrow \frac{1}{2} \cdot 1 = \frac{1}{2}$
+    \item $\displaystyle f\biggl(0,\frac{1}{k}\biggr) = 0 \longrightarrow 0$
+\end{itemize}
+Como $0 \neq \frac{1}{2}$, el límite no existe.
+
+\vspace{2mm}
+\textbf{(b) } Llamamos $f(x,y) = \frac{x^3}{x-y}$. Veamos que el límite no existe. Tomando las sucesiones $\{(\frac{1}{k},\frac{1}{k}-\frac{1}{k^3})\}, \{(0,\frac{1}{k})\}$ (que son adecuadas), tenemos que
+\begin{itemize}
+    \item $\displaystyle f\biggl(\frac{1}{k},\frac{1}{k}-\frac{1}{k^3} \biggr) = \frac{\frac{1}{k^3}}{\frac{1}{k} - \frac{1}{k} + \frac{1}{k^3}} = 1 \longrightarrow 1$
+    \item $\displaystyle f\biggl(0,\frac{1}{k} \biggr) = 0 \longrightarrow 0$
+\end{itemize}
+Como $0 \neq 1$, el límite no existe.
+
+\vspace{2mm}
+\textbf{3. } 
+
+\vspace{2mm}
+\textbf{(a) } Tenemos que
+\footnotesize
+\[
+\begin{aligned}[t]
+\frac{||(f(x) - f(a))Df(a)(x-a)||}{||x-a||} &= \frac{||(f(x) - f(a) - Df(a)(x-a) + Df(a)(x-a))Df(a)(x-a)||}{||x-a||} \\
+& \leq ||Df(a)(x-a)|| \cdot \frac{||f(x)-f(a)-Df(a)(x-a)||}{||x-a||} + \frac{||Df(a)(x-a)^2||}{||x-a||}
+\end{aligned}
+\]
+\normalsize
+El primer sumando tiene límite $0$ cuando $x \to a$ por ser $f$ diferenciable en $a$. En cuanto al segundo sumando, usando que $Df(a)$ es lineal y lipschitziana, podemos escribir
+\footnotesize
+\[\frac{||Df(a)(x-a)^2||}{||x-a||} = ||Df(a)(x-a)|| \cdot \frac{||Df(a)(x) - Df(a)(a)||}{||x-a||} \leq ||Df(a)(x-a)|| \cdot \frac{C||x-a||}{||x-a||} = C ||Df(a)(x-a)||\]
+\normalsize
+y como $Df(a)$ es continua, entonces el límite del término anterior cuando $x \to a$ es también $0$. Esto demuestra que
+\[\lim_{x \to a}\frac{||f(x)-f(a)-Df(a)(x-a)||}{||x-a||} = 0\]
+y por tanto $f$ es diferenciable en $a$.
+
+\vspace{2mm}
+\textbf{(b) } Por ser $f$ continua en $a$, para todo $\varepsilon > 0$ existe $\delta > 0$ tal que para cada $x \in A \cap B(a, \delta)$ se tiene que $|f(x) - f(a)| < \varepsilon$. Distinguimos tres casos:
+\begin{itemize}
+    \item Si $f(a) = 0$, entonces podemos tomar cualquier $M > 0$ y, por lo anterior, existe $r > 0$ tal que para todo $x \in A \cap B(a, r)$ se tiene que $|f(x)| < M$.
+    \item Si $f(a) > 0$, tomamos $\varepsilon = f(a)$ y existe $r > 0$ tal que para todo $x \in A \cap B(a,r)$ se tiene que
+    \[|f(x)-f(a)| < f(a) \iff -f(a) < f(x)-f(a) < f(a) \iff 0 < f(x) < 2f(a)\]
+    Por tanto, tomando $M = 2f(a) > 0$, para todo $x \in A \cap B(a,r)$ se cumple que
+    \[f(x) = |f(x)| < M\]
+    \item Si $f(a) > 0$, tomamos $\varepsilon = -f(a)$ y existe $r > 0$ tal que para todo $x \in A \cap B(a,r)$ se tiene que
+    \[|f(x)-f(a)| < -f(a) \iff f(a) < f(x)-f(a) < -f(a) \iff -2f(a) > -f(x) > 0\]
+    Por tanto, tomando $M = -2f(a) > 0$, para todo $x \in A \cap B(a,r)$ se cumple que
+    \[-f(x) = |f(x)| < M\]
+\end{itemize}
+Por tanto, $f$ es acotada en un entorno de $a$.
+
+\vspace{2mm}
+\textbf{(c)} Tenemos que $f = F \circ g$, donde $F \colon \R \to \R$, $F(s) = \int_0^s e^{-t^2}dt$ es de $C^2$ y $g \colon \R^2 \to \R$, $g(x,y) = xy$ también es de $C^2$. Por tanto, $f$ es de $C^2$ por ser composición de funciones de $C^2$. Como $f$ es diferenciable en el abierto $\R^2$, los candidatos a extremos locales de $f$ son los puntos críticos, que son las soluciones del siguiente sistema:
+\[
+\begin{cases}
+    D_1f(0,0) = 0 \\
+    D_2f(0,0) = 0
+\end{cases} \iff \begin{cases}
+    ye^{-(xy)^2} = 0 \\
+    xe^{-(xy)^2} = 0
+\end{cases}
+\]
+Como $(0,0)$ es solución del sistema, podría ser extremo local. Intentamos aplicar el criterio de la matriz hessiana:
+\begin{itemize}
+    \item $\displaystyle Hf(x,y) = 
+    \begin{pmatrix}
+    -2y^3xe^{-x^2y^2} & e^{-x^2y^2}-2x^2y^2e^{-x^2y^2} \\
+    e^{-x^2y^2}-2x^2y^2e^{-x^2y^2} & -2x^3ye^{-x^2y^2}
+    \end{pmatrix}
+    $
+    \item $\displaystyle Hf(0,0) = 
+    \begin{pmatrix}
+    0 & 1 \\
+    1 & 0
+    \end{pmatrix}
+    $
+\end{itemize}
+Como  $Hf(0,0)$ es no semidefinida, entonces $(0,0)$ es punto de silla, luego no es extremo local de $f$.
+
+\vspace{2mm}
+\textbf{(d) } Como $g = f \circ h$, donde $f$ es de $C^2$ y $h \colon \R^2 \to \R, h(x,y) = (xy^2,\arctan(x))$ también (pues sus componentes son de $C^2$), entonces $g$ es de $C^2$ por ser composición de funciones de $C^2$. Por la regla de la cadena,
+
+\vspace{2mm}
+$\displaystyle D_2f(x,y) = 2xyD_1f(xy^2,\arctan(x))$
+
+\vspace{2mm}
+$\begin{aligned} \displaystyle D_{12}f(x,y) &= 2yD_1f(xy^2,\arctan(x)) + 2yx \bigl[y^2D_{11}f(xy^2,\arctan(x)) \\ &+ \frac{1}{1+x^2}D_{21}f(xy^2,\arctan(x))\bigr] \end{aligned}$
+
+\vspace{2mm}
+\textbf{4. } Como $f$ es diferenciable en el abierto $\R^2$, entonces los candidatos a extremos locales son los puntos críticos. Los puntos críticos son las soluciones del siguiente sistema:
+\[
+\begin{cases}
+    D_1f(0,0) = 0 \\
+    D_2f(0,0) = 0
+\end{cases} \iff \begin{cases}
+    4y^2x^3 -2y^4x = 0 \\
+    2x^4y-4x^2y^3 = 0
+\end{cases} \iff \begin{cases}
+    xy^2(4x^2-2y^2) = 0 \\
+    x^2y(2x^2-4y^2) = 0
+\end{cases}
+\]
+Cualquier punto de la forma $(0,b)$ ó $(a,0)$ es solución del sistema. Si $x,y \neq 0$, entonces tenemos que resolver
+\[
+\begin{cases}
+    2x^2-y^2 = 0 \\
+    x^2-2y^2 = 0
+\end{cases}
+\]
+De la primera ecuación obtenemos $y^2 = 2x^2$, y sustituyendo en la segunda,
+\[x^2 -2(2x^2) = 0 \iff x^2 = 0 \iff x = 0\]
+Por tanto, $y = 0$ (ya habíamos obtenido esta solución antes). Ahora tratamos de clasificar los puntos críticos mediante el criterio de la matriz hessiana:
+\begin{itemize}
+    \item $\displaystyle Hf(x,y) = 
+    \begin{pmatrix}
+    12y^2x^2 -2y^4 & 8yx^3-8y^3x \\
+    8yx^3-8y^3x & 2x^4-12x^2y^2
+    \end{pmatrix}
+    $
+    \item $\displaystyle Hf(a,0) = 
+    \begin{pmatrix}
+    0 & 0 \\
+    0 & 2a^4
+    \end{pmatrix}
+    $
+    \item $\displaystyle Hf(0,b) = 
+    \begin{pmatrix}
+    -2b^4 & 0 \\
+    0 & 0
+    \end{pmatrix}
+    $
+\end{itemize}
+Como $\det(Hf(a,0)) = \det(Hf(0,b)) = 0$, no podemos utilizar el criterio de la matrix hessiana. Hay que estudiar el signo de $f(x,y)-f(a,0) = f(x,y)$ y de $f(x,y)-f(0,b) = f(x,y)$ en los alrededores de cada punto crítico. Tenemos que
+\begin{itemize}
+    \item $f(x,y) > 0 \iff x^2y^2(x^2-y^2) > 0 \iff x^2-y^2> 0 \iff |x| > |y|$
+    \item $f(x,y) < 0 \iff x^2y^2(x^2-y^2) < 0 \iff x^2-y^2< 0 \iff |x| < |y|$
+\end{itemize}
+En cualquier punto de la forma $(a,0)$ con $a \neq 0$ existe una bola abierta centrada en $(a,0)$ donde $f$ no toma valores negativos, luego $(a,0)$ es mínimo local de $f \ \forall \ a \neq 0$ (ya que $f(a,0) = 0$). En cualquier punto de la forma $(0,b)$ con $b \neq 0$ existe una bola abierta centrada en $(b,0)$ donde $f$ no toma valores positivos, luego $(0,b)$ es máximo local de $f \ \forall \ b \neq 0$ (ya que $f(0,b) = 0$). Ahora bien, en cualquier bola centrada en $(0,0)$ existen puntos donde $f$ toma valores positivos y negativos, luego $(0,0)$ no es extremo local (representar gráficamente).
+\end{document}

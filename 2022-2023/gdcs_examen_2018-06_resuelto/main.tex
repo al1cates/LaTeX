@@ -1,0 +1,203 @@
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+
+\parindent=0pt
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\small
+
+\textbf{Geometría Diferencial de Curvas y Superficies} \hfill \textbf{Examen de junio de 2018}
+\linebreak
+
+\textbf{1.} \textit{Sea $\alpha \colon I \to \R^3$ una curva parametrizada por el arco cuya traza está contenida en la superficie de una esfera de centro $c$ y radio $r$. Pruébese que su curvatura es mayor o igual que $\frac{1}{r}$, y que si la igualdad se da para todo valor del parámetro, entonces $\alpha$ es plana.}
+
+\vspace{2mm}
+Que $\alpha(s)$ esté en la esfera de centro $c$ y radio $r$ para todo $s \in I$ significa que
+\[\langle \alpha(s)-c,\alpha(s)-c \rangle = r^2\]
+Derivando,
+\[2\langle \alpha'(s),\alpha(s)-c \rangle = 0 \iff \langle \alpha'(s),\alpha(s)-c \rangle = 0\]
+Derivando otra vez,
+\[\langle \alpha''(s),\alpha(s)-c \rangle +\langle \alpha'(s),\alpha'(s) \rangle = 0 \iff \langle \alpha''(s),\alpha(s)-c \rangle = -1\]
+Por la desigualdad de Cauchy-Schwarz, se tiene que
+\[1 = |\langle \alpha''(s),\alpha(s)-c \rangle | \leq ||\alpha''(s)|| \, ||\alpha(s)-c|| = r k(s) \iff k(s) \geq \frac{1}{r}\]
+y la igualdad se da en caso de que $\alpha''(s)$ y $\alpha(s)-c$ sean linealmente independientes. 
+
+\vspace{2mm}
+Supóngase que se tiene la igualdad en todo $s \in I$, es decir, que existe una función escalar $\lambda$ de forma que
+\[\alpha''(s) = \lambda(s)(\alpha(s)-c)\]
+para todo $s \in I$. Entonces se tiene
+\[\langle \lambda(s)(\alpha(s)-c),\alpha(s)-c \rangle = -1 \iff \lambda(s) = -\frac{1}{r^2}\]
+y como $\alpha''(s) = T'(s) = \frac{1}{r}N(s)$, entonces
+\[\frac{1}{r}N(s) = -\frac{1}{r^2}(\alpha(s)-c) \iff N(s)=-\frac{1}{r}(\alpha(s)-c)\]
+Derivando,
+\[N'(s) = -\frac{1}{r}\alpha'(s) = k(s)T(s)\]
+Ahora bien, por las ecuaciones de Frenet se tiene que
+\[N'(s) = k(s)T(s)-\tau(s)B(s)\]
+luego $\tau(s)B(s) = 0$. Si siempre fuese $\tau(s) = 0$ el ejercicio se ha acabado. ¿Y si fuese $B(s)=0$? Se tendría entonces
+\[B(s) = T(s) \wedge N(s) = -\frac{1}{r}\alpha'(s) \wedge (\alpha(s)-c) = 0\]
+así que $\alpha'(s)$ y $\alpha(s)-c$ serían linealmente independientes, que es imposible porque al principio se vio que ambos vectores son ortogonales y ninguno de ellos es el vector nulo. Se concluye que $\tau(s) = 0$ para todo $s \in I$ y por tanto la curva es plana.
+
+\pagebreak
+
+\vspace{4mm}
+\textbf{2.} \textit{Considérese el subconjunto de $\R^3$
+\[S = \{(x,y,z) \in \R^3 \colon x^2+y^2-z=1, z > -1\}\]}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Pruébese que $S$ es una superficie regular.}
+    \item[\textit{(b)}] \textit{Obténgase un campo normal unitario sobre toda la superficie.}
+    \item[\textit{(c)}] \textit{Calcúlense las curvaturas y direcciones principales y las direcciones asintóticas en (1,0,0).}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(a)} La ecuación de $S$ es equivalente a
+\[z = x^2+y^2-1\]
+y la restricción $z>-1$ se traduce en $x^2+y^2>0$. Se tiene entonces que $S$ es la gráfica de la función
+\[
+\begin{aligned}[t]
+    f \colon \R^2 \setminus \{(0,0)\} &\longrightarrow \R \\
+    (x,y) &\longmapsto f(x,y) = x^2+y^2-1
+\end{aligned}
+\]
+que es diferenciable en el abierto $\R^2 \setminus \{0,0\}$. Por tanto, $S$ es una superficie regular.
+
+\vspace{2mm}
+\textbf{(b)} Una carta que recubre toda la superficie es $(U,\varphi)$, siendo $U = \R^2 \setminus \{(0,0\}$ y
+\[
+\begin{aligned}[t]
+\varphi \colon U &\longrightarrow \R^3 \\
+(u,v) &\longmapsto \varphi(u,v) = (u,v,u^2+v^2-1)
+\end{aligned}\]
+Se tiene que
+\[\varphi_u = (1,0,2u) \qquad \qquad \varphi_v = (0,1,2v)\]
+así que un campo normal unitario definido en toda la superficie es
+\[\mathcal{N}_p = \frac{\varphi_u \wedge \varphi_v}{||\varphi_u \wedge \varphi_v||} = \frac{1}{\sqrt{4u^2+4v^2+1}}(-2u,-2v,1)\]
+
+\vspace{2mm}
+\textbf{(c) } Sea $p = (1,0,0) = \varphi(1,0)$. Derivando los vectores de la base coordenada,
+\[\varphi_{uu} = (0,0,2) \qquad \varphi_{vv} = (0,0,2) \qquad \varphi_{uv} = (0,0,0)\]
+En particular, para $u = 1, v = 0$,
+\[\varphi_u = (1,0,2) \qquad \varphi_v = (0,1,0) \qquad \varphi_{uu} = (0,0,2) \qquad \varphi_{vv} = (0,0,2) \qquad \varphi_{uv} = (0,0,0)\]
+luego
+\[E = 3 \qquad F = 0 \qquad G = 1 \qquad e = 2 \qquad f = 0 \qquad g = 2\]
+Se aplican ahora las ecuaciones de Weingarten:
+\[
+a_{11} = \frac{fF-eG}{EG-F^2} = -\frac{2}{3} \qquad
+a_{12} = \frac{gF-fG}{EG-F^2} = 0 \qquad
+a_{21} = \frac{eF-fE}{EG-F^2} = 0 \qquad
+a_{22} = \frac{fF-gE}{EG-F^2} = -2
+\]
+Como la matriz de $\mathcal{S}_p$ respecto de la base coordenada es diagonal, sus autovalores son los elementos diagonales y sus autovectores, los vectores de la base coordenada. En otras palabras,
+\[k_1(p) = \frac{2}{3} \qquad k_2(p) = 2\]
+son las curvaturas principales, mientras que
+\[e_1 = (1,0,2) \qquad e_2 = (0,1,0)\]
+son las direcciones principales. La ecuación de las líneas asintóticas es
+\[eu'(t)^2+2fu'(t)v'(t)+gv'(t)^2 = 0 \iff 2u'(t)^2+2v'(t)^2 = 0 \iff |u'(t)| = |v'(t)|\]
+Un vector $v \in T_pS$ con coordenadas $(v_1,v_2) = (u'(0),v'(0))$ en la base coordenada llevará una dirección asintótica si y solo si $v_1 = \pm v_2$. En resumen, las direcciones asintóticas son dos: las de los vectores
+\[
+\begin{aligned}[t]
+u_1 &= 1 \cdot \varphi_u + 1 \cdot \varphi_v = (1,1,2) \\
+u_2 &= 1 \cdot \varphi_u - 1 \cdot \varphi_v = (1,-1,2)
+\end{aligned}\]
+
+\vspace{4mm}
+\textbf{3. } \textit{Dadas dos curvas $\gamma, \delta \colon I \to \R^3$ diferenciables, la superficie $S$ dada por $\varphi(u,v) = \gamma(u)+v\delta(u)$ se dice que es} desarrollable \textit{si el plano tangente es el mismo en los puntos de cada línea recta $\varphi(u_0,v)$, con  $u_0 \in I$ constante.}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Demuéstrese que $S$ es desarrollable si y solo si $\delta'(u)$ es combinación lineal de $\gamma'(u)$ y $\delta(u)$ para todo $u \in I$.}
+    \item[\textit{(b)}] \textit{¿Es el cilindro una superficie desarrollable?}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(a)} Considérese una superficie $S$ dada por $\varphi(u,v) = \gamma(u)+v\delta(u)$, siendo $\gamma,\delta \colon I \to \R^3$ dos curvas diferenciables.
+
+\begin{itemize}
+    \item[{\fbox[rb]{$\Rightarrow$}}] Supóngase que $S$ es desarrollable y fíjese $u_0 \in V$. Sea $p = \varphi(u_0,v)$ un punto de $S$. Los vectores de la base coordenada en este punto son
+    \[\varphi_u(u_0,v) = \gamma'(u_0)+v\delta'(u_0) \qquad \varphi_v(u_0,v) = \delta(u_0)\]
+    Sabemos además que $\{\varphi_u(u_0,v),\varphi_v(u_0,v)\}$ es base de $T_pS$ y que variando $v$ se obtiene el mismo plano tangente. Esto quiere decir que si $p' = \varphi(u_0,v')$ es otro punto de $S$, entonces $\{\varphi_u(u_0,v'),\varphi_v(u_0,v')\}$ y $\{\varphi_u(u_0,v),\varphi_v(u_0,v)\}$ generan el mismo plano. Ahora bien, como $\varphi_v(u_0,v') = \delta(u_0) = \varphi_v(u_0,v)$, entonces los vectores
+    \[\varphi_u(u_0,v) = \gamma'(u_0) + v\delta'(u_0) \qquad \varphi_u(u_0,v') = \gamma'(u_0) + v'\delta'(u_0)\]
+    tienen que ser linealmente dependientes. Por tanto,
+    \[
+        \det(\gamma'(u_0) + v\delta'(u_0), \gamma'(u_0) + v'\delta'(u_0), \delta(u_0)) = 0
+    \]
+    o lo que es lo mismo, llamando $\gamma' \equiv \gamma'(u_0)$, $\delta' \equiv \delta'(u_0)$, $\delta \equiv \delta(u_0)$ para ahorrar escritura,
+    \[\det(\gamma', \gamma', \delta) +v\det(\delta',\gamma',\delta)  + v'\det(\gamma',\delta',\delta)+vv'\det(\delta',\delta',\delta) = (v-v')\det(\delta',\gamma',\delta) = 0\]
+    y como se ha tomado $v \neq v'$, tiene que ser $\det(\delta',\gamma',\gamma) = 0$, de donde se deduce que $\delta'(u_0)$ es combinación lineal de $\gamma'(u_0)$ y $\delta(u_0)$. Como esto es cierto para todo $u_0 \in U$, no hay nada más que probar.
+    \item[{\fbox[rb]{$\Leftarrow$}}] Supóngase que $\delta'(u)$ es combinación lineal de $\gamma'(u)$ y $\delta(u)$ para todo $u \in I$ y veamos que $S$ es desarrollable. Fíjese $u_0 \in I$ y escójanse dos puntos $p = \varphi(u_0,v), p' = \varphi(u_0,v')$ de $S$. Hay que probar que $T_pS = T_{p'}S$. Por hipótesis, existen escalares $\lambda, \mu \in \R$ tales que
+    \[\delta'(u_0) = \lambda \delta(u_0)+\mu\gamma'(u_0)\]
+    Considérense las bases coordenadas $\{\varphi_u(u_0,v),\varphi_v(u_0,v)\}, \{\varphi_u(u_0,v'),\varphi_v(u_0,v')\}$ que generan los planos $T_pS, T_{p'}S$, respectivamente, y veamos que los cuatro vectores anteriores se pueden expresar como combinación lineal de los vectores de la base $\{\gamma'(u_0),\delta(u_0)\}$. Por un lado,
+    \[\varphi_v(u_0,v) = \delta(u_0) = \varphi_v(u_0,v') \] 
+    Por otro lado,
+    \[\varphi_u(u_0,v') = \gamma'(u_0) + v'\delta'(u_0) = \gamma'(u_0)+\lambda v' \delta(u_0) + \mu v' \gamma'(u_0) = (1+\mu v')\gamma'(u_0) + \lambda v' \delta(u_0)\]
+    \[\varphi_u(u_0,v) = \gamma'(u_0) + v\delta'(u_0) = \gamma'(u_0)+\lambda v \delta(u_0) + \mu v'\gamma'(u_0) = (1+\mu v)\gamma'(u_0) + \lambda v \delta(u_0)\]
+    Por tanto, el subespacio que genera $\{\gamma'(u_0),\delta(u_0)\}$ es el mismo que el que generan las dos bases coordenadas, luego los planos tangentes coinciden.
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(b) } Dos cartas que recubren el cilindro son $(U, \varphi)$ y $(V, \psi)$, donde los dominios de las cartas son $U = (0,2\pi) \times \R$ y $V = (-\pi,\pi) \times \R$, mientras que
+\[
+\begin{aligned}[t]
+\varphi \colon U &\longrightarrow \R^3 \\
+(u,v) & \longmapsto  \varphi(u,v) = (r\cos u, r\sen u, v)
+\end{aligned} \qquad
+\begin{aligned}[t]
+\psi \colon V &\longrightarrow \R^3 \\
+(u,v) & \longmapsto  \psi(u,v) = (r\cos u, r\sen u, v)
+\end{aligned}
+\]
+Sea $p = \varphi(u,v) \in \varphi(U)$. Se tiene que
+\[\varphi(u,v) = (r\cos u, r\sen u, 0) + v(0,0,1)\]
+así que en este caso
+\[\gamma(u) = (r\cos u, r\sen u, 0) \qquad \gamma'(u) = (-r\sen u, r\cos u, 0) \qquad \delta(u) = (0,0,1) \qquad \delta'(u) = (0,0,0)\]
+Para cualquier par de escalares $\lambda,\mu$ se tiene que
+\[(0,0,0) = \lambda(-r\sen u, r \cos u, 0) + \mu(0,0,1) \iff \delta'(u) = \lambda \gamma'(u) + \mu \delta(u)\]
+luego $\delta'(u)$ es combinación linel de $\gamma'(u)$ y $\delta(u)$ para todo $u \in (0,2\pi)$. Evidentemente, el caso $u \in (-\pi, \pi)$ es idéntico. Por tanto, el cilindro es una superficie desarrollable.
+
+\vspace{4mm}
+\textbf{4. } \textit{Sea $f \colon S \to \R$ una función diferenciable sobre una superficie regular. Se define el} gradiente \textit{de $f$ en $p \in S$ como el vector $\textup{grad} \, f_p \in T_pS$ caracterizado por $df_p(v) = \langle \textup{grad} \, f_p,v \rangle$ para todo $v \in T_pS$. Supóngase que $f = \overline{f}|_S$, siendo $\overline{f} \colon \R^3 \to \R$ diferenciable.}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Demuéstrese que $\textup{grad} \, f_p$ es la proyección ortogonal de $\textup{grad} \, \overline{f}_p$ sobre $T_pS$, donde $\textup{grad} \, \overline{f}_p$ es el gradiente usual de $\overline{f}$ como función de $\R^3.$} Indicación: \textit{recuérdese que $\textup{grad} \, \overline{f}_p$ viene caracterizado por la condición $d\overline{f}_p(v) = \langle \textup{grad} \, \overline{f}_p,v \rangle$ para todo $v \in \R^3$}.
+    \item[\textit{(b)}] \textit{Calcúlese $\textup{grad} \, f_p$, siendo $f \colon \mathbb{S}^2 \to \R$ la función definida por $f(x,y,z) = (x^2+y^2+z^2)^2+1$.}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(a)} Dado un subespacio $W$ de $\R^n$ y un vector $u \in \R^n$, si se realiza la descomposición
+\[u = u_W + u_{W^\perp}\]
+entonces la proyección ortogonal de $u$ sobre $W$ será el vector $u_W \in W$. 
+
+\vspace{2mm}
+Sea $p \in S$ y veamos que $\textup{grad} \, f_p$ es la proyección ortogonal de $\textup{grad} \, \overline{f}_p$ sobre $T_pS$. Se trata de demostrar que $\textup{grad} \, \overline{f}_p$ puede descomponerse como
+\[\textup{grad} \, \overline{f}_p = \textup{grad} \, f_p + u\]
+donde $u \in T_pS^\perp$ y $\textup{grad} \, f_p \in T_pS$.
+
+\vspace{2mm}
+Considérese un punto $p \in S$. Como $f = \overline{f} |_S$ entonces $d\overline{f}_p|_S = df_p$. Por definición de gradiente, para todo $v \in T_pS$ se verifica 
+\[df_p = \langle \textup{grad} \, f_p,v \rangle = \langle \textup{grad} \, \overline{f}_p,v \rangle = d\overline{f}_p|_S \]
+Como $\textup{grad} \, \overline{f}_p$ es un vector de $\R^3$ normal y corriente, se puede realizar la descomposición
+\[\textup{grad} \, \overline{f}_p = u + w\]
+con $u \in T_pS$, $w \in T_pS^\perp$. Por tanto,
+\[df_p = \langle \textup{grad} \, \overline{f}_p,v \rangle = \langle u+w,v \rangle = \langle u,v \rangle\]
+y esto es cierto para todo $v \in T_pS$. Ahora bien, $\textup{grad} \, f_p$ es, por definición, el vector caracterizado por 
+\[df_p = \langle u,v \rangle \ \forall \ v \in T_pS\]
+así que tiene que ser $u = \textup{grad} \, f_p$. Conclusión:
+\[\textup{grad} \, \overline{f}_p = \textup{grad} \, f_p + w\]
+lo que demuestra que $\textup{grad} \, f_p$ es la proyección ortogonal de $\textup{grad} \, \overline{f}_p$ sobre $T_pS$.
+
+\vspace{2mm}
+\textbf{(b)} Considérese la función $f \colon \mathbb{S}^2 \to \R$ definida por $f(x,y,z) = (x^2+y^2+z^2)^2+1$. Como $(x,y,z) \in \mathbb{S}^2$, entonces $f$ es la función constante $2$ definida sobre $\mathbb{S}^2$. Esto significa que $\textup{grad} \, f_p$ es el vector definido por $\langle \textup{grad} \, f_p, v \rangle = 0$ para todo $v \in T_pS$, o sea, el vector nulo.
+\[\]
+\end{document}

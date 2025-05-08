@@ -1,0 +1,473 @@
+\documentclass[a4paper, 12pt, extrafontsizes]{memoir}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\begin{center}
+
+    \textbf{Examen de Ecuaciones en Derivadas Parciales y Análisis de Fourier}
+
+    \textbf{16 de enero de 2024}
+
+\end{center}
+
+\begin{exercise}
+\hfill
+\begin{enumerate}
+    \item Halla las curvas características de la ecuación
+    \[u_x+2xu_y = 0, \qquad (x,y) \in \R^2.\]
+    Representa las curvas características base. Comprueba que dos cualesquiera no se cortan en ningún punto. ¿Qué propiedad de la ecuación nos permite saber eso de antemano? Explica tu respuesta.
+    \item Sea $h \in \mathcal{C}^1(\R)$. Justifica que para todo $x_0 \in \R$ con $x_0 \neq 0$, el problema
+    \[\left\{\begin{alignedat}{3}
+        u_x+2xu_y &= 0, \qquad & (x,y) &\in \R^2, \\
+        u(x,0) &= h(x), \qquad & x &\in \R,
+    \end{alignedat}\right.\]
+    tiene solución única en un entorno de $(x_0,0)$, y hállala mediante el método de las características (especifica el dominio de la solución que obtienes). Estudia qué ocurre en $(0,0)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Consideramos el problema
+\[\left\{\begin{alignedat}{3}
+    u_{tt}(x,t)-c^2u_{xx}(x,t) &= 0, \qquad & x &\in \R, \ t > 0, \\
+    u(x,0) &= 0, \qquad & x &\in \R, \\
+    u_t(x,0) &= \varphi(x), \qquad & x &\in \R,
+\end{alignedat}\right.\]
+donde
+\[\varphi(x) = \begin{cases}
+    \sen^2(x) & $ si $ |x| \leq \pi, \\
+    0 & $ si $ |x| > \pi.
+\end{cases}\]
+\begin{enumerate}
+    \item ¿Cómo se interpreta ese problema en el modelo de la cuerda vibrante? Justifica que el problema tiene solución única y escribe la solución. Di qué regularidad tiene la solución.
+    \item Supongamos $c = 1$. Calcula $u(2\pi,2\pi)$. Dibuja aproximadamente la gráfica de $u(2\pi,\cdot)$. Explica qué significa esa gráfica en el modelo de la cuerda vibrante.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Sea $f \colon [0,\pi] \to \R$, $f(x) = x(x-\pi)$.
+\begin{enumerate}
+    \item Halla la serie de Fourier de senos de $f$ y estudia la convergencia de la serie.
+    \item Usa lo obtenido en el apartado $(a)$ para calcular la suma de la serie $\sum_{m=1}^\infty \frac{(-1)^m}{(2m-1)^3}$.
+\end{enumerate}
+Enuncia los teoremas que uses.
+\end{exercise}
+
+\begin{exercise}
+\hfill
+\begin{enumerate}
+    \item Sea $\alpha \in \R$ con $0 < \alpha \leq 1$. Aplica el método de separación de variables al problema
+    \[\left\{\begin{alignedat}{4}
+    u_{t}(x,t)-u_{xx}(x,t) -\alpha u &= 0, \qquad & x &\in (0,\pi), \ & t > 0, \\
+    u(0,t) &= 0, \qquad & & & t \geq 0, \\
+    u(\pi,t) &= 0, \qquad & & & t \geq 0, \\
+    u(x,0) &= u_0(x), \qquad & x &\in [0,\pi]. \\
+    \end{alignedat}\right.\]
+    \item Halla la solución formal que se obtiene cuando $u_0(x) = x(\pi-x)$.
+    \item Justifica que la solución formal es realmente solución.
+    \item Estudia el $\lim_{t \to \infty} u(x,t)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+\hfill
+\begin{enumerate}
+    \item ¿Cómo se define la transformada de Fourier, $\widehat{f}$, de una función $f \in L^1(\R)$? Demuestra que $\widehat{f}$ es acotada y continua.
+    \item Sea $f \colon \R \to \R$,
+    \[f(x) = \begin{cases}
+        -e^x & $ si $ x < 0, \\
+        e^{-x} & $ si $ x \geq 0.
+    \end{cases}\]
+    Calcula $\widehat{f}$. Enuncia el teorema de inversión para la transformada de Fourier. ¿Cumple las hipótesis la $f$ anterior?
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+\hfill
+\begin{enumerate}
+    \item Sea $\Omega \subset \R^n$ un dominio acotado. Demostra el principio del máximo débil para el laplaciano. Úsalo para probar la unicidad de soluciones del problema de Dirichlet para la ecuación de Laplace en $\Omega$.
+    \item Sea $D = \{x \in \R^n \colon \| x \| > 1\}$. Sea $u \in \mathcal{C}^2(D) \cap \mathcal{C}(\overline{D})$ tal que $\Delta u(x) = 0$ para todo $x \in D$ y $\lim_{\| x \| \to \infty} u(x) = 0$. Demuestra que
+    \[\max_{x \in \overline{D}} |u(x)| = \max_{x \in \partial D} |u(x)|.\]
+\end{enumerate}
+\end{exercise}
+
+\newpage
+
+\begin{center}
+
+    \textbf{Resolución}
+
+\end{center}
+
+\begin{solution}
+\hfill
+\begin{enumerate}
+    \item La ecuación del enunciado es una ecuación del estilo
+    \[b_1(x,y,u)u_x+b_2(x,y,u)u_y = c(x,y,u), \qquad (x,y) \in \R^2,\]
+    donde $b_1(x,y,u) = 1$, $b_2(x,y,u) = 2x$ y $c(x,y,u) = 0$. Por tanto, el sistema característico es
+    \[\left\{\begin{alignedat}{3}
+        \varphi_1'(t) &= 1, \qquad & t &\in \R, \\
+        \varphi_2'(t) &= 2\varphi_1(t), \qquad & t &\in \R, \\
+        \eta(t) &= 0, \qquad & t &\in \R.
+    \end{alignedat}\right.\]
+    Las soluciones del sistema son las funciones $(\varphi_1,\varphi_2,\eta) \colon \R \to \R^3$ dadas por
+    \[\varphi_1(t) = t+A, \qquad \varphi_2(t) =  t^2+2At+B, \qquad \eta(t) = C,\]
+    con $A,B,C \in \R$ constantes cualesquiera. Hay que representar el conjunto
+    \[\bigl\{\bigl(t+A, t^2+2At+B\bigr) \colon A,B, t \in \R\bigr\} = \bigl\{\bigl(s, (s-A)^2+2A(s-A)+B\bigr) \colon A,B, s \in \R\bigr\},\]
+    que una unión de parábolas que pasan por $(0,B-A^2)$.
+    \[\textup{INSÉRTESE AQUÍ LA REPRESENTACIÓN GRÁFICA EN CUESTIÓN}\]
+    Se observa que dos características base cualesquiera no es cortan en ningún punto. Esto es porque el sistema característico es un sistema de ecuaciones diferenciales ordinarias lineales de primer orden, y un sistema de este tipo, fijado un dato inicial $(x_0,y_0,z_0)$ en $t = 0$, tiene solución única. 
+    \item El problema del enunciado se puede escribir como     
+    \[\left\{\begin{alignedat}{3}
+        u_x+2xu_y &= 0, \qquad & (x,y) &\in \R^2, \\
+        u(\sigma(s)) &= \tau(s), \qquad & s &\in \R,
+    \end{alignedat}\right.\]
+    donde $\sigma(s) = (s,0)$ y $\tau(s) = h(s)$ para cada $s \in \R$. Para probar que el problema posee solución única en un entorno de $(x_0,0)$, basta comprobar que se verifica la condición de transversalidad. Se tiene que $(x_0,0) = \sigma(x_0)$, y como
+    \[\det\left(\begin{array}{cc}
+        \sigma_1'(x_0) & b_1(\sigma_1(x_0),\sigma_2(x_0),\tau(x_0)) \\
+        \sigma_2'(x_0) & b_2(\sigma_1(x_0),\sigma_2(x_0),\tau(x_0)) \\
+    \end{array}\right) = \det\left(\begin{array}{cc}
+        1 & 1 \\
+        0 & 2x_0 \\
+    \end{array}\right) = 2x_0 \neq 0,\]
+    entonces el problema tiene solución única en un entorno de $\sigma(x_0) = (x_0,0)$. Para hallarla mediante el método de las características, hay que encontrar la única curva característica que en $t = 0$ pasa por $(s,0,h(s))$, para cualquier $s \in \R \setminus \{0\}$. Se tiene que
+    \begin{itemize}
+        \item $\varphi_1(0) = s \iff A = s$;
+        \item $\varphi_2(0) = 0 \iff B = 0$;
+        \item $\eta(0) = h(s) \iff C = h(s)$. 
+    \end{itemize}
+    Sean
+    \[\varphi_1(t,s) = t+s, \qquad \varphi_2(t,s) = t^2+2st, \qquad \eta(t,s) = h(s).\]
+    Se trata de hallar la inversa de $\varphi = (\varphi_1,\varphi_2)$, allá donde esté definida. Se tiene que
+    \begin{align*}
+        \begin{cases}
+            t +s = x \\
+            t^2+2st = y
+        \end{cases} &\iff \begin{cases}
+            s = x-t \\
+            t^2+2(x-t)t = y
+        \end{cases} \\ &\iff \begin{cases}
+            s = x-t \\
+            t^2-2xt+y = 0
+        \end{cases} \\ &\iff \begin{cases}
+            s = x-t \\
+            t = \frac{2x\pm \sqrt{4x^2-4y}}{2}
+        \end{cases} \\ &\iff \begin{cases}
+            s = \mp \sqrt{x^2-y} \\
+            t = x \pm \sqrt{x^2-y}
+        \end{cases}
+    \end{align*}
+    Sea $U=\bigl\{(x,y) \in \R^2 \colon y < x^2\bigr\}$. Entonces $\varphi$ tiene inversa en $U$, y la expresión que define a $\varphi^{-1}$ depende del dominio de $\varphi$. Se tiene que
+    \begin{itemize}
+        \item
+        $\begin{aligned}[t]
+            \bigl\{\bigl(\varphi_1(t,s),\varphi_2(t,s),\eta(t,s)\bigr) \colon t \in \R, s > 0\bigr\} &= \bigl\{\bigl(x,y,\eta (\varphi^{-1}(x,y))\bigr) \colon x,y \in U\bigr\} \\
+            &= \bigl\{\bigl(x,y, h(\textstyle{\sqrt{x^2-y}})\bigr) \colon x,y \in U\bigr\}.
+        \end{aligned}$
+        \item
+        $\begin{aligned}[t]
+            \bigl\{\bigl(\varphi_1(t,s),\varphi_2(t,s),\eta(t,s)\bigr) \colon t \in \R, s < 0\bigr\} &= \bigl\{\bigl(x,y,\eta (\varphi^{-1}(x,y))\bigr) \colon x,y \in U\bigr\} \\
+            &= \bigl\{\bigl(x,y, h(\textstyle{-\sqrt{x^2-y}})\bigr) \colon x,y \in U\bigr\}.
+        \end{aligned}$
+    \end{itemize}
+    En consecuencia:
+    \begin{itemize}
+        \item Si $x_0 > 0$, entonces la función $u \colon U \to \R$ definida por $u(x,y) = h(\sqrt{x^2-y})$ es unión de curvas características y, por tanto, es solución de la ecuación del problema. También verifica $u(x,0) = h(x)$, así que es solución del problema.
+        \item Y si $x_0 < 0$, entonces la función $u \colon U \to \R$ definida por $u(x,y) = h(-\sqrt{x^2-y})$ es unión de curvas características y, por tanto, es solución de la ecuación del problema. También verifica $u(x,0) = h(x)$, así que es solución del problema. 
+    \end{itemize} 
+    Se observa en cualquier caso que el problema tiene solución en $U$, que es un entorno de $(x_0,0)$, tal y como adelantaba la condición de transversalidad. Si $x_0 = 0$, no puede asegurarse que el problema tenga solución.
+\end{enumerate}
+\end{solution}
+
+\newpage
+
+\begin{solution}
+\hfill
+\begin{enumerate}
+    \item En el modelo de la cuerda vibrante, si $u \colon \R \times[0,\infty) \to \R$ es solución del problema, entonces $u(x,t)$ es la altura del punto $x$ de la cuerda (la cuerda se identifica con $\R$) en el instante $t$. Que se tenga $u(x,0)=0$ para todo $x \in \R$ quiere decir que en el instante inicial la cuerda se encuentra en posición horizontal, y que se tenga $u_t(x,0) = \varphi(x)$ para todo $x \in \R$ quiere decir que la velocidad a la que se mueve el punto $x$ en el instante inicial es $\varphi(x)$. En particular, los puntos de la cuerda que verifiquen $|x| > \pi$ se encuentran en reposo en el instante inicial. 
+    
+    Veamos que $\varphi \in \mathcal{C}^1(\R)$. Es claro que $\varphi \in \mathcal{C}^1((-\infty,-\pi) \cup (-\pi,\pi) \cup (\pi,\infty))$, así que solo hay que probar que $\varphi$ es derivable en $-\pi$ y $\pi$ y que su derivada es continua en dichos puntos. Se tiene que
+    \begin{itemize}
+        \item $\displaystyle\lim_{x \to {-\pi^-}} \frac{\varphi(x)-\varphi(-\pi)}{x+\pi} = \displaystyle\lim_{x \to {-\pi^-}} \frac{0-\sen^2(-\pi)}{x+\pi}  = 0$;
+        \item $\displaystyle\lim_{x \to {-\pi^+}} \frac{\varphi(x)-\varphi(-\pi)}{x+\pi} = \displaystyle\lim_{x \to {-\pi^+}} \frac{\sen^2(x)}{x+\pi} \overset{\textup{L'H}}{=} \lim_{x \to {-\pi^+}} 2\sen(x)\cos(x) = 0$;
+    \end{itemize}
+    luego $\varphi$ es derivable en $-\pi$ y $\varphi'(-\pi) = 0$. Como
+    \begin{itemize}
+        \item $\displaystyle\lim_{x \to -\pi^-}\varphi'(x) = \lim_{x \to -\pi^-}0 = 0 = \varphi'(-\pi)$;
+        \item $\displaystyle\lim_{x \to -\pi^+}\varphi'(x) = \lim_{x \to -\pi^-}0 = 2\sen(x)\cos(x) = 0 = \varphi'(-\pi)$;
+    \end{itemize}
+    entonces $\varphi'$ es continua en $-\pi$. De forma totalmente análoga se prueba que $\varphi$ es derivable en $\pi$ y que $\varphi'$ es continua en $\pi$.
+
+    En consecuencia, por la fórmula de D'Alembert, la única solución del problema es la función $u \colon \R \times [0,\infty) \to \R$ dada por
+    \[u(x,t) = \frac{1}{2c}\int_{x-ct}^{x+ct} \varphi(s) \, ds.\]
+    Como $u$ es solución de un problema inicial asociado a la ecuación de ondas, se tiene que $u \in \mathcal{C}^2(\R \times (0,\infty)) \cap \mathcal{C}^{0,1}(\R \times[0,\infty))$ (esto último quiere decir que $u$ es continua respecto de $x$ y de clase $1$ respecto de $t$ en $\R \times [0,\infty)$). De hecho, como $u_0 \equiv 0 \in \mathcal{C}^2(\R)$ y $u_1 \equiv \varphi \in \mathcal{C}^1(\R)$, entonces $u \in \mathcal{C}^2(\R \times [0,\infty))$.
+    \item Usando el apartado anterior, se tiene
+    \[u(2\pi,2\pi) = \frac{1}{2}\int_0^{4\pi}\varphi(s) \, ds = \frac{1}{2}\int_0^{\pi}\sen^2(s) \, ds = \frac{1}{4}\int_0^{\pi}(1-\cos(2s)) \, ds = \frac{\pi}{4}.\]
+    Además, para todo $t > 0$,
+    \[u(2\pi,t) = \frac{1}{2}\int_{2\pi-t}^{2\pi+t} \varphi(s) \, ds.\]
+    Se distinguen los siguientes casos:
+    \begin{itemize}
+        \item Si $2\pi-t \leq -\pi$, es decir, si $t \geq 3\pi$, entonces
+        \[u(2\pi,t) = \frac{1}{2}\int_{-\pi}^\pi \sen^2(s) \, ds = \frac{1}{4}\int_{-\pi}^\pi (1-\cos(2s)) \, ds = \frac{\pi}{2}.\]
+        \item Si $-\pi < 2\pi-t < \pi$, es decir, si $\pi < t < 3\pi$, entonces
+        \[\begin{aligned}[t]
+            u(2\pi,t) &= \frac{1}{2}\int_{2\pi-t}^\pi \sen^2(s) \, ds = \frac{1}{4}\int_{2\pi-t}^\pi (1-\cos(2s)) \, ds = \frac{t-\pi}{4}-\frac{1}{4}\left[\frac{\sen(2s)}{2}\right]_{s=2\pi-t}^{s=\pi} \\
+            &= \frac{t-\pi}{4} +\frac{\sen(4\pi-2t)}{8}.
+        \end{aligned}\]
+        \item Si $\pi \leq 2\pi -t$, es decir, si $0 < t \leq \pi$, entonces 
+        \[u(2\pi,t) = 0.\]
+    \end{itemize}
+    \[\textup{INSÉRTESE AQUÍ LA REPRESENTACIÓN GRÁFICA EN CUESTIÓN}\]
+    En el modelo de la cuerda vibrante, esto quiere decir que antes del instante $\pi$, el punto $2\pi$ de la cuerda permanece en reposo, y que a partir del instante $3\pi$, dicho punto se encuentra a altura constate $\frac{\pi}{2}$.
+\end{enumerate}
+\end{solution}
+
+\begin{solution}
+    Es claro que $f \in L^1([0,\pi])$, así que tiene sentido considerar la serie de Fourier de senos de $f$. Los coeficientes de Fourier de senos de $f$ son, para cada $k \in \N$,
+    \[
+        b_k(f) = \frac{2}{\pi}\int_0^\pi f(x)\sen(kx) \, dx = \frac{2}{\pi}\int_0^\pi x^2\sen(kx) \, dx -2\int_0^\pi x\sen(kx) \, dx \tag{$\ast$}
+    \]
+    Integrando por partes,
+    \[\begin{aligned}[t]
+        \int_0^\pi x^2\sen(kx) \, dx &= \left[-\frac{x^2\cos(kx)}{k}\right]_{x=0}^{x=\pi}-\int_0^\pi -\frac{2x\cos(kx)}{k}\, dx \\
+        &= -\frac{\pi^2(-1)^k}{k} +\frac{2}{k}\int_0^\pi x\cos(kx) dx \\
+        &= -\frac{\pi^2(-1)^k}{k} +\frac{2}{k}\left(\left[\frac{x\sen(kx)}{k}\right]_{x=0}^{x=\pi}-\frac{1}{k}\int_0^\pi \sen(kx) \, dx \right) \\
+        &= -\frac{\pi^2(-1)^k}{k} -\frac{2}{k^2}\left[-\frac{\cos(kx)}{k}\right]_{x=0}^{x=\pi}\\
+        &= -\frac{\pi^2(-1)^k}{k} +\frac{2}{k^3}((-1)^k-1),\\
+    \end{aligned}\]
+    mientras que
+    \[\begin{aligned}[t]
+        \int_0^\pi x\sen(kx) \, dx &= \left[-\frac{x\cos(kx)}{k}\right]_{x=0}^{x=\pi} +\frac{1}{k}\int_0^\pi \cos(kx) \, dx = -\frac{\pi(-1)^k}{k}.
+    \end{aligned}\]
+    Llevando todo esto a $(\ast)$,
+    \[\begin{aligned}[t]
+        b_k(f) = \cancel{-\frac{2\pi(-1)^k}{k}}+\frac{4}{\pi k^3}((-1)^k-1) +\cancel{\frac{2\pi(-1)^k}{k}} = \begin{cases}
+            0 & $ si $ k = 2m, \ m \in \N, \\
+            -\frac{8}{\pi (2m-1)^3} & $ si $ k = 2m-1, \ m \in \N.
+        \end{cases}
+    \end{aligned}\]
+    En consecuencia, la serie de Fourier de senos de $f$ es
+    \[Sf(x) = \sum_{k=1}^\infty b_k(f) \sen(kx) = -\frac{8}{\pi}\sum_{m=1}^\infty \frac{1}{(2m-1)^3} \sen((2m-1)x), \qquad x \in [0,\pi].\]
+    Como $\bigl\{\sen(k \cdot)\bigr\}_{k=1}^\infty$ es un sistema ortogonal completo en $L^2([0,\pi])$, entonces la serie de Fourier de $f$ converge a $f$ en $\|\cdot\|_2$. Y como $f$ es de clase $1$ (en particular, continua y de clase $1$ a trozos) y $f(0) = f(\pi) = 0$, entonces la serie de Fourier de senos de $f$ converge uniformemente a $f$ en $[0,\pi]$. Por tanto, también converge puntualmente a $f$ en $[0,\pi]$, es decir, $Sf(x) = f(x)$ para todo $x \in [-\pi,\pi]$. En particular, $Sf(\frac{\pi}{2}) =  f(\frac{\pi}{2})$. Se tiene que $f(\frac{\pi}{2}) = \frac{\pi}{2}(\frac{\pi}{2}-\pi) = -\frac{\pi^2}{4}$ y $Sf(\frac{\pi}{2}) = -\frac{8}{\pi}\sum_{m=1}^\infty \frac{(-1)^{m+1}}{(2m-1)^3}$, luego
+    \[-\frac{\pi^2}{4} = \frac{8}{\pi}\sum_{m=1}^\infty \frac{(-1)^m}{(2m-1)^3},\]
+    de donde 
+    \[\sum_{m=1}^\infty \frac{(-1)^m}{(2m-1)^3} = -\frac{\pi^3}{32}.\]
+    Se ha utilizado el resultado siguiente:
+    \begin{theorem}
+        Sea $f\in L^1([0,\pi])$ continua, de clase $1$ a trozos y tal que $f(0)=f(\pi)$. Sean $b_k(f)$, $k \in \N$, los coeficientes de Fourier de senos de $f$. Entonces
+        \[\sum_{k=1}^\infty |b_k(f)| < \infty\]
+        y la serie
+        \[\sum_{k=1}^\infty b_k(f) \sen(kx), \qquad x \in [0,\pi], \]
+        converge uniformemente a $f$ en $[0,\pi]$.
+    \end{theorem}
+\end{solution}
+
+\begin{solution}
+\hfill
+\begin{enumerate}
+    \item Se trata de hallar una solución no nula del problema del enunciado que sea de la forma
+    \[w(x,t) = v(x)S(t), \qquad x \in (0,\pi), \ t > 0,\]
+    y que verifique las condiciones en los extremos. Suponiendo que $S(t) \neq 0$ para todo $t > 0$ y $v(x) \neq 0$ para todo $x \in \R$, se tiene
+    \[\begin{aligned}[t]
+        w \textup{ resuelve la ecuación} &\iff w_t(x,t)-w_{xx}(x,t) -\alpha w(x,t) = 0 \ \forall \ (x,t) \in \R \times (0,\infty) \\
+        &\iff S'(t)v(x)-S(t)v''(x)-\alpha S(t)v(x) = 0 \ \forall \ (x,t) \in \R \times (0,\infty) \\
+        &\iff S'(t)v(x)-\alpha S(t)v(x)=S(t)v''(x) \ \forall \ (x,t) \in \R \times (0,\infty) \\
+        &\iff \frac{S'(t)}{S(t)}-\alpha=\frac{v''(x)}{v(x)} \ \forall \ (x,t) \in \R \times (0,\infty) \\
+        &\iff \ \exists \ \lambda \in \R \colon \lambda = \frac{S'(t)}{S(t)}-\alpha=\frac{v''(x)}{v(x)} \ \forall \ (x,t) \in \R \times (0,\infty)  \\
+        &\iff \ \exists \ \lambda \in \R \colon \left\{\begin{alignedat}{3}
+            S'(t) -(\alpha+\lambda)S(t) &= 0, \qquad &t > 0, \\
+            v''(x) - \lambda v(x) &=0, \qquad &x \in \R,
+        \end{alignedat}\right.
+    \end{aligned}\]
+    Nótese que independientemente de que $S$ o $v$ se anulen, sigue siendo cierto que si existe $\lambda \in \R$ tal que
+    \[\left\{\begin{alignedat}{3}
+        S'(t) -(\alpha+\lambda)S(t) &= 0, \qquad &t > 0, \\
+        v''(x) - \lambda v(x) &=0, \qquad &x \in \R,
+    \end{alignedat}\right.\]
+    entonces $w$ es solución de la ecuación. Además, usando que $S$ no es idénticamente nula, se tiene que
+    \[w(0,t) = w(\pi,t) = 0 \ \forall \ t \geq 0 \iff v(0) = v(\pi) =  0. \]
+    Por tanto, hay que hallar $\lambda \in \R$ tal que $v$ sea solución no nula del problema
+    \[\left\{\begin{alignedat}{3}
+        v''(x) - \lambda v(x) &=0, \qquad &x \in \R, \\
+        v(0) &= 0, \\
+        v(\pi) &= 0,
+    \end{alignedat}\right.\]
+    y $S$, para el mismo $\lambda \in \R$, sea solución de la ecuación
+    \[S'(t) -(\alpha+\lambda)S(t) = 0, \qquad t > 0.\]
+    Se conoce que el problema para $v$ tiene soluciones no nulas si y solo si $\lambda \in \{\lambda_k \colon k \in \N\}$, donde $\lambda_k = -k^2$, y las soluciones de dicho problema son
+    \[v_k(x) = \sen(kx) , \qquad x \in [0,\pi],\]
+    o cualquier múltiplo. La ecuación para $S$ con $\lambda = \lambda_k$ es
+    \[S_k'(t) =(\alpha-k^2)S_k(t), \qquad t > 0,\]
+    que no es más que una sencilla ecuación diferencial ordinaria lineal de primer orden homogénea. Las soluciones de esta ecuación son
+    \[S_{k}(t) = A_ke^{(\alpha-k^2)t}, \qquad t > 0,\]
+    con $A_k \in \R$ una constante cualquiera. Así, la solución formal del problema sería
+    \[u(x,t) = \sum_{k=1}^\infty A_ke^{(\alpha-k^2)t}\sen(kx), \qquad x \in \R, \ t > 0.\]
+    Si $x \in \R$, se tiene que
+    \[u(x,0) = u_0(x) \iff \sum_{k=1}^\infty A_k\sen(kx) = u_0(x),\]
+    luego hay que tomar como $A_k$ los coeficientes de Fourier de $u_0$ en el sistema de senos de $[0,\pi]$. La solución formal del problema quedaría
+    \[u(x,t) = \sum_{k=1}^\infty b_k(u_0)e^{(\alpha-k^2)t}\sen(kx), \qquad x \in \R, \ t > 0.\]
+    \item Basta utilizar el apartado anterior y el ejercicio anterior para obtener que la solución formal del problema cuando $u_0(x) = x(\pi-x)$ viene dada por
+    \[u(x,t) =-\frac{8}{\pi} \sum_{m=1}^\infty\frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x), \qquad x \in \R, \ t > 0.\]
+    \item Veamos primero que la serie que define a $u$ converge uniformemente en $[0,\pi] \times [0,\infty)$, lo que probará que $u$ está bien definida y es continua (cada sumando de la serie define una función continua, y el límite uniforme de una sucesión de funciones continuas es una función continua). Si $x \in \R$, $t \geq 0$ y $m \in \N$, se tiene que
+    \[\biggl|\frac{8e^{(\alpha-(2m-1)^2)t}}{\pi(2m-1)^3}\sen((2m-1)x)\biggr| \leq |b_{2m-1}(u_0)|,\]
+    donde se ha utilizado que $\alpha - (2m-1)^2 \leq 0$ para todo $m \in \N$ por ser $\alpha \leq 1$.
+    Como $\sum_{k=1}^\infty |b_k(u_0)| < \infty$, el criterio de Weierstrass proporciona la convergencia uniforme de la serie en $[0,\pi] \times[0,\infty)$.
+
+    Para probar que $u$ es realmente solución de la ecuación, basta probar que las series de las derivadas parciales respecto de $x$ (dos veces) y respecto de $t$ convergen uniformemente en $(0,\pi) \times (0,\infty)$, o lo que es lo mismo, que convergen uniformemente en $(0,\pi) \times [t_0,\infty)$, con $t_0 > 0$ fijo.
+    \begin{itemize}
+        \item Se tiene que
+        \[\begin{aligned}
+            \biggl|\frac{\partial}{\partial x}\left(b_{2m-1}(u_0)e^{(\alpha-(2m-1)^2)t}\sen((2m-1)x)\right)\biggr| &\leq |b_{2m-1}(u_0)|(2m-1)e^{(\alpha-(2m-1)^2)t_0}
+        \end{aligned}\]
+        para todos $x \in \R$, $t \in [t_0,\infty)$ y $m \in \N$. Como $|b_{k}(u_0)| \kconv 0$ (por el lema de Riemann-Lebesgue), existe $M > 0$ tal que $|b_{2m-1}(u_0)| \leq M$ para todo $m \in \N$. Además, para todo $\beta > 0$ se tiene que
+        \[\frac{(k+1)^\beta e^{(\alpha-(k+1)^2)t_0}}{k^\beta e^{(\alpha-k^2)t_0}} = \left(1+\frac{1}{k}\right)^\beta e^{(\alpha-(k+1)^2-\alpha+k^2)t_0} = \left(1+\frac{1}{k}\right)^\beta e^{-(2k+1)t_0} \kconv 0,\]
+        lo que permite afirmar, por el criterio del cociente, que $\sum_{k=1}^\infty k^\beta e^{(\alpha-k^2)t_0} < \infty$, y por tanto, que $\sum_{m=1}^\infty(2m-1)^\beta e^{(\alpha-(2m-1)^2)t_0} < \infty$. Tenemos entonces que
+        \[\sum_{m=1}^\infty |b_{2m-1}(u_0)|(2m-1)e^{(\alpha-(2m-1)^2)t_0},\]
+        luego, por el criterio de Weierstrass, la serie de las derivadas respecto de $x$ converge uniformemente en $(0,\pi) \times [t_0,\infty)$. Gracias a esto, $u$ tiene derivadas parciales respecto de $x$ en $(0,\pi) \times (0,\infty)$ y además son continuas (cada sumando de la serie de las derivadas define una función continua).
+        \item El mismo argumento de antes sirve para probar que la serie
+        \[\sum_{m=1}^\infty\frac{\partial^2}{\partial x^2}\left(b_{2m-1}(u_0)e^{(\alpha-(2m-1)^2)t}\sen((2m-1)x)\right)\]
+        converge uniformemente en $(0,\pi) \times (0,\infty)$, lo que permite afirmar que $u$ es dos veces derivable respecto de $x$ en $(0,\pi) \times (0,\infty)$, y también que $u_{xx}$ es continua.
+        \item  Se tiene que
+        \[\begin{aligned}
+            \biggl|\frac{\partial}{\partial t}\left(b_{2m-1}(u_0)e^{(\alpha-(2m-1)^2)t}\sen((2m-1)x)\right)\biggr| &\leq M(\alpha+(2m-1)^2)e^{(\alpha-(2m-1)^2)t_0}
+        \end{aligned}\]
+        para todos $x \in \R$, $t \in [t_0,\infty)$ y $m \in \N$. Como se ha probdo anteriormente que $\sum_{m=1}^\infty (2m-1)^\beta e^{(\alpha-(2m-1)^2)t_0} < \infty$ para todo $\beta \geq 0$, se tiene que
+        \[\sum_{m=1}^\infty M(\alpha+(2m-1)^2)e^{(\alpha-(2m-1)^2)t_0} < \infty,\]
+        así que, por el criterio de Weierstrass, la serie de las derivadas respecto de $t$ converge uniformemente en $(0,\pi) \times [t_0,\infty)$. Gracias a esto, $u$ tiene derivadas parciales respecto de $t$ en $(0,\pi) \times (0,\infty)$, y además son continuas (cada sumando de la serie de las derivadas define una función continua).
+    \end{itemize}
+    Con todo esto puede afirmarse que $u \in \mathcal{C}^2((0,\pi) \times (0,\infty)) \cap \mathcal{C}([0,\pi] \times [0,\infty))$. Que $u$ satisface la ecuación y las condiciones en los extremos es inmediato, pues por lo que se acaba de probar, la serie que define a $u$ puede derivarse término a término, y cada término es una solución de la ecuación que verifica las condiciones en los extremos. Por último, que $u$ satisface la condición inicial es cierto porque la serie de Fourier de senos de $u_0$ converge puntualmente (de hecho, converge uniformemente) a $u_0$ en $[0,\pi]$, tal y como se vio en el ejercicio anterior. Se concluye que $u$ es realmente solución del problema.
+    \item Fijemos $x \in \R$ y veamos que
+    \[\lim_{t \to \infty} u(x,t) = 0.\]
+    Sea $\varepsilon > 0$. Hay que probar que existe $M > 0$ tal que para todo $t > M$ se tiene que $|u(x,t)| < \varepsilon$.
+    \begin{itemize}
+        \item Como la serie
+        \[-\frac{8}{\pi} \sum_{m=1}^\infty\frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x) \]
+        converge uniformemente a $u$ en $[0,\infty)$ (se recuerda que $x$ está fijo), existe $n_0 \in \N$ tal que para todo $n \geq n_0$ se tiene que
+        \[\biggl|u(x,t) +\frac{8}{\pi}\sum_{m=1}^n \frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x) \biggr| < \frac{\varepsilon}{2}\]
+        para todo $t \geq 0$. En particular,
+        \[\biggl|u(x,t) +\frac{8}{\pi}\sum_{m=1}^{n_0} \frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x) \biggr| < \frac{\varepsilon}{2}\]
+        para todo $t \geq 0$, es decir,
+        \[\biggl|\frac{8}{\pi}\sum_{m=n_0+1}^\infty \frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x) \biggr| < \frac{\varepsilon}{2}\]
+        para todo $t \geq 0$.
+        \item Para todo $m \in \N$ se tiene que $\alpha-(2m-1)^2 < 0$ y por tanto
+        \[\lim_{t \to \infty}\frac{8}{\pi}\frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x) = 0,\]
+        luego existe $M > 0$ tal que para todo $t > M$ se tiene que
+        \[\biggl|\frac{8}{\pi}\frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x)\biggr| < \frac{\varepsilon}{2n_0}.\]
+        En consecuencia, para todo $t > M$,
+        \[\sum_{m=1}^{n_0}\biggl|\frac{8}{\pi}\frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x)\biggr| \leq \sum_{m=1}^{n_0} \frac{\varepsilon}{2n_0} = \frac{\varepsilon}{2}.\]
+    \end{itemize}
+    De esto se obtiene que para todo $t > M$,
+    \[\begin{aligned}
+        |u(x,t)| &= \biggl|\frac{8}{\pi}\sum_{m=1}^{n_0} \frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x) + \frac{8}{\pi}\sum_{m=n_0+1}^\infty \frac{e^{(\alpha-(2m-1)^2)t}}{(2m-1)^3}\sen((2m-1)x)\biggr| \\
+        &< \frac{\varepsilon}{2}+\frac{\varepsilon}{2} = \varepsilon.\\
+    \end{aligned}\]
+\end{enumerate}
+\end{solution}
+
+\begin{solution}
+\hfill
+\begin{enumerate}
+    \item Si $f \in L^1(\R)$, la \emph{transformada de Fourier de $f$} es la función $\widehat{f} \colon \R \to \C$ dada por
+    \[\widehat{f}(\xi)  = \frac{1}{\sqrt{2\pi}}\int_\R f(x)e^{-i\xi x} \, dx.\]
+    Nótese que
+    \[\int_\R |f(x)e^{-i\xi x}| \, dx = \|f\|_1 < \infty,\]
+    así que la integral que define a $\widehat{f}$ tiene perfecto sentido. De esto también se obtiene que para todo $\xi \in \R$,
+    \[|\widehat{f}(\xi)| \leq \frac{1}{2\pi}\int_\R|f(x)e^{-i\xi x}| \, dx = \frac{\|f\|_1}{\sqrt{2\pi}},\]
+    luego $\widehat{f}$ es acotada. Veamos que $\widehat{f}$ es uniformemente continua, lo que probará que es continua. Sean $\{\xi_k\}_{k=1}^\infty$ y $\{\eta_k\}_{k=1}^\infty$ dos sucesiones tales que $\xi_k-\eta_k \kconv 0$. Para todo $k \in \N$ se tiene
+    \begin{align*}
+        |\widehat{f}(\xi_k) - \widehat{f}(\eta_k)| &=\frac{1}{\sqrt{2\pi}} \biggl|\int_\R f(x)(e^{i\xi_k x}-e^{i\eta_k x}) \, dx\biggr| \\
+        &\leq \frac{1}{\sqrt{2\pi}} \int_\R |f(x)||e^{i\xi_k x} - e^{i\eta_kx}| \, dx \\
+        &= \frac{1}{\sqrt{2\pi}} \int_\R |f(x)||e^{i\xi_kx}||1 - e^{i(\eta_k-\xi_k)x}| \, dx \\
+        &= \frac{1}{\sqrt{2\pi}} \int_\R |f(x)||1 - e^{i(\eta_k-\xi_k)x}| \, dx.
+    \end{align*}
+    Veamos que
+    \[\lim_{k \to \infty} \int_\R |f(x)||1 - e^{i(\eta_k-\xi_k)x}| = 0, \]
+    lo que probará que $\widehat{f}$ es uniformemente continua. Como para todo $k \in \N$ y todo $x \in \R$ se tiene que
+    \[|f(x)||1-e^{i(\eta_k-\xi_k)x}| \leq |f(x)|(1+|e^{i(\eta_k-\xi_k)x}|) = 2|f(x)|\]
+    y $2f \in L^1(\R)$, por el teorema de la convergencia dominada,
+    \[\lim_{k \to \infty} \int_\R |f(x)||1 - e^{i(\eta_k-\xi_k)x}|\, dx =\int_\R \lim_{k \to \infty} |f(x)||1 - e^{i(\eta_k-\xi_k)x}| \, dx = 0. \]
+    \item Para todo $\xi \in \R$,
+    \begin{align*}
+        \widehat{f}(\xi) &= \frac{1}{\sqrt{2\pi}}\int_{-\infty}^0 -e^xe^{-i\xi x} \, dx+\frac{1}{\sqrt{2\pi}}\int_{0}^\infty e^{-x}e^{-i\xi x} \, dx \\
+        &= \frac{1}{\sqrt{2\pi}}\lim_{n \to \infty}\left(\int_{0}^ne^{-(1+i\xi)x} \, dx - \int_{-n}^0 e^{(1-i\xi)x} \, dx\right) \\
+        &= \frac{1}{\sqrt{2\pi}}\lim_{n \to \infty}\left(\left[-\frac{e^{-(1+i\xi)x}}{1+i\xi}\right]_{x=0}^{x=n} - \left[\frac{e^{(1-i\xi)x}}{1-i\xi}\right]_{x=-n}^{x=0}\right) \\
+        &= \frac{1}{\sqrt{2\pi}}\left(\frac{1}{1+i\xi} -\frac{1}{1-i\xi}\right) = \frac{1-i\xi-(1+i\xi)}{\sqrt{2\pi}(1+i\xi)(1-i\xi)}  = -i\frac{2\xi}{\sqrt{2\pi}(1+\xi^2)}
+    \end{align*}
+    El teorema de inversión para la transformada de Fourier es el siguiente:
+    \begin{theorem}
+        Si $f \in L^1(\R)$ y $\widehat{f} \in L^1(\R)$, entonces
+        \[f(x) = \frac{1}{\sqrt{2\pi}}\int_\R \widehat{f}(\xi)e^{i\xi x} \, dx\]
+        para casi todo $x \in \R$.
+    \end{theorem}
+    Si fuese $\widehat{f}\in L^1(\R)$, el teorema de inversión permitiría afirmar que $f(x) = \widehat{\widehat{f}}(-x)$ en casi todo $x \in \R$, es decir, que $f$ es igual a una función continua en casi todo punto. Esto es imposible porque es no se puede cambiar el valor de $f$ en $0$ de manera que la nueva función obtenida sea continua en $0$. Por tanto, $\widehat{f} \not\in L^1(\R)$.
+\end{enumerate}
+\end{solution}
+
+\begin{solution}
+\hfill
+\begin{enumerate}
+    \item \textbf{Teorema.} \textit{Sea $\Omega \subset \R^n$ un dominio acotado, y sea $u \in \mathcal{C}^2(\Omega) \cap \mathcal{C}(\overline{\Omega})$ tal que $\Delta u(x) \geq 0$ para todo $x \in \Omega$. Entonces
+    \[\max_{x \in \overline{\Omega}} u(x) = \max_{x \in \partial \Omega} u(x).\]
+    Demostración.} Supóngase primero que $\Delta u(x) > 0$ para todo $x \in \Omega$. Si existiese $x_0 \in \Omega$ tal que
+    \[u(x_0) = \max_{x \in \overline{\Omega}}u(x),\]
+    entonces, por ser la matriz hessiana de $u$ en $x_0$ semidefinida negativa, se tendría que $\Delta u(x) \leq 0$, que contradice lo supuesto. Por tanto,
+    \[\max_{x \in \overline{\Omega}} u(x) = \max_{x \in \partial\Omega} u(x).\]
+
+    Supóngase ahora que $\Delta u(x) \geq 0$ para todo $x \in \Omega$. Sea $K >0$ y sea $v \colon \overline{\Omega} \to \R$ la función dada por
+    \[v(x) = u(x) + K\|x\|^2 = u(x) + K(x_1^2+\mathellipsis+x_n^2).\]
+    Es claro que $v \in \mathcal{C}^2(\Omega) \cap \mathcal{C}(\overline{\Omega})$, y además, para todo $x \in \Omega$,
+    \[\Delta v(x) = \underbracket{\Delta u(x)}_{\geq 0} + \underbracket{2nK}_{>0} >0.\]
+    Por lo probado anteriormente, se tiene que
+    \[\max_{x \in \overline{\Omega}} v(x) = \max_{x \in \partial \Omega} v(x).\]
+    Por otra parte, como $\overline{\Omega}$ es acotado, existe $R>0$ tal que $\|x\| \leq R$ para todo $x \in \Omega$. Como consecuencia de todo esto,
+    \[\max_{x \in \overline{\Omega}} u(x) \leq \max_{x \in \overline{\Omega}} v(x) = \max_{x \in \partial \Omega} v(x) \leq \max_{x \in \partial \Omega} u(x) + KR^2, \tag{$\ast$}\]
+    utilizándose en la primera desigualdad que $u(x) \leq v(x)$ para todo $x \in \overline{\Omega}$, y en la segunda desigualdad que $v(y) \leq \max_{x \in \partial \Omega} u(x)+KR^2$ para todo $y \in \partial\Omega$. Como $(\ast)$ es cierto para todo $K > 0$, tomando límites cuando $K \to 0^+$ se obtiene
+    \[\max_{x \in \overline{\Omega}}u(x) \leq \max_{x \in \partial\Omega} u(x).\]
+    Y como $\partial\Omega \subset \overline{\Omega}$, la otra desigualdad es trivial. \qed
+    \begin{corollary}
+        Sea $\Omega \subset \R^n$ y sea $\varphi \in \mathcal{C}(\partial \Omega)$. Entonces el problema
+        \[\left\{\begin{alignedat}{2}
+            \Delta u(x) &= 0, \qquad &x \in \Omega, \\
+            u(x) &= \varphi(x), \qquad &x \in \partial \Omega,
+        \end{alignedat}\right.\]
+        tiene, a lo sumo, una solución.
+    \end{corollary}
+    \vspace{-\baselineskip}
+    \begin{proof}
+        Sean $u_1,u_2 \in \mathcal{C}^2(\Omega) \cap \mathcal{C}(\overline{\Omega})$ dos soluciones del problema anterior. Sea $u \equiv u_1 - u_2$ y veamos que $u \equiv 0$, lo que probará que el problema no tiene más que una solución. Claramente $u \mathcal{C}^2(\Omega) \cap \mathcal{C}(\overline{\Omega})$ y $\Delta u(x) = 0$ para todo $x \in \Omega$, luego, por el principio del máximo débil,
+        \[\max_{x \in \overline{\Omega}} u(x) = \max_{x \in \partial \Omega} u(x).\]
+        Además, $-u \mathcal{C}^2(\Omega) \cap \mathcal{C}(\overline{\Omega})$ y $\Delta (-u)(x) = 0$ para todo $x \in \Omega$, luego, por el principio del máximo débil,
+        \[\max_{x \in \overline{\Omega}} -u(x) = \max_{x \in \partial \Omega} -u(x),\]
+        es decir,
+        \[\min_{x \in \overline{\Omega}} u(x) = \min_{x \in \partial \Omega} u(x).\]
+        En consecuencia,
+        \begin{align*}
+            \max_{x \in \overline{\Omega}} |u(x)| &= \max\left\{\max_{x \in \overline{\Omega}}u(x),-\min_{x \in \overline{\Omega}}u(x)\right\} = \max\left\{\max_{x \in \partial\Omega}u(x),-\min_{x \in \partial\Omega}u(x)\right\} \\
+            &= \max_{x \in \partial \Omega} |u(x)|.
+        \end{align*}
+        Pero $u(x) = u_1(x)-u_2(x)=\varphi(x)-\varphi(x)=0$ para todo $x \in \partial\Omega$, luego 
+        \[\max_{x \in \partial \Omega} |u(x)| = 0,\]
+        y por tanto,
+        \[\max_{x \in \overline{\Omega}} |u(x)| = 0,\]
+        concluyéndose que $u(x) = 0$ para todo $x \in \overline{\Omega}$.
+    \end{proof}
+    \item Supóngase que $u \not\equiv 0$ (si $u \equiv 0$, el resultado es trivial). Sea $x_0 \in \overline{D}$ tal que
+    \[|u(x_0)| = \max_{x \in \overline{D}} |u(x)|,\]
+    y veamos que 
+    \[ |u(x_0)| =  \max_{x \in \partial D} |u(x)|.\]
+    Como $\lim_{\|x\| \to \infty} u(x) = 0$, asociado a $|u(x_0)|$ (que es un número real positivo porque $u \not\equiv 0$) existe $R_0 > 0$ (que puede tomarse mayor que $1$) tal que para todo $x \in D$ con $\|x\| \geq R_0$ se tiene que $|u(x)| < |u(x_0)|$. Nótese que esto implica que $\|x_0\| < R_0$. Sea $\Omega = D \cap B(0,R_0)$, es decir, $\Omega$ es una corona circular de centro $0$, radio menor $1$ y radio mayor $R_0$. Claramente $\Omega$ es un dominio acotado. Como $\Delta u(x) = 0$ para todo $x \in \Omega \subset D$, razonando como en la demostración del corolario anterior se obtiene que
+    \[\max_{x \in \overline{\Omega}} |u(x) | = \max_{x \in \partial{ \Omega}} |u(x)|.\]
+    Por tanto,
+    \[|u(x_0)|= \max_{x \in \overline{D}} |u(x)| = \max_{x \in \overline{\Omega}} |u(x)| =  \max_{x \in \partial{ \Omega}} |u(x)|,\]
+    donde la segunda igualdad se verifica porque $x_0 \in \overline{\Omega}$ (pues $x_0 \in D$ y $\|x_0\| < R_0$) y $\overline{\Omega} \subset \overline{D}$. Como
+    \[\partial\Omega = \{x \in \R^n \colon \|x\| = R_0\} \cup \{x \in \R^n \colon \|x\| = 1\} = \{x \in \R^n \colon \|x\| = R_0\} \cup \partial D\]
+    y $|u(x_0)| > |u(x)|$ para todo $x \in D$ con $\|x\| = R_0$, entonces el máximo se alcanza en $\partial D$:
+    \[|u(x_0)|= \max_{x \in \partial{ \Omega}} |u(x)| =  \max_{x \in \partial{ D}} |u(x)|.\]
+
+\end{enumerate}
+\end{solution}
+
+\end{document}

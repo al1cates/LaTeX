@@ -1,0 +1,395 @@
+\documentclass[11pt]{report}
+
+%-------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{multicol}
+\usepackage{fouriernc}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{parskip}
+
+%-------------------------------------------------------------------------------------------------%
+
+% AJUSTES GENERALES
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\makeatletter % Para quitar el espacio adicional que el paquete parskip añade al principio y al final de una demostración
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep\z@skip % <---- changed here
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\DeclareMathAlphabet{\mathcal}{OMS}{zplm}{m}{n}
+
+%-------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\mathbb D}
+
+\newcommand{\pars}[1]{\left( #1 \right)} % Paréntesis de tamaño automático
+
+%-------------------------------------------------------------------------------------------------%
+
+% EJERCICIOS Y SOLUCIONES
+
+\newtheorem{ejercicio}{Ejercicio}
+\addto\captionsspanish{\renewcommand*{\proofname}{Solución}}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+%-------------------------------------------------------------------------------------------------%
+
+% TÍTULO
+
+\textit{Variable Compleja} \hfill \textit{Curso 2023-2024}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	{\LARGE \textbf{Relación 6}} % Title
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{ejercicio}
+  Probar que la serie funcional
+  \[\sum_{n=1}^\infty \frac{1}{n^z}\]
+  define una función holomorfa en el semiplano $\{z \in \C \colon \textup{Re}(z) > 1\}$.
+\end{ejercicio}
+
+\begin{proof}
+    Consideremos la sucesión de funciones $\{f_n\}_{n \in \N}$, donde
+    \[f_n(z) = \frac{1}{n^z} = e^{-z\log(n)}\]
+    El objetivo es demostrar que la serie del enunciado es normalmente convergente para poder aplicar el teorema de convergencia de Weierstrass.
+
+    Sea $K \subset D$ un compacto. Entonces existe $a > 1$ tal que $K \subset \{z \in \C \colon \textup{Re}(z) \geq a \}$. Por tanto, si $z=x+iy \in K$,
+    \[|e^{-z\log(n)}| = |e^{-x\log(n)}e^{-iy\log(n)}| = e^{-x\log(n)} \leq e^{-a\log(n)} = \frac{1}{n^a}\]
+    Como la serie numérica $\sum_{n=1}^\infty \frac{1}{n^a}$ es convergente (pues $a>1$), el criterio de la mayorante de Weierstrass permite afirmar que la serie $\sum_{n=1}^\infty f_n$ es uniformemente convergente en $K$. Tenemos entonces que la sucesión $\left\{\sum_{n= 0}^k \frac{1}{n^z}\right\}_{k= 0}^\infty$
+    converge normalmente en $D$ a la serie funcional $\sum_{n=1}^\infty \frac{1}{n^z}$.
+    Como las funciones $\sum_{n= 0}^k \frac{1}{n^z}$ son holomorfas en $D$ (son sumas de funciones holomorfas), por el teorema de convergencia de Weierstrass, la serie funcional $\sum_{n=1}^\infty \frac{1}{n^z}$ es también holomorfa.
+\end{proof}
+
+\begin{ejercicio}
+  Supongamos que $0 < R \leq \infty$ y que $f$ es holomorfa en $\Delta(0,R)$, con desarrollo de Taylor en $0$ de la forma $\sum_{n=0}^\infty a_nz^n$. Probar lo siguiente:
+  \begin{enumerate}
+    \item Si $f$ es una función par, entonces $a_{2n-1} = 0$ para todo $n \in \N$.
+    \item Si $f$ es una función impar, entonces $a_{2n} = 0$ para todo $n \in \N \cup \{0\}$. 
+  \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item Supongamos que $f$ es par, esto es, que $f(z) = f(-z)$ para todo $z \in \Delta(0,R)$. Se prueba fácilmente por inducción que $f^{(n)}(z) = (-1)^n f^{(n)}(-z)$ para todo $n \in \N$ y todo $z \in \Delta(0,R)$ y, en particular, se tiene $f^{(n)}(0)=(-1)^nf^{(n)}(0)$. En consecuencia, si $n$ es impar, entonces $f^{(n)}(0) = -f^{(n)}(0)$ y tiene que ser $f^{(n)}(0) = 0$, de donde $a_n = \frac{f^{(n)}(0)}{n!}=0$. Decir que $a_n=0$ para todo $n \in \N$ impar es lo mismo que decir que $a_{2n-1} = 0$ para todo $n \in \N$.
+    \item Supongamos que $f$ es par, esto es, que $f(z) = -f(-z)$ para todo $z \in \Delta(0,R)$. Se prueba fácilmente por inducción que $f^{(n)}(z) = (-1)^{n+1} f^{(n)}(-z)$ para todo $n \in \N \cup \{0\}$ y todo $z \in \Delta(0,R)$ y, en particular, se tiene $f^{(n)}(0)=(-1)^{n+1}f^{(n)}(0)$. En consecuencia, si $n$ es par, entonces $f^{(n)}(0) = -f^{(n)}(0)$ y tiene que ser $f^{(n)}(0) = 0$, de donde $a_n = \frac{f^{(n)}(0)}{n!}=0$. Decir que $a_n=0$ para todo $n \in \N \cup \{0\}$ par es lo mismo que decir que $a_{2n} = 0$ para todo $n \in \N \cup \{0\}$. \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+  Para la función $f(z)=z^2-1$, determinar si es posible o no definir una rama del $\log(f)$ y/o una rama de la $\sqrt{f}$ en cada uno de los siguientes dominios:
+    \begin{enumerate}
+      \item $D_1 = \C \setminus \{x \in \R \colon |x| \geq 1\}$.
+      \item $D_2 = \C \setminus [-1,1]$.
+      \item $D_3 = \C \setminus ([-1,0] \cup \{x \in \R \colon x \geq 1\})$.
+    \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+La función $f(z) = z^2-1 = (z+1)(z-1)$ es holomorfa y nunca nula en los tres dominios dados, y su derivada logarítmitca es
+\[\frac{f'(z)}{f(z)} = \frac{1}{z+1}+\frac{1}{z-1}\]
+Si $\gamma$ es un camino cerrado en el dominio $D_i$, con $i = 1,2,3$, entonces
+\[\frac{1}{2\pi i}\int_{\gamma}\frac{f'(z)}{f(z)} \, dz = \frac{1}{2\pi i}\int_{\gamma} \frac{1}{z+1} \, dz +\frac{1}{2\pi i}\int_{\gamma} \frac{1}{z-1} \, dz = \textup{n}(\gamma,-1)+\textup{n}(\gamma,1)\]
+  \begin{enumerate}
+    \item En cualquier camino cerrado $\gamma$ en el dominio $D_1$ se verifica $\textup{n}(\gamma,-1) = 0$ y $\textup{n}(\gamma,1) = 0$, luego, por lo anterior,
+    \[\frac{1}{2\pi i}\int_{\gamma}\frac{f'(z)}{f(z)} \, dz = 0\]
+    Por tanto, existe una rama del $\log(f)$ en $D_1$, así que también existe una rama de la $\sqrt{f}$ en $D_1$.
+    \item Si consideramos el camino $\gamma \equiv |z| = 2$, cuyo soporte está en el dominio $D_2$, tenemos $\textup{n}(\gamma,-1) = 1$ y $\textup{n}(\gamma,1) = 1$, luego
+    \[\frac{1}{2\pi i }\int_{\gamma} \frac{f'(z)}{f(z)} \, dz =2 \neq 0,\]
+    deduciéndose que no existen ramas del $\log(f)$ en $D_2$. Sin embargo, con esto no se puede decir nada acerca de la existencia de ramas de la $\sqrt{f}$ en $D_2$. Se observa que $f(z) = (z-1)^2\frac{z+1}{z-1}$, así que cabe preguntarse si existe una rama de la $\sqrt{g}$, donde $g(z) = \frac{z+1}{z-1}$ es holomorfa en $D_2$. Se tiene que
+    \[\frac{g'(z)}{g(z)} = \frac{1}{z+1}-\frac{1}{z-1},\]
+    y, razonando como antes, si $\gamma$ es un camino cerrado en $D_2$, entonces
+    \[\frac{1}{2\pi i}\int_{\gamma}\frac{g'(z)}{g(z)} \, dz = \textup{n}(\gamma,-1)-\textup{n}(\gamma,1)\]
+    Pero $1$ y $-1$ están en la misma componente conexa de $\C \setminus \textup{sop}(\gamma)$ para cualquier camino cerrado $\gamma$ en $D_2$, luego $ \textup{n}(\gamma,-1)=\textup{n}(\gamma,1)$ y por tanto
+    \[\frac{1}{2\pi i}\int_{\gamma}\frac{g'(z)}{g(z)} \, dz = 0,\]
+    En consecuencia, existe una rama del $\log(g)$ en $D_2$, y llamando $\psi$ a esta rama, tenemos que $\varphi(z) = (z-1)e^{\frac{\psi(z)}{2}}$ es una rama de la $\sqrt{f}$ en $D_2$.
+    \item Consideremos el camino cerrado $\gamma$ que resulta de recorrer la circunferencia de centro $-\frac{1}{2}$ y radio $1$ de forma simple en sentido positivo. Entonces $\gamma$ es un camino cerrado en $D_3$ con $\textup{n}(\gamma,-1) = 1$ y $\textup{n}(\gamma,1) = 0$, luego
+    \[\frac{1}{2\pi i}\int_{\gamma}\frac{f'(z)}{f(z)} \, dz = 1,\]
+    que no es ni cero ni múltiplo entero de $2$, concluyéndose que en $D_3$ no hay ramas ni del $\log(f)$ ni de la $\sqrt{f}$. \qedhere
+   \end{enumerate}
+\end{proof}
+\begin{ejercicio}
+  Sea $D$ un dominio en $\C$ y sea $f$ una función holomorfa y nunca cero en $D$. Probar que existe una rama del $\log(f)$ en $D$ si y solo si para cada $n \in \N$ con $n\geq 2$ existe una rama de la $\sqrt[n]{f}$ en $D$.
+\end{ejercicio}
+
+\begin{proof}
+  Si $g \colon D \to \C$ es una rama del $\textup{log}(f)$ en $D$, entonces la función $h \colon D \to \C$ dada por $h(z) = e^{\frac{g(z)}{n}}$ es una rama de la $\sqrt[n]{f}$ en $D$, pues es continua en $D$ (por serlo $g$) y $h(z)^n = e^{g(z)} = f(z)$ para todo $z \in \C$. Recíprocamente, si para todo $n \in \N$ con $n \geq 2$ existe una rama de la $\sqrt[n]{f}$ en $D$, entonces
+  \[\frac{1}{2\pi i}  \int_{\gamma} \frac{f'(z)}{f(z)}\]
+  es múltiplo entero de $n$, esto es, existe $k_n \in \Z$ tal que para todo camino cerrado $\gamma$ en $D$ se tiene
+  \[\frac{1}{2\pi i}  \int_{\gamma} \frac{f'(z)}{f(z)} = nk_n,\]
+  es decir,
+  \[k_n = \frac{1}{2\pi ni}  \int_{\gamma} \frac{f'(z)}{f(z)}\]
+  Como
+  \[\lim_{n \to \infty}\frac{1}{2\pi ni}  \int_{\gamma} \frac{f'(z)}{f(z)} = \lim_{n \to \infty}k_n =0\]
+  y $k_n \in \Z$ para todo $n \in \N$ con $n \geq 2$, entonces existe $n_0 \in \N$ tal que $k_n = 0$ para todo $n \geq n_0$. En particular, $k_{n_0} = 0$, de donde se deduce que
+  \[\frac{1}{2\pi i}  \int_{\gamma} \frac{f'(z)}{f(z)} = n_0k_{n_0} = 0\]
+  para todo camino cerrado $\gamma$ en $D$. En consecuencia, existe una rama del $\log(f)$ en $D$.
+\end{proof}
+
+\begin{ejercicio}
+  Sea $f$ una función entera no idénticamente nula que tiene un cero de orden $3$ en $0$. Calcular el orden de $0$ en los siguientes casos:
+    \begin{enumerate}
+      \item Como cero de $f \circ f$.
+      \item Como cero de $f^3 \cdot f'$.
+    \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+Por hipótesis, existe una función entera $g$ con $g(0)\neq 0$ y tal que
+\[f(z)=z^3g(z)\]
+para todo $z \in \C$.
+\begin{enumerate}
+  \item Si $z \in \C$,
+  \[f \circ f (z)=f(z)^3g (f(z)) = z^9g(z)^3g( f(z)) = z^9h(z),\]
+  donde $h(z) = g(z)^3g( f(z))$ define una función entera y con $h(0) \neq 0$ (por ser $f(0)=0$ y $g(0) \neq 0$), luego $0$ es un cero de $f \circ f$ de orden $9$.
+  \item Si $z \in \C$,
+  \[f^3 \cdot f'(z) = f^3(z) \cdot f'(z) = z^{9}g(z)^3\left(3z^2g(z)+z^3g'(z)\right) =z^{11}\left(3g(z)^4+zg'(z)g(z)^3\right) = z^{11}h(z),\]
+  donde $h(z)=3g(z)^4+zg'(z)g(z)^3$ define una función entera y con $h(0)=3g(0)^4 \neq 0$ (pues $g(0) \neq 0$). Por tanto, $0$ es un cero de $f^3 \cdot f'$ de orden $11$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+  Sea $f$ una función entera y supongamos que para cada $z \in \C$ existe un natural $n$ (que depende de $z$) tal que $f^{(n)}(z) =0$. Probar que $f$ es un polinomio.
+\end{ejercicio}
+
+\begin{proof}
+Vamos a probar que existe $n_0 \in \N$ tal que $f^{(n_0)} \equiv 0$ en $\C$. Supongamos, por reducción al absurdo, que para todo $n \in \N$ la función $f^{(n)}$ no es idénticamente nula. Como $f^{(n)}$ es holomorfa y no idénticamente nula en $\C$, entonces $\mathcal{Z}(f^{(n)})$ es, a lo sumo, numerable. Pero, por hipótesis, podemos escribir
+\[\C = \bigcup_{n \in \N} \mathcal{Z}(f^{(n)})\]
+Como $\C$ es unión numerable de conjuntos numerables, entonces es numerable, lo cual es evidentemente falso. No queda otra que admitir que existe $n_0 \in \N$ tal que $f^{(n_0)}$ es idénticamente nula en $\C$, y por tanto $f$ es un polinomio de grado menor que $n_0$.
+\end{proof}
+
+\begin{ejercicio}
+  Sea $f$ una función holomorfa en el disco unidad $\D$ tal que $|f(\frac{1}{n})| \leq 3^{-n}$ para todo $n \in \N$ con $n \geq 2$. ¿Qué se puede decir de $f$?
+\end{ejercicio}
+
+\begin{proof}
+  Veamos que $f \equiv 0$ en $\D$. Por reducción al absurdo, supongamos que $f$ no es idénticamente nula en $\D$. Entonces no es idénticamente nula en un entorno de $0$ (si lo fuese, entonces $\mathcal{Z}(f)$ tendría puntos de acumulación y el principio de identidad de Weierstrass nos diría que $f \equiv 0$ en $\D$). Por hipótesis y por la continuidad de $f$ en $0$, se tiene
+  \[f(0) = \lim_{n \to \infty}f\left(\frac{1}{n}\right) = 0\] 
+  Si $n_0 \in \N$ es el orden de $0$ como cero de $f$, existe una función $g$ holomorfa en $\D$ con $g(0) \neq 0$ y tal que
+  \[f(z)=z^{n_0}g(z)\]
+  Por tanto, si $n \in \N$, $n \geq 2$,
+  \[\left|f\left(\frac{1}{n}\right)\right| = \frac{1}{n^{n_0}}\left|g\left(\frac{1}{n}\right)\right|\leq \frac{1}{3^n}\]
+  De aquí se deduce que
+  \[\left|g\left(\frac{1}{n}\right)\right| \leq \frac{n^{n_0}}{3^n}\]
+  Se prueba fácilmente por el criterio del cociente que
+  \[\lim_{n \to \infty} \frac{n^{n_0}}{3^n} = 0,\]
+  luego
+  \[\lim_{n \to \infty} g\left(\frac{1}{n}\right) =0,\]
+  pero, por la continuidad de $g$ en $0$,
+  \[g(0)= \lim_{n \to \infty} g\left(\frac{1}{n}\right) = 0,\]
+  que es una contradicción. Concluimos que $f \equiv 0$ en $\D$.
+\end{proof}
+
+\begin{ejercicio}
+  Decidir si existen o no funciones $f$, $g$, $h$ holomorfas en el disco unidad $\D$ y satisfaciendo, para $n \in \N$ con $n \geq 2$,
+  \begin{multicols}{3}
+    \begin{enumerate}
+    \centering
+      \item $f(\frac{1}{n}) = f(-\frac{1}{n}) = \frac{1}{n^2}$,
+      \item $g(\frac{1}{2n})  = g(-\frac{1}{2n+1}) = \frac{1}{n}$,
+      \item $h(\frac{1}{n}) = h(-\frac{1}{n}) = -\frac{1}{n^3}$.
+    \end{enumerate}
+  \end{multicols}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item Basta tomar $f(z)=z^2$, que es holomorfa en $\D$ y verifica $f(\frac{1}{n}) = f(-\frac{1}{n}) = \frac{1}{n^2}$.
+    \item Supongamos que existe una función $g$ holomorfa en $\D$ y con $g(\frac{1}{2n}) = g(-\frac{1}{2n+1}) = \frac{1}{n}$. Entonces, por ser $g$ continua,
+    \[g(0) = \lim_{n \to \infty} g\left(\frac{1}{2n}\right) = 0,\]
+    y como $g$ es holomorfa y no idénticamente nula en ningún entorno de $0$, entonces $0$ es un cero aislado de $g$. Sea $n_0 \in \N$ su orden. Entonces $g(z)=z^{n_0}\varphi(z)$ para todo $z \in \D$, donde $\varphi$ es holomorfa en $\D$ y tal que $\varphi(0) \neq 0$. Se tiene que
+    $g\left(\frac{1}{2n}\right) = \frac{1}{2^{n_0}n^{n_0}} \varphi\left(\frac{1}{2n}\right) = \frac{1}{n}$, luego
+    $\varphi\left(\frac{1}{2n}\right) = 2^{n_0} \frac{n^{n_0}}{n}$. Si fuese $n_0>2$, entonces, por la continuidad de $\varphi$ en $0$,
+    \[\varphi(0) = \lim_{n \to \infty} \varphi\left(\frac{1}{2n}\right) = \lim_{n\to \infty} 2^{n_0} \frac{n^{n_0}}{n} =\infty,\]  
+    que es imposible. Por tanto, $n_0 = 1$, así que $\varphi\left(\frac{1}{2n}\right) = 2$. Al tomar límite obtenemos $\varphi(0) = 2$, pero, por otra parte,
+    $g\left(-\frac{1}{2n+1}\right) = \frac{1}{n}\varphi\left(\frac{1}{n}\right)= \frac{1}{n}$,
+    de donde $\varphi(\frac{1}{n}) = 1$ y al tomar límite obtenemos $\varphi(0) = 1$. Esto es una contradicción, así que no puede existir una función $g$ con las propiedades del enunciado.
+
+    \emph{Otra forma}. Consideremos la sucesión $\{z_n\}_{n\in \N}$, con $z_n = \frac{1}{2n}$. Entonces $g(z_n) = \frac{1}{n} = 2z_n = \varphi(z_n)$, siendo $\varphi(z) = 2z$ holomorfa en $\D$. Como además $\lim_{n \to \infty} z_n = 0$ y $z_n \neq 0$ para todo $n \in \N$, tenemos que $0$ es punto de acumulación del conjunto $\{z \in \D \colon g(z)=\varphi(z)\}$, luego, por el principio de unicidad de Weierstrass, ha de ser $g=\varphi$, es decir, $g(z)=2z$ para todo $z \in \D$. Pero entonces $g(-\frac{1}{2n+1}) \neq \frac{1}{n}$, concluyéndose que no existe una función $g$ en las condiciones del enunciado.
+  \item Consideremos la sucesión $\{z_n\}_{n\in \N}$, con $z_n = \frac{1}{n}$. Entonces $h(z_n) = -z_n^3 = \psi(z_n)$, siendo $\psi(z) = -z^3$ holomorfa en $\D$. Como además $\lim_{n \to \infty} z_n = 0$ y $z_n \neq 0$ para todo $n \in \N$, tenemos que $0$ es punto de acumulación del conjunto $\{z \in \D \colon h(z)=\psi(z)\}$, luego, por el principio de unicidad de Weierstrass, ha de ser $h=\psi$, es decir, $h(z)=-z^3$ para todo $z \in \D$. Pero entonces $h(-\frac{1}{n}) = \frac{1}{n^3} \neq -\frac{1}{n^3}$, concluyéndose que no existe una función $h$ con las condiciones del enunciado. \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+  Sea $D = \{z \in \C \colon |\textup{Im}(z)| < \frac{\pi}{2}\}$ y sea $f(z) = e^{e^z}$, $z \in D$. Hallar, para cada $\xi \in \partial D$,
+  \[\limsup_{z \to \xi, \, z \in D}|f(z)|\]
+  ¿Hay algo de relevante en este hallazgo en relación con el principio del módulo máximo?
+\end{ejercicio}
+
+\begin{proof}
+Sea $z=x+iy \in D$. Entonces
+\[\left|e^{e^z}\right| = \left| e^{e^x(\cos y +i\sen y)} \right|= \left| e^{e^x\cos(y)}e^{i(e^x\sen(y))} \right| = e^{e^x\cos(y)}\]
+Como $\partial D = \{x+iy \in \C \colon y = \frac{\pi}{2} \textup{ o } y = -\frac{\pi}{2}\}$ y $\cos(\frac{\pi}{2}) = \cos(-\frac{\pi}{2}) = 0$, entonces
+\[\limsup_{z \to \xi, \, z \in D}|f(z)| = \limsup_{z \to \xi, \, z \in D}e^{e^x\cos(y)} = e^0 = 1\]
+Sin embargo, no podemos aplicar el principio del módulo máximo, pues
+\[\limsup_{z \to \infty, \, z \in D}|f(z)| = \infty,\]
+y para probar esto basta considerar la sucesión $\{z_n\}_{n \in \N}$ con $z_n = n$, que tiene límite $\infty$ y verifica
+\[\lim_{n \to \infty}|f(z_n)| = \lim_{n \to \infty} e^{e^n} = \infty\]
+Todo esto nos dice que la hipótesis $\xi \in \partial_\infty D$ del principio del módulo máximo no se puede sustituir por $\xi \in \partial D$.
+\end{proof}
+
+\begin{ejercicio}
+  Sea $f$ una función entera tal que $f(z) = f(z+1) = f(z+i) $ para todo $z \in \C$. ¿Qué se puede decir de $f$?
+\end{ejercicio}
+
+\begin{proof}
+  El objetivo es probar que $f$ es constante en $\C$. Se verifica lo siguiente:
+  \begin{enumerate}
+    \item Para todo $z \in \C$ y todo $n \in \Z$ se tiene $f(z)=f(z+n)$ (se prueba fácilmente por inducción).
+    \item Para todo $z \in \C$ y todo $n \in \Z$ se tiene $f(z)=f(z+in)$ (se prueba fácilmente por inducción).
+    \item $f$ toma todos sus valores distintos en el cuadrado
+    \[Q = \{z \in \C \colon 0 \leq \textup{Re}(z) \leq 1, \, 0 \leq \textup{Im}(z) \leq 1\},\]
+    es decir, para todo $z \in \C$ existe $w \in Q$ tal que $f(z)=f(w)$. En efecto, si $z = x+iy \in \C$, entonces $x- E(x) \in [0,1]$ e $y - E(y) \in [0,1]$, luego $w=x-E(x)+i(y-E(y)) \in Q$. Además,
+    \[f(z)\overset{(a)}{=}f(z-E(x)) \overset{(b)}{=}f(z-E(x)-iE(y)) = f(x-E(x)+i(y-E(y))) = f(w)\]
+    \item $|f|$ es continua en el compacto $Q$, así que alcanza el máximo: existe $w \in Q$ tal que $|f(z)| \leq |f(w)|$ para todo $z \in Q$, luego, por lo probado en $(c)$, se tiene $|f(z)| \leq |f(w)|$ para todo $z \in \C$.
+  \end{enumerate}
+  El principio del módulo máximo (o el teorema de Liouville) permite concluir que $f$ es constante en $\C$.
+\end{proof}
+
+\begin{ejercicio}
+  Sea $f$ una función holomorfa en el disco unidad $\D$ tal que $f(\D) \subset \D$ y $f(0)=0$. Probar que la serie funcional $\sum_{n=1}^\infty f(z^n)$ define una función holomorfa $g$ en $\D$. Calcular $g'(0)$.
+\end{ejercicio}
+
+\begin{proof}
+  Veamos en primer lugar que la función $g(z) = \sum_{n=1}^\infty f(z^n)$ está bien definida. Dado $z \in \D$, se tiene que $z^n \in \D$ y, por el lema de Schwarz, $|f(z^n)| \leq |z^n|$. Como la serie $\sum_{n=1}^\infty |z^n|$ es convergente (pues $|z|<1$), entonces la serie $\sum_{n=1}^\infty |f(z^n)|$ es convergente, luego $\sum_{n=1}^\infty f(z^n)$ también.
+
+  Veamos ahora que $g$ es holomorfa. Sea $K \subset \D$ un compacto. Entonces existe $a<1$ tal que $K \subset \overline{\Delta(0,a)}$. Así, si $z \in \D$, de nuevo por el lema de Schwarz, $|f(z^n)| \leq |z^n| \leq |a^n|$. Como la serie numérica $\sum_{n=1}^\infty |a^n|$ es convergente (ya que $a<1$), entonces, por el criterio de la mayorante de Weierstrass, $\sum_{n=1}^\infty f(z^n)$ converge absoluta y uniformemente en $K$. Tenemos entonces que la sucesión de funciones holomorfas $\{\sum_{n=1}^k f(z^n)\}_{k \in \N}$ converge normalmente en $\D$ a la función $g$. El teorema de convergencia de Weierstrass permite afirmar que $g$ es holomorfa en $\D$, y también que la sucesión $\{\sum_{n=1}^{k}nz^{n-1}f'(z^n)\}_{k \in \N}$ converge normalmente a $g'$ en $\D$. En particular, converge puntualmente a $g'$ en $0$, luego
+  \[g'(0)=\lim_{k \to \infty} \sum_{n=1}^{k}n \cdot 0^{n-1}f'(0^n) = f'(0) \qedhere\]
+
+\end{proof}
+
+\begin{ejercicio}
+  Sea $f$ una función entera no constante tal que $f(\partial \D) \subset \partial \D$. Probar que existe $z_0 \in \D$ con $f(z_0)=0$.
+\end{ejercicio}
+
+\begin{proof}
+  Supongamos, por reducción al absurdo, que $f(z) \neq 0$ para todo $z \in \D$. Como $f$ es continua en el compacto $\overline{D}$, existen $z_0,z_1 \in \overline{\D}$ tales que $|f(z_0)| \leq |f(z)| \leq |f(z_1)|$ para todo $z \in \overline{D}$. Veamos que $z_0,z_1 \in \partial \D$:
+  \begin{itemize}
+    \item Si fuese $z_1 \in \D$, el principio del módulo máximo diría que $f$ es constante en $\D$, y, por el principio de unicidad de Weierstrass, $f$ sería constante en $\C$, que es falso por hipótesis.
+    \item Si fuese $z_0 \in \D$, el principio de módulo mínimo (puede aplicarse porque se ha supuesto que $f$ es nunca nula en $\D$) diría que $f$ es constante en $\D$, y, por el principio de unicidad de Weierstrass, $f$ sería constante en $\C$, que es falso por hipótesis.
+  \end{itemize} 
+  Una vez probado que $z_0,z_1 \in \partial \D$, como $f(\partial \D) \subset \partial\D$, entonces $|f(z_0)| = |f(z_1)|=1$, luego $1 \leq |f(z)| \leq 1$ para todo $z \in \overline{D}$. Obtenemos entonces que $f$ es constante en $\D$, así que es constante en $\C$ como consecuencia del principio de unicidad de Weierstrass, y, de nuevo, esto es imposible.
+
+  La conclusión es que existe $f(z_0) \in \D$ tal que $f(z_0) = 0$.
+\end{proof}
+
+\begin{ejercicio}
+  Sea $f$ holomorfa en $\D$ con $f(\D) \subset \D$ y $f(\frac{1}{2}) = f(\frac{1}{3})=0$. Probar que $|f(0)| \leq \frac{1}{6}$. ¿Es posible la igualdad?
+\end{ejercicio}
+
+\begin{proof}
+Consideremos las funciones
+\[\varphi_{\frac{1}{2}}(z) = \frac{\frac{1}{2}-z}{1-\frac{1}{2}z}, \qquad \qquad \varphi_{\frac{1}{3}}(z) = \frac{\frac{1}{3}-z}{1-\frac{1}{3}z} ,\]
+que son holomorfas y verifican $\varphi_{\frac{1}{2}}(0)=\frac{1}{2}$ y $\varphi_{\frac{1}{3}}(0)=\frac{1}{3}$. Veamos que
+\[|f(0)| \leq \varphi_{\frac{1}{2}}(0)\varphi_{\frac{1}{3}}(0),\]
+o lo que es lo mismo,
+\[\left|\frac{f(0)}{\varphi_{{\frac{1}{2}}}(0)\varphi_{{\frac{1}{3}}}(0)}\right| \leq 1\]
+Consideremos la función $g \colon \D \setminus \{\frac{1}{2},\frac{1}{3}\} \to \C$ dada por
+\[g(z)=\frac{f(z)}{\varphi_{\frac{1}{2}}(z)\varphi_{\frac{1}{3}}(z)} = \frac{(1-\frac{1}{2}z)(1-\frac{1}{3}z)f(z)}{(\frac{1}{2}-z)(\frac{1}{3}-z)}\]
+Nótese que, por ser $f$ holomorfa y por tenerse $f(\frac{1}{2})$, puede aplicarse la regla de L'Hôpital para obtener
+\[\lim_{z \to \frac{1}{2}}\frac{f(z)}{\frac{1}{2}-z} = \lim_{z \to \frac{1}{2}}-f'(z) = -f'\left(\frac{1}{2}\right),\]
+luego $g$ puede extenderse de manera continua a $\D \setminus \{\frac{1}{3}\}$ y, razonando análogamente, también se puede extender de manera continua a $\D$. Si volvemos a llamar $g$ a dicha extensión, tenemos que $g$ es continua en $\D$ y holomorfa en $\D \setminus \{\frac{1}{2},\frac{1}{3}\}$, luego, por un resultado sobre singularidad evitable, $g$ es holomorfa en $\D$. Además, como $\varphi_{\frac{1}{2}}(\partial \D) = \partial \D$, $\varphi_{\frac{1}{2}}(\partial \D) = \partial \D$ y $|f(z)| < 1$ para todo $z \in \D$, entonces, dado $\xi \in \partial \D$,
+\[\limsup_{z \to \xi, \, z \in \D} |g(z)| = \limsup_{z \to \xi, \, z \in \D}\left|\frac{f(z)}{\varphi_{\frac{1}{2}}(z)\varphi_{\frac{1}{3}}(z)}\right| \leq 1\]
+Por el principio del módulo máximo, $|g(z)| \leq 1$ para todo $z \in \D$. En particular, $|g(0)|\leq 1$, es decir,
+\[|f(0)| \leq |\varphi_{\frac{1}{2}}(0)| |\varphi_{\frac{1}{3}}(0)| = \frac{1}{6}\]
+Por último, si se diese la igualdad, entonces $g$ sería constante en $\D$, que es claramente falso.
+\end{proof}
+
+\begin{ejercicio}
+  Sea $\gamma = [1,2] + \alpha + [2i,i] - \beta$, donde, para $t \in [0,\frac{5\pi}{2}]$, $\alpha(t)=2e^{it}$ y $\beta(t)=e^{it}$. Decidir si $\gamma$ es o no homólogo a cero módulo $D$, siendo
+    \begin{enumerate}
+      \item $D = \C \setminus [0,\frac{1}{2}]$,
+      \item $D = \C \setminus [3,\infty)$,
+      \item $D = \{z \in \C \colon e^{-1} < |z| < e\}$,
+      \item $D = \C \setminus \{\frac{3}{2}e^{it} \colon \frac{3\pi}{4} \leq t \leq \frac{5\pi}{4}\}$.
+    \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item Si $z \in [0,\frac{1}{2}]$, entonces $\textup{n}(\gamma,z) = 1-1 = 0$, pues $\alpha$ da una vuelta alrededor de $z$ en sentido antihorario y $\beta$ da otra en sentido horario. Por tanto, $\gamma \sim 0 \ (\textup{mód } D)$.
+    \item Si $z \in [3,\infty)$, entonces $\textup{n}(\gamma,z) = 0$, pues $z$ está en la componente conexa no acotada de $\C \setminus \textup{sop}(\gamma)$. Por tanto, $\gamma \sim 0 \ (\textup{mód } D)$.
+    \item Si $z \in \C \setminus D$, hay dos posibilidades:
+    \begin{itemize}
+      \item $z$ está en el exterior del disco de centro $0$ y radio $e$. Entonces $z$ está en la componente conexa no acotada de $\C \setminus\textup{sop}(\gamma)$, luego $\textup{n}(\gamma,z) = 0$.
+      \item $z$ está en el disco de centro $0$ y radio $e^{-1}$, que está contenido en el disco de centro $0$ y radio $1$. Como $\alpha$ da una vuelta alrededor de $z$ en sentido antihorario y $\beta$ da otra en sentido horario, entonces $\textup{n}(\gamma,z) = 1-1 = 0$.
+    \end{itemize}
+    En cualquier caso se llega a $\textup{n}(\gamma,z) =0$, luego $\gamma \sim 0 \ (\textup{mód } D)$.
+    \item Si $z \in \{\frac{3}{2}e^{it} \colon \frac{3\pi}{4} \leq t \leq \frac{5\pi}{4}\}$, tenemos que $z$ está en el arco de circunferencia de centro $0$ y radio $\frac{3}{2}$ comprendido entre los ángulos $\frac{3\pi}{4}$ y $\frac{5\pi}{4}$. Entonces $\alpha$ da una vuelta en sentido antihorario alrededor de $z$ y $\beta$ no da ninguna, luego $\textup{n}(\gamma,z) = 1$ y por tanto $\gamma \not\sim 0 \ (\textup{mód } D)$. \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+  Dar un ejemplo, si es posible, de un dominio en $\C$ que sea simplemente conexo y tal que $\C \setminus D$ tenga infinitas componentes conexas.
+\end{ejercicio}
+
+\begin{proof}
+  Sea
+  \[D = \C \setminus \bigcup_{n \in \N} \{z \in \C \colon \textup{Re}(z)=n, \, \textup{Im}(z)>0\}\]
+  Tenemos que $D$ es un dominio en $\C$ verificando
+  \[\C^* \setminus D = \left(\, \bigcup_{n \in \N} \{z \in \C \colon \textup{Re}(z)=n, \, \textup{Im}(z)>0\}\right)\cup \{\infty\} ,\]
+  que es conexo, pero
+  \[\C \setminus D = \bigcup_{n \in \N} \{z \in \C \colon \textup{Re}(z)=n, \, \textup{Im}(z)>0\},\]
+  que posee una cantidad infinita numerable de componentes conexas.
+\end{proof}
+
+\begin{ejercicio}
+  Sean $D_1$ y $D_2$ dos dominios en $\C$ simplemente conexos tales que $D_1 \cap D_2$ es no vacío y conexo. Probar que $D_1 \cap D_2$ y $D_1 \cup D_2$ son también dominios en $\C$ simplemente conexos.
+\end{ejercicio}
+
+\begin{proof}
+  En primer lugar, se observa que $D_1 \cap D_2$ es abierto por ser intersección finita de abiertos, y es conexo por hipótesis, luego es un dominio en $\C$. Se tiene que
+  \[\C^* \setminus (D_1 \cap D_2) = \C^* \cap (D_1 \cap D_2)^c = \C^* \cap (D_1^c \cup D_2^c) = (\C^* \cap D_1^c) \cup (\C^* \cap D_2^c) = (\C^* \setminus D_1) \cup (\C^* \setminus D_2)\]
+  Como $\C^* \setminus D_1$ y $\C^* \setminus D_2$ son conexos (pues $D_1$ y $D_2$ son simplemente conexos) y su intersección es no vacía (pues $\infty \in (\C^* \setminus D_1) \cap(\C^* \setminus D_2$)), entonces $(\C^* \setminus D_1) \cup (\C^* \setminus D_2)$ es conexo y, en consecuencia, $D_1 \cap D_2$ es simplemente conexo.
+
+  Por otra parte, $D_1 \cup D_2$ es un dominio en $\C$: es abierto por ser unión de abiertos y es conexo por ser unión de conexos con intersección no vacía. Veamos que $D_1 \cup D_2$ es simplemente conexo o, equivalentemente, que para toda función $f$ holomorfa en $D_1 \cup D_2$ y sin ceros, existe una rama del $\log(f)$ en $D_1 \cup D_2$. Sea $f$ una función holomorfa en $D_1 \cup D_2$ y sin ceros. Como $f$ es holomorfa y sin ceros en $D_1$, que es simplemente conexo, existe una rama del $\log(f)$ en $D_1$, $g_1 \colon D_1 \to \C$. Y como $f$ es holomorfa y sin ceros en $D_2$, que es simplemente conexo, existe una rama del $\log(f)$ en $D_2$, $g_2 \colon D_2 \to \C$. Observamos que $g_1$ y $g_2$ son ramas del $\log(f)$ en $D_1 \cap D_2$, que es conexo, luego existe $k \in \Z$ tal que $g_1(z)=g_2(z)+2\pi ki$ para todo $z \in D_1 \cap D_2$. En ese caso, tomamos la rama $\widetilde{g}_1$ del $\log(f)$ en $D_1$ dada por $\widetilde{g}_1(z)=g_1(z)-2\pi ki$ y, de esta manera, se tiene que $\widetilde{g}_1 = g_2$ en $D_1 \cap D_2$. Sea $g \colon D_1 \cup D_2 \to \C$ la función dada por
+  \[g(z)=\begin{cases}
+    \widetilde{g}_1(z) & $ si $ z \in D_1 \\
+    g_2(z) & $ si $ z \in D_2
+  \end{cases}\]
+  Por ser $\widetilde{g}_1 = g_2$ en $D_1 \cap D_2$ tenemos que $g$ está bien definida, y por ser $\widetilde{g}_1$ continua en $D_1$, $g_2$ continua en $D_2$ y $\widetilde{g}_1 = g_2$ en $D_1 \cap D_2$, tenemos que $g$ es continua en $D_1 \cup D_2$. Es evidente que $e^{g(z)} = f(z)$ para todo $z \in D_1 \cup D_2$, concluyéndose que $g$ es una rama del $\log(f)$ en $D_1 \cup D_2$ y, para terminar, que $D_1 \cup D_2$ es simplemente conexo.
+ \end{proof}
+
+\end{document}

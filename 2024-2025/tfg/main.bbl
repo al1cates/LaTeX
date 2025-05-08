@@ -1,0 +1,68 @@
+\begin{thebibliography}{1}
+  \providebibliographyfont{name}{}%
+  \providebibliographyfont{lastname}{}%
+  \providebibliographyfont{title}{\emph}%
+  \providebibliographyfont{jtitle}{\btxtitlefont}%
+  \providebibliographyfont{etal}{\emph}%
+  \providebibliographyfont{journal}{}%
+  \providebibliographyfont{volume}{}%
+  \providebibliographyfont{ISBN}{\MakeUppercase}%
+  \providebibliographyfont{ISSN}{\MakeUppercase}%
+  \providebibliographyfont{url}{\url}%
+  \providebibliographyfont{numeral}{}%
+  \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+
+\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {fierros}
+\btxnamefont {\btxlastnamefont {{Fierros Bobadilla, Jorge Usbaldo}}}
+  \btxandlong {}\ \btxnamefont {\btxlastnamefont {{Rivera Martínez,
+  Hermenegildo}}}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {Análisis de
+  la convergencia de las series de fourier}{Análisis de la convergencia de las
+  series de Fourier}}.
+\newblock \btxmastthesis {}, Universidad de Sonora, 1996.
+\newblock {\latintext
+  \btxurlfont{https://lic.mat.uson.mx/tesis/93_94TesisMere_Fierros.PDF}}.
+
+\bibitem {folland}
+\btxnamefont {\btxlastnamefont {Folland}, Gerald\btxfnamespacelong
+  B.}\btxauthorcolon\ \btxtitlefont {Real analysis}.
+\newblock Pure and Applied Mathematics (New York). \btxpublisherfont {John
+  Wiley \& Sons, Inc., New York}, \btxeditionnumlong {second}{},
+  1999\ifbtxprintISBN {, \mbox{\btxISBN~\btxISBNfont {0-471-31716-0}}}.
+\newblock Modern techniques and their applications, A Wiley-Interscience
+  Publication.
+
+\bibitem {katznelson}
+\btxnamefont {\btxlastnamefont {Katznelson}, Yitzhak}\btxauthorcolon\
+  \btxtitlefont {An introduction to harmonic analysis}.
+\newblock Cambridge Mathematical Library. \btxpublisherfont {Cambridge
+  University Press, Cambridge}, \btxeditionnumlong {third}{},
+  2004\ifbtxprintISBN {, \mbox{\btxISBN~\btxISBNfont {0-521-83829-0;
+  0-521-54359-2}}}.
+\newblock {\latintext \btxurlfont{https://doi.org/10.1017/CBO9781139165372}}.
+
+\bibitem {miao}
+\btxnamefont {\btxlastnamefont {Miao}, Jing}\btxauthorcolon\ \btxjtitlefont
+  {\btxifchangecase {Convergence of fourier series in {$L^p$}
+  space}{Convergence of Fourier series in {$L^p$} space}}.
+\newblock \btxjournalfont {Universidad de Chicago}, 2014.
+\newblock {\latintext
+  \btxurlfont{https://math.uchicago.edu/~may/REU2014/REUPapers/Miao.pdf}}.
+
+\bibitem {schmidt}
+\btxnamefont {\btxlastnamefont {Schmidt}, Wolfgang\btxfnamespacelong
+  M.}\btxauthorcolon\ \btxtitlefont {Diophantine approximation}, \btxvolumelong
+  {}\ \btxvolumefont {785} \btxofserieslong {}\ \btxtitlefont {Lecture Notes in
+  Mathematics}.
+\newblock \btxpublisherfont {Springer, Berlin}, 1980\ifbtxprintISBN {,
+  \mbox{\btxISBN~\btxISBNfont {3-540-09762-7}}}.
+
+\bibitem {zygmund}
+\btxnamefont {\btxlastnamefont {Zygmund}, A.}\btxauthorcolon\ \btxtitlefont
+  {Trigonometric series. {V}ol. {I}, {II}}.
+\newblock Cambridge Mathematical Library. \btxpublisherfont {Cambridge
+  University Press, Cambridge}, \btxeditionnumlong {third}{},
+  2002\ifbtxprintISBN {, \mbox{\btxISBN~\btxISBNfont {0-521-89053-5}}}.
+\newblock With a foreword by Robert A. Fefferman.
+
+\end{thebibliography}

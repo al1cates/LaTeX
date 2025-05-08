@@ -1,0 +1,381 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.9in, left = 0.9in, top = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage[partialup]{kpfonts}
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\begin{center}
+    \textbf{Examen final de Ecuaciones Diferenciales II} \\
+    \textbf{Viernes, 4 de noviembre de 2022}
+\end{center}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 1. \textit{Considérese el problema de Cauchy}
+\[(P)\begin{cases}
+x'=2t(x-2)\log(x) \\
+x(0)=e
+\end{cases}\]
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Probar que $(P)$ tiene una única solución maximal $\varphi \colon I \to \R$, siendo $I=(a,b)$, con $0 \in I$. ¿Puede aplicarse el TEUG?}
+    \item[\textit{(b)}] \textit{Probar que $\varphi$ es simétrica par (con lo que $a=-b$) y probar también que $\varphi(t)>2$ para todo $t \in I$.}
+    \item[\textit{(c)}] \textit{Estudiar la monotonía de $\varphi$, y también su curvatura (concavidad y convexidad).}
+    \item[\textit{(d)}] \textit{Probar que $I=\R$. Para ello, se propone seguir los siguentes pasos:}
+    \begin{itemize}
+        \item[\textit{(d.i)}] \textit{Probar que, para $t \in [0,b)$,}
+        \[\frac{\varphi'(t)}{\varphi(t)\log(\varphi(t))} \leq 2t\]
+        \item[\textit{(d.ii)}] \textit{Deducir que, para $t \in [0,b)$, $\varphi(t) \leq e^{e^{t^2}}$.}
+        \item[\textit{(d.iii)}] \textit{Concluir que $b=\infty$ y, en consecuencia, $I=\R$.}
+    \end{itemize}
+    \item[\textit{(e)}] [Opcional] \textit{Probar que $\displaystyle \lim_{t \to \infty} \varphi(t)=\infty$.} Ayuda: \textit{si $t>0$ y $\delta = \frac{e-2}{e-1}$, entonces}
+    \[\frac{\varphi'(t)}{(\varphi(t)-1)\log(\varphi(t)-1)}\geq 2\delta t\]
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{2mm}
+
+\begin{itemize}
+    \item[\textit{(a)}] Sea $D=\R \times (0,\infty)$ y considérese la función $f \colon D \to \R$ dada por $f(t,x) = 2t(x-2)\log(x)$. Como $f \in \mathcal{C}^1(D,\R)$, entonces $f \in \mathcal{C}(D,\R) \cap \textup{Lip}_{\textup{loc}}(x,D,\R)$. Además, $(0,e) \in \mathring{D}$, luego, por el TEUL, el problema $(P)$ tiene solución local única, que puede extenderse (de manera única por verificarse también la PUG) a una solución maximal $\varphi \colon I \to \R$. Y como $D$ es abierto, por el resultado sobre soluciones maximales con gráficas en abiertos, se tiene que $I=(a,b)$, donde $-\infty\leq a < 0 < b \leq \infty$.
+
+    \vspace{2mm}
+
+    Obsérvese que no se puede aplicar el TEUG, pues $D$ no es una banda vertical.
+    \item[\textit{(b)}] Considérese la función $\psi \colon (-b,-a) \to \R$ definida por $\psi(t)= \varphi(-t)$. Se tiene que
+    \begin{itemize}
+        \item[\textit{(i)}] Por la regla de la cadena, $\psi$ es derivable (pues $\varphi$ lo es) y, si $t \in (-b,-a)$,
+        \[\psi'(t)=-\varphi'(-t)=-2(-t)(\varphi(-t)-2)\log(\varphi(-t))=2t(\psi(t)-2)\log(\psi(t))\]
+        \item[\textit{(ii)}] $\textup{gráf}(\psi) \subset D$.
+        \item[\textit{(iii)}] $\psi(0)=\varphi(0)=e$.
+    \end{itemize}
+    Por tanto, $\psi$ es solución de $(P)$, y como $\varphi$ es la única solución maximal de $(P)$, entonces $\varphi$ es una prolongación de $\psi$, luego $(-b,-a) \subset (a,b)$ y $\varphi |_{(-b,-a)} = \psi$. Pero la primera contención implica $a \leq -b$ y $-a \leq b$, es decir, $a=-b$, así que $(-b,-a)=(a,b)$ y en consecuencia $\varphi=\psi$, luego $\varphi$ es una función par.
+
+    \vspace{2mm}
+
+    Por otra parte, obsérvese que la función constante $2$ es solución de $(E) \ x'=f(t,x)$ en $\R$, pero no resuelve el problema $(P)$. Como $(E)$ verifica la PUG, entonces la gráfica de $\varphi$ no puede cortar a la de la solución constante $2$, o, en otras palabras, $\varphi(t) \neq 2$ para todo $t \in I$. Pero $\varphi(0)=e>2$, luego, por continuidad, debe ser $\varphi(t)>2$ para todo $t \in I$.
+
+    \item[\textit{(c)}] Para todo $t \in I$ se tiene que $\varphi(t)-2 >0$ y $\log(\varphi(t))>0$ (pues se acaba de ver que $\varphi(t)>2$). Por tanto, si $t \in (-b,0)$, entonces $\varphi'(t)<0$, y si $t \in (0,b)$, entonces $\varphi'(t)>0$, luego $\varphi$ es estrictamente decreciente en $(-b,0]$ y estrictamente creciente en $[0,b)$.
+
+    \vspace{2mm}
+
+    Para estudiar la curvatuva, se calcula la derivada segunda de $\varphi$. Si $t \in I$,
+    \[\begin{aligned}[t]
+        \varphi''(t)&=2(\varphi(t)-2)\log(\varphi(t))+2t\varphi'(t)\log(\varphi(t))+\frac{2t(\varphi(t)-2)}{\varphi(t)}\varphi'(t) \\
+        &= 2(\varphi(t)-2)\log(\varphi(t))+2t\varphi'(t)\biggl(\log(\varphi(t))+\frac{\varphi(t)-2}{\varphi(t)}\biggr) \\
+        &= 2(\varphi(t)-2)\log(\varphi(t))+4t^2(\varphi(t)-2)\log(\varphi(t))\biggl(\log(\varphi(t))+\frac{\varphi(t)-2}{\varphi(t)}\biggr) \\
+        &=2(\varphi(t)-2)\log(\varphi(t))\biggl(1+2t^2\log(\varphi(t))+2t^2\frac{\varphi(t)-2}{\varphi(t)}\biggr)
+    \end{aligned}\]
+    Por ser $\varphi(t)>2$ para todo $t \in I$, se tiene que $\varphi''(t) > 0$ para todo $t \in I$, luego $\varphi$ es estrictamente convexa.
+    \item[\textit{(d)}] Sea $t \in [0,b)$. Entonces
+    \[\frac{\varphi'(t)}{\varphi(t)\log(\varphi(t))}=\frac{2t(\varphi(t)-2)\log(\varphi(t))}{\varphi(t)\log(\varphi(t))}=\frac{2t\varphi(t)-4t}{\varphi(t)}=2t-\frac{4t}{\varphi(t)} \leq 2t, \]
+    donde en la última desigualdad se ha tenido en cuenta que $t \geq 0$ y que $\varphi(t)>0$. Por tanto, por la monotonía de la integral,
+    \[
+    \begin{aligned}[t]
+        \int_0^t \frac{\varphi'(s)}{\varphi(s)\log(\varphi(s))} \, ds \leq \int_0^t 2s\, ds &\iff \bigl[\log(\log(\varphi(s)))\bigr]_0^t \leq \bigl[ s^2\bigr]_0^t \\
+        &\iff \log(\log(\varphi(t)))-\log(\log(e)) \leq t^2 \\
+        &\iff \log(\log(\varphi(t))) \leq t^2 \\
+        &\iff \log(\varphi(t)) \leq e^{t^2} \\
+        &\iff \varphi(t) \leq e^{e^{t^2}},
+    \end{aligned}
+    \]
+    donde en algunas equivalencias se ha utilizado que la función exponencial es estrictamente creciente en $\R$. Supóngase, por reducción al absurdo, que $b < \infty$. Entonces, por el resultado sobre soluciones maximales con gráficas en abiertos, se tiene una de las dos circunstancias siguientes:
+    \begin{itemize}
+        \item[\textit{(i)}] $\displaystyle \lim_{t \to b^-} |\varphi(t)| = \lim_{t \to b^-} \varphi(t)=\infty$.
+        \item[\textit{(ii)}] La gráfica de $\varphi$ tiene algún punto límite para $t \to b$, y este y todos los puntos límite de la gráfica de $\varphi$ están en $\partial D = \R \times \{0\}$.
+    \end{itemize}
+    Lo primero es imposible, pues al tomar límites cuando $t \to b^-$ en la desigualdad que se acaba de probar, se obtiene
+    \[\lim_{t \to b^-} \varphi(t) \leq \lim_{t \to b^-}e^{e^{t^2}}=e^{e^{b^2}} < \infty\]
+    En cuanto a lo segundo, si $(t,0)$ es un punto límite de la gráfica de $\varphi$, entonces existe una sucesión $\{t_j\}_{j=1}^\infty$ tal que $\lim_{j \to \infty} \varphi(t_j)=0$, pero esto es imposible porque $\varphi(t)>2$ para todo $t \in \R$. La contradicción viene de suponer $b < \infty$, luego $b= \infty$ y, por tanto, $I=(-b,b)=\R$.
+    \item[\textit{(e)}] En primer lugar, como $\varphi$ es estrictamente creciente en $[0,\infty)$, existe $A = \lim_{t \to \infty} \varphi(t) \in [2,\infty]$. Integrando en la desigualdad de ayuda, se obtiene
+    \[\begin{aligned}[t]
+        \int_0^t \frac{\varphi'(s)}{(\varphi(s)-1)(\log(\varphi(s)-1))}\, ds \geq \int_0^t 2\delta s \, ds &\iff \bigl[\log(\log(\varphi(s)-1))\bigr]_0^t \geq \delta \bigl[s^2\bigr]_0^t \\
+        &\iff \log(\log(\varphi(t)-1))-\log(\log(e-1))\geq \delta t^2 \\
+        &\iff \frac{\log(\varphi(t)-1)}{\log(e-1)} \geq e^{\delta t^2} \\
+        &\iff \log(\varphi(t)-1) \geq e^{\delta t^2}\log(e-1) \\
+        &\iff \varphi(t)-1 \geq e^{e^{\delta t^2}\log(e-1)}
+    \end{aligned} \]
+    Ahora bien, como $\displaystyle\lim_{t \to \infty} e^{\delta t^2}=\infty$ y $\log(e-1)>0$ (pues $e>2$), entonces
+    \[\lim_{t \to \infty} e^{e^{\delta t^2}\log(e-1)}=\infty,\]
+    lo que implica, por la desigualdad probada, $\displaystyle\lim_{t \to \infty} (\varphi(t)-1)=\infty$, luego $\displaystyle\lim_{t \to \infty} \varphi(t)=\infty$.
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 2.
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Considérese la ecuación diferencial autónoma}
+    \[(E) \quad x'=g(x),\]
+    \textit{siendo $g \in \mathcal{C}^1(\R,\R)$. Supóngase que $\varphi \colon I \to \R$, con $I$ un intervalo de $\R$, es una solución maximal no constante de $(E)$. Sabemos entonces, por teoría, que $\varphi$ es estrictamente monótona, luego $\varphi(I)$ es también un intervalo de $\R$. Probar que, para cada $(t_0,x_0) \in \R \times \varphi(I)$, el problema}
+    \[(P_{(t_0,x_0)}) \begin{cases}
+        x'=g(x) \\
+        x(t_0)=x_0
+    \end{cases}\]
+    \textit{tiene solución maximal única, que además resulta ser una trasladada de $\varphi$.}
+    \item[\textit{(b)}] \textit{Realizar un estudio lo más exhaustivo posible de las soluciones maximales de la ecuación
+    \[(E) \quad x'=e^{x^2-1}-1,\]}
+    \textit{y esbozar el aspecto de las gráficas de estas posibles soluciones. Probar asimismo que si $\varphi \colon I \to \R$ es la solución maximal de $(E)$ que satisface $\varphi(0)=e$, entonces $I$ no puede ser todo $\R$.} Ayuda: \textit{si $x >1$, entonces $e^{x^2-1} \geq x^2$}.
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{2mm}
+
+\begin{itemize}
+\item[\textit{(a)}]
+En primer lugar, por ser $g \in \mathcal{C}^1(\R,\R)$, se tiene $g \in \mathcal{C}(\R,\R)\cap \textup{Lip}_{\textup{loc}}(x,\R,\R)$, así que el TEUL proporciona una solución local única del problema $(P_{(t_0,x_0)})$ que puede ser extendida (de manera única por verificarse la PUG) a una solución maximal $\psi \colon J \to \R$.
+
+\vspace{2mm}
+
+Por otro lado, como $x_0 \in \varphi(I)$, existe $t_1 \in I$ tal que $x_0=\varphi(t_1)$. Ahora se considera la función $\varphi_{t_0-t_1} \colon I+t_0-t_1 \to \R$. dada por $\varphi_{t_0-t_1}(t)=\varphi(t-t_0+t_1)$. Entonces
+\begin{itemize}
+    \item[\textit{(i)}] $\varphi_{t_0-t_1}$ es derivable en $I+t_0-t_1$ por serlo $\varphi$.
+    \item[\textit{(ii)}] $\textup{gráf}(\varphi_{t_0-t_1}) \subset \R^2$.
+    \item[\textit{(iii)}] ~$\varphi_{t_0-t_1}'(t)=\varphi'(t-t_0+t_1)=g(\varphi(t-t_0+t_1))=g(\varphi_{t_0-t_1}(t))$ para todo $t \in I+t_0-t_1$.
+    \item[\textit{(iv)}] $\varphi_{t_0-t_1}(t_0)=\varphi(t_1)=x_0$.
+\end{itemize}
+
+Además, $\varphi_{t_0-t_1}$ es una solución maximal de $(E)$ por ser la traslación de una solución maximal de $(E)$. Ahora bien, como $\varphi_{t_0-t_1}$ es solución de $(P_{(t_0,x_0)})$ y $\psi$ es la única solución maximal de dicho problema, entonces $\psi =\varphi_{t_0-t_1}$, concluyéndose que $(P_{(t_0,x_0)})$ tiene solución maximal única, y resulta ser una trasladada de $\varphi$.
+
+\vspace{2mm}
+
+\item[\textit{(b)}] Sea $g \colon \R \to \R$ la función definida por $g(x)=e^{x^2-1}-1$. La ecuación $(E) \ x'=g(x)$ es una ecuación diferencial escalar autónoma de primer orden. Se tiene que
+\[e^{x^2-1}-1=0 \iff e^{x^2-1}=1 \iff x^2-1=0 \iff x=1,x=-1\]
+Por tanto, $\varphi_{-1} \equiv -1$ y $\varphi_1\equiv 1$ son las únicas soluciones constantes en $\R$ de la ecuación $(E)$. Como $(E)$ verifica la PUG en $\R$ (pues $g \in \mathcal{C}^1(\R,\R)$), entonces la gráfica de cualquier solución maximal no constante no debe cortar a la gráfica de ninguna solución constante. En otras palabras, si $\varphi \colon I \to \R$ es una solución maximal de $(E)$ y consideramos las regiones
+\[D_1= \R \times(-\infty,-1), \qquad D_2=\R \times (-1,1) \qquad \textup{y} \qquad D_3=\R \times (1,\infty),\]
+entonces $\textup{gráf}(\varphi) \subset D_i$ para algún $i \in \{1,2,3\}$. Además, por ser $\R^2$ abierto, el resultado sobre soluciones maximales con gráficas en abiertos permite asegurar que $I=(a,b)$, y si $t^*$ es un extremo finito de $I$, entonces $\lim_{t \to t^*} |\varphi(t)|=\infty$ (la casuística de los puntos límite es imposible por tener $\R^2$ frontera vacía). Se distinguen tres casos:
+\begin{itemize}
+    \item[\textit{(i)}] $\textup{gráf}(\varphi) \subset D_1$. Entonces $\varphi(t)<-1$, así que $\varphi(t)^2-1>0$, y, en consecuencia, se verifica $\varphi'(t)=e^{\varphi(t)^2-1}-1>0$ para todo $t \in I$, obteniéndose que $\varphi$ es estrictamente creciente. Por tanto, existen $A=\lim_{t \to a^+}\varphi(t)$ y $B=\lim_{t \to b^{-}}\varphi(t)$ (pudiendo ser infinitos). Si fuese $b<\infty$, entonces $\lim_{t \to b^{-}} |\varphi(t)|=\lim_{t \to b^{-}} -\varphi(t)=\infty$, luego $B=-\infty$, que es imposible por ser $\varphi$ estrictamente creciente. Por tanto, $b=\infty$, y como no puede ser $B=-\infty$, entonces $B=-1$ (si fuera $-\infty<B<-1$, se obtendría una nueva solución constante de $(E)$). En el otro extremo, en principio, pudiera ocurrir $a>-\infty$ o $a=-\infty$, pero en cualquier caso, $A=-\infty$ ($A=-1$ no puede ser por el crecimiento de $\varphi$; tampoco puede ser $-\infty<A<-1$ porque se obtendría otra solución constante). El resumen de este caso es que, o bien
+    \[a>-\infty, \qquad A=-\infty, \qquad b=\infty \qquad \textup{y} \qquad B=-1,\]
+    o bien
+    \[a=-\infty, \qquad A=-\infty, \qquad b=\infty \qquad \textup{y} \qquad B=-1,\]
+    \item[\textit{(ii)}] $\textup{gráf}(\varphi) \subset D_2$. Resulta que la gráfica de $\varphi$ queda encerrada entre la gráfica de sendas soluciones constantes, así que ha de ser $I=\R$. Además, como $-1<\varphi(t)<1$, entonces $\varphi(t)^2-1 <0$, y, por tanto, $\varphi'(t)=e^{\varphi(t)^2-1}-1<0$ para todo $t \in \R$, así que $\varphi$ decrece estrictamente. De esto se deduce que $A=1$ y que $B=-1$. El resumen de este caso es
+    \[a=-\infty, \qquad A=1, \qquad b=\infty \qquad \textup{y} \qquad B=-1,\]
+    \item[\textit{(iii)}] $\textup{gráf}(\varphi) \subset D_3$. Entonces $\varphi(t)>1$, así que $\varphi(t)^2-1>0$, y, en consecuencia, se verifica $\varphi'(t)=e^{\varphi(t)^2-1}-1>0$ para todo $t \in I$, obteniéndose que $\varphi$ es estrictamente creciente. Por tanto, existen $A=\lim_{t \to a^+}\varphi(t)$ y $B=\lim_{t \to b^{-}}\varphi(t)$ (pudiendo ser infinitos). Si fuese $a>-\infty$, entonces $\lim_{t \to a^{+}} |\varphi(t)|=\lim_{t \to a^{+}} \varphi(t)=\infty$, luego $A=\infty$, que es imposible por ser $\varphi$ estrictamente creciente. Por tanto, $a=-\infty$, y como no puede ser $A=\infty$, entonces $A=1$ (si fuera $1<A<\infty$, se obtendría una nueva solución constante de $(E)$). En el otro extremo, en principio, pudiera ocurrir $b<\infty$ o $b=\infty$, pero en cualquier caso, $B=\infty$ ($B=1$ no puede ser por el crecimiento de $\varphi$; tampoco puede ser $1<B<\infty$ porque se obtendría otra solución constante). El resumen de este caso es que, o bien
+    \[a=-\infty, \qquad A=1, \qquad b=\infty \qquad \textup{y} \qquad B=\infty,\]
+    o bien
+    \[a=-\infty, \qquad A=1, \qquad b<\infty \qquad \textup{y} \qquad B=\infty,\]
+\end{itemize}
+
+Por otra parte, sea $\varphi \colon I \to \R$ la única solución maximal del problema
+\[(P) \begin{cases}
+    x'=e^{x^2-1}-1 \\
+    x(0)=e
+\end{cases}\]
+La existencia y unicidad de $\varphi$ son garantizadas por el apartado $(a)$. Considérese el problema
+\[(\widetilde{P}) \begin{cases}
+    x'=x^2-1 \\
+    x(0)=e
+\end{cases}\]
+La ecuación $(\widetilde{E}) \ x'=x^2-1$ es de Ricatti. Se busca una solución particular del tipo $x_p(t)=A$:
+\[x'=x^2-1 \iff 0 = A^2-1 \iff A=1,A=-1\]
+Se escoge $A=1$, y se realiza el cambio $y(t)=x(t)-1$. Entonces $x(t)=y(t)+1$, luego
+\[y'(t)=x'(t)=x(t)^2-1=(1+y(t))^2-1=1+y(t)^2+2y(t)-1=y(t)^2+2y(t)\]
+Ahora se resuelve la ecuación $(B) \ y'=y^2+2y$, que es de Bernoulli. Obsérvese que la solución de $(\widetilde{P})$ verifica $x(t)>1$ para todo $t$, luego $y(t) \neq 0$ para todo $t$, y por tanto,
+\[y'=y^2+2y \iff y'y^{-2}=1+2y^{-1} \iff -y'y^{-2}=-1-2y^{-1}\]
+Haciendo el cambio $z=y^{-1}$, se tiene $z'=-y'y^{-2}$, luego ahora se resuelve $(L) \ z'=-1-2z$, que es lineal. La solución general de la ecuación homogénea $(L) \ z'=-2z$ es
+\[z_h(t)=ce^{\int-2\, dt} = ce^{-2t}, \quad c \in \R\]
+Se va a hallar una solución particular de $(L)$, recurriendo al método de variación de los parámetros. La idea es buscar una solución de la forma $z(t)=c(t)e^{-2t}$. Se tendría entonces
+\[
+\begin{aligned}[t]
+    z'(t)=-1-2z(t) &\iff c'(t)e^{-2t}-2c(t)e^{-2t} = -1-2c(t)e^{-2t} \iff c'(t)=-e^{2t} \\
+    &\iff c(t)=\int-e^{2t}\, dt+d=-\frac{1}{2}e^{2t}+d
+\end{aligned}
+\]
+Tomando, por ejemplo, $d=0$, se llega a la solución general de $(L)$, que es
+\[z(t)=ce^{-2t}-\frac{1}{2}, \quad c \in \R\]
+Haciendo $z=y^{-1}$, se obtiene
+\[y(t)=\frac{1}{ce^{-2t}-\frac{1}{2}}\]
+Por último, haciendo $y=x-1$ se llega a
+\[x(t)=\frac{1}{ce^{-2t}-\frac{1}{2}}+1\]
+Como debe ser $x(0)=e$, hay que escoger
+\[c=\frac{1}{e-1}+\frac{1}{2}\]
+Total, que tenemos una solución de $(\widetilde{P})$ dada por
+\[\psi(t)=\frac{1}{(\frac{1}{e-1}+\frac{1}{2})e^{-2t}-\frac{1}{2}}+1,\]
+y está bien definida en los puntos donde no se tenga
+\[\biggl(\frac{1}{e-1}+\frac{1}{2}\biggr)e^{-2t_0}-\frac{1}{2} = 0 \iff e^{2t_0} = 2\biggl(\frac{1}{e-1}+\frac{1}{2}\biggr) \iff t_0=\frac{\log(2(\frac{1}{e-1}+\frac{1}{2}))}{2}\]
+Como $t_0 >0$, entonces $\psi$ está bien definida en $[0,t_0)$. Como en $D_3$ se tiene
+$e^{x^2-1}-1 \geq x^2-1$
+y además $\varphi(0)=\psi(0)=e$, entonces, suponiendo que $b \geq t_0$ (de lo contrario no habría nada que demostrar), por el teorema de comparación de soluciones de ecuaciones escalares, se tiene que $\varphi(t) \geq \psi(t)$ para todo $t \in [0,t_0)$. Pero es que 
+\[\lim_{t \to t_0^{-}} \psi(t)=\infty,\]
+luego
+\[\lim_{t \to t_0^{-}} \varphi(t)=\infty\]
+y esto implica que $b =t_0$. Se concluye que $b \leq t_0 < \infty$, luego $I \neq \R$.
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 3. \begin{itemize}
+    \item[\textit{(a)}] \textit{Supóngase que $A \colon \R \to \mathcal{M}_n(\R)$ es continua y $\omega$-periódica, con $\omega \in(0,\infty)$. Considérese el sistema}
+    \[(H) \qquad x'=A(t)x\]
+    \begin{itemize}
+        \item[\textit{(a.i)}] \textit{Probar que si $\varphi$ es una solución de $(H)$ en $\R$ con $\varphi(0)=\varphi(\omega)$, entonces $\varphi$ es $\omega$-periódica.}
+        \item[\textit{(a.ii)}] \textit{Sea $\Phi$ una matriz fundamental de $(H)$. Demostrar que $H$ tiene solución $\omega$-periódica no trivial si y solo si $\textup{det}(\Phi(0)-\Phi(\omega))=0$.} Ayuda: \textit{el determinante de una matriz $B \in \mathcal{M}_n(\R)$ es cero y si solo si existe un vector $c \in \R^n$ no nulo tal que $Bc=0$.}
+    \end{itemize}
+    \item[\textit{(b)}] \textit{Considérese la ecuación $(E) \ y''+a(t)y=0$, con $a \colon \R \to \R$ continua y $\omega$-periódica, y supongamos que $\varphi_1$ y $\varphi_2$ son soluciones de $(E)$ tales que}
+    \[\begin{pmatrix}
+        \varphi_1(0) \\
+        \varphi'_1(0)
+    \end{pmatrix}=\begin{pmatrix}
+        1 \\
+        0
+    \end{pmatrix} \qquad \textup{y} \qquad \begin{pmatrix}
+        \varphi_2(0) \\
+        \varphi'_2(0)
+    \end{pmatrix}=\begin{pmatrix}
+        0 \\
+        1
+    \end{pmatrix}\]
+    \begin{itemize}
+        \item[\textit{(b.i)}] \textit{Probar que $W(\varphi_1,\varphi_2)(t)=1$ para todo $t \in \R$.} Ayuda: \textit{calcular $W(\varphi_1,\varphi_2)'(t)$.}
+        \item[\textit{(b.ii)}] \textit{Probar que $(E)$ tiene una solución $\omega$-periódica no trivial si y solo si $\varphi_1(\omega)+\varphi_2'(\omega)=2$.}
+    \end{itemize}
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{2mm}
+
+\begin{itemize}
+    \item[\textit{(a)}] Sea $\varphi \colon \R \to \R^n$ una solución de $(H)$ verificando $\varphi(0)=\varphi(\omega)$. Sea $x^0=\varphi(0)=\varphi(\omega)$. Como $(S)$ es un sistema diferencial lineal de primer orden, el problema
+    \[(P) \begin{cases}
+        x'=A(t)x+b(t) \\
+        x(0)=x^0
+    \end{cases}\]
+    tiene solución única en $\R$. Por una parte, tenemos que $\varphi$ es solución de $(P)$. Por otra parte, si se define $\varphi_\omega \colon \R \to \R^n$ mediante $\varphi_\omega(t) = \varphi(t+\omega)$, se tiene que
+    \begin{itemize}
+        \item[\textit{(i)}] $\varphi_\omega$ es derivable por serlo $\varphi$.
+        \item[\textit{(ii)}] $\textup{gráf}(\varphi_{\omega}) \subset \R^2$, evidentemente.
+        \item[\textit{(iii)}] Por la regla de la cadena, \[\varphi_\omega'(t) = \varphi'(t+\omega)=A(t+\omega)\varphi(t+\omega)=A(t)\varphi(t+\omega)=A(t)\varphi_\omega(t),\] donde se ha usado que $A$ es $\omega$-periódica.
+        \item[\textit{(iv)}] $\varphi_\omega(0) = \varphi(\omega)=x^0$.
+    \end{itemize}
+    Por tanto, $\varphi_\omega$ es también solución de $(P)$, así que debe ser $\varphi_\omega = \varphi$ por asuntos de unicidad, concluyéndose que $\varphi$ es periódica de periodo $\omega$.
+
+    \vspace{2mm}
+
+Sea $\Phi$ una matriz fundamental de $(H)$, y supóngase que $\varphi \colon \R \to \R^n$ es solución $\omega$-periódica de $(H)$ no trivial. Sea $x^0=\varphi(0)$ y considérese el problema
+    \[(P) \begin{cases}
+        x'=A(t)x \\
+        x(0)=x^0
+    \end{cases}\]
+    Como $\Phi$ es matriz fundamental, la única solución de $(P)$ en $\R$ viene dada por
+    \[\psi(t)=\Phi(t)\Phi^{-1}(0)x^0,\]
+    y como $\varphi$ es solución de $(P)$, entonces
+    \[\varphi(t)=\Phi(t)\Phi^{-1}(0)x^0\]
+    Pero, por el apartado \textit{(a)}, $\varphi(0)=\varphi(\omega)$, luego
+    \[x^0=\Phi(\omega)\Phi^{-1}(0)x^0\]
+    Equivalentemente,
+    \[(\Phi(\omega)\Phi^{-1}(0)-\textup{Id})x^0= (\Phi(\omega)-\Phi(0))\Phi^{-1}(0)x^0 =0,\]
+    Obsérvese que $x^0 \neq 0$ (si fuese $x^0$ se contradiría que $\varphi$ es no trivial, ya que la función nula resolvería $(P)$) y $\Phi^{-1}(0) \neq 0$ (de lo contrario sería $\varphi(t) = \Phi(t)\Phi^{-1}(0)x^0=0$ para todo $t \in \R$, lo que también contradice que $\varphi$ es no trivial). Por tanto, $\textup{rg}(\Phi(\omega)-\Phi(0)) < n$, o lo que es lo mismo, $\textup{det}(\Phi(\omega)-\Phi(0))=\textup{det}(\Phi(0)-\Phi(\omega))=0$.
+
+    \vspace{2mm}
+
+    Recíprocamente, supóngase que $\textup{det}(\Phi(0)-\Phi(\omega)) =0$. Entonces el sistema $(\Phi(0)-\Phi(\omega))X=0$ tiene solución no trivial, llámese $x^0$. Nótese que $\Phi(0)x^0=\Phi(\omega)x^0$. Sea $\varphi \colon I \to \R^n$ la función definida por $\varphi(t) = \Phi(t) x^0$. Se tiene que
+    \begin{itemize}
+        \item[\textit{(i)}] $\varphi$ es solución de $(E)$, pues $\varphi'(t) = \Phi'(t)x^0 = A(t)\Phi(t)x^0=A(t)\varphi(t)$ para cada $t \in \R$.
+        \item[\textit{(ii)}] $\varphi$ no es la función nula, pues $x^0 \neq 0$ y $\Phi$ es una matriz regular.
+        \item[\textit{(iii)}] $\varphi(0) = \Phi(0)x^0=\Phi(\omega)x^0=\varphi(\omega)$, luego, por lo probado anteriormente, $\varphi$ es periódica de periodo $\omega$.
+    \end{itemize}
+\item[\textit{(b)}]
+Obsérvese que
+\[W(\varphi_1, \varphi_2)(0)=\textup{det}\biggl(\begin{matrix}
+    \varphi_1(0) & \varphi_2(0) \\
+    \varphi'_1(0) & \varphi'_2(0)
+\end{matrix}\biggr)=\textup{det}\biggl(\begin{matrix}
+    1 & 0 \\
+    0 & 1
+\end{matrix}\biggr)=1\]
+
+Por otra parte, por la fórmula de Abel-Liouville-Jacobi, para todo $t \in \R$ se tiene
+\[W(\varphi_1,\varphi_2)(t)=W(\varphi_1,\varphi_2)(0)e^{-\int_0^t b(s)\, ds},\]
+donde $b \colon \R \to \R$ es el coeficiente de $y'$ en $(E)$. En nuestro caso, $b=0$, luego
+\[W(\varphi_1,\varphi_2)(t)=W(\varphi_1,\varphi_2)(0)e^{-\int_0^t 0\, ds} = W(\varphi_1,\varphi_2)(0)=1\]
+para todo $t \in I$.
+
+\vspace{2mm}
+
+Para el apartado segundo, considérese el sistema de primer orden asociado a la ecuación $(E)$:
+\[(S) \begin{cases}
+    z_1'=z_2 \\
+    z_2'=-a(t)z_1
+\end{cases}\]
+Como $\varphi_1$ y $\varphi_2$ son soluciones de la ecuación $(E)$ en $\R$, entonces $\widetilde{\varphi_1}=(\varphi_1,\varphi'_1)$ y $\widetilde{\varphi_2}=(\varphi_2,\varphi'_2)$ son soluciones de $(S)$ en $\R$, así que $\Phi=\begin{pmatrix}
+    \widetilde{\varphi_1} & \widetilde{\varphi_2}
+\end{pmatrix}$ es matriz solución de $(S)$. Además,
+\[\textup{det}(\Phi(0))=\textup{det}\biggl(\begin{matrix}
+    \varphi_1(0) & \varphi_2(0) \\
+    \varphi'_1(0) & \varphi'_2(0)
+\end{matrix}\biggr)=\textup{det}\biggl(\begin{matrix}
+    1 & 0 \\
+    0 & 1
+\end{matrix}\biggr)=1 \neq 0,\]
+luego $\textup{det}(\Phi(t))\neq 0$ para todo $t \in \R$ y, por tanto, $\Phi$ es matriz fundamental de $(S)$. Se tiene que
+\[\begin{aligned}[t]
+    \textup{det}(\Phi(0)-\Phi(\omega))&=\textup{det}\biggl(\begin{matrix}
+    \varphi_1(0)-\varphi_1(\omega) & \varphi_2(0)-\varphi_2(\omega) \\
+    \varphi_1'(0)-\varphi_1'(\omega) & \varphi_2'(0)-\varphi_2'(\omega)
+\end{matrix}\biggr) \\
+&=(\varphi_1(0)-\varphi_1(\omega))(\varphi_2'(0)-\varphi_2'(\omega))-(\varphi_2(0)-\varphi_2(\omega))(\varphi_1'(0)-\varphi_1'(\omega)) \\
+&=\begin{aligned}[t]
+    &\varphi_1(0)\varphi_2'(0)-\varphi_1(0)\varphi_2'(\omega)-\varphi_1(\omega)\varphi_2'(0)+\varphi_1(\omega)\varphi_2'(\omega) \ + \\
+    &\varphi_2(0)\varphi_1'(\omega)+\varphi_2(\omega)\varphi_1'(0)-\varphi_2(0)\varphi_1'(0)-\varphi_2(\omega)\varphi_1'(\omega)
+\end{aligned} \\
+&=  W(\varphi_1,\varphi_2)(0)+W(\varphi_1,\varphi_2)(\omega)+\textup{det}\begin{pmatrix}
+    \varphi_2(0) & \varphi_1(\omega) \\
+    \varphi_2'(0)& \varphi_1'(\omega)
+\end{pmatrix}-\textup{det}\begin{pmatrix}
+    \varphi_1(0) & \varphi_2(\omega) \\
+    \varphi_1'(0) & \varphi_2'(\omega)
+\end{pmatrix} \\
+&=2+\textup{det}\begin{pmatrix}
+    0 & \varphi_1(\omega) \\
+    1& \varphi_1'(\omega)
+\end{pmatrix}-\textup{det}\begin{pmatrix}
+    1 & \varphi_2(\omega) \\
+    0 & \varphi_2'(\omega)
+\end{pmatrix} \\
+&=2-\varphi_1(\omega)-\varphi_2'(\omega)
+\end{aligned}\]
+Por el apartado $(a)$, $(S)$ tiene solución $\omega$-periódica no trivial si y solo si $\varphi_1(\omega)+\varphi_2'(\omega)=2$. Para terminar el ejercicio, se va a probar que $(S)$ tiene solución $\omega$-periódica no trivial si y solo si $(E)$ tiene solución $\omega$-periódica no trivial.
+
+\vspace{2mm}
+
+En efecto, si $(\varphi_1,\varphi_2)$ es solución $\omega$-periódica de $(S)$, entonces $\varphi_1$ es solución de $(E)$, y como $(\varphi_1,\varphi_2)(t)=(\varphi_1(t),\varphi_2(t))=(\varphi_1(t+\omega),\varphi_2(t+\omega))$ para todo $t \in \R$ por la periodicidad de $(\varphi_1,\varphi_2)$, entonces, en particular, $\varphi_1(t)=\varphi_1(t+\omega)$ para todo $t \in \R$, luego $\varphi_1$ es $\omega$-periódica.
+
+\vspace{2mm}
+
+Recíprocamente, si $\varphi$ es solución $\omega$-periódica de $(E)$, entonces $(\varphi,\varphi')$ es solución de $(S)$. Por la periodicidad de $\varphi$ se tiene $\varphi(t)=\varphi(t+\omega)$ para todo $t \in \R$, y derivando se obtiene $\varphi'(t)=\varphi'(t+\omega)$ para todo $t \in \R$, concluyéndose que $(\varphi(t),\varphi'(t))=(\varphi(t+\omega),\varphi'(t+\omega))$ para todo $t \in \R$, y, por tanto, $(\varphi,\varphi')$ es $\omega$-peródica.
+
+\end{itemize}
+
+\end{document}

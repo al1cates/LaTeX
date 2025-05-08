@@ -1,0 +1,110 @@
+%------------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[spanish, es-lcroman]{babel} % es-lcroman para romanos en minúscula
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[labelfont = it, labelsep = period]{caption} % cambia Figura 1: por Figura 1. (en negrita)
+\usepackage{enumitem}
+\usepackage{faktor}
+\usepackage{float} % para que el texto después de una gráfica no se ponga antes
+\usepackage{fouriernc}
+\usepackage{graphicx}
+\usepackage[naturalnames]{hyperref} % sin naturalnames el hiperenlace de los apéndices no funciona
+\usepackage[utf8]{inputenc} %
+\usepackage{mathtools} % underbracket, mathrlap
+\usepackage[final, nopatch = footnote]{microtype}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage[svgnames, table, x11names]{xcolor}
+
+%------------------------------------------------------------------------------------------------------%
+
+% COLORES
+
+\definecolor{c1}{HTML}{56AABF}
+\definecolor{c2}{HTML}{57905E}
+\definecolor{c3}{HTML}{4A45AC}
+
+%------------------------------------------------------------------------------------------------------%
+
+% DEFINICIONES, TEOREMAS Y DEMÁS
+
+\newtheoremstyle{exercise}% name
+  {\topsep}% space above
+  {\topsep}% space below
+  {}% body font
+  {}% indent amount
+  {}% theorem head font
+  {.}% punctuation after theorem head
+  {.5em}% space after theorem head
+  {\thmname{#1}\thmnumber{#2}\thmnote{ (#3)}}% theorem head spec
+\theoremstyle{exercise}
+\newtheorem{exercise}{}
+\newtheorem{solution}{}
+
+\newtheoremstyle{theorem}% name
+  {\topsep}% space above
+  {\topsep}% space below
+  {\itshape}% body font
+  {}% indent amount
+  {\bfseries}% theorem head font
+  {.}% punctuation after theorem head
+  {.5em}% space after theorem head
+  {\thmname{#1}\thmnumber{#2}\thmnote{ (#3)}}% theorem head spec
+\theoremstyle{theorem}
+\newtheorem*{theorem}{Teorema}
+\newtheorem*{corollary}{Corolario}
+
+%------------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+
+\newcommand{\kconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$k \to \infty$\phantom{.}}}}
+
+%------------------------------------------------------------------------------------------------------%
+
+% OTROS AJUSTES
+
+\OnehalfSpacing
+
+\setlist[enumerate]{label={\normalfont(\textit{\alph*})}} % normalfont hace que los teoremas no italicen los paréntesis
+
+\addto\captionsspanish{\renewcommand{\chaptername}{Tema}}
+\addto\captionsspanish{\renewcommand{\contentsname}{Contenidos}}
+
+\renewcommand{\thefigure}{\hspace{-1mm}}
+
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.18}
+
+\usetikzlibrary{calc}
+
+\setlrmarginsandblock{25mm}{25mm}{*} % márgenes a izquierda y derecha
+\setulmarginsandblock{25mm}{25mm}{*} % márgenes arriba y abajo
+\checkandfixthelayout % aplicar los cambios
+
+\renewcommand{\cftchapteraftersnum}{.} % para que haya un punto después del número del tema en la TDC
+
+\makeatletter % para que el título de los teoremas (en caso de haberlo) esté en negrita
+\def\th@plain{
+  \thm@notefont{}
+  \itshape
+}
+\def\th@definition{
+  \thm@notefont{}
+  \normalfont
+}
+\makeatother
+
+%------------------------------------------------------------------------------------------------------%

@@ -1,0 +1,882 @@
+\documentclass[11pt]{report}
+
+%-------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{fouriernc}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{parskip}
+\usepackage{tikz-cd}
+\usepackage{faktor}
+\usepackage{cancel}
+
+%-------------------------------------------------------------------------------------------------%
+
+% AJUSTES GENERALES
+
+\usetikzlibrary{cd}
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\makeatletter % Para quitar el espacio adicional que el paquete parskip añade al principio y al final de una demostración
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep\z@skip % <---- changed here
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+%-------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+\newcommand{\F}{\mathbb F}
+\newcommand{\E}{\mathbb E}
+\newcommand{\K}{\mathbb K}
+\renewcommand{\L}{\mathbb L}
+
+\newcommand{\pars}[1]{\left( #1 \right)} % Paréntesis de tamaño automático
+\newcommand{\comment}[1]{}
+
+%-------------------------------------------------------------------------------------------------%
+
+% EJERCICIOS Y SOLUCIONES
+
+\newtheorem{ejercicio}{Ejercicio}
+\addto\captionsspanish{\renewcommand*{\proofname}{Solución}}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+%-------------------------------------------------------------------------------------------------%
+
+% TÍTULO
+
+\textit{Teoría de Cuerpos} \hfill \textit{Curso 2023-2024}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	{\LARGE \textbf{Ejercicios}} % Title
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{ejercicio}
+    Hallar el polinomio mínimo de $\sqrt{2}+\sqrt{5}$ sobre $\Q$.
+\end{ejercicio}
+
+\begin{proof}
+    Llamemos $\alpha = \sqrt{2}+\sqrt{5}$. Entonces
+    \[\alpha^2 = 7+2\sqrt{2}\sqrt{5},\]
+    es decir,
+    \[\alpha^2-7=2\sqrt{10}\]
+    Elevando al cuadrado,
+    \[\alpha^4+49-14\alpha^2 = 40,\]
+    así que un polinomio en $\Q[X]$ que anula a $\alpha$ es $f(X)=X^4-14X^2+9$. Veamos que $\Q(\alpha) = \Q(\sqrt{2},\sqrt{5})$. La contencion $\subset$ es clara; para la otra, probemos que $\sqrt{2},\sqrt{5} \in \Q(\alpha)$. Se tiene que $\alpha^2=7+2\sqrt{10} \in \Q(\alpha)$, luego $\sqrt{10} \in \alpha$, así que $\sqrt{10}\alpha = 2\sqrt{5}+5\sqrt{2} \in \Q(\alpha)$, y entonces $2\sqrt{5}+5\sqrt{2}-2\alpha = 3\sqrt{2} \in \Q(\alpha)$, luego $\sqrt{2} \in \Q(\alpha)$ y $\sqrt{5} = \alpha - \sqrt{2} \in \Q(\alpha)$.
+
+    Tenemos entonces que $[\Q(\sqrt{2}+\sqrt{5}) \colon \Q] = [\Q(\sqrt{2},\sqrt{5}) \colon \Q] = 4$ (se prueba fácilmente que $\sqrt{5} \not\in \Q(\sqrt{2})$ y de ahí la última igualdad sale sola). La conclusión es que $X^4-14X^2+9 = \textup{Irr}(\alpha,X,\Q)$, pues es un polinomio mónico de grado mínimo que anula a $\alpha$.
+\end{proof}
+
+\begin{ejercicio}
+    Sea $u$ un elemento trascendente sobre un cuerpo $\F$. Probar que no existe ningún cuerpo $\K$ tal que $\F \subsetneq \K \subsetneq \F(u)$ con $[\K \colon \F]$ finito.
+\end{ejercicio}
+
+\begin{proof}
+    Sea $u$ un elemento trascendente sobre $\F$ y considérese una torre de extensiones
+    \[\F \subsetneq \K \subsetneq \F(u)\]
+    Veamos que $[\K \colon \F]=\infty $. Para ello, se va a probar que $u$ es algebraico sobre $\K$. Sea $v \in \K$ con $v \not\in \F$. Como $v \in \F(u)$, existen $p(X),q(X) \in \F[X]$ tales que
+    \[v = \frac{p(u)}{q(u)},\]
+    luego $q(u)v-p(u)=0$ y entonces $q(X)v-p(X)$ es un polinomio en $\K[X]$ que anula a $u$. Como $u$ es algebraico sobre $\K$, entonces $[\K(u) \colon \K] <\infty$ y por tanto $[\F(u) \colon \K] < \infty$. Pero es que $[\F(u) \colon \F]=\infty$ por ser $u$ trascendente sobre $\F$, luego $[\K \colon \F]=\infty$.
+\end{proof}
+
+\begin{ejercicio}
+Sea $\xi = 1_{\frac{2\pi}{3}} = -\frac{1}{2}+i\frac{\sqrt{3}}{2}$. Probar que $i \not\in \Q(\sqrt{2},\xi)$.
+\end{ejercicio}
+
+\begin{proof}
+Consideremos las torres de extensiones 
+\[\Q \subset \Q(\sqrt{2}) \subset \Q(\sqrt{2},\xi) \qquad \textup{y} \qquad \Q \subset \Q(\xi) \subset \Q(\sqrt{2},\xi)\]
+Se tiene que
+\begin{itemize}
+    \item $[\Q(\sqrt{2}):\Q] = 2$ porque $X^2-2 \in \Q[X]$ es mónico e irreducible (no tiene raíces en $\Q$) y anula a $\sqrt{2}$.
+    \item $[\Q(\xi):\Q] = 2$ porque $X^2+X+1 \in \Q[X]$ es mónico e irreducible (pues $X^3-1=(X-1)(X^2+X+1)$ y 3 es primo) y anula a $\xi$.
+    \item $[\Q(\sqrt{2},\xi):\Q(\sqrt{2})]$ no puede ser mayor que $2$ porque $X^2+X+1 \in \Q(\sqrt{2})[X]$ y anula a $\xi$. Tampoco puede ser 1 porque entonces sería $\Q(\sqrt{2},\xi) = \Q(\sqrt{2})$, que es imposible porque en $\Q(\sqrt{2},\xi)$ hay números complejos y en $\Q(\sqrt{2})$ no. Por tanto, $[\Q(\sqrt{2},\xi):\Q(\sqrt{2})] = 2$.
+\end{itemize}
+En consecuencia,
+\[[\Q(\sqrt{2},\xi):\Q] = [\Q(\sqrt{2},\xi):\Q(\sqrt{2})] \, [\Q(\sqrt{2}):\Q)] = 2 \cdot 2 = 4\]
+Como $\{1,\sqrt{2}\}$ es base de $\Q(\sqrt{2})$ y $\{1,\xi\}$ es base de $\Q(\xi)$, entonces una base de $\Q(\sqrt{2},\xi)$ como $\Q$-espacio vectorial se obtiene multiplicando los elementos de las bases anteriores, quedando $\{1,\sqrt{2},\xi,\xi\sqrt{2}\}$.
+
+Supongamos, por reducción al absurdo, que $i \in \Q(\sqrt{2},\xi)$. Entonces existen $a,b,c,d \in \Q$ tales que
+\[
+\begin{aligned}[t]
+i &= a+b\sqrt{2}+c\xi+d\xi\sqrt{2} \\ &= a+b\sqrt{2}+c\left(-\frac{1}{2}+i\frac{\sqrt{3}}{2}\right)+d\sqrt{2}\left(-\frac{1}{2}+i\frac{\sqrt{3}}{2}\right) \\
+&= a+b\sqrt{2}-\frac{c}{2}+i\frac{c\sqrt{3}}{2}-\frac{d\sqrt{2}}{2}+i\frac{d\sqrt{6}}{2} \\
+&= a+b\sqrt{2}-\frac{c}{2}-\frac{d\sqrt{2}}{2}+i\left(\frac{c\sqrt{3}+d\sqrt{6}}{2}\right)
+\end{aligned}
+\]
+Comparando las partes imaginarias, debe cumplirse
+\[\frac{c\sqrt{3}+d\sqrt{6}}{2} = 1, \]
+luego
+\[c\sqrt{3}+d\sqrt{6} = 2 \]
+Se distinguen varios casos:
+\begin{itemize}
+    \item Si $c \neq 0$ y $d \neq 0$, elevando al cuadrado se obtiene
+    \[(c\sqrt{3}+d\sqrt{6})^2 = 4 \iff 3c^2+6d^2+2cd\sqrt{18} = 4 \iff \sqrt{18} = \frac{4-3c^2-6d^2}{2cd} \in \Q,\]
+    que es imposible.
+    \item Si $c =0$ y $d \neq 0$, entonces
+    \[d\sqrt{6} = 2,\]
+    y al dividir por $d$ se obtiene $\sqrt{6} \in \Q$, que es imposible.
+    \item Si $c \neq 0$ y $d = 0$, entonces
+    \[c\sqrt{3} = 2,\]
+    y al dividir por $c$ se obtiene $\sqrt{3} \in \Q$, que es imposible.
+    \item El caso $c = 0$, $d = 0$ tampoco es posible, evidentemente.
+\end{itemize}
+En cualquier caso obtenemos una contradicción, luego $i \not\in \Q(\sqrt{2},\xi)$.
+\end{proof}
+
+\begin{ejercicio}
+    Sea $\F \subset \K$ una extensión de cuerpos, sea $f(X) \in \K[X]$ irreducible y de grado $n$, sea $\L$ el cuerpo de descomposición de $f(X)$ sobre $\K$ y sean $u_1,\mathellipsis,u_t$ las raíces de $f(X)$ en $\L$. Demostrar que $[\F[u_1,\mathellipsis,u_t] \colon \F]$ es múltiplo de $n$.
+\end{ejercicio}
+    
+\begin{proof}
+    Sin perder generalidad, se va a suponer que $f(X)$ es un polinomio mónico. Así,
+    \[f(X)=a_0+a_1X+\mathellipsis+a_{n-1}X^{n-1}+X^n\]
+    Sean $v_1,\mathellipsis,v_n$ las $n$ raíces de $f(X)$ en $\L$ (no necesariamente distintas). Entonces
+    \[f(X) = (X-v_1)\mathellipsis(X-v_n),\]
+    y por tanto los coeficientes de $f(X)$ son suma, resta y producto de los $v_i$, con $i \in \{1,\mathellipsis,n\}$. Esto nos dice
+    \[\F[a_0,a_1,\mathellipsis,a_{n-1},v_1,\mathellipsis,v_n] = \F[v_1,\mathellipsis,v_n] = \F[u_1,\mathellipsis,u_t]\]
+    Así, tenemos la torre de extensiones
+    \[\F \subset \F[a_0,a_1,\mathellipsis,a_{n-1},u_1] \subset \F[u_1,\mathellipsis,u_t]\]
+    Como $f(X)$ es un polinomio mónico e irreducible en $\F[a_0,a_1,\mathellipsis,a_{n-1}][X]$ y anula a $u_1$, entonces
+    \[[\F[a_0,a_1,\mathellipsis,a_{n-1},u_1] \colon \F] = n,\]
+    y en consecuencia,
+    \[[\F[u_1,\mathellipsis,u_t] \colon \F] = n \cdot [\F[u_1,\mathellipsis,u_t] \colon \F[a_0,a_1,\mathellipsis,a_{n-1},u_1]],\]
+    concluyéndose que $[\F[u_1,\mathellipsis,u_t] \colon \F]$ es múltiplo de $n$.
+\end{proof}
+
+\begin{ejercicio}
+Sea $\F \subset \K$ una extensión de cuerpos normal y finita y sea $f(X) \in \F[X]$ irreducible. Probar que todos los polinomios de la factorización de $f(X)$ como producto de irreducibles en $\K[X]$ tienen el mismo grado.
+\end{ejercicio}
+
+\begin{proof}
+Factoricemos $f(X)$ como producto de irreducibles en $\K[X]$:
+\[f(X)=f_1(X)\mathellipsis f_k(X)\]
+Sea $i \in \{2,3,\mathellipsis,k\}$ (si fuese $k = 1$ no hay nada que probar) y veamos que $f_1(X)$ y $f_i(X)$ tienen el mismo grado.
+
+En primer lugar, como la extensión $\F \subset \K$ es normal y finita, entonces existe $g(X) \in \F[X]$ tal que $\K$ es el cuerpo de descomposición de $g(X)$ sobre $\F$. Ahora, si $\L$ es el cuerpo de descomposición de $f(X)g(X)$ sobre $\F$, entonces $\K \subset \L$, pues todas las raíces de $g(X)$ están en $\L$.
+
+Por otra parte, sean $\alpha,\beta \in \L$ raíces de $f_1(X)$ y $f_i(X)$, respectivamente. Como $f(X) = \textup{Irr}(\alpha,X,\F)$ (no hay problema en suponer que $f(X)$ es mónico) y $\beta$ es raíz de $f(X)$, por el teorema de extensión, existe un único isomorfismo $\sigma \colon \F[\alpha] \to \F[\beta]$ extensión de $id \colon \F \to \F$ con $\sigma(\alpha) = \beta$. Además, tenemos que $\L$ es el cuerpo de descomposición de $f(X)$ sobre $\F[\alpha]$ y también es el cuerpo de descomposición de $f^\sigma(X)=f(X)$ sobre $\F[\beta]$, así que existe un isomorfismo $\overline{\sigma} \colon \L \to \L$ que extiende a $\sigma$.
+
+\begin{center}
+\begin{tikzcd}
+    \F \arrow[d, hook] \arrow{r}{id} & \F \arrow[d, hook] \\
+    \F[\alpha] \arrow[d, hook] \arrow{r}{\sigma} & \F[\beta] \arrow[d, hook] \\
+    \L \arrow{r}{\overline{\sigma}} & \L
+\end{tikzcd}
+\end{center}
+
+Como además $\F \subset \K \subset \L$ y las extensiones $\F \subset \K$ y $\F \subset \L$ son normales, entonces $\overline{\sigma}(\K) \subset \K$. Así, tenemos que $f^{\overline{\sigma}}_1(X)$ es un polinomio mónico e irreducible en $\K[X]$ que anula a $\overline{\sigma}(\alpha) = \sigma(\alpha) = \beta$. Pero $f_i(X)$ es otro polinomio mónico e irreducible en $\K[X]$ que anula a $\beta$, luego $f_i(X) = f_1^{\overline{\sigma}}(X)$, y como $\overline{\sigma}$ preserva los grados (pues es un isomorfismo), se concluye que $f_1(X)$ y $f_i(X)$ tienen el mismo grado.
+\end{proof}
+
+\begin{ejercicio}
+Sea $\F \subset \K$ una extensión algebraica de cuerpos con $\K=\F[S]$ y tal que $[F[s] \colon \F] \leq 2$ para todo $s \in S$. Demostrar que la extensión es normal.
+\end{ejercicio}
+
+\begin{proof}
+Sea $f(X) \in \F[X]$ un polinomio irreducible y sea $\alpha \in \K$ una raíz de $f(X)$. Veamos que todas las raíces de $f(X)$ están en $\K$.
+
+Como $\alpha \in \F[S]$, existe $p(X_1,\mathellipsis,X_k) \in \F[X_1,\mathellipsis,X_k]$ tales que $\alpha = p(s_1,\mathellipsis,s_k)$, con $s_1,\mathellipsis,s_k \in S$. Así, tenemos una extensión de cuerpos $\F \subset \F[s_1,\mathellipsis,s_k]$ y $\alpha \in \F[s_1,\mathellipsis,s_k]$. Veamos que esta extensión es normal.
+
+Dado $i \in \{1,\mathellipsis,k\}$, sea $g_i(X) = \textup{Irr}(s_i,X,\F)$. Como $[F[s_i] \colon \F] \leq 2$, entonces la extensión $\F \subset \F[s_i]$ es normal y por tanto todas las raíces de $g_i(X)$ están en $\F[s_i]$. Así, si consideramos
+\[g(X)= \prod_{i=1}^n g_i(X),\]
+tenemos que todas las raíces de $g(X)$ están en $\F[s_1,\mathellipsis,s_k]$, luego este es el cuerpo de descomposición de $g(X)$ sobre $\F$ y por tanto la extensión $\F \subset \F[s_1,\mathellipsis,s_k]$ es normal.
+
+Para terminar, como $\alpha \in \F[s_1,\mathellipsis,s_k]$ es raíz de $f(X)$ y la extensión $\F \subset \F[s_1,\mathellipsis,s_k]$ es normal, entonces todas las raíces de $f(X)$ están en $\F[s_1,\mathellipsis,s_k]$ y por tanto están en $\K$, concluyéndose que la extensión $\F \subset \K$ es normal.
+\end{proof}
+
+\begin{ejercicio}
+Sea $f(X) \in \F[X]$ un polinomio irreducible y separable de grado $n$, sea $\K$ el cuerpo de descomposición de $f(X)$ sobre $\F$ y sea $\alpha \in \K$ una raíz de $f(X)$. 
+\begin{enumerate}
+    \item Dada otra raíz $\beta \in \F[\alpha]$ de $f(X)$, demostrar que existe $g(X) \in \F[X]$ de grado menor que $n$ y con $g(\alpha)=\beta$.
+    \item Demostrar que si $\gamma$ es raíz de $f(X)$, entonces $g(\gamma)$ también lo es.
+    \item ¿Es cierto el resultado del apartado anterior si $f(X)$ es separable pero no irreducible?
+\end{enumerate} 
+\end{ejercicio}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item Como $f(X) = \textup{Irr}(\alpha,X,\F)$ y $\textup{deg}(f(X)) = [\F[\alpha] \colon \F] = n$, entonces $\{1,\alpha,\mathellipsis,\alpha^{n-1}\}$ es una base de $\F[\alpha]$ como $\F$-espacio vectorial, luego $\beta = a_0+a_1\alpha+\mathellipsis+a_{n-1}\alpha^{n-1}$ para ciertos $a_0,a_1,\mathellipsis,a_{n-1} \in \F$. El polinomio $g(X) = a_0+a_1X+\mathellipsis+a_{n-1}X^{n-1} \in \F[X]$ es de grado menor que $n$ y $g(\alpha) =\beta$.
+    \item Sea $\gamma \in \K$ otra raíz de $f(X)$. Por el teorema de extensión, existe un isomorfismo $\sigma \colon \F[\alpha] \to \F[\gamma]$ que extiende a $id \colon \F \to \F$ y con $\sigma(\alpha)=\gamma$.
+    \begin{center}
+    \begin{tikzcd}
+        \F \arrow{r}{id} \arrow[hook]{d} & \F \arrow[hook]{d} \\
+        \F[\alpha] \arrow{r}{\sigma}& \F[\gamma]
+    \end{tikzcd}
+    \end{center}
+    Como $\beta = a_0+a_1\alpha+\mathellipsis+a_{n-1}\alpha^{n-1}$, entonces \[\sigma(\beta) = a_0+a_1\sigma(\alpha)+\mathellipsis+a_{n-1}\sigma(\alpha)^{n-1} = a_0+a_1\gamma+\mathellipsis+a_{n-1}\gamma^{n-1} = g(\gamma)\]
+    Por otra parte, se observa que $\F[\beta] = \F[\alpha]$ porque $\F[\beta] \subset \F[\alpha]$ (por ser $\beta \in \F[\alpha]$) y la dimensión de ambos como $\F$-espacios vectoriales es la misma: el grado de $f(X)$. Así, como $f(X) = \textup{Irr}(\beta,X,\F)$ y tenemos un isomorfismo $\sigma \colon \F[\beta] \to \F[\gamma]$, entonces $\sigma(\beta) = g(\gamma)$ es raíz de $f^{\sigma}(X) = f(X)$.
+    \item Si $f(X)$ es separable pero no irreducible, entonces el resultado no es cierto. En efecto, tomemos $f(X)=(X-1)(X-2) \in \Q[X]$. El polinomio $g(X)=X+1$ es de grado menor que el de $f(X)$ y verifica $g(1) = 2$. Sin embargo, $g(2) =3$ no es raíz de $f(X)$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+Sea $\F \subset \K$ una extensión algebraica de cuerpos con $\K = \F[a_1,\mathellipsis,a_n]$ y tal que $a_i^2 \in \F$ para todo $i \in \{1,\mathellipsis,n\}$. Supóngase que la característica de $\F$ es distinta de $2$ y que $[\K \colon \F] = 2^n$. Demostrar que $a_1+\mathellipsis+a_n$ es un elemento primitivo de la extensión.
+\end{ejercicio}
+
+\begin{proof}
+Lo primero que se va a probar es que $[\F[a_1,\mathellipsis,a_i] \colon \F[a_1,\mathellipsis,a_{i-1}]] = 2$ para todo $i \in \{1,\mathellipsis,n\}$ (se entiende que para $i=1$ la igualdad es $[\F[a_1] \colon \F] = 2$). Nótese que $X^2-a_i^2 \in \F[X]$ es un polinomio que anula a $a_i$, luego $[\F[a_1,\mathellipsis,a_i] \colon \F[a_1,\mathellipsis,a_{i-1}]] \leq 2$. Por reducción al absurdo, supongamos que existe $i_0 \in \{1,\mathellipsis, n\}$ tal que $[\F[a_1,\mathellipsis,a_{i_0}] \colon \F[a_1,\mathellipsis,a_{i_0-1}]] = 1$. Por comodidad en la notación, supongamos que $i_0 = n$ (no se pierde ninguna generalidad). Entonces
+\[[\K \colon \F] = \underbrace{[\F[a_1] \colon \F]}_{\leq 2} \cdot \underbrace{[\F[a_1,a_2] \colon \F[a_1]]}_{\leq 2} \cdot \mathellipsis \cdot \underbrace{[\F[a_1,\mathellipsis,a_{n-1}] \colon \F[a_1,\mathellipsis,a_{n-2}]]}_{\leq 2} \cdot \underbrace{[\K \colon \F[a_1,\mathellipsis,a_{n-1}]]}_{=1}\leq 2^{n-1}\]
+Esto es imposible porque $[\K \colon \F] = 2^n$. Así, para cada $i \in \{1,\mathellipsis,n\}$ es $[\F[a_1,\mathellipsis,a_i] \colon \F[a_1,\mathellipsis,a_{i-1}]] = 2$ y en consecuencia \[X^2-a_i^2 = \textup{Irr}(a_i,X,\F[a_1,\mathellipsis,a_{i-1}])\] 
+Las raíces de este polinomio son $a_i$ y $-a_i$ (y son distintas porque son no nulas y la característica de $\F$ no de $2$). En el caso $i = 1$, por el teorema de extensión, hay exactamente dos inmersiones de $\F[a_1]$ en $\F[a_1]$ que extienden a $id \colon \F \to \F$, y vienen dadas por $\sigma_{j_1}(a_1) = (-1)^{j_1}a_1$, $j_1 \in \{0,1\}$. Para $i = 2$, hay exactamente dos inmersiones de $\F[a_1,a_2]$ en $\F[a_1,a_2]$ que extienden a $\sigma_{j_1} \colon \F[a_1] \to \F[a_1]$, y vienen dadas por $\sigma_{j_1,j_2}(a_2) = (-1)^{j_2}a_2$, $j_2 \in \{0,1\}$, y se verifica $\sigma_{j_1,j_2}(a_1+a_2) = (-1)^{j_1}a_1+(-1)^{j_2}a_2$. Continuamos este razonamiento hasta llegar a $i = n$.
+
+\begin{center}
+    \begin{tikzcd}
+        \F \arrow{r}{id} \arrow[hook]{d} & \F \arrow[hook]{d} \\
+        \F[a_1] \arrow{r}{\sigma_{j_1}} & \F[a_1] \\[-20pt]
+        a_1 \arrow[hook]{d} \arrow[maps to]{r} & (-1)^{j_1} a_1 \arrow[hook]{d} \\
+        \F[a_1,a_2] \arrow{r}{\sigma_{j_1,j_2}} & \F[a_1,a_2] \\[-20pt]
+        a_1+a_2\arrow[maps to]{r} \arrow[hook]{d} & (-1)^{j_1}a_1+(-1)^{j_2} a_2  \arrow[hook]{d}\\
+        (\mathellipsis)  \arrow[hook]{d} & (\mathellipsis) \arrow[hook]{d} \\
+        \F[a_1,\mathellipsis,a_n] \arrow{r}{\sigma_{j_1,\mathellipsis,j_n}} & \F[a_1,\mathellipsis,a_n] \\[-20pt]
+        a_1+\mathellipsis+a_n\arrow[maps to]{r} & (-1)^{j_1} a_1+\mathellipsis +(-1)^{j_n} a_n
+    \end{tikzcd}
+\end{center}
+
+Sea $ I = \{1,2\}^{n}$ y, dado $(j_1,\mathellipsis,j_n) \in I$, llamemos $\tau_{j_1,\mathellipsis,j_n}$ a la restricción de $\sigma_{j_1,\mathellipsis,j_n}$ a $\F[a_1+\mathellipsis+a_n]$. Es claro que $\tau_{j_1,\mathellipsis,j_n}$ es una inmersión de $\F[a_1+\mathellipsis+a_n]$ en $\K$, pues es la restricción de $\sigma_{j_1,\mathellipsis,j_n} \in \textup{Gal}_\F(\K)$. Así,
+\[
+\begin{aligned}[t]
+\tau_{j_1,\mathellipsis,j_n} \colon \F[a_1+\mathellipsis+a_n] &\longrightarrow \K \\
+a_1+\mathellipsis+a_n &\longmapsto (-1)^{j_1}a_1+\mathellipsis+(-1)^{j_n}a_n
+\end{aligned}
+\]
+Veamos que todas estas inmersiones son distintas. Por reducción al absurdo, supóngase que existen $(j_1,\mathellipsis,j_n) ,(k_1,\mathellipsis,k_n)\in I$ tales que
+\[\tau_{j_1,\mathellipsis,j_n}(a_1+\mathellipsis+a_n) =\tau_{k_1,\mathellipsis,k_n}(a_1+\mathellipsis+a_n) \]
+Entonces
+\[ (-1)^{j_1}a_1+(-1)^{j_2}a_2+\mathellipsis+(-1)^{j_n}a_n = (-1)^{k_1}a_1+(-1)^{k_2}a_2+\mathellipsis+(-1)^{k_n}a_n,\]
+es decir,
+\[\left((-1)^{j_1}+(-1)^{k_1+1}\right)a_1+\mathellipsis+\left((-1)^{j_n}+(-1)^{k_n+1}\right)a_n = 0\]
+El coeficiente de cada $a_i$ es $0$, $2$ o $-2$, así que podemos reordenar la suma para que se tenga
+\[\left((-1)^{j_1}+(-1)^{k_1+1}\right)a_1+\mathellipsis+\left((-1)^{j_s}+(-1)^{k_s+1}\right)a_s = 0\]
+para algún $s \in \N$ con $s \leq n$. El coeficiente de cada $a_i$ ahora es $2$ o $-2$. Si el coeficiente de $a_i$ es 2, llamamos $b_i = a_i$, y en otro caso, $b_i = -a_i$. Tenemos entonces
+\[2b_1+\mathellipsis+2b_s = 0\]
+Como la característica de $\F$ no es $2$, debe ser
+\[b_1+\mathellipsis+b_s = 0,\]
+Esto implica $a_s \in \F[a_1,\mathellipsis,a_{s-1}]$, que no puede ser porque $[F[a_1,\mathellipsis,a_s] \colon \F[a_1,\mathellipsis,a_{s-1}]] =2$.
+Así, queda probado que que todas las inmersiones $\tau_{j_1,\mathellipsis,j_n}$ son distintas, luego hay al menos $2^n$ inmersiones de $\F[a_1+\mathellipsis+a_n]$ en $\K$ que extienden a $id \colon \F \to \F$. Pero un teorema visto en clase nos permite afirmar que el número de estas inmersiones es menor o igual que $[\F[a_1+\mathellipsis+a_n] \colon \F]$, y por tanto es menor o igual que $[\K \colon \F] =2^n$. La única posibilidad es que sea $[\F[a_1+\mathellipsis+a_n] \colon \F] = 2^n$, concluyéndose que $\K = \F[a_1+\mathellipsis+a_n]$.
+\end{proof}
+
+\begin{ejercicio}
+    Hallar todos los ángulos $\alpha \in \Q$ entre $0^\circ$ y $360^\circ$ tales que $\cos(\alpha) \in \Q$.
+    \end{ejercicio}
+    
+    \begin{proof}
+    Sea $\alpha \in \Q$ un ángulo entre $0^\circ$ y $360^\circ$ con $\cos(\alpha) \in \Q$. En primer lugar, se va a probar que $\xi = \cos(\alpha)+i\sen(\alpha)$ es una raíz primitiva $n$-ésima de la unidad para algún $n \in \N$.
+    
+    En efecto, como $\alpha \in \Q$ está medido en grados y $0^\circ \leq \alpha \leq 360^\circ$, podemos escribir $\alpha = \frac{360^\circ}{n}$ para cierto $n \in \N$, de forma que $\xi = 1_{\frac{2\pi}{n}}$, que es una raíz primitiva $n$-ésima de la unidad.
+    
+    Consideremos la torre de extensiones $\Q \subset \Q[\cos(\alpha)] \subset \Q[\xi]$. Se tiene que
+    \begin{enumerate}
+        \item $[\Q[\cos(\alpha)] \colon \Q] = 1$ porque $\cos(\alpha) \in \Q$.
+        \item $[\Q[\xi] \colon \Q[\cos(\alpha)]] \leq 2$ porque $\Q[\xi] = \Q[\cos(\alpha),\sen(\alpha)]$ y $X^2+\cos^2\alpha-1 \in \Q[\cos(\alpha)][X]$ anula a $\sen(\alpha)$.
+    \end{enumerate}
+    Por tanto, $[\Q[\xi] \colon \Q] \leq 2$. Pero $\xi$ es una raíz primitiva $n$-ésima de la unidad, así que $[\Q[\xi] \colon \Q] = \phi(n)$, y por tanto $\phi(n) = 2$ o $\phi(n)=1$. Hallemos todos los $n \in \N$ tales que $\phi(n) = 2$ o $\phi(n)=1$.
+    
+    Si $n \neq 1$, factorizamos $n$: supongamos que $n = p_1^{n_1}\mathellipsis p_k^{n_k}$. Entonces
+    \[\phi(n) = 2 \iff p_1^{n_1}\mathellipsis p_k^{n_k}\left(\frac{p_1-1}{p_1}\right)\mathellipsis\left(\frac{p_k-1}{p_k}\right) = 2 \iff p_1^{n_1-1}\mathellipsis p_k^{n_k-1}\left(p_1-1\right)\mathellipsis\left(p_k-1\right)=2\]
+    De esto se deduce que uno de los miembros del producto anterior debe ser $2$ y el resto debe ser $1$, y esto nos dice que hay, como mucho, dos primos distintos. Ahora se distinguen dos casos:
+    \begin{enumerate}
+        \item El $2$ está en $ p_1^{n_1-1}p_k^{n_k-1}$. Entonces todos los $p_i-1$ son iguales (valen 1), luego solo hay un primo distinto y debe ser $2$. Además, como $2^{n_1-1} = 2$, ha de ser $n_1 = 2$. La conclusión de este caso es que $n = 4$.
+        \item El $2$ está en $\left(p_1-1\right)\mathellipsis\left(p_k-1\right)$. Ahora podrían haber uno o dos primos distintos. Supongamos primero que son dos. Entonces $p_1 = 3$, $p_2 = 2$ y
+        \[p_1^{n_1-1}p_2^{n_2-1} \cdot 2 \cdot 1 = 2,\]
+        luego $p_1^{n_1-1}=p_2^{n_2-1}=1$, o sea, $n_1=1$ y $n_2=1$. La conclusión de este caso es que $n = 6$. Si solo hubiese un primo distinto, tendría que ser $p_1 = 3$, y además
+        \[p_1^{n_1-1} \cdot 2 = 2,\]
+        de donde $n_1-1 = 1$. La conclusión de este caso es que $n = 3$.
+    \end{enumerate}
+    Por otra parte, 
+    \[\phi(n) = 1 \iff p_1^{n_1-1}\mathellipsis p_k^{n_k-1}\left(p_1-1\right)\mathellipsis\left(p_k-1\right)=1,\]
+    luego todos los miembros del producto anterior valen $1$. Esto nos dice que solo hay un primo distinto (que debe ser $2$ para que se tenga $p_1-1 = 1$) y además $n_1-1 = 0$, es decir, $n_1=1$. La conclusión de este caso es que $ n = 2$.
+    
+    Lo que se ha probado es que
+    \[\phi(n) \in \{1,2\} \iff n \in \{1,2,3,4,6\}\]
+    Además, para todos estos valores de $n$ se tiene que $\cos(\frac{360^\circ}{n}) \in \Q$. Los ángulos pedidos serían entonces $60^\circ$, $90^\circ$, $120^\circ$, $180^\circ$ y $360^\circ$.
+    \end{proof}
+
+    \begin{ejercicio}
+        Sea $\F$ un cuerpo de característica $p$, sea $\F \subset \K$ una extensión de cuerpos y sea $a \in \K$ un elemento algebraico sobre $\F$. Demostrar que $a$ es separable sobre $\F$ si y solo si $\F[a] = \F[a^p]$.
+        \end{ejercicio}
+        
+        \begin{proof}
+        Supongamos que $a$ es separable sobre $\F$. Sea $n = [\F[a] \colon \F]$ y veamos que $[\F[a^p] \colon \F] = n$. Para ello, se probará que hay $n$ inmersiones de $\F[a^p]$ en $\overline{\K}$ que extienden a $id\colon \F \to \F$, donde $\overline{\K}$ es la clausura normal de la extensión $\F \subset \K$. Como $a$ es separable sobre $\F$, el número de extensiones de $\F[a]$ en $\overline{\K}$ que extienden a $id \colon \F \to \F$ es $n$.
+        
+        \begin{center}
+        \begin{tikzcd}
+            \F \arrow{r}{id} \arrow[hook]{d} & \F \arrow[hook]{d} \\
+            \F[a] \arrow{r}{\sigma_i} & \overline{\K}
+        \end{tikzcd}
+        \end{center}
+        
+        Para cada $i \in \{1,\mathellipsis,n\}$ la aplicación
+        \[\begin{aligned}[t]
+            \tau_i \colon \F[a^p] &\longrightarrow \overline{\K} \\
+            a^p &\longmapsto \sigma_i(a^p)
+        \end{aligned}\]
+        es una $\F$-inmersión (por ser la restricción de una $\F$-inmersión) de $\F[a^p]$ en $\overline{\K}$. Veamos que todas las $\tau_i$ son distintas. Por reducción al absurdo, supongamos que existen $i,j \in \{1,\mathellipsis,n\}$ con $\sigma_i(a^p)=\sigma_j(a^p)$, es decir, $\sigma_i(a)^p=\sigma_j(a)^p$. Entonces
+        \[\sigma_i(a)^p-\sigma_j(a)^p =0,\]
+        o lo que es lo mismo, por ser $\F$ de característica $p$,
+        \[(\sigma_i(a)-\sigma_j(a))^p = 0,\]
+        luego $\sigma_i(a) = \sigma_j(a)$ y esto nos dice que $i = j$, pues las inmersiones $\sigma_i$ quedan totalmente determinadas por la imagen de $a$. En consecuencia, como las inmersiones $\tau_i$ quedan totalmente determinadas por la imagen de $a^p$, podemos afirmar que son todas distintas, luego el número de inmersiones de $\F[a^p]$ en $\overline{\K}$ que extienden a $id \colon \F \to \F$ es al menos $n$. Por otro lado, este número es menor o igual que $[\F[a^p] \colon \F]$, que, a su vez, es menor o igual que $[\F[a] \colon \F] = n$. La única posibilidad es que sea $[\F[a^p] \colon \F] = n$, así que $\F[a] = \F[a^p]$.
+        
+        Recíprocamente, supongamos que $a$ no es separable sobre $\F$ y veamos que $\F[a^p] \subsetneq \F[a]$. Sea \[f(X)=\textup{Irr}(a,X,\F) = a_0+a_1X+\mathellipsis+a_{n-1}X^{n-1}+X^n\] Como $f(X)$ es irreducible y no separable, entonces $f'(X)=0$, es decir, 
+        \[a_1+2a_2X+\mathellipsis+(n-1)a_{n-1}X^{n-2}+nX^n = 0\]
+        Esto nos dice que si $i \in \{1,\mathellipsis,n\}$ no es múltiplo de $p$, entonces $a_i = 0$. En consecuencia,
+        \[f(X)=a_0+a_{p}X^p+\mathellipsis+a_{(s-1)p}X^{(s-1)p}+X^{sp},\]
+        con $sp=n$. Sea
+        \[g(X) = a_0+a_pX+\mathellipsis+a_{(s-1)p}X^{s-1}+X^s\]
+        Entonces $g(X) \in \F[X]$ es un polinomio mónico e irreducible (por ser $f(X)$ irreducible) que anula a $a^p$, luego $g(X)=\textup{Irr}(a^p,X,\F)$. En consecuencia, \[[\F[a^p] \colon \F] = \textup{deg}(g(X)) = s < sp = \textup{deg}(f(X)) = [\F[a] \colon \F],\] concluyéndose que $\F[a^p] \subsetneq \F[a]$.
+        \end{proof}
+        
+\begin{ejercicio}
+    Sea $\F \subset \K \subset \L$ una torre de extensiones con $[\K \colon \F] = n$ y sea $\sigma \colon \F \to \L$ una inmersión. Demostrar que si la extensión $\F \subset \K$ no es separable, entonces el número de inmersiones $\overline{\sigma} \colon \K \to \L$ que extienden a $\sigma$ es menor que $n$.
+    \end{ejercicio}
+    
+    \begin{proof}
+        Se sabe que:
+        \begin{enumerate}
+            \item La extensión $\F \subset \K$ es separable si y solo si existe una extensión de cuerpos $\L \subset \L'$ tal que el número de inmersiones de $ \K$ en $\L'$ que extienden a $\sigma$ es $[\K \colon \F]$.
+            \item Dada una extensión $\L \subset \L'$, el número de inmersiones de $\K$ en $\L'$ que extienden a $\sigma$ es menor o igual que $[\K \colon \F]$.
+        \end{enumerate}
+        Como la extensión $\F \subset \K$ no es separable, por $(a)$, para toda extensión de cuerpos $\L \subset \L'$ se tiene que el número de inmersiones de $ \K$ en $\L'$ que extienden a $\sigma$ es distinto de $[\K \colon \F]$. Es más, por $(b)$, el número de estas inmersiones debe ser menor que $[\K \colon \F]$. En particular, tomando $\L'=\L$, el número de inmersiones de $ \K$ en $\L$ que extienden a $\sigma$ es menor que $[\K \colon \F] = n$.
+    \end{proof}
+
+    \begin{ejercicio}
+        Sea $\sigma \colon \Q(i\sqrt{3}) \to \Q(i\sqrt{3})$ el automorfismo dado por $\sigma(i\sqrt{3})=-i\sqrt{3}$. Sea $\alpha$ una raíz de $X^4-2X^2+4 \in \Q[X]$. Determinar el número de inmersiones $\overline{\sigma} \colon \Q(i\sqrt{3},\alpha) \to \C$ que extienden a $\sigma$.
+    \end{ejercicio}
+    
+    \begin{proof}
+    Como la extensión $\Q \subset \Q(i\sqrt{3},\alpha)$ es separable (ya que $\Q$ es perfecto) y $\Q(i\sqrt{3})$ es un cuerpo intermedio de la extensión, entonces $\Q(i\sqrt{3}) \subset \Q(i\sqrt{3},\alpha)$ también es separable y, en consecuencia, el número de inmersiones de $\Q(i\sqrt{3},\alpha)$ en $\C$ coincide con $[\Q(i\sqrt{3},\alpha) \colon \Q(i\sqrt{3})]$. Por otra parte, como se tiene $(\alpha^2)^2-2\alpha^2+4=0$, entonces
+    \[\alpha^2 \in \left\{\frac{2+\sqrt{4-16}}{2},\frac{2-\sqrt{4-16}}{2} \right\} = \left\{1+i\sqrt{3}, 1-i\sqrt{3}\right\}\]
+    De aquí se deduce que alguno de los polinomios $X^2-1-i\sqrt{3}$ o $X^2-1+i\sqrt{3}$, ambos en $\Q(i\sqrt{3})[X]$, anula a $\alpha$, así que \[[\Q(i\sqrt{3},\alpha) \colon \Q(i\sqrt{3})] \leq 2\] De hecho, el grado de la extensión es $2$, pues si llamamos $f(X)=\textup{Irr}(\alpha,X,\Q(i\sqrt{3}))$, tenemos que $\alpha$ es una raíz de $f(X)$, luego $\overline{\alpha}$ también lo es, y como $\alpha^2 \in \C$, entonces $\alpha \in \C$, así que $\overline{\alpha} \neq \alpha$ y, al tener dos raíces distintas, el grado de $f(X)$ no puede ser $1$. En consecuencia, $[\Q(i\sqrt{3},\alpha) \colon \Q(i\sqrt{3})] = 2$ y el número de inmersiones de $\Q(i\sqrt{3},\alpha)$ en $\C$ que extienden a $\sigma$ es $2$.
+    \end{proof}
+
+\begin{ejercicio}
+Sea $\F \subset \K$ una extensión de Galois finita. Sea $G = \textup{Gal}_\F(\K)$ y sea $u \in \K$. Demostrar que existe $m \in \N$ tal que
+\[\prod_{\sigma \in G}(X-\sigma(u)) = \textup{Irr}(u,X,\F)^m\]
+\end{ejercicio}
+
+\begin{proof}
+Sea
+\[f(X)=\prod_{\sigma \in G}(X-\sigma(u))\]
+Si $\tau \in G$, entonces
+\[\tau(f(X)) = \prod_{\sigma \in G} (X-\tau \circ \sigma(u)) = f(X),\]
+donde se ha usado que la aplicación
+\[\begin{aligned}[t]
+\Psi \colon G &\to G \\
+\sigma &\mapsto \tau \circ \sigma
+\end{aligned}
+\]
+es biyectiva. Por tanto, $f(X) \in \K^G[X]$, y como la extensión es finita y de Galois, entonces $\K^G=\F$, luego $f(X) \in \F[X]$. Como $f(X)$ es un polinomio en $\F[X]$ que anula a $u$, se tiene $f(X) \ \big| \ \textup{Irr}(u,X,\F)$. Factoricemos $f(X)$ como producto de irreducibles:
+\[f(X)=f_1(X)\mathellipsis f_m(X)\]
+Dado $i \in \{1,\mathellipsis,m\}$, cualquier raíz de $f_i(X)$ es de la forma $u_i=\sigma_i(u)$ con $\sigma_i \in G$, y como $u$ es raíz de $\textup{Irr}(u,X,\F)$, entonces $\sigma_i(u)=u_i$ también lo es. Tenemos entonces que todas las raíces de $f_i(X)$ son raíces de $\textup{Irr}(u,X,\F)$, así que $f_i(X)  \ \big| \ \textup{Irr}(u,X,\F)$. Pero ambos son mónicos e irreducibles, luego $f_i(X) = \textup{Irr}(u,X,\F)$ y concluimos que
+\[f(X)=\prod_{i=1}^m \textup{Irr}(u,X,\F) = \textup{Irr}(u,X,\F)^m \qedhere\]
+\end{proof}
+
+\begin{ejercicio}
+Sea $\F$ un cuerpo, sea $f(X) \in \F[X]$ un polinomio irreducible y separable y sea $\K$ el cuerpo de descomposición de $f(X)$ sobre $\F$. Si $\textup{Gal}_\F(\K)$ es abeliano, demostrar que $\K = \F[a]$ para cualquier raíz $a \in \K$ de $f(X)$.
+\end{ejercicio}
+
+\begin{proof}
+Sean $u_1,\mathellipsis,u_t$ las raíces de $f(X)$. Como la extensión $\F \subset \K$ es de Galois (ya que $\K$ es el cuerpo de descomposición de un polinomio separable sobre $\F$), entonces $n = \#\textup{Gal}_\F(\K) = [\K \colon \F]$. Veamos que $\K = \F[u_1]$. Para ello, se va a demostrar que el número de inmersiones de $\F[a]$ en $\K$ es al menos $n$. 
+
+Si $\sigma \in \textup{Gal}_\F(\K)$, entonces $\sigma \big |_{\F[u_1]}$ es una inmersión de $\F[u_1]$ en $\K$ que extiende a $id \colon \F \to \F$. Veamos que cada elemento de $\textup{Gal}_\F(\K)$ restringido a $\F[u_1]$ proporciona una inmersión diferente.
+
+Sean $\sigma,\tau \in \textup{Gal}_\F(\K)$ con $\sigma(u_1) = \tau(u_1)$ y veamos que $\sigma = \tau$. Para ello, basta probar que $\sigma(u_i)=\tau(u_i)$ para todo $i \in \{2,\mathellipsis,n\}$, pues $\K = \F[u_1,\mathellipsis,u_n]$ y por tanto cada elemento de $\textup{Gal}_\F(\K)$ queda totalmente determinado por la imagen de $u_1,\mathellipsis,u_n$. Sea $i \in \{2,\mathellipsis,n\}$. Por el teorema de extensión, existe una única $\F$-inmersión $\overline{\rho} \colon \F[u_1] \to \K$ con $\overline{\rho}(u_1)=u_i$, que puede extenderse a un isomorfismo $\rho \in \textup{Gal}_{\F}(\K)$ por ser $\K$ el cuerpo de descomposición de un polinomio sobre $\F$. Como $\rho(u_1) = u_i$, aplicando $\sigma$ y usando que $\textup{Gal}_\F(\K)$ es abeliano,
+\[\sigma(u_i)=\sigma \circ \rho(u_1)= \rho \circ \sigma(u_1) = \rho \circ \tau(u_1) = \tau \circ \rho(u_1) = \tau(u_i)\]
+Esto implica $\sigma = \tau$ y por tanto hay al menos $n$ $\F$-inmersiones de $\F[u_1]$ en $\K$. Pero el número de estas inmersiones es menor o igual que $[\F[u_1] \colon \F]$, que, a su vez, es menor o igual que $[\K \colon \F] = n$. La conclusión es que $[\F[u_1] \colon \F] = n$ y por tanto $\K = \F[u_1]$.
+\end{proof}
+
+\begin{ejercicio}
+Sea $\F$ un cuerpo finito y sea $\F \subset \K$ una extensión de cuerpos de grado $n$. Demostrar que para cada divisor $d$ de $n$ existe un único cuerpo intermedio de grado $d$ entre $\F$ y $\K$.
+\end{ejercicio}
+
+\begin{proof}
+Si $\#\F = p^k$ y $[\K \colon \F] = n$, entonces
+\begin{enumerate}
+    \item la extensión es cíclica por un teorema visto en clase;
+    \item $\#\K = p^{nk}$, así que $\K$ es el cuerpo de descomposición del polinomio $f(X) =X^{p^{nk}}-X \in \F[X]$, que es separable porque $f'(X) = -1$ y $\textup{mcd}(f(X),f'(X))=-1$.
+\end{enumerate}
+
+Por tanto, la extensión $\F \subset \K$ es finita, de Galois y cíclica. Por ser cíclica, $\textup{Gal}_\F(\K)$ tiene un único subgrupo de orden $d$ para cada divisor $d$ de $n$, o lo que es lo mismo, en virtud del teorema fundamental, la extensión $\F \subset \K$ tiene un único cuerpo intermedio de grado $d$ para cada divisor $d$ de $n$.
+\end{proof}
+
+\begin{ejercicio}
+Sea $\F$ un cuerpo finito.
+\begin{enumerate}
+    \item Sea $f(X) \in \F[X]$ un polinomio irreducible de grado $n$. Probar que $f(X)$ se descompone totalmente en cualquier extensión de $\F$ de grado $n$.
+    \item Sea $f(X) \in \F[X]$ un polinomio cuya factorización en producto de irreducibles es
+    \[f_4(X)g_4(X)g_3(X)h_5(X),\]
+    donde $\textup{deg}(f_4(X)) = \textup{deg}(g_4(X)) =4$, $\textup{deg}(g_3(X)) = 3$ y $\textup{deg}(h_5(X))=5$. Calcular el orden de $\textup{Gal}_\F(\K)$, donde $\K$ es el cuerpo de descomposición de $f(X)$ sobre $\F$.
+\end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item Sea $u$ una raíz de $f(X)$ en su cuerpo de descomposición sobre $\F$. La extensión $\F \subset \F[u]$ es normal (toda extensión finita de un cuerpo finito es normal) y por tanto $f(X)$ se descompone totalmente en $\F[u]$, luego $\F[u]$ es el cuerpo de descomposición de $f(X)$ sobre $\F$. Pero $[\F[u] \colon \F] = n$ y $\F[u]$ es, salvo isomorfismo, el único cuerpo con $\# \F[u] =p^{nk}$ elementos (donde $\#F=p^k$). En consecuencia, si $\F \subset \K$ es cualquier extensión de grado $n$, entonces $\K$ y $\F[u]$ son isomorfos, y como $f(X)$ se descompone totalmente en $\F[u]$, también lo hace en $\K$.
+    \item Nótese que toda extensión finita de un cuerpo finito es de Galois, luego $\#\textup{Gal}_\F(\K) = [\K \colon \F]$. Sean $\alpha, \beta, \gamma \in \K$ raíces de $f_4(X)$, $g_3(X)$ y $h_5(X)$, respectivamente. Por el apartado anterior,
+    \begin{itemize}
+        \item $f_4(X)$ y $g_4(X)$ se descomponen totalmente en $\F[\alpha]$;
+        \item $g_3(X)$ se descompone totalmente en $\F[\beta]$;
+        \item $h_5(X)$ se descompone totalmente en $\F[\gamma]$.
+    \end{itemize}
+    Por tanto, el cuerpo de descomposición de $f(X)$ sobre $\F$ es $\F[\alpha,\beta,\gamma]$.
+    Como $[\F[\alpha] \colon \F] = 4$, $[\F[\beta] \colon \F] =3$, $[\F[\alpha] \colon \F] = 5$ y $3$, $4$ y $5$ son primos relativos, entonces \[[\F[\alpha,\beta,\gamma] \colon \F] = 3 \cdot 4 \cdot 5 = 60,\] concluyéndose que $\textup{Gal}_\F(\K)$ tiene orden $60$. \qedhere
+\end{enumerate}
+
+\end{proof}
+
+\begin{ejercicio}
+    Construir un cuerpo finito $\F$ que tenga 125 elementos. ¿Existe alguna extensión $\K$ de $\F$ de grado 4?
+\end{ejercicio}
+
+\begin{proof}
+Dado un $n \in \N$ con $\textup{mcd}(n,5)=1$, se sabe que $\F_{5^3}$ es el cuerpo de descomposición de $X^n-1$ sobre $\Z_5[X]$, con $3$ el menor natural tal que $5^3 \equiv 1 \textup{ mod } n$. El problema se reduce a encontrar un $n$ adecuado. Puede tomarse, por ejemplo, $n=31$, así que el cuerpo pedido es $\Z_5(\xi)$, donde $\xi$ es una raíz primitiva $31$-ésima de la unidad.
+
+Cualquier extensión $\F \subset \K$ con $[\K \colon \F]=4$ es tal que $\#\K = 125^4 = 5^{12}$. También se sabe que $\F_{p^n} \subset \F_{p^m}$ si y solo si $n$ divide a $m$. Como $3$ divide a $12$, sí existe alguna extensión $\K$ de $\F$ de grado $4$: basta tomar cualquier cuerpo con $125^4$ elementos.
+\end{proof}
+
+\begin{ejercicio}
+Encontrar una extensión de Galois de $\Q$ de grado 15 y con grupo de Galois cíclico. 
+\end{ejercicio}
+
+\begin{proof}
+Lo primero que hay que observar es que el grupo de Galois de la extensión buscada tendrá grado 15 y el único grupo de grado 15 es $\Z_{15}$ (pues $15 = 3 \cdot 5$, $3$ y $5$ son primos y $3$ no divide a $5-1=4$). El problema se reduce entonces a encontrar una extensión de Galois de grado 15. Para ello, primero buscaremos extensiones de Galois de grado $3$ y $5$.
+
+Para hallar la extensión de grado $3$, buscamos un cuerpo intermedio en una extensión del tipo $\Q \subset \Q[\xi]$, donde $\xi$ es una raíz primitiva $n$-ésima de la unidad de forma que $\phi(n)$ sea múltiplo de $3$. Lo más sencillo es tomar $n = 7$. 
+
+Tomemos entonces una raíz primitiva séptima de la unidad, $\xi$. Como $\textup{Gal}_\Q(\Q[\xi]) \approx \Z_6$, hay un subgrupo normal $H$ de orden 2 (por ser cíclico, existe un único subgrupo de orden $d$ para cada divisor $d$ de 6, y por ser abeliano, todo subgrupo es normal). Por el teorema fundamental, la extensión $\Q \subset \textup{Inv}(H)$ es de grado 3 y de Galois (normal porque $H$ es un subgrupo normal; separable porque $\Q$ es perfecto).
+
+Razonando análogamente, si $\tau$ es una raíz primitiva onceava de la unidad, entonces $\textup{Gal}_\Q(\Q[\tau]) \approx \Z_{10}$ y por tanto existe un subgrupo normal $K$ de orden 2. Por el teorema fundamental, la extensión $\Q \subset \textup{Inv}(K)$ es de grado 5 y de Galois.
+
+Lo siguiente será hallar elementos primitivos de ambas extensiones. Empecemos por la de grado $3$. Los elementos de $\textup{Gal}_\Q(\Q[\xi])$ son de la forma
+\[\begin{aligned}[t]
+    \sigma_k \colon \Q[\xi] &\longrightarrow \Q[\xi] \\
+    \xi &\longmapsto \xi^k
+\end{aligned}\]
+para $k \in \{1,2,3,4,5,6\}$. Calculamos el orden de los elementos:
+\[\circ \sigma_1 = 1, \qquad \circ \sigma_2 = 3, \qquad \circ \sigma_3 = 6, \qquad \circ \sigma_4 = 3, \qquad \circ \sigma_5 = 6, \qquad \circ \sigma_6 = 2 \qquad \]
+Por tanto, $H = \langle \, \sigma_6\, \rangle$, y tenemos que hallar el cuerpo $\textup{Inv}\langle \, \sigma_6 \, \rangle$. Una base de $\Q[\xi]$ es $\{1,\xi,\xi^2,\xi^3,\xi^4,\xi^5\}$. Así, dados $a,b,c,d,e,f \in \Q$, se tiene que
+\[\begin{aligned}[t]
+    \sigma_6(a+b\xi+c\xi^2+d\xi^3+e\xi^4+f\xi^5) &= a+b\xi^6+c\xi^5+d\xi^4+e\xi^3+f\xi^2 \\
+    &= a-b-b\xi-b\xi^2-b\xi^3-b\xi^4-b\xi^5+c\xi^5+d\xi^4+e\xi^3+f\xi^2 \\
+    &= a-b-b\xi+(f-b)\xi^2+(e-b)\xi^3+(d-b)\xi^4+(c-b)\xi^5
+\end{aligned}\]
+donde se ha usado que $\xi^6=-1-\xi-\xi^2-\xi^3-\xi^4-\xi^5$ porque $X^6+X^5+X^4+X^3+X^2+X+1=\textup{Irr}(\xi,X,\Q)$. En consecuencia,
+\[\begin{aligned}[t]
+    \sigma_6(a+b\xi+c\xi^2+d\xi^3+e\xi^4+f\xi^5) =a+b\xi+c\xi^2+d\xi^3+e\xi^4+f\xi^5 &\iff \left\{\begin{alignedat}{1}
+        a&=a-b \\
+        -b&=b \\
+        f-b&=c \\
+        e-b&=d \\
+        d-b&=e \\
+        c-d&=f
+        \end{alignedat}\right. \\[5pt]
+    &\iff b=0, \, c = f, \, d = e
+\end{aligned}\]
+Por tanto,
+\[\textup{Inv}\langle \, \sigma_6 \, \rangle = \left\{a+c(\xi^2+\xi^5)+d(\xi^3+\xi^4) \colon a,c,d\in \Q \right\} \overset{(*)}{=} \Q[\xi^2+\xi^5, \xi^3+\xi^4]\]
+La contención $\subset$ en $(*)$ es trivial, y la contención $\supset$ casi que también, pues \[\left\{a+c(\xi^2+\xi^5)+d(\xi^3+\xi^4) \colon a,c,d\in \Q \right\}\] es un cuerpo que contiene a $\Q$, a $\xi^2+\xi^5$ y a $\xi^3+\xi^4$, y $\Q[\xi^2+\xi^5,\xi^3+\xi^4]$ es el menor cuerpo verificando esta propiedad. Observamos además que $\xi^2+\xi^5 \not\in \Q$, pues si existiese $q \in \Q$ tal que $\xi^2+\xi^5 = q$, entonces $\xi$ sería raíz del polinomio $X^5+X^2-q \in \Q[X]$, y esto es imposible porque $[\Q[\xi] \colon \Q] = 6 > 5$. Así, tenemos la torre de extensiones
+\[\Q \subset \Q[\xi^2+\xi^5] \subset \Q[\xi^2+\xi^5,\xi^3+\xi^4] = \textup{Inv}\langle \, \sigma_6 \, \rangle\]
+Como $[ \textup{Inv}\langle \, \sigma_6 \, \rangle \colon \Q] = 3$, que es primo, entonces $[\Q[\xi^2+\xi^5] \colon \Q] \in \{1,3\}$. Pero este grado no puede ser $1$ porque $\xi^2 +\xi^5 \not\in \Q$, así que
+\[\textup{Inv}\langle \, \sigma_6 \, \rangle = \Q[\xi^2+\xi^5]\]
+Vamos ahora con la extensión de grado 5; el procedimiento va a ser totalmente análogo. Los elementos de $\textup{Gal}_\Q(\Q[\tau])$ son de la forma
+\[\begin{aligned}[t]
+    \mu_k \colon \Q[\tau] &\longrightarrow \Q[\tau] \\
+    \tau &\longmapsto \tau^k
+\end{aligned}\]
+para $k \in \{1,2,3,4,5,6,7,8,9,10\}$. Calculamos el orden de los elementos:
+\[\circ \mu_1 = 1, \quad \circ \mu_2 = 10, \quad \circ \mu_3 = 5, \quad \circ \mu_4 = 5, \quad \circ \mu_5 = 5, \quad \circ \mu_6 = 10 \quad \circ \mu_7 =  10,\quad \circ \mu_8 =  10,\quad \circ \mu_9 = 5, \quad \circ \mu_{10} = 2\]
+Por tanto, $K = \langle \, \mu_{10}\, \rangle$, y tenemos que hallar el cuerpo $\textup{Inv}\langle \, \mu_{10} \, \rangle$. Llegados a este punto, se ve venir que las cuentas a realizar van a resultar bastante desagradables, así que simplemente se afirma que
+\[\textup{Inv}\langle \, \mu_{10} \, \rangle = \Q[\tau_2+\tau_9]\]
+Llamando $\alpha = \xi^2+\xi^5$, $\beta = \tau^2+\tau^9$, tenemos que la extensión \[\Q \subset \Q[\alpha,\beta]= \K\] es de orden 15 (pues $\textup{mcd}(n,m)=1$) y es de Galois (es normal porque es el cuerpo de descomposición de $f(X)g(X)$, donde $f(X)=\textup{Irr}(\alpha,X,\Q)$ y $g(X)=\textup{Irr}(\beta,X,\Q)$; es separable porque $\Q$ es perfecto). Aunque ya se ha razonado que $\textup{Gal}_\Q(\K)$ es cíclico, lo demostramos de otra manera: construyamos un generador de $\textup{Gal}_\Q(\K)$. Como $\textup{Gal}_\Q(\Q[\alpha]) \approx \Z_3$ y $\textup{Gal}_\Q(\Q[\alpha]) \approx \Z_{10}$, existen $\sigma_1 \in \textup{Gal}_\Q(\Q[\alpha])$, $\sigma_2 \in \textup{Gal}_\Q(\Q[\beta])$ tales que
+\[ \textup{Gal}_\Q(\Q[\alpha])=\langle \, \sigma_1 \, \rangle \qquad \textup{y} \qquad  \textup{Gal}_\Q(\Q[\beta]) = \langle \, \sigma_2 \, \rangle\]
+En primer lugar, nótese que
+\[15 = [\Q[\alpha,\beta] \colon \Q] = [\Q[\alpha,\beta]\colon \Q[\alpha]] \cdot [\Q[\alpha] \colon \Q] = [\Q[\alpha,\beta]\colon \Q[\alpha]] \cdot 3,\]
+lo que implica $ [\Q[\alpha,\beta]\colon \Q[\alpha]] = 5$ y por tanto $\textup{Irr}(\beta,X,\Q) = \textup{Irr}(\beta,X,\Q[\alpha])$.
+
+Por otro lado, tenemos que $\alpha'=\sigma_1(\alpha)$ es raíz de $\textup{Irr}^{id_\Q}(\alpha,X,\Q) = \textup{Irr}(\alpha,X,\Q)$, luego $\sigma_1 \colon \Q[\alpha] \to \Q[\alpha]$ es el único isomorfismo que extiende a $id_\Q$ y con $\sigma_1(\alpha)=\alpha'$ (nótese que $\sigma_1(\Q[\alpha]) =\Q[\alpha]$ porque la extensión es normal). Además, como $\beta' = \sigma_2(\beta)$ es raíz de $\textup{Irr}(\beta,X,\Q) = \textup{Irr}(\beta,X,\Q[\alpha]) = \textup{Irr}^{\sigma_1}(\beta,X,\Q[\alpha]) $, existe un único isomorfismo $\sigma \colon \Q[\alpha,\beta] \to \Q[\alpha,\beta]$ que extiende a $\sigma_1$ y con $\sigma(\beta) = \beta'$.
+
+\begin{center}
+\begin{tikzcd}
+    \Q \arrow{r}{id} \arrow[hook, d] & \Q \arrow[hook, d] \\
+    \Q[\alpha] \arrow{r}{\sigma_1} \arrow[hook, d] & \Q[\alpha] \arrow[hook, d] \\
+    \Q[\alpha,\beta] \arrow{r}{\sigma}& \Q[\alpha, \beta] \\[-20pt]
+    \alpha\arrow[maps to]{r} & \alpha' \\[-20pt]
+    \beta\arrow[maps to]{r} & \beta'
+\end{tikzcd}
+\end{center}
+
+Tenemos entonces que $\sigma \in \textup{Gal}_\Q(\Q[\alpha,\beta])$, y como $\sigma_1$ tiene orden $3$ y $\sigma_2$ tiene orden $5$, se deduce que $\sigma$ tiene orden $\textup{mcm}(3,5) = 15$. Pero \[\#\textup{Gal}_\Q(\Q[\alpha,\beta]) = [\Q[\alpha,\beta] \colon \Q] = 15,\] así que es un grupo cíclico.
+\end{proof}
+
+\begin{ejercicio}
+    Sea $\K = \Q(\sqrt{3},\sqrt{3}+\sqrt[3]{3},\sqrt[3]{3}+\sqrt[5]{3})$ y $\L = \K(\xi_{15})$, donde $\xi_{15}$ es una raíz primitiva quinceava de la unidad.
+    \begin{enumerate}
+        \item Calcular $[\K \colon \Q]$.
+        \item ¿Es $\Q \subset \K$ normal?
+        \item Demostrar que $\L$ es la clausura normal de $\Q \subset \K$.
+        \item Demostrar que $\sqrt{3} \not\in \Q(\xi_5)$, donde $\xi_{5}$ es una raíz primitiva quinta de la unidad. \emph{Ayuda}: obsérvese que $\sqrt{5} \in \Q(\xi_5)$.
+        \item Usar $(d)$ para comprobar que $[\L \colon \Q] = 240$.
+        \item ¿Es el polinomio ciclotómico $\Phi_{15}(X)$ irreducible sobre $\K$?
+        \item Sea $G = \textup{Gal}_\Q(\L)$. Probar que $G$ tiene subgrupos normales $H_1$ y $H_2$ de orden $60$ tales que $G \ / \ H_1$ es cíclico y $G \ / \ H_2$ es isomorfo a $C_2 \times C_2$.
+        \item Probar que $G$ tiene un subgrupo no normal de orden $48$.
+        \item ¿Es $G$ abeliano?
+        \item Calcular el subgrupo de $G$ correspondiente a la extensión intermedia $\K$ en el teorema fundamental.
+    \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item Veamos primero que $\K = \Q(\sqrt{3},\sqrt[3]{3},\sqrt[5]{3})$. La contención $\subset$ es trivial. Para la otra, como $\sqrt{3}+\sqrt[3]{3} \in \K$ y $\sqrt{3} \in \K$, entonces $\sqrt{3}+\sqrt[3]{3}-\sqrt{3} = \sqrt[3]{3} \in \K$. Usando esto y el hecho de que $\sqrt[3]{3}+\sqrt[5]{3} \in \K$ obtenemos que $\sqrt[3]{3}+\sqrt[5]{3}-\sqrt[3]{3} = \sqrt[5]{3} \in \K$. Como $\sqrt{3}$, $\sqrt[3]{3}, \sqrt[5]{3} \in \K$, entonces $\Q(\sqrt{3},\sqrt[3]{3},\sqrt[5]{3}) \subset \K$.
+    
+    Hallamos ahora el grado de la extensión. Se tiene que
+    \begin{itemize}
+        \item $[\Q(\sqrt{3}) \colon \Q] = 2$, pues $X^2-3$ es mónico e irreducible (Eisenstein con $p=3$) y anula a $\sqrt{3}$.
+        \item $[\Q(\sqrt[3]{3}) \colon \Q] = 3$, pues $X^3-3$ es mónico e irreducible (Eisenstein con $p=3$) y anula a $\sqrt[3]{3}$.
+        \item $[\Q(\sqrt[5]{3}) \colon \Q] = 5$, pues $X^5-3$ es mónico e irreducible (Eisenstein con $p=3$) y anula a $\sqrt[5]{3}$.
+    \end{itemize}
+    Por ser $2$, $3$ y $5$ coprimos, \[[\K \colon \Q] =[\Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3}) \colon \Q]= 2\cdot 3 \cdot 5 = 30\]
+    \item Se tiene que $[\Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3}) \colon \Q(\sqrt{3}, \sqrt[3]{3})] \leq 5$, pues $X^5-3 \in \Q(\sqrt{3}, \sqrt[3]{3})[X]$ anula a $\sqrt[5]{3}$. Asimismo, $[\Q(\sqrt{3}, \sqrt[3]{3}) \colon \Q(\sqrt{3})] \leq 3$, pues $X^3-3 \in \Q(\sqrt{3})[X]$ anula a $\sqrt[3]{3}$. Además, $[\Q(\sqrt{3}) \colon \Q] = 2$ como se ha visto antes. Por tanto,
+    \[30 = [\Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3}) \colon \Q] = [\Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3}) \colon \Q(\sqrt{3}, \sqrt[3]{3})][\Q(\sqrt{3}, \sqrt[3]{3}) \colon \Q(\sqrt{3})][\Q(\sqrt{3}) \colon \Q] \leq 5 \cdot 3 \cdot 2 = 30\]
+    Debe ser entonces \[[\Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3}) \colon \Q(\sqrt{3}, \sqrt[3]{3})] = 5, \qquad \qquad[\Q(\sqrt{3}, \sqrt[3]{3}) \colon \Q(\sqrt{3})] = 3\] La primera igualdad nos dice que $\textup{Irr}(\sqrt[5]{3}, X,\Q(\sqrt{3}, \sqrt[3]{3})) = X^5-3$, que tiene como raíces a $\xi_5^k\sqrt[5]{3}$, donde $k \in \{0,1,2,3,4\}$. Como al menos una de estas raíces es compleja y en $\Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3})$ no hay elementos complejos, tenemos que la extensión $\Q(\sqrt{3}, \sqrt[3]{3})\subset \Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3})$ no es normal, y, por tanto, la extensión $\Q \subset \Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3}) = \K$ tampoco lo es.
+    \item Se va a utilizar a lo largo del ejercicio que $\K(\xi_{15}) = \K(\xi_{3},\xi_5)$, igualdad que es cierta porque $\textup{mcd}(3,5)=1$.
+    
+    Sea $\L'$ la clausura normal de la extensión $\Q \subset \K$. Recuperamos del apartado anterior la igualdad $[\Q(\sqrt{3}, \sqrt[3]{3}) \colon \Q(\sqrt{3})] = 3$, que nos dice que $X^3-3 = \textup{Irr}(\sqrt[3]{3},X,\Q(\sqrt{3}))$. Las raíces de este polinomio son $\xi_3^k\sqrt[3]{3}$, $k \in \{0,1,2\}$. Como $\L'$ debe contener a los elementos $\xi_3^k\sqrt[3]{3}$, en particular, contiene a $\sqrt[3]{3}$ y a $\xi_3\sqrt[3]{3}$, luego también contiene a $\xi_3$.
+    
+    Asimismo, como las raíces del polinomio $ X^5-3 = \textup{Irr}(\sqrt[5]{3}, X,\Q(\sqrt{3}, \sqrt[3]{3}))$ son $\xi_5^k\sqrt[5]{3}$, $k \in \{0,1,2,3,4\}$, entonces en $\L'$ también deben estar $\xi_5$ y $\sqrt[5]{3}$. Evidentemente, también debe estar $\sqrt{3}$ (porque es raíz de $X^2-3 = \textup{Irr}(\sqrt{3},X,\Q)$).
+
+    Pero $\L = \Q(\sqrt{3}, \sqrt[3]{3}, \sqrt[5]{3},\xi_{3},\xi_5)$ es, por definición, el menor cuerpo que contiene a $\Q$, $\sqrt{3}$, $\sqrt[3]{3}$, $\sqrt[5]{3}$, $\xi_{3}$ y $\xi_{5}$, así que basta comprobar que la extensión $\Q \subset \L$ es normal para que se tenga $\L = \L'$. Pero esto es trivial porque $\L$ contiene a todas las raíces los polinomios $X^2-3$, $X^3-3$ y $X^5-3$, luego es el cuerpo de descomposición del producto de los tres sobre $\Q$. En consecuencia, la extensión $\Q \subset \L$ es normal y $\L = \L'$.
+    \item Lo primero que observamos es que $\sqrt{3} \not\in \Q(\sqrt{5})$. En efecto, supóngase que existen $a,b \in \Q$ tales que $\sqrt{3} = a+b\sqrt{5}$ (se está usando que $[\Q(\sqrt{5}) \colon \Q] = 2$). Se distinguen tres casos:
+    \begin{itemize}
+        \item Si $a = 0$, entonces $\sqrt{3}=b\sqrt{5}$ y $3=5b^2 = 5\frac{m^2}{n^2}$ ($m,n \in \N$, $\textup{mcd}(m,n) =1$), luego $3n^2 = 5m^2$ y esto es imposible porque $\textup{mcd}(n,m)=1$.
+        \item Si $b=0$, entonces $\sqrt{3} = a \in \Q$, que es imposible.
+        \item Si $a\neq 0$, $b \neq 0$, al elevar al cuadrado en $\sqrt{3}-b\sqrt{5}=a$ se obtiene
+        $3+5b^2-2b\sqrt{15} = a^2$, luego
+        \[\sqrt{15}=-\frac{a^2-5b^2-3}{2b} \in \Q,\]
+        que es imposible.
+    \end{itemize}
+    Al llegarse a contradicción en todos los casos, hay que admitir que $\sqrt{3} \not\in \Q(\sqrt{5})$ y, en consecuencia, $[\Q(\sqrt{3},\sqrt{5}) \colon \Q(\sqrt{5})] \geq 2$. De hecho, $[\Q(\sqrt{3},\sqrt{5}) \colon \Q(\sqrt{5})] = 2$ porque $X^2-3$ anula a $\sqrt{3}$. Por reducción al absurdo, supongamos que $\sqrt{3} \in \Q(\xi_5)$. Como también es $\sqrt{5} \in \Q(\xi_5)$, entonces $\Q(\sqrt{3},\sqrt{5}) \subset \Q(\xi_5)$. Pero $[\Q(\sqrt{3},\sqrt{5}) \subset \Q] = 4$ y $[\Q(\xi_5) \colon \Q] = \phi(5)=4$, así que $\Q(\sqrt{3},\sqrt{5}) = \Q(\xi_5)$ y esto es imposible porque en $\Q(\xi_5)$ hay números complejos y en $\Q(\sqrt{3},\sqrt{5})$ no.
+    \item Vamos a probar que $\xi_3 \not\in \Q(\xi_5,\sqrt{3})$. Para ello, se va a demostrar que las extensiones $\Q \subset \Q(\xi_5,\sqrt{3})$ y $\Q \subset \Q(\xi_5,\xi_3,\sqrt{3})$ tienen distintos grupos de Galois. En primer lugar, como $\xi_3 = -\frac{1}{2}+i\frac{\sqrt{3}}{2}$, entonces $\Q(\xi_5,\xi_3,\sqrt{3}) = \Q(\xi_5,i,\sqrt{3})$.
+    \begin{itemize}
+        \item Los elementos de $\textup{Gal}_\Q(\Q(\xi_5,\sqrt{3}))$ quedan totalmente determinados por \[\sigma_{ij}(\xi_5) =\xi_5^i, \qquad \qquad \sigma_{ij}(\sqrt{3}) =(-1)^j\sqrt{3}, \] con $i \in \{1,2,3,4\}$, $j \in \{0,1\}$. Se comprueba fácilmente que hay $3$ elementos de orden $2$.
+        \item Los elementos de $\textup{Gal}_\Q(\Q(\xi_5,i,\sqrt{3}))$ quedan totalmente determinados por \[\sigma_{ijk}(\xi_5) =\xi_5^i, \qquad \qquad \sigma_{ijk}(i)=(-1^j)i, \qquad \qquad \sigma_{ijk}(\sqrt{3}) =(-1)^k\sqrt{3},\] con $i \in \{1,2,3,4\}$, $j \in \{0,1\}$, $k \in \{0,1\}$. Se comprueba fácilmente que hay más de $3$ elementos de orden $2$.
+    \end{itemize}
+    Con todo esto puede afirmarse que $\xi_3 \not\in \Q(\xi_5,\sqrt{3})$, así que \[[\Q(\xi_5,\xi_3,\sqrt{3})\colon \Q] = [\Q(\xi_5,\xi_3,\sqrt{3}) \colon \Q(\xi_5,\sqrt{3})] [\Q(\xi_5,\sqrt{3}) \colon \Q] = 2\cdot 8 = 16,\]
+    y como $[\Q(\sqrt[3]{3}) \colon \Q]=3$, $[\Q(\sqrt[5]{3}) \colon \Q]=5$ y $3$, $5$ y $16$ son primos relativos, entonces
+    \[[\L \colon \Q] = [\Q(\sqrt{3},\sqrt[3]{3},\sqrt[5]{3},\xi_3,\xi_5) \colon \Q] = 3 \cdot 5\cdot 16 = 240\]
+    \comment{Se tiene que $\xi_3 \not\in \K$ (pues este cuerpo está contenido en $\R$) y $[\Q(\sqrt{3},\sqrt[3]{3},\sqrt[5]{3},\xi_3) \colon \K] \leq 2$ (pues el polinomio $X^2+X+1$ anula a $\xi_3$). Por tanto, $[\Q(\sqrt{3},\sqrt[3]{3},\sqrt[5]{3},\xi_3) \colon \K] = 2$. Pero es que además
+    \begin{itemize}
+        \item $\sqrt{3} \not\in \Q(\xi_3,\xi_5)$. En efecto, $\sqrt{3} \not\in \Q(\xi_5)$ por el apartado anterior y $\sqrt{3} \not\in \Q(\xi_3)$ porque, de lo contrario, se tendría $\Q(\xi_3) = \Q(\sqrt{3})$ (ya que $[\Q(\xi_3) \colon \Q] = 2 = [\Q(\sqrt{3}) \colon \Q]$), y esto es imposible porque en un cuerpo hay complejos y en otro no.
+        \item $\sqrt[3]{3} \not\in \Q(\xi_3,\xi_5)$ porque $[\Q(\sqrt[3]{3}) \colon \Q] = 3$, $[\Q(\xi_3,\xi_5) \colon \Q] = 8$ y $3$ no divide a $8$.
+        \item $\sqrt[5]{3} \not\in \Q(\xi_5)$ porque $[\Q(\sqrt[5]{3}) \colon \Q] = 5$, $[\Q(\xi_3,\xi_5) \colon \Q] = 8$ y $5$ no divide a $8$.
+        \item $\xi_3 \not \in \Q(\xi_5)$ porque entonces $\xi_{15}=\xi_3\xi_5 \in \Q(\xi_5)$ y esto es imposible porque $[\Q(\xi_{15}) \colon \Q] = \phi(15)=8$ y $ [\Q(\xi_5) \colon \Q]=4$.
+    \end{itemize}
+    En consecuencia, $[\Q(\sqrt{3},\sqrt[3]{3},\sqrt[5]{3},\xi_3,\xi_5) \colon \Q(\sqrt{3},\sqrt[3]{3},\sqrt[5]{3},\xi_3)] \geq 2$.}
+    \item Sí, porque \[[\L \colon \K]=[\K(\xi_{15}) \colon \K] = \frac{[\L \colon \Q]}{[\K \colon \Q]} = \frac{240}{30} = 8 = \phi(15)\] y $\Phi_{15}(X)$ es un polinomio de grado $\phi(15)$ que anula a $\xi_{15}$, luego es su polinomio mínimo sobre $\K$ y, en consecuencia, es irreducible.
+    \item Consideremos la torre de extensiones
+    \[\Q \subset \Q(\xi_5) \subset \L\]
+    Como $[\Q(\xi_5) \colon \Q] = 4$ y $[\L \colon \Q(\xi_5)] = \frac{[\L \colon \Q]}{[\Q(\xi_5) \colon \Q]} = 60$, por el teorema fundamental, $ H_1=\textup{Gal}_{\Q(\xi_5)}(\L)$ es un subgrupo de $\textup{Gal}_\Q(\L)$ de orden 60. De hecho, como la extensión $\Q \subset \Q(\xi_5)$ es normal (pues $\Q(\xi_5)$ es el cuerpo de descomposición sobre $\Q$ de $X^5-1$), entonces el subgrupo es normal y, además,
+    \[\textup{Gal}_\Q(\Q(\xi_5)) = \faktor{\textup{Gal}_\Q(\L)}{\textup{Gal}_{\Q(\xi_5)}(\L)} = \faktor{G}{H_1} \]
+    Pero $\textup{Gal}_\Q(\Q(\xi_5)) \cong \Z_5^* \cong \Z_4$, que es cíclico, así que $G \ / \ H_1$ también lo es.
+
+    Por otra parte, consideremos la torre de extensiones
+    \[\Q \subset \Q(\xi_3,\sqrt{3}) \subset \L\]
+    Como $[\Q(\xi_3,\sqrt{3}) \colon \Q] = 4$ y $[\L \colon \Q(\xi_3,\sqrt{3})] = \frac{[\L \colon \Q]}{[\Q(\xi_3,\sqrt{3}) \colon \Q]} = 60$, aplicando el teorema fundamental, $ H_2=\textup{Gal}_{\Q(\xi_3,\sqrt{3})}(\L)$ es un subgrupo de $\textup{Gal}_\Q(\L)$ de orden 60. Es más, como la extensión $\Q \subset \Q(\xi_3,\sqrt{3})$ es normal (pues $\Q(\xi_3,\sqrt{3})$ es el cuerpo de descomposición sobre $\Q$ de $(X^3-1)(X^2-3)$), entonces el subgrupo es normal y, además,
+    \[\textup{Gal}_\Q(\Q(\xi_3,\sqrt{3})) = \faktor{\textup{Gal}_\Q(\L)}{\textup{Gal}_{\Q(\xi_3,\sqrt{3})}(\L)} = \faktor{G}{H_2} \]
+    Veamos que $\textup{Gal}_\Q(\Q(\xi_3,\sqrt{3})) \cong \Z_2 \times \Z_2$. Sus elementos vienen dados por 
+    \[\sigma_{ij}(\xi_3) = \xi_3^i, \qquad \qquad \sigma_{ij}(\sqrt{3}) = (-1)^j\sqrt{3},\]
+    con $i \in \{1,2\}$ y $j \in \{1,2\}$. Calculando el orden de los elementos, se obtiene
+    \[\circ \sigma_{11} = 2, \qquad \qquad \circ \sigma_{12} = 1, \qquad \qquad\circ \sigma_{21} = 2, \qquad \qquad\circ \sigma_{22} = 2,\]
+    Los únicos grupos de orden $4$ son $\Z_4$ y $\Z_2 \times \Z_2$, y como no hay elementos de orden $4$, debe ser $\textup{Gal}_\Q(\Q(\xi_3,\sqrt{3})) \cong \Z_2 \times \Z_2$.
+    \item Consideremos la torre de extensiones
+    \[\Q \subset \Q(\sqrt[5]{3}) \subset \L\]
+    Como $[\Q(\sqrt[5]{3}) \colon \Q] = 5$ y $[\L \colon \Q(\sqrt[5]{3})] = \frac{[\L \colon \Q]}{[\Q(\sqrt[5]{3}) \colon \Q]} = 48$, por el teorema fundamental, $ H=\textup{Gal}_{\Q(\sqrt[5]{3}))}(\L)$ es un subgrupo de $\textup{Gal}_\Q(\L)$ de orden 48. Es más, como la extensión $\Q \subset \Q(\sqrt[5]{3})$ no es normal (pues $\textup{Irr}(\sqrt[5]{3}) = X^5-3$ tiene como raíces a $\xi_5^k\sqrt[5]{3}$, $k \in \{0,1,2,3,4\}$, y en $\Q(\sqrt[5]{3})$ no hay números complejos), entonces $H$ no es un subgrupo normal de $G$.
+    \item $G$ no es abeliano, pues si lo fuese, todos sus subgrupos serían normales, y esto no se tiene por el apartado anterior.
+    \item El subgrupo de $G$ correspondiente a la extensión $\F \subset \K$ es $\textup{Gal}_\K(\L)$, que es un subgrupo de $G$ de orden $[\L \colon \K] = \frac{[\L \colon \Q]}{[\K \colon \Q]} = 8$. Como $\L = \K(\xi_{15})$, un automorfismo $\sigma \in \textup{Gal}_\K(\L)$ queda totalmente determinado por la imagen de $\xi_{15}$, $\sigma(\xi_{15})$, que debe ser una raíz de $\textup{Irr}(\xi_{15},X,\K) = \Phi_{15}(X)$ (esta igualdad se razonó en el apartado $(f)$). Las raíces de $\Phi_{15}(X)$ son las raíces primitivas quinceavas, es decir, los elementos de la forma $\xi_{15}^k$, donde $k \in \N$ es tal que $\textup{mcd}(15,k) = 1$. Así, $\sigma(\xi_{15}) = \xi_{15}^k$ y observamos que el orden de $\sigma$ coincide con el orden de $k$ en $\Z_{15}^* = \{1,2,4,7,8,11,13,14\}$. La conclusión es que $\textup{Gal}_\K(\L)  =\Z_{15}^*$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+    Sean $\alpha,\beta \in \C$ tales que $[\Q(\alpha) \colon \Q] = 2 = [\Q(\beta) \colon \Q]$ y $\Q(\alpha) \neq \Q(\beta)$.
+    \begin{enumerate}
+        \item Calcular $[\Q(\alpha,\beta) \colon \Q]$.
+        \item Determinar $\textup{Gal}_\Q(\Q(\alpha,\beta))$.
+        \item Encontrar $\alpha'\in \Q(\alpha,\beta)$ tal que $\Q(\alpha')=\Q(\alpha)$ y $\alpha'^2 \in \Q$.
+        \item Probar que la aplicación $f \colon \Q(\alpha) \to \Q(\alpha)$ dada por $f(a+b\alpha') = a-b\alpha'$ es un isomorfismo de anillos.
+        \item Encontrar $\gamma \in \Q(\alpha,\beta)$ tal que $\Q(\gamma)$ es el tercer cuerpo intermedio de la extensión $\Q(\alpha,\beta)$.
+        \item Demostrar que $\Q(\alpha+c\beta) = \Q(\alpha,\beta)$ para cualquier $c \in \Q$ no nulo.
+    \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+    \hfill
+    \begin{enumerate}
+        \item Sean $f(X)=\textup{Irr}(\alpha,X,\Q)$ y $g(X)=\textup{Irr}(\beta,X,\Q)$. Tenemos que $\textup{deg}(f(X)) = \textup{deg}(g(X)) = 2$. Por tanto, $[\Q(\alpha,\beta) \colon \Q(\alpha)] \leq 2$ ($g(X) \in \Q(\alpha)[X]$ anula a $\beta$ y es de grado $2$). El grado de la extensión no puede ser $1$ porque $\Q(\alpha) \neq \Q(\beta)$, luego $[\Q(\alpha,\beta) \colon \Q(\alpha)] = 2$ y entonces
+        \[[\Q(\alpha,\beta) \colon \Q] = [\Q(\alpha,\beta) \colon \Q(\alpha)] [\Q(\alpha) \colon \Q] = 4\]
+        \item Las raíces de $f(X)$ son $\alpha,\overline{\alpha} \in \Q(\alpha)$, mientras que las raíces de $g(X)$ son $\beta,\overline{\beta} \in \Q(\beta)$. Además, por ser $[\Q(\alpha,\beta) \colon \Q(\alpha)] = 2$, tenemos $g(X)=\textup{Irr}(\beta,X,\Q(\alpha))$. Con todo esto, podemos construir los elementos de $\textup{Gal}_\Q(\Q(\alpha,\beta))$. Sean $\alpha_1=\alpha$, $\alpha_2=\overline{\alpha}$, $\beta_1=\beta$, $\beta_2=\overline{\beta}$.
+        \begin{center}
+            \begin{tikzcd}
+                \Q \arrow{r}{id} \arrow[hook, d] & \Q \arrow[hook, d] \\
+                \Q(\alpha) \arrow{r}{\sigma_i}  & \Q(\alpha)  \\[-20pt]
+                \alpha\arrow[maps to]{r} \arrow[hook, d]& \alpha_i \arrow[hook, d]\\
+                \Q(\alpha,\beta) \arrow{r}{\sigma_{ij}}& \Q(\alpha, \beta) \\[-20pt]
+                \alpha\arrow[maps to]{r} & \alpha_i \\[-20pt]
+                \beta\arrow[maps to]{r} & \beta_j
+            \end{tikzcd}
+            \end{center}
+    Nótese que
+    \[\circ \sigma_{11} = 1, \qquad \qquad \circ \sigma_{12} = 2, \qquad \qquad \circ \sigma_{21} = 2, \qquad \qquad \circ \sigma_{22} = 2, \]
+    luego $\textup{Gal}_\Q(\Q(\alpha,\beta)) \cong \Z_2 \times \Z_2$.
+    \item Si $f(X)=X^2+bX+a$, entonces
+    \[\alpha \in \left\{\frac{-b+\sqrt{b^2-4a}}{2}, \frac{-b-\sqrt{b^2-4a}}{2}\right\}\]
+    Es claro que $\Q(\alpha) = \Q(\sqrt{b^2-4a})$, luego basta tomar $\alpha'=\sqrt{b^2-4a}$.
+    \item Sea $f \colon \Q(\alpha) \to \Q(\alpha)$ la aplicación dada por $f(c+d\alpha') = c-d\alpha'$. Nótese que $f$ está bien definida porque $\Q(\alpha) = \Q(\alpha')$ y $\{1,\alpha'\}$ es una base de $\Q(\alpha')$ como $\Q$-espacio vectorial. Supongamos que
+    \[\alpha = \frac{-b+\sqrt{b^2-4a}}{2} = -\frac{b}{2}+\frac{1}{2}\alpha'\]
+    Entonces
+    \[f(\alpha) = \frac{b}{2}-\frac{1}{2}\alpha' = \frac{-b-\sqrt{b^2-4ac}}{2} = \overline{\alpha}\]
+    En consecuencia, $f \colon \Q(\alpha) \to \Q(\alpha)$ es una aplicación que extiende a la identidad en $\Q$ y que verifica $f(\alpha) = \overline{\alpha}$. Como $\alpha$ y $\overline{\alpha}$ son raíces de $f(X) = \textup{Irr}(\alpha,X,\Q)$, existe un único isomorfismo de $\Q(\alpha)$ en $\Q(\overline{\alpha}) = \Q(\alpha)$ que extiende a la identidad en $\Q$ y que envía $\alpha$ en $\overline{\alpha}$. Pero $f$ es precisamente esta aplicación, así que, en particular, es un isomorfismo.
+    \item Como $\textup{Gal}_\Q(\Q(\alpha,\beta)) \cong \Z_2 \times \Z_2$, hay tantas extensiones intermedias en la extensión $\Q \subset \Q(\alpha,\beta)$ como subgrupos en $\Z_2 \times \Z_2$. Los subgrupos propios de $\Z_2 \times \Z_2$ son $\Z_2 \times \{0\}$, $\{0\} \times \Z_2$, $\langle(1,1)\rangle$. Hay que identificar los elementos de $\textup{Gal}_\Q(\Q(\alpha,\beta))$ con los de $\Z_2 \times \Z_2$: se observa que $\Z_2 \times \{0\} \cong \langle \sigma_{21}\rangle$ y $\{0\} \times \Z_2 \cong \langle \sigma_{12}\rangle$, luego los subgrupos propios de $\textup{Gal}_\Q(\Q(\alpha,\beta))$ serían $\langle \sigma_{21}\rangle$, $\langle \sigma_{12}\rangle$ y $\langle \sigma_{22} \rangle$. Los cuerpos intermedios que corresponden a estos subgrupos son $\textup{Inv}(\langle \sigma_{12} \rangle)$, $\textup{Inv}(\langle \sigma_{21} \rangle)$ y $\textup{Inv}(\langle \sigma_{22} \rangle)$. Dos de estos cuerpos son $\Q(\alpha)$ y $\Q(\beta)$, y el tercero es el que buscamos. Se comprueba fácilmente que $\Q(\alpha) = \textup{Inv}(\langle \sigma_{12}\rangle)$ y que $\Q(\beta) = \textup{Inv}(\langle \sigma_{21}\rangle)$. Hallemos $\textup{Inv}(\langle \sigma_{22} \rangle)$. Sea $a_{1}+a_{2}\alpha +a_{3}\beta+a_4\alpha\beta\in \Q(\alpha,\beta)$. Se tiene que
+    \[\scriptstyle
+        \sigma_{22}(a_{1}+a_{2}\alpha +a_{3}\beta+a_4\alpha\beta) = a_{1}+a_{2}\alpha +a_{3}{\beta}+a_4\alpha{\beta} \iff a_{1}+a_{2}\overline{\alpha} +a_{3}\overline{\beta}+a_4\overline{\alpha}\overline{\beta} = a_{1}+a_{2}\alpha +a_{3}{\beta}+a_4\alpha{\beta} \tag{$\ast$}\]
+    En un apartado anterior se probó que $\alpha' = \alpha-\overline{\alpha}$ es tal que $\Q(\alpha)=\Q(\alpha')$ y $\alpha'^2 \in \Q$. Análogamente se demuestra que $\beta' = \beta-\overline{\beta}$ es tal que $\Q(\beta)=\Q(\beta')$ y $\beta'^2 \in \Q$. Seguimos con la cadena de equivalencias anterior:
+    \begin{align*} 
+        (*) &\iff a_{1}+a_{2}(\alpha-\alpha') +a_{3}(\beta-\beta')+a_4(\alpha-\alpha')(\beta-\beta') = a_{1}+a_{2}\alpha +a_{3}{\beta}+a_4\alpha{\beta}
+        \\ &\iff a_1+a_2\alpha-a_2\alpha'+a_3\beta-a_3\beta'+a_4\alpha\beta -a_4\alpha\beta'-a_4\alpha'\beta+a_4\alpha'\beta' = a_{1}+a_{2}\alpha +a_{3}{\beta}+a_4\alpha{\beta}
+        \\ &\iff -a_4(\alpha'\beta+\alpha\beta') -a_2\alpha'-a_3\beta'+a_4\alpha'\beta' =0 \tag{$\ast\ast$}
+    \end{align*}
+    Nótese que $\Q(\alpha',\beta') = \Q(\alpha,\beta)$ y una base suya como $\Q$-espacio vectorial es $\{1,\alpha',\beta',\alpha'\beta'\}$. Sería bastante conveniente escribir $\alpha'\beta - \alpha\beta'$ en términos de $\alpha'$, $\beta'$ y $\alpha'\beta'$ para tener una combinación lineal nula de los elementos de la base. Pero $\alpha$, $\alpha'$, $\beta$, $\beta'$ son de la forma
+    \[\alpha = -\frac{b}{2}+\frac{1}{2}\sqrt{b^2-4a}, \quad \alpha' = \sqrt{b^2-4a}, \quad  \beta = -\frac{c}{2}+\frac{1}{2}\sqrt{c^2-4d}, \quad \beta' = \sqrt{c^2-4d},\]
+    con $a,b,c,d \in \Q$. Por tanto,
+    \[\begin{aligned}[t]\alpha'\beta + \alpha\beta' &= -\frac{c}{2}\sqrt{b^2-4a}+\frac{1}{2}\sqrt{b^2-4a}\sqrt{c^2-4d}-\frac{b}{2}\sqrt{c^2-4d}+\frac{1}{2}\sqrt{b^2-4a}\sqrt{c^2-4d} \\
+    &= -\frac{c}{2}\sqrt{b^2-4a}-\frac{b}{2}\sqrt{c^2-4d}+\sqrt{b^2-4a}\sqrt{c^2-4d} \\
+    &= -\frac{c}{2}\alpha'- \frac{b}{2}\beta'+\alpha'\beta'
+    \end{aligned}\]
+    En consecuencia,
+    \[\begin{aligned}[t]
+        (\ast\ast) &\iff a_4\frac{c}{2}\alpha'+a_4\frac{b}{2} \beta'-a_2\alpha'-a_3\beta' =0 \iff \left(a_4\frac{c}{2}-a_2\right)\alpha'+\left(a_4\frac{b}{2}-a_3\right)\beta'=0
+        \\ &\iff a_2 = a_4\frac{c}{2}, \ a_3 = a_4\frac{b}{2}
+    \end{aligned}
+    \]
+    Así,
+    \[\begin{aligned}[t]
+        \textup{Inv}(\langle\sigma_{22} \rangle) = \left\{a_1+a_4\frac{c}{2}\alpha+a_4\frac{b}{2}\beta+a_4\alpha\beta \colon a_1,a_4 \in \Q\right\} = \left\{a_1+a_4\left(\frac{c}{2}\alpha+\frac{b}{2}\beta+\alpha\beta\right) \colon a_1,a_4 \in \Q\right\}
+    \end{aligned}\]
+    Se tiene que
+    \[\frac{c}{2}\alpha+\frac{b}{2}\beta+\alpha\beta = -\frac{bc}{4}+\cancel{\frac{c}{4}\alpha'}-\cancel{\frac{bc}{4}}+\cancel{\frac{b}{4}\beta'}+\cancel{\frac{bc}{4}}-\cancel{\frac{b}{4}\beta'}-\cancel{\frac{c}{4}\alpha'}+\frac{1}{4}\alpha'\beta' =-\frac{bc}{4}+\frac{1}{4}\alpha'\beta'\]
+    Por tanto,
+    \[\textup{Inv}(\langle\sigma_{22} \rangle) = \Q(-bc+\alpha'\beta') = \Q(\alpha'\beta')\]
+    \item Sea $q \in \C$ con $q \neq 0$ y veamos que $\Q(\alpha+q\beta) = \Q(\alpha,\beta)$.
+    \begin{itemize}
+        \item Veamos que $\Q(\alpha+q\beta) \neq \Q$. Si existiese $q' \in \Q$ con $\alpha+q\beta = q'$, entonces $\alpha = q'-q\beta \in \Q(\beta)$, que es imposible porque $\Q(\alpha) \neq \Q(\beta)$.
+        \item Veamos que $\Q(\alpha+q\beta) \neq \Q(\alpha)$. Si fuese $\Q(\alpha+q\beta) = \Q(\alpha)$, entonces $\alpha+q\beta \in \Q(\alpha)$ y $\alpha \in \Q(\alpha)$, luego $\alpha+q\beta-\alpha = q\beta \in \Q(\alpha)$, y como $q \neq 0$, sería $\beta \in \Q(\alpha)$, que es imposible porque $\Q(\alpha) \neq \Q(\beta)$.
+        \item Veamos que $\Q(\alpha+q\beta) \neq \Q(\beta)$. Si fuese $\Q(\alpha+q\beta) = \Q(\beta)$, entonces $\alpha+q\beta \in \Q(\beta)$ y $q\beta \in \Q(\beta)$, luego $\alpha+q\beta-q\beta =\alpha \in \Q(\beta)$, que también es imposible porque $\Q(\alpha) \neq \Q(\beta)$.
+        \item Veamos que $\Q(\alpha+q\beta) \neq \Q(\alpha'\beta')$. Se tiene que
+        \[a+q\beta = -\frac{b}{2}+\frac{1}{2}\alpha'+q\left(-\frac{c}{2}+\frac{1}{2}\beta'\right) = -\frac{b}{2}-\frac{cq}{2}+\frac{1}{2}\alpha'+\frac{q}{2}\beta' = q'+\frac{1}{2}\alpha'+\frac{q}{2}\beta',\]
+        donde $q' \in \Q$. Por tanto, \[\Q(\alpha+q\beta) = \Q(q'+\frac{1}{2}\alpha'+\frac{q}{2}\beta') = \Q(\alpha'+q\beta')\] Por reducción al absurdo, supongamos que $\Q(\alpha'+q\beta') = \Q(\alpha'\beta')$. Entonces \[(\alpha'+q\beta')\alpha'\beta' = \alpha'^2\beta'+q\alpha'\beta'^2 \in \Q(\alpha'\beta')\] Pero $\alpha'^2 \in \Q$, así que podemos dividir por $\alpha'^2$ (que es no nulo porque si fuese $\sqrt{b^2-4a} = 0$ entonces $\alpha \in \Q$, que es falso). Así, $\beta'+q\alpha'\frac{\beta'^2}{\alpha'^2} \in \Q(\alpha'\beta')$. Pero también es $\beta'^2 \in \Q$, luego $q'=(q\frac{\alpha'^2}{\beta'^2})^{-1} \in \Q$ y por tanto $q'\beta'+\alpha' \in \Q(\alpha'\beta')$. Tenemos entonces $\alpha'+q\beta' \in \Q(\alpha'\beta')$ y $\alpha'+q'\beta' \in \Q(\alpha'\beta')$, así que al restarlos y dividir por $q-q'$ (que es no nulo, probablemente) se obtiene $\beta' \in \Q(\alpha'\beta')$, luego $\Q(\beta) = \Q(\beta') = \Q(\alpha'\beta)$ y esto es imposible por el apartado anterior.
+    \end{itemize}
+    Como no hay más cuerpos intermedios en la extensión $\Q \subset \Q(\alpha,\beta)$, no queda más remedio que admitir que $\Q(\alpha+q\beta) = \Q(\alpha,\beta)$. \qedhere
+    \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+Encontrar todos los subgrupos de $\textup{Gal}_\F(\K)$, siendo $\K$ el cuerpo de descomposición de $f(X)$ sobre $\F$, donde
+\begin{enumerate}
+    \item $\F= \Q(i)$, $f(X)=X^6-1$;
+    \item $\F=\Q$, $f(X)=X^{10}-1$.
+\end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+    \hfill
+    \begin{enumerate}
+        \item Si $\xi$ es una raíz primitiva sexta de la unidad, el cuerpo de descomposición de $\F$ sobre $f(X)$ es $\K = \F(\xi) = \Q(i,\xi)$. Veamos que $i \not\in \Q(\xi)$, lo que nos ayudará a calcular el grado de la extensión. Como $\xi = \cos(60^\circ)+i\sen(60^\circ) = \frac{1}{2}+i\frac{\sqrt{3}}{2}$, entonces $i\frac{\sqrt{3}}{2} \in \Q(\xi)$, y si fuese $i \in \Q(\xi)$, tendríamos $\sqrt{3} \in \Q(\xi)$, y como $[\Q(\xi) \colon \Q] =\phi(6)=2 = [\Q(\sqrt{3}) \colon \Q]$, luego $\Q(\sqrt{3}) = \Q(\xi)$ y esto es imposible porque $\Q(\sqrt{3}) \subset \R$ y hemos supuesto que $i \in \Q(\xi)$. Por tanto, $[\Q(i,\xi) \colon \Q(\xi)] = 2$ (es menor o igual que 2 porque $X^2+1$ anula a $i$; no puede ser $1$ por lo que se acaba de probar). En consecuencia,
+        \[[\Q(i,\xi) \colon \Q] = [\Q(i,\xi) \colon \Q(\xi)] [\Q(\xi) \colon \Q] = 4\]
+        Si $\sigma \in \textup{Gal}_{\Q(i)}(\Q(i,\xi))$, entonces $\sigma(\xi)$ es una raíz de $\textup{Irr}(\xi,X,\Q(i)) = \textup{Irr}(\xi,X,\Q) = \Phi_6(X)$ (igualdad que se tiene porque $[\Q(i,\xi) \colon \Q(i)] = 2$), es decir, solo hay dos posibilidades, $\sigma(\xi) = \xi$ y $\sigma(\xi) = \xi^5$. Se tiene que $\textup{Gal}_\F(\K) \cong \Z_2$ y el único subgrupo propio es $\langle \sigma \rangle$, donde $\sigma \in \textup{Gal}_\F(\K)$ es tal que $\sigma(\xi) = \xi^5$.
+
+        Como $\textup{Gal}_{\Q(i)}(K)$ es un grupo abeliano, todos los subgrupos son normales, luego todos los cuerpos intermedios $\Q(i) \subset \E \subset \K$ son tales que $\Q(i) \subset \E$ es normal. Pero $\Q \subset \Q(i)$ también es normal (es de grado $2$), así que $\Q \subset \E$ es normal.
+        \item Se verifica que $\K = \Q(\xi)$, donde $\xi$ es una raíz primitiva décima de la unidad. Además, se tiene $\textup{Gal}_\F(\K) \cong \Z_{10}^* = \{1,3,7,9\}$, que es isomorfo a $\Z_4$ porque $3$ tiene orden $4$. Por tanto, como $\textup{Gal}_\F(\K)$ es cíclico, existe un único subgrupo de orden $d$ para cada divisor $d$ de $4$, es decir, solo hay un subgrupo no trivial y este es de orden $2$. Basta tomar el subgrupo generado por cualquier elemento de $\textup{Gal}_\F(\K)$ de orden $2$, que puede hallarse fácilmente.
+        
+        Por ser $\textup{Gal}_\F(\K)$ un grupo abeliano, todos los cuerpos intermedios $\Q \subset \E \subset \K$ verifican que $\Q \subset \E$ es normal. \qedhere
+    \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+    Sean $\alpha$ la raíz real de $X^3-2$ en $\C$, $\xi_6$ una raíz primitiva sexta de la unidad, $\F = \Q(\alpha)$ y $\K = \Q(\alpha, \xi_6)$.
+    \begin{enumerate}
+        \item Comprobar que $\K$ es la clausura normal de $\Q \subset \F$.
+        \item ¿Existe un elemento primitivo de $\Q \subset \K$?
+        \item ¿Se puede dar un polinomio $f(X) \in \Q[X]$ tal que $\F$ sea el cuerpo de descomposición de $f(X)$ sobre $\Q$? ¿Y para $\Q \subset \K$?
+        \item Calcular $\textup{Gal}_\Q(\F)$.
+        \item Calcular $[\K \colon \Q]$ y $|G|$, donde $G=\textup{Gal}_\Q(\K)$.
+        \item Determinar el orden del subgrupo $H$ de $G$ correspondiente a $\F$ en el teorema fundamental.
+        \item Demostrar que $G$ tiene un subgrupo normal $S$ tal que $G \ / \ S$ es isomorfo a $\Z_6^*$.
+        \item ¿Se pueden encontrar dos subgrupos de $G$ de orden $2$?
+    \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item Las raíces de $X^3-2$ son $\xi_3^k\sqrt[3]{2}$, donde $k \in \{0,1,2\}$ y $\xi_3$ es una raíz primitiva tercera de la unidad. Se tiene entonces $\alpha = \sqrt[3]{2}$. Además,
+    \[\xi_3 = \cos(120^\circ) +i\sen(120^\circ) = -\frac{1}{2}+i\frac{\sqrt{3}}{2}, \qquad \quad \xi_6 = \cos(60^\circ)+i\sen(60^\circ) = \frac{1}{2}+ i\frac{\sqrt{3}}{2}\]
+    En consecuencia, $\K = \Q(\alpha,\xi_6) = \Q(\alpha,\xi_3)$. Observamos además que la clausura normal de $\Q \subset \Q(\alpha)$ contiene a $\alpha$, luego debe contener a todas las raíces de $X^3-2$. En particular, también contiene a $\xi_3\alpha$, y dividiendo por $\alpha$ obtenemos que debe contener a $\xi_3$. Pero, por definición, $\K = \Q(\alpha,\xi_3)$ es el menor cuerpo que contiene a $\Q$, $\alpha$ y $\xi_3$, y además la extensión $\Q \subset \K$ es normal (pues $\K$ es el cuerpo de descomposición de $X^3-2$ sobre $\Q$). Concluimos que $\K$ es la clausura normal de $\Q \subset \Q(\alpha)$.
+    \item Como $\Q$ es perfecto, entonces la extensión $\Q \subset \K$ es separable, y como es finita, el teorema del elemento primitivo asegura la existencia de un elemento primitivo de dicha extensión.
+    \item Para la extensión $\Q \subset \Q(\alpha)$ no existe ningún polinomio $f(X) \in \Q[X]$ tal que $\Q(\alpha)$ sea el cuerpo de descomposición de $f(X)$ sobre $\Q$. En efecto, si existiese un polinomio en estas condiciones, entonces la extensión $\Q \subset \Q(\alpha)$ sería normal, pero esto es falso porque $\alpha$ es raíz de $X^3-2 \in \Q(\alpha)$ y las otras dos raíces de $\alpha$ no están en $\Q(\alpha)$, pues son complejas y $\Q(\alpha) \subset \R$.
+    
+    En cuanto a la extensión $\Q \subset \K$, tenemos que $\K=\Q(\alpha,\xi_3)$ es el cuerpo de descomposición de $X^3-2 \in \Q[X]$ sobre $\Q$.
+    \item Cualquier automorfismo $\sigma \colon \Q(\alpha) \to \Q(\alpha)$ que extienda a $id \colon \Q \to \Q$ debe enviar $\alpha$ en una raíz de $\textup{Irr}^{id}(\alpha,X,\Q) = X^3-2$. Las raíces de este polinomio son $\alpha$, $\xi_3\alpha$ y $\xi_3^2\alpha$. Pero $\xi_3\alpha$ y $\xi_3^2\alpha$ no están en $\Q(\alpha)$ (son números complejos), así que la única posibilidad es que $\sigma(\alpha) = \alpha$ y, en consecuencia, $\sigma$ es la identidad. En resumen: $\textup{Gal}_\Q(\F) = \{id\}$.
+    \item Tenemos que $[\Q(\alpha,\xi_3) \colon \Q(\alpha)] \leq 2$, ya que $X^2+X+1$ anula a $\xi_3$. Pero no puede ser $1$ porque $\xi_3 \not\in \Q(\alpha)$, luego $[\Q(\alpha,\xi_3) \colon \Q(\alpha)] = 2$ y, en consecuencia,
+    \[[\K \colon \Q] = [\Q(\alpha) \colon \Q][\Q(\alpha,\xi_3) \colon \Q(\alpha)] = 6\] La extensión $\Q \subset \K$ es normal y separable, luego es de Galois y, en consecuencia, $|G| = [\K \colon \Q] = 6$.
+    \item El subgrupo pedido es $H = \textup{Gal}_\F(\K) = \textup{Gal}_{\Q(\alpha)}(\Q(\alpha,\xi_3))$. Un automorfismo $\sigma \colon \Q(\alpha,\xi_3) \to \Q(\alpha,\xi_3)$ que extiende a $id \colon \Q(\alpha) \to \Q(\alpha)$ queda totalmente determinado por la imagen de $\xi_3$, que es enviado a una raíz de $\textup{Irr}(\xi_3,X,\Q(\alpha)) = \textup{Irr}(\xi_3,X,\Q) = X^2+X+1$, donde en la primera igualdad se ha usado que $[\Q(\alpha,\xi_3) \colon \Q(\alpha)] = 2$. Las raíces de este polinomio son $\xi_3$ y $\xi_3^2$, así que hay dos posibles automorfismos: la identidad y el determinado por $\sigma(\xi_3) = \xi_3^2$. Tenemos entonces
+    \[H = \{id, \sigma\} \cong \Z_2\]
+    \item Consideremos la torre de extensiones
+    \[\Q \subset \Q(\xi_3) \subset \Q(\alpha,\xi_3)\]
+    Sea $S = \textup{Gal}_{\Q(\xi_3)}(\Q(\alpha,\xi_3))$. Como la extensión $\Q \subset \Q(\xi_3)$ es normal (pues $\Q(\xi_3)$ es el cuerpo de descomposición de $X^3-1$ sobre $\Q$), por el teorema fundamental, $S$ es un subgrupo normal de $G$ y además
+    \[\textup{Gal}_\Q(\Q(\xi_3)) \cong \faktor{G}{S}\]
+    Pero $\textup{Gal}_\Q(\Q(\xi_3)) \cong \Z_3^*\cong \Z_6^*$, donde el último isomorfismo se tiene porque $\Z_3^*$ y $\Z_6^*$ son grupos de $\phi(3)=\phi(6)=2$ elementos.
+    \item Se prueba fácilmente que los elementos de $G$ vienen dados por
+    \[\sigma_{ij}(\alpha) = \xi_3^i \alpha, \qquad \qquad \sigma_{ij}(\xi_3) = \xi_3^j,\]
+    con $i \in \{0,1,2\}$, $j \in \{1,2\}$. También se comprueba fácilmente que
+    \[\circ \sigma_{01} = 1, \qquad \qquad \circ \sigma_{02} = 2, \qquad \qquad \circ \sigma_{11} = 3, \qquad \qquad \circ \sigma_{12} = 2, \qquad \qquad \circ \sigma_{21} = 3, \qquad \qquad \circ \sigma_{22} = 2\]
+    Se tiene entonces que $G \cong S_3$ (los grupos de orden $6$ son $S_3$ y $\Z_6$, y no hay elementos de orden $6$), y en $S_3$ hay tres subgrupos distintos de orden $2$, así que la respuesta a la pregunta del enunciado es afirmativa. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+    Sea $\F \subset \K$ una extensión finita, de Galois y de grado $n$ con grupo de Galois \[G=\{\sigma_1,\sigma_2,\mathellipsis,\sigma_n\}\] Demostrar que $\gamma \in \K$ es un elemento primitivo de $\F \subset \K$ si y solo si
+    \[\sigma_1(\gamma), \sigma_2(\gamma),\mathellipsis,\sigma_n(\gamma)\]
+    son todos diferentes.
+\end{ejercicio}
+
+\begin{proof}
+Supongamos que $\K = \F(\gamma)$. Cada automorfismo $\sigma \in G$ queda totalmente determinado por la imagen de $\gamma$, que debe ser enviado a una raíz de $f(X)=\textup{Irr}(\gamma,X,\F)$ que esté en $\F(\gamma)$. Pero $\F \subset \F(\gamma)$ es normal, así que todas las raíces de $f(X)$ están en $\F(\gamma)$, y $f(X)$ es separable (pues la extensión es de Galois), así que tiene $[\F(\alpha)\colon \F]$ raíces distintas. Y, además, $[\F(\alpha) \colon \F] = \#G = n$ por ser la extensión de Galois. La conclusión es que las raíces de $f(X)$ son
+\[\sigma_1(\gamma), \sigma_2(\gamma),\mathellipsis,\sigma_n(\gamma),\]
+y además son todas distintas.
+
+Recíprocamente, supongamos que existe $\gamma \in \K$ tal que 
+\[\sigma_1(\gamma), \sigma_2(\gamma),\mathellipsis,\sigma_n(\gamma)\]
+son todas diferentes, y veamos que $\K = \F(\gamma)$. Basta comprobar que \[[\F(\gamma) \colon \F] =[\K \colon \F] = \#G = n\] Para cada $i \in \{1,2,\mathellipsis,n\}$, $\overline{\sigma}_i=\sigma_i \big|_{\F(\gamma)}$ es una inmersión de $\F(\gamma)$ en $\K$, y además, como cada una de estas inmersiones queda totalmente determinada por la imagen de $\gamma$, por hipótesis, todas las inmersiones $\overline{\sigma}_i$ son diferentes. Así, el número de inmersiones de $\F(\gamma)$ en $\K$ es al menos $n \geq [\F(\alpha) \colon \F]$. Pero también se sabe que el número de inmersiones de $\F(\gamma)$ en $\K$ que extienden a $id \colon \F \to \F$ es menor o igual que $[\F(\gamma) \colon \F]$ (nótese que $\K$ contiene al cuerpo de descomposición de $\textup{Irr}(\gamma,X,\F)$ sobre $\F$ porque la extensión $\F \subset \K$ es normal, y por tanto puede aplicarse el resultado sobre el número de inmersiones). Todo esto nos dice que \[n = [\F(\gamma) \colon \F],\] concluyéndose que $\K = \F(\gamma)$.
+\end{proof}
+
+\begin{ejercicio}
+    Sea $p$ un número primo y sea $f(X)$ un factor irreducible de $X^{p^n}-X$ en $\Z_p[X]$.
+    \begin{enumerate}
+        \item ¿Qué se puede decir sobre el grado de $f(X)$?
+        \item Sea $\alpha$ una raíz de $f(X)$ en algún cuerpo de descomposición. Determinar los grados de los factores irreducibles de $f(X)$ en $\Z_p(\alpha)[X]$.
+        \item ¿Cuántas extensiones intermedias tiene el cuerpo de descomposición de $f(X)$ sobre $\Z_p$?
+        \item Si $d$ es un entero que divide a $n$, ¿existe un factor irreducible de $X^{p^n}-X$ cuyo grupo de Galois sea cíclico y de orden $d$?
+        \item Si $d$ es un entero que divide a $n$, ¿existe un factor irreducible de $X^{p^n}-X$ cuyo grupo de Galois sea isomorfo a $S_d$?
+    \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+    \hfill
+    \begin{enumerate}
+        \item Veamos que $m=\textup{deg}(f(X))$ divide a $n$. Sea $\K$ el cuerpo de descomposición de $X^{p^n}-X$ sobre $\Z_p$ y sea $\F$ el cuerpo de descomposición de $f(X)$ sobre $\Z_p$. Sabemos que $\#\K = p^n$ y que $f(X)$ divide a $X^{p^n}-X$, luego $\F \subset \K$ y tenemos la torre de extensiones
+        \[\Z_p \subset \F \subset \K\]
+        Además, $[\F \colon \Z_p] = m$, ya que podemos considerar cualquier raíz $\alpha \in \F$ de $f(X)$ y tenemos que la extensión $\Z_p \subset \Z_p(\alpha)$ es normal, así que $\Z_p(\alpha)$ es el cuerpo de descomposición de $f(X)$ sobre $\Z_p$, es decir, $\F=\Z_p(\alpha)$. Tenemos entonces
+        \[n = [\K \colon \Z_p] = [\K \colon \F] [\F \colon \Z_p] = [\K \colon \F] \cdot \textup{deg}(f(X)),\]
+        luego $m$ divide a $n$.
+        \item Como se ha visto en el apartado anterior, $\Z_p(\alpha)$ es el cuerpo de descomposición de $f(X)$ sobre $\Z_p$. Pero además $f(X)$ es separable (porque $\Z_p$ es finito y, por tanto, perfecto), así que todos los factores irreducibles de $f(X)$ en $\Z_p(\alpha)[X]$ tienen grado $1$.
+        \item El cuerpo de descomposición de $f(X)$ sobre $\Z_p$ es $\Z_p(\alpha)$, y sabemos que toda extensión finita de un cuerpo finito es cíclica. Además, la extensión es de Galois, así que \[\#\textup{Gal}_{\Z_p}(\Z_p(\alpha)) = [\Z_p(\alpha) \colon \Z_p] =m\] Por tanto, como $\textup{Gal}_{\Z_p}(\Z_p(\alpha))$ es cíclico, existe un único subgrupo de orden $d$ para cada divisor $d$ de $m$, luego, por el teorema fundamental, existe un único cuerpo intermedio de la extensión $\Z_p \subset \Z_p(\alpha)$ para cada divisor $d$ de $m$.
+        \item Veamos que sí existe. Sea $d$ un divisor de $n$. Sabemos que en la factorización de $X^{p^n}-X$ aparecen todos los polinomios mónicos sobre $\Z_p$ de grado un divisor de $n$. En particular, existe un factor irreducible de $X^{p^n}-X$ de grado $d$, y, repitiendo los razonamientos anteriores, su grupo de Galois es cíclico y de grado $d$.
+        \item Como se ha visto en los apartados anteriores, todo factor irreducible de $X^{p^n}-X$ tiene grupo de Galois cíclico, así que no puede ser isomorfo a $S_d$ para ningún divisor $d$ de $n$. \qedhere
+    \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+    Sean $\alpha$, $\beta$ raíces reales positivas de $X^4-2$ y $X^6-2$ respectivamente, y sea $\K = \Q(\alpha,\beta)$.
+    \begin{enumerate}
+        \item Probar que $\frac{\alpha}{\beta}$ es un elemento primitivo de $\Q \subset \K$.
+        \item Demostrar que el polinomio mínimo de $\alpha$ sobre $\Q(\beta)$ es $X^2-\sqrt{2}$.
+        \item ¿Existe $\sigma \in \textup{Gal}_\Q(\K)$ tal que $\sigma(\beta) = -\beta$?
+        \item Demostrar que $\K^{\textup{Gal}_\Q(\K)} = \Q(\beta)$.
+        \item Explicar por qué la clausura normal de $\Q \subset \K$ es
+        \[\L = \Q(i,\sqrt{3},\sqrt[3]{2}, \sqrt[4]{2})\]
+        \item Calcular $[\L \colon \Q]$.
+        \item Demostra que existe un polinomio irreducible $f(X) \in \Q[X]$ de grado $12$ con grupo de Galois soluble y de orden $48$. ¿Son las raíces de este polinomio construibles con regla y compás?
+        \item Sea $G = \textup{Gal}_{\Q}(\L)$. Encontrar dos subgrupos $H_1$, $H_2$ de $G$ de orden $6$ tales que $H_1$ sea un subgrupo normal y $H_2$ no lo sea.
+        \item Probar que existe un subgrupo normal $S$ de $G$ tal que $G \ / \ S$ es isomorfo a $\Z_{12}^*$.
+        \item ¿Es $H_1$ un subgrupo de $S$?  
+    \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+Las raíces de $X^4-2$ son $\sqrt[4]{2}$, $-\sqrt[4]{2}$, $i\sqrt[4]{2}$ y $-i\sqrt[4]{2}$, mientras que las raíces de $X^6-2$ son $\xi^k\sqrt[6]{2}$, $k \in \{0,1,2,3,4,5\}$, donde $\xi$ es una raíz primitiva sexta de la unidad. Por tanto, $\alpha = \sqrt[4]{2}$ y $\beta = \sqrt[6]{2}$.
+\begin{enumerate}
+    \item Veamos que $\alpha, \beta \in \Q(\frac{\alpha}{\beta})$, lo que probará que $\frac{\alpha}{\beta}$ es un elemento primitivo de la extensión. Se tiene que
+    \[\left(\frac{\alpha}{\beta}\right)^{12} = \frac{8}{4} = 2,\]
+    luego $(\frac{\alpha}{\beta})^3$ es una raíz de $X^4-2$. Como $\alpha$ y $\beta$ son reales y positivos, entonces $(\frac{\alpha}{\beta})^3$ también lo es. Pero $\alpha$ es la única raíz real y positiva de $X^4-2$, así que $(\frac{\alpha}{\beta})^3 = \alpha \in \Q(\frac{\alpha}{\beta})$ y de aquí se sigue inmediatamente que $\Q(\frac{\alpha}{\beta}) = \Q(\alpha,\beta)$.
+    \item Como $X^2-\sqrt{2} \in \Q(\beta)[X]$ (pues $\beta^3 =\sqrt{2}$) y anula a $\alpha$, entonces $[\Q(\alpha,\beta) \colon \Q(\beta)] \leq 2$. Veamos que este grado es $2$. Si fuese $1$, entonces $\Q(\beta) = \Q(\alpha,\beta) = \Q(\frac{\alpha}{\beta})$ y tenemos la torre de extensiones
+    \[\Q \subset \Q(\alpha) \subset \Q(\beta)\]
+    Esto no tiene ningún sentido porque $[\Q(\alpha) \colon \Q] = 4$ ($X^4-2$ es irreducible por Eisenstein), que no divide a $[\Q(\beta) \colon \Q]=6$ ($X^6-2$ es irreducible por Eisenstein). Por tanto, $[\Q(\alpha,\beta) \colon \Q(\beta)] = 2$ y entonces $X^2-\sqrt{2} = \textup{Irr}(\alpha,X,\Q(\beta))$.
+    \item Un automorfismo $\sigma \colon \Q(\alpha,\beta) \to \Q(\alpha,\beta)$ debe enviar $\beta$ en una raíz de $\textup{Irr}(\beta,X,\Q(\alpha))$, que es un polinomio de grado $[\Q(\alpha,\beta) \colon \Q(\alpha)] = \frac{[\Q(\alpha,\beta) \colon \Q]}{[\Q(\alpha) \colon \Q]} = 3$. Pero las raíces de este polinomio son $\beta$, $\gamma$ y $\overline{\gamma}$ para algún $\gamma \in \C$, y no puede ser $\gamma \in \R$ porque entonces $\textup{Irr}(\beta,X,\Q(\alpha))$, que es separable por ser $\Q$ perfecto, tendría una raíz doble. Como $-\beta \in \R$ y $\beta \neq -\beta$, todo esto nos dice que $-\beta$ no puede ser raíz de $\textup{Irr}(\beta,X,\Q(\alpha))$, así que no existe ningún $\sigma \in \textup{Gal}_\Q(\K)$ que envíe $\beta$ en $-\beta$.
+    \item Sea $G = \textup{Gal}_\Q(\K)$ y veamos que $\K^G = \Q(\beta)$. Por el apartado anterior, si $\sigma \in G$, entonces $\sigma(\beta) = \beta$ (no puede ser $\sigma(\beta) = \gamma$ o $\sigma(\beta) = \overline{\gamma}$ porque $\Q(\alpha,\beta) \subset \R$ y $\gamma \in \C \setminus \R$). Esto nos dice que $\Q(\beta) \subset \K^G$. Consideremos la torre de extensiones
+    \[\Q(\beta) \subset \K^G \subset \K\]
+    Como $[\Q(\alpha,\beta) \colon \Q(\beta)] = 2$, entonces solo hay dos posibilidades: $\Q(\beta) = \K^G$ o $\K^G=\K$. La segunda igualdad nos diría que todo elemento de $G$ es el grupo trivial, y esto es imposible porque las raíces de $X^2-2 = \textup{Irr}(\alpha,X,\Q(\beta))$ son $\alpha,-\alpha \in \K$, así que la aplicación $\sigma \colon \K \to \K$ determinada por $\sigma(\alpha) = -\alpha$, $\sigma(\beta) = \beta$ es un automorfismo distinto de la identidad. Por tanto, debe ser $\Q(\beta) = \K^G$.
+    \item La clausura normal de la extensión, $\L$, es el cuerpo de descomposición sobre $\Q$ del polinomio $(X^4-2)(X^6-2)$, cuyas raíces son
+    \[\sqrt[4]{2}, \ -\sqrt[4]{2}, \ i\sqrt[4]{2}, \ -i\sqrt[4]{2}, \ \sqrt[6]{2}, \ \xi\sqrt[6]{2}, \ \xi^2\sqrt[6]{2}, \ \xi^3\sqrt[6]{2}, \ \xi^4\sqrt[6]{2}, \ \xi^5\sqrt[6]{2}\]
+    Es claro que $\L = \Q(i,  \xi,\sqrt[4]{2},\sqrt[6]{2})$. Pero
+    \[\xi = \cos(60^\circ) +i\sen(60^\circ) = \frac{1}{2}+i\frac{\sqrt{3}}{2}\]
+    De aquí se deduce fácilmente que 
+    \[\L = \Q( i,  \sqrt{3},\sqrt[4]{2},\sqrt[6]{2})\]
+    \item Se tiene que $[\Q(\sqrt{3},\sqrt[4]{2}) \colon \Q] = 8$ (tiene que dividir a $4$ porque $[\Q(\sqrt[4]{2}) \colon \Q] = 4$; no puede ser $4$ porque $\sqrt[4]{2} \not\in \Q(\sqrt{3})$, como se prueba fácilmente). Por tanto, como 8 y $[\Q(\sqrt[3]{2}) \colon \Q] = 3$ son coprimos, entonces $[\Q(\sqrt{3},\sqrt[4]{2}, \sqrt[3]{2}) \colon \Q] = 24$. Y como $\Q(\sqrt{3},\sqrt[4]{2}, \sqrt[3]{2}) \subset \R$, entonces $[\Q(i,\sqrt{3},\sqrt[4]{2}, \sqrt[3]{2}) \colon \Q] = 48$.
+    \item Observamos que la extensión $\Q \subset \L$ es de Galois, luego $G=\textup{Gal}_\Q(\L) $ es de orden $48 = [\L \colon \Q]$, y es soluble porque la extensión $\Q \subset \L$ es claramente radical. Tratamos de encontrar una torre de extensiones
+    \[\Q \subset \E \subset \L\]
+    de forma que $\Q \subset \E$ sea de Galois y de grado $12$. Por el teorema fundamental, esto es equivalente a encontrar un subgrupo normal $H$ de $G$ de orden $4$. Por el primer teorema de Sylow ($|G| = 2^4 \cdot 3$), existe un subgrupo $H$ de orden $2^2 = 4$, y como los grupos de orden $4$ son abelianos, $H$ es un subgrupo normal de $G$. En consecuencia, la extensión $\Q \subset \textup{Inv}(H)$ es de Galois. En particular, es primitiva, luego existe $u \in \L$ tal que $\textup{Inv}(H)=\Q(u)$ y el polinomio buscado es $f(X)=\textup{Irr}(u,X,\Q)$.
+
+    Veamos que una raíz $v$ de $f(X)$ no es construible con regla y compás. Como la extensión $\Q \subset \Q(u)$ es normal, entonces $v \in \Q(u)$; de hecho, $\Q(u)=\Q(v)$. Además, $v$ es construible con regla y compás si y solo existe una cadena de cuerpos
+    \[\Q =\F_0 \subset \F_1 \subset \mathellipsis \subset \F_s\]
+    con $v \in \F_s$ y $[\F_{k} \colon \F_{k-1}]$, $k \in \{1,2,\mathellipsis,s\}$. Pero si $v \in \F_s$, entonces tenemos la torre de extensiones
+    \[\Q \subset \Q(v) \subset \F_s\]
+    Esto carece de sentido porque $[\F_s \colon \Q]$ es potencia de dos y $[\Q(v) \colon \Q]=12$ es múltiplo de $3$.
+    \item De nuevo por causa del teorema fundamental, encontrar subgrupos en $G$ de orden $6$ es lo mismo que encontrar torres de extensiones $\Q \subset \E \subset \L$ tales que $[\E \colon \Q] = 8$. Hay que encontrar una extensión que sea normal y otra que no lo sea. Para la normal, basta considerar $\E = \Q(i,\sqrt[4]{2})$ (como se comprueba fácilmente), y para la otra, puede escogerse $\E' = \Q(\sqrt{3},\sqrt[4]{2})$ (como se comprueba aún más fácilmente). Los subgrupos buscados son $\textup{Gal}_{\E'}(\L)$ y $\textup{Gal}_{\E}(\L)$.
+    \item Una raíz primitiva doceava de la unidad es
+    \[\tau = \cos(30^\circ)+i\sen(30^\circ) = \frac{\sqrt{3}}{2}+i\frac{1}{2}\]
+    Considérese la torre de extensiones
+    \[\Q \subset \Q(i,\sqrt{3}) \subset \L\]
+    Como $[\Q(\tau) \colon \Q] = \phi(12)=4=[\Q(i,\sqrt{3}) \colon \Q]$ y $\tau \in \Q(i,\sqrt{3})$, entonces $\Q(\tau) = \Q(i,\sqrt{3})$ y tenemos que $\textup{Gal}_{\Q}(\Q(i,\sqrt{3})) \cong \Z_{12}^*$ y la extensión $\Q \subset \Q(i,\sqrt{3})$ es de Galois. Aplicando el teorema fundamental, $S = \textup{Gal}_{\Q(i,\sqrt{3})}(\L)$ es un subgrupo normal de $G$ y además
+    \[\Z_{12}^* \cong \textup{Gal}_{\Q}(\Q(i,\sqrt{3})) \cong \faktor{G}{S}\]
+    \item Como $\Q(i,\sqrt{3})\not\subset \Q(i,\sqrt[4]{2})$, entonces $H_1$ no es un subgrupo de $S$. \qedhere
+\end{enumerate}
+\end{proof}
+\end{document}

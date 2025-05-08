@@ -1,0 +1,101 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.9in, left = 0.9in, top = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage[partialup]{kpfonts}
+\usepackage{cancel}
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\F}{\mathcal F}
+\newcommand{\M}{\mathcal M}
+
+\begin{document}
+
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 4. Sea $(X,\mathcal{M},\mu)$ un espacio de medida. Consideremos la siguiente familia de conjuntos:
+\[\mathcal{F}=\{A \subset X \colon \textup{ existen } F,G \in \mathcal{M} \textup{ tales que } F \subset A \subset G \textup{ y } \mu(G \setminus F)=0\}\]
+\begin{itemize}
+    \item[\textit{(a)}] Demuestre que $\mathcal{F}$ es una $\sigma$-álgebra y que contiene a $\mathcal{M}$.
+    \item[\textit{(b)}] Demuestre que si $A \in \mathcal{F}$ y existen $F,G\in \mathcal{M}$ con $F \subset A \subset G$ y $\mu(G\setminus F)=0$ entonces $\mu(G)=\mu(F)$.
+    \item[\textit{(c)}] Demuestre que si $A \in \mathcal{F}$ y existen $F_i,G_i \in \mathcal{M}, i=1,2$, con $F_i\subset A\subset G_i$ y $\mu(G_i\setminus F_i)=0$ entonces $\mu(G_i)=\mu(F_j),i=1,2,j=1,2$.
+    \item[\textit{(d)}] Para cada $A \in \mathcal{F}$ se define $\overline{\mu}(A)=\mu(G)$ si $F \subset A \subset G$, $F,G \in \mathcal{M}$ y $\mu(G\setminus F) = 0$. Justifique que $\overline{\mu}$ está bien definida y demuestre que $\overline{\mu}$ es una medida completa sobre $\mathcal{F}$ que extiende a $\mu$.
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{2mm}
+
+\begin{itemize}
+    \item[\textit{(a)}] Veamos que $\F$ es una $\sigma$-álgebra.
+    \begin{itemize}
+        \item[\textit{(i)}] $\emptyset \in \F$, pues $\emptyset \subset X$ y, tomando $F=G=\emptyset$, se tiene que $F \subset \emptyset \subset G$, que $F,G\in \M$ (por ser $\M$ una $\sigma$-álgebra) y que $\mu(G\setminus F) = \mu(\emptyset)=0$ (por ser $\mu$ una medida).
+        \item[\textit{(ii)}] Sea $A \in \F$ y veamos que $A^c \in \F$. Como $A \in \F$, existen $F,G \in \M$ tales que $F \subset A \subset G$ y $\mu(G\setminus F) = 0$. Como $\M$ es una $\sigma$-álgebra, entonces $F^c,G^c \in \M$. Además, $G^c \subset A^c \subset F^c$, y $\mu(F^c \setminus G^c) = \mu (F^c \cap (G^c)^c) = \mu (F^c \cap G) = \mu (G\setminus F) = 0$, lo que demuestra que $A^c \in \F$.
+        \item[\textit{(iii)}] Sea $\{A_i\}_{i=1}^\infty$ una familia numerable de elementos de $\F$ y veamos que $\bigcup_{i=1}^\infty A_i \in \F$. Para cada $i \in \N$, como $A_i \in \F$, existen $F_i,G_i \in \M$ tales que $F_i \subset A_i \subset G_i$ y $\mu(G_i \setminus F_i) = 0$. Por tanto, $\bigcup_{i=1}^\infty F_i \, \subset \, \bigcup_{i=1}^\infty A_i \, \subset \, \bigcup_{i=1}^\infty G_i$, y como $\M$ es una $\sigma$-álgebra y $F_i,G_i \in \M$ para todo $i \in \N$, entonces $\bigcup_{i=1}^\infty F_i, \bigcup_{i=1}^\infty G_i \in \M$. Además,
+        \[
+        \begin{aligned}[t]
+        \mu\,\biggl(\,\bigcup_{i=1}^\infty G_i \setminus \bigcup_{i=1}^\infty F_i\,\biggr)\, &= \mu\,\biggl(\,\bigcup_{i=1}^\infty G_i \cap \biggl( \bigcup_{i=1}^\infty F_i\biggr)^c\,\biggr)\, = \mu\,\biggl(\,\bigcup_{i=1}^\infty G_i \cap \bigcap_{i=1}^\infty F_i^c\,\biggr) \overset{(\ast)}{\leq} \mu\,\biggl(\bigcup_{i=1}^\infty (G_i \cap F_i^c)\,\biggr)\, \\
+        &= \mu\,\biggl(\bigcup_{i=1}^\infty (G_i \setminus F_i)\,\biggr)\, \overset{(\ast\ast)}{\leq} \sum_{i=1}^\infty\mu(G_i\setminus F_i) = \sum_{i=1}^\infty 0 = 0,
+        \end{aligned}
+        \]
+        luego $\mu(\,\bigcup_{i=1}^\infty G_i \setminus \bigcup_{i=1}^\infty F_i) = 0$, y esto prueba que $\bigcup_{i=1}^\infty A_i \in \F$. En $(\ast)$ se ha usado que $\bigcup_{i=1}^\infty G_i \cap \bigcap_{i=1}^\infty F_i^c \subset \bigcup_{i=1}^\infty (G_i \cap F_i^c)$, pues si $x \in \bigcup_{i=1}^\infty G_i \cap \bigcap_{i=1}^\infty F_i^c$, entonces existe $i_0 \in \N$ tal que $x \in G_{i_0}$, y, por tanto,  $x \in G_{i_0} \cap F_{i_0}^c$, así que $x \in \bigcup_{i=1}^\infty(G_i \cap F_i^c)$.
+    \end{itemize}
+    Así, tenemos que $\F$ es una $\sigma$-álgebra, y si $A \in \M$, tomando $F=G=A$ se tiene que $F,G \in \M$, que $F \subset A \subset G$ y que $\mu(G\setminus F)=\mu(\emptyset)=0$, luego $A \in \F$ y por tanto $\F$ contiene a $\M$.
+    \item[\textit{(b)}] Sea $A \in \F$ y sean $F,G \in \M$ con $F \subset A \subset G$ y $\mu(G \setminus F) = 0$. Distinguimos dos casos:
+    \begin{itemize}
+        \item[\textit{(i)}] Si $\mu(F) < \infty$, entonces $\mu(G \setminus F) = \mu(G)-\mu(F)$. Pero $\mu(G \setminus F) = 0$, así que $\mu(G)-\mu(F)=0$, o, equivalentemente, $\mu(G)=\mu(F)$.
+        \item[\textit{(ii)}] Si $\mu(F) = \infty$, entonces, por ser $F \subset G$, se tiene que $\mu(G) = \infty$, luego $\mu(G)=\mu(F)$.
+    \end{itemize}
+    \item[\textit{(c)}] Sea $A \in \F$ y sean $F_1,F_2,G_1,G_2 \in \M$ tales que $F_i \subset A \subset G_i$ y $\mu(G_i \setminus F_i)=0$, para cada $i = 1,2$. Distinguimos dos casos:
+    \begin{itemize}
+        \item[\textit{(i)}] Supongamos que $F_2 \subset F_1$. Entonces $F_1^c \subset F_2^c$, luego $G_2 \cap F_1^c \subset G_2 \cap F_2^c$, y, por tanto, $\mu(G_2 \setminus F_1) \leq \mu(G_2 \setminus F_2) = 0$, así que $\mu(G_2 \setminus F_1) = 0$. Como $F_1,G_2 \in \M$, $F_1 \subset A \subset G_2$ y $\mu(G_2 \setminus F_1) = 0$, por el apartado anterior, $\mu(G_2)=\mu(F_1)$. Pero el apartado anterior también permite afirmar que $\mu(G_1)=\mu(F_1)$ y que $\mu(G_2)=\mu(F_2)$, y uniendo las tres igualdades se obtiene
+        $\mu(G_1)=\mu(F_1)=\mu(G_2)=\mu(F_2)$, que es lo que se quería probar.
+        \item[\textit{(ii)}] Supongamos que $F_1 \subset F_2$. Entonces $F_2^c \subset F_1^c$, luego $G_1 \cap F_2^c \subset G_1 \cap F_1^c$, y, por tanto, $\mu(G_1 \setminus F_2) \leq \mu(G_1 \setminus F_1) = 0$, así que $\mu(G_1 \setminus F_2) = 0$. Como $F_2,G_1 \in \M$, $F_2 \subset A \subset G_1$ y $\mu(G_1 \setminus F_2) = 0$, por el apartado anterior, $\mu(G_1)=\mu(F_2)$. Pero el apartado anterior también permite afirmar que $\mu(G_1)=\mu(F_1)$ y que $\mu(G_2)=\mu(F_2)$, y uniendo las tres igualdades se obtiene
+        $\mu(G_2)=\mu(F_2)=\mu(G_1)=\mu(F_1)$, que es lo que se quería probar.
+    \end{itemize}
+    \item[\textit{(d)}] Para justificar que $\overline{\mu}$ está bien definida habría que demostrar que $\overline{\mu}(A)$ solo depende de $A$ y no de $G$ ni de $F$, es decir, que si $F_1,F_2,G_1,G_2 \in \M$ son tales que $F_i \subset A \subset G_i$ y $\mu(G_i \setminus F_i)=0$ para cada $i = 1,2$, entonces $\mu(G_1)=\mu(G_2)$. Esto ya ha sido probado en el apartado anterior, así que $\overline{\mu}$ está bien definida.
+
+    \vspace{2mm}
+
+    Veamos ahora que $\overline{\mu}$ es una medida sobre $\F$.
+    \begin{itemize}
+        \item[\textit{(i)}] $\overline{\mu}(\emptyset)=0$, pues, tomando $F=G=\emptyset$, se tiene que $F,G \in \M$, $F \subset \emptyset \subset G$ y $\mu(G \setminus F) = \mu(\emptyset)=0$, luego, por definición de $\overline{\mu}$, es $\overline{\mu}(\emptyset) = \mu(\emptyset) = 0$, usando una vez más que $\mu$ es una medida.
+        \item[\textit{(ii)}] Sea $\{A_i\}_{i=1}^\infty$ una familia numerable y disjunta de elementos de $\F$. Para cada $i \in \N$, existen $F_i,G_i \in \M$ con $F_i \subset A_i \subset G_i$ y $\mu(G_i \setminus F_i) = 0$. En el apartado $(a)$ se ha justificado que $\bigcup_{i=1}^\infty F_i,\bigcup_{i=1}^\infty G_i \in \M$, que $\bigcup_{i=1}^\infty F_i \subset \bigcup_{i=1}^\infty A_i \subset \bigcup_{i=1}^\infty G_i$ y que $\mu(\bigcup_{i=1}^\infty G_i \setminus \bigcup_{i=1}^\infty F_i) = 0$, luego, por definición de $\overline{\mu}$,
+        \[\overline{\mu}\,\biggl(\bigcup_{i=1}^\infty A_i\,\biggr) = \mu\,\biggl(\bigcup_{i=1}^\infty G_i\,\biggr)\]
+        Veamos que
+        \[\mu\,\biggl(\bigcup_{i=1}^\infty G_i\,\biggr)=\sum_{i=1}^\infty \mu(G_i) \tag{$\ast\ast\ast$}\]
+        La desigualdad $\leq$ se verifica por ser $\mu$ una medida (subaditividad numerable). Por otro lado, como $F_i \subset G_i$ para todo $i \in \N$, entonces $\mu(\bigcup_{i=1}^\infty F_i) \leq \mu(\bigcup_{i=1}^\infty G_i)$. Ahora bien, si $i,j \in \N, i \neq j$, entonces $F_i \cap F_j = \emptyset$ (si existiese $x \in F_i \cap F_j$, por ser $F_i \subset A$ y $F_j \subset A$, se tendría $x \in A_i \cap A_j=\emptyset$, lo que contradice que $\{A_i\}_{i=1}^\infty$ sea una familia disjunta de elementos de $\mathcal{F}$). Así, por ser $\mu$ una medida,
+        \[\mu\,\biggl(\,\bigcup_{i=1}^\infty F_i \biggr)= \sum_{i=1}^\infty \mu(F_i)\]
+        Por el apartado anterior,
+        \[\sum_{i=1}^\infty \mu(F_i) = \sum_{i=1}^\infty \mu(G_i)\]
+        En resumen, tenemos que
+        \[\mu\,\biggl(\,\bigcup_{i=1}^\infty G_i \biggr) \geq \mu\,\biggl(\,\bigcup_{i=1}^\infty F_i \biggr)= \sum_{i=1}^\infty \mu(F_i)= \sum_{i=1}^\infty \mu(G_i),\]
+        con lo que queda demostrada la igualdad $(\ast\ast\ast)$. Usando que $\mu(G_i) = \overline{\mu}(A_i)$ para cada $i \in \N$ (por definición de $\overline{\mu}$), se concluye que
+        \[\overline{\mu}\,\biggl(\bigcup_{i=1}^\infty A_i\,\biggr) = \mu\,\biggl(\bigcup_{i=1}^\infty G_i\,\biggr) = \sum_{i=1}^\infty \mu(G_i) = \sum_{i=1}^\infty \overline{\mu}(A_i)\]
+    \end{itemize}
+
+    Veamos ahora que la medida $\overline{\mu}$ es completa. Sea $N \in \F$ con $\overline{\mu}(N)=0$ y sea $A \subset N$. Veamos que $A \in \F$. Como se tiene que $N \in \F$, existen $F,G \in \M$ con $F \subset N \subset G$ y $\mu(G \setminus F) = 0$, y además $\mu(G) = \overline{\mu}(N)=0$. Por tanto, $\emptyset \subset A \subset G$, donde $\emptyset, G \in \M$ y $\mu(G \setminus \emptyset) = \mu(G) = 0$, lo que demuestra que $A \in \F$.
+
+    \vspace{2mm}
+
+    Por último, veamos que $\overline{\mu}$ extiende a $\mu$, esto es, que si $A \in \M$, entonces $\mu(A)=\overline{\mu}(A)$. En efecto, tomando, $F=G=A$, se tiene que $F,G \in \M$, que $F \subset A \subset G$ y que $\mu(G \setminus F) = \mu(\emptyset) = 0$, luego, por definición de $\overline{\mu}$, se verifica $\overline{\mu}(A) = \mu(G) = \mu(A)$.
+    
+\end{itemize}
+
+\end{document}

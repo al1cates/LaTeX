@@ -1,0 +1,32 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.9in, left = 0.9in, top = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+
+\newcommand{\F}{\mathbb F}
+
+\newtheorem*{lema}{Lema}
+
+\begin{document}
+
+\begin{lema}
+    Sean $\F_1$ y $\F_2$ dos cuerpos y sea $\sigma \colon \F_1 \to \F_2$ un isomorfismo de cuerpos. Consideremos $\Phi_\sigma \colon \F_1[X] \to \F_2[X]$, el isomorfismo del lema anterior. Si $f(X) \in \F_1[X]$ es un polinomio irreducible de $\F_1[X]$, entonces $f^\sigma(X)$ es un polinomio irreducible de $\F_2[X]$.  
+\end{lema}
+
+\begin{proof}
+Sea $f(X)=a_0+a_1X+\mathellipsis+a_nX^n$ un polinomio irreducible de $\F_1[X]$. Entonces
+\[f^\sigma(X)=\sigma(a_0)+\sigma(a_1)X+\mathellipsis+\sigma(a_n)X^n\]
+
+Como $f(X)$ es un polinomio no nulo, podemos suponer $a_n \neq 0$, y como $\sigma$ es un isomorfismo, entonces $\sigma(a_n) \neq 0$, de forma que $\textup{deg}(f^\sigma(X)) = \textup{deg}(f(X)) \neq 0$ por ser $f(X)$ irreducible.
+
+\vspace{2mm}
+
+Por otra parte, supongamos que $f^\sigma(X)=r(X) s(X)$ para ciertos $r(X),s(X) \in \F_2[X]$, y veamos que o bien $\textup{deg}(r(X))=0$, o bien $\textup{deg}(s(X))=0$. Como $\Phi_\sigma$ es sobreyectiva (pues, como se probó en el lema anterior, es un isomorfismo), existen $p(X),q(X) \in \F_1[X]$ tales que $r(X)=\Phi_\sigma(p(X))$ y $s(X)=\Phi_\sigma(q(X))$. Tenemos entonces
+\[\underbrace{\Phi_\sigma(f(X))}_{f^\sigma(X)} = \underbrace{\Phi_\sigma(p(X))}_{r(X)}\underbrace{\Phi_\sigma(q(X))}_{s(X)} = \Phi_\sigma(p(X)q(X)),\]
+así que, por la inyectividad de $\Phi_\sigma$, debe ser $f(X)=p(X)q(X)$. Pero $f(X)$ es irreducible en $\F_1[X]$, luego o bien $\textup{deg}(p(X))=0$, o bien $\textup{deg}(q(X))=0$, y como $\Phi_\sigma$ preserva los grados, entonces $\textup{deg}(r(X))=\textup{deg}(\Phi_\sigma(p(X))=0$ ó $\textup{deg}(s(X))=\textup{deg}(\Phi_\sigma(q(X))=0$, concluyéndose que $f^\sigma(X)$ es irreducible en $\F_2[X]$.
+\end{proof}
+
+\end{document}

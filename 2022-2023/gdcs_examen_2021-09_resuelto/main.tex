@@ -1,0 +1,144 @@
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+
+\parindent=0pt
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\small
+
+\textbf{Geometría Diferencial de Curvas y Superficies} \hfill \textbf{Examen de septiembre de 2021}
+\linebreak
+
+\textbf{1. } \textit{Sea $\alpha \colon \R \to \R^3$ una curva parametrizada por el arco con curvatura positiva y torsión negativa. Se define $\beta \colon \R \to \R^3$ por $\beta(s) = \int_0^s B_\alpha(u)du$, siendo $B_\alpha$ el vector binormal de $\alpha$ en cada punto. Encuéntrese una condición necesaria y suficiente para que $\alpha$ y $\beta$ se diferencien en un movimiento rígido directo.}
+
+\vspace{2mm}
+Primero se calcularán $k_\beta$ y $\tau_\beta$ y de ahí se deducirán las hipótesis necesarias. Derivando $\beta$,
+\[\beta'(s) = B_\alpha(s)\]
+de donde se deduce que $\beta$ está parametrizada por el arco. Derivando otra vez,
+\[\beta''(s) = B'_\alpha(s) = \tau_\alpha(s)N_\alpha(s)\]
+luego
+\[k_\beta(s) = ||\beta''(s)|| = |\tau_\alpha(s)| = -\tau_\alpha(s)\]
+Por otro lado,
+\[
+\begin{aligned}[t]
+T_\beta(s) &= \beta'(s) = B_\alpha(s) \\
+N_\beta(s) &= \frac{\beta''(s)}{||\beta''(s)||} = -\frac{B_\alpha'(s)}{\tau_\alpha(s)} \\
+B_\beta(s) &= -\frac{1}{\tau_\alpha(s)}B_\alpha(s) \wedge B'_\alpha(s) = -B_\alpha(s) \wedge N_\alpha(s) = T_\alpha(s)
+\end{aligned}
+\]
+de donde se deduce que
+\[\tau_\beta(s) = \langle B'_\beta(s) \wedge N_\beta(s) \rangle =-\frac{1}{\tau_\alpha(s)} \langle T'_\alpha(s),B'_\alpha(s) \rangle = - \langle T'_\alpha(s),N_\alpha(s) \rangle = -k_\alpha(s) \]
+Todo esto sugiere que la condición necesaria y suficiente a probar va a ser la siguiente: \textit{$\alpha$ y $\beta$ se diferencian en un movimiento rígido directo si y solo si $k_\alpha = -\tau_\alpha$}.
+
+\begin{itemize}
+    \item[{\fbox[rb]{$\Rightarrow$}}] Si $\alpha$ y $\beta$ se diferencian en un movimiento rígido directo, entonces $\tau_\beta = \tau_\alpha$. Usando lo probado antes se tiene $k_\alpha = -\tau_\beta = -\tau_\alpha$.
+    \item[{\fbox[rb]{$\Leftarrow$}}] Si $k_\alpha = -\tau_\alpha$, usando de nuevo lo de arriba se llega a $k_\beta = -\tau_\alpha = k_\alpha$ y $\tau_\beta = -k_\alpha = \tau_\alpha$. Como $\alpha$ y $\beta$ están parametrizadas por el arco, el teorema fundamental dice que $\alpha$ y $\beta$ se diferencian en un movimiento rígido directo.
+\end{itemize}
+
+\vspace{4mm}
+\textbf{2.}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Sea $V$ un espacio vectorial euclídeo bidimensional y sea $A$ un endomorfismo autoadjunto de $V$. Demuéstrese que existe una base ortonormal de $V$ formada por autovectores de $A$ y que los autovalores asociados son los valores extremos de $Q(v) = \langle Av,v \rangle$ sobre la circunferencia unidad.}
+    \item[\textit{(b)}] \textit{Sea $S$ una superficie regular orientable y orientada. Defínanse las curvaturas y direcciones principales de $S$ en un punto $p \in S$.}
+    \item[\textit{(c)}] \textit{Dedúzcase la fórmula de Euler.}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(a)} Sea $V$ un espacio vectorial euclídeo bidimensional y considérese un endomorfismo autoadjunto $A \colon V \to V$. Que $A$ sea autoadjunto significa que para todos $u,v \in V$ se tiene
+\[\langle Au,v \rangle = \langle u,Av \rangle \iff v^tAu = v^tA^tu \]
+luego la matriz $A$ es simétrica. Por el teorema de Schur, $A$ es diagonalizable con matriz de paso unitaria, lo que equivale a que exista una base ortonormal de autovectores, llámese $\{e_1,e_2\}$. Si 
+$\lambda_1 \leq \lambda_2$ son los autovalores de $A$, hay que probar que
+\[\lambda_1 \leq \langle Av,v \rangle \leq \lambda_2\]
+para todo $v \in V$ con $||v|| = 1$, y también que existen vectores para los que se alcanza la igualdad. Sea $v \in V$ con $||v|| = 1$ y escríbase
+\[v = x e_1+ y e_2\]
+donde $x^2+y^2 = 1$ por ser $v$ unitario. Se tiene entonces
+\[\langle Av,v \rangle = \langle A(x e_1+ y e_2), x e_1+ y e_2 \rangle = x^2 \lambda_1+y^2\lambda_2\]
+de donde se deduce que
+\[\lambda_1 = \lambda_1 x^2+\lambda_1 y^2 \leq \lambda_1 x^2+\lambda_2 y^2 = \langle Av,v \rangle \leq \lambda_2 x^2+\lambda_2 y^2 = \lambda_2\]
+La igualdad del mínimo se alcanza en $e_1$ y la del máximo en $e_2$, concluyendo así la demostración.
+
+\vspace{2mm}
+\textbf{(b)} Sea $S$ una superficie regular y orientada. Los autovalores del operador de Weingarten $\mathcal{S}_p$ en cada punto $p \in S$ se denominan \textit{curvaturas principales}, mientras que los autovectores que constituyen la base ortonormal se llaman \textit{direcciones principales}.
+
+\vspace{2mm}
+\textbf{(c)} Dado un vector $w \in T_pS$ unitario, la fórmula de Euler es
+\[\mathbb{I}_p(w,w) = \cos^2\theta \, k_1(p) + \sen^2\theta \, k_2(p)\]
+donde $k_1(p),k_2(p)$ son las curvaturas principales en $p$ y $\theta \in [0,2\pi)$ es tal que
+\[w = \cos\theta \, e_1 + \sen\theta \, e_2\]
+siendo $e_1,e_2$ las direcciones principales. En efecto,
+\[
+\begin{aligned}[t]
+\mathbb{I}_p(w,w) &= \langle \mathcal{S}_p(\cos\theta \, e_1 + \sen\theta \, e_2),\cos\theta \, e_1 + \sen\theta \, e_2 \rangle \\
+&= \cos^2\theta \langle \mathcal{S}_p(e_1),e_1 \rangle + 2\cos \theta \sen \theta \langle \mathcal{S}_p(e_1),e_2 \rangle + \sen^2\theta \langle \mathcal{S}_p(e_2),e_2 \rangle \\
+&= \cos^2\theta \, k_1(p) + \sen^2\theta \, k_2(p)
+\end{aligned}
+\]
+
+\vspace{4mm}
+\textbf{3.} \textit{Sea $S$ una superficie regular y sea $f \colon S \to \R$ la función definida por $f(p) = ||p-p_0||$, siendo $p_0 \in \R^3$ un punto fijo}.
+\begin{itemize}
+    \item[\textit{(a)}] \textit{¿Es la función $f$ diferenciable?}
+    \item[\textit{(b)}] \textit{En los casos en los que $f$ sea diferenciable, pruébese que $df_p = 0$ si y solo si la recta que pasa por $p$ y $p_0$ es normal a $S$ en $p$.}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(a) } Se tiene que $f = \overline{f}_S$, donde
+\[
+\begin{aligned}[t]
+    \overline{f} \colon S &\longrightarrow \R \\
+    p &\longmapsto \overline{f}(p) = ||p-p_0|| = \sqrt{\langle p-p_0,p-p_0 \rangle} 
+\end{aligned}
+\]
+Si $p_0 \in S$, entonces $\overline{f}_S$ no es derivable en $p_0$ y por tanto $f$ no es diferenciable. Si $p_0 \notin S$, entonces $\sqrt{\langle p-p_0 \rangle} \neq 0$ para todo $p \in S$ y puede afirmarse que $\overline{f}_S$ es diferenciable, luego $f$ también lo es.
+
+\vspace{2mm}
+\textbf{(b) }
+Sea $p_0 = (x_0,y_0,z_0) \notin S$ y sea $p = (p_1,p_2,p_3) \in S$. Se va a calcular $df_p$. Tómese un vector $v = (v_1,v_2,v_3) \in T_pS$ y una curva $\alpha = (x,y,z)$ que lo represente. Entonces
+\[f \circ \alpha(t) = \sqrt{(x(t)-x_0)^2+(y(t)-y_0)^2+(z(t)-z_0)^2}\]
+Las derivadas parciales serían
+\[
+\begin{aligned}[t]
+\frac{\partial (f \circ \alpha)}{\partial x} &= \frac{x(t)-x_0}{\sqrt{(x(t)-x_0)^2+(y(t)-y_0)^2+(z(t)-z_0)^2}} \\
+\frac{\partial (f \circ \alpha)}{\partial y} &=\frac{y(t)-y_0}{\sqrt{(x(t)-x_0)^2+(y(t)-y_0)^2+(z(t)-z_0)^2}} \\
+\frac{\partial (f \circ \alpha)}{\partial z} &=\frac{z(t)-z_0}{\sqrt{(x(t)-x_0)^2+(y(t)-y_0)^2+(z(t)-z_0)^2}}
+\end{aligned}
+\]
+luego
+\[df_p = \frac{1}{\sqrt{(p_1-x_0)^2+(p_2-y_0)^2+(p_3-z_0)^2}} \begin{pmatrix}
+    p_1-x_0 \ & p_2-y_0  \ & p_3-z_0
+\end{pmatrix} \begin{pmatrix}
+    v_1 \\
+    v_2 \\
+    v_3
+\end{pmatrix} = \frac{\langle p-p_0,v \rangle}{||p-p_0||}\]
+
+Como $p-p_0$ es el vector normal de la recta $r$ que pasa por $p$ y $p_0$, se tiene que $df_p = 0$ si y solo si $r$ es normal a $S$ en $p$.
+
+\vspace{4mm}
+\textbf{4. } \textit{Sea $f \colon \R \to \R$ una aplicación diferenciable y sea $S = \{(x,y,z) \in \R^3 \colon x \neq 0, \frac{z}{x} = f(\frac{y}{x})\}$. Demuéstrese que $S$ es una superficie regular y que todos sus planos tangentes pasan por el origen de coordenadas.}
+
+\vspace{2mm}
+Sea $f \colon \R \to \R$ una función diferenciable y sea $S = \{(x,y,z) \in \R^3 \colon x \neq 0, \frac{z}{x} = f(\frac{y}{x})\}$. Considérese la función $g \colon \R^2 \setminus r \to \R$ (donde $r$ es la recta $x = 0$) definida por $g(x,y) = xf(\frac{y}{x})$. Se tiene que $g$ es diferenciable por ser producto de funciones diferenciables y $S = \textup{gráf}(g)$, luego $S$ es superficie regular. Además, la ecuación del plano tangente en un punto $p = (x_0,y_0,z_0)$ es
+\[z = g(x_0,y_0) + g_x(x_0,y_0)(x-x_0)+g_y(x_0,y_0)(y-y_0)\]
+Se tiene que $g_x(x,y) = f(\frac{y}{x})-\frac{y}{x}f'(\frac{y}{x})$ y $g_y(x,y) = f'(\frac{y}{x})$, luego
+\[T_pS \equiv z = x_0f\biggl(\frac{y_0}{x_0}\biggr)+\biggl(f\biggl(\frac{y_0}{x_0}\biggr)-\frac{y_0}{x_0}f'\biggl(\frac{y_0}{x_0}\biggr)\biggr)(x-x_0)+f'\biggl(\frac{y_0}{x_0}\biggr)(y-y_0)\]
+Poniendo $x = 0, y = 0$ se obtiene $z = 0$, luego $(0,0,0) \in T_pS$.
+
+
+\end{document}

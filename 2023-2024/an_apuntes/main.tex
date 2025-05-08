@@ -1,0 +1,3458 @@
+\documentclass[11pt]{report}
+
+%------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[spanish, es-lcroman]{babel} % es-lcroman para poder usar números romanos en minúscula
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{fancyhdr}
+\usepackage{fouriernc} % Fuente
+\usepackage{imakeidx} % Índice
+\usepackage{setspace} % Espacio entre líneas del índice
+\usepackage{cancel}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage[naturalnames]{hyperref} % Sin naturalnames el hiperenlace del Apéndice A no funciona
+\usepackage[svgnames, x11names]{xcolor}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage[babel,style=english]{csquotes} % Para usar las comillas "
+\usepackage{sectsty} % Expresiones matemáticas en negrita en subtítulos pero no en el índice
+\usepackage{parskip} % Cambia la sangría por espacio vertical
+\usepackage{anyfontsize}
+\usepackage{array} % Solo uso \extrarowheight
+\usepackage{esvect} % Vectores
+\usepackage{aligned-overset}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{mathdots} % Para usar \iddots
+\usepackage{darkmode}
+\usepackage{titlesec}
+\usepackage{emptypage} % Para que las páginas vacías de antes de un tema no tengan encabezado ni pie
+\usepackage[labelfont=bf, labelsep=period]{caption} % Cambia «Figura 1:» por «Figura 1.» (en negrita)
+\usepackage{float} % Para que el texto después de una gráfica no se ponga antes
+\usepackage[framemethod=tikz]{mdframed}
+
+%------------------------------------------------------------------------------------------------%
+
+% AJUSTES GENERALES
+
+\allsectionsfont{\boldmath}
+
+\decimalpoint
+
+\setlist[enumerate]{label={\textbf{(\textit{\roman*})}}} % Enumerar las listas con romanos en minúscula y cursiva
+
+\setlength{\headheight}{13.59999pt} % Para que no proteste el paquete \fancyhdr
+\addtolength{\topmargin}{-1.59999pt} % Ídem
+
+\makeatletter % Para que no se ignore el espacio antes y después de los teoremas
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=0pt
+}
+\makeatother
+
+\makeatletter % Para quitar el espacio adicional que el paquete parskip añade al principio y al final de una demostración
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep\z@skip % <---- changed here
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\addto\captionsspanish{\renewcommand{\chaptername}{Tema}} % Para cambiar el título de los temas
+\addto\captionsspanish{\renewcommand{\contentsname}{Contenidos}} % Para cambiar el título del índice
+
+\pgfplotsset{compat=1.18}
+
+\titlespacing{\section}{0pt}{0.5\baselineskip}{0.5\baselineskip} % Espacio antes y después del título de una sección
+\titlespacing{\subsection}{0pt}{0.5\baselineskip}{0.5\baselineskip} % Espacio antes y después del título de una sección
+
+\usepgfplotslibrary{fillbetween}
+
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+
+\counterwithout{figure}{chapter} % Para que la numeración de las figuras sea global y no por temas
+\counterwithout{equation}{chapter}
+
+\DeclareMathAlphabet{\mathcal}{OMS}{zplm}{m}{n}
+
+%------------------------------------------------------------------------------------------------%
+
+% PROPOSICIONES, COROLARIOS, TEOREMAS, DEFINICIONES Y EJEMPLOS
+
+\newtheoremstyle{mydefinition}{}{}{}{}{\color{c1}\bfseries}{.}{ }{}
+\newtheoremstyle{mytheorem}{}{}{\itshape}{}{\color{c2}\bfseries}{.}{ }{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}} % Lo del último paréntesis sirve para que el título opcional esté en negrita
+\newtheoremstyle{myexample}{}{}{}{}{\bfseries}{.}{ }{}
+
+\theoremstyle{mytheorem}
+\newtheorem{proposition}{Proposición}
+\newtheorem{corollary}{Corolario} % [proposition] hace que siga la misma numeración que las proposiciones
+\newtheorem{theorem}{Teorema}
+\theoremstyle{mydefinition}
+\newtheorem{definition}{Definición}
+\theoremstyle{myexample}
+\newtheorem*{example}{Ejemplo}
+\newtheorem*{notation}{Notación}
+
+\addto\captionsspanish{
+\let\oldproofname=\proofname
+\renewcommand{\proofname}{\rm\bf{\oldproofname}}}
+
+\newenvironment{cdefinition} % Definiciones con raya a la izquierda
+  {\begin{mdframed}[
+        linewidth=3pt,
+        linecolor=c1,
+        bottomline=false,
+        topline=false,
+        rightline=false,
+        innerrightmargin=0pt,
+        innertopmargin=0pt,
+        innerbottommargin=0pt,
+        innerleftmargin=1em, % Distance between vertical rule & proof content
+        skipabove=\baselineskip]
+    \begin{definition}}
+  {\end{definition}\end{mdframed}}
+
+\newenvironment{ctheorem} % Teoremas con raya a la izquierda
+  {\begin{mdframed}[
+        linewidth=3pt,
+        linecolor=c2,
+        bottomline=false,
+        topline=false,
+        rightline=false,
+        innerrightmargin=0pt,
+        innertopmargin=0pt,
+        innerbottommargin=0pt,
+        innerleftmargin=1em, % Distance between vertical rule & proof content
+        skipabove=\baselineskip]
+    \begin{theorem}}
+  {\end{theorem}\end{mdframed}}
+
+\newenvironment{cproposition} % Proposiciones con raya a la izquierda
+  {\begin{mdframed}[
+        linewidth=3pt,
+        linecolor=c2,
+        bottomline=false,
+        topline=false,
+        rightline=false,
+        innerrightmargin=0pt,
+        innertopmargin=0pt,
+        innerbottommargin=0pt,
+        innerleftmargin=1em, % Distance between vertical rule & proof content
+        skipabove=\baselineskip]
+    \begin{proposition}}
+  {\end{proposition}\end{mdframed}}
+
+\newenvironment{ccorollary} % Corolario con raya a la izquierda
+  {\begin{mdframed}[
+        linewidth=3pt,
+        linecolor=c2,
+        bottomline=false,
+        topline=false,
+        rightline=false,
+        innerrightmargin=0pt,
+        innertopmargin=0pt,
+        innerbottommargin=0pt,
+        innerleftmargin=1em, % Distance between vertical rule & proof content
+        skipabove=\baselineskip]
+    \begin{corollary}}
+  {\end{corollary}\end{mdframed}}
+
+%------------------------------------------------------------------------------------------------%
+
+% ATAJOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+
+\newcommand{\pars}[1]{\left( #1 \right)} 
+\newcommand{\bars}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left|\left| #1 \right|\right|}
+\newcommand{\pder}[3][2]{\frac{\partial #2}{\partial #3}}
+\newcommand{\comment}[1]{}
+\newcommand{\mybf}[1]{\boldmath\textbf{\color{c1}#1}\unboldmath}
+
+%------------------------------------------------------------------------------------------------%
+
+% TÍTULOS DE CAPÍTULOS
+
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+  %\vspace*{50\p@}%
+  \vspace*{10\p@}%
+  {\parindent \z@ \centering \reset@font
+        \thickhrulefill\quad
+        {\scshape \@chapapp{} \thechapter}
+        \quad \thickhrulefill
+        \par\nobreak
+        \vspace*{10\p@}%
+        \interlinepenalty\@M
+        \hrule
+        \vspace*{0.5mm}%
+        \Huge \bfseries #1\par\nobreak
+        \par
+        \vspace*{3mm}%
+        \hrule
+    %\vskip 40\p@
+    \vskip 50\p@
+  }}
+\def\@makeschapterhead#1{%
+  %\vspace*{50\p@}%
+  \vspace*{10\p@}%
+  {\parindent \z@ \centering \reset@font
+        \thickhrulefill
+        \par\nobreak
+        \vspace*{10\p@}%
+        \interlinepenalty\@M
+        \hrule
+        \vspace*{0.5mm}%
+        \Huge \bfseries #1\par\nobreak
+        \par
+        \vspace*{3mm}%
+        \hrule
+    %\vskip 40\p@
+    \vskip 50\p@
+  }}
+
+%------------------------------------------------------------------------------------------------%
+
+% COLORES
+
+\definecolor{c1}{HTML}{0065ff}
+\definecolor{c2}{HTML}{ff5d00}
+
+%------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+%------------------------------------------------------------------------------------------------%
+
+% PÁGINA DEL TÍTULO
+
+\begin{titlepage}
+
+\vspace*{0.5cm}
+
+\begin{tikzpicture}[remember picture,overlay]
+
+  \fill[black] ($(current page.north west)-(0cm,4cm)$) rectangle ($(current page.south east)-(0cm,-22cm)$);
+\end{tikzpicture}
+
+\centering
+
+\vspace{3\baselineskip}
+	
+{\fontsize{40pt}{0pt}\selectfont\textbf{\color{white}Análisis Numérico}}
+
+\vspace{5\baselineskip}
+
+{\color{black}\itshape\bfseries{
+
+Universidad de Málaga
+
+Grado en Matemáticas
+
+Febrero de 2024
+
+}}
+
+\end{titlepage}
+
+\addtocounter{page}{1} % Para que la página del título cuente en la numeración
+
+%------------------------------------------------------------------------------------------------%
+
+% PÁGINA DE LA TABLA DE CONTENIDOS
+
+\doublespacing
+\addtocontents{toc}{\protect\pagestyle{empty}}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\tableofcontents
+\thispagestyle{empty}
+\singlespacing
+
+%------------------------------------------------------------------------------------------------%
+
+\chapter{Introducción}
+
+\section{Problemas de Cauchy}
+
+El principal propósito de esta asignatura es el estudio de métodos numéricos que permitan aproximar soluciones de ecuaciones diferenciales ordinarias (EDO). Concretamente, se tratarán problemas del estilo
+\[(P) \ \left\{
+\begin{alignedat}{1}
+\, y'(t)  &= f(t,y(t)), \ t \in [t_0,t_0+T], \\
+\, y(t_0) &= y^0,
+\end{alignedat}\right.\]
+siendo $(t_0,y^0) \in \R \times \R^n$ y $f \colon [t_0,t_0+T] \times \R^n \to \R^n$. Problemas de este tipo, habitualmente denominados \emph{problemas de Cauchy}, ya han sido estudiados en asignaturas precedentes. Es por esto que en absoluto nos adentraremos en asuntos relacionados con existencia y unicidad de soluciones; simplemente se recuerdan algunas nociones básicas necesarias para asegurar que el problema $(P)$ posee una única solución.
+
+\begin{cdefinition}
+Fijada una norma vectorial $||\cdot||$ en $\R^n$, una función $f \colon [t_0,t_0+T] \times \R^n \to \R^n$ se dice que es \mybf{de Lipschitz en la variable $y$} si existe una constante $L>0$ tal que
+\[||f(t,y_1)-f(t,y_2)||\leq L ||y_1-y_2||\]
+para todo $t \in [t_0,t_0+T]$ y todos $y_1,y_2 \in \R^n$.
+\end{cdefinition}
+
+\begin{ctheorem}
+    Si una función $f \colon [t_0,t_0+T] \times \R^n \to \R^n$ es continua y de Lipschitz en la variable $y$, entonces el problema $(P)$ tiene solución única en $[t_0,t_0+T]$.
+\end{ctheorem}
+
+\begin{proof}
+Corresponde a la asignatura \emph{Ecuaciones Diferenciales II}.
+\end{proof}
+
+De aquí en adelante, la función $f$ que figura en el problema $(P)$ se supondrá continua y de Lipschitz en la variable $y$. Ya se puede asegurar la existencia y unicidad de una única solución del problema $(P)$. El asunto que ahora nos ocupa es el de aproximar dicha solución.
+
+\section{Algunos modelos matemáticos basados en EDO}
+
+\begin{example}
+Se tiene un recipiente con $20$ litros de agua pura en un instante inicial. Supóngase que 
+\begin{enumerate}
+    \item entra agua salada en el recipiente a razón de $2$ litros por segundo con una concentración de 3 gramos por litro;
+    \item sale agua salada del recipiente a razón de $2$ litros por segundo.
+\end{enumerate}
+
+Se trata de encontrar la función $s(t)$ que proporcione la cantidad de sal que hay en el depósito en cada instante $t$. En primer lugar, la velocidad a la que entra sal en el recipiente es de 6 gramos por segundo, mientras que la velocidad a la que sale sal del recipiente es de
+\[\underbracket{\frac{s(t)}{20}}_{g/l} \cdot \underbracket{\vphantom{\frac{}{}}2}_{l/s} = \frac{s(t)}{10}\]
+gramos por segundo. Por tanto, $s'(t)=6-\frac{s(t)}{10}$ es la velocidad a la que varía la sal que hay en el recipiente. Así, el problema a resolver es
+\[(P) \ \left\{
+\begin{alignedat}{1}
+\, s'(t)&=6-\frac{s(t)}{10}, \\
+\, s(0)&=0,
+\end{alignedat}\right.\]
+y su solución, como se comprueba fácilmente, sería $s(t)=60(1-e^{-\frac{1}{10}t})$.
+\end{example}
+
+\begin{example}
+Sea $x(t)$ el número de individuos de una cierta población, y sean $k_n$ y $k_m$ las respectivas tasas de natalidad y mortalidad de la población. En ausencia de depredadores, los modelos para esta población aislada son ecuaciones de la forma
+\[x'(t)=k_nx-k_mx,\]
+así que, de ser $k_n$ y $k_m$ constantes, fijando un dato inicial $(t_0,x_0) \in \R^2$ y llamando $k= k_n-k_m$, la solución sería $x(t)=x_0e^{kt}$.
+\end{example}
+
+\begin{example}
+La casuística es la siguiente:
+\begin{enumerate}
+    \item Hay dos especies que interactúan: las presas, $x(t)$, y los depredadores, $y(t)$.
+    \item La tasa de natalidad de las presas, $k_n^p$, es constante, y la tasa de mortalidad es $k_m^p=c+\beta y$, con $c,\beta >0$.
+    \item La tasa de natalidad de los depredadores es $k_n^d=d+\delta x$, con $d,\delta >0$, mientras que la tasa de mortalidad, $k_m^d$, es constante.
+\end{enumerate}
+
+Las ecuaciones serían, siguiendo el modelo anterior, $x'=k_n^px-k_m^px$ e $y'=k_n^dy-k_m^dy$. Sustituyendo y llamando $x(0)=x_0$ e $y(0)=y_0$, el problema a resolver no es más que
+\[(LV) \ \left\{
+\begin{alignedat}{2}
+\, x'&=\phantom{-}\alpha x-\beta xy, \quad x(0)&=x_0, \\
+\, y'&=-\gamma y+\delta xy, \quad y(0)&=y_0,
+\end{alignedat}\right.\]
+donde $\alpha=k_n^p-c$ y $\gamma = k_m^d-d$. Este modelo se conoce como \emph{modelo presa-depredador de Lotka-Volterra}.
+\end{example}
+
+\section{Método de Euler}
+
+El proceso habitual para aproximar $y \colon [t_0, t_0+T] \to \R$, la única solución del problema de partida $(P)$ en el caso unidimensional, consistirá en tomar una partición uniforme $t_0<t_1<\mathellipsis<t_{n-1}<t_n=t_0+T$ del intervalo $[t_0,t_0+T]$ y, para cada $k \in \{0,1,\mathellipsis,n\}$, obtener una aproximación de $y(t_k)$, que será denotada por $y_k$. 
+
+La longitud de cada subintervalo de la partición se denomina \emph{paso de malla}, y habitualmente se denota por $h$. Así, para cada $k \in \{0,1,\mathellipsis,n\}$, se tiene
+\[t_k=t_0+kh\]
+A bote pronto, la aproximación más sencilla de la gráfica de $y$ en el intervalo $[t_0, t_1]$ sería la recta tangente a la gráfica de la solución en $(t_0,y_0)$. La ordenada del punto de dicha recta con abscisa $t_1$ es
+\[y_1=y_0+f(t_0,y_0)(t_1-t_0)=y_0+hf(t_0,y_0)\]
+Al repetir esta interpolación en los demás subintervalos de la partición, se obtiene una aproximación razonable de la solución de $(P)$ en el intervalo $[t_0,t_0+T]$.
+
+\begin{cdefinition}
+El \mybf{método de Euler} es aquel definido por
+\[
+    y_{k+1} = y_k+hf(t_k,y_k), \quad k \in \{0,1,\mathellipsis,n-1\}
+\]
+\end{cdefinition}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    xmin = 0,
+    samples = 200,
+    xmax = 1,
+    ymin = 0,
+    ymax = 1,
+    xtick={0.25,0.75},
+    ytick={5/16,0.5625,0.8125},
+    xticklabels={$t_{0}$, $t_{1}$},
+    yticklabels={$y_0$\\$y_1$\\$y(t_1)$\\}
+]
+\addplot[color=c1]{x^2+1/4};
+\addplot[color=c2]{2*0.25*(x-0.25)+0.25^2+0.25};
+\addplot[thick, smooth, dotted] coordinates{(0.25,0)(0.25,5/16)} node[pos = 1, fill, circle, inner sep = 0pt, minimum size = 4pt] {};
+\addplot[thick, smooth, dotted] coordinates{(0.75,0)(0.75,0.8125)};
+\node[fill, circle, inner sep = 0pt, minimum size = 4pt] at (0.75,0.8125) {};
+\node[fill, circle, inner sep = 0pt, minimum size = 4pt] at (0.75,0.5625) {};
+\end{axis}
+\end{tikzpicture}
+\caption{Interpretación gráfica del método de Euler.}
+\end{figure}
+
+A continuación, se tratará de estudiar cómo de buenas son las aproximaciones proporcionadas por el método de Euler. Para ello, es conveniente recordar nociones básicas sobre polinomios de Taylor.
+
+\begin{cdefinition}
+Sea $I \subset \R$ un intervalo y sea $g \colon I \to \R$ una función $n$ veces derivable en un punto $t_0 \in I$. Se define el \mybf{polinomio de Taylor de la función $g$ de grado $n \in \N$ centrado en $t_0$} como
+\[P_{g,n,t_0}(t)=\sum_{k=0}^n\frac{g^{(k)}(t_0)}{k!}(t-t_0)^k\]
+\end{cdefinition}
+
+\begin{ctheorem}[Fórmula del resto de Lagrange]
+Sea $I \subset \R$ un intervalo abierto y sea $g \in \mathcal{C}^{n+1}(I)$. Dados $t,t_0 \in I$, existe $\xi$ en el intervalo abierto de extremos $t_0$ y $t$ tal que
+\[g(t)-P_{g,n,t_0}(t)=\frac{g^{(n+1)}(\xi)}{(n+1)!}(t-t_0)^{n+1}\]
+\end{ctheorem}
+
+\begin{proof}
+Corresponde a la asignatura \emph{Análisis Matemático II}.
+\end{proof}
+
+\begin{ctheorem}
+Sean $\{y_k\}_{k=0}^n$ las aproximaciones obtenidas mediante el método de Euler. Si la función $f$ del problema $(P)$ es de clase $1$, entonces existe una constante $K>0$, independiente de $h$, tal que
+\[e(h) \coloneqq \max_{k=0,1,\mathellipsis,n}|y(t_k)-y_k| \leq Kh\]
+\end{ctheorem}
+
+\begin{proof}
+Para cada $k \in \{0,1,\mathellipsis,n\}$, definiremos
+\[e_k \coloneqq |y(t_k)-y_k|\]
+Evidentemente, $e_0 = 0$. En $k = 1$, se tiene
+\[
+\begin{aligned}[t]
+e_1 &= |y(t_1)-y_1| = |y(t_1)-y_0-hf(t_0,y_0)| = |y(t_1)-y(t_0)-hy'(t_0)| = |y(t_1)-P_{y,1,t_0}(t_1)|
+\end{aligned}
+\]
+Por la fórmula del resto de Lagrange, existe $\xi_0 \in (t_0,t_1)$ tal que
+\[e_1 = \biggl|\frac{y''(\xi_0)}{2}h^2\biggr| = \frac{|y''(\xi_0)|}{2}h^2\]
+Por ser $f$ de clase 1 y tenerse $y'=f(t,y)$, puede afirmarse que $y'$ tiene derivada continua en $[t_0,t_0+T]$, luego $|y''|$ es continua en el compacto $[t_0,t_0+T]$, y por tanto alcanza el máximo. Por tanto, $e_1 \leq Ch^2$, donde
+\[C \coloneqq \frac{1}{2}\max_{t \in [t_0,t_0+T]} |y''(t)|\]
+
+En $k = 2$, se verifica
+\[\begin{aligned}[t]
+    e_2 &= |y(t_2)-y_2| \\ &= |y(t_2)-y_1-hf(t_1,y_1)| \\
+    &= |y(t_2)+y(t_1)-y(t_1)+hf(t_1,y(t_1))-hf(t_1,y(t_1))-y_1-hf(t_1,y_1)| \\
+    &\leq |y(t_2)-y(t_1)-hf(t_1,y(t_1))|+|y(t_1)-y_1|+h|f(t_1,y(t_1))-f(t_1,y_1)| \\
+    &= \underbracket{|y(t_2)-P_{y,1,t_1}(t_2)|}_I+\ e_1+\underbracket{h|f(t_1,y(t_1))-f(t_1,y_1)|}_{II}
+\end{aligned}\]
+Para acotar $I$, se razona como antes: por la fórmula del resto de Lagrange, existe $\xi_1 \in (t_1,t_2)$ tal que
+\[|y(t_2)-P_{y,1,t_1}(t_2)| = \frac{|y''( \xi_1)|}{2}h^2 \leq Ch^2\]
+Para acotar $II$, se recuerda que $f$ es de Lipschitz en la variable $y$, así que existe $L>0$ verificando
+\[h|f(t_1,y(t_1))-f(t_1,y_1)| \leq hL|y(t_1)-y_1| = hLe_1,\]
+y en consecuencia,
+\[e_2 \leq Ch^2+(1+hL)e_1\]
+Así, es fácil probar que para cada $k \in \{1,2,\mathellipsis,n\}$ se verifica
+\[e_{k} \leq Ch^2 +(1+hL)e_{k-1},\]
+luego
+\[
+\begin{aligned}[t]
+    e_k &\leq Ch^2+(1+hL)e_{k-1} \\
+    &\leq Ch^2+(1+hL)(Ch^2+(1+hL)e_{k-2}) = Ch^2+(1+hL)Ch^2+(1+hL)^2e_{k-2} \\ &\leq Ch^2+(1+hL)Ch^2+(1+hL)^2(Ch^2+(1+hL)e_{k-3}) \\
+    &\leq \mathellipsis
+    \\ &\leq Ch^2\sum_{j=0}^{k-1}(1+hL)^j = Ch^2 \frac{1-(1+hL)^k}{1-1-hL} = Ch\frac{(1+hL)^k-1}{L} \\ 
+    \overset{(\ast)}&{\leq} Ch\frac{(1+hL)^n-1}{L} \\
+    \overset{(\ast\ast)}&{\leq} Ch\frac{e^{nhL}-1}{L} = Ch\frac{e^{TL}-1}{L} = Kh,
+\end{aligned}
+\]
+donde \[K=C\frac{e^{TL}-1}{L}\] es una constante positiva que no depende de $h$. Un par de aclaraciones:
+\begin{itemize}
+    \item[$(\ast)$] Como $h>0$ y $L>0$, entonces $1+hL > 1$ y por tanto $(1+hL)^k \leq (1+hL)^n$ al ser $k \leq n$.
+    \item[$(\ast\, \ast)$] Se ha usado la desigualdad $1+x \leq e^x$ para todo $x \in \R$, de donde se deduce, elevando a $n \in \N$, que $(1+x)^n \leq e^{nx}$. Para $x \leq 0$, es evidente que $1+x \leq e^x$; si $x >0$, no hay más que recordar el desarrollo en serie de Taylor de la función exponencial:
+    \[e^x = \sum_{n=0}^\infty \frac{x^n}{n!} > \sum_{n=0}^1 \frac{x^n}{n!} = 1+x\]
+\end{itemize}
+Así, como se ha probado que $e_k \leq Kh$ para todo $k \in \{0,1,\mathellipsis,n\}$, el teorema está demostrado.
+\end{proof}
+
+\section{Métodos de Taylor}
+
+Partiendo de las mismas condiciones de la sección anterior, como para todo $k =0,1,\mathellipsis,n-1$ se tiene $y'(t_k)=f(t_k,y(t_k))$, puede escribirse
+\[y_{k+1}=y_k+hf(t_k,y_k)=y_k+y'(t_k)(t_{k+1}-t_k) = P_{y,1,t_k}(t_{k+1})\]
+Naturalmente, si en lugar de polinomios de Taylor de primer grado se usan polinomios de mayor grado, las aproximaciones obtenidas deberían ser más precisas. Queremos definir un método mediante
+\[y_{k+1} = y_k+\sum_{q=1}^p \frac{y^{(q)}(t_k)}{q!}h^q,\]
+pero antes es necesario conocer las derivadas de orden superior de $y$. Siempre que la función $f$ sea lo suficientemente regular, se puede derivar en la ecuación $y'(t)=f(t,y(t))$, obteniéndose
+\begin{equation}
+    y''(t)=\frac{d}{dt}f(t,y(t)) = f_t(t,y(t))+y'(t)\cdot f_y(t,y(t)) = f_t(t,y(t))+f(t,y(t)) \cdot f_y(t,y(t))
+\end{equation}
+Derivando otra vez y omitiendo los puntos en los que se evalúan las funciones por motivos de comodidad, se llega a
+\begin{equation}y''' =  f_{tt}+f \cdot f_{ty}+(f_t+f\cdot f_y) \cdot f_y + f \cdot (f_{yt}+f\cdot f_{yy}), \end{equation}
+lo que sugiere lo siguiente:
+
+\begin{notation}
+Si $f \colon [t_0,t_0+T] \times \R \to \R$ tiene derivadas parciales de orden $q$ para todo $q \in \{0,1,\mathellipsis,p\}$, se define
+\[f^{(0)}(t,y) \coloneqq f(t,y),\]
+y para $q \in \{ 0,1,\mathellipsis,p-1\}$, se define
+\[f^{(q+1)}(t,y) \coloneqq f_t^{(q)}(t,y)+f(t,y)f_y^{(q)}(t,y)\]
+\end{notation}
+
+Así, la expresión $(1)$ afirma que $y''(t)=f^{(1)}(t,y(t))$, mientras que $(2)$ se traduce en $y'''(t)=f^{(2)}(t,y(t))$. En general, si $f$ es $p$ veces derivable, es claro que para todo $q \in \{0,1,\mathellipsis,p\}$ se verifica
+\[y^{(q+1)}(t) = f^{(q)}(t,y(t))\]
+Ya estamos en condiciones de definir el método deseado:
+\begin{cdefinition}
+Si $p \in \N$ y $f$ tiene derivadas parciales de hasta orden $p$, el \mybf{método de Taylor de orden $p$} es aquel definido por
+\[
+    y_{k+1} = y_k+\sum_{q=1}^p \frac{f^{(q-1)}(t_k,y_k)}{q!}h^{q}, \quad k \in \{0,1,\mathellipsis,n-1\}
+\]
+\end{cdefinition}
+
+\begin{example}
+Se trata de aproximar la solución del problema
+\[(P) \ \begin{cases}
+\, y' =\frac{1}{2}(t^2-y) \\
+\,   y(0)=1\end{cases}\]
+mediante el método de Taylor de grado 2. Va a ser necesario conocer la segunda derivada de $y$, la cual puede obtenerse derivando en la ecuación del problema: para todo $t \in \R$ se tiene
+\[y''(t)=t-\frac{y'(t)}{2}=t-\frac{1}{4}(t^2-y(t))\]
+Por tanto,
+\[
+\begin{aligned}[t]
+P_{y,2,t_{k}}(t_{k+1})&=y(t_k)+y'(t_k)h+\frac{y''(t_k)}{2}h^2\\&=y(t_k)+\frac{1}{2}(t_k^2-y(t_k))h+\frac{1}{2}(t_k-\frac{1}{2}y'(t_k))h^2\\[5pt] 
+&=y(t_k)+\frac{1}{2}(t_k^2-y(t_k))h+\frac{1}{2}(t_k-\frac{1}{4}t_k^2+\frac{1}{4}y(t_k))h^2
+\end{aligned}\]
+En consecuencia, el método de Taylor de segundo orden viene dado por
+\[y_{k+1}= y_k+\frac{1}{2}(t_k^2-y_k)h+\frac{1}{2}(t_k-\frac{1}{4}t_k^2+\frac{1}{4}y_k)h^2\]
+para cada $k \in \{0,1,\mathellipsis,n-1\}$. 
+\end{example}
+
+\begin{example}
+Considerando el problema del ejemplo anterior y tomando $h=0.1$, se trata de aproximar $y(0.1)$ haciendo uso de
+\begin{enumerate}
+    \item el método de Euler con $h=0.1$:
+    \[y(0.1)\approx y_0+\frac{1}{2}(t_0^2-y_0)h=1+\frac{1}{2}(0^2-1)0.1=0.95\]
+    \item el método de Taylor de segundo orden:
+    \[y(0.1)\approx y_0+\frac{1}{2}(t_0^2-y_0)h+\frac{1}{2}(t_0-\frac{1}{4}t_0^2+\frac{1}{4}y_0)h^2=0.95125\]
+    \item el método de Taylor de tercer orden:
+    \[y(0.1)\approx y_0+\frac{1}{2}(t_0^2-y_0)h+\frac{1}{2}(t_0-\frac{1}{4}t_0^2+\frac{1}{4}y_0)h^2+\frac{1}{6}(1-\frac{1}{2}t_k+\frac{1}{8}t_k^2+\frac{1}{8}y_k)h^3=\mathellipsis\]
+\end{enumerate}
+\end{example}
+
+\section{Método del punto medio y método de Heun}
+
+Partiendo de las condiciones de la sección anterior y fijando $k = 0,1,\mathellipsis,n-1$, como se está suponiendo que $f$ es continua, entonces, para cualquier $t^* \in [t_0,t_0+T]$, el problema $(P)$ y la ecuación
+\[y(t)= y(t^*)+\int_{t^*}^tf(s,y(s)) \, ds\]
+son totalmente equivalentes, suponiendo que $y(t^*)$ es conocido. En particular,
+\begin{equation}y(t_{k+1}) = y(t_k)+\int_{t_k}^{t_{k+1}}f(t,y(t)) \, dt,
+\end{equation}
+así que aproximar $y(t_{k+1})$ es equivalente a aproximar la integral de la derecha. Para este propósito, se va a utilizar, por ejemplo, la \emph{fórmula del rectángulo a la izquierda}, que consiste en
+\[\int_a^b g(x) \, dx \approx g(a)(b-a)\]
+Si se aplica esta fórmula en $(3)$, la aproximación obtenida es precisamente la del método de Euler, o sea, $y_{k+1}=y_k+hf(t_k,y_k)$. Esto sugiere un nuevo procedimiento de obtención de aproximaciones de $y$: usar fórmulas de integración más precisas que la del rectángulo a la izquierda. Repitamos el razonamiento de antes pero echando mano de la \emph{fórmula del punto medio}, es decir,
+\[\int_a^bg(x) \, dx \approx g\bigl(\frac{b+a}{2}\bigr)(b-a),\]
+que aplicándose en $(3)$ quedaría
+\[y_{k+1}=y_k+hf\bigl(t_k+\frac{h}{2},y\bigl(t_k+\frac{h}{2}\bigr)\bigr)\]
+El valor de $y$ en el punto $t_k+\frac{h}{2}$ tampoco se conoce, pero puede estimarse mediante el método de Euler. Se tendría entonces
+\[y_{k+\frac{1}{2}}=y_k+\frac{h}{2}f(t_k,y_k),\]
+y sustituyendo arriba, tenemos un método más:
+
+\begin{cdefinition}
+El \mybf{método del punto medio} es aquel definido por
+\[y_{k+1}=y_k+hf\bigl(t_k+\frac{h}{2},y_k+\frac{h}{2}f\bigl(t_k,y_k\bigr)\bigr), \quad k \in \{0,1,\mathellipsis,n-1\},\]
+o, alternativamente,
+\[\left\{\begin{alignedat}{1}
+    \displaystyle y_{k+\frac{1}{2}} &= y_k+\frac{h}{2}f(t_k,y_k) \\
+    \displaystyle y_{k+1} &= y_k+hf\bigl(t_k+\frac{h}{2},y_{k+\frac{1}{2}}\bigr)
+\end{alignedat}\right.\]
+\end{cdefinition}
+
+Ahora, en lugar de utilizar la fórmula del punto medio, probemos a aproximar la integral que aparece en $(3)$ mediante la \emph{fórmula del trapecio}, es decir,
+\[\int_a^b g(x) \, dx \approx (b-a)\frac{g(a)+g(b)}{2},\]
+lo que proporcionaría la expresión
+\[y_{k+1}=y_k+\frac{h}{2}(f(t_k,y_{k})+f(t_{k+1},y(t_{k+1})))\]
+El mismo inconveniente de antes: hay que realizar una nueva aproximación porque no se sabe quién es $y(t_{k+1})$. Vuélvase a recurrir al método de Euler para aproximar $y(t_{k+1})$, y hállese así un nuevo método:
+
+\begin{cdefinition}
+El \mybf{método de Heun} es aquel definido por
+\[
+y_{k+1}=y_k+\frac{h}{2}(f(t_k,y_{k})+f(t_k+h,y_k+hf(t_k,y_k))), \qquad k \in \{0,1,\mathellipsis,n-1\},
+\]
+o, alternativamente,
+\[\begin{cases}
+        y_{k+1}^* = y_k+hf(t_k,y_k) \\[5pt]
+        \displaystyle y_{k+1} = y_k+\frac{h}{2}(f(t_k,y_k)+f(t_{k+1},y_{k+1}^*))
+\end{cases}\]
+\end{cdefinition}
+
+\section{Métodos de Runge-Kutta}
+\label{sec1.6}
+
+Al igual que antes, el procedimiento de obtención de los métodos de Runge-Kutta tratará de aproximar la integral de $(3)$ mediante una cierta fórmula de integración. Concretamente, se va a emplear una \emph{fórmula de cuadratura de $p$ puntos}, o sea, una fórmula de la forma
+\[\int_a^b g(x)\, dx \approx (b-a)\sum_{i=1}^pb_ig(a+c_i(b-a)),\]
+donde $c_i \in [0,1]$ y $b_i \in \R$. Se dice que $a+c_i(b-a)$ son los \emph{nodos} y $b_i$ los \emph{pesos}. Al sustituir en la integral de $(3)$ quedaría
+\begin{equation}\int_{t_k}^{t_{k+1}}f(t,y(t))\, dt \approx h \sum_{i=1}^pb_if(t_k+c_ih,y(t_k+c_ih))\end{equation}
+Esta aproximación no sirve de mucho si no se conocen los valores $y(t_k+c_ih)$, con $i \in \{0,1,\mathellipsis,p\}$. Para aproximarlos, se procede de la misma forma pero en el intervalo $[t_k,t_k+c_ih]$. Se tiene que
+\[y(t_k+c_ih) = y(t_k)+\int_{t_k}^{t_k+c_ih}f(t,y(t)) \, dt\]
+Ahora se vuelve a aplicar una fórmula de cuadratura de $p$ puntos con los mismos nodos de antes y pesos nuevos, quedando
+\begin{equation}\int_{t_k}^{t_k+c_ih}f(t,y(t))\, dt \approx h\sum_{j=1}^pa_{i,j}f(t_k+c_jh, y(t_k+c_jh))\end{equation}
+Así, se obtienen las aproximaciones
+\[y(t_k+c_ih) \approx y(t_k) +h\sum_{j=1}^pa_{i,j}f(t_k+c_jh, y(t_k+c_jh))\]
+Al sustituir en $(4)$ y volver a $(3)$, se obtiene el método siguiente:
+\begin{cdefinition}
+Sea $p \in \N$, sean $a_{i,j},b_i,c_i \in \R$ con $c_i \in [0,1]$ para $i,j \in \{1,2,\mathellipsis,p\}$ y llamemos
+\[t_k^{(i)} \coloneqq t_k+c_ih, \quad i \in \{1,2,\mathellipsis,p\}, \, k \in \{0,1,\mathellipsis,n\}\]
+El \mybf{método de Runge-Kutta de $p$ etapas} es aquel definido por
+\[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k+h(a_{1,1}f(t_k^{(1)},y_k^{(1)})+a_{1,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{1,p}f(t_k^{(p)},y_k^{(p)})) \\
+    y_k^{(2)} &= y_k+h(a_{2,1}f(t_k^{(1)},y_k^{(1)})+a_{2,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{2,p}f(t_k^{(p)},y_k^{(p)})) \\
+    &\phantom{\vdots} \: \vdots \\
+    y_k^{(p)} &= y_k+h(a_{p,1}f(t_k^{(1)},y_k^{(1)})+a_{p,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{p,p}f(t_k^{(p)},y_k^{(p)})) \\
+    y_{k+1} &= y_k+h(b_1f(t_k^{(1)},y_k^{(1)})+\mathellipsis+b_pf(t_k^{(p)},y_k^{(p)})),
+\end{alignedat}\right.\]
+o lo que es lo mismo,
+\[y_{k+1}=y_k+h(b_1k_1+\mathellipsis+b_pk_p),\]
+donde
+\[\begin{aligned}[t]
+    k_1 &= f(t_k^{(1)},y_k+h(a_{11}k_1+\mathellipsis+a_{1p}k_p)) \\
+    k_2 &= f(t_k^{(2)},y_k+h(a_{21}k_1+\mathellipsis+a_{2p}k_p)) \\
+    &\phantom{\vdots} \: \vdots \\
+    k_p &= f(t_k^{(p)},y_k+h(a_{p1}k_1+\mathellipsis+a_{pp}k_p))
+\end{aligned}\]
+\end{cdefinition}
+
+El método más célebre de la familia de los métodos de Runge-Kutta es uno de $4$ etapas definido de la siguiente manera:
+
+\begin{cdefinition}
+El \mybf{método RK4} es aquel definido por
+\[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k\\
+    y_k^{(2)} &= y_k+\frac{h}{2}f(t_k,y_k^{(1)}) \\
+    y_k^{(3)} &= y_k+\frac{h}{2}f(t_k+\frac{h}{2},y_k^{(2)}) \\
+    y_k^{(4)} &= y_k+hf(t_k+\frac{h}{2},y_k^{(3)})\\
+    y_{k+1} &= y_k+\frac{h}{6}(f(t_k,y_k^{(1)})+2f(t_k+\frac{h}{2},y_k^{(2)})+2f(t_k+\frac{h}{2},y_k^{(3)})+f(t_{k+1},y_k^{(4)})),
+\end{alignedat}\right.\]
+o lo que es lo  mismo,
+\[
+    \displaystyle y_{k+1}=y_k+\frac{h}{6}(k_1+2k_2+2k_3+k_4), \qquad k \in \{0,1,\mathellipsis,n-1\},
+\]
+donde
+\[k_1 = f(t_k,y_k), \qquad k_2 = f(t_k+\frac{h}{2},y_k+\frac{h}{2}k_1), \qquad k_3 = f(t_k+\frac{h}{2},y_k+\frac{h}{2}k_2), \qquad k_4 = f(t_k+h,y_k+hk_3)\]
+\end{cdefinition}
+
+\vspace{\parskip}
+
+Regresando al caso general, cabe remarcar que a los coeficientes $a_{i,j}$, $b_i$ y $c_i$ se les va a pedir que verifiquen
+\[\sum_{i=1}^p b_i = 1,\qquad \qquad c_i = \sum_{j=1}^p a_{i,j}\]
+Esto se debe a que las fórmulas de integración $(4)$ y $(5)$ deberían ser exactas, por lo menos, para la función $f \equiv 1$. De poco serviría una fórmula de integración que no es capaz de aproximar ni la longitud de un segmento.
+
+Por otra parte, los números $a_{i,j},b_i,c_i$ suman, en total, $p^2+2p$ coeficientes, y suelen ser dispuestos en lo que se conoce como un \emph{tablero de Butcher}, es decir, un diagrama del estilo
+
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|ccc}
+    $c_1$ & $a_{1,1}$ & $\mathellipsis$ & $a_{1,p}$ \\
+    $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ \\
+    $c_p$ & $a_{p,1}$ & $\mathellipsis$ & $a_{p,p}$ \\[5pt] \hline
+    & $b_1$ & $\mathellipsis$ & $b_p$
+\end{tabular}
+\end{center}
+
+Veamos ahora que estos métodos generalizan al de Euler, al del punto medio, al de Heun y al RK4.
+
+\begin{enumerate}
+    \item El método de Euler es más simple que el mecanismo de un botijo, pues se escribe como
+\[y_{k+1} = y_k+hk_1,\]
+donde
+\[k_1 = f(t_k^{(1)},y_k), \qquad t_k^{(1)} = t_k,\]
+así que el tablero de Butcher sería
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|c}
+    $0$ & $0$ \\ \hline
+    & $1$
+\end{tabular}
+\end{center}
+
+\item El método del punto medio se puede escribir como
+\[y_{k+1} = y_k+hk_2,\]
+donde
+\[k_1 = f(t_k^{(1)},y_k), \qquad k_2 = f(t_k^{(2)},y_k+\frac{h}{2}k_1), \qquad t_k^{(1)}=t_k, \qquad t_k^{(2)} = t_k+\frac{h}{2},\]
+así que el tablero de Butcher sería
+
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|cc}
+    0 & 0 & 0 \\
+    1/2 & 1/2 & 0 \\ \hline
+    & 0 & 1
+\end{tabular}
+\end{center}
+
+\item El método de Heun se puede escribir como
+\[y_{k+1} = y_k+\frac{h}{2}(k_1+k_2),\]
+donde
+\[k_1=f(t_k^{(1)},y_k), \qquad k_2 = f(t_k^{(2)},y_k+hk_1), \qquad t_k^{(1)} = t_k, \qquad t_k^{(2)} = t_k+h,\]
+así que el tablero de Butcher sería
+
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|cc}
+    0 & 0 & 0 \\
+    1 & 1 & 0 \\ \hline
+    & 1/2 & 1/2
+\end{tabular}
+\end{center}
+
+\item Mirando cara a cara la definición del método RK4, el tablero de Butcher sería
+
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|cccc}
+    0 & 0 & 0 & 0 & 0 \\
+    1/2 & 1/2 & 0 & 0 & 0 \\
+    1/2 & 0 & 1/2 & 0 & 0 \\
+    1 & 0 & 0 & 1 & 0 \\ \hline
+    & 1/6 & 1/3 & 1/3 & 1/6
+\end{tabular}
+\end{center}
+
+\end{enumerate}
+
+\begin{example}
+Considérese el problema
+\[(P) \ \begin{cases}
+\, y' =\frac{1}{2}(t^2-y) \\
+\,   y(0)=1\end{cases}\]
+Aproximemos $y(0.1)$ con un paso del \emph{método de Euler implícito}, o sea, el método cuyo tablero es
+
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|c}
+    1 & 1\\ \hline
+    & 1
+\end{tabular}
+\end{center}
+Este método sería
+\[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k+hf(t_k+h,y_k^{(1)}) \\
+    y_{k+1} &= y_k+hf(t_k+h,y_k^{(1)})
+\end{alignedat}\right.\]
+Poniendo $k=0$, se obtiene
+\[y_0^{(1)} = 1+0.1f(0.1,y_0^{(1)}) = 1+\frac{0.1}{2}(0.1^2-y_0^{(1)}) = 1+0.0005-0.05y_0^{(1)} = 1.0005-0.05y_0^{(1)}\]
+Despejando,
+\[y_0^{(1)} = \frac{1.0005}{1.05} \approx 0.95285\]
+Por tanto, la aproximación buscada es
+\[y(0.1) \approx y_1 = 1+0.1f(0.1,0.9528) = 1+\frac{0.1}{2}(0.1^2-0.9528) = 0.95286\]
+\end{example}
+
+\begin{example}
+Vamos a dar la expresión general del \emph{método del trapecio}, o sea, el método con tablero
+
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|cc}
+    0 & 0 & 0 \\
+    1 & 1/2 & 1/2 \\ \hline
+    & 1/2 & 1/2
+\end{tabular}
+\end{center}
+En primer lugar,
+\[t_k^{(1)} = t_k, \qquad t_k^{(2)} = t_k+h = t_{k+1}\]
+Por tanto, el método es
+\[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k \phantom{\frac{1}{1}} \\[5pt]
+    y_k^{(2)} &= y_k + h\bigl(\frac{1}{2}f(t_k,y_k+\frac{1}{2}f(t_k^{(2)},y_k^{(2)})\bigr)\\[5pt]
+    y_{k+1} &= y_k+h\bigl(\frac{1}{2}f(t_k,y_k)+\frac{1}{2}f(t_k^{(2)},y_k^{(2)})\bigr), \\[5pt]
+\end{alignedat}\right.\]
+También puede escribirse
+\[y_{k+1} = y_k+\frac{h}{2}(f(t_k,y_k)+f(t_{k+1},y_{k+1}))\]
+\end{example}
+
+\begin{cdefinition}
+    Un método de Runge-Kutta de orden $p$ es \mybf{explícito} si su tablero de Butcher es de la forma
+\emph{
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|ccccc}
+    $c_1$ & 0 & 0 & $\mathellipsis$ & 0 & 0 \\
+    $c_2$ & $a_{2,1}$ & 0 & $\mathellipsis$ & 0 & 0 \\
+    $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ & $\vdots$ \\
+    $c_{p-1}$ & $a_{p-1,1}$ & $a_{p-1,2}$ & $\mathellipsis$ & 0 & 0 \\
+    $c_p$ & $a_{p,1}$ & $a_{p,2}$ & $\mathellipsis$ & $a_{p,p-1}$ & 0 \\[5pt] \hline
+    & $b_1$ & $b_2$ & $\mathellipsis$ & $b_{p-1}$ & $b_p$
+\end{tabular}
+\end{center}
+}
+o si se pueden reordenar las etapas para que sea de dicha forma. En caso contrario, se dice que el método es \mybf{implícito}, y si además $a_{i,j} = 0$ para $j >i$, se dirá que es \mybf{diagonalmente implícito}.
+\end{cdefinition}
+
+Obsérvese que, en un método explícito, para calcular $y_{k+1}$ basta con evaluar $f$ y hacer unas cuantas operaciones, mientras que en un método implícito habría que resolver sistemas de ecuaciones. En el caso diagonal implícito, sería necesario resolver entre 1 y $p$ ecuaciones para hallar $y_{k+1}$.
+
+Respecto a los métodos conocidos, es claro que el método de Euler, el del punto medio y el de Heun son explícitos, mientras que el de Euler implícito y el del trapecio son diagonalmente implícitos.
+
+\chapter{Métodos unipaso}
+
+En este tema se estudiarán ciertos métodos numéricos que generalizan a los que se estudiaron en el tema anterior. Una vez más, si $(t_0,y^0) \in \R \times \R^n$ y $f \colon [t_0,t_0+T] \times \R^n \to \R^n$ es continua y de Lipschitz en la variable $y$, partimos de un problema del estilo
+\[(P) \ \left\{
+\begin{alignedat}{1}
+\, y'(t)  &= f(t,y(t)), \ t \in [t_0,t_0+T], \\
+\, y(t_0) &= y^0,
+\end{alignedat}\right.\]
+y de una partición uniforme $t_0<t_1<\mathellipsis<t_{n-1}<t_n =t_0+T$. En estas circunstancias, el objetivo es aproximar $y(t_k)$ para cada $k \in \{0,1,\mathellipsis,n\}$, denotándose por $y_k$ a estas aproximaciones. Para ello, se emplearán métodos como los siguientes:
+
+\begin{cdefinition}
+Un \mybf{método unipaso} es aquel definido por
+\[y_{k+1}=y_k+h \,\Phi(t_k,y_k,h),\]
+siendo $\Phi \colon [t_0,t_0+T] \times \R \times [0,T] \to \R$ una función continua, denominada \mybf{función incremento}.
+\end{cdefinition}
+
+Evidentemente, todos los métodos vistos hasta ahora son métodos unipaso, pues en cada uno de ellos puede hallarse $y_{k+1}$ a partir de $t_k$, $y_k$ y $h$. Por ejemplo, en el método de Euler, la función incremento sería $\Phi(t,y,h) = f(t,y)$.
+
+\section{Consistencia, estabilidad y convergencia}
+
+\begin{cdefinition}
+Sea $\Phi$ la función incremento de un método unipaso. El \mybf{error de truncamiento local en $t_k$} o \mybf{error de discretización local en $t_k$} se define como
+\[\varepsilon_k \coloneqq y(t_{k+1})-y(t_k)-h \, \Phi(t_k,y(t_k),h)\]
+para cada $k \in\{0,1,\mathellipsis,n-1\}$.
+\end{cdefinition}
+
+\begin{cdefinition}
+    Se dice que un método unipaso es \mybf{consistente} si
+    \[\lim_{h \to 0} \sum_{k=0}^{n-1}|\varepsilon_k| = 0\]
+\end{cdefinition}
+
+\begin{cdefinition}
+Un método unipaso se dice que es \mybf{estable} si existe una constante $M$ positiva e independiente de $h$ verificando lo siguiente: si $\{y_k\}_{k=0}^n$, $\{z_k\}_{k=0}^n$, $\{\delta_k\}_{k=0}^{n-1}$ son tales que
+\[y_{k+1} = y_k+h \, \Phi(t_k,y_k,h), \qquad z_{k+1} = z_k+h \, \Phi(t_k,z_k,h)+\delta_k\]
+para cada $k \in \{0,1,\mathellipsis,n-1\}$, entonces se tiene
+\[\max_{k=0,1,\mathellipsis,n} |y_k-z_k| \leq M\left(|y_0-z_0|+\sum_{k=0}^{n-1} |\delta_k|\right)\]
+\end{cdefinition}
+
+Se puede pensar en los números $\{y_k\}_{k=0}^n$ como las aproximaciones teóricas del método, $\{z_k\}_{k=0}^n$ como los resultados de calcular las aproximaciones en un ordenador y $\{\delta_k\}_{k=0}^{n-1}$ como los errores de redondeo que comete el ordenador.
+
+\begin{cdefinition}
+Se dice que un método unipaso es \mybf{convergente} si
+\[\lim_{h \to 0} e(h) = 0,\]
+donde
+\[e(h) \coloneqq \max_{k = 0,1,\mathellipsis,n} |y_k-y(t_k)|\]
+\end{cdefinition}
+
+\begin{ctheorem}
+\label{teo2.5}
+Consistencia y estabilidad implican convergencia.
+\end{ctheorem}
+
+\begin{proof}
+Considérese un método unipaso consistente y estable, y sean $\{z_k\}_{k=0}^n$ y $\{\delta_k\}_{k=0}^{n-1}$ tales que $z_k = y(t_k)$ y $\delta_k = \varepsilon_k$. Entonces se verifica trivialmente
+\[z_{k+1} = z_k+h \, \Phi(t_k,z_k,h)+\delta_k\]
+Sean $\{y_k\}_{k=0}^n$ las aproximaciones del método, es decir,
+\[y_{k+1} = y_k+h \, \Phi(t_k,y_k,h)\]
+Entonces
+\[e(h) = \max_{k=0,1,\mathellipsis,n}|y_k-y(t_k)| = \max_{k=0,1,\mathellipsis,n}|y_k-z_k| \overset{(\ast)}{\leq} M(|y_0-z_0|+\sum_{k=0}^{n-1}|\delta_k|) = M(|\cancel{y_0}-\cancel{y(t_0)}|+\sum_{k=0}^{n-1}|\varepsilon_k|) =  M\sum_{k=0}^{n-1} |\varepsilon_k|,\]
+donde en $(\ast)$ se ha utilizado la estabilidad. Como el método es consistente, entonces
+\[\lim_{h \to 0} M\sum_{k=0}^{n-1}|\varepsilon_k| = 0,\]
+deduciéndose que
+\[\lim_{h\to 0} e(h) = 0,\]
+luego el método converge.
+\end{proof}
+
+Estudiar la consistencia y estabilidad de un método unipaso utilizando las definiciones puede llegar a ser bastante penoso. Los dos resultados siguientes acuden al rescate:
+
+\begin{ctheorem}[Caracterización de la consistencia]
+\label{teo2.6}
+Un método unipaso con función incremento $\Phi$ es consistente si y solo si para todo $t \in [t_0,t_0+T]$ y todo $y \in \R$ se tiene
+\[\Phi(t,y,0) = f(t,y)\]
+\end{ctheorem}
+
+\begin{proof}
+La igualdad siguiente va a ser de extrema importancia en la demostración, pero, por desgracia, no va a probarse:
+\begin{equation}\lim_{h\to 0} \sum_{k=0}^{n-1} |\varepsilon_k| = \int_{t_0}^{t_0+T} |f(t,y(t))-\Phi(t,y(t),0)| \, dt \end{equation}
+Supóngase primero que se verifica $\Phi(t,y,0) = f(t,y)$ para todo $t \in [t_0,t_0+T]$ y todo $y \in \R$. Entonces, por $(6)$,
+\[\lim_{h \to 0} \sum_{k=0}^{n-1} |\varepsilon_k| = \int_{t_0}^{t_0+T}0\, dt = 0,\]
+así que el método es consistente.
+
+Recíprocamente, supóngase que el método unipaso es consistente. Entonces la igualdad $(6)$ permite afirmar que
+\[\int_{t_0}^{t_0+T} |f(t,y(t))-\Phi(t,y(t),0)| \, dt =0\]
+Como el integrando es una función no negativa y se trata de una integral de Riemann, entonces $|f(t,y(t))-\Phi(t,y(t),0)| = 0$, o sea, \begin{equation}f(t,y(t)) = \Phi(t,y(t),0) \end{equation} para todo $t \in [t_0,t_0+T]$. Todavía no está todo el pescado vendido: fijemos $(t^*,y^*) \in [t_0,t_0+T] \times \R$ y veamos que, como propone el enunciado, $\Phi(t^*,y^*,0) = f(t^*,y^*)$. Sea $y \colon [t_0,t_0+T] \times \R \to \R$ la única solución de
+\[(P) \ \left\{
+\begin{alignedat}{1}
+\, y'(t) &=f(t,y(t)), t \in [t_0,t_0+T], \\
+\,   y(t^*)&=y^*
+\end{alignedat}\right.\]
+Si se aplica la igualdad $(7)$ en $t^*$ se obtiene $f(t^*,y(t^*)) = \Phi(t^*,y(t^*),0)$, o sea, $f(t^*,y^*) = \Phi(t^*,y^*,0)$.
+\end{proof}
+
+\begin{ctheorem}[Condición suficiente para la estabilidad]
+\label{teo2.7}
+Si la función incremento de un método unipaso es de Lipschitz en la variable $y$, entonces el método es estable.
+\end{ctheorem}
+
+\begin{proof}
+Considérense $\{y_k\}_{k=0}^n$, $\{z_k\}_{k=0}^n$, $\{\delta_k\}_{k=0}^{n-1}$ tales que, para cada $k \in \{0,1,\mathellipsis,n-1\}$, se tiene \[y_{k+1} = y_k+h \, \Phi(t_k,y_k,h), \qquad \qquad z_{k+1} = z_k+h \, \Phi(t_k,z_k,h)+\delta_k,\] y sea $L>0$ la constante de Lipschitz de $\Phi$. Entonces
+\[\begin{aligned}[t]
+    |y_{k+1}-z_{k+1}| &\leq |y_k-z_k|+h|\Phi(t_k,y_k,h)-\Phi(t_k,z_k,h)|+|\delta_k| \\
+    \overset{(i)}&{\leq} |y_k-z_k|+hL|y_k-z_k|+|\delta_k| = (1+hL)|y_k-z_k|+|\delta_k| \\
+    \overset{(ii)}&{\leq} e^{hL}|y_k-z_k|+|\delta_k| \\
+    &\leq e^{hL}(e^{hL}|y_{k-1}-z_{k-1}|+|\delta_{k-1}|)+|\delta_k| = e^{2hL}|y_{k-1}-z_{k-1}|+e^{hL}|\delta_{k-1}|+|\delta_k| \\
+    &\leq e^{2hL}(e^{hL}|y_{k-2}-z_{k-2}|+|\delta_{k-2}|)+e^{hL}|\delta_{k-1}|+|\delta_k| \\
+    &\leq \mathellipsis \\
+    &\leq e^{(k+1)hL}|y_0-z_0| +e^{khL}|\delta_0|+\mathellipsis+e^{2hL}|\delta_{k-2}|+e^{hL}|\delta_{k-1}|+|\delta_k| \\ 
+    \overset{(iii)}&{\leq} e^{TL}|y_0-z_0| +e^{TL}|\delta_0|+\mathellipsis+e^{TL}|\delta_{k-2}|+e^{TL}|\delta_{k-1}|+|\delta_k| \\
+    \overset{(iv)}&{\leq} e^{TL}|y_0-z_0| +e^{TL}|\delta_0|+\mathellipsis+e^{TL}|\delta_{k-2}|+e^{TL}|\delta_{k-1}|+e^{TL}|\delta_k| =e^{TL}(|y_0-z_0|+\sum_{j=0}^k |\delta_j|) \\ &\leq e^{TL}(|y_0-z_0|+\sum_{j=0}^{n-1} |\delta_j|)
+\end{aligned}\]
+Como este último miembro no depende de $k$ y $e^{TL}$ es una constante positiva e independiente de $h$, entonces el método es estable. Algunas aclaraciones:
+\begin{enumerate}
+    \item Se ha utilizado que $\Phi$ es de Lipschitz en la variable $y$.
+    \item Se ha utilizado, de nuevo, que $1+x \leq e^x$ para todo $x \in \R$.
+    \item Se ha utilizado que $h=\frac{T}{n}$ y por tanto $kh \leq nh=T$ para todo $k\leq n$.
+    \item Se ha utilizado que $TL>0$ y por tanto $e^{TL}>1$, luego $e^{TL}|\delta_k|\geq |\delta_k|$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{ccorollary}
+Sea $\Phi \colon [t_0,t_0+T] \times \R \times [0,T] \to \R$ la función incremento de un método unipaso. Si $\frac{\partial\Phi}{\partial y}$ existe y es acotada, entonces el método es estable.
+\end{ccorollary}
+
+\begin{proof}
+    No hay más que aplicar el teorema anterior teniendo en cuenta que la existencia y acotación de $\frac{\partial \Phi}{\partial y}$ implican que $\Phi$ es de Lipschitz en la variable $y$.
+\end{proof}
+
+\begin{ccorollary}
+Si la función incremento $\Phi \colon [t_0,t_0+T] \times \R \times [0,T] \to \R$ de un método unipaso verifica $\Phi(t,y,0) = f(t,y)$ y es de Lipschitz en la variable $y$, entonces el método converge.
+\end{ccorollary}
+
+\begin{proof}
+Consecuencia directa de los últimos tres teoremas.
+\end{proof}
+
+\begin{example} Si $f$ es de Lipschitz en la variable $y$, entonces el método de Heun es convergente. En efecto, la función incremento es
+\[\Phi(t,y,h) = \frac{1}{2}(f(t,y)+f(t+h,y+hf(t,y))),\]
+que verifica
+\begin{enumerate}
+    \item $\displaystyle\Phi(t,y,0) =\frac{1}{2}(f(t,y)+f(t,y))= f(t,y)$ para todos $t,y \in [t_0,t_0+T] \times \R$;
+    \item $\displaystyle\begin{aligned}[t]
+        |\Phi(t,y,h)-\Phi(t,z,h)| &= \bigl|\frac{1}{2}(f(t,y)+f(t+h,y+hf(t,y)))-\frac{1}{2}(f(t,z)+f(t+h,z+hf(t,z)))\bigr| \\ 
+        &\leq \frac{1}{2}\bigl|f(t,y)-f(t,z)\bigr|+\frac{1}{2}\bigl|f(t+h,y+hf(t,y))-f(t+h,z+hf(t,z))\bigr| \\
+        &\leq \frac{L}{2}|y-z|+\frac{L}{2}\bigl|y+hf(t,y)-z-hf(t,z)\bigr| \\ 
+        &\leq L|y-z|+\frac{Lh}{2}|f(t,y)-f(t,z)| \\
+        &\leq \bigl(L+\frac{L^2T}{2}\bigr)|y-z|
+    \end{aligned}$
+    
+    para todos $(t,y,h),(t,z,h)\in [t_0,t_0+T] \times \R \times [0,T] \to \R$.
+\end{enumerate}
+Por tanto, el método es consistente y estable, luego convergente.
+\end{example}
+
+\section{Orden de un método unipaso}
+
+\begin{notation}
+Sean $f,g \colon [0,T] \to \R$ dos funciones con $g(h) \neq 0$ para todo $h \in [0,T]$.
+\begin{enumerate}
+    \item Se dice que $f = o(g)$ si
+    \[\lim_{h \to 0} \frac{f(h)}{g(h)} = 0,\]
+    es decir, si para todo $\varepsilon>0$ existe $h^*>0$ tal que para todo $h \in (0,h^*)$ se tiene que
+    \[\bigl|\frac{f(h)}{g(h)}\bigr| < \varepsilon,\]
+    o, equivalentemente,
+    \[|f(h)| < \varepsilon|g(h)| \]
+    \item Se dice que $f = O(g)$ si existen $C,h^* >0$ tales que para todo $h \in (0,h^*)$ se tiene que
+    \[\bigl|\frac{f(h)}{g(h)}\bigr| \leq C,\]
+    o, equivalentemente,
+    \[|f(h)| \leq C|g(h)|\]
+\end{enumerate}
+\end{notation}
+
+Obsérvese que si $f$ y $g$ son continuas y se encuentran en las condiciones de la definición anterior, entonces $f= o(g)$ implica $f = O(g)$, pero el recíproco no es cierto.
+
+\begin{cproposition}
+Si $f = O(h^p)$ (lo que quiere decir que $ f= O(g)$, con $g$ definida por $g(h) = h^p$), entonces $f=O(h^q)$ para todo $q \leq p$.
+\end{cproposition}
+
+\begin{proof}
+En efecto, por hipótesis, existen $C,h^*>0$ tales que, para todo $h \in (0,h^*)$,
+\[|f(h)| \leq Ch^p = Ch^{p-q}h^q \leq C(h^*)^{p-q}h^q = \tilde{C}h^q,\]
+donde $\tilde{C} = C(h^*)^{p-q}$ es una constante positiva.
+\end{proof}
+
+\begin{cproposition}
+Si $f = O(h^p)$ y $g = O(h^q)$, entonces \[f+g = O\bigl(h^{\max \{p,q\}}\bigr) \qquad \textup{y} \qquad fg = O(h^{p+q})\]
+\end{cproposition}
+
+\begin{proof}
+    Ejercicio.
+\end{proof}
+
+\begin{cproposition}
+\label{prop3}
+Si $y \in \mathcal{C}^{p+1}([a,b],\R)$ y $t_0 \in [a,b], h>0$ son tales que $t_1 = t_0+h \in [a,b]$, entonces
+\[y(t_1)-P_{y,p,t_0}(t_1) = O(h^{p+1}),\]
+lo que también suele escribirse como
+\[y(t_1)=P_{y,p,t_0}(t_1) +O(h^{p+1})\]
+\end{cproposition}
+
+\begin{proof}
+Obsérvese que lo que dice el enunciado es que $f = O(g)$, siendo $f$ la función dada por $f(h) = y(t_0+h)-P_{y,p,t_0}(t_0+h)$, y $g$ la función definida por $g(h) = h^{p+1}$. La demostración en sí: por la fórmula del resto de Lagrange, existe $\xi \in (t_0,t_1)$ tal que
+\[y(t_1) - P_{y,p,t_0}(t_1) = \frac{y^{(p+1)}(\xi)}{(p+1)!}h^{p+1} \leq \max_{t \in [a,b]} |y^{(p+1)}(t)|\frac{h^{p+1}}{(p+1)!} = Ch^{p+1},\]
+donde
+\[C=\frac{1}{(p+1)!}\max_{t \in [a,b]} |y^{(p+1)}(t)|\]
+es una constante positiva.
+\end{proof}
+
+\begin{cdefinition}
+Si $y \in \mathcal{C}^{p+1}([t_0,t_0+T], \R)$ con $p \in \N$, se dice que un método unipaso es \mybf{de orden $p$} si
+\[\sum_{k=0}^{n-1} |\varepsilon_k| = O(h^p)\]
+\end{cdefinition}
+
+Nótese que la suma anterior es una función que depende de $h$ (ya que depende de $n$), y por tanto la definición tiene perfecto sentido.
+
+\begin{ctheorem}
+\label{teo7}
+Si $f \in \mathcal{C}^p([t_0,t_0+T] \times \R, \R)$ y se tiene un método unipaso estable y de orden $p$, entonces $e(h) = O(h^p)$.
+\end{ctheorem}
+
+\begin{proof}
+Nótese que  $f \in \mathcal{C}^p([t_0,t_0+T] \times \R, \R)$ implica $y \in \mathcal{C}^{p+1}([t_0,t_0+T], \R)$, luego tiene sentido preguntarse si el método es de orden $p$. Sean $\{z_k\}_{k=0}^n$ y $\{\delta_k\}_{k=0}^{n-1}$ con $z_k = y(t_k)$ y $\delta_k = \varepsilon_k$. Es claro que
+\[z_{k+1} = z_k+h \, \Phi(t_k,z_k,h)+\delta_k\]
+Sean $\{y_k\}_{k=0}^n$ las aproximaciones del método, es decir,
+\[y_{k+1} = y_k+h \, \Phi(t_k,y_k,h)\]
+Entonces
+\[e(h) = \max_{k=0,1,\mathellipsis,n}|y(t_k)-y_k| \leq M(|\cancel{y(t_0)}-\cancel{y_0}|+\sum_{j=0}^{n-1}|\varepsilon_j|) =M \sum_{j=0}^{n-1}|\varepsilon_j| \leq MCh^p,\]
+donde se ha utilizado que el método es estable y de orden $p$.
+\end{proof}
+
+Determinar el orden de un método unipaso a través de la definición puede ser una tarea dura y pesarosa. En la práctica, lo más frecuente será recurrir al resultado que sigue.
+
+\begin{ctheorem}[Caracterización del orden]
+\label{teo2.17}
+Sea $f \in \mathcal{C}^p([t_0,t_0+T] \times \R,\R)$ y sea $\Phi$ la función incremento de un método unipaso. Supóngase que para cada $i \in \{1,\mathellipsis,p\}$ existe $\frac{\partial^i \Phi}{\partial h^i}$ y es continua. Entonces el método unipaso es de orden $p$ si y solo si para todo $(t,y) \in [t_0,t_0+T] \times \R$ se verifica
+\[\frac{\partial^{i}\Phi}{\partial h^{i}}(t,y,0) = \frac{1}{i+1}f^{(i)}(t,y), \quad i \in \{0,1,\mathellipsis,p-1\},\]
+entendiéndose que para $i = 0$ la igualdad anterior dice que
+\[\Phi(t,y,0) = f(t,y)\]
+\end{ctheorem}
+
+\begin{proof}
+Solo va a probarse una implicación. Supóngase que la igualdad del enunciado es cierta y veamos que el método es de orden $p$. Se tiene que
+\[|\varepsilon_k| = |y(t_{k+1})-y(t_k)-h \, \Phi(t_k,y(t_k),h)|\]
+Por un lado,
+\[y(t_{k+1})-y(t_k) = \sum_{i=1}^p y^{(i)}(t_k)\frac{h^i}{i!}+O(h^{p+1}) = \sum_{i=1}^p f^{(i-1)}(t_k,y(t_k))\frac{h^i}{i!}+O(h^{p+1})\]
+Por otra parte,
+\[\Phi(t_k,y(t_k),h) = \sum_{i=0}^{p-1} \frac{\partial^i \Phi}{\partial h^i}(t_k,y(t_k),0)\frac{h^i}{i!}+O(h^p) = \sum_{i=0}^{p-1}f^{(i)}(t_k,y(t_k))\frac{h^{i}}{(i+1)!}+O(h^p),\]
+y en consecuencia,
+\[h \, \Phi(t_k,y(t_k),h) = \sum_{i=0}^{p-1}f^{(i)}(t_k,y(t_k))\frac{h^{i+1}}{(i+1)!}+O(h^{p+1}) = \sum_{i=1}^{p}f^{(i-1)}(t_k,y(t_k))\frac{h^{i}}{i!}+O(h^{p+1}),\]
+De aquí se deduce que $\varepsilon_k = O(h^{p+1})$
+para todo $k \in \{0,\mathellipsis,n-1\}$, o sea, que existen $C,h^*>0$ tales que para todo $h \in (0,h^*)$ se tiene $|\varepsilon_k| \leq Ch^{p+1}$ y, por tanto,
+\[\sum_{k=0}^{n-1} |\varepsilon_k| \leq \sum_{k=0}^{n-1} Ch^{p-1} = Cnh^{p+1} = Cnhh^p = CTh^p,\]
+donde $CT$ es una constante positiva. Se concluye que el método es de orden $p$.
+\end{proof}
+
+\begin{ccorollary}
+\label{cor3}
+Un método unipaso es consistente si y solo si es de orden 1.
+\end{ccorollary}
+
+\begin{proof}
+No hay más que leer el teorema anterior y el \hyperref[teo2.6]{\color{gray}Teorema 5}.
+\end{proof}
+
+Nótese que \emph{ser de orden 1} no impide \emph{ser de orden $p$} para $p >1$. De forma natural, se introduce la definición siguiente:
+
+\begin{cdefinition}
+Dado $p \in \N$, un método unipaso se dice que es \mybf{de orden exactamente $p$} si es de orden $p$ pero no es de orden $p+1$.
+\end{cdefinition}
+
+\begin{ccorollary}
+Sea $f \in \mathcal{C}^p([t_0,t_0+T] \times \R,\R)$ y sea $\Phi$ la función incremento de un método unipaso. Si para cada $i \in \{1,\mathellipsis,p\}$ existe $\frac{\partial^i \Phi}{\partial h^i}$ y es continua, entonces el método unipaso es de orden exactamente $p$ si y solo si se verifica lo siguiente:
+\begin{enumerate}
+    \item Para todo $(t,y) \in [t_0,t_0+T] \times \R$ se tiene
+    \[\frac{\partial^{i}\Phi}{\partial h^{i}}(t,y,0) = \frac{1}{i+1}f^{(i)}(t,y), \quad i \in \{0,1,\mathellipsis,p-1\},\]
+    entendiéndose que para $i = 0$ la igualdad anterior dice que $\Phi(t,y,0) = f(t,y)$.
+\item Existe $(t,y) \in [t_0,t_0+T] \times \R$ tal que
+\[\frac{\partial^p \Phi}{\partial h^p}(t,y,0) \neq \frac{1}{p+1}f^{(p)}(t,y)\]
+
+\end{enumerate}
+
+\end{ccorollary}
+
+\vspace{\parskip}
+
+\begin{proof}
+Véase el teorema anterior.
+\end{proof}
+
+\begin{example}
+Como ya se había anticipado, el método de Euler es de orden 1. ¿Será de orden 2? Pues
+\[\frac{1}{2}f^{(1)}(t,y) = \frac{1}{2}\biggl(\frac{\partial f}{\partial t}(t,y)+f(t,y)\frac{\partial f}{\partial y}(t,y)\biggr)\]
+En general, no parece que se pueda asegurar que esta expresión coincida con  $\frac{\partial \Phi}{\partial h}(t,y,0) = 0$, pero si $f$ es constante, sí que se verifica. Es más, el método de Euler en este caso es de orden $p$ para todo $p \in \N$ (y con razón, pues aproxima la solución del problema de forma exacta).
+\end{example}
+
+\begin{example}
+Estudiemos el orden del método de Heun:
+\[y_{k+1} = y_k+\frac{h}{2}(f(t_k,y_k)+f(t_k+h,y_k+hf(t_k,y_k)))\]
+La función incremento sería $\Phi(t,y,h) = \frac{1}{2}(f(t,y)+f(t+h,y+hf(t,y)))$. Para poder aplicar el teorema anterior, se le va a pedir a $f$ toda la regularidad que sea necesaria. Se tiene que
+\[\Phi(t,y,0) = \frac{1}{2}2f(t,y) = f(t,y),\]
+luego el método es de orden 1. Además,
+\[\frac{\partial \Phi}{\partial h}(t,y,h) = \frac{1}{2}\biggl(\frac{\partial f}{\partial t}(t+h,y+hf(t,y))+f(t,y)\frac{\partial f}{\partial y}(t+h,y+hf(t,y))\biggr),\]
+así que
+\[\frac{\partial \Phi}{\partial h}(t,y,0) = \frac{1}{2}\biggl(\frac{\partial f}{\partial t}(t,y)+f(t,y)\frac{\partial f}{\partial y}(t,y)\biggr) = \frac{1}{2}f^{(1)}(t,y),\]
+luego el método es de orden 2. Seguimos:
+\[
+\begin{aligned}[t]
+\frac{\partial^2 \Phi}{\partial h^2}(t,y,h) = \frac{1}{2}\biggl(&\frac{\partial^2 f}{\partial t^2}(t+h,y+hf(t,y))+f(t,y)\frac{\partial^2 f}{\partial t \partial y}(t+h,y+hf(t,y)) + \phantom{0}\\
+&f(t,y)\frac{\partial^2 f}{\partial y \partial t}(t+h,y+hf(t,y))+f(t,y)^2\frac{\partial^2 f}{\partial y^2}(t+h,y+hf(t,y))\biggr)
+\end{aligned}\]
+En consecuencia,
+\[
+\frac{\partial^2 \Phi}{\partial h^2}(t,y,0) = \frac{1}{2}\biggl(\frac{\partial^2 f}{\partial t^2}(t,y)+f(t,y)\frac{\partial^2 f}{\partial t \partial y}(t,y) + f(t,y)\frac{\partial^2 f}{\partial y \partial t}(t,y)+f(t,y)^2\frac{\partial^2 f}{\partial y^2}(t,y)\biggr)
+\]
+Pero
+\[
+\begin{aligned}[t]
+\frac{1}{3}f^{(2)}(t,y) &= \frac{1}{3}\biggl(\frac{\partial f^{(1)}}{\partial t}(t,y)+f(t,y)\frac{\partial f^{(1)}}{\partial y}(t,y)\biggr) \\
+&=
+\frac{1}{3}\biggl(\frac{\partial^2 f}{\partial t^2}(t,y)+2f(t,y)\frac{\partial^2 f}{\partial y \partial t}(t,y)+\frac{\partial f}{\partial t}(t,y)\frac{\partial f}{\partial y}(t,y)+f(t,y)^2\frac{\partial^2 f}{\partial y^2}(t,y)+f(t,y)\biggl(\frac{\partial f}{\partial y}(t,y)\biggr)^2\biggr)
+\end{aligned}
+\]
+Sin entrar en detalles, parece que el método de Heun, en general, es de orden exactamente 2.
+\end{example}
+
+\begin{example}
+¿Cuál será el orden del método de Taylor de orden $p$? La función incremento es
+\[\Phi(t,y,h) = \sum_{q=1}^p \frac{f^{(q-1)}(t,y)}{q!}h^{q-1}\]
+A hacer cuentas: en primer lugar,
+\[\Phi(t,y,0) = f^{(0)}(t,y) = f(t,y),\]
+así que el método es de orden 1. Ahora se deriva:
+\[\frac{\partial \Phi}{\partial h}(t,y,h) = \sum_{q=2}^{p}\frac{q-1}{q!}f^{(q-1)}(t,y)h^{q-2}\]
+Por tanto,
+\[\frac{\partial \Phi}{\partial h}(t,y,0) =\frac{1}{2}f^{(1)}(t,y),\]
+luego el método es de orden 2. Otra más:
+\[\frac{\partial^2\Phi}{\partial h^2}(t,y,h) = \sum_{q=3}^{p}\frac{(q-1)(q-2)}{q!}f^{(q-1)}(t,y)h^{q-3}\]
+En consecuencia,
+\[\frac{\partial^2\Phi}{\partial h^2}(t,y,0) = \frac{1}{3}f^{(2)}(t,y),\]
+y el método es de orden 3. Ya se ven por dónde van los tiros: la derivada de orden $p-1$ sería
+\[\frac{\partial^{p-1} \Phi}{\partial h^{p-1}}(t,y,h) = \frac{(p-1)!}{p!}f^{(p-1)}(t,y) = \frac{1}{p}f^{(p-1)}(t,y),\]
+y al evaluar en $h = 0$ obtenemos que el método es de orden $p$. Si se deriva una vez más, se llega a
+\[\frac{\partial^p \Phi}{\partial h^p} = 0,\]
+pero, en general, seguramente se cumpla
+\[\frac{1}{p+1}f^{(p)}(t,y) \neq 0\]
+La conclusión obtenida es verdaderamente sorprendente: el método de Taylor de orden $p$ es de orden exactamente $p$.
+\end{example}
+
+\section{Análisis de los métodos de Runge-Kutta}
+
+En la \hyperref[sec1.6]{\color{gray}Sección 1.6} tuvo lugar un acto de valentía y descaro al definirse un método numérico mediante las ecuaciones
+\[(S) \ \left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k+h(a_{1,1}f(t_k^{(1)},y_k^{(1)})+a_{1,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{1,p}f(t_k^{(p)},y_k^{(p)})) \\
+    y_k^{(2)} &= y_k+h(a_{2,1}f(t_k^{(1)},y_k^{(1)})+a_{2,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{2,p}f(t_k^{(p)},y_k^{(p)})) \\
+    &\phantom{\vdots} \: \vdots \\
+    y_k^{(p)} &= y_k+h(a_{p,1}f(t_k^{(1)},y_k^{(1)})+a_{p,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{p,p}f(t_k^{(p)},y_k^{(p)})) \\
+    y_{k+1} &= y_k+h(b_1f(t_k^{(1)},y_k^{(1)})+\mathellipsis+b_pf(t_k^{(p)},y_k^{(p)}))
+\end{alignedat}\right.\]
+Cabría preguntarse si este sistema presenta algún problema de existencia de soluciones, en cuyo caso la definición de los métodos de Runge-Kutta correría serio peligro. Supóngase primero que el método es explícito, quedando el sistema anterior como sigue:
+\[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k \\
+    y_k^{(2)} &= y_k+ha_{2,1}f(t_k^{(1)},y_k^{(1)}) \\
+    &\phantom{\vdots} \: \vdots \\
+    y_k^{(p)} &= y_k+h(a_{p,1}f(t_k^{(1)},y_k^{(1)})+a_{p,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{p,p}f(t_k^{(p)},y_k^{(p)})) \\
+    y_{k+1} &= y_k+h(b_1f(t_k^{(1)},y_k^{(1)})+\mathellipsis+b_pf(t_k^{(p)},y_k^{(p)}))
+\end{alignedat}\right.\]
+En este caso, los $y_k^{(i)}$ se pueden calcular sin problema alguno a partir del anterior; el sistema posee solución y es única. Si el método fuese diagonalmente implícito, el sistema adquiere la forma
+\[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k+ha_{1,1}f(t_k^{(1)},y_k^{(1)})\\
+    y_k^{(2)} &= y_k+ha_{2,1}f(t_k^{(1)},y_k^{(1)})+a_{2,2}f(t_k^{(2)},y_k^{(2)})\\
+    &\phantom{\vdots} \: \vdots \\
+    y_k^{(p)} &= y_k+h(a_{p,1}f(t_k^{(1)},y_k^{(1)})+a_{p,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{p,p}f(t_k^{(p)},y_k^{(p)})) \\
+    y_{k+1} &= y_k+h(b_1f(t_k^{(1)},y_k^{(1)})+\mathellipsis+b_pf(t_k^{(p)},y_k^{(p)}))
+\end{alignedat}\right.\]
+Para la hallar $y_k^{(1)}$, habría que resolver una ecuación del estilo \[y = y_k+ha_{1,1}f(t_k^{(1)},y)\] Considérese la funcion $g \colon \R \to \R$ dada por
+\[g(y)= y_k+ha_{1,1}f(t_k^{(1)},y) \]
+Se ha transformado la ecuación a resolver en una ecuación de punto fijo ($g(y)=y$), así que convendría que $g$ tuviese un punto fijo y, ya que estamos, que este sea único. De esta manera, el sistema anterior tendría solución única y el método estaría bien definido.
+
+\begin{ctheorem}[Teorema del punto fijo de Banach]
+Sea $(X,d)$ un espacio métrico completo y supóngase que $T \colon X \to X$ es una aplicación contractiva, es decir, existe $\alpha \in (0,1)$ con
+\[d(T(x),T(y)) \leq \alpha d(x,y)\]
+para cualesquiera $x, y \in X$. Entonces $T$ existe un único $x^* \in X$ tal que $T(x^*) = x^*$. Es más,
+para cada $x_0 \in X$, la sucesión $\{T^{k}(x_0)\}_{k=1}^\infty$ converge a $x^*$.
+\end{ctheorem}
+
+\begin{proof}
+    Corresponde a la asignatura \emph{Ecuaciones Diferenciales II}.
+\end{proof}
+
+Estudiemos entonces la contractividad de $g$. Si $y_1,y_2 \in \R$,
+\[|g(y_2)-g(y_1)| = |ha_{1,1}(f(t_k^{(1)},y_1)-f(t_k^{(1)},y_2))| \leq h |a_{1,1}| L |y_1-y_2|,\]
+donde $L$ es la constante de Lipschitz de $f$. Así, siempre que se tenga
+\[h < \frac{1}{L|a_{1,1}|}\]
+la función $g$ será contractiva e $y_k^{(1)}$ quedará determinado de forma única. Que $h$ sea tan pequeño como se quiera no es una condición muy restrictiva, pues no hay más que dividir la partición en subintervalos pequeños. Ya se conoce $y_k^{(1)}$; vamos con $y_k^{(2)}$. Habría que resolver la ecuación
+\[y = y_k+ha_{2,1}f(t_k^{(1)},y_k^{(1)})+a_{2,2}f(t_k^{(2)},y)\]
+La dinámica va a ser exactamente la misma: considérese la función $g \colon \R \to \R$ dada por
+\[g(y)=y_k+ha_{2,1}f(t_k^{(1)},y_k^{(1)})+a_{2,2}f(t_k^{(2)},y)\]
+Razonando como antes, se demuestra fácilmente que basta tener
+\[h < \frac{1}{L|a_{2,2}|}\]
+para que $g$ posea un único punto fijo y, así, que $y_k^{(2)}$ quede determinado de manera única. Continuando con este procedimiento se demuestra que una condición suficiente para que el sistema que define un método diagonalmente implícito tenga solución única es
+\[h < \min_{i=1,\mathellipsis,n} \biggl\{\frac{1}{L|a_{i,i}|}\biggr\}\]
+Siguiendo esta idea, el próximo teorema va a recoger una condición suficiente para asegurar la buena definición de los métodos de Runge-Kutta, y ya de paso se estudiarán la estabilidad y la consistencia. Previamente, será necesario recordar algunas nociones de asignaturas pasadas:
+
+\begin{cdefinition}
+Dada una matriz $A \in \mathcal{M}_n(\R)$, se define el \mybf{radio espectral de $A$} como
+\[\rho(A) \coloneqq \max\{|\lambda| \colon \lambda \textup{ es autovalor de } A\}\]
+\end{cdefinition}
+
+\begin{cproposition}
+$(\R^n,||\cdot||_\infty)$ es un espacio métrico completo, donde $||\cdot||_{\infty} \colon \R^n \to \R$ está definida por
+\[||Y||_{\infty} = \max_{i=1,\mathellipsis,n}|Y_i|,\]
+Además, dada $A \in \mathcal{M}_n(\R)$, la norma matricial subordinada a $||\cdot||_{\infty}$ viene dada por
+\[||A||_{\infty} =\max_{i=1,\mathellipsis,n}\sum_{j=1}^n |a_{i,j}|\]
+\end{cproposition}
+
+\begin{proof}
+    Corresponde a la asignatura \emph{Métodos Numéricos $II$}.
+\end{proof}
+
+\begin{cproposition}
+\label{prop5}
+Dada $A \in \mathcal{M}_n(\R)$, se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item Si $||\cdot||$ es una norma matricial cualquiera,
+    \[ \rho(A) = \lim_{k \to \infty}||A^k||^{1/k}\]
+    \item $\rho(A) < 1$ si y solo si $\displaystyle \lim_{k \to \infty} A^k = 0$.
+    \item Si $||\cdot||$ es una norma matricial subordinada y $||A|| <1$, entonces $I+A$ es inversible.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+    Corresponde a la asignatura \emph{Métodos Numéricos $II$}.
+\end{proof}
+
+Se advierte que el valor absoluto de una matriz se entenderá como la matriz formada por el valor absoluto de cada componente, y lo mismo con el valor absoluto de un vector.
+
+\begin{ctheorem}
+Sea $A\in \mathcal{M}_p(\R)$ la matriz asociada a un método de Runge-Kutta de $p$ etapas. 
+\begin{enumerate}
+    \item Supóngase que $h \in [0,T]$ es tal que
+    \[h < \frac{1}{L\rho(|A|)}\]
+    Entonces el sistema $(S)$ tiene solución única y, en consecuencia, el método está bien definido.
+    \item Supóngase además que
+    \[T < \frac{1}{L\rho(|A|)}\]
+    Entonces el método es estable.
+    \item Más aún, el método es consistente si y solo si
+    \[\sum_{i=1}^p b_i = 1,\]
+    \item Bajo las hipótesis de todos los apartados anteriores, el método es convergente.
+\end{enumerate}
+\end{ctheorem}
+
+\vspace{\parskip}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item Se va a intentar aplicar el teorema del punto fijo a la función $G \colon \R^p \to \R^p$ definida por
+\[G(Y) = \left(\begin{array}{c}
+y_k+h(a_{1,1}f(t_k^{(1)},Y_1)+a_{1,2}f(t_k^{(2)},Y_2)+\mathellipsis+a_{1,p}f(t_k^{(p)},Y_p)) \\
+y_k+h(a_{2,1}f(t_k^{(1)},Y_1)+a_{2,2}f(t_k^{(2)},Y_2)+\mathellipsis+a_{2,p}f(t_k^{(p)},Y_p)) \\
+\vdots \\
+y_k+h(a_{p,1}f(t_k^{(1)},Y_1)+a_{p,2}f(t_k^{(2)},Y_2)+\mathellipsis+a_{p,p}f(t_k^{(p)},Y_p)) \\
+\end{array}\right) = y_kE+ hAF(t,Y),\]
+donde
+\[E = \left(\begin{array}{c}
+    1 \\
+    1 \\
+    \vdots \\
+    1
+\end{array}\right) \qquad \qquad A = \left(\begin{array}{cccc}
+    a_{1,1} & a_{1,2} & \mathellipsis & a_{1,p} \\
+    a_{2,1} & a_{2,2} & \mathellipsis & a_{2,p} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{p,1} & a_{p,2} & \mathellipsis & a_{p,p} \\
+\end{array}\right) \qquad \qquad F(t,Y) = \left(\begin{array}{c}
+     f(t_k^{(1)},Y_1) \\
+     f(t_k^{(2)},Y_2) \\
+     \vdots \\
+     f(t_k^{(p)},Y_p) 
+\end{array}\right) \]
+Si $i \in \{1,\mathellipsis,n\}$ e $Y,Z \in \R^p$,
+\[\bars{G_i(Y)-G_i(Z)} = \bars{h\sum_{j=1}^pa_{i,j}(f(t_k^{(j)},Y_j)-f(t_k^{(j)},Z_j))} \leq hL\sum_{j=1}^p\bars{a_{i,j}}\bars{Y_j-Z_j}\]
+Por tanto,
+\begin{equation}\bars{G(Y)-G(Z)} \leq hL\bars{A}\bars{Y-Z},\end{equation}
+donde los vectores se están comparando componente a componente. Además, como
+\[||A||_{\infty} = \max_{i=1,\mathellipsis,p}\sum_{j=1}^p \bars{a_{i,j}}, \qquad \qquad ||Y-Z||_{\infty} = \max_{j=1,\mathellipsis,p} \bars{Y_j-Z_j},\]
+entonces
+\[\norm{G(Y)-G(Z)}_{\infty} \leq hL\norm{A}_{\infty}\norm{Y-Z}_{\infty}\]
+En consecuencia, siempre que se tenga
+\[h < \frac{1}{L||A||_{\infty}}\]
+el teorema del punto fijo nos dará una única solución para el sistema $(S)$, y por tanto el método de Runge-Kutta de $p$ etapas estárá bien definido. Pero esto no es lo que se pide demostrar, pues hay que probar una desigualdad más fuerte (ya que $\rho(A) \leq ||A||$). Para ello, se tiene en cuenta que, en realidad, no es necesario que $G$ sea contractiva; basta que lo sea una iterada suya. Si $n \in \N$, se demuestra fácilmente a partir de $(8)$ que
+\[|G^n(Y)-G^n(Z)| \leq h^nL^n|A|^n|Y-Z|,\]
+luego
+\[||G^n(Y)-G^n(Z)||_{\infty} \leq h^nL^n|||A|^n||_{\infty}||Y-Z||_{\infty}\]
+Ahora bien, por hipótesis se tiene
+\[hL\rho(|A|) < 1,\]
+y como
+\[\rho(|A|) = \lim_{n \to \infty} |||A|^n||_{\infty}^{1/n},\]
+entonces
+\[\lim_{n \to \infty} hL|||A|^n||_{\infty}^{1/n} = hL\rho(|A|) < 1,\]
+así que existe $n_0 \in \N$ tal que
+\[hL|||A|^{n_0}||_{\infty}^{1/n_0} < 1,\]
+luego
+\[h^{n_0}L^{n_0}|||A|^{n_0}||_{\infty} < 1,\]
+concluyéndose que $G^{n_0}$ es contractiva y tiene un único punto fijo, que es la única solución de $(S)$.
+\item En lugar de probar la estabilidad por definición, se va a echar mano del \hyperref[teo2.7]{\color{gray}Teorema 6}. La función incremento es
+\[\Phi(t,y,h) = \sum_{i=1}^p b_if(t^{(i)},y^{(i)}),\]
+donde, para cada $i\in \{ 1,\mathellipsis,p\}$,
+\[t^{(i)}=t+c_ih, \qquad \qquad y^{(i)} = y+h\sum_{j=1}^p a_{i,j}f(t^{(j)},y^{(j)})\]
+Si $y,z \in \R$, se tiene
+\[\bigl|y^{(i)} - z^{(i)}\bigr| = \biggl|{y-z+h\sum_{j=1}^pa_{i,j}(f(t^{(j)},y^{(j)})-f(t^{(j)},z^{(j)}))}\biggr| \leq \bars{y-z}+hL\sum_{j=1}^p |a_{i,j}||y^{(j)}-z^{(j)}|\]
+Sean
+\[Y = \pars{\begin{array}{c}
+     y^{(1)} \\
+     y^{(2)} \\
+     \vdots \\
+     y^{(p)}
+\end{array}} \qquad \qquad Z = \pars{\begin{array}{c}
+     z^{(1)} \\
+     z^{(2)} \\
+     \vdots \\
+     z^{(p)}
+\end{array}}\]
+Entonces
+\[\begin{aligned}[t]
+    |Y-Z| &\leq |y-z|E+hL|A||Y-Z| \\
+    &\leq |y-z|E+TL|A||Y-Z| \\
+    &\leq |y-z|E+TL|A|\bigl(|y-z|E+TL|A||Y-Z|\bigr) = |y-z|\bigl(I+TL|A|\bigr)E+(TL|A|)^2|Y-Z|
+\end{aligned}\]
+Por recurrencia, para todo $n \in \N$ se tiene
+\[\begin{aligned}[t]
+    |Y-Z| &\leq |y-z|\bigl(I+TL|A|+(TL|A|)^2+\mathellipsis+(TL|A|)^{n-1}\bigr)E+(TL|A|)^n|Y-Z| \\
+    &= |y-z|(I-TL|A|)^{-1}(I-(TL|A|)^n)E+(TL|A|)^n|Y-Z|,
+\end{aligned}\]
+donde en la igualdad se ha utilizado la fórmula para la sucesión de sumas parciales de una serie geométrica de matrices. Nótese que, por ser $TL\rho(|A|) < 1$, se tiene que $||TL|A|||_\infty<1$
+y por tanto $I-TL|A|$ es inversible. Ahora, utilizando que $||E||_{\infty}$ = 1,
+\begin{equation}\norm{Y-Z}_{\infty} \leq |y-z|||(I-TL|A|)^{-1}||_{\infty}||I-(TL|A|)^n||_{\infty}+||(TL|A|)^n||_{\infty}||Y-Z||_{\infty}\end{equation}
+Si se verifica la condición
+\[T < \frac{1}{L\rho(|A)|},\]
+es decir,
+\[TL\rho(|A|) = \rho(TL|A|) < 1,\]
+entonces \[\lim_{n \to \infty} (TL|A|)^n = 0,\] 
+luego
+\[\lim_{n \to \infty}||I-(TL|A|)^n||_{\infty} = 1 \qquad \textup{y} \qquad \lim_{n \to \infty}||(TL|A|)^n||_{\infty}=0\]
+Tomando límite en $(9)$ se deduce que
+\[||Y-Z||_{\infty} \leq |y-z|||(I-hL|A|)^{-1}||_{\infty}\]
+Consecuentemente,
+\[\begin{aligned}[t]
+    |\Phi(t,y,h)-\Phi(t,z,h)| &\leq \sum_{i=1}^p |b_i| |f(t_{k}^{(i)},y^{(i)})-f(t_{k}^{(i)},z^{(i)})| \\
+    &\leq L\sum_{i=1}^p |b_i||y^{(i)}-z^{(i)}| \\
+    &\leq L\sum_{i=1}^p |b_i|||Y-Z||_{\infty} \\
+    &\leq \pars{L||(I-hL|A|)^{-1}||_{\infty}\sum_{i=1}^p|b_i|}|y-z|,
+\end{aligned}\]
+deduciéndose que $\Phi$ es de Lipschitz en la variable $y$, así que el método es estable. 
+\item Como
+\[\Phi(t,y,0) = f(t,y)\sum_{i=1}^p b_i,\]
+el \hyperref[teo2.6]{\color{gray}Teorema 5} permite afirmar que el método es consistente si y solo si
+\[\sum_{i=1}^p b_i = 1\]
+\item Consecuencia inmediata de los apartados anteriores y del \hyperref[teo2.5]{\color{gray}Teorema 4}. \qedhere
+\end{enumerate}
+\end{proof}
+
+Una vez estudiada la convergencia de los métodos de Runge-Kutta, la próxima parada es el estudio del orden, empleándose para ello el \hyperref[teo2.17]{\color{gray}Teorema 8}.
+\begin{ctheorem}
+Considérese un método de Runge-Kutta dado por las matrices
+\[b = \pars{\begin{array}{c}
+     b_1 \\
+     b_2 \\
+     \vdots \\
+     b_n
+\end{array}} \qquad \qquad C = \left(\begin{array}{cccc}
+    c_1 & 0 & \mathellipsis & 0 \\
+    0 & c_2 & \mathellipsis & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \mathellipsis & c_n \\
+\end{array}\right) \qquad \qquad A = \left(\begin{array}{cccc}
+    a_{1,1} & a_{1,2} & \mathellipsis & a_{1,n} \\
+    a_{2,1} & a_{2,2} & \mathellipsis & a_{2,n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    a_{n,1} & a_{n,2} & \mathellipsis & a_{n,n} \\
+\end{array}\right) \]
+Entonces
+\begin{enumerate}
+    \item El método es de orden $1$ si y solo si
+    \[B^tE = 1\]
+    \item El método es de orden $2$ si y solo si se verifica la condición de orden $1$, y además,
+    \[
+        B^tAE = \frac{1}{2}
+    \]
+    \item El método es de orden $3$ si y solo si se verifican las condiciones de orden $2$, y además,
+    \[\left\{\begin{alignedat}{1}
+        B^tC^2E &= \frac{1}{3} \\[5pt]
+        B^tACE &= \frac{1}{6}
+    \end{alignedat}\right.\]
+    \item El método es de orden $4$ si y solo si se verifican las condiciones de orden $3$, y además,
+    \[\left\{\begin{alignedat}{1}
+        B^tC^3E &=\frac{1}{4} \\[5pt]
+        B^tAC^2E &=\frac{1}{12} \\[5pt]
+        B^tA^2CE &= \frac{1}{24} \\[5pt]
+        B^tCACE &= \frac{1}{8}
+    \end{alignedat}\right.\]
+\end{enumerate}
+\end{ctheorem}
+
+\vspace{\parskip}
+
+\begin{proof}
+Que no cunda el pánico: solo se van a probar los dos primeros apartados.
+En primer lugar, el teorema anterior permite afirmar que el método es consistente si y solo si $B^tE = 1$, luego, por el \hyperref[cor3]{\color{gray}Corolario 3}, el método es de orden 1 si y solo si $B^tE=1$. Para el apartado segundo, se recuerda que
+\[\Phi(t,y,h) = \sum_{i=1}^p b_if(t^{(i)},y^{(i)}), \qquad \qquad t^{(i)}=t+c_ih, \qquad \qquad y^{(i)} = y+h\sum_{j=1}^p a_{i,j}f(t^{(j)},y^{(j)}),\]
+donde $t^{(i)}$ e $y^{(i)}$ pueden verse como funciones de $(t,y,h)$. En consecuencia,
+\[
+\begin{aligned}[t]
+    \pder{\Phi}{h}(t,y,h) &= \sum_{i=1}^p b_i\pars{\pder{f}{t}(t^{(i)},y^{(i)})\pder{t^{(i)}}{h}(t,y,h)+\pder{f}{y}(t^{(i)},y^{(i)})\pder{y^{(i)}}{h}(t,y,h)}
+\end{aligned}
+\]
+Por un lado,
+\[\pder{t^{(i)}}{h}(t,y,h) = 0\]
+Por otro,
+\[\pder{y^{(i)}}{h}(t,y,h) = \sum_{j=1}^pa_{i,j}f(t^{(j)},y^{(j)})+h\frac{\partial}{\partial h}\pars{\sum_{j=1}^pa_{i,j}f(t^{(j)},y^{(j)})}\]
+Poniendo $h= 0$,
+\[\pder{y^{(i)}}{h}(t,y,0) = f(t,y)\sum_{j=1}^pa_{i,j}\]
+Volviendo arriba,
+\[
+\begin{aligned}[t]
+    \pder{\Phi}{h}(t,y,0) &= \sum_{i=1}^p b_i\pars{c_i\pder{f}{t}(t,y)+f(t,y)\pder{f}{y}(t,y)\sum_{j=1}^pa_{i,j}} \\
+    &=  \pder{f}{t}(t,y)\sum_{i=1}^p b_ic_i+f(t,y)\pder{f}{y}(t,y)\sum_{i=1}^p b_i\sum_{j=1}^pa_{i,j}
+\end{aligned}
+\]
+Recuérdese que lo primero que se hizo después de definir los métodos de Runge-Kutta es suponer
+\[\sum_{j=1}^pa_{i,j} = c_i\]
+para cada $i \in \{1,\mathellipsis,p\}$, o, equivalentemente, $AE=CE$. Así,
+\[
+\begin{aligned}[t]
+    \pder{\Phi}{h}(t,y,0) &= \pder{f}{t}(t,y)\sum_{i=1}^p b_ic_i+f(t,y)\pder{f}{y}(t,y)\sum_{i=1}^p b_ic_i \\ &= \pars{\pder{f}{t}(t,y)+f(t,y)\pder{f}{y}(t,y)}\sum_{i=1}^pb_ic_i \\ &= f^{(1)}(t,y)\sum_{i=1}^pb_ic_i
+\end{aligned}
+\]
+Por tanto, el método es de orden 2 si y solo si 
+\[\sum_{i=1}^p b_i = 1 \qquad \textup{y} \qquad \sum_{i=1}^p b_ic_i = \frac{1}{2},\]
+o sea, si y solo si $B^tE = 1$ y $B^tCE = B^tAE = \frac{1}{2}$, como quería probarse.
+\end{proof}
+\begin{ctheorem}
+Considérese un método de Runge-Kutta de $p$ etapas. Entonces
+\begin{enumerate}
+    \item El orden del método es a lo sumo $2p$.
+    \item Si el método es explícito, su orden es a lo sumo $p$.
+    \item Si el método es explícito y $q \geq 5$, su orden es estrictamente menor que $p$.
+\end{enumerate}
+\end{ctheorem}
+
+\begin{proof}
+Escapa a los propósitos de la asignatura.
+\end{proof}
+
+\begin{example}
+Se recuerda que el tablero de Butcher del método de Euler es
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|c}
+    $0$ & $0$ \\ \hline
+    & $1$
+\end{tabular}
+\end{center}
+Se observa que $b_1 = 1$ y $b_1c_1=0 \neq \frac{1}{2}$, luego el método es de orden exactamente 1.
+\end{example}
+
+\begin{example}
+Se recuerda que el tablero de Butcher del método de Euler implícito es
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|c}
+    1 & 1\\ \hline
+    & 1
+\end{tabular}
+\end{center}
+Se observa que $b_1 = 1$ y $b_1c_1 = 1 \neq \frac{1}{2}$, luego el método es de orden exactamente 1.
+\end{example}
+
+\begin{example}
+El tablero de Butcher de un método de Runge-Kutta de una etapa es
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|c}
+    $a$ & $a$\\ \hline
+    & 1
+\end{tabular}
+\end{center}
+Por tanto, si $a = \frac{1}{2}$, el método es de orden 2, y si no, el método es de orden exactamente 1.
+\end{example}
+
+\begin{example}
+Dados $b_1,b_2 \in \R$ con $b_1+b_2 =1$, el tablero de Butcher de un método de Runge-Kutta de dos etapas explícito es
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|cc}
+    0 & 0 & 0\\
+    $a$ & $a$ & 0 \\ \hline
+    & $b_1$ & $b_2$
+\end{tabular}
+\end{center}
+Por tanto, si $ab_2 = \frac{1}{2}$, el método es de orden 2, y si no, el método es de orden exactamente 1.
+\end{example}
+
+\begin{example}
+Los métodos de Runge-Kutta dados por los tableros siguientes son de orden 2:
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|cc}
+    0 & 0 & 0\\
+    1/2 & 1/2 & 0 \\ \hline
+    & 0 & 1
+\end{tabular}
+\qquad \qquad \qquad
+\begin{tabular}{c|cc}
+    0 & 0 & 0\\
+    1 & 1 & 0 \\ \hline
+    & 1/2 & 1/2
+\end{tabular}
+\end{center}
+En efecto, no hay más que volver al ejemplo anterior observando que en ambos casos se tiene
+\[b_1 = 1-\frac{1}{2a} \qquad \textup{y} \qquad b_2 = \frac{1}{2a}\]
+\end{example}
+
+\chapter{Métodos multipaso}
+
+\section{Motivación}
+
+Como se ha estudiado en el tema anterior, los datos que utiliza un método unipaso para calcular la aproximación $y_{k+1}$ son $h$, $t_k$ e $y_k$. Con objeto de mejorar las aproximaciones obtenidas, quizá sería conveniente utilizar todas las aproximaciones realizadas (es decir, $y_0,y_1,\mathellipsis,y_k$) para hallar $y_{k+1}$. De nuevo, consideramos la ecuación
+\begin{equation}y(t_{k+1}) = y(t_k)+\int_{t_k}^{t_{k+1}}f(t,y(t)) \, dt,\end{equation}
+y tenemos que aproximar $y(t_{k+1})$ es equivalente a aproximar la integral. Si ya se conocen $y_{k-1}$ e $y_k$, podemos estimar la gráfica de $f$ en $[t_k,t_{k+1}]$ mediante la recta $r$ que pasa por $f(t_{k-1},y_{k-1})$ y $f(t_k,y_k)$. De esta manera, la integral a calcular no es más que el área encerrada por dicha recta y el eje $x$. Si llamamos $f_k = f(t_k,y_k)$, una parametrización de la recta $r$ sería \[r(t) = f_k+\frac{f_k-f_{k-1}}{h}(t-t_k)\] y aproximamos la integral como sigue:
+\[\int_{t_k}^{t_{k+1}} f(t,y(t)) \, dt \approx \int_{t_k}^{t_{k+1}}r(t) \, dt = f_kh+\frac{f_k-f_{k-1}}{h} \frac{h^2}{2} = f_kh+h\frac{f_k-f_{k-1}}{2} = \frac{h}{2}(3f_k-f_{k-1})\]
+En consecuencia,
+\[y_{k+1} = y_k +\frac{h}{2}+\frac{h}{2}(3f_k-f_{k-1}), \quad k \in \{1,\mathellipsis,n-1\}\]
+Esta expresión no es válida para $k = 0$, pero $y_1$ se puede aproximar usando un método unipaso. Como se ha conseguido aproximar la integral utilizando dos aproximaciones calculadas previamente, se dice que el método obtenido es \emph{de dos pasos}. Si también se quiere usar $y_{k-2}$ para aproximar la integral, se puede hallar el polinomio de interpolación de los puntos $(t_{k-2},y_{k-2})$, $(t_{k-1},y_{k-1})$ y $(t_k,y_k)$ y estimar la integral en $(10)$ mediante la integral de dicho polinomio en el intervalo $[t_k,t_{k+1}]$.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    xmin = 0,
+    xmax = 1.1,
+    ymin = 0,
+    ymax = 1.1,
+    xtick={0.25,0.5,0.75},
+    ytick={0.6,0.8},
+    xticklabels={$t_{k-1}$, $t_k$, $t_{k+1}$},
+    yticklabels={$f_k$\\$f_{k-1}$\\},
+    scale = 0.8
+]
+\addplot[thick, samples=50, smooth] coordinates {(0.25,0.8)(0.5,0.6)};
+\addplot[thick, samples=50, smooth, name path = A] coordinates {(0.5,0.6)(0.75,0.4)} node[black, yshift = 8pt, pos = 1.15] {$r$};
+\addplot[thick, smooth, dotted] coordinates{(0.25,0)(0.25,0.8)} node[pos = 1, fill, circle, inner sep = 0pt, minimum size = 4pt] {};
+\addplot[thick, smooth, dotted] coordinates{(0.75,0)(0.75,0.4)};
+\addplot[thick, smooth, dotted] coordinates{(0.5,0)(0.5,0.6)} node[pos = 1, fill, circle, inner sep = 0pt, minimum size = 4pt] {};
+\path[name path=B] (axis cs:0.5,0) -- (axis cs:0.75,0);
+\addplot[thick, color = blue, fill = blue, fill opacity = 0.1] 
+fill between[
+    of = A and B,
+];
+\end{axis}
+\end{tikzpicture}
+\caption{Interpretación gráfica de un método de dos pasos.}
+\end{figure}
+
+\section{Interpolación polinómica}
+
+La situación es la siguiente: dados $k+1$ puntos del plano $(t_0,f_0),(t_1,f_1),\mathellipsis,(t_k,f_k)$ tales que $t_i \neq t_j$ si $i \neq j$, se trata de encontrar un polinomio $P$ de grado menor o igual que $k$ cuya gráfica pase por los $k+1$ puntos, es decir, tal que $P(t_i) = f_i$ para todo $i \in \{0,1,\mathellipsis,k\}$. Es bien sabido que este polinomio existe y es único, y se denomina \emph{polinomio de interpolación de los $k+1$ puntos}. Se proporcionan a continuación un par de posibles construcciones del polinomio de interpolación:
+
+\begin{cdefinition}
+Los polinomios
+\[l_i(t) = \frac{(t-t_0)\mathellipsis\widehat{(t-t_i)}\mathellipsis(t-t_k)}{(t_i-t_0)\mathellipsis\widehat{(t_i-t_i)}\mathellipsis(t_i-t_k)}, \qquad i \in \{0,1,\mathellipsis,k\}\]
+se denominan \mybf{polinomios de base de interpolación de Lagrange}. La \mybf{forma de Lagrange del polinomio de interpolación} no es más que
+\[P(t) = \sum_{i=0}^kf_il_i(t)\]
+\end{cdefinition}
+
+\begin{cdefinition}
+La \mybf{forma de Newton del polinomio de interpolación} es
+\[P(t) = f[t_k]+f[t_{k-1},t_k](t-t_k)+\mathellipsis+f[t_0,t_1,\mathellipsis,t_k](t-t_k)\mathellipsis(t-t_{1}),\]
+donde,  para cualquier $i \in \{0,1,\mathellipsis,l\}$, 
+\[f[t_i] \coloneqq f_i\]
+es una \mybf{diferencia dividida de orden $0$}, y para cualquier subconjunto de índices distintos dos a dos $\{i_0,\mathellipsis,i_m\} \subset \{0,1,\mathellipsis,k\}$,
+\[f[t_{i_0},t_{i_1},\mathellipsis,t_{i_m}] \coloneqq \frac{f[t_{i_1},t_{i_2},\mathellipsis,t_{i_m}]-f[t_{i_0},t_{i_1},\mathellipsis,t_{i_{m-1}}]}{t_{i_m}-t_{i_0}}\]
+es una \mybf{diferencia dividida de orden $m$}.
+\end{cdefinition}
+
+La comprobación de que las formas de Lagrange y Newton son válidas (es decir, que el polinomio que definen es el que interpola los $k+1$ puntos) no corresponde a esta asignatura. 
+
+Por otra parte, para calcular de las diferencias divididas que aparecen en la forma de Newton del polinomio de interpolación puede resultar de utilidad la tabla siguiente:
+
+\vspace{0.5\baselineskip}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Puntos & Orden $0$ & Orden $1$ & Orden $2$ & $\mathellipsis$ & Orden $k-1$ & Orden $k$ \\ \hline
+    $t_0$ & $f[t_0]$ & & & & & \\
+    & & $f[t_0,t_1]$ & & & & \\
+    $t_1$ & $f[t_1]$ & & $f[t_0,t_1,t_2]$ & & & \\
+    & & $f[t_1,t_2]$ & &  $\ddots$ & & \\
+    $t_2$ & $f[t_2]$ & & & & & \\
+    & & & & & $f[t_0,\mathellipsis,t_{k-1}]$ & \\
+    $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & & & $f[t_0,\mathellipsis,t_k]$ \\
+    & & & & & $f[t_1,\mathellipsis,t_k]$ & \\
+    $t_{k-2}$ & $f[t_{k-2}]$ & & & & & \\
+    & & $f[t_{k-2},t_{k-1}]$ & & $\iddots$ &  &\\
+    $t_{k-1}$ & $f[t_{k-1}]$ & & $f[t_{k-2},t_{k-1},t_k]$ & & & \\
+    & & $f[t_{k-1},t_k]$ & & & & \\
+    $t_k$ & $f[t_k]$ & & & & & \\ \hline
+\end{tabular}
+\end{center}
+
+\vspace{0.5\baselineskip}
+
+Ahora bien, como los puntos nos interesa tomarlos de forma que $t_k-t_{k-1} = h$ para cada $k \in \{0,1,\mathellipsis,k\}$, entonces el denominador de cualquier diferencia dividida de orden $m$ es $m!h^m$. ¿Qué sucede con el numerador? La definición siguiente resultará bastante conveniente:
+
+\begin{cdefinition}
+Dados $k+1$ puntos $f_0,\mathellipsis,f_k$, se definen las \mybf{diferencias regresivas de orden $0$} como
+\[\nabla^0f_i = f_i, \qquad i \in \{0,1,\mathellipsis,k\},\]
+y para $m \in \N$ con $m \leq k$, se definen las \mybf{diferencias regresivas de orden $m$} como
+\[\nabla^mf_i = \nabla^{m-1}f_i-\nabla^{m-1}f_{i-1}, \qquad i \in \{m,\mathellipsis,k\}\]
+\end{cdefinition}
+
+De esta manera, las diferencias divididas de orden $m$ que aparecen en la tabla son
+\[f[t_l,\mathellipsis,t_{l+m}] = \frac{\nabla^mf_{l+m}}{m!h^m}\]
+para cualquier $l \in \N \cup \{0\}$ con $0\leq l \leq k-m$. Como los denominadores de una misma columna son comunes, basta con escribir la tabla de las diferencias divididas atendiendo solo a los numeradores:
+
+\vspace{0.5\baselineskip}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Puntos & Orden $0$ & Orden $1$ & Orden $2$ & $\mathellipsis$ & Orden $k-1$ & Orden $k$ \\ \hline
+    $t_0$ & $\nabla^0f_0$ & & & & & \\
+    & & $\nabla^1f_1$ & & & & \\
+    $t_1$ & $\nabla^0f_1$ & & $\nabla^2f_2$ & & & \\
+    & & $\nabla^1f_2$ & &  $\ddots$ & & \\
+    $t_2$ & $\nabla^0f_2$ & & & & & \\
+    & & & & & $\nabla^{k-1}f_{k-1}$ & \\
+    $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & & & $\nabla^kf_k$ \\
+    & & & & & $\nabla^{k-1}f_k$ & \\
+    $t_{k-2}$ & $\nabla^0f_{k-2}$ & & & & & \\
+    & & $\nabla^1f_{k-1}$ & & $\iddots$ &  &\\
+    $t_{k-1}$ & $\nabla^0f_{k-1}$ & & $\nabla^2f_k$ & & & \\
+    & & $\nabla^1f_k$ & & & & \\
+    $t_k$ & $\nabla^0f_k$ & & & & & \\ \hline
+\end{tabular}
+\end{center}
+
+\vspace{0.5\baselineskip}
+
+Además, el polinomio de interpolación en su forma de Newton sería
+\[P(t) = \nabla^0f_k+\frac{\nabla^1f_k}{h}(t-t_k)+\frac{\nabla^2f_k}{2h^2}(t-t_k)(t-t_{k-1})+\mathellipsis+\frac{\nabla^kf_k}{k!h^k}(t-t_k)\mathellipsis(t-t_1)\]
+Si llamamos $s = \frac{t-t_k}{h}$, se tiene que 
+\[P(t) = \nabla^0f_k+\nabla^1f_ks+\frac{\nabla^2f_k}{2}s(s+1)+\frac{\nabla^3f_k}{3!}s(s+1)(s+2)+\mathellipsis+\frac{\nabla^kf_k}{k!}s(s+1)\mathellipsis(s+k-1)\]
+Ahora, para cualquier $s \in \R$ definimos
+\[\binom{s}{0} \coloneqq 1,\]
+y para cualquier $j \in \N$,
+\[\binom{s+j-1}{j} \coloneqq \frac{s(s+1)\mathellipsis(s+j-1)}{j!}\]
+En consecuencia, puede introducirse la definición siguiente:
+
+
+\begin{cdefinition}
+Si se define
+\[\widetilde{P}(s)\coloneqq\sum_{j=0}^k \nabla^jf_k\binom{s+j-1}{j},\]
+entonces la expresión
+\[P(t) = \widetilde{P}\left(\frac{t-t_k}{h}\right)\]
+para el polinomio de interpolación de los puntos \[(t_0,f_0),(t_1,f_1),\mathellipsis,(t_k,f_k)\] se conoce como \mybf{forma regresiva de Gregory-Newton}.
+\end{cdefinition}
+
+De esta manera, si $q \in \N$ es tal que $q \leq k$ y se define
+\[\widetilde{P}(s)\coloneqq\sum_{j=0}^q \nabla^jf_k\binom{s+j-1}{j},\]
+entonces el polinomio
+\[P_q(t)=\widetilde{P}_q\left(\frac{t-t_k}{h}\right)\]
+es el polinomio que interpola los datos $(t_k,f_k), (t_{k-1},f_{k-1}), \mathellipsis, (t_{k-q}, f_{k-q})$. Téngase en cuenta que el polinomio de interpolación también puede escribirse como
+\[P(t) = f[t_0]+f[t_0,t_1](t-t_0)+\mathellipsis+f[t_0,t_1,\mathellipsis,t_k](t-t_0)\mathellipsis(t-t_{k-1}),\]
+y entonces se pueden introducir de forma totalmente análoga las \emph{diferencias progresivas} y la \emph{forma progresiva} del polinomio de interpolación:
+
+\begin{cdefinition}
+Dados $k+1$ puntos $f_0,\mathellipsis,f_k$, se definen las \mybf{diferencias progresivas de orden $0$} como
+\[\Delta^0f_i = f_i, \qquad i \in \{0,1,\mathellipsis,k\},\]
+y para $m \in \N$ con $m \leq k$, se definen las \mybf{diferencias progresivas de orden $m$} como
+\[\Delta^mf_i = \Delta^{m-1}f_{i+1}-\Delta^{m-1}f_{i}, \qquad i \in \{0,1,\mathellipsis,k-m\}\]
+\end{cdefinition}
+
+\begin{cdefinition}
+Si se define
+\[\widetilde{P}(s)\coloneqq\sum_{j=0}^k \Delta^jf_0\binom{s}{j},\]
+entonces la expresión
+\[P(t) = \widetilde{P}\left(\frac{t-t_0}{h}\right)\]
+para el polinomio de interpolación de los puntos \[(t_0,f_0),(t_1,f_1),\mathellipsis,(t_k,f_k)\] se conoce como \mybf{forma progresiva de Gregory-Newton}.
+\end{cdefinition}
+
+\section{Métodos basados en integración numérica}
+
+Como ya se adelantó al comienzo del tema, nos interesamos en aproximar la integral que aparece en la ecuación 
+\[y(t_{k+1}) = y(t_k)+\int_{t_k}^{t_{k+1}}f(t,y(t)) \, dt\]
+utilizando alguna de las aproximaciones $y_0,y_1,\mathellipsis,y_k$ calculadas previamente. Para ello, se hará uso de la forma regresiva de Gregory-Newton del polinomio de interpolación de ciertos puntos.
+
+\subsection{Métodos de Adams-Bashforth}
+
+Supóngase que quiere hallarse $y_{k+1}$ usando $q$ de las aproximaciones calculadas anteriormente ($q \in \N$, $q \leq k$), a saber, $y_k,y_{k-1},\mathellipsis,y_{k-q+1}$. El procedimiento a seguir consistirá en aproximar la gráfica de la función $t \mapsto f(t,y(t))$, $t \in [t_k,t_{k+1}]$ mediante el polinomio de interpolación de los puntos
+\[(t_k,f_k), (t_{k-1},f_{k-1}), \mathellipsis, (t_{k-q+1}, f_{k-q+1}),\]
+donde $f_j = f(t_j,y_j)$, $j \in \{0,1,\mathellipsis,k\}$ son valores ya conocidos. De esta manera, la aproximación de $y(t_{k+1})$ sería
+\[y_{k+1}=y_k+\int_{t_k}^{t_{k+1}}P_{q-1}(t) \, dt,\]
+donde $P_{q-1}$ es el único polinomio de grado menor o igual que $q-1$ que interpola los $q$ puntos
+\[(t_k,f_k), (t_{k-1},f_{k-1}), \mathellipsis, (t_{k-q+1}, f_{k-q+1})\]
+Ahora se halla la integral haciendo uso la forma regresiva de Gregory-Newton para el polinomio de interpolación, quedando
+\[\int_{t_k}^{t_{k+1}}P_{q-1}(t) \, dt = \int_{t_k}^{t_{k+1}} \widetilde{P}_{q-1}\left(\frac{t-t_k}{h}\right) \, dt = h \int_0^1 \widetilde{P}_{q-1}(s) \, ds = h \int_0^1 \sum_{j=0}^{q-1}\nabla^jf_k\binom{s+j-1}{j} \, ds\]
+Surge de aquí la definición del método siguiente:
+
+\begin{cdefinition}
+Se define el \mybf{método de Adams-Bashforth de $q$ pasos} o \mybf{método AB de $q$ pasos} como
+\[y_{k+1}=y_k+h\sum_{j=0}^{q-1}\gamma_j\nabla^j f_k,\]
+donde, para cada $j \in \{0,1,\mathellipsis,q-1\}$,
+\[\gamma_j = \int_0^1 \binom{s+j-1}{j} \, ds\]
+
+\end{cdefinition}
+
+A continuación, se hallará la expresión del método de Adams-Bashforth de 1, 2 y 3 pasos.
+
+\begin{enumerate}
+    \item El método AB de 1 paso viene dado por
+    \[y_{k+1} = y_k+h\gamma_0\nabla^0f_k,\]
+    siendo
+    \[\gamma_0 = \int_0^1 \binom{s-1}{0} \, ds = 1, \qquad \qquad \nabla^0f_k = f_k\]
+    Así, obtenemos
+    \[y_{k+1}=y_k+hf(t_k,y_k)\]
+    Una grata sorpresa: el método de Euler.
+    \item El método AB de 2 pasos viene dado por
+    \[y_{k+1} = y_k+h\left(\gamma_0\nabla^0f_k+\gamma_1\nabla^1f_k\right),\]
+    siendo
+    \[\gamma_1 = \int_0^1 \binom{s}{1} \, ds = \frac{1}{2}, \qquad \qquad \nabla^1f_k = f_k-f_{k-1}\]
+    Así, obtenemos
+    \[y_{k+1}=y_k+h\left(f_k+\frac{1}{2}f_k-\frac{1}{2}f_{k-1}\right) = y_k+\frac{h}{2}\left(3f_k-f_{k-1}\right)\]
+    \item El método AB de 3 pasos viene dado por
+    \[y_{k+1} = y_k+h\left(\gamma_0\nabla^0f_k+\gamma_1\nabla^1f_k+\gamma_2\nabla^2f_k\right),\]
+    siendo
+    \[\gamma_2 = \int_0^1 \binom{s+1}{2} \, ds = \int_0^1 \frac{s(s+1)}{2} \, ds= \frac{5}{12}, \qquad \qquad \nabla^2f_k = f_k-2f_{k-1}+f_{k-2}\]
+    Así, obtenemos
+    \[y_{k+1}= y_k+\frac{h}{2}\left(3f_k-f_{k-1}\right)+\frac{5h}{12}\left(f_k-2f_{k-1}+f_{k-2}\right) = y_k+\frac{h}{12}\left(23f_k-16f_{k-1}+5f_{k-2}\right)\]
+\end{enumerate}
+\comment{
+Obsérvese que las aproximaciones del método de Adams-Bashforth de $q$ pasos se hallan de forma razonadamente sencilla partir de las del método de $q-1$ pasos. Para enfatizar esto, los métodos de 1, 2 y 3 pasos también suelen escribirse como
+\[
+\begin{alignedat}{2}
+y_{k+1} &= y_k+hf_k, \quad & k &\in \{0,1,\mathellipsis,n-1\} \\
+y_{k+2} &= y_{k+1}+\frac{h}{2}\left(3f_{k+1}-f_{k}\right), \quad & k &\in \{0,1,\mathellipsis,n-2\} \\
+y_{k+3} &= y_{k+2}+\frac{h}{12}\left(23f_{k+2}-16f_{k+1}+5f_{k}\right), \quad & k &\in \{0,1,\mathellipsis,n-3\}
+\end{alignedat}
+\]}
+En general, adoptando un pequeño cambio de notación, el método AB de $q$ pasos se puede escribir en la forma
+\[y_{k+q} = y_{k+q-1}+h\sum_{j=0}^{q-1}f_{k+j}\beta_j = y_{k+q-1}+h\left(\beta_{q-1}f_{k+q-1}+\beta_{q-2}f_{k+q-2}+\mathellipsis+\beta_0f_k\right), \quad k \in \{0,1,\mathellipsis,n-q\}\]
+
+\subsection{Métodos de Adams-Moulton}
+
+Procediendo de forma totalmente análoga, se trata de aproximar la gráfica de la función $t \mapsto f(t,y(t))$, $t \in [t_k,t_{k+1}]$ mediante el polinomio de interpolación de los puntos
+\[(t_{k+1},f_{k+1}), (t_{k},f_{k}), \mathellipsis, (t_{k-q+1}, f_{k-q+1}),\]
+donde ahora $f_{k+1}$ es un valor desconocido a priori (lo que va a dar lugar a métodos implícitos) y $q \in \N \cup \{0\}$ es tal que $q-1 \leq k$. De esta manera, la aproximación de $y(t_{k+1})$ sería
+\[y_{k+1}=y_k+\int_{t_k}^{t_{k+1}}Q_{q}(t) \, dt,\]
+donde $Q_q$ es el único polinomio de grado menor o igual que $q$ que interpola los $q+1$ puntos
+\[(t_{k+1},f_{k+1}), (t_{k},q_{k}), \mathellipsis, (t_{k-q+1}, f_{k-q+1}),\]
+Ahora se halla la integral haciendo uso la forma regresiva de Gregory-Newton para el polinomio de interpolación, quedando
+\[\int_{t_k}^{t_{k+1}}Q_q(t) \, dt = \int_{t_k}^{t_{k+1}} \widetilde{Q}_{q}\left(\frac{t-t_{k+1}}{h}\right) \, dt = h \int_{-1}^0 \widetilde{Q}_{q}(s) \, ds = h \int_{-1}^0 \sum_{j=0}^{q}\nabla^jf_{k+1}\binom{s+j-1}{j} \, ds\]
+Surge de aquí la definición del método siguiente:
+
+\begin{cdefinition}
+Se define el \mybf{método de Adams-Moulton de $q$ pasos} o \mybf{método AM de $q$ pasos} como
+\[y_{k+1}=y_k+h\sum_{j=0}^{q}\widetilde{\gamma}_j\nabla^j f_{k+1},\]
+donde, para cada $j \in \{0,1,\mathellipsis,q-1\}$,
+\[\widetilde{\gamma}_j = \int_{-1}^0 \binom{s+j-1}{j} \, ds\]
+
+\end{cdefinition}
+
+A continuación, se hallará la expresión del método de Adams-Moulton de 0, 1 y 2 pasos.
+
+\begin{enumerate}
+    \item El método AM de 0 pasos viene dado por
+    \[y_{k+1} = y_k+h\widetilde{\gamma}_0\nabla^0f_{k+1},\]
+    siendo
+    \[\widetilde{\gamma}_0 = \int_{-1}^0 \binom{s-1}{0} \, ds = 1, \qquad \qquad \nabla^0f_{k+1} = f_{k+1}\]
+    Así, obtenemos
+    \[y_{k+1}=y_k+hf(t_{k+1},y_{k+1}),\]
+    es decir, el método de Euler implícito.
+    \item El método AM de 1 paso viene dado por
+    \[y_{k+1} = y_k+h\left(\widetilde{\gamma}_0\nabla^0f_{k+1}+\widetilde{\gamma}_1\nabla^1f_{k+1}\right),\]
+    siendo
+    \[\widetilde{\gamma}_1 = \int_{-1}^0\binom{s}{1} \, ds = -\frac{1}{2}, \qquad \qquad \nabla^1f_{k+1} = f_{k+1}-f_{k}\]
+    Así, obtenemos
+    \[y_{k+1}=y_k+h\left(f_{k+1}-\frac{1}{2}f_{k+1}+\frac{1}{2}f_{k}\right) = y_k+\frac{h}{2}\left(f_{k+1}+f_{k}\right),\]
+    es decir, el método del trapecio.
+    \item El método AM de 2 pasos viene dado por
+    \[y_{k+1} = y_k+h\left(\widetilde{\gamma}_0\nabla^0f_{k+1}+\gamma_1\nabla^1f_{k+1}+\widetilde{\gamma}_2\nabla^2f_{k+1}\right),\]
+    siendo
+    \[\widetilde{\gamma}_2 = \int_{-1}^0 \binom{s+1}{2} \, ds = \int_{-1}^0\frac{s(s+1)}{2} \, ds=- \frac{1}{12}, \qquad \qquad \nabla^2f_{k+1} = f_{k+1}-2f_{k}+f_{k-1}\]
+    Así, obtenemos
+    \[y_{k+1}= y_k+\frac{h}{2}\left(f_{k+1}+f_k\right)-\frac{h}{12}\left(f_{k+1}-2f_{k}+f_{k-1}\right) = y_k+\frac{h}{12}\left(5f_{k+1}+8f_k-f_{k-1}\right)\]
+\end{enumerate}
+
+En general, todas las aproximaciones del método de $q$ pasos pueden escribirse en la forma
+\[y_{k+q} = y_{k+q-1}+h\sum_{j=0}^{q}f_{k+j}\widetilde{\beta}_j = y_{k+q-1}+h\left(\widetilde{\beta}_{q}f_{k+q}+\widetilde{\beta}_{q-1}f_{k+q-1}+\mathellipsis+\widetilde{\beta}_0f_k\right), \quad k \in \{0,1,\mathellipsis,n-q\}\]
+Esta es la expresión de un método implícito; para hallar $y_{k+q}$ es necesario resolver una ecuación.
+
+\section{Métodos basados en diferenciación numérica}
+
+El problema a resolver es, una vez más, el cálculo de $y_{k+1}$ una vez conocidas las aproximaciones $y_0,\mathellipsis,y_k$. Se sabe que \begin{equation}y'(t_{k+1})=f(t_{k+1},y(t_{k+1})),\end{equation}
+lo que sugiere de manera clamorosa un nuevo procedimiento de obtención de $y_{k+1}$: emplear ténicas de diferenciación numérica. La aproximación más natural de $y'(t_{k+1})$ surge de la propia definición de la derivada:
+\[y'(t_{k+1}) \approx \frac{y_{k+1}-y_k}{h}\]
+También resulta natural realizar la aproximación
+\[f(t_{k+1},y(t_{k+1})) \approx f(t_{k+1},y_{k+1}) = f_{k+1}\]
+Sustituyendo en $(11)$, se obtiene
+\[y_{k+1} = y_k +hf_{k+1},\]
+que no es más que el método de Euler implícito.
+
+En general, si quieren usarse $q$ aproximaciones ya calculadas para aproximar $y'(t_{k+1})$, por ejemplo, $y_{k+1},y_k,\mathellipsis,y_{k-q+1}$, el procedimiento a seguir tratará de hallar el polinomio de interpolación de los puntos
+\[(t_{k+1},y_{k+1}),(t_k,y_k),\mathellipsis,(t_{k-q+1},y_{k-q+1}),\]
+y calcular su derivada en el punto $t_{k+1}$. Llamando $R_q$ a este polinomio, la ecuación $(11)$ se aproximaría mediante el método siguiente:
+\begin{equation}R_q'(t_{k+1}) = f_{k+1}\end{equation}
+Ahora bien, se recuerda que
+\[R_q(t)=\widetilde{R}_q\left(\frac{t-t_{k+1}}{h}\right),\]
+donde
+\[\widetilde{R}_q(s)=\sum_{j=0}^q\nabla^jy_{k+1}\binom{s+j-1}{j}\]
+Por tanto, por la regla de la cadena,
+\[R_q'(t) = \frac{1}{h}\widetilde{R}_q'\left(\frac{t-t_{k+1}}{h}\right)\]
+En consecuencia,
+\[R_q'(t_{k+1}) = \frac{1}{h}\widetilde{R}_q'(0) = \frac{1}{h}\sum_{j=0}^q\nabla^jy_{k+1}\frac{d}{ds}\binom{s+j-1}{j}\Biggr|_{s=0}\]
+Al sustituir en $(12)$, se obtiene la siguiente familia de métodos:
+\begin{cdefinition}
+El \mybf{método BDF de $q$ pasos} es aquel dado por
+\[\sum_{j=0}^q\nabla^jy_{k+1}\delta_j = hf_{k+1},\]
+donde
+\[\delta_j = \frac{d}{ds}\binom{s+j-1}{j}\Biggr|_{s=0}\]
+\end{cdefinition}
+
+Las siglas BDF proceden de \emph{Backward Differentiation Formula}. Hallemos la expresión de estos métodos en los casos más sencillos:
+\begin{enumerate}
+    \item El método BDF de $1$ paso viene dado por
+    \[\delta_1\nabla^1y_{k+1} = hf_{k+1},\]
+    donde
+    \[\delta_1 = \frac{ds}{ds}\Biggr|_{s=0} = 1, \qquad \qquad \nabla^1y_{k+1} = y_{k+1}-y_k\]
+    Así,
+    \[y_{k+1} = y_k+hf_{k+1}\]
+    Otra vez: el método de Euler implícito.
+    \item El método BDF de $2$ pasos viene dado por
+    \[\delta_1\nabla^1y_{k+1} +\delta_2\nabla^2y_{k+1} = hf_{k+1},\]
+    donde
+    \[\delta_2 = \frac{d}{ds}\frac{s(s+1)}{2}\Biggr|_{s=0} = \frac{1}{2}, \qquad \qquad \nabla^2y_{k+1} = y_{k+1}-2y_k+y_{k-1}\]
+    Así, sustituyendo arriba,
+    \[y_{k+1}-y_k+\frac{1}{2}y_{k+1}-y_k+\frac{1}{2}y_{k-1}= \frac{3}{2}y_{k+1}-2y_k+\frac{1}{2}y_{k-1} = hf_{k+1}\]
+\end{enumerate}
+
+En general, el método BDF de $q$ pasos adopta la forma
+\[\sum_{j=0}^q \alpha_jy_{k+j} =  h\beta_q f_{k+q}, \quad k \in \{0,1,\mathellipsis,n-q\}\]
+para unos ciertos coeficientes $\alpha_j, \beta \in \R$.
+
+\section{Expresión general de un método multipaso}
+
+Recapitulando, hemos visto que los métodos basados en integración numérica de $q$ pasos se escriben como
+\[y_{k+q} = y_{k+q-1}+h\left(\widetilde{\beta}_qf_{k+q}+\widetilde{\beta}_{q-1}f_{k+q-1}+\mathellipsis+\widetilde{\beta}_0f_k\right), \quad k \in \{0,1,\mathellipsis,n-q\}\]
+Dependiendo de si $\widetilde{\beta}_q = 0$ o $\widetilde{\beta}_q \neq 0$, estaremos ante un método AM o un método AB. Por otra parte, los métodos basados en diferenciación numérica admiten una expresión del tipo
+\[\alpha_0y_k+\alpha_1y_{k+1}+\mathellipsis+\alpha_qy_{k+q} = h\beta_qf_{k+q}, \quad k \in \{0,1,\mathellipsis,n-q\},\]
+con $\alpha_q \neq 0$ para poder despejar $y_{k+q}$. Las dos expresiones anteriores pueden aunarse en una sola para proporcionar la definición que sigue.
+
+\begin{cdefinition}
+Un método numérico de la forma
+\[\sum_{j=0}^q \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f_{k+j}, \quad k \in \{0,1,\mathellipsis,n-q\}\]
+se denomina \mybf{método multipaso lineal de $q$ pasos}, o, simplemente, \mybf{método de $q$ pasos}, donde
+\[|\alpha_0|+|\beta_0| > 0, \qquad \qquad \alpha_q \neq 0\]
+Si $\beta_q = 0$, se dice que el método es \mybf{explícito}, y en caso contrario, que es \mybf{implícito}.
+\end{cdefinition}
+
+En primer lugar, si se considera un método de $q$ pasos, téngase en cuenta que el cálculo de las $q$ primeras aproximaciones debe realizarse mediante un método unipaso, y, a partir de ahí, el método multipaso arranca sin problema.
+
+En segundo lugar, la condición $\alpha_q \neq 0$ se pide para que aparezca $y_{k+q}$ en el método, mientras que la condición $|\alpha_0|+|\beta_0|>0$ se exige para que salga $y_k$. Usualmente, por motivos de comodidad, se va a dividir por $\alpha_q$ en dicha expresión para que quede otra totalmente equivalente en la que el coeficiente de $y_{k+q}$ es 1 En caso de que $\beta_q \neq 0$, puesto que $f_{k+q}$ es un dato desconocido, será necesario resolver la ecuación
+\begin{equation}y_{k+q} = h\beta_qf(t_{k+q},y_{k+q})+C_{k+q},\end{equation}
+siendo
+\[C_{k+q} = -\sum_{j=0}^{q-1}\alpha_jy_{k+j}+h\sum_{j=0}^{q-1}\beta_jf_{k+j}\]
+un número conocido. Evidentemente, para la buena definición de los métodos implícitos es menester que la ecuación $(13)$ tenga solución única. Para ello, como se hizo en el capítulo anterior, se trata de probar la contractividad de la función $g \colon \R \to \R$ dada por
+\[g(y)=h\beta_qf(t_{k+q},y)+C_{k+q}\]
+Si $y_1,y_2 \in \R$, usando que $f$ es de Lipschitz en la variable $y$,
+\[|g(y_1)-g(y_2)| \leq hL|\beta_q|\bars{y_1-y_2}\]
+Esta desigualdad y el teorema del punto fijo permiten afirmar que una condición suficiente para que el método implícito esté bien definido es
+\[h< \frac{1}{L|\beta_q|}\]
+
+\section{Orden de un método multipaso}
+
+Una vez asegurada la buena definición de toda clase de métodos multipaso lineales, continuamos con el estudio del error, el orden, la convergencia y ese tipo de características. Las definiciones que van a introducirse serán rescatadas del tema anterior, y cuando no se puedan copiar y pegar de forma literal, serán adaptadas convenientemente.
+
+\begin{cdefinition}
+Considérese un método de $q$ pasos.
+\begin{enumerate}
+    \item Dado $k \in \{0,1,\mathellipsis,n\}$, se define el \mybf{error en la etapa $k$-ésima} como
+    \[e_k=|y(t_k)-y_k|\]
+    \item Se denomina \mybf{error global} al número real
+    \[e(h) = \max_{k=0,1,\mathellipsis,n} e_k\]
+    \item Se dice que el método es \mybf{convergente} si
+    \[\lim_{h \to 0}e(h) =0\]
+    \item  Dado $k \in \{0,1,\mathellipsis,n\}$, se define el \mybf{error de discretización local en la etapa $k+q$-ésima} como
+    \[\varepsilon_{k+q} = y(t_{k+q})-\widetilde{y}_{k+q},\]
+    donde $\widetilde{y}_{k+q}$ viene dado por
+    \[\alpha_q\widetilde{y}_{k+q} +\sum_{j=0}^{q-1}\alpha_jy(t_{k+j}) = h\beta_qf(t_{k+q},\widetilde{y}_{k+q})+h\sum_{j=0}^{q-1}\beta_jf(t_{k+j},y(t_{k+j})),\]
+    o sea, $\widetilde{y}_{k+q}$ es la aproximación de $y(t_{k+q})$ que daría el método si se conociesen de forma exacta las aproximaciones $y_k,\mathellipsis,y_{k+q-1}$. Si $l \in \{1,2,\mathellipsis,q-1\}$, el \mybf{error de discretización local en la etapa $l$-ésima} se define como
+    \[\varepsilon_l = y(t_{l+1})-y(t_l)-h\Phi(t_l,y(t_l),h)\]
+    donde $\Phi$ es la función incremento del método unipaso usado para calcular $y_0,y_1,\mathellipsis,y_{q-1}$.
+    \item Se dice que el método es \mybf{consistente} si
+    \[\lim_{h \to 0} \sum_{k=1}^n |\varepsilon_k| = 0\]
+    \item Si $y \in \mathcal{C}^{p+1}([t_0,t_0+T],\R)$, se dice que el método es \mybf{de orden $p$} si para todo $k \in \{0,1,\mathellipsis,n-q\}$ es
+    \[\varepsilon_{k+q} = O(h^{p+1})\]
+\end{enumerate}
+\end{cdefinition}
+
+\vspace{\parskip}
+
+En principio, esta definición de orden parece tener poco que ver con la que se proporcionó para métodos unipaso. Ahora bien, recuérdese que en la demostración del \hyperref[teo2.17]{\color{gray}Teorema 8} se probó que si un método es de orden $p$ (y además se verificaban ciertas condiciones de regularidad), entonces $\varepsilon_{k} = O(h^{p+1})$ para todo $k \in \{0,\mathellipsis,n-1\}$. Resulta que el recíproco de esta proposición es cierto (aunque no vaya a probarse), lo que justifica que el orden de un método multipaso se defina de esta manera.
+
+\begin{ctheorem}
+Considérese un método de $q$ pasos dado por
+\[\sum_{j=0}^q \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f_{k+j}\]
+Si se verifica
+\[\sum_{j=0}^q \alpha_j j^l = l \sum_{j=0}^q \beta_j j^{l-1} \textup{ para todo } l \in \{1,2,\mathellipsis,p\}, \qquad \qquad \sum_{j=0}^q \alpha_j = 0,\]
+entonces el método es orden $p$.
+\end{ctheorem}
+
+\begin{proof}
+Probemos que $\varepsilon_{k+q} = O(h^{p+1})$, con
+\[\varepsilon_{k+q} = y(t_{k+q})-\widetilde{y}_{k+q},\]
+siendo $\widetilde{y}_{k+q}$ tal que
+\[\widetilde{y}_{k+q} +\sum_{j=0}^{q-1}\alpha_jy(t_{k+j}) = h\beta_qf(t_{k+q},\widetilde{y}_{k+q})+h\sum_{j=0}^{q-1}\beta_jf(t_{k+j},y(t_{k+j})),\]
+donde se ha tomado $\alpha_q = 1$ en la expresión del método multipaso. Se tiene entonces
+\[\begin{aligned}[t]
+    \varepsilon_{k+q} &= y(t_{k+q}) +\sum_{j=0}^{q-1}\alpha_jy(t_{k+j})-h\beta_qf(t_{k+q},\widetilde{y}_{k+q})-h\sum_{j=0}^{q-1}\beta_jf(t_{k+j},y(t_{k+j})) \\
+    &=\sum_{j=0}^{q}\alpha_jy(t_{k+j})-h\sum_{j=0}^{q}\beta_jf(t_{k+j},y(t_{k+j}))+h\beta_q\left(f(t_{k+q},y(t_{k+q}))-f(t_{k+q},\widetilde{y}_{k+q})\right) \\
+    &=\sum_{j=0}^{q}\alpha_jy(t_{k+j})-h\sum_{j=0}^{q}\beta_jy'(t_{k+j})+h\beta_q\left(f(t_{k+q},y(t_{k+q}))-f(t_{k+q},\widetilde{y}_{k+q})\right) \\
+    &=L(y,t_k,h)+h\beta_q\left(f(t_{k+q},y(t_{k+q}))-f(t_{k+q},\widetilde{y}_{k+q})\right),
+\end{aligned}\]
+donde
+\[L(y,t_k,h)\coloneqq \sum_{j=0}^{q}\alpha_jy(t_{k+j})-h\sum_{j=0}^{q}\beta_jy'(t_{k+j})\]
+Así,
+\[L(y,t_k,h) = \varepsilon_{k+q}-h\beta_q\left(f(t_{k+q},y(t_{k+q}))-f(t_{k+q},\widetilde{y}_{k+q})\right)\]
+Vamos a probar primero que $L(y,t_k,h) = O(h^{p+1})$ si y solo si 
+\[\sum_{j=0}^q \alpha_j j^l = l \sum_{j=0}^q \beta_j j^{l-1} \textup{ para todo } l \in \{1,2,\mathellipsis,p\}, \qquad \qquad \sum_{j=0}^q \alpha_j = 0,\]
+Como $y$ es de clase $p+1$, por la fórmula del resto de Lagrange, para cada $j \in \{0,1,\mathellipsis,q\}$ se tiene
+\[
+\begin{aligned}[t]
+    y(t_{k+j}) &=y(t_k+jh)\\
+    &= y(t_k)+y'(t_k)jh+\frac{y''(t_k)}{2}(jh)^2+\mathellipsis+\frac{y^{(p)}(t_k)}{p!}(jh)^p+O(h^{p+1}) \\
+    &= \sum_{l=0}^p  \frac{y^{(l)}(t_k)}{l!}(jh)^l +O(h^{p+1})
+\end{aligned}
+\]
+Análogamente,
+\[
+\begin{aligned}[t]
+    y'(t_{k+j}) &=y'(t_k+jh)\\
+    &= y'(t_k)+y''(t_k)jh+\frac{y'''(t_k)}{2}(jh)^2+\mathellipsis+\frac{y^{(p)}(t_k)}{(p-1)!}(jh)^{p-1}+O(h^{p}) \\
+    &= \sum_{l=1}^p  \frac{y^{(l)}(t_k)}{(l-1)!}(jh)^{l-1} +O(h^{p})
+\end{aligned}
+\]
+Por tanto,
+\[\begin{aligned}[t]
+    L(y,t_k,h) &=\sum_{j=0}^q\alpha_j\left(\sum_{l=0}^p  \frac{y^{(l)}(t_k)}{l!}(jh)^l +O(h^{p+1})\right)-h\sum_{j=0}^q\beta_j\left(\sum_{l=1}^p  \frac{y^{(l)}(t_k)}{(l-1)!}(jh)^{l-1} +O(h^{p})\right) \\
+    &=\sum_{j=0}^q\alpha_j\sum_{l=0}^p  \frac{y^{(l)}(t_k)}{l!}(jh)^l-h\sum_{j=0}^q\beta_j\sum_{l=1}^p  \frac{y^{(l)}(t_k)}{(l-1)!}(jh)^{l-1} +O(h^{p+1}) \\
+    &=\sum_{j=0}^q\left(\alpha_j\sum_{l=0}^p  \frac{y^{(l)}(t_k)}{l!}(jh)^l-h\beta_j\sum_{l=1}^p  \frac{y^{(l)}(t_k)}{(l-1)!}(jh)^{l-1} \right)+O(h^{p+1}) \\
+    &=\sum_{j=0}^q\left(\alpha_jy(t_k)+\alpha_j\sum_{l=1}^p  \frac{y^{(l)}(t_k)}{l!}(jh)^l-h\beta_j\sum_{l=1}^p  \frac{y^{(l)}(t_k)}{(l-1)!}(jh)^{l-1} \right)+O(h^{p+1}) \\
+    &=\sum_{j=0}^q\left(\alpha_jy(t_k)+\sum_{l=1}^p\frac{y^{(l)}(t_k)}{l!}h^l\left(\alpha_jj^l-l\beta_jj^{l-1}\right)\right)+O(h^{p+1}) \\
+    &=y(t_k)\sum_{j=0}^q\alpha_j+\sum_{l=1}^p\frac{y^{(l)}(t_k)}{l!}h^l\sum_{j=0}^q\left(\alpha_jj^l-l\beta_jj^{l-1}\right)+O(h^{p+1})
+\end{aligned}\]
+De aquí se deduce que $L(y,t_k,h) = O(h^{p+1})$ si y solo si
+\[\sum_{j=0}^q\alpha_j = 0, \qquad \qquad \sum_{j=0}^q \alpha_jj^l = l\sum_{j=0}^q \beta_jj^{l-1} \textup{ para todo } l \in \{1,2,\mathellipsis,p\}\]
+Ahora se va a probar que $L(y,t_k,h) = O(h^{p+1})$ si y solo si $\varepsilon_{k+q} = O(h^{p+1})$, lo que concluirá la prueba. Recuérdese que
+\[L(y,t_k,h) = \varepsilon_{k+q}-h\beta_q\left(f(t_{k+q},y(t_{k+q}))-f(t_{k+q},\widetilde{y}_{k+q})\right)\]
+y por tanto si el método es explícito ($\beta_q$ = 0) hemos terminado. Supóngase entonces que $\beta_q \neq 0$, y también que $\varepsilon_{k+q} = O(h^{p+1})$. Esto significa que existen $C,h^*>0$ tales que para todo $h \in (0,h^*)$ se verifica
+\[|\varepsilon_{k+q}| \leq Ch^{p+1}\]
+Por tanto, usando la desigualdad triangular y la condición de Lipschitz en la variable $y$ para $f$,
+\[
+\begin{aligned}[t]
+|L(y,t_k,h)|&\leq |\varepsilon_{k+q}|+h^*L|\beta_q| |\varepsilon_{k+q}|= (1+h^*L|\beta_q|)|\varepsilon_{k+q}| \leq C(1+h^*L|\beta_q|)h^{p+1} = \widetilde{C}h^{p+1},
+\end{aligned}
+\]
+siendo $\widetilde{C} = C(1+h^*L|\beta_q|)$ una constante positiva e independiente de $h$. Así, se puede afirmar que $L(y,t_k,h) = O(h^{p+1})$. 
+
+Recíprocamente, supóngase que $L(y,t_k,h) = O(h^{p+1})$. En primer lugar, tómese $h^*_1>0$ tal que
+\[h^*_1<\frac{1}{L|\beta_q|}\]
+Entonces
+\[\bars{h\beta_q\left(f(t_{k+q},y(t_{k+q}))-f(t_{k+q},\widetilde{y}_{k+q})\right) }\leq h^*L|\beta_q||\varepsilon_{k+q}| < |\varepsilon_{k+q}|,\]
+es decir,
+\[-|\varepsilon_{k+q}| < h\beta_q\left(f(t_{k+q},y(t_{k+q}))-f(t_{k+q},\widetilde{y}_{k+q})\right) <|\varepsilon_{k+q}|\]
+De estas desigualdades y de la definición de $L(y,t_k,h)$ se deduce que $L(y,t_k,h)$ y $\varepsilon_{k+q}$ tienen el mismo signo. Supóngase primero que son ambos positivos. Al ser $L(y,t_k,h) = O(h^{p+1})$, existen $C,h^*_2>0$ tales que para todo $h \in (0,h^*_2)$ se tiene
+\[|L(y,t_k,h)|=L(y,t_k,h) \leq Ch^{p+1}\]
+Sea $h^* = \min\{h^*_1,h^*_2\}$. Entonces, para todo $h \in (0,h^*)$ se verifica
+\[L(y,t_k,h) = \varepsilon_{k+q}-h\beta_q\left(f(t_{k+q},y(t_{k+q}))-f(t_{k+q},\widetilde{y}_{k+q})\right) \geq \varepsilon_{k+q}-h^*L|\beta_q|\varepsilon_{k+q} = \varepsilon_{k+q}(1-h^*L|\beta_q|)\]
+Por tanto,
+\[Ch^{p+1} \geq L(y,t_k,h) \geq \varepsilon_{k+q}(1-h^*L|\beta_q|),\]
+y como $h^*L|\beta_q| < 1$, entonces $1-h^*L|\beta_q|>0$, así que
+\[\varepsilon_{k+q} = |\varepsilon_{k+q}| \leq \frac{C}{1-h^*L|\beta_q|}h^{p+1} = \widetilde{C}h^{p+1},\]
+siendo
+\[\widetilde{C} = \frac{C}{1-h^*L|\beta_q|}\]
+una constante positiva e independiente de $h$. Así, tenemos que $\varepsilon_{k+q} =O(h^{p+1})$. Si el signo de $L(y,t_k,h)$ y $\varepsilon_{k+q}$ fuese negativo, se razona análogamente.
+\end{proof}
+
+\begin{example}
+Estudiemos el orden del método de $2$ pasos dado por
+\[y_{k+2} -\frac{4}{3}y_{k+1} +\frac{1}{3}y_k = \frac{2h}{3}f_{k+2}\]
+En primer lugar,
+\[\sum_{j=0}^2 \alpha_j = \frac{1}{3}-\frac{4}{3}+1 = 0\]
+Además,
+\[\sum_{j=0}^2 \alpha_j j= -\frac{4}{3}+2 = \frac{2}{3}, \qquad \qquad \sum_{j=0}^2 \beta_j = \frac{2}{3},\]
+luego el método es de orden 1. Más aún,
+\[\sum_{j=0}^2 \alpha_j j^2 = -\frac{4}{3}+4=\frac{8}{3}, \qquad \qquad 2\sum_{j=0}^2\beta_jj =2\frac{4}{3} = \frac{8}{3},\]
+así que el método es de orden 2. Sin embargo,
+\[\sum_{j=0}^2 \alpha_j j^3 =-\frac{4}{3}+8 = \frac{20}{3}, \qquad \qquad 3\sum_{j=0}^2\beta_jj^2 =3\frac{8}{3} = 8,\]
+luego el método es de orden exactamente $2$.
+\end{example}
+
+\begin{example}
+Estudiemos el orden del método AB de $3$ pasos:
+\[y_{k+3} = y_{k+2}+\frac{h}{12}(23f_{k+2}-16f_{k+1}+5f_k)\]
+En primer lugar,
+\[\sum_{j=0}^3 \alpha_j = -1+1 = 0\]
+Además,
+\[\sum_{j=0}^3 \alpha_j j= -2+3 = 1, \qquad \qquad \sum_{j=0}^3 \beta_j = 1,\]
+luego el método es de orden 1. Más aún,
+\[\sum_{j=0}^3 \alpha_j j^2 = -4+9 = 5, \qquad \qquad 2\sum_{j=0}^3\beta_jj = \frac{2}{12}(-16+46) = 5\]
+así que el método es de orden 2. Pero es que
+\[\sum_{j=0}^3 \alpha_j j^3 = -8+27 = 19, \qquad \qquad 3\sum_{j=0}^3\beta_jj^2 = \frac{3}{12}(-16+23\cdot 4) = 19\]
+El método es incluso de orden 3. Una más:
+\[\sum_{j=0}^3 \alpha_j j^4 =-16+81 = 65, \qquad \qquad 4\sum_{j=0}^3\beta_jj^3 =\frac{4}{12}(-16+23\cdot 8) = 56\]
+Una lástima: el método es orden exactamente $3$.
+\end{example}
+
+\begin{example}
+Se trata de encontrar un método explícito de $2$ pasos que tenga el mayor orden posible. La expresión del método es
+\[y_{k+2}+\alpha_1y_{k+1}+\alpha_0y_k = h\left(\beta_0f_k+\beta_1f_{k+1}\right)\]
+Se tiene que
+\[
+\begin{aligned}[t]
+    \sum_{j=0}^2 \alpha_j = 0 &\iff 1+\alpha_1+\alpha_0 = 0 \\
+    \sum_{j=0}^2\alpha_jj=\sum_{j=0}^2\beta_j &\iff \alpha_1+2=\beta_0+\beta_1 \\
+    \sum_{j=0}^2\alpha_jj^2=2\sum_{j=0}^2\beta_jj &\iff \alpha_1+4=2\beta_1 \\
+    \sum_{j=0}^2\alpha_jj^3=3\sum_{j=0}^2\beta_jj^2 &\iff \alpha_1+8=3\beta_1     
+\end{aligned}
+\]
+Ya se dispone de un sistema de $4$ ecuaciones con $4$ incógnitas. Al hacer los cálculos se obtiene
+\[\alpha_0=-5, \qquad \alpha_1=4, \qquad \beta_0 = 2, \qquad \beta_1 = 4,\]
+luego el método explícito de $2$ pasos de orden máximo es de orden al menos $3$, y adopta la expresión
+\[y_{k+2}+4y_{k+1}-5y_k = h\left(2f_k+4f_{k+1}\right)\]
+¿Será este método de orden 4? Pues no, porque se tiene
+\[\sum_{j=0}^2\alpha_jj^4 = 4+16 = 20, \qquad \qquad 4\sum_{j=0}^2 \beta_jj^3 = 16\]
+\end{example}
+
+\begin{ctheorem}
+Respecto a los métodos multipaso lineales estudiados, se verifica
+\begin{enumerate}
+    \item el método AB de $q$ pasos es de orden $q$;
+    \item el método AM de $q$ pasos es de orden $q+1$;
+    \item el método BDF de $q$ pasos es de orden $q$.
+\end{enumerate}
+\end{ctheorem}
+
+\begin{proof}
+Solo se va a demostrar el apartado primero. El método AB de $q$ pasos se escribe como
+\[y_{k+q} = y_{k+q-1}+h\left({\beta}_{q-1}f_{k+q-1}+{\beta}_{q-2}f_{k+q-2}+\mathellipsis+{\beta}_0f_k\right)\]
+Es claro que
+\[\sum_{j=0}^q\alpha_j = 1-1 = 0\]
+Se trata de probar que para todo $l \in \{1,\mathellipsis,q\}$ se verifica
+\[\sum_{j=0}^q \alpha_j j^l = l \sum_{j=0}^q \beta_j j^{l-1}\]
+Fijemos $l \in \{1,\mathellipsis,q\}$, y considérese el problema
+\[\left\{\begin{alignedat}{1}
+    y'(t) &= g(t,y(t))\\
+    y(0) &= 0,
+\end{alignedat}\right.\]
+con $g(t,y) = lt^{l-1}$. La única solución de este problema es $y(t) = t^l$, y el error de discretización local es
+\[\varepsilon_{k+q} = y(t_{k+q})-\widetilde{y}_{k+q},\]
+donde
+\[\begin{aligned}[t]
+    \widetilde{y}_{k+q} &=-\sum_{j=0}^{q-1}\alpha_jy(t_{k+j}) + h\beta_qg(t_{k+q},\widetilde{y}_{k+q})+h\sum_{j=0}^{q-1}\beta_jg(t_{k+j},y(t_{k+j})) \\
+    &=y(t_{k+q-1})+h\sum_{j=0}^{q-1}\beta_jlt_{k+j}^{l-1},
+\end{aligned}\]
+Ahora bien, por la propia definición de los métodos de Adams-Bashforth,
+\[h\sum_{j=0}^{q-1}\beta_jlt_{k+j}^{l-1} = \int_{t_{k+q-1}}^{t_{k+q}}P_{q-1}(t) \, dt,\]
+siendo $P_{q-1}$ el único polinomio de grado menor o igual que $q$ que interpola los datos
+\[(t_{k+q-1}, lt_{k+q-1}^{l-1}),(t_{k+q-2},lt_{k+q-2}^{l-1}),\mathellipsis,(t_k,lt_{k}^{l-1}),\]
+Pero $t \mapsto lt^{l-1}$ es un polinomio de grado menor o igual que $q-1$ que interpola los puntos anteriores, así que $P_{q-1}(t) = lt^{l-1}$, y en consecuencia,
+\[\varepsilon_{k+q} =y(t_{k+q})- y(t_{k+q-1})-\int_{t_{k+q-1}}^{t_{k+q}}lt^{l-1}\, dt =t_{k+q}^l -t_{k+q-1}^l-t_{k+q}^l+t_{k+q-1}^l = 0\]
+En la demostración del teorema anterior se definió
+\[L(y,t_k,h)\coloneqq \sum_{j=0}^{q}\alpha_jy(t_{k+j})-h\sum_{j=0}^{q}\beta_jy'(t_{k+j}),\]
+y se razonó que
+\[L(y,t_k,h) = \varepsilon_{k+q}-h\beta_q\left(g(t_{k+q},y(t_{k+q}))-g(t_{k+q},\widetilde{y}_{k+q})\right),\]
+En este caso, por ser $\beta_q = 0$, se tiene 
+\[L(y,t_k,h) = \varepsilon_{k+q} = 0\]
+En particular, para $k = 0$,
+\[0 = L(y,t_0,h) = \sum_{j=0}^q\alpha_jy(t_j)-h\sum_{j=0}^q\beta_jy'(t_j)=\sum_{j=0}^q \alpha_jt_j^l-hl\sum_{j=0}^q \beta_jt_j^{l-1}\]
+Ahora bien, como $t_0=0$ y $t_j = t_0+jh$ para todo $j \in \{0,1,\mathellipsis,q\}$, entonces
+\[0 = \sum_{j=0}^q \alpha_jj^lh^l-hl\sum_{j=0}^q\beta_jj^{l-1}h^{l-1} = h^l \left(\sum_{j=0}^q\alpha_jj^l-l\sum_{j=0}^q\beta_jj^{l-1}\right)\]
+Como $h^l>0$, entonces debe ser
+\[\sum_{j=0}^q\alpha_jj^l-l\sum_{j=0}^q\beta_jj^{l-1}=0,\]
+o sea,
+\[\sum_{j=0}^q\alpha_jj^l=l\sum_{j=0}^q\beta_jj^{l-1},\]
+que es lo que se quería demostrar.
+\end{proof}
+
+\section{Estabilidad de un método multipaso}
+
+Una vez concluido el estudio del orden, la estabilidad de un método multipaso se va a definir de forma totalmente análoga al caso de los métodos unipaso.
+
+\begin{cdefinition}
+Considérese un método de $q$ pasos,
+\[\sum_{j=0}^{q} \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f_{k+j}, \quad k \in \{0,1,\mathellipsis,n-q\}\]
+Se dice que el método es \mybf{estable} si existe una constante $M$ positiva e independiente de $h$ verificando lo siguiente: si $\{y_k\}_{k=0}^n$, $\{z_k\}_{k=0}^n$, $\{\delta_k\}_{k=q}^{n}$ son tales que
+\[\sum_{j=0}^q \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f(t_{k+j},y_{k+j}), \qquad \qquad \sum_{j=0}^q \alpha_j z_{k+j} = h\sum_{j=0}^q \beta_j f(t_{k+j},z_{k+j})+\delta_{k+q}\]
+para cada $k \in \{0,1,\mathellipsis,n-q\}$, entonces se tiene
+\[\max_{k=q,\mathellipsis,n} |y_k-z_k| \leq M\left(\max_{k=0,1,\mathellipsis,q-1}|y_k-z_k|+\sum_{k=q}^{n} |\delta_k|\right)\]
+\end{cdefinition}
+
+En la práctica, comprobar si un método multipaso es estable empleando esta definición parece que va a ser una auténtica pesadilla. Se va a tratar de obtener alguna condición necesaria para la estabilidad de un método multipaso. Para ello, se va a considerar un problema absolutamente trivial, como por ejemplo
+\[\left\{\begin{alignedat}{1}
+    y'(t)&=0, \\
+    y(0)&=0,
+\end{alignedat}\right.\]
+cuya única solución en $\R$ es, sin ninguna duda, la función idénticamente nula. Sea
+\[\sum_{j=0}^{q} \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f_{k+j}, \quad k \in \{0,1,\mathellipsis,n-q\}\]
+la expresión de un método multipaso cualquiera, y sean $\{y_k\}_{k=0}^n$, $\{z_k\}_{k=0}^n$, $\{\delta_k\}_{k=q}^{n}$ tales que, para cada $k \in \{0,1,\mathellipsis,n-q\}$,
+\[\sum_{j=0}^q \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f(t_{k+j},y_{k+j}), \qquad \qquad \sum_{j=0}^q \alpha_j z_{k+j} = h\sum_{j=0}^q \beta_j f(t_{k+j},z_{k+j})+\delta_{k+q}\]
+Como $f \equiv 0$, entonces
+\[y_{k+q} = -\sum_{j=0}^{q-1}\alpha_jy_{k+j}, \qquad \qquad z_{k+q} = -\sum_{j=0}^{q-1}\alpha_jz_{k+j}+\delta_{k+q}\]
+Supóngase que el método es estable, y elíjanse valores concretos para $y_k$, $z_k$ y $\delta_k$: si $k \in \{0,1,\mathellipsis,n\}$, escogemos $y_k = 0$, y si $k \in \{q,q+1,\mathellipsis,n\}$, tomamos $\delta_k = 0$. Asimismo, sean $\{z_k\}_{k=0}^n$ dados por
+\[\begin{cases}
+    z_0,z_1,\mathellipsis,z_{q-1} \in \R, \\[5pt]
+    \displaystyle z_{k+q} = -\sum_{j=0}^{q-1}\alpha_jz_{k+j}, \quad k \in \{0,1,\mathellipsis,n-q\}
+\end{cases}\]
+La condición de estabilidad para estos datos sería
+\[\max_{k = q,\mathellipsis,n} |z_k| \leq M\left(\max_{k=0,1,\mathellipsis,q-1}|z_k|\right)\]
+para cierta constante $M$ positiva e independiente de $h$ (es decir, independiente de $n$, y por tanto la desigualdad anterior debe tenerse para cualquier $n \in \N$). De esto se deduce que una condición necesaria para que el método sea estable es que la sucesión $\{z_k\}_{k=0}^\infty$ sea acotada.
+
+Para estudiar sucesiones de este tipo, será conveniente recordar el resultado siguiente:
+
+\begin{cproposition}
+\label{prop6}
+Sea $\{a_n\}_{n=0}^\infty$ una sucesión que satisface una relación de recurrencia lineal homogénea de orden $k \in \N$, es decir, existen $\lambda_1,\mathellipsis,\lambda_k \in \R$ tales que
+\[a_n= \lambda_1a_{n-1}+\lambda_2a_{n-2}+\mathellipsis+\lambda_ka_{n-k}\]
+para todo $n \geq k$. Consideremos el polinomio característico de la ecuación,
+\[p(X) = X^k-\lambda_1X^{k-1}-\lambda_2X^{k-2}-\mathellipsis-\lambda_{k-1}X-\lambda_k\]
+Sean $\mu_1,\mu_2,\mathellipsis,\mu_s$ las raíces de este polinomio y sean $m_1,m_2,\mathellipsis,m_s$ sus respectivas multiplicidades. Entonces existen polinomios $p_1,p_2,\mathellipsis,p_s$ tales que $\textup{deg}(p_i(X)) < m_i$ para todo $i \in \{1,2,\mathellipsis,s\}$ y
+\[a_n = p_1(n)\mu_1^n+p_2(n)\mu_2^n+\mathellipsis+p_s(n)\mu_s^n\]
+para todo $n \in \N \cup \{0\}$.
+\end{cproposition}
+
+\begin{proof}
+Corresponde a la asignatura \textit{Matemática Discreta}.
+\end{proof}
+
+\begin{example}
+Considérese el método de dos pasos siguiente:
+\[y_{k+2}+4y_{k+1}-5y_k= h(4f_{k+1}+2f_k),\]
+y sea $\{z_k\}_{k=0}^\infty$ la sucesión dada por
+\[\begin{cases}
+    z_0,z_1 \in \R, \\[5pt]
+    z_{k+2} +4z_{k+1}-5z_{k}= 0, \quad k \in \N \cup \{0\} 
+\end{cases}\]
+Se puede comprobar por inducción que esta sucesión es acotada, pero en su lugar, se va a tratar de dar una fórmula explícita para $z_k$. Considérese el polinomio
+\[p(\lambda) = \lambda^2+4\lambda-5,\]
+y hállense sus raíces:
+\[p(\lambda)=0 \iff \lambda = \frac{-4\pm\sqrt{16+20}}{2} \iff \lambda \in \{-5,1\}\]
+Por la proposición anterior, puede afirmarse que la sucesión $\{z_k\}_{k=0}^\infty$ es de la forma
+\[z_k = c_1\cdot 1^k+c_2 \cdot (-5)^k = c_1+(-5)^kc_2, \quad k \in \N \cup \{0\},\]
+donde $c_1, c_2 \in \R$. En particular, para $k = 0$ y $k = 1$,
+\[\left\{\begin{alignedat}{1}
+    z_0 &= c_1+\phantom{5}c_2 \\
+    z_1 &= c_1-5c_2
+\end{alignedat}\right.\]
+Resolviendo el sistema se obtiene
+\[c_1 = \frac{5z_0+z_1}{6}, \qquad \qquad c_2 = \frac{z_0-z_1}{6}\]
+En consecuencia,
+\[z_k = \frac{5z_0+z_1}{6}+(-5)^k \frac{z_0-z_1}{6}\]
+De esto puede deducirse fácilmente que la sucesión $\{z_k\}_{k=0}^\infty$ es acotada.
+\end{example}
+
+\begin{example}
+Considérese el método multipaso de $2$ pasos siguiente:
+\[y_{k+2}-2y_{k+1}+y_k= h(f_{k+1}-f_k),\]
+y sea $\{z_k\}_{k=0}^\infty$ la sucesión dada por
+\[\begin{cases}
+    z_0,z_1 \in \R, \\[5pt]
+    z_{k+2} -2z_{k+1}+z_k=0, \quad k \in \N \cup \{0\} 
+\end{cases}\]
+Estudiemos si esta sucesión es acotada. Considérese el polinomio
+\[p(\lambda) = \lambda^2-2\lambda+1,\]
+y hállense sus raíces:
+\[p(\lambda)=0 \iff \lambda = \frac{2\pm\sqrt{4-4}}{2} \iff \lambda = 1\]
+Por tanto, la sucesión $\{z_k\}_{k=0}^\infty$ es de la forma
+\[z_k = p(k), \quad k \in \N \cup \{0\},\]
+donde $p(X)=c_1+c_2X$ es un polinomio de grado menor o igual que $1$. Independientemente de $c_1,c_2 \in \R$, puede afirmarse que la sucesión $\{z_k\}_{k=0}^\infty$ no es acotada, luego el método no es estable.
+\end{example}
+
+Ahora que se le ha dado tanto bombo a la acotación de sucesiones dadas por relaciones de recurrencia, sería una auténtica lástima que esta condición necesaria para la estabilidad de un método multipaso no fuese suficiente.
+
+\begin{ctheorem}
+Considérese un método multipaso lineal dado por
+\[y_{k+q}+\sum_{j=0}^{q-1} \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f_{k+j}, \quad k \in \{0,1,\mathellipsis,n-q\},\]
+y considérese el polinomio
+\[p(\lambda) = \lambda^q+\alpha_{q-1}\lambda^{q-1}+\mathellipsis+\alpha_0\]
+Entonces el método es estable si y solo si todas las raíces de $p(\lambda)$ son de módulo menor o igual que 1 y las que tienen módulo 1 (en caso de que las haya) son simples.
+\end{ctheorem}
+
+\begin{proof}
+La omitimos.
+\end{proof}
+
+\begin{cdefinition}
+Dado un método multipaso lineal, el polinomio que figura en el teorema anterior se dice que es el \mybf{polinomio característico del método}.
+\end{cdefinition}
+
+\begin{ccorollary}
+Los métodos de Adams-Bashforth y Adams-Moulton son estables.
+\end{ccorollary}
+
+\begin{proof}
+El polinomio característico de ambos métodos es $p(\lambda) = \lambda^q-\lambda^{q-1}$, que tiene como raíces a $1$, con multiplicidad $1$, y $0$, con multiplicidad $q-1$.
+\end{proof}
+
+\begin{ccorollary}
+Un método BDF de $q$ pasos es estable si y solo si $q \leq 6$.
+\end{ccorollary}
+
+\begin{proof}
+Sería consecuencia inmediata del teorema anterior si se hubiesen estudiado con más profundidad los coeficientes de los métodos BDF.
+\end{proof}
+
+\begin{ctheorem}
+    Un método multipaso es consistente si y solo si es de orden 1, es decir, si y solo si
+    \[\sum_{j=0}^q \alpha_jj = \sum_{j=0}^q\beta_j, \qquad \qquad \sum_{i=1}^q \alpha_j= 0\]
+\end{ctheorem}
+\begin{proof}
+También se puede omitir.
+\end{proof}
+
+\begin{ccorollary}
+Un método de $q$ pasos es convergente si y solo si es estable y consistente, o sea, si y solo si se satisface lo siguiente:
+\begin{enumerate}
+    \item $\displaystyle \sum_{j=0}^q \alpha_jj = \sum_{j=0}^q\beta_j$.
+    \item $\displaystyle \sum_{i=1}^q \alpha_j= 0$.
+    \item Todas las raíces del polinomio característico son de módulo menor o igual que 1 y las que tienen módulo 1 (en caso de que las haya) son simples.
+\end{enumerate}
+\end{ccorollary}
+
+\begin{proof}
+Sería trivial si se probasen los dos últimos teoremas.
+\end{proof}
+
+\begin{ctheorem}
+Si $y \in \mathcal{C}^{p+1}([t_0,t_0+T],\R)$ y se tiene un método multipaso estable y de orden $p$, entonces
+\[e(h) = O(h^p)\]
+\end{ctheorem}
+
+\begin{proof}
+Se omite.
+\end{proof}
+
+\begin{ctheorem}[Primera barrera de Dahlquist]
+Un método estable de $q$ pasos es de orden a lo sumo $q+1$ si $q$ es impar, y de orden a lo sumo $q+2$ si $q$ es par. Si además el método es explícito, entonces es de orden a lo sumo $q$.
+\end{ctheorem}
+\begin{proof}
+Esta también.
+\end{proof}
+
+\section{Métodos predictor-corrector}
+
+El objetivo de esta sección es desarollar un método numérico que combine métodos multipaso explícitos con métodos multipaso implícitos. Considérese de un método implícito de $q$ pasos,
+\[\sum_{j=0}^q \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f_{k+j}, \quad k \in \{0,1,\mathellipsis,n-q\},\]
+siendo $\beta_q \neq 0$ y, por comodidad, $\alpha_q = 1$. El método puede ser escrito como
+\begin{equation}
+y_{k+q} = h\beta_qf(t_{k+q},y_{k+q})+C_{k+q},\end{equation}
+siendo
+\[C_{k+q} = -\sum_{j=0}^{q-1}\alpha_jy_{k+j}+h\sum_{j=0}^{q-1}\beta_jf_{k+j}\]
+Supongamos conocidas las aproximaciones $y_0,y_1,\mathellipsis,y_{k+q-1}$. Como ya se razonó en secciones anteriores, la ecuación $(14)$ puede verse como una ecuación de punto fijo, que tiene solución única si se toma $h$ lo suficientemente pequeño; concretamente, si
+\[h <\frac{1}{L|\beta_q|}\]
+De esta manera, el valor $y_{k+q}$ se puede aproximar mediante un método iterativo de punto fijo, esto es, mediante un método iterativo de la forma
+\[\begin{cases}
+    x_0 \in \R, \\
+    x_{n+1} = g(x_n), \quad n \in \N \cup \{0\}
+\end{cases}\]
+En el caso que nos ocupa, lo más natural es tomar $y_{k+q-1}$ como semilla y \[g(y) = h\beta_qf(t_{k+q},y)+C_{k+q}\] como función de iteración, de forma que el método de punto fijo quedaría
+\[\begin{cases}
+y_{k+q}^{(0)} = y_{k+q-1}, \\
+y_{k+q}^{(l)} = h\beta_qf(t_{k+q},y_{k+q}^{(l-1)})+C_{k+q}, \quad l \in \N
+\end{cases}\]
+Este es el procedimiento que se suele seguir en la práctica para hallar las aproximaciones $\{y_k\}_{k=0}^n$ de un método multipaso implícito. Si se quieren mejorar las aproximaciones de este método de punto fijo, lo primero que hay que optimizar es la elección de la semilla: en lugar de escoger $y_{k+q-1}$, se va a considerar un método explícito de $q$ pasos cualquiera,
+\[y_{k+q}+\sum_{j=0}^{q-1} \alpha_j^* y_{k+j} + h\sum_{j=0}^{q-1} \beta_j^* f_{k+j}, \quad k \in \{0,1,\mathellipsis,n-q\},\]
+y se va a tomar como semilla la aproximación de $y_{k+q}$ que daría este método explícito, es decir,
+\[y_{k+q}^{(0)} = -\sum_{j=0}^{q-1} \alpha_j^* y_{k+j} + h\sum_{j=0}^{q-1} \beta_j^* f_{k+j}\]
+Tenemos entonces el método de punto fijo siguiente:
+\[\begin{cases}
+\displaystyle y_{k+q}^{(0)} =-\sum_{j=0}^{q-1} \alpha_j^* y_{k+j} + h\sum_{j=0}^{q-1} \beta_j^* f_{k+j}, \\[5pt]
+y_{k+q}^{(l)} = h\beta_qf(t_{k+q},y_{k+q}^{(l-1)})+C_{k+q}, \quad l \in \N,
+\end{cases}\]
+y la aproximación $y_{k+q}$ sería $y_{k+q}^{(m)}$ para algún $m \in \N$, que en la práctica se escoge atendiendo a algún criterio de parada establecido previamente. Dado $l \in \{1,\mathellipsis,m\}$, los valores
+\[f_{k+q}^{(l)}=f(t_{k+q},y_{k+q}^{(l)})\]
+se conocen como \emph{evaluaciones}, mientras que los números
+\[y_{k+q}^{(l)}= h\beta_qf_{k+q}^{(l)}+C_{k+q}\]
+se dice que son las \emph{predicciones}. Se recoge el método numérico obtenido en la definición siguiente.
+
+\begin{cdefinition}
+Dados $m,q \in \N$, Un \mybf{método predictor-corrector} es aquel definido mediante
+\[\left\{\begin{alignedat}{2}
+y_{k+q}^{(0)} &=\mathrlap{-\sum_{j=0}^{q-1} \alpha_j^* y_{k+j} + h\sum_{j=0}^{q-1} \beta_j^* f_{k+j},} \\
+f_{k+q}^{(l)}&=f(t_{k+q},y_{k+q}^{(l)}), \quad & l \in \{0,1,\mathellipsis,m-1\},\\
+y_{k+q}^{(l+1)}&= h\beta_qf_{k+q}^{(l)}+C_{k+q}, \quad & l \in \{0,1,\mathellipsis,m-1\}, \\
+    y_{k+q} &= y_{k+q}^{(m)} \\
+\end{alignedat}\right.\]
+para cada $k \in \{0,1,\mathellipsis,n-q\}$.
+\end{cdefinition}
+
+Estos métodos habitualmente se denotan por P(EC)$^m$E, haciendo referencia al número de iteraciones de punto fijo que se realizan en cada paso. En particular, en el caso $m = 1$, se escribe simplemente PECE (\emph{Predict–Evaluate–Correct–Evaluate}), y el método quedaría como sigue: si  $k \in \{0,1,\mathellipsis,n-q\}$,
+\[\left\{\begin{alignedat}{2}
+y_{k+q}^* &=\mathrlap{-\sum_{j=0}^{q-1} \alpha_j^* y_{k+j} + h\sum_{j=0}^{q-1} \beta_j^* f_{k+j},} \\
+f_{k+q}^*&=f(t_{k+q},y_{k+q}^*),\\
+y_{k+q}&= h\beta_qf_{k+q}^*+C_{k+q} \\
+\end{alignedat}\right.\]
+
+\chapter{Estabilidad absoluta}
+
+\section{Introducción}
+
+El objeto de estudio de este tema es el comportamiento en el infinito de las soluciones numéricas de un problema de Cauchy. El problema que protagoniza la definición siguiente actuará como sujeto de pruebas, y se utilizará constantemente a lo largo del tema.
+
+\begin{cdefinition}
+    Dados $y_0,\lambda \in \C$, un problema de Cauchy del tipo
+    \[(D) \ \left\{
+    \begin{alignedat}{1}
+    \, y'(t)  &= \lambda y(t), \ t \in [0,\infty), \\
+    \, y(0) &= y_0,
+    \end{alignedat}\right.\]
+    se conoce como \mybf{problema test de Dahlquist}.
+\end{cdefinition}
+
+La única solución del problema $(D)$ es la función $y \colon [0,\infty) \to \C$ dada por $y(t) = y_0e^{\lambda t}$, que verifica
+\[\lim_{t \to \infty} y(t)=0 \iff \textup{Re}(\lambda) < 0,\]
+siendo esta convergencia más rápida cuanto mayor es $|\textup{Re}(\lambda)|$. Tratemos de aplicar el método de Euler a este problema: dado $k \in \N \cup \{0\}$,
+\[y_{k+1}=y_k+h\lambda y_k=(1+h\lambda)y_k = (1+h\lambda)^2y_{k-1}=\mathellipsis = (1+h\lambda)^{k+1}y_0,\]
+o sea,
+\[y_k = (1+h\lambda)^k y_0\]
+Cabría esperar que el comportamiento en el infinito de las aproximaciones del método de Euler imitase al de la solución exacta del problema. Nos centramos en el caso en que $\textup{Re}(\lambda) <0$. Obsérvese que
+\[\lim_{k \to \infty} y_k = 0 \iff |1+h\lambda| < 1 \iff h\lambda \in \Delta(-1,1) = \{z \in \C \colon |z+1|<1\},\]
+En particular, si $\lambda \in (-\infty,0)$, entonces
+\[\lim_{k \to \infty} y_k = 0 \iff |1+h\lambda| < 1 \iff -2 < h\lambda < 0 \iff h\lambda \in (-2,0)\]
+Tratemos de generalizar todo esto a otro tipo de métodos numéricos:
+\begin{cdefinition}
+Considérese un método unipaso que adopta una expresión del tipo
+\[y_k = R(\hat{h})^k y_0, \quad k \in \N,\]
+cuando se aplica a un problema test de Dahlquist, siendo $\hat{h} = h\lambda$ y $h >0$.
+\begin{enumerate}
+    \item La función $R \colon \C^-= \{\hat{h} \in \C \colon \textup{Re}(\hat{h}) <0\} \to \C$ se conoce como \mybf{función de estabilidad absoluta}.
+    \item El conjunto
+    \[D_A = \{\hat{h} \in \C \colon |R(\hat{h})| <1\}\]
+    se denomina \mybf{región de estabilidad absoluta} o \mybf{dominio de estabilidad absoluta}.
+    \item El intervalo
+    \[I_A = D_A \cap (-\infty,0)\]
+    se conoce como \mybf{intervalo de estabilidad absoluta}.
+    \item Se dice que el método es \mybf{$A$-estable} si $\C^- \subset D_A$. 
+\end{enumerate}
+\end{cdefinition}
+
+\vspace{\parskip}
+
+El interés de los métodos $A$-estables es que, para cualquier $\textup{Re}(\lambda)<0$ y cualquier paso de malla $h>0$, el comportamiento de las aproximaciones en el infinito es el mismo que el de la solución del problema $(D)$.
+
+\begin{example}
+Para el método de Euler, según lo visto anteriormente, la función de estabilidad absoluta viene dada por
+\[R(\hat{h}) = 1+\hat{h},\]
+mientras que el dominio de estabilidad absoluta es
+\[D_A = \Delta(-1,1),\]
+y el intervalo de estabilidad absoluta,
+\[I_A = D_A \cap (-\infty,0)= (-2,0)\]
+\end{example}
+
+\begin{example}
+Repitamos este procedimiento con el método de Euler implícito, que para el problema de Dahlquist adopta la expresión
+\[y_{k+1}=y_k+h\lambda y_{k+1}, \quad k \in \N \cup \{0\},\]
+es decir,
+\[y_{k+ 1} = \frac{1}{1-h\lambda}y_k = \frac{1}{1-\hat{h}}y_k = \frac{1}{(1-\hat{h})^2}y_{k-1} = \mathellipsis = \frac{1}{(1-\hat{h})^{k+1}}y_0, \quad k \in \N \cup \{0\},\]
+de donde
+\[y_k = \frac{1}{(1-\hat{h})^k}y_0, \quad k \in \N\]
+Ahora se tendría
+\[R(\hat{h}) = \frac{1}{1-\hat{h}}, \qquad D_A = \C \setminus \overline{\Delta(1,1)}, \qquad I_A = (-\infty,0)\]
+\end{example}
+
+\begin{example}
+Se trata de hallar la función de estabilidad absoluta del método de Heun:
+\[\begin{aligned}[t]
+\begin{cases}
+        y_{k+1}^* = y_k+h\lambda y_k \\[5pt]
+        \displaystyle y_{k+1} = y_k+\frac{h}{2}(\lambda y_k+\lambda y_{k+1}^*)
+\end{cases}
+\end{aligned}\]
+Equivalentemente,
+\[y_{k+1} = y_k+\frac{h}{2}(2\lambda y_k+h\lambda^2y_k) = \left(1+h\lambda+\frac{(h\lambda)^2}{2}\right)y_k\]
+En consecuencia,
+\[R(\hat{h}) = 1+\hat{h}+\frac{\hat{h}^2}{2}\]
+es la función de estabilidad absoltua del método.
+\end{example}
+
+\begin{cproposition}
+La función de estabilidad absoluta $R$ de un método no contiene al eje real positivo en un entorno del origen. En otras palabras, existe $h^*>0$ tal que $R(h)>1$ para todo $h \in (0,h^*)$.
+\end{cproposition}
+
+\begin{proof}
+Hay que creérselo.
+\end{proof}
+
+\begin{ccorollary}
+La región de estabilidad absoluta de un método verifica \[D_A \subsetneq \C\]
+\end{ccorollary}
+
+\begin{proof}
+    Inmediata a partir de la proposición anterior.
+\end{proof}
+
+El objetivo próximo consiste en generalizar todo esto al caso multidimensional. El problema test de Dahlquist para sistemas sería de la forma
+\[(\widetilde{D}) \ \left\{
+\begin{alignedat}{1}
+\, Y'(t)  &= M Y(t), \ t \in [0,\infty), \\
+\, Y(0) &= Y_0,
+\end{alignedat}\right.\]
+donde $Y_0 \in \R^n$ y $M \in \mathcal{M}_n(\C)$ una matriz a la que más adelante se le pedirán ciertos requisitos para que la única solución del problema verifique
+\[\lim_{t \to \infty} Y(t) = 0\]
+Para poder resolver $(\widetilde{D})$ cómodamente, se supondrá que $M$ es diagonalizable, o sea, existen matrices $P,\Lambda \in \mathcal{M}_n(\C)$ con $P$ inversible y $\Lambda$ diagonal tales que \[\Lambda = P^{-1}M P\] Pongamos cara y ojos a estas matrices:
+\[\Lambda = \left( \begin{array}{cccc}
+     \lambda_1 & 0 & \mathellipsis & 0 \\
+     0 & \lambda_2 & \mathellipsis & 0 \\
+     \vdots & \vdots & \ddots & \vdots \\
+     0 & 0 & \mathellipsis & \lambda_n
+\end{array} \right) \qquad \qquad P = \left( \begin{array}{c|c|c|c}
+     P_1& P_2 & \mathellipsis & P_n  \\
+\end{array} \right)\]
+Obsérvese que, en estas circunstancias, para cada $i \in \{1,\mathellipsis,n\}$, $\lambda_i$ es un autovalor de la matriz $M$ con autovector asociado $P_i$. Tratemos de escribir el problema $(\widetilde{D})$ en términos de estas matrices: como $P$ es inversible, entonces sus columnas constituyen una base de $\R^n$, y dado $Y \in \R^n$, su expresión en la base formada por las columnas de $P$ sería $Z = P^{-1}Y$. De esta manera, el problema $(\widetilde{D})$ es equivalente a
+\[(\overline{D}) \ \left\{
+\begin{alignedat}{1}
+\, Z'(t)  &= \Lambda Z(t), \ t \in [0,\infty), \\
+\, Z(0) &= Z_0,
+\end{alignedat}\right.\]
+donde 
+\[Z_0 = P^{-1}Y_0 = \left( \begin{array}{c}
+z_{0,1} \\[5pt]
+z_{0,2} \\[5pt]
+\vdots \\[5pt]
+z_{0,n}
+\end{array} \right)\] 
+Vectorialmente,
+\[(\overline{D}) \ \left\{
+\begin{alignedat}{3}
+\, z_1'(t) &= \lambda_1z_1(t), \quad &z_1(0) &= z_{0,1} \\
+\, z_2'(t) &= \lambda_2z_2(t), \quad &z_2(0) &= z_{0,2}\\
+\mathrlap{\ \, \vdots} \\
+\, z_n'(t) &= \lambda_nz_n(t), \quad &z_n(0) &= z_{0,n}
+\end{alignedat}\right.\]
+
+La única solución de este problema es la función $Z \colon [0,\infty) \to \R^n$ dada por
+\[Z(t) =\left( \begin{array}{c}
+     z_{0,1}e^{\lambda_1t}\\[5pt]
+     z_{0,2}e^{\lambda_2t}\\[5pt]
+     \vdots \\[5pt]
+     z_{0,2}e^{\lambda_nt}\\
+\end{array} \right)
+\]
+Por tanto, la única solución de $(\widetilde{D})$ es la función $Y \colon [0,\infty) \to \R^n$ dada por $Y(t) = PZ(t)$. Se tiene que
+\[\lim_{t \to \infty} Y(t) = 0 \iff \lim_{t \to \infty} Z(t) = 0 \iff \textup{Re}(\lambda_i) < 0 \textup{ para todo } i \in \{1,\mathellipsis,n\}\]
+En consecuencia, el caso que capta nuestro interés es aquel en que la matriz $M$ posee autovalores de parte real negativa. Pasamos a estudiar el comportamiento en el infinito de las aproximaciones del método de Euler para el problema de Dahlquist multidimensional.
+
+\begin{example}
+Se trata de aplicar el método de Euler al problema $(\widetilde{D})$ y estudiar bajo qué condiciones puede asegurarse que \[\lim_{k \to \infty} Y_k = 0\]
+Dado $k \in \N \cup \{0\}$, las aproximaciones del método son
+\[Y_{k+1} = Y_k+hMY_k = (1+hM)Y_k,\]
+o lo que es lo mismo, llamando $Z=P^{-1}Y$,
+\[Z_{k+1} = P^{-1}(1+hM)PZ_k = (I+h\Lambda)Z_k = (I+h\Lambda)^2Z_{k-1} = \mathellipsis = (I+h\Lambda)^{k+1}Z_0\]
+Por tanto, el método de Euler se puede expresar como \[Z_k = (I+h\Lambda)^kZ_0\] Pero
+\[
+\begin{aligned}[t]
+Z_k = (I+h\Lambda)^kZ_0 &\iff \left( \begin{array}{c}
+z_{k,1} \\
+z_{k,2} \\
+\vdots \\
+z_{k,n}
+\end{array} \right) = \left( \begin{array}{cccc}
+    (1+h\lambda_1)^k & 0 & \mathellipsis & 0 \\
+    0 & (1+h\lambda_2)^k & \mathellipsis & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \mathellipsis & (1+h\lambda_n)^k
+\end{array} \right) \left( \begin{array}{c}
+z_{0,1} \\
+z_{0,2} \\
+\vdots \\
+z_{0,n}
+\end{array} \right) \\[5pt] &\iff \left\{ \begin{alignedat}{1}
+    z_{k,1} &= (1+h\lambda_1)^kz_{0,1} \\
+    z_{k,2} &= (1+h\lambda_2)^kz_{0,2} \\
+    \mathrlap{\ \, \vdots} \\
+    z_{k,n} &= (1+h\lambda_n)^kz_{0,n} \\
+\end{alignedat} \right.
+\end{aligned}
+\]
+En consecuencia,
+\[\lim_{k \to \infty} Y_k = 0 \iff \lim_{k \to \infty} Z_k = 0 \iff |1+h\lambda_i|<1 \ \forall \ i \in \{1,\mathellipsis,n\} \iff h\lambda_i \in \Delta(-1,1) \ \forall \ i \in \{1,\mathellipsis,n\}\]
+A continuación, fijado $\lambda =x+iy \in \C$ con $x<0$, trataremos de hallar los valores de $h^* >0$ tales que $|1+h^*\lambda| = 1$. Se tiene que
+\[
+\begin{aligned}[t]
+|1+h^*\lambda|^2 = 1 &\iff (1+h^*x)^2+{h^*}^2y^2 = 1 \iff {h^*}^2x^2+2h^*x+{h^*}^2y^2 =0 \iff h^*\left(h^*x^2+2x+h^*y^2\right) =0 \\
+&\iff h^*|\lambda|^2+2\textup{Re}(\lambda) = 0 \iff h^* = -\frac{2\textup{Re}(\lambda)}{|\lambda|^2}
+\end{aligned}
+\]
+De esto se deduce que
+\[|1+h^*\lambda| < 1 \iff |1+h^*\lambda|^2 < 1 \iff 0 < h^* < -\frac{2\textup{Re}(\lambda)}{|\lambda|^2}\]
+Concluimos que
+\[\lim_{k \to \infty} Y_k = 0 \iff 0 < h^* < \min_{i=1,\mathellipsis,n} -\frac{2\textup{Re}(\lambda_i)}{|\lambda_i|^2}\]
+\end{example}
+
+\section{Estabilidad absoluta de los métodos de Runge-Kutta}
+
+Como el propio título sugiere, en esta sección se estudiarán los acontecimientos resultantes de aplicar el método
+\[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k+h(a_{1,1}f(t_k^{(1)},y_k^{(1)})+a_{1,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{1,p}f(t_k^{(p)},y_k^{(p)})) \\
+    y_k^{(2)} &= y_k+h(a_{2,1}f(t_k^{(1)},y_k^{(1)})+a_{2,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{2,p}f(t_k^{(p)},y_k^{(p)})) \\
+    &\phantom{\vdots} \vdots \\
+    y_k^{(p)} &= y_k+h(a_{p,1}f(t_k^{(1)},y_k^{(1)})+a_{p,2}f(t_k^{(2)},y_k^{(2)})+\mathellipsis+a_{p,p}f(t_k^{(p)},y_k^{(p)})) \\
+    y_{k+1} &= y_k+h(b_1f(t_k^{(1)},y_k^{(1)})+\mathellipsis+b_pf(t_k^{(p)},y_k^{(p)}))
+\end{alignedat}\right.\]
+al problema test de Dahlquist (caso unidimensional, afortunadamente). Poniendo $f(t,y) = \lambda y$, se obtiene
+\[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k+\hat{h}(a_{1,1}y_k^{(1)}+a_{1,2}y_k^{(2)}+\mathellipsis+a_{1,p}y_k^{(p)}) \\
+    y_k^{(2)} &= y_k+\hat{h}(a_{2,1}y_k^{(1)}+a_{2,2}y_k^{(2)}+\mathellipsis+a_{2,p}y_k^{(p)}) \\
+    &\phantom{\vdots} \vdots \\
+    y_k^{(p)} &= y_k+\hat{h}(a_{p,1}y_k^{(1)}+a_{p,2}y_k^{(2)}+\mathellipsis+a_{p,p}y_k^{(p)}) \\
+    y_{k+1} &= y_k+\hat{h}(b_1y_k^{(1)}+\mathellipsis+b_py_k^{(p)})
+\end{alignedat}\right.\]
+Equivalentemente,
+\[\left\{\begin{alignedat}{1}
+    y_k &= (1-\hat{h}a_{1,1})y_k^{(1)} -\hat{h}a_{1,2}y_k^{(2)}-\mathellipsis-\hat{h}a_{1,p}y_k^{(p)}  \\
+    y_k &= -\hat{h}a_{2,1}y_k^{(1)} +(1-\hat{h}a_{2,2})\hat{h}a_{2,2}y_k^{(2)}-\mathellipsis-\hat{h}a_{2,p}y_k^{(p)}   \\
+    &\phantom{\vdots} \vdots \\
+    y_k &= \hat{h}a_{p,1}y_k^{(1)} -\hat{h}a_{p,2}y_k^{(2)}-\mathellipsis+(1-\hat{h}a_{p,p})y_k^{(p)}  \\
+    y_{k+1} &= y_k+\hat{h}(b_1y_k^{(1)}+\mathellipsis+b_py_k^{(p)})
+\end{alignedat}\right.\]
+También puede escribirse
+\[\left\{\begin{alignedat}{1}
+    y_kE&=(I-\hat{h}A)Y, \\
+    y_{k+1} &= y_k+\hat{h}B^tY
+\end{alignedat}\right.\]
+donde
+\[A = \left( \begin{array}{cccc}
+    a_{1,1} & a_{1,2} & \mathellipsis & a_{1,p} \\[5pt]
+    a_{2,1} & a_{2,2} & \mathellipsis & a_{2,p} \\[5pt]
+    \vdots & \vdots & \ddots & \vdots \\[5pt]
+    a_{p,1} & a_{p,2} & \mathellipsis & a_{p,p} \\[5pt]
+\end{array} \right) \qquad \qquad B = \left( \begin{array}{c}
+b_1 \\[5pt]
+b_2 \\[5pt]
+\vdots \\[5pt]
+b_p
+\end{array} \right) \qquad \qquad E = \left( \begin{array}{c}
+    1 \\[5pt]
+    1 \\[5pt]
+    \vdots \\[5pt]
+    1
+\end{array} \right) \qquad \qquad Y = \left( \begin{array}{c}
+y_k^{(1)} \\[5pt]
+y_k^{(2)} \\[5pt]
+\vdots \\[5pt]
+y_k^{(p)}
+\end{array} \right) \]
+Por la \hyperref[prop5]{\color{gray}Proposición 5}, si se verificase $\rho(\hat{h}A) = h\rho(\lambda A) < 1$, o lo que es lo mismo,
+\[h <\frac{1}{\rho(\lambda A)},\]
+entonces $\rho(\hat{h}A) \leq ||\hat{h}A||$ para cualquier norma matricial subordinada $||\cdot||$ y la matriz $I-\hat{h}A$ tendría inversa. Así, tendríamos $Y = y_k(I-\hat{h}A)^{-1}E$ y por tanto
+\[    y_{k+1} =y_k+\hat{h}B^tY = y_k+y_k\hat{h}B^t(I-\hat{h}A)^{-1}E = \left(1+\hat{h}B^t(I-\hat{h}A)^{-1}E\right)y_k,\]
+Concluimos que la función de estabilidad absoluta de un método de Runge-Kutta no es más que
+\[R(\hat{h}) = 1+\hat{h}B^t(I-\hat{h}A)^{-1}E\]
+En la práctica, el cálculo de matrices inversas es indeseable, así que se tratará de dar una expresión alternativa para $R(\hat{h})$. Un método de Runge-Kutta se puede escribir como un sistema de $p+1$ ecuaciones con $p+1$ incógnitas:
+\[\left( \begin{array}{ccccc}
+     1-\hat{h}a_{1,1} & -\hat{h}a_{1,2} & \mathellipsis & -\hat{h}a_{1,p-1} & 0 \\[5pt]
+     -\hat{h}a_{2,1} & 1-\hat{h}a_{2,2} & \mathellipsis & -\hat{h}a_{2,p-1} & 0 \\[5pt]
+     \vdots & \vdots & \ddots & \vdots & \vdots \\[5pt]
+     -\hat{h}a_{p,1} & -\hat{h}a_{p,2} & \mathellipsis & 1-\hat{h}a_{p,p} & 0 \\[5pt]
+     -\hat{h}b_1 & -\hat{h}b_2 & \mathellipsis & -\hat{h}b_p & 1
+\end{array} \right) \left( \begin{array}{c}
+y_k^{(1)} \\[5pt]
+y_k^{(2)} \\[5pt]
+\vdots \\[5pt]
+y_k^{(p)} \\[5pt]
+y_{k+1}
+\end{array} \right) = \left( \begin{array}{c}
+y_k \\[5pt]
+y_k \\[5pt]
+\vdots \\[5pt]
+y_k \\[5pt]
+y_k
+\end{array} \right)\]
+En consecuencia, por la regla de Cramer,
+\[y_{k+1} = \frac{
+\left| \begin{array}{ccccc}
+     1-\hat{h}a_{1,1} & -\hat{h}a_{1,2} & \mathellipsis & -\hat{h}a_{1,p-1} & y_k \\[5pt]
+     -\hat{h}a_{2,1} & 1-\hat{h}a_{2,2} & \mathellipsis & -\hat{h}a_{2,p-1} & y_k \\[5pt]
+     \vdots & \vdots & \ddots & \vdots & \vdots \\[5pt]
+     -\hat{h}a_{p,1} & -\hat{h}a_{p,2} & \mathellipsis & 1-\hat{h}a_{p,p} & y_k \\[5pt]
+     -\hat{h}b_1 & -\hat{h}b_2 & \mathellipsis & -\hat{h}b_p & y_k
+\end{array} \right|
+}{
+\left| \begin{array}{ccccc}
+     1-\hat{h}a_{1,1} & -\hat{h}a_{1,2} & \mathellipsis & -\hat{h}a_{1,p-1} & 0 \\[5pt]
+     -\hat{h}a_{2,1} & 1-\hat{h}a_{2,2} & \mathellipsis & -\hat{h}a_{2,p-1} & 0 \\[5pt]
+     \vdots & \vdots & \ddots & \vdots & \vdots \\[5pt]
+     -\hat{h}a_{p,1} & -\hat{h}a_{p,2} & \mathellipsis & 1-\hat{h}a_{p,p} & 0 \\[5pt]
+     -\hat{h}b_1 & -\hat{h}b_2 & \mathellipsis & -\hat{h}b_p & 1
+\end{array} \right|
+}\]
+
+Tras hacer un par de cálculos sencillos en el numerador se demuestra que
+\[y_{k+1} = \frac{\left|I-\hat{h}A+\hat{h}EB^t\right|}{\left|I-\hat{h}A\right|}y_k,\]
+luego
+\[R(\hat{h}) =\frac{\left|I-\hat{h}A+\hat{h}EB^t\right|}{\left|I-\hat{h}A\right|} \]
+es una expresión alternativa para la función de estabilidad absoluta de los métodos de Runge-Kutta. Se exponen a continuación otras propiedades sobre la estabilidad absoluta de los métodos de Runge-Kutta.
+
+\begin{cproposition}
+La función de estabilidad absoluta de un método de Runge-Kutta de $p$ etapas es
+\[R(\hat{h}) = \frac{P(\hat{h})}{Q(\hat{h})},\] donde $P$ y $Q$ son polinomios de grado menor o igual que $p$.
+\end{cproposition}
+
+\begin{proof}
+    Trivial a partir de la última expresión dada para $R(\hat{h})$.
+\end{proof}
+
+\begin{cproposition}
+La función de estabilidad absoluta de un método de Runge-Kutta explícito de $p$ etapas es un polinomio de grado menor o igual que $p$.
+\end{cproposition}
+
+\begin{proof}
+    Solo hay que observar que en un método explícito, la matriz $I-\hat{h}A$ es triangular y con diagonal llena de unos.
+\end{proof}
+
+\begin{cproposition}
+    Un método de Runge-Kutta de $p$ etapas no puede ser explícito y $A$-estable.
+\end{cproposition}
+
+\begin{proof}
+    Si fuese $|R(\hat{h})| < 1$ para todo $\hat{h} \in \C^-$, entonces $R$ tendría que ser un polinomio constante de módulo menor que $1$. Esto es imposible porque si tomamos $\lambda = 0$, el método de Runge-Kutta aplicado al correspondiente problema de Dahlquist sería
+    \[\left\{\begin{alignedat}{1}
+    y_k^{(1)} &= y_k\\
+    y_k^{(2)} &= y_k \\
+    &\phantom{\vdots} \vdots \\
+    y_k^{(p)} &= y_k \\
+    y_{k+1} &= y_k
+\end{alignedat}\right.\]
+Como la expresión del método es $y_{k+1} = y_k$, entonces $R(h \cdot 0) = R(0) = 1$, luego $R$ no puede ser una constante de módulo menor que $1$, y por tanto ningún método explícito es $A$-estable.
+\end{proof}
+
+\begin{cproposition}
+    Si un método de Runge-Kutta de $p$ etapas es de orden $s$, entonces 
+    \[R(h) =e^h+O(h^{s})\]
+\end{cproposition}
+
+\begin{proof}
+    El problema de Dahlquist para $\lambda = 1$ tiene como solución a $y(t) = y_0e^t$. Además, por el \hyperref[teo7]{\color{gray}Teorema 7}, existen $C,h^*>0$ tales que para todo $h \in (0,h^*)$ es
+    \[|y(t_1)-y_1| \leq e(h) \leq Ch^s\]
+    Pero
+    \[|y(t_1) -y_1| = |y(h)-R(h)y_0| = |y_0||e^h-R(h)|,\]
+    y por tanto $R(h)-e^h = O(h^s)$.
+\end{proof}
+
+\begin{ccorollary}
+    Si un método de Runge-Kutta de $p$ etapas es de orden $s$, entonces
+    \[R(h) = 1+h+\frac{h^2}{2}+\mathellipsis+\frac{h^s}{s!}+O(h^{s+1})\]
+\end{ccorollary}
+
+\begin{proof}
+    Consecuencia directa de la proposición anterior.
+\end{proof}
+
+\begin{cproposition}
+    Si un método de Runge-Kutta explícito de $p$ etapas es de orden $p$, entonces
+    \[R(\hat{h}) = 1+\hat{h}+\frac{\hat{h}^2}{2}+\mathellipsis+\frac{\hat{h}^p}{p!}\]
+\end{cproposition}
+
+\begin{proof}
+    Por una proposición anterior,
+    \[R(\hat{h}) = a_0+a_1\hat{h}+\mathellipsis+a_p\hat{h}^p\]
+    En particular, si $h >0$,
+    \[R(h) = a_0+a_1h+\mathellipsis+a_ph^p\]
+    Por otra proposición anterior,
+    \[R(h) = 1+h+\frac{h^2}{2}+\mathellipsis+\frac{1}{p!}h^p+O(h^{p+1})\]
+    Por tanto,
+    \[a_0-1+h(a_1-1)+h^2\left(a_2-\frac{1}{2}\right)+\mathellipsis+h^p\left(a_p-\frac{1}{p!}\right) = O(h^{p+1})\]
+    Esto significa que existen $C,h^*>0$ tales que para todo $h \in (0,h^*)$ es
+    \[\left|a_0-1+h(a_1-1)+h^2\left(a_2-\frac{1}{2}\right)+\mathellipsis+h^p\left(a_p-\frac{1}{p!}\right) \right| \leq Ch^{p+1},\]
+    es decir,
+    \[\left|\frac{a_0-1}{h^{p+1}}+\frac{a_1-1}{h^p}+\frac{a_2-\frac{1}{2}}{h^{p-1}}+\mathellipsis+\frac{a_p-\frac{1}{p!}}{h} \right| \leq C,\]
+    De ser alguno de los $a_i-\frac{1}{i!}$ no nulo, el cociente $\frac{a_i-\frac{1}{i!}}{h^{p+1-i}}$ tendría límite $\infty$ cuando $h \to 0^+$ y por tanto la suma anterior no puede estar acotada por $C$. La única posibilidad es que para todo $i \in \{1,\mathellipsis,p\}$ se verifique
+    \[a_i-\frac{1}{i!} = 0,\]
+    o sea,
+    \[a_i = \frac{1}{i!}\]
+    de donde se deduce inmediatamente la igualdad del enunciado.
+\end{proof}
+
+\begin{example}
+Se trata de dar la función de estabilidad absoluta del método del punto medio. Ya se sabe que este método es un método de Runge-Kutta, y su tablero de Butcher es
+
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|cc}
+    0 & 0 & 0 \\
+    1/2 & 1/2 & 0 \\ \hline
+    & 0 & 1
+\end{tabular}
+\end{center}
+
+Se tiene que
+\[I-\hat{h}A+\hat{h}EB^t  = \left( \begin{array}{cc}
+    1 & 0 \\
+    0 & 1
+\end{array} \right) - \hat{h} \left( \begin{array}{cc}
+    0 & 0 \\
+    1/2 & 0
+\end{array} \right) + \hat{h} \left( \begin{array}{c}
+1\\
+1
+\end{array} \right) \left( \begin{array}{cc}
+0 & 1
+\end{array} \right) = \left( \begin{array}{cc}
+    1 & 0 \\
+    -\hat{h}/2 & 1
+\end{array} \right) + \left( \begin{array}{cc}
+    0 & \hat{h} \\
+    0 & \hat{h}
+\end{array} \right) = \left( \begin{array}{cc}
+    1 & \hat{h} \\
+    -\hat{h}/2 & 1+\hat{h}
+\end{array} \right)\]
+Por tanto,
+\[R(\hat{h}) = \frac{\left| \begin{array}{cc}
+    1 & \hat{h} \\
+    -\hat{h}/2 & 1+\hat{h}
+\end{array} \right|}{\left|\begin{array}{cc}
+    1 & 0 \\
+    -\hat{h}/2 & 1
+\end{array} \right|} =1+\hat{h}+\frac{\hat{h}^2}{2}\]
+\end{example}
+
+\begin{example}
+Veamos que el método del trapecio es $A$-estable. Su tablero de Butcher es
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{c|cc}
+    0 & 0 & 0 \\
+    1 & 1/2 & 1/2 \\ \hline
+    & 1/2 & 1/2
+\end{tabular}
+\end{center}
+Se tiene que
+\[I-\hat{h}A+\hat{h}EB^t  = \left( \begin{array}{cc}
+    1 & 0 \\
+    0 & 1
+\end{array} \right) - \hat{h} \left( \begin{array}{cc}
+    0 & 0 \\
+    1/2 & 1/2
+\end{array} \right) + \hat{h} \left( \begin{array}{c}
+1\\
+1
+\end{array} \right) \left( \begin{array}{cc}
+1/2 & 1/2
+\end{array} \right) = \left( \begin{array}{cc}
+    1 & 0 \\
+    -\hat{h}/2 & 1-\hat{h}/2
+\end{array} \right) + \left( \begin{array}{cc}
+    \hat{h}/2 & \hat{h}/2 \\
+    \hat{h}/2 & \hat{h}/2
+\end{array} \right)\]
+Por tanto,
+\[R(\hat{h}) = \frac{\left| \begin{array}{cc}
+    1+\hat{h}/2 & \hat{h}/2 \\
+    0 & 1
+\end{array} \right|}{\left|\begin{array}{cc}
+    1 & 0 \\
+    -\hat{h}/2 & 1-\hat{h}/2
+\end{array} \right|} =\frac{1+\hat{h}/2}{1-\hat{h}/2} = \frac{2+\hat{h}}{2-\hat{h}}\]
+Además,
+\[\left|\frac{2+\hat{h}}{2-\hat{h}}\right|^2 <1 \iff |2+\hat{h}|^2<|2-\hat{h}|^2 \iff (2+x)^2+y^2<(2-x)^2+y^2 \iff x < 0 ,\]
+donde $\hat{h} = x+iy$. Concluimos que
+\[D_A = \{z \in \C \colon \textup{Re}(z) < 0\} = \C^-,\]
+luego el método es $A$-estable.
+\end{example}
+
+\section{Estabilidad absoluta de los métodos multipaso}
+
+El panorama es el siguiente: se trata de aplicar un método de $q$ pasos dado por
+\[\sum_{j=0}^q \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f_{k+j}, \quad k \in \N \cup \{0\},\]
+al problema test de Dahlquist, y estudiar bajo qué condiciones se tiene
+\[\lim_{k \to \infty} y_k =0\]
+Nótese que este límite es independiente de las primeras $q$ aproximaciones, $y_0,\mathellipsis,y_{q-1}$. Al sustituir en el método la función $f(t,y) = \lambda y$, se obtiene
+\[\sum_{j=0}^q \alpha_j y_{k+j} = \hat{h}\sum_{j=0}^q \beta_j y_{k+j}, \quad k \in \N \cup \{0\},\]
+es decir,
+\[\sum_{j=0}^q\left(\alpha_j-\hat{h}\beta_j\right)y_{k+j}= 0, \quad k \in \N \cup \{0\}\]
+Obsérvese que la sucesión $\{y_k\}_{k=0}^\infty$ está definida por recurrencia como sigue:
+\[\begin{cases}
+    y_0,y_1,\mathellipsis,y_{q-1} \in \R, \\[5pt]
+    \displaystyle \sum_{j=0}^q\left(\alpha_j-\hat{h}\beta_j\right)y_{k+j}= 0,  \quad k \in \N \cup \{0\},
+\end{cases}\]
+Por la \hyperref[prop6]{\color{gray}Proposición 6}, puede escribirse
+\[y_k = p_1(k)\mu_1^n+p_2(k)\mu_2^k+\mathellipsis+p_s(k)\mu_s^k, \quad k \in \N \cup \{0\},\]
+donde $\mu_1,\mu_2,\mathellipsis,\mu_s$ son las raíces del polinomio
+\[p(z) = \sum_{j=0}^q \left(\alpha_j-\hat{h}\beta_j\right)z^j,\]
+de multiplicidades $m_1,m_2,\mathellipsis,m_s$, y $p_i$ es un polinomio de grado menor o igual que $m_i-1$ para cada $i \in \{1,\mathellipsis,s\}$. Puede probarse que
+\[\lim_{k \to \infty} y_k = 0 \iff |\mu_i| < 1 \ \forall \ i \in \{1,\mathellipsis,s\}\]
+
+\begin{cdefinition}
+Considérese un método de $q$ pasos dado por
+\[\sum_{j=0}^q \alpha_j y_{k+j} = h\sum_{j=0}^q \beta_j f_{k+j}, \quad k \in \N \cup \{0\}\]
+\begin{enumerate}
+    \item Se define el \mybf{primer polinomio característico del método} como
+    \[\rho(z) = \sum_{i=0}^q \alpha_i z^i\]
+    \item Se define el \mybf{segundo polinomio característico del método} como
+    \[\sigma(z) = \sum_{i=0}^q \beta_i z^i\]
+    \item Fijado $\hat{h} \in \C$, se define el \mybf{polinomio de estabilidad asboluta del método} como
+    \[\pi_{\hat{h}}(z) = \rho(z)-\hat{h}\sigma(z) = \sum_{j=0}^q \left(\alpha_j-\hat{h}\beta_j\right)z^j\]
+    \item La \mybf{región de estabilidad absoluta del método} o \mybf{dominio de estabilidad absoluta del método} no es más que
+    \[D_A = \left\{\hat{h} \in \C \colon \pi_{\hat{h}} \textup{ tiene todas sus raíces de módulo menor que } 1\right\}\]
+    \item Se conoce como \mybf{intervalo de estabilidad absoluta del método} a
+    \[I_A = D_A \cap (-\infty,0)\]
+    \item Se dice que el método es \mybf{$A$-estable} si $\C^- \subset D_A$.
+\end{enumerate}
+\end{cdefinition}
+
+\vspace{\parskip}
+
+\begin{example}
+Considérese el método del trapecio:
+\[y_{k+1} = y_k+\frac{h}{2}\left(f_k+f_{k+1}\right), \quad k \in \N\]
+Este método puede ser visto como uno de la familia RK (método unipaso) o uno de la familia AM (método multipaso con $q = 1$). Estaría bien que el dominio de estabilidad absoluta según la definición para métodos unipaso fuese el mismo que el que proporciona la definición para métodos multipaso. En el último ejemplo ya se vio que
+\[R(\hat{h}) = \frac{2+\hat{h}}{2-\hat{h}}\]
+Por otra parte,
+\[\rho(z) = z-1, \qquad \sigma(z)=\frac{1}{2}(z+1)\]
+Por tanto,
+\[\pi_{\hat{h}}(z) = z-1-\frac{\hat{h}}{2}(z+1) = \left(1-\frac{\hat{h}}{2}\right)z-1-\frac{\hat{h}}{2}\]
+Se tiene que
+\[\pi_{\hat{h}}(z) = 0 \iff z = \frac{1+\frac{\hat{h}}{2}}{1-\frac{\hat{h}}{2}} = \frac{2+\hat{h}}{2-\hat{h}} = R(\hat{h}),\]
+luego el dominio de estabilidad absoluta es el mismo.
+\end{example}
+
+\begin{ctheorem}[Segunda barrera de Dahlquist]
+Ningún métodos multipaso es explícito y $A$-estable. Es más, un método multipaso y $A$-estable es a lo sumo de orden $2$.
+\end{ctheorem}
+
+\begin{proof}
+Lo mismo que la otra barrera: se queda sin demostrar.
+\end{proof}
+
+\section{Método de localización de la frontera}
+
+En la práctica, como haya que enfrentarse a un método multipaso de expresión enrevesada, calcular la región de estabilidad del método empleando la definición no va a ser para nada trivial. Es por ello que conviene desarrollar un procedimiento alternativo para el cálculo de $D_A$.
+
+\begin{cdefinition}
+Dado un método multipaso con región de estabilidad absoluta $D_A$, se define la \mybf{frontera de $D_A$} como
+\[\partial D_A \coloneqq \{\hat{h} \in \C \colon \pi_{\hat{h}} \textup{ tiene al menos una raíz de módulo } 1\}\]
+\end{cdefinition}
+Lo primero que debe observarse es que esta frontera es distinta de la frontera de toda la vida, la frontera topológica. Por otra parte, nótese que $\hat{h} \in \partial D_A$ si y solo si existe $\theta \in \R$ tal que $e^{i\theta} = \cos \theta +i\sen \theta$ es raíz de $\pi_{\hat{h}}$. Pero
+\[\pi_{\hat{h}}(e^{i\theta}) = 0 \iff \rho(e^{i\theta})-\hat{h}\sigma(e^{i\theta}) = 0 \iff \hat{h} = \frac{\rho(e^{i\theta})}{\sigma(e^{i\theta})},\]
+siempre que $\sigma(e^{i\theta}) \neq 0$. Así, $D_A$ puede verse como una curva en $\C$ parametrizada por la función
+\[\theta \mapsto \frac{\rho(e^{i\theta})}{\sigma(e^{i\theta})}, \quad \theta \in \R,\]
+y a partir de aquí se puede representar gráficamente $\partial D_A$ de forma más o menos fácil. Si se tuviese $\sigma(e^{i\theta^*}) = 0$ para un cierto $\theta^* \in \R$, se distinguen dos casos:
+\begin{enumerate}
+    \item Si $\rho(e^{i\theta^*}) = 0$, entonces $\pi_{\hat{h}}(e^{i\theta^*}) = 0$ para todo $\hat{h} \in \C$ y por tanto $D_A=\emptyset$.
+    \item Si $\rho(e^{i\theta^*}) \neq 0$, entonces $\pi_{\hat{h}}(e^{i\theta^*}) \neq 0$ para todo $\hat{h} \in \C$ y no se puede decir mucho más.
+\end{enumerate}
+Con esta información y las propiedades de la proposición que sigue, se puede obtener información acerca de $D_A$.
+\begin{cproposition}
+Sea $D_A$ la región de estabilidad absoluta de un método multipaso. Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $D_A$ es conexo (pudiendo ser vacío).
+    \item $D_A$ no contiene al eje real positivo en un entorno del origen.
+    \item $D_A \subsetneq \C$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Nos lo creemos.
+\end{proof}
+
+\begin{example}
+Se trata de aplicar el método de localización de la frontera al método del trapecio. Se tiene
+\[\rho(z) = z-1, \qquad \sigma(z)=\frac{1}{2}(z+1),\]
+luego
+\[\frac{\rho(e^{i\theta})}{\sigma(e^{i\theta})} = \frac{2\left(e^{i\theta}-1\right)}{e^{i\theta}+1} = \frac{2\left(1+e^{i\theta}-e^{-i\theta}-1\right)}{1+e^{i\theta}+e^{-i\theta}+1} = \frac{2\sen\theta}{1+\cos\theta}i\]
+La función $\theta \mapsto \frac{2\sen\theta}{1+\cos\theta}$, $\theta \in (-\pi,\pi)$ está bien definida y puede comprobarse que su imagen es todo $\R$, y de aquí se deduce que $\partial D_A$ es el eje imaginario:
+\[\partial D_A = \left\{\hat{h} \in \C \colon \textup{Re}(\hat{h}) = 0\right\}\]
+Hay dos posibilidades: $D_A = \C^-$, $D_A = \C^+$ y $D_A = \emptyset$. La segunda no puede darse porque $D_A$ contendría al eje real positivo; la tercera, tampoco, pues se comprueba fácilmente que $-1 \in D_A$. La conclusión es que $D_A = \C^-$.
+\end{example}
+
+\begin{example}
+Se trata de aplicar el método de localización de la frontera al método
+\[y_{k+2} = y_{k}+\frac{h}{3}\left(f_{k+2}+4f_{k+1}+f_k\right)\]
+Se tiene
+\[\rho(z) = z^2-1, \qquad \sigma(z)=\frac{1}{3}\left(z^2+4z+1\right),\]
+Además, se comprueba fácilmente que
+\[\frac{\rho(e^{i\theta})}{\sigma(e^{i\theta})}=\frac{3\sen\theta
+}{2+\cos\theta}i\]
+La función $\theta \mapsto \frac{2\sen\theta}{1+\cos\theta}$, $\theta \in \R$ está bien definida y puede comprobarse que su imagen es $[-\sqrt{3},\sqrt{3}]$, y de aquí puede deducirse que
+\[\partial D_A = \left\{\hat{h} \in \C \colon \textup{Re}(\hat{h}) = 0, \textup{Im}(\hat{h}) \in [-\sqrt{3},\sqrt{3}]\right\}\]
+Hay dos posibilidades: $D_A = \C$ y $D_A = \emptyset$. La primera no puede darse porque $D_A$ no puede contener al eje real positivo, concluyéndose que $D_A = \emptyset$.
+\end{example}
+
+\chapter{Problemas de contorno}
+
+\section{Introducción}
+
+Hasta ahora, todos los esfuerzos se han centrado en el estudio de problemas del estilo
+\[\left\{
+\begin{alignedat}{1}
+\, y'(t)  &= f(t,y(t)), \ t \in [t_0,t_0+T], \\
+\, y(t_0) &= y^0
+\end{alignedat}\right.\]
+Los problemas que van a protagonizar este tema son ligeramente distintos:
+\begin{cdefinition}
+    Un \mybf{problema de contorno} es un problema de la forma
+\[(P) \ \left\{
+\begin{alignedat}{1}
+\, y''(x)  &= f(x,y(x), y'(x)), \ x \in [a,b], \\
+\, y(a) &= \alpha, \\
+\, y(b) &= \beta,
+\end{alignedat}\right.\]
+donde $\alpha,\beta \in \R$ y $f \colon[a,b] \times \R \times \R \to \R$.
+\end{cdefinition}
+
+Para obtener aproximaciones numéricas de soluciones de problemas de contorno interesa trabajar bajo condiciones que aseguren que el problema tiene solución y es única. Se reúnen dichas condiciones en el teorema que sigue.
+
+\begin{ctheorem}
+\label{teo20}
+    Sea $f \colon [a,b] \times \R \times \R \to \R$ una función verificando
+    \begin{enumerate}
+        \item $f$, $\frac{\partial f}{\partial y}$, $\frac{\partial f}{\partial z}$ son continuas.
+        \item $\frac{\partial f}{\partial y}(t,y,z) > 0$ para todo $(t,y,z) \in [a,b] \times \R \times \R$.
+        \item Existen $m,M,L >0$ tales que para todo $(t,y,z) \in [a,b] \times \R \times \R$ se tiene
+        \[m \leq \left|\frac{\partial f}{\partial y}(t,y,z)\right| \leq M, \qquad \qquad \left|\frac{\partial f}{\partial y} (t,y,z)\right| \leq L\]
+    \end{enumerate}
+    Entonces el problema $(P)$ tiene solución única.
+ \end{ctheorem}
+
+\begin{proof}
+    No corresponde a esta asignatura.
+\end{proof}
+
+\section{Método del tiro}
+
+Una primera estrategia para resolver un problema del tipo
+\[(P) \ \left\{
+\begin{alignedat}{1}
+\, y''(x)  &= f(x,y(x), y'(x)), \ x \in [a,b], \\
+\, y(a) &= \alpha, \\
+\, y(b) &= \beta,
+\end{alignedat}\right.\]
+consiste en trabajar con un problema que resulte más familiar, por ejemplo
+\[(Q_v) \ \left\{
+\begin{alignedat}{1}
+\, y''(x)  &= f(x,y(x), y'(x)), \ x \in [a,b], \\
+\, y(a) &= \alpha, \\
+\, y'(a) &= v,
+\end{alignedat}\right.\]
+para cualquier $v \in \R$. Si denotamos $y_v$ a la solución del problema, el problema se reduce a encontrar $v \in \R$ tal que $y_v(b) =\beta$, lo que proporcionará una solución (la única) del problema $(P)$. Para poder emplear los métodos estudiados, hay que traducir el problema $(Q_v)$ al caso conocido:
+\[(\widetilde{Q}_v) \ \left\{
+\begin{alignedat}{1}
+\, y'(x)&=z, \\
+\, z'(x)&=f(x,y(x),z(x)), \\
+\, y(a) &= \alpha, \\
+\, z(a) &= v
+\end{alignedat}\right.\]
+Esta estrategia de resolución de problemas de contorno se conoce como \emph{método del tiro}, y no se va a profundizar en ella. 
+
+Antes de desarrollar otro tipo de métodos que sí sean de nuestro interés, conviene recordar las nociones básicas de derivación numérica.
+
+\section{Derivación numérica}
+
+El problema es el siguiente: considérese una partición uniforme de $\R$ dada por $x_i = x_0+ih$, $i \in \Z$, y supóngase que se conocen los valores de una función $u$ lo suficientemente regular en los puntos de la partición. El objetivo es aproximar $u^{(k)}(c)$ para $k \in \N$, $c \in \R$ cualesquiera. Si $k =1$, la aproximación más natural de $u'(c)$ nace de la propia definición de derivada, que sugiere lo siguiente: si $c \in (x_i,x_{i+1})$ para cierto $i \in \Z$,
+\[u'(c) \approx \frac{u(x_{i+1})-u(x_i)}{h}\] 
+Si fuese $c=x_i$, se pueden realizar las aproximaciones
+\[u'(x_i) \approx \frac{u(x_{i+1})-u(x_i)}{h}, \qquad \qquad u'(x_i) \approx \frac{u(x_{i})-u(x_{i-1})}{h} \qquad \textup{o} \qquad u'(x_i) \approx \frac{u(x_{i+1})-u(x_{i-1})}{2h} \]
+A partir de aquí, también se puede intentar aproximar $u''(x_i)$ como sigue:
+\[u''(x_i) \approx \frac{u'(x_i+\frac{h}{2})-u'(x_i-\frac{h}{2})}{h} \approx \frac{\frac{u(x_{i+1})-u(x_i)}{h} - \frac{u(x_i)- u(x_{i-1})}{h}}{h} = \frac{u(x_{i+1})-2u(x_i)+u(x_{i-1})}{h^2}\]
+
+Las fórmulas empleadas van a ser como las que se recogen en la definición siguiente.
+\begin{cdefinition}
+    Una \mybf{fórmula de derivación numérica} es una expresión del tipo
+    \[u^{(k)}(c)\approx \mathcal{D}_{n+1}^k(u) = \frac{1}{h^k}\sum_{i=l}^r \alpha_iu(x_i),\]
+donde $\alpha_l,\mathellipsis,\alpha_r \in \R$ y $l,r \in \N$ son tales que $r-l=n$. Si $c = \frac{x_l+x_r}{2}$, se dirá que la fórmula es \mybf{centrada}.
+\end{cdefinition}
+
+\begin{cdefinition}
+    Una fórmula de derivación numérica $\mathcal{D}_{n+1}^k(u)$ es dice que es \mybf{de orden $p$} si para toda función $u \in \mathcal{C}^{k+p}([\alpha,\beta])$ se tiene que
+    \[u^{(k)}(c)=\mathcal{D}_{n+1}^k(u)+O(h^p),\]
+    donde $[\alpha,\beta]$ es un intervalo que contiene al intervalo $[x_l,x_r]$.
+\end{cdefinition}
+
+\begin{example}
+    
+    Estudiemos el error de la fórmula
+\[\mathcal{D}_{2}^1(u) = \frac{u(x_{i+1})-u(x_i)}{h}\]
+Por la fórmula del resto de Lagrange, existe $\xi \in (x_i,x_{i+1})$ tal que
+\[u(x_{i+1}) = u(x_i)+u'(x_i)h+\frac{u''(\xi)}{2}h^2,\]
+luego
+\[u'(x_i) \approx \mathcal{D}_2^1(u) = \frac{\cancel{u(x_i)}+u'(x_i)h+\frac{u''(\xi)}{2}h^2-\cancel{u(x_i)}}{h} = u'(x_i)+\frac{u''(\xi)}{2}h\]
+Por tanto,
+\[|\mathcal{D}_2^1(u)-u'(x_i)| \leq Mh,\]
+donde
+\[M = \max_{x \in [a,b]}|u''(x)|\]
+y se está suponiendo que $u$ es de clase $2$ en un intervalo $[\alpha,\beta]$ que contiene a $[x_i,x_{i+1}]$. La fórmula $\mathcal{D}_1^2(u)$ es de primer orden.
+
+\end{example}
+
+\begin{example}
+    Considérese ahora la fórmula
+\[\mathcal{D}_{2}^1(u) = \frac{u(x_{i+1})-u(x_{i-1})}{2h}\]
+Por la fórmula del resto de Lagrange, existen $\xi_1 \in (x_i,x_{i+1})$, $\xi_2\in (x_{i-1},x_i)$ tales que
+\[u(x_{i+1}) = u(x_i)+u'(x_i)h+\frac{u''(x_i)}{2}h^2+\frac{u'''(\xi_1)}{6}h^3, \qquad \qquad u(x_{i+1}) = u(x_i)-u'(x_i)h+\frac{u''(x_i)}{2}h^2-\frac{u'''(\xi_2)}{6}h^3,\]
+luego
+\[u'(x_i) \approx \mathcal{D}_2^1(u) = \frac{2u'(x_i)h+\frac{u'''(\xi_1)}{6}h^3-\frac{u'''(\xi_2)}{6}h^3}{2h} = u'(x_i)+\left(u'''(\xi_1)-u'''(\xi_2)\right)\frac{h^2}{12}\]
+Por tanto,
+\[|\mathcal{D}_2^1(u)-u'(x_i)| \leq M\frac{h^2}{6},\]
+donde
+\[M = \max_{x \in [a,b]}|u'''(x)|\]
+y se está suponiendo que $u$ es de clase $3$ en un intervalo $[\alpha,\beta]$ que contiene a $[x_{i-1},x_{i+1}]$. Tenemos entonces que la fórmula $\mathcal{D}_1^2(u)$ es de segundo orden. 
+\end{example}
+
+En general, se pueden seguir ciertos procedimientos para encontrar fórmulas del mayor orden posible. Los más comunes son los expuestos en las subsecciones siguientes.
+
+
+\subsection{Método de Taylor}
+
+Para ahorrarnos una explicación teórica tediosa e insulsa, se expondrá el método en cuestión a través de un ejemplo.
+\begin{example}
+\label{ex31}
+    Consideramos una fórmula del tipo
+\[\mathcal{D}_3^1(u) = \frac{\alpha_0u(x_i)+\alpha_1u(x_{i+1})+\alpha_2u(x_{i+2})}{h}\]
+Se trata de escoger $\alpha_0, \alpha_1,\alpha_2 \in \R$ adecuadamente para que el orden sea lo más grande posible. Por un lado,
+\[\alpha_1u(x_{i+1}) = \alpha_1u(x_i)+\alpha_1hu'(x_i)+\alpha_1\frac{h^2}{2}u''(x_i)+\alpha_1\frac{h^3}{6}u'''(x_i)+\mathellipsis\]
+Por otro,
+\[\alpha_2u(x_{i+2}) = \alpha_2u(x_i)+2\alpha_2hu'(x_i)+4\alpha_2\frac{h^2}{2}u''(x_i)+8\alpha_2\frac{h^3}{6}u'''(x_i)+\mathellipsis\]
+Por tanto,
+\[\mathcal{D}_3^1(u)=\frac{1}{h}\left((\alpha_0+\alpha_1+\alpha_2)u(x_i)+(\alpha_1+2\alpha_2)hu'(x_i)+(\alpha_1+4\alpha_2)\frac{h^2}{2}u''(x_i)+\mathellipsis\right)\]
+Para que el método tenga orden $2$, interesa que se verifiquen las igualdades
+\[
+\left\{ \begin{alignedat}{6}
+        &  &\alpha_0 & {}+{} &\alpha_1 & {}+{}  &\alpha_2 & {}={} & 0 \\
+        &  &         &       &\alpha_1 & {}+{} 2&\alpha_2 & {}={} & 1 \\
+        &  &         &       &\alpha_1 & {}+{} 4&\alpha_2 & {}={} & 0 \\
+\end{alignedat} \right.
+\]
+La solución del sistema es
+\[\alpha_0 = -\frac{3}{2}, \qquad \qquad \alpha_1=2, \qquad \qquad \alpha_2=-\frac{1}{2}\]
+De esta manera, tenemos asegurado que la fórmula
+\[\mathcal{D}_3^1(u) = \frac{-3u(x_i)+4u(x_{i+1})-u(x_{i+2})}{2h}\]
+es de orden $2$. Para comprobar si es de orden $3$, se añade un término más:
+\[\mathcal{D}_3^1(u)=\frac{1}{h}\left(hu'(x_i)+ \left(\alpha_1+8\alpha_2\right)\frac{h^3}{6}u'''(x_i)+\mathellipsis\right)\]
+Como $\alpha_1+8\alpha_2 = -2 \neq 0$, la fórmula no es de orden $3$.
+\end{example}
+
+\begin{cproposition}
+    El orden máximo de una fórmula de derivación numérica $\mathcal{D}_{n+1}^k(u)$ es
+    \begin{enumerate}
+        \item $n+1-k$ si la fórmula es centrada.
+        \item $n+1-k+1 = n+2-k$ si la fórmula es centrada o si $n \equiv k \textup{ mód } 2$.
+    \end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Nos lo creemos y seguimos adelante.
+\end{proof}
+
+\begin{example}
+    Los órdenes máximos de las fórmulas
+    \[u'(x_i) \approx \frac{u(x_{i+1})-u(x_i)}{h}, \qquad \qquad u'(x_i) \approx \frac{u(x_{i+1})-u(x_{i-1})}{2h} \qquad \textup{y} \qquad u''(x_i)\approx \frac{u(x_{i+1})-2u(x_i)+u(x_{i-1})}{h^2}\]
+    son $2$, $3$ y $2$, respectivamente.
+\end{example}
+
+\subsection{Método de interpolación}
+
+Una forma natural de encontrar fórmulas del tipo
+\[\mathcal{D}_{n+1}^k(u) = \frac{1}{h^k}\sum_{i=l}^r \alpha_iu(x_i),\]
+consiste en tomar el polinomio $P$ que interpola los puntos
+\[(x_l,u(x_l)), \mathellipsis, (x_r,u(x_r))\]
+y aproximar $u^{(k)}(c) \approx P^{(k)}$. Se sabe que el polinomio $P$ adopta una expresión de la forma
+\[P(x)=\sum_{i=l}^ru(x_i)l_i(x),\]
+donde, para $i \in \{l,l+1,\mathellipsis,r\}$,
+\[l_i(x) = \frac{(x-x_l)\mathellipsis\widehat{(x-x_i)}\mathellipsis(x-x_r)}{(x_i-x_l)\mathellipsis\widehat{(x_i-x_i)}\mathellipsis(x_i-x_r)} \]
+Para aprovechar el hecho de que se está trabajando con particiones uniformes, dado $x \in \R$, se va a denotar $t = \frac{x-x_0}{h}$ y entonces
+\[l_i(x)=\frac{(t-l)h\mathellipsis\widehat{(t-i)}h\mathellipsis(t-r)h}{(i-l)h\mathellipsis\widehat{(i-i)}h\mathellipsis(i-r)h} =\frac{(t-l)\mathellipsis\widehat{(t-i)}\mathellipsis(t-r)}{(i-l)\mathellipsis\widehat{(i-i)}\mathellipsis(i-r)} \]
+Así,
+\[l_i(x)=\widetilde{l}_i\left(\frac{x-x_0}{h}\right),\]
+donde, para $t \in \R$,
+\[\widetilde{l}_i(t)=\frac{(t-l)\mathellipsis\widehat{(t-i)}\mathellipsis(t-r)}{(i-l)\mathellipsis\widehat{(i-i)}\mathellipsis(i-r)}\]
+Por la regla de la cadena,
+\[l_i^{(k)}(c)=\frac{1}{h^k}\widetilde{l}_i^{(k)}\left(\frac{c-x_0}{h}\right) = \frac{1}{h^k}\widetilde{l}_i^{(k)}(t_c),\]
+donde $t_c = \frac{c-x_0}{h}$. Así,
+\[u^{(k)}(c)\approx P^{(k)}(c)=\sum_{i=l}^r u(x_i)l_i^{(k)}(c) = \frac{1}{h^k} \sum_{i=l}^r u(x_i)\widetilde{l}_i^{(k)}(t_c)\]
+Obtenemos así la fórmula de derivación numérica
+\[\mathcal{D}_{n+1}^k(u) = \frac{1}{h^k}\sum_{i=l}^r \alpha_iu(x_i),\]
+donde $\alpha_i=\widetilde{l}_i^{(k)}(t_c)$ para cada $ i \in \{l,l+1,\mathellipsis,r\}$. Alternativamente, si $a_k$ es el coeficiente de grado $k$ del polinomio $P$, se puede usar que \[P^{(k)}(c)=k!a_k = k!u[x_l,\mathellipsis,x_r]\]
+
+\begin{example}
+    Tratemos de encontrar la fórmula proporcionada por el método anterior para $k = 2$ y $n = 3$, o sea, queremos aproximar $u''(c)$ usando $u(x_{i-1})$, $u(x_i)$ y $u(x_{i+1})$. Hay que hallar la diferencia dividida $u[x_{i-1},x_i,x_{i+1}]$.
+
+\vspace{0.5\baselineskip}
+    
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Puntos & Orden $0$ & Orden $1$ & Orden $2$ \\ \hline
+        $x_{i-1}$ & $u(x_{i-1})$ & & \\
+        & & $\frac{u(x_i)-u(x_{i-1})}{h}$ &  \\
+        $x_i$ & $u(x_i)$ & & $\frac{u(x_{i+1})-2u(x_i)+u(x_{i-1})}{2h^2}$ \\
+        & & $\frac{u(x_{i+1})-u(x_{i})}{h}$ & \\
+        $x_{i+1}$ & $u(x_{i+1})$ & & \\ \hline
+    \end{tabular}
+    \end{center}
+
+\vspace{0.5\baselineskip}
+
+Si se quisiera aproximar $u'''(c)$ usando $u(x_{i-1})$, $u(x_i)$, $u(x_{i+1})$ y $u(x_{i+2})$, habría que hallar la diferencia dividida $u[x_{i-1},x_i,x_{i+1},x_{i+2}]$.
+    
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Puntos & Orden $0$ & Orden $1$ & Orden $2$ & Orden $3$ \\ \hline
+        $x_{i-1}$ & $u(x_{i-1})$ & & & \\
+        & & $\frac{u(x_i)-u(x_{i-1})}{h}$ & & \\
+        $x_i$ & $u(x_i)$ & & $\frac{u(x_{i+1})-2u(x_i)+u(x_{i-1})}{2h^2}$ & \\
+        & & $\frac{u(x_{i+1})-u(x_{i})}{h}$ & & $\frac{u(x_{i+2})-3u(x_{i+1})+3u(x_i)-u(x_{i-1})}{6h^3}$ \\
+        $x_{i+1}$ & $u(x_{i+1})$ & & $\frac{u(x_{i+2})-2u(x_{i+1})+u(x_{i})}{2h^2}$  & \\
+        & &  $\frac{u(x_{i+2})-u(x_{i+1})}{h}$ & & \\
+        $x_{i+2}$ & $u(x_{i+2})$ & & & \\ \hline
+    \end{tabular}
+    \end{center}
+
+    \vspace{0.5\baselineskip}
+
+Por tanto,
+\[u'''(c) \approx \frac{u(x_{i+2})-3u(x_{i+1})+3u(x_i)-u(x_{i-1})}{h^3}\]
+Puede comprobarse que la fórmula es de orden $1$ si $c \neq \frac{x_i+x_{i+2}}{2}$ y de orden $2$ en otro caso.
+\end{example}
+
+\section{Método de diferencias finitas para el caso lineal}
+
+Se trata de aproximar la solución (en caso de haberla) de un problema de contorno lineal:
+\[(L) \ \left\{
+\begin{alignedat}{1}
+\, y''(x)  &= p(x)y'+q(x)y+r(x), \ x \in [a,b], \\
+\, y(a) &= \alpha, \\
+\, y(b) &= \beta,
+\end{alignedat}\right.\]
+donde $p,q,r \colon [a,b] \to \R$, $\alpha,\beta \in \R$. Si $p$, $q$ y $r$ son continuas y $q(x) >0$ para todo $x \in [a,b]$, se dan las hipótesis del \hyperref[teo20]{\color{gray}Teorema 20} y el problema $(L)$ tiene solución única. Aproximemos entonces dicha solución. Se considera una partición uniforme $x_0=a<x_1<\mathellipsis<x_n<x_{n+1}=b$, de forma que $x_i=x_0+ih$ para cada $i \in \{0,1,\mathellipsis,n+1\}$, con \[h = \frac{b-a}{n+1}\] Para cada $i \in \{1,2,\mathellipsis,n\}$, se realizan las aproximaciones
+\[y''(x_i) \approx \frac{y(x_{i+i})-2y(x_i)+y(x_{i-1})}{h^2}\]
+Por otro lado, 
+\[y'(x_i) \approx \frac{y(x_{i+1})-y(x_{i-1})}{2h},\]
+luego
+\[y''(x_i) = p(x_i)y'(x_i)+q(x_i)y(x_i)+r(x_i) \approx p(x_i)\frac{y(x_{i+1})-y(x_{i-1})}{2h}+q(x_i)y(x_i)+r(x_i)\]
+y el problema se reduce a encontrar $u_0,u_1,\mathellipsis,u_{n+1}$ tales que para cada $i \in \{1,2,\mathellipsis,n\}$ se verifique
+\[\frac{u_{i+i}-2u_i+u_{i-1}}{h^2} = p(x_i) \frac{u_{i+1}-u_{i-1}}{2h}+q(x_i)u_i+r(x_i),\]
+o lo que es lo mismo,
+\begin{equation}\left(\frac{1}{h^2}+\frac{p(x_i)}{2h}\right)u_{i-1} - \left(\frac{2}{h^2}+q(x_i)\right)u_i + \left(\frac{1}{h^2}-\frac{p(x_i)}{2h}\right)u_{i+1} = r(x_i)\end{equation}
+Multiplicando por $-\frac{h^2}{2}$,
+\[-\frac{1}{2}\left(1+\frac{p(x_i)h}{2} \right)u_{i-1}+\left(1+\frac{q(x_i)h^2}{2} \right)u_i-\frac{1}{2}\left( 1-\frac{p(x_i)h}{2}\right)u_{i+1} = -\frac{h^2}{2}r(x_i),\]
+es decir,
+\begin{equation}-b_iu_{i-1}+a_iu_i-c_iu_{i+1} = -\frac{h^2}{2}r(x_i),\end{equation}
+donde
+\[a_i = 1+\frac{q(x_i)h^2}{2}, \qquad \qquad b_i = \frac{1}{2}\left(1+\frac{p(x_i)h}{2} \right), \qquad \qquad c_i = \frac{1}{2}\left( 1-\frac{p(x_i)h}{2}\right)\]
+Así, $u_1,u_2,\mathellipsis,u_n$ satisfacen un sistema lineal de $n$ ecuaciones y $n$ incógnitas. Tratemos de poner cara y ojos a este sistema. Para $i = 1$, la ecuación $(16)$ no es más que
+\[-b_1u_0+a_1u_1-c_1u_2=-\frac{h^2}{2}r(x_1)\]
+Escogiendo $u_0 = \alpha$,
+\[a_1u_1-c_1u_2=-\frac{h^2}{2}r(x_1)+b_1\alpha\]
+Para $i=n$, la ecuación $(16)$ sería
+\[-b_nu_{n-1}+a_nu_n-c_nu_{n+1} = -\frac{h^2}{2}r(x_i)\]
+Tomando $u_{n+1} = \beta$,
+\[-b_nu_{n-1}+a_nu_n = -\frac{h^2}{2}r(x_i)+c_n\beta\]
+En resumen, el sistema a resolver sería
+\[
+(S) \ \left\{ \begin{alignedat}{6}
+&             &       & a_1u_1 & {}-{} & c_1u_2 & {}={} & -\frac{h^2}{2}r(x_1) & {}+{} & b_1\alpha, \\
+& -b_iu_{i-1} & {}+{} & a_iu_i & {}-{} & c_iu_{i+1} & {}={} & -\frac{h^2}{2}r(x_i), & & \quad \quad \quad i \in \{2,3,\mathellipsis,n-1\}, \\
+& -b_nu_{n-1} & {}+{} & a_nu_n & & & {}={} & -\frac{h^2}{2}r(x_n) & {}+{} & c_n\beta, \\
+\end{alignedat} \right.
+\]
+o lo que es lo mismo, en forma matricial,
+\[AU = F,\]
+donde 
+\[A = \left(\begin{array}{ccccccc}
+    \phantom{-}a_1 & -c_1 & 0 & \mathellipsis & 0 & 0 & 0 \\
+    -b_2 & \phantom{-}a_2 & -c_2 & \mathellipsis & 0 & 0 & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots \\
+    0 & 0 & 0 & \mathellipsis & -b_{n-1} & \phantom{-}a_{n-1} & -c_{n-1} \\
+    0 & 0 & 0 & \mathellipsis & 0 & -b_n & \phantom{-}a_n \\
+\end{array}\right) \qquad U = \left(\begin{array}{c}
+    u_1 \\
+    u_2 \\
+    \vdots \\
+    u_{n-1} \\
+    u_n
+\end{array}\right) \qquad F = \left(\begin{array}{c}
+    -\frac{h^2}{2}r(x_1)+b_1\alpha \\
+    -\frac{h^2}{2}r(x_2) \\
+    \vdots \\
+    -\frac{h^2}{2}r(x_{n-1}) \\
+    -\frac{h^2}{2}r(x_n)+c_n\beta
+\end{array}\right)\]
+
+De la ecuación $(15)$ y de las condiciones iniciales se obtiene inmediatamente una expresión equivalente para el sistema $(S)$ que resulta un poco más agradable a la vista:
+
+\begin{cdefinition}
+Un método numérico para la resolución del problema $(L)$ del tipo
+\[
+(MDF) \ \left\{ \begin{alignedat}{1}
+u_0 &= \alpha \\
+\frac{u_{i-1}-2u_i+u_{i+1}}{h^2} &= p(x_i)\frac{u_{i+1}-u_{i-1}}{2h}+q(x_i)u_i+r(x_i), \quad \quad \quad i \in \{1,\mathellipsis,n\} \\
+u_{n+1} &=\beta
+\end{alignedat} \right.
+\]
+se conoce como \mybf{método de diferencias finitas}.
+\end{cdefinition}
+
+Es conveniente averiguar cuándo el sistema anterior posee una única solución (o sea, $\textup{det}(A) \neq 0$).
+
+\begin{cdefinition}
+    Una matriz $M = (m_{i,j})_{i,j=1,\mathellipsis,n}$ es \mybf{de diagonal estrictamente dominante por filas} si para todo $i \in \{1,2,\mathellipsis,n\}$ se verifica
+    \[|m_{i,i}| > \sum_{j \neq i} |m_{i,j}|\]
+\end{cdefinition}
+
+\begin{cproposition}
+    Una matriz de diagonal estrictamente dominante por filas tiene determinante no nulo.
+\end{cproposition}
+
+\begin{proof}
+    Corresponde a la asignatura \emph{Métodos Numéricos II}.
+\end{proof}
+
+\begin{ccorollary}
+    Si $p \equiv 0$, el sistema $AU = F$ tiene solución única.
+\end{ccorollary}
+
+\begin{proof}
+En efecto, si $p \equiv 0$, entonces $b_i =c_i =\frac{1}{2} $ para todo $i \in \{1,2,\mathellipsis,n\}$, y usando que $q(x) >0$ para todo $x \in [a,b]$,
+\[|a_i| = \left|1+\frac{q(x_i)h^2}{2}\right| = 1+\frac{q(x_i)h^2}{2} >1 =|-b_i| +|-c_i|,\]
+luego $A$ es de diagonal estrictamente dominante por filas y por tanto $\textup{det}(A) \neq 0$, concluyéndose que el sistema $AU=F$ posee solución única. 
+\end{proof}
+
+\begin{ccorollary}
+    Si
+    \[h||p||_{\infty} = h\max_{x \in [a,b]} |p(x)| < 2,\]
+    entonces el sistema $AU=F$ tiene solución única.
+\end{ccorollary}
+
+\begin{proof}
+    Por un lado,
+    \[b_i = \frac{1}{2}\left(1+\frac{p(x_i)}{2}h \right) \geq \frac{1}{2}\left(1-\frac{|p(x_i)|}{2}h\right) \geq \frac{1}{2}\left(1-\frac{||p||_{\infty}}{2}h\right) > \frac{1}{2}\left(1-\frac{2}{2}\right) = 0\]
+    Por otro lado,
+    \[c_i = \frac{1}{2}\left( 1-\frac{p(x_i)}{2}h\right) \geq \frac{1}{2}\left(1-\frac{|p(x_i)|}{2}h\right) \geq \frac{1}{2}\left(1-\frac{||p||_{\infty}}{2}h\right) > \frac{1}{2}\left(1-\frac{2}{2}\right) = 0\]
+    En consecuencia, como $q(x_i) > 0$,
+    \[|-b_i|+|-c_i| = b_i+c_i = 1 < 1+\frac{q(x_i)h^2}{2} = a_i = |a_i|\]
+    y por tanto $A$ es de diagonal estrictamente dominante por filas, así que $\textup{det}(A) \neq 0$ y el sistema $AU=F$ posee solución única.
+\end{proof}
+
+Ahora que disponemos de un método numérico para aproximar el problema $(L)$, el próximo paso es definir el error, el orden, la estabilidad, la consistencia... y ese tipo de cosas.
+
+\begin{cdefinition}
+Sean $\{u_0,u_1,\mathellipsis,u_{n+1}\}$ las aproximaciones de un método de diferencias finitas. Sean
+\[Y = \left(\begin{array}{c}
+        y(x_0) \\
+        y(x_1) \\
+        \vdots \\
+        y(x_{n+1})
+    \end{array}\right) \qquad \qquad R = \left(\begin{array}{c}
+        r(x_1) \\
+        r(x_2) \\
+        \vdots \\
+        r(x_{n})
+    \end{array}\right)\]
+y sea $\mathcal{L}_h \colon \R^{n+2} \to \R^n$ la función definida por 
+\[(\mathcal{L}_hZ)_i = \frac{z_{i-1}-2z_i+z_{i+1}}{h^2}-p(x_i)\frac{z_{i+1}-z_{i-1}}{2h}-q(x_i)z_i, \quad i \in \{1,2,\mathellipsis,n\},\]
+donde $(\mathcal{L}_hZ)_i$ es la $i$-ésima componente de $\mathcal{L}_hZ \in \R^n$ para cualquier $Z \in \R^{n+2}$.
+\begin{enumerate}
+    \item Dado $i \in \{0,1,\mathellipsis,n+1\}$, se define el \mybf{error en la etapa $i$-ésima} como
+    \[e_i = y(x_i)-u_i\]
+    \item Se define el \mybf{error global} como
+    \[e(h) \coloneqq \max_{i=0,\mathellipsis,n+1} |e_i|\]
+    \item Se dice que el método es \mybf{convergente} si
+    \[\lim_{h \to 0} e(h)=0\]
+    \item Se define el \mybf{error de discretización local} como
+    \[\tau(h)\coloneqq \mathcal{L}_hY - R,\]
+    
+    \item Se dice que el método es \mybf{consistente} si
+    \[\lim_{h \to 0} ||\tau(h)||_\infty = 0\]
+    \item Se dice que el método es \mybf{estable} si existen $M,h^*>0$ verificando lo siguiente: si $Z \in \R^{n+2}$, $\delta \in \R^n$ son tales que
+    \[\mathcal{L}_hZ = \delta,\]
+    entonces
+    \[\max_{i=0,\mathellipsis,n+1} |z_i| \leq M\bigl(\max\bigl\{|z_0|,|z_{n+1}|\bigr\}+||\delta||_\infty\bigr)\]
+    \item Se dice que el método es \mybf{de orden $p$} si
+    \[||\tau(h)||_\infty = O(h^p)\]
+\end{enumerate}
+\end{cdefinition}
+
+\begin{ctheorem}
+    Consistencia y estabilidad implica convergencia.
+\end{ctheorem}
+
+\begin{proof}
+La expresión del método de diferencias finitas quiere decir que $\mathcal{L}_hU=R$. Además, por definición, $\mathcal{L}_hY=R+\tau(h)$. Si llamamos
+\[E = Y-U= \left(\begin{array}{c}
+    e_0 \\
+    e_1 \\
+    \vdots \\
+    e_{n+1}
+\end{array}\right)\]
+entonces $\mathcal{L}_hE=R+\tau(h)-R=\tau(h)$. Tomando $Z = E \in \R^{n+2}$ y $\delta = \tau(h) \in \R^n$ en la definición de estabilidad, se tiene
+\[\max_{i=0,\mathellipsis,n+1} |e_i| \leq M\bigl(\max\bigl\{|e_0|,|e_{n+1}|\bigr\}+||\tau(h)||_{\infty}\bigr)\]
+Ahora bien, como $e_0 = y(x_0)-u_0=\alpha-\alpha =0$ y $e_{n+1} = y(x_{n+1})-u_{n+1}=\beta-\beta=0$, entonces
+\[0 \leq \max_{i=0,\mathellipsis,n+1} |e_i| \leq M||\tau(h)||_{\infty}\]
+Como el método es consistente, al tomar límite en estas desigualdades se obtiene
+\[\lim_{h \to 0} e(h)=0,\]
+concluyéndose que el método converge.
+\end{proof}
+
+\begin{ctheorem}
+    Si un método es estable y de orden $p$, entonces \[e(h)=O(h^p)\]
+\end{ctheorem}
+
+\begin{proof}
+    Ya va tocando saltarse una demostración.
+\end{proof}
+
+\section{Otras condiciones de contorno}
+
+Considérese el problema
+\[(\widetilde{L}) \ \left\{
+\begin{alignedat}{1}
+\, y''(x)  &= p(x)y'+q(x)y+r(x), \ x \in [a,b], \\
+\, y'(a) &= \alpha, \\
+\, y(b) &= \beta,
+\end{alignedat}\right.\]
+que es idéntico al problema $(L)$ salvo por una de las condiciones iniciales. Sean $\{u_0,u_1,\mathellipsis,u_{n+1}\}$ las aproximaciones de un método de diferencias finitas para el problema $(L)$. Casi todas las aproximaciones siguen siendo válidas para el problema $(\widetilde{L})$; la única que no sirve es $u_0$, pues ya no se pide $y(a)=\alpha$. Para cada $i \in \{1,2,\mathellipsis,n\}$ se verifica
+\[\frac{u_{i-1}-2u_i+u_{i+1}}{h^2} = p(x_i)\frac{u_{i+1}-u_{i-1}}{2h}+q(x_i)u_i+r(x_i)\]
+Poniendo $i = 1$,
+\[\frac{u_{0}-2u_1+u_{2}}{h^2} = p(x_1)\frac{u_{2}-u_{0}}{2h}+q(x_1)u_1+r(x_1),\]
+Resulta natural realizar la aproximación
+\[y'(a)=y'(x_0) \approx \frac{y(x_1)-y(x_0)}{h} \approx \frac{u_1-u_0}{h},\]
+así que puede considerarse el método dado por
+\[
+(M_1) \ \left\{ \begin{alignedat}{1}
+\frac{u_1-u_0}{h} &= \alpha \\
+\frac{u_{i-1}-2u_i+u_{i+1}}{h^2} &= p(x_i)\frac{u_{i+1}-u_{i-1}}{2h}+q(x_i)u_i+r(x_i), \quad \quad \quad i \in \{1,\mathellipsis,n\} \\
+u_{n+1} &=\beta
+\end{alignedat} \right.
+\]
+Si se quieren obtener aproximaciones más precisas, basta aproximar $y'(x_0)$ con mejores fórmulas de derivación numérica. Rescatamos la fórmula de un ejemplo anterior:
+\[y'(x_0) \approx \frac{-3y(x_i)+4y(x_{i+1})-y(x_{i+2})}{2h}\]
+El método obtenido para la resolución de $(\widetilde{L})$ sería
+\[
+(M_2) \ \left\{ \begin{alignedat}{1}
+    \frac{-3u_0+4u_{1}-u_{2}}{2h} &= \alpha \\
+\frac{u_{i-1}-2u_i+u_{i+1}}{h^2} &= p(x_i)\frac{u_{i+1}-u_{i-1}}{2h}+q(x_i)u_i+r(x_i), \quad \quad \quad i \in \{1,\mathellipsis,n\} \\
+u_{n+1} &=\beta
+\end{alignedat} \right.
+\]
+Otra manera de aproximar $y'(x_0)$ consiste en añadir un punto más a la izquierda de $x_0$, llámese $x_{-1}$, y hacer
+\[y'(x_0) \approx \frac{y(x_1)-y(x_{-1})}{2h},\]
+lo que daría lugar al método
+\[
+(M_3) \ \left\{ \begin{alignedat}{1}
+\frac{u_1-u_{-1}}{2h} &= \alpha \\
+\frac{u_{i-1}-2u_i+u_{i+1}}{h^2} &= p(x_i)\frac{u_{i+1}-u_{i-1}}{2h}+q(x_i)u_i+r(x_i), \quad \quad \quad i \in \{0,\mathellipsis,n\} \\
+u_{n+1} &=\beta
+\end{alignedat} \right.
+\]
+A priori, no se sabe quién es $u_{-1}$, pero de la primera ecuación se deduce $u_{-1} = u_1-2\alpha h$, así que la segunda ecuación del método para $i=0$ quedaría
+\[\frac{u_1-2\alpha h-2u_0+u_{1}}{h^2} = p(x_0)\frac{u_{1}-u_1-2\alpha h}{2h}+q(x_0)u_0+r(x_0),\] 
+es decir,
+\[\frac{2(u_1-u_0)}{h^2} = p(x_0)\alpha+q(x_0)u_0+r(x_0)+\frac{2\alpha}{h}\]
+Ya nos hemos desentendido de $u_{-1}$: el método que queda es
+\[
+(M_3) \ \left\{ \begin{alignedat}{1}
+\frac{2(u_1-u_0)}{h^2} &= p(x_0)\alpha+q(x_0)u_0+r(x_0)+\frac{2\alpha}{h} \\
+\frac{u_{i-1}-2u_i+u_{i+1}}{h^2} &= p(x_i)\frac{u_{i+1}-u_{i-1}}{2h}+q(x_i)u_i+r(x_i), \quad \quad \quad i \in \{1,\mathellipsis,n\} \\
+u_{n+1} &=\beta
+\end{alignedat} \right.
+\]
+
+
+\section{Método de diferencias finitas para el caso general}
+
+Lo que se ha hecho hasta ahora es tratar de aproximar la solución del problema
+\[(L) \ \left\{
+\begin{alignedat}{1}
+\, y''(x)  &= p(x)y'+q(x)y+r(x), \ x \in [a,b], \\
+\, y(a) &= \alpha, \\
+\, y(b) &= \beta,
+\end{alignedat}\right.\]
+mediante un método de la forma
+\[
+(MDF) \ \left\{ \begin{alignedat}{1}
+u_0 &= \alpha \\
+\frac{u_{i-1}-2u_i+u_{i+1}}{h^2} &= p(x_i)\frac{u_{i+1}-u_{i-1}}{2h}+q(x_i)u_i+r(x_i), \quad \quad \quad i \in \{1,\mathellipsis,n\} \\
+u_{n+1} &=\beta
+\end{alignedat} \right.
+\]
+Si consideramos un problema de contorno arbitrario, no necesariamente lineal,
+\[(P) \ \left\{
+\begin{alignedat}{1}
+\, y''(x)  &= f(x,y(x), y'(x)), \ x \in [a,b], \\
+\, y(a) &= \alpha, \\
+\, y(b) &= \beta,
+\end{alignedat}\right.\]
+entonces, por analogía al caso lineal, es tentador considerar un método del estilo
+\[
+(MDF) \ \left\{ \begin{alignedat}{1}
+u_0 &= \alpha \\
+\frac{u_{i-1}-2u_i+u_{i+1}}{h^2} &= f\left(x_i,u_i,\frac{u_{i+1}-u_{i-1}}{2h}\right), \quad \quad \quad i \in \{1,\mathellipsis,n\} \\
+u_{n+1} &=\beta
+\end{alignedat} \right.
+\]
+Para hallar $\{u_1,u_2,\mathellipsis,u_n\}$ hay que resolver el sistema no lineal de $n$ ecuaciones y $n$ incógnitas dado por
+\[G(U)=0,\]
+donde $G \colon \R^n \to \R^n$ es la función definida por
+\[G(Z)_i =\frac{z_{i-1}-2z_i+z_{i+1}}{h^2} - f\left(x_i,z_i,\frac{z_{i+1}-z_{i-1}}{2h}\right), \quad \quad \quad i \in \{1,\mathellipsis,n\}\]
+En analogía al método de Newton (método de punto fijo dado por $z_{n+1}=z_n-\frac{g(u_n)}{g'(u_n)}$ para resolver la ecuación $g(u)=0$, con $g \colon \R \to \R$), pueden aproximarse las soluciones de $G(U)=0$ mediante la sucesión
+\[U_{n+1} = U_n - J(U_n)^{-1}G(U_n), \quad \quad \quad n \in \N \cup \{0\},\]
+donde, para $U \in \R^n$ cualquiera,
+\[J(U) = \left(\begin{array}{ccc}
+    \frac{\partial G_1}{\partial u_1} & \mathellipsis & \frac{\partial G_1}{\partial u_n} \\
+    \vdots & \ddots & \vdots \\
+    \frac{\partial G_n}{\partial u_1} & \mathellipsis & \frac{\partial G_n}{\partial u_n}
+\end{array}\right)\]
+Generalmente, el cálculo de matrices inversas debe ser evitado a toda costa. Se tiene que
+\[U_{n+1} = U_n  - J(U_n)^{-1}G(U_n) \iff J(U_n)(U_n-U_{n+1})=G(U_n) \iff \left\{ \begin{alignedat}{1}
+    J(U_n)V_n &= G(U_n) \\
+    U_{n+1} &= U_n-V_n
+\end{alignedat}\right.\]
+Encontrar $V_n \in \R^n$ tal que $J(U_n)V_n = G(U_n)$ no es más que resolver un sistema de ecuaciones con matriz de coeficientes $J(U_n)$ y vector de términos independientes $G(U_n)$, que se calculan fácilmente. Nótese que, por cómo está definida la función $G$, la $i$-ésima fila de la matriz $J(U)$ solo tiene tres términos no nulos: el de la diagonal y los dos colindantes.
+
+\comment{
+\section{Problemas rígidos}
+
+\subsection{Ecuación lineal no homogénea}
+
+Considérese el problema
+\[\left\{\begin{alignedat}{1}
+    y'(t)&=\lambda y(t)+a, \\
+    y(0)&=y_0,
+\end{alignedat}\right.\]
+para ciertos $y_0,a \in \R$, $\lambda \in \C^-$. La única solución de este problema es
+\[y(t) = -\frac{a}{\lambda}+ce^{\lambda t}, \quad t \in \R\]
+para una cierta constante $c \in \R$ que no nos interesamos en explicitar. Se tiene que
+\[\lim_{t \to \infty} y(t) = -\frac{a}{\lambda},\]
+luego cabe esperar que para cualquier método numérico se verifique
+\[\lim_{k \to \infty} = -\frac{a}{\lambda} \iff \lambda h \in D_A\]
+Veamos que esto es cierto para los métodos de Runge-Kutta. Estos métodos aplicados al problema que nos ocupa toman la forma
+\[\left\{\begin{alignedat}{1}
+    y_k^{(i)} &= y_k+h\sum_{j=1}^s a_{i,j}\left(\lambda y_k^{(j)}+a\right), \quad i \in 1,\mathellipsis,s, \\
+    y_{k+1} &= y_k+h\sum_{i=1}^s b_i\left(\lambda y_k^{(i)}+a\right)
+\end{alignedat}\right.\]
+Si llamamos $z = y+\frac{a}{\lambda}$, se tiene que $y'=\lambda y+a$ si y solo si $z' = \lambda z$. Pongamos entonces $z_k = y_k+\frac{a}{\lambda}$, $z_k^{(i)} = y_k^{(i)}+\frac{a}{\lambda}$, $i \in \{1,\mathellipsis,s\}$. Entonces
+\[\left\{\begin{alignedat}{1}
+    z_k^{(i)} &= z_k+h\sum_{j=1}^s a_{i,j}\lambda z_k^{(j)}, \quad i \in 1,\mathellipsis,s, \\
+    z_{k+1} &= z_k+h\sum_{i=1}^s b_i\lambda z_k^{(i)}
+\end{alignedat}\right.\]
+En este caso, se sabe que
+\[\lim_{k \to \infty} z_k = 0 \iff h\lambda \in D_A\]
+No hay más que observar que, independientemente del dato inicial del problema,
+\[\lim_{k \to \infty} y_k = -\frac{a}{\lambda} \iff \lim_{k \to \infty} z_k = 0,\]
+de donde
+\[\lim_{k \to \infty} y_k = -\frac{a}{\lambda} \iff h \lambda \in D_A\]
+
+\subsection{Ecuación autónoma}
+
+Considérese el problema
+\[\left\{\begin{alignedat}{1}
+    y'(t)&=\lambda y(t)+a, \\
+    y(0)&=y_0,
+\end{alignedat}\right.\]
+}
+
+\end{document}

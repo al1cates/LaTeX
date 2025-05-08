@@ -1,0 +1,328 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.9in, left = 0.9in, top = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage{kpfonts}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\newtheorem{exercise}{Ejercicio}
+\theoremstyle{remark}
+\newtheorem*{resolution}{Resolución}
+
+\begin{document}
+
+\begin{center}
+    \textbf{Relación 2} \\
+\end{center}
+
+\begin{exercise}
+Sea $X$ una variable aleatoria con $X \sim N(\mu=12,\sigma=0.04)$.
+\begin{enumerate}
+    \item Se toma una muestra de tamaño $n = 16$. Calcular $P(11.99<\bar{X}<12.01)$.
+    \item Para una muestra de tamaño $n = 16$, calcular $P(10^{-3}<S^2_c<2\cdot 10^{-3})$.
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+
+    \item Sabemos que
+    \[\bar{X} \sim N(12,\frac{\sigma}{4})\ = N(12,0.01)\]
+    Por tanto,
+    \[
+    \begin{aligned}[t]
+        P(11.99<\bar{X}<12.01) &= P(-0.01<\bar{X}-12<0.01) = P\bigl(-1<\frac{\bar{X}-12}{0.01}<1\bigr) = 2P\bigl(\frac{\bar{X}-12}{0.01}<1\bigr)-1 \\
+        &\approx 2 \cdot 0.84134-1 = 0.68268
+    \end{aligned}
+    \]
+    \item Por el lema de Fischer, sabemos que
+    \[\frac{(n-1)S^2_c}{\sigma^2} = 9375\cdot S^2_c = V \sim \chi^2_{15}\]
+    Por tanto,
+    \[P(10^{-3}<S^2_c<2\cdot 10^{-3}) = P(9.375<9375\cdot S^2_c<18.75) = P(V < 18.75)- P(V \leq 9.375)\]
+    Desgraciadamente, estas probabilidades no aparecen en la tabla de la distribución $\chi^2$, así que van a aproximarse mediante interpolación lineal. Tenemos que
+    \[P(V \leq 18.2451) = 0.75 \qquad \textup{y} \qquad P(V \leq 22.3071) = 0.9\]
+    Por tanto, si $x$ es la aproximación de $P(V\leq 18.75)$ buscada, tenemos que
+    \[\frac{x-0.75}{0.9-0.75} = \frac{18.75-18.2451}{22.3071-18.2451}\]
+    De aquí se deduce que
+    \[x = \frac{(0.9-0.75)(18.75-18.2451)}{22.3071-18.2451}+0.75 \approx 0.76864\]
+    Por otra parte, como
+    \[P(V \leq 8.5468) = 0.1 \qquad \textup{y} \qquad P(V \leq 11.0365) = 0.25,\]
+    si $y$ es la aproximación de $P(V \leq 9.375)$ buscada, tenemos que
+    \[\frac{y-0.1}{0.25-0.1} = \frac{9.375-8.5468}{11.0365-8.5468}\]
+    De aquí se deduce que
+    \[y = \frac{(0.25-0.1)(9.375-8.5468)}{11.0365-8.5468}+0.1 \approx 0.15\]
+    En consecuencia,
+    \[P(10^{-3}<S^2_c<2\cdot 10^{-3}) \approx 0.76864-0.15=0.61864\]
+\end{enumerate}
+    
+\end{resolution}
+
+\begin{exercise}
+Las puntuaciones de un grupo de alumnos en una prueba siguen una distribución normal de media $90$ y desviación típica $12$. Si se extrae una muestra aleatoria simple de $30$ alumnos, ¿por debajo de qué valor se encontrará el $90\%$ de las veces el valor de la cuasivarianza muestral?
+\end{exercise}
+
+\begin{resolution}
+Sea $X \sim N(\mu=90,\sigma=12)$ la variable aleatoria en cuestión y sea $(X_1,\mathellipsis,X_{30})$ la muestra aleatoria de $X$ de 30 alumnos. Hay que encontrar $x \in \R$ de manera que
+\[P(S^2_c \leq x) = 0.9\]
+Por el lema de Fischer,
+\[\frac{29 \cdot S^2_c}{144} = V \sim \chi^2_{29}\]
+Por tanto, como
+\[P(S^2_c \leq x) = P(V \leq \frac{29x}{144}),\]
+de la tabla de la distribución de $\chi^2$ se obtiene
+\[\frac{29x}{144}=39.0875,\]
+es decir,
+\[x = \frac{39.0875 \cdot 144}{29} \approx 194.09\]
+\end{resolution}
+
+\begin{exercise}
+Sea $(X_1,\mathellipsis,X_n)$ una muestra aleatoria simple de $X \sim N(\mu,\sigma)$. Obtener una expresión para la probabilidad
+\[P\bigl(\bar{X}>\mu+\frac{\sigma}{2},|S^2_c-\sigma^2|> \frac{\sigma^2}{2}\bigr)\]
+\end{exercise}
+
+\begin{resolution}
+Por el lema de Fischer, $\bar{X}$ y $S^2_c$ son independientes, luego
+\[P\bigl(\bar{X}>\mu+\frac{\sigma}{2},|S^2_c-\sigma^2|> \frac{\sigma^2}{2}\bigr) = \underbracket{P\bigl(\bar{X}>\mu+\frac{\sigma}{2}\bigr)}_{(a)}\underbracket{P\bigl(|S^2_c-\sigma^2|> \frac{\sigma^2}{2}\bigr)}_{(b)}\]
+Se tiene que
+\begin{enumerate}
+    \item $\displaystyle P\bigl(\bar{X}>\mu+\frac{\sigma}{2}\bigr) = P\bigr(\frac{\bar{X}-\mu}{\sigma}>\frac{1}{2}\bigl) = P\bigr(\frac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}}>\frac{\sqrt{n}}{2}\bigl) = 1-P\bigl(Z \leq \frac{\sqrt{n}}{2}\bigr)$, donde
+    \[Z = \frac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}} \sim N(0,1),\]
+    ya que
+    \[\bar{X} \sim N\bigl(\mu,\frac{\sigma}{\sqrt{n}}\bigr)\]
+    \item $\displaystyle \begin{aligned}[t]
+        P\bigl(|S^2_c-\sigma^2|> \frac{\sigma^2}{2}\bigr) &= 1-P\bigl(|S^2_c-\sigma^2|\leq \frac{\sigma^2}{2}\bigr) = 1-P\bigl(-\frac{\sigma^2}{2} \leq S^2_c-\sigma^2 \leq \frac{\sigma^2}{2}\bigr) \\ &= 1-P\bigl(\frac{\sigma^2}{2} \leq S^2_c \leq \frac{3\sigma^2}{2}\bigr)
+        = 1-P\bigl(S^2_c\leq \frac{3\sigma^2}{2}\bigr) + P\bigl(S^2_c < \frac{\sigma^2}{2}\bigr) \\
+        &= 1-P\bigl(\frac{(n-1)S^2_c}{\sigma^2} \leq \frac{3(n-1)}{2}\bigr) + P\bigl(\frac{(n-1)S^2_c}{\sigma^2} < \frac{n-1}{2}\bigr) \\
+        &= 1-P\bigl(V \leq \frac{3(n-1)}{2}\bigr)+P(V<\frac{n-1}{2}),
+    \end{aligned}$
+    
+    donde, por el lema de Fischer,
+    \[V = \frac{(n-1)S^2_c}{\sigma^2} \sim \chi^2_{n-1}\]
+\end{enumerate}
+Buscando en las tablas las probabilidades $(a)$ y $(b)$ y multiplicándolas, se obtiene la probabilidad del enunciado.
+\end{resolution}
+
+\begin{exercise}
+Sea $(X_1,\mathellipsis,X_n)$ una muestra aleatoria simple de $X \sim N(\mu,\sigma)$. Obtener una expresión para la probabilidad
+\[P\bigl(\bar{X}>\mu+\frac{\sigma}{2} \ \biggl| \ |S^2_c-\sigma^2|> \frac{\sigma^2}{2}\bigr)\]
+\end{exercise}
+
+\begin{resolution}
+No hay más que usar la independencia de $\bar{X}$ y $S^2_c$ junto con el ejercicio anterior:
+\[P\bigl(\bar{X}>\mu+\frac{\sigma}{2} \ \biggl| \ |S^2_c-\sigma^2|> \frac{\sigma^2}{2}\bigr) = \frac{P\bigl(\bar{X}>\mu+\frac{\sigma}{2},|S^2_c-\sigma^2|> \frac{\sigma^2}{2}\bigr)}{P\bigl(|S_c^2-\sigma^2|> \frac{\sigma^2}{2}\bigr)} = P\bigl(\bar{X}>\mu+\frac{\sigma}{2}\bigr) = 1-P\bigl(Z \leq \frac{\sqrt{n}}{2}\bigr),\]
+donde
+\[Z = \frac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}} \sim N(0,1)\]
+
+\end{resolution}
+
+\begin{exercise}
+Sean $\bar{X}_1$ y $\bar{X}_2$ las medias muestrales calculadas a partir de dos muestras independientes de tamaño $n$ de una población con varianza $\sigma^2$. Hallar el menor valor de $n$ que garantiza que
+\[P\bigl(|\bar{X}_1-\bar{X}_2|<\frac{\sigma}{5}\bigr)\]
+sea al menos $0.99$. Obtener dicho $n$ mediante
+\begin{enumerate}
+    \item la desigualdad de Chebyshev;
+    \item el TCL.
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Al ser $\bar{X}_1$ y $\bar{X}_2$ las medias muestrales de dos muestras de una misma población $X$, entonces $E(\bar{X}_1) = E(\bar{X}_2) = E(X)$, luego $E(\bar{X_1}-\bar{X_2}) = E(\bar{X_1})-E(\bar{X_2}) = 0$, y por tanto, por la desigualdad de Chebyshev,
+    \[\begin{aligned}[t]
+    P\bigl(|\bar{X}_1-\bar{X}_2|<\frac{\sigma}{5}\bigr) &= 1-P\bigl(|\bar{X}_1-\bar{X}_2|\geq\frac{\sigma}{5}\bigr) \geq 1-\frac{\textup{Var}(\bar{X}_1-\bar{X}_2)}{\frac{\sigma^2}{25}} = 1-\frac{\textup{Var}(\bar{X}_1)+\textup{Var}(\bar{X}_2)}{\frac{\sigma^2}{25}} \\
+    &= 1-\frac{\frac{2\sigma^2}{n}}{\frac{\sigma^2}{25}} = 1-\frac{50}{n}
+    \end{aligned}
+    \]
+    Se necesita que
+    \[P\bigl(|\bar{X}_1-\bar{X}_2|<\frac{\sigma}{5}\bigr) = 0.99 \iff 1-\frac{50}{n} = 0.99 \iff n = \frac{50}{0.01} = 5000\]
+    \item La variable aleatoria $\bar{X}_1-\bar{X}_2$ tiene media $0$ y varianza $\frac{2\sigma^2}{n}$, luego, por el teorema central del límite,
+    \[\frac{\bar{X}_1-\bar{X}_2}{\frac{\sqrt{2}\sigma}{\sqrt{n}}} = \frac{\sqrt{n}(\bar{X}_1-\bar{X}_2)}{\sqrt{2}\sigma} \approx Z \sim N(0,1)\] Tenemos que
+    \[P\bigl(|\bar{X}_1-\bar{X}_2|<\frac{\sigma}{5}\bigr) = P\bigl(-\frac{\sigma}{5} < \bar{X}_1-\bar{X}_2<\frac{\sigma}{5}\bigr) = P\bigl(-\frac{\sqrt{n}}{5\sqrt{2}} < \frac{\sqrt{n}(\bar{X}_1-\bar{X}_2)}{\sqrt{2}\sigma} < \frac{\sqrt{n}}{5\sqrt{2}}\bigr) = 2P\bigl(Z < \frac{\sqrt{n}}{5\sqrt{2}}\bigr)-1\]
+    Buscamos que
+    \[2P\bigl(Z < \frac{\sqrt{n}}{5\sqrt{2}}\bigr)-1 = 0.99 \iff P\bigl(Z < \frac{\sqrt{n}}{5\sqrt{2}}\bigr) = 0.995\]
+    Observando la tabla se deduce que debe ser
+    \[\frac{\sqrt{n}}{5\sqrt{2}} = 2.58 \iff n = 50 \cdot 2.58^2 = 332.82\]
+    Por tanto, el menor $n$ que ofrece el teorema central del límite es $333$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+    Sea $(X_1,X_2,X_3,X_4,X_5)$ una muestra aleatoria simple de $X \sim N(\mu=0,\sigma=2)$. Calcular
+    \[P\bigl(\sum_{i=1}^5 X_i^2 \geq 5.75\bigr)\]
+\end{exercise}
+
+\begin{resolution}
+Para cada $i \in \{1,\mathellipsis,n\}$ se tiene
+\[\frac{X_i}{2} \sim N(0,1)\]
+Por tanto,
+\[\frac{X_i^2}{4} \sim Ga\bigl(\frac{1}{2},\frac{1}{2}\bigr)\]
+Como la distribución gamma es reproductiva respecto del primer parámetro,
+\[\frac{1}{4}\sum_{i=1}^5 X_i^2 \sim Ga\bigl(\frac{5}{2},\frac{1}{2}\bigr) = \chi^2_5\]
+En consecuencia,
+    \[P\bigl(\sum_{i=1}^5 X_i^2 \geq 5.75\bigr) = P\bigl(\frac{1}{4}\sum_{i=1}^5 X_i^2 \geq 1.4375\bigr) = 1- P\bigl(\frac{1}{4}\sum_{i=1}^5 X_i^2 < 1.4375\bigr)\]
+Los valores más cercanos a $1.4375$ que aparecen en la tabla de la distribución $\chi^2$ con $5$ grados de libertad son $1.1455$ y $1.6103$, con probabilidades $0.05$ y $0.1$, respectivamente. Podemos aproximar la probabilidad $x$ de $1.4375$ mediante interpolación lineal:
+\[\frac{x-0.05}{0.1-0.05} = \frac{1.4375-1.1455}{1.6103-1.1455} \iff x = \frac{(0.1-0.05)(1.4375-1.1455)}{1.6103-1.1455}+0.05 \approx 0.08141 \]
+Por tanto,
+\[P\bigl(\sum_{i=1}^5 X_i^2 \geq 5.75\bigr) \approx 1-0.08141=0.91859\]
+\end{resolution}
+
+\begin{exercise}
+    Sea $(X_1,X_2)$ una muestra aleatoria simple de $X \sim N(0,1)$. Encontrar la distribución de las siguientes variables aleatorias y calcular el percentil 35 de las mismas:
+    \begin{enumerate}
+        \item $\displaystyle \frac{X_2-X_1}{\sqrt{2}}$
+        \item $\displaystyle \frac{(X_1+X_2)^2}{(X_1-X_2)^2}$
+        \item $\displaystyle \frac{X_2+X_1}{\sqrt{(X_1-X_2)^2}}$
+    \end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Como $X_1 \sim N(0,1)$, entonces $-X_1 \sim N(0,1)$ y por tanto $X_2-X_1 \sim N(0,2)$, luego
+    \[Z = \frac{X_2-X_1}{\sqrt{2}} \sim N(0,\frac{1}{\sqrt{2}^2} \cdot 2) = N(0,1)\]
+    El percentil 35 es cualquier número real $\alpha$ verificando
+    \[P(Z \leq \alpha) = 0.35\]
+    Como $0.35$ no está en la tabla de la distribución normal, hay que apañárselas de otra manera: por la simetría de la distribución normal, se tiene que
+    \[P(Z \leq \alpha) = 0.35 \iff P(Z \geq -\alpha) = 0.35 \iff 1-P(Z < -\alpha) = 0.35 \iff P(Z < -\alpha) = 0.65\]
+    Ahora sí: de la tabla se deduce que $-\alpha \approx 0.39$, luego $\alpha \approx -0.39$ es el percentil buscado.
+    \item Sabemos que $X_1+X_2 \sim N(0,2)$ y $X_1-X_2 \sim N(0,2)$, luego
+    \[\frac{X_1+X_2}{\sqrt{2}} \sim N(0,1) \qquad \textup{y} \qquad \frac{X_1-X_2}{\sqrt{2}} \sim N(0,1)\]
+    En consecuencia,
+    \[\frac{(X_1+X_2)^2}{2} \sim \chi^2_1 \qquad \textup{y} \qquad \frac{(X_1-X_2)^2}{2} \sim \chi^2_1,\]
+    luego, usando que las variables $(X_1+X_2)^2$ y $(X_1-X_2)^2$ son independientes por serlo $X_1$ y $X_2$,
+    \[\frac{\frac{(X_1+X_2)^2}{2}}{\frac{(X_1-X_2)^2}{2}} = \frac{(X_1+X_2)^2}{(X_1-X_2)^2} \sim F_{1,1},\]
+    Según $R$, el percentil 35 es $0.3755248$.
+    \item Como
+    \[\frac{X_2+X_1}{\sqrt{2}} \sim N(0,1), \qquad \qquad \frac{(X_1-X_2)^2}{2} \sim \chi^2_1\]
+    y las variables son independientes, entonces
+    \[T=\frac{\frac{X_2+X_1}{\sqrt{2}}}{\sqrt{\frac{(X_1-X_2)^2}{2}}} = \frac{X_2+X_1}{\sqrt{(X_1-X_2)^2}} \sim t_1\]
+    Por la simetría de la distribución $t$ de Student, tenemos
+    \[P(T \leq \alpha) = 0.35 \iff P(T \geq -\alpha) = 0.35 \iff 1-P(T < -\alpha) = 0.35 \iff P(T < -\alpha) = 0.65\]
+    Hallemos el percentil $65$ mediante interpolación lineal a partir de los percentiles $60$ y $75$, que, por la tabla, se sabe que son $0.325$ y $1$. Se tiene que
+    \[\frac{65-60}{75-60} = \frac{-\alpha-0.325}{1-0.325} \iff -\alpha = \frac{(65-60)(1-0.325)}{75-60}+0.325 = 0.55\]
+    El percentil 35 sería, de forma aproximada, $\alpha=-0.55$.
+\end{enumerate}
+
+\end{resolution}
+
+\begin{exercise}
+Sea $(X_1,\mathellipsis,X_{20})$ una muestra aleatoria simple de una distribución $X \sim N(0,1)$. Sean
+\[\bar{X}_1=\frac{1}{12}\sum_{i=1}^{12} X_i \qquad \qquad \bar{X}_2=\frac{1}{8}\sum_{i=13}^{20} X_i\]
+Para cada una de las siguientes variables aleatorias, indicar cuál es su distribución y obtener el percentil 40 de la distribución:
+\begin{enumerate}
+    \item $\displaystyle \frac{1}{2}(\bar{X}_1+\bar{X}_2)$
+    \item $\displaystyle 12 \bar{X}_1^2+8\bar{X}_2^2$
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Por la propiedad reproductiva de la distribución normal, se tiene
+    \[\sum_{i=1}^{12} X_i \sim N(0,12)\]
+    Por tanto,
+    \[\bar{X}_1 = \frac{1}{12}\sum_{i=1}^{12} X_i \sim N\bigl(0,\frac{1}{12^2}12\bigr) = N\bigl(0,\frac{1}{12}\bigr)\]
+    Análogamente,
+    \[\bar{X}_2 = \frac{1}{8}\sum_{i=13}^{20} X_i \sim N\bigl(0,\frac{1}{8^2}8\bigr) = N\bigl(0,\frac{1}{8}\bigr)\]
+    En consecuencia,
+    \[\bar{X}_1+\bar{X}_2 \sim N\bigl(0,\frac{1}{12}+\frac{1}{8}\bigr) = N\bigl(0,\frac{5}{24}\bigr),\]
+    luego
+    \[\frac{1}{2}(\bar{X}_1+\bar{X}_2) \sim N\bigl(0,\frac{5}{24 \cdot 4}\bigr) = N\bigl(0,\frac{5}{96}\bigr)\]
+    Tenemos entonces
+    \[Z = \frac{\sqrt{96}}{2\sqrt{5}}(\bar{X}_1+\bar{X}_2) = \frac{2\sqrt{6}}{\sqrt{5}}(\bar{X}_1+\bar{X}_2) \sim N(0,1)\]
+    El percentil $40$ es cualquier número que verique
+    \[P\bigl(\frac{1}{2}(\bar{X}_1+\bar{X}_2) \leq P_{40}\bigr) = 0.4 \iff P\bigl(Z \leq \frac{4\sqrt{6}}{\sqrt{5}}P_{40}\bigr) = 0.4 \iff P\bigl(Z<-\frac{4\sqrt{6}}{\sqrt{5}}P_{40}\bigr) =0.6\]
+    De la tabla de la distribución normal se deduce que, aproximadamente,
+    \[-\frac{4\sqrt{6}}{\sqrt{5}} P_{40}= 0.26 \iff P_{40} = -\frac{0.26\sqrt{5}}{4\sqrt{6}} \approx -0.05934\]
+    \item Sabemos que
+    \[\bar{X}_1 \sim N\bigl(0,\frac{1}{12}\bigr) \qquad \textup{y} \qquad \bar{X}_2 \sim N\bigl(0,\frac{1}{8}\bigr)\]
+    En consecuencia,
+    \[\sqrt{12}\bar{X}_1 \sim N(0,1) \qquad \textup{y} \qquad \sqrt{8}\bar{X}_2 \sim N(0,1)\]
+    Por tanto,
+    \[(\sqrt{12}\bar{X}_1)^2 = 12\bar{X}_1^2 \sim \chi^2_1 \qquad \textup{y} \qquad (\sqrt{8}\bar{X}_2)^2 = 8\bar{X}_2^2 \sim \chi^2_1,\]
+    luego
+    \[12\bar{X}_1^2+8\bar{X}_2^2 \sim \chi^2_2\]
+    En la tabla están los percentiles $25$ y $50$, que son, respectivamente, 0.5754 y 1.3863, así que hay que volver a interpolar linealmente:
+    \[\frac{40-25}{50-25} = \frac{P_{40}-0.5754}{1.3863-0.5754} \iff P_{40} = \frac{(40-25)(1.3863-0.5754)}{50-25}+0.5754 = 1.06194\]
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Sean $S^2_1$ y $S^2_2$ las cuasivarianzas de dos muestras aleatorias simples de tamaños $n_1=5$ y $n_2=4$ de dos distribuciones normales que tienen varianza común $\sigma^2$ pero desconocida. Calcular la probabilidad
+\[P\bigl(\bigl\{\frac{S^2_1}{S^2_2}<\frac{1}{5.2}\bigr\} \cup\bigl\{\frac{S^2_1}{S^2_2}>6.25\bigr\}\bigr)\]
+\end{exercise}
+
+\begin{resolution}
+
+Por el lema de Fischer, se sabe que
+\[\frac{(n_1-1)S^2_1}{\sigma^2} \sim \chi^2_{n_1-1} \qquad \textup{y} \qquad \frac{(n_2-1)S^2_2}{\sigma^2} \sim \chi^2_{n_2-1}\]
+Por tanto, como ambas variables son independientes,
+\[\frac{\frac{(n_1-1)S^2_1}{\sigma^2}}{\frac{(n_2-1)S^2_2}{\sigma^2}}\frac{n_2-1}{n_1-1} = \frac{S^2_1}{S^2_2} \sim F_{n_1-1,n_2-1} = F_{4,3} \qquad \textup{y} \qquad \frac{\frac{(n_2-1)S^2_2}{\sigma^2}}{\frac{(n_1-1)S^21}{\sigma^2}}\frac{n_1-1}{n_2-1} = \frac{S^2_2}{S^2_1} \sim F_{n_2-1,n_1-1} = F_{3,4}\]
+En consecuencia,
+\[\begin{aligned}[t]
+P\bigl(\bigl\{\frac{S^2_1}{S^2_2}<\frac{1}{5.2}\bigr\} \cup\bigl\{\frac{S^2_1}{S^2_2}>6.25\bigr\}\bigr) &= P\bigl(\frac{S^2_1}{S^2_2} < \frac{1}{5.2}\bigr)+P\bigl(\frac{S^2_1}{S^2_2} > 6.25\bigr) \\
+&= P\bigl(\frac{S^2_2}{S^2_1} > 5.2\bigr)+P\bigl(\frac{S^2_1}{S^2_2} > 6.25\bigr) \\
+&= 2-P\bigl(\frac{S^2_2}{S^2_1} \leq 5.2\bigr)-P\bigl(\frac{S^2_1}{S^2_2} \leq 6.25\bigr) \\
+&= 0.1545986,
+\end{aligned}\]
+donde en la primera igualdad se ha usado que los sucesos son disjuntos y en la última se han calculado las probabilidades con $R$.
+\end{resolution}
+
+\begin{exercise}
+Sea $(X_1,\mathellipsis,X_n)$ una muestra aleatoria simple de $X \sim N(\mu,\sigma)$, siendo $\mu$ conocida y $\sigma$ desconocida. Comparar las distribuciones en el muestreo, la media y la varianza de $S^2_c$ y del estadístico
+\[T=\frac{1}{n}\sum_{i=1}^n(X_i-\mu)^2\]
+\end{exercise}
+
+\begin{resolution}
+Empecemos con $S^2_c$. Por el lema de Fischer,
+\[\frac{(n-1)S^2_c}{\sigma^2} \sim \chi^2_{n-1} = Ga\bigl(\frac{n-1}{2},\frac{1}{2}\bigr)\]
+Por tanto,
+\[S^2_c \sim Ga\bigl(\frac{n-1}{2},\frac{n-1}{2\sigma^2}\bigr)\]
+En consecuencia,
+\[E(S^2_c) = \frac{\frac{n-1}{2}}{\frac{n-1}{2\sigma^2}}= \sigma^2,\]
+mientras que
+\[\textup{Var}(S^2_c) = \frac{\frac{n-1}{2}}{(\frac{n-1}{2\sigma^2})^2} = \frac{2\sigma^4}{n-1}\]
+Por otra parte, para cada $i \in \{1,\mathellipsis,n\}$, como $X_i \sim N(\mu,\sigma^2)$, entonces
+\[\frac{X_i-\mu}{\sigma} \sim N(0,1),\]
+luego
+\[\frac{(X_i-\mu)^2}{\sigma^2} \sim \chi^2_1,\]
+y por tanto,
+\[\sum_{i=1}^n\frac{(X_i-\mu)^2}{\sigma^2} \sim \chi^2_n = Ga\bigl(\frac{n}{2},\frac{1}{2}\bigr),\]
+deduciéndose que
+\[T = \frac{1}{n}\sum_{i=1}^n (X_i-\mu)^2 = \frac{\sigma^2}{n}\sum_{i=1}^n \frac{(X_i-\mu)^2}{\sigma^2} \sim Ga\bigl(\frac{n}{2},\frac{n}{2\sigma^2}\bigr)\]
+En consecuencia,
+\[E(T) = \frac{\frac{n}{2}}{\frac{n}{2\sigma^2}} = \sigma^2 \qquad \textup{y} \qquad \textup{Var}(T) = \frac{\frac{n}{2}}{(\frac{n}{2\sigma^2})^2} = \frac{2\sigma^4}{n}\]
+\end{resolution}
+
+\begin{exercise}
+Sea $X$ una variable aleatoria con distribución $N(\mu_1,\sigma_1)$, donde $\mu_1$ es conocida y $\sigma_1$ es desconocida, y sea $Y$ una variable aleatoria independiente de $X$ y con distribución $N(\mu_2,\sigma_2)$, siendo $\mu_2$ y $\sigma_2$ desconocidas. Determinar un estadístico razonable para obtener información sobre el cociente $\sigma^2_1/\sigma^2_2$ basado en muestras aleatorias independientes de $X$ e $Y$, de tamaños $n_1$ y $n_2$, respectivamente. Obtener la distribución en el muestreo.
+\end{exercise}
+
+\begin{resolution}
+Como consecuencia del lema de Fischer, se tiene que
+\[F = \frac{S^2_1\sigma^2_2}{S^2_2\sigma^2_1} \sim F_{n_1-1,n_2-1}\]
+Por otra parte, si $F \sim F_{n,m}$ y $m>2$, se sabe que
+\[E(F) = \frac{m}{m-2}\]
+Por tanto, si fuese $n_2-1>2$, es decir, $n_2>3$, se tendría
+\[E\bigl(\frac{S^2_1}{S^2_2}\bigr) = \frac{\sigma^2_1}{\sigma^2_2} E\bigl(\frac{S^2_1\sigma^2_2}{S^2_2\sigma^2_1}\bigr) = \frac{\sigma^2_1}{\sigma^2_2}\frac{n_2-1}{n_2-3} \iff \frac{\sigma^2_1}{\sigma^2_2} = E\bigl(\frac{S^2_1}{S^2_2}\bigr)\frac{n_2-3}{n_2-1}\]
+Se concluye que $S^2_1/S^2_2$ parece \textit{un estadístico razonable para obtener información sobre $\sigma^1/\sigma^2_2$}, lo que sea que esto signifique.
+\end{resolution}
+
+\end{document}

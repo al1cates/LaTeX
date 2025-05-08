@@ -1,0 +1,201 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.9in, left = 0.9in, top = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage[partialup]{kpfonts}
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\begin{center}
+    \textbf{Examen final de Ecuaciones Diferenciales II} \\
+    \textbf{Martes, 24 de enero de 2023}
+\end{center}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 1. \textit{¿Verdadero o falso? Justificar cada respuesta de manera razonada y concisa.}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Para $(E) \ x''+p(t)x'+q(t)x=0$, con $p$ y $q$ continuas en $\R$, las funciones $\varphi_1(t)=t$ y $\varphi_2(t)=t^2$ no pueden ser ambas soluciones de $(E)$ en todo $\R$.}
+    \item[\textit{(b)}] \textit{El wronskiano de $3$ soluciones cualesquiera de $(E) \ x'''-3tx'+(t^2+1)x=0$ es constante.}
+    \item[\textit{(c)}] \textit{Si $f$ es una función continua en $\R^2$, entonces la función $\varphi(t)=\sen(\frac{1}{t})$ puede ser solución de la ecuación $(E) \ x'=f(t,x)$ en el intervalo abierto $(0,\infty)$.}
+    \item[\textit{(d)}] \textit{Las soluciones maximales de $(E) \ x'=\arctan(x^{\frac{1}{3}})$ están definidas todas ellas en $\R$.}
+    \item[\textit{(e)}] \textit{El problema $(P) \, \bigl\{x'=t+x^{\frac{1}{3}}; \, x(0)=0\bigr\}$ tiene solución local única a la izquierda de 0.}
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{2mm}
+
+\begin{itemize}
+    \item[\textit{(a)}] La afirmación es verdadera. Supóngase, por reducción al absurdo, que $\varphi_1(t)=t$ y $\varphi_2(t)=t^2$ resuelven $(E) \ x''+p(t)x'+q(t)x=0$ en $\R$. Entonces, por ser $\varphi_1$ solución de $(E)$, se tiene, para todo $t \in \R$,
+    \[p(t)+tq(t)=0\]
+    Por otro lado, por ser $\varphi_2$ solución de $(E)$, para todo $t \in \R$ se verifica
+    \[2+2tp(t)+t^2q(t)=0\]
+    Ahora bien,
+    \[2+2tp(t)+t^2q(t)=2+t(2p(t)+tq(t))=2+t(p(t)+p(t)+tq(t))=2+tp(t)\]
+    Se verificaría entonces $2+tp(t)=0$ para todo $t \in \R$. En particular, para $t=0$, se tendría $2=0$, que es falso.
+    \item[\textit{(b)}] La afirmación es verdadera. Si $\varphi_1$,$\varphi_2$ y $\varphi_3$ son soluciones de $(E)$ en un intervalo $I$, entonces, por la fórmula de Abel-Liouville-Jacobi,
+    \[W(\varphi_1,\varphi_2,\varphi_3)'(t)=-a_1(t)W(\varphi_1,\varphi_2,\varphi_3)(t)\]
+    para todo $t \in I$, donde $a_1$ es el coeficiente de $x''$ en la ecuación. Como $a_1\equiv 0$, entonces $W(\varphi_1,\varphi_2,\varphi_3)'(t)=0$ para todo $t \in I$, luego el wronskiano de las tres soluciones es constante. 
+    \item[\textit{(c)}] La afirmación es falsa. Considérese la sucesión $\{\frac{1}{2\pi k}\}_{k=1}^\infty$. Como $\lim_{k \to \infty}\frac{1}{2\pi k}=0$ y además $\varphi(\frac{1}{2\pi k})=\sen(2\pi k)=0$, entonces $(0,0)$ es punto límite de la gráfica de $\varphi$ para $t \to 0$. Además, para cualquier $a>0$ y $b>0$, se tiene que $Q_{a,b}^{0,+}=[t_1,t_1+a] \times \overline{B}_{||\cdot ||_{\R^n}}(0,b) \subset \R^2$, y como $f$ es continua en $\R^2$, entonces es acotada en $Q_{a,b}^{0,+}$. Si $\varphi$ resolviese $(E)$, entonces, por el lema de Wintner (versión lateral izquierda), existiría $\lim_{t \to 0^+}\varphi(t)$, que es falso.
+    \item[\textit{(d)}] La afirmación es verdadera. Considérese la función $g \colon \R \to \R$ dada por $g(x)=\arctan(x^{\frac{1}{3}})$. Sea $\varphi \colon I \to \R$ una solución maximal de $(E)$ y veamos que $I=\R$. Como $\R^2$ es abierto, por el resultado sobre soluciones maximales con gráficas en abiertos, se tiene que $I=(a,b)$. Además, si $t^*$ es un extremo finito de $I$, entonces, o bien $\lim_{t \to t^*} |\varphi(t)| = \infty$, o bien la gráfica de $\varphi$ tiene algún punto límite para $t \to t^*$, y este y todos los puntos límite de la gráfica de $\varphi$ para $t \to t^*$ se encuentran en $\partial \R^2$. Como $\partial \R^2= \emptyset$, lo segundo es imposible; veamos que lo primero también. Supongamos primero que $t^*=a$. Fijando cualquier $t_0 \in (a,b)$, se tiene que $\varphi'=g$ es acotada en $(a,t_0]$, luego, por el resultado sobre soluciones con derivada acotada, $\varphi$ es acotada en $(a,t_0]$, luego no $|\varphi|$ puede tener límite infinito en $a$. Análogamente se prueba que $t^*=b$ es imposible. La conclusión es que $I$ no puede tener extremos finitos, es decir, que $I=\R$.
+    \item[\textit{(e)}] La afirmación es verdadera. En primer lugar, para cada $t \in \R$, la función $f_t \colon \R \to \R$ dada por $f_t(x)=t+x^{\frac{1}{3}}=f(t,x)$ es creciente a la izquierda de $0$, así que, por el criterio de unicidad de Peano, el problema $(P)$ tiene, a lo sumo, una solución a la izquierda de $0$. Además, como $f\in \mathcal{C}(\R^2,\R)$, para $a,b>0$ cualesquiera, se tiene que $Q_{a,b}^-=[-a,0]\times \overline{B}_{||\cdot||_{\R^n}}(0,b) \subset D=\R^2$ y $f \in \mathcal{C}(Q_{a,b}^-,\R)$, luego, por el TEL, el problema $(P)$ tiene solución local a la izquierda de 0, que además es única por lo razonado antes.
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 2. \textit{Resolver el siguiente problema de datos iniciales, justificando los cálculos con resultados teóricos vistos en clase:}
+
+\[(P) \begin{cases}
+    y'''-6y''+11y'-6y=-e^t,\\
+    y(0)=0,\ y'(0)=0,\ y''(0)=-1
+\end{cases}\]
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+Considérense la ecuación $(E) \ y'''-6y''+11y'-6y=-e^t$, y la ecuación homogénea asociada, $(E_H) \ y'''-6y''+11y'-6y=0$. La ecuación $(E)$ es una ecuación diferencial lineal de orden $3$ con coeficientes constantes. Sabemos que su solución general es $\varphi(t)=\varphi_h(t)+\varphi_p(t)$, donde $\varphi_h$ es la solución general de $(E_H)$, e $\varphi_p$ es una solución particular de $(E_H)$.
+
+\vspace{2mm}
+
+Se procede primero al cálculo de $\varphi_h$. La ecuación característica de $(E_H)$ es $\lambda^3-6y^2+11\lambda-6=0$. Hallamos sus raíces: se tiene que $\lambda^3-6y^2+11\lambda-6=(\lambda-1)(\lambda^2-5\lambda+6)=(\lambda-1)(\lambda-2)(\lambda-3)$, luego los autovalores de $(E_H)$ son $\lambda_1=1,\lambda_2=2$ y $\lambda_3=3$, todos reales y de multiplicidad $1$. Por tanto, un sistema fundamental de soluciones reales de $(E_H)$ es
+\[\mathcal{F_\R}=\{e^t,e^{2t},e^{3t}\},\]
+luego la solución general de $(E_H)$ sería
+\[\varphi_h(t)=c_1e^t+c_2e^{2t}+c_3e^{3t},\quad c_1,c_2,c_3 \in \R\]
+
+A continuación, se va a echar mano del método de los coeficientes indeterminados para hallar una solución particular de $(E)$. Se observa que el término independiente de $(E)$ es de la forma 
+\[a_0(t)=e^{\alpha t}(q_1(t)\cos(\beta t)+q_2(t)\sen(\beta t)),\] con $\alpha=1$, $\beta=0$, y donde $q_1(t)=-1$, $q_2(t)=0$ son polinomios de grado 0. En consecuencia, $(E)$ posee una solución particular del tipo
+\[\varphi_p(t)=t^{m(\mu)}e^{\alpha t}(Q_1(t)\cos(\beta t)+Q_2(t)\sen(\beta t)),\]
+donde $Q_1(t)=A$ y $Q_2(t)=B$ son polinomios reales de grado $0$ y $m(\mu)$ es la multiplicidad de $\mu=\alpha+i\beta = 1$ como autovalor de $(E_H)$. Se tiene entonces
+\[\begin{aligned}[t]
+    \varphi_p(t)&=Ate^{t} \\
+    \varphi'_p(t)&=Ae^{t}+Ate^t \\
+    \varphi''_p(t)&=Ae^t+Ae^t+Ate^t=2Ae^t+Ate^t \\
+    \varphi'''_p(t)&=2Ae^t+Ae^t+Ate^t=3Ae^t+Ate^t,
+\end{aligned}\] luego
+\[
+\begin{aligned}[t]
+    \varphi_p \textup{ es solución de } (E) &\iff \varphi_p'''(t)-6\varphi_p''(t)+11\varphi_p'(t)-6\varphi_p(t)=-e^t \\
+    &\iff 3Ae^t+Ate^t-12Ae^t-6Ate^t+11Ae^t+11Ate^t-6Ate^t=-e^t \\
+    &\iff 2Ae^t =-e^t \\
+    &\iff A=-\frac{1}{2}
+\end{aligned}
+\]
+
+Tenemos entonces que $\varphi_p(t)=-\frac{1}{2}te^t$ es solución de $(E)$, así que la solución general de $(E)$ no es más que
+\[\varphi(t)=c_1e^t+c_2e^{2t}+c_3e^{3t}-\frac{1}{2}te^t, \quad c_1,c_2,c_3 \in \R\]
+
+Por último, queda hallar las constantes $c_1,c_2,c_3 \in \R$ que consigan que se satisfagan los datos iniciales. Se tiene que
+\[
+\begin{aligned}[t]
+    \varphi'(t)&=c_1e^t+2c_2e^{2t}+3c_3e^{3t}-\frac{1}{2}e^t-\frac{1}{2}te^t; \\
+    \varphi''(t)&= c_1e^t+4c_2e^{2t}+9c_3e^{3t}-e^t-\frac{1}{2}te^t,
+\end{aligned}
+\]
+asíque
+\[\left\{\begin{alignedat}{1}
+    \varphi(0) &=\phantom{-}0 \\
+    \varphi'(0) &=\phantom{-}0 \\
+    \varphi''(0)&=-1
+\end{alignedat} \right.\iff \left\{\begin{alignedat}{8}
+    &c_1 & {}+{} &  &c_2 & {}+{} &  &c_3 = 0 \\
+    &c_1 & {}+{} & 2&c_2 & {}+{} & 3&c_3 = 1/2 \\
+    &c_1 & {}+{} & 4&c_2 & {}+{} & 9&c_3 = 0
+\end{alignedat}\right. \iff
+\left\{\begin{alignedat}{8}
+    c_1 & = -5/4\\
+    c_2 & =  2 \\
+    c_3 & = -3/4
+\end{alignedat}\right.\]
+
+Se concluye que la única solución del problema dado es $\varphi(t)=-\frac{5}{4}e^t+2e^{2t}-\frac{3}{4}e^{3t}-\frac{1}{2}te^t$, definida en todo $\R$.
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 3. \textit{Probar, mencionando los resultados teóricos que se apliquen, que el problema}
+\[(P) \begin{cases}
+    x'=\frac{1}{t}x^2\sen(x) \\
+    x(1)=1
+\end{cases}\]
+\textit{tiene solución maximal única definida en $(0,\infty)$.} Ayuda: \textit{para llegar hasta 0 o $\infty$, quizás haya que conocer algunas soluciones constantes de la ecuación asociada a $(P)$.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+Considérese la función $f \colon D \to \R$ definida mediante $f(t,x)=\frac{1}{t}x^2\sen(x)$, donde $D=(0,\infty) \times \R$. Como $f \in \mathcal{C}^1(D,\R)$, entonces $f \in \mathcal{C}(D,\R) \cap\textup{Lip}_{\textup{loc}}(x,D,\R)$. Además, $(1,1) \in \mathring{D}$, así que, por el TEUL, el problema $(P)$ tiene solución local única, que puede extenderse de manera única (gracias a la PUG, que también se verifica por tenerse $f \in \mathcal{C}(D,\R) \cap\textup{Lip}_{\textup{loc}}(x,D,\R)$) a una solución maximal $\varphi \colon I \to \R$.
+
+\vspace{2mm}
+
+Por otra parte, se observa que la función nula es solución de $(E) \ x'=f(t,x)$ pero no de $(P)$. Como se verifica la PUG, la gráfica de $\varphi$ no puede cortar a la gráfica de la función nula, o, en otras palabras, $\varphi(t) \neq 0$ para todo $t \in I$. Como $\varphi(1)=1>1$, por continuidad, ha de ser $\varphi(t)>0$ para todo $t \in I$. Pero también sabemos que la función constante $\pi$ es solución de $(E) \ x'=f(t,x)$ y no de $(P)$, así que la gráfica de $\varphi$ tampoco puede cortar a la de la función constante $\pi$. Y como $\varphi(1)=1 <\pi$, entonces para todo $t \in I$ se tiene que $0<\varphi(t)<\pi$.
+
+\vspace{2mm}
+
+
+Asimismo, como $D$ es abierto, por el resultado sobre soluciones maximales con gráficas en abiertos, puede asegurarse que $I=(a,b)$, con $0\leq a<1<b \leq \infty$. Y, por el mismo resultado, si $b$ fuese un extremo finito de $I$, entonces se verifica una de las dos siguientes circunstancias:
+\begin{itemize}
+    \item[\textit{(i)}] $\displaystyle \lim_{t \to b^-} |\varphi(t)| = \lim_{t \to b^-} \varphi(t)=\infty$.
+    \item[\textit{(ii)}] La gráfica de $\varphi$ tiene un punto límite para $t \to b$, y este y todos los puntos límite de la gráfica de $\varphi$ para $t \to b$ están en $\partial D$.
+\end{itemize}
+
+Nótese que $(i)$ es manifiestamente falso por tenerse $0<\varphi(t)<\pi$ para todo $t \in I$. Y si se diese $(ii)$, como $\partial D = \{0\} \times \R$, los puntos límite de la gráfica de $\varphi$ para $t \to b$ serían de la forma $(0,x)$ con $ x \in \R$, y esto es imposible porque $b > 0$. Por tanto, ha de ser $b = \infty$.
+
+\vspace{2mm}
+
+El objetivo ahora es probar que $a=0$, lo que terminará el ejercicio. Por reducción al absurdo, supóngase que $a>0$, y considérese la función $\varphi^- \colon (a,1] \to \R$ dada por $\varphi^-(t)=\varphi(t)$. Sabemos que $0<\varphi^-(t)<\pi$ para todo $t \in (a,1]$, luego $\Gamma = \textup{gráf}(\varphi^-) \subset [a,1] \times [0,\pi] =K \subset D$. Como $f$ es continua en $D$, entonces también lo es en el compacto $K$, así que $f$ es acotada en $K$. Ahora bien, por ser $a>-\infty$, el resultado sobre soluciones con derivada acotada nos brindaría la existencia de $A=\lim_{t \to a^+} \varphi^-(t) \in [0,\pi]$. Y como $(a,A) \in K \subset D$, entonces $\varphi^-$ admite una prolongación estricta a la izquierda, lo que contradice que $\varphi$ sea solución maximal del problema $(P)$.
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 4. \textit{Realizar un estudio, lo más exhaustivo posible, de las soluciones maximales de la ecuación}
+\[(E) \ x'=1-\cos(x),\]
+\textit{y esbozar el aspecto de las gráficas de estas posibles soluciones}.
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+Si se considera la función $g \colon \R \to \R$ definida por $g(x)=1-\cos(x)$, tenemos que la ecuación $(E) \ x'=g(x)$ es una ecuación diferencial escalar autónoma de primer orden. Primero se hallan las soluciones constantes:
+\[1-\cos(x)=0 \iff \cos(x)=1 \iff x=2\pi k, \quad k \in \Z\]
+
+Por tanto, para cada $k \in \Z$, la función $\varphi_k \equiv 2\pi k$ es una solución constante de $(E)$. Además, como $(E)$ verifica la PUG en $\R^2$ (pues $g \in \mathcal{C}^1(\R,\R)$), la gráfica de cualquier solución maximal no constante no corta a la gráfica de ninguna función $\varphi_k$. En otras palabras, si $\varphi \colon I \to \R$ es una solución maximal de $(E)$, entonces existe $k \in \Z$ tal que $\textup{gráf}(\varphi) \subset D_k$, donde, para cada $k \in \Z$,
+\[D_k=\R \times (2\pi (k-1),2\pi k)\]
+
+En consecuencia, la gráfica de cualquier solución maximal de $(E)$ se encuentra encerrada entre la gráfica de dos soluciones constantes, luego $I = \R$. Además, como para todo $x \in \R$ se cumple $\cos(x) \leq 1$, entonces $\varphi'(t)=1-\cos(\varphi(t))>0$ para todo $t \in \R$ (la desigualdad es estricta porque $2\pi (k-1)<\varphi(t)<2\pi k$ para todo $t \in \R$ y, en consecuencia, $\cos(\varphi(t))< 1$ para todo $t \in \R$). Por tanto, $\varphi$ es estrictamente creciente, así que existen $A=\lim_{t \to -\infty} \varphi(t)$ y $B=\lim_{t \to \infty} \varphi(t)$, y además se verifica $A,B \in \{2\pi(k-1), 2\pi k\}$ (no puede ser $2\pi (k-1)<A,B<2\pi k$ porque se obtendrían soluciones constantes de $(E)$ distintas de las descritas anteriormente). Por tanto, el crecimiento estricto de $\varphi$ permite afirmar que $A=2\pi(k-1)$ y $B=2\pi k$.
+
+\end{document}

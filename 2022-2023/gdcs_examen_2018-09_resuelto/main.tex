@@ -1,0 +1,177 @@
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+
+\parindent=0pt
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\small
+
+\textbf{Geometría Diferencial de Curvas y Superficies} \hfill \textbf{Examen de septiembre de 2018}
+\linebreak
+
+\noindent \textbf{1. } \textit{Considérese la curva $\alpha \colon \R \to \R^3$ definida por $\alpha(t) = (t-t^3/3,t^2,t+t^3/3)$.}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Pruébese que $\alpha$ es una hélice, y calcula su eje y su ángulo.}
+    \item[\textit{(b)}] \textit{Calcula su plano osculador en cada punto.}
+\end{itemize}
+
+
+\vspace{2mm}
+\noindent \textbf{(a)} Una curva $\alpha \colon I \to \R^3$ es una hélice cuando el vector tangente en cada punto forma un ángulo constante con una dirección fija, es decir, cuando existe un vector $v \in \R^3$ unitario y una constante $\alpha \in [0,2\pi)$ verificando $\langle T(s), v \rangle = \cos \alpha$ para todo $s \in I$. Se considera la curva
+
+\[
+\begin{aligned}[t]
+\alpha \colon \R &\longrightarrow \R^3 \\
+t &\longmapsto \alpha(t) = \biggl(t-\frac{t^3}{3},t^2,t+\frac{t^3}{3}\biggr)
+\end{aligned}
+\]
+Se tiene que
+\[T(s) = \frac{\alpha'(s)}{||\alpha'(s)||} = \frac{1}{\sqrt{2}(1+t^2)}( 1-t^2,2t, 1+t^2)\]
+Sea $v = (0,0,1)$. Se tiene que
+\[\frac{\langle T(s), v \rangle}{||T(s)|| \, ||v||} = \frac{1+t^2}{\sqrt{2}(1+t^2)} = \frac{1}{\sqrt{2}} = \cos \frac{\pi}{4}\]
+luego $\alpha$ es una hélice de eje $(0,0,1)$ y ángulo $\frac{\pi}{4}$.
+
+\vspace{2mm}
+\noindent \textbf{(b)} El plano osculador de $\alpha$ en el punto $s$ es el plano generado por $\{T(s),N(s)\}$ que pasa por $\alpha(s)$. La ecuación de dicho plano será entonces
+\[A(x-x(s))+B(y-y(s))+C(z-z(s)) = 0\]
+donde $B(s) = (A,B,C)$ y $\alpha(s) = (x(s),y(s),z(s))$. El vector binormal es
+\[B(s) = \frac{\alpha'(s) \wedge \alpha''(s)}{||\alpha'(s) \wedge \alpha''(s)||}\]
+y lo que queda de ejercicio es hacer un par de cuentas.
+
+\vspace{4mm}
+\noindent \textbf{2.} \textit{Considérense las superficies
+\[S = \{(x,y,z) \in \R^3 \colon z = x^2\} \qquad \qquad S' = \{(x,y,z) \in \R^3 \colon z = 0\}\]}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Demuéstrese que son difeomorfas.}
+    \item[\textit{(b)}] \textit{Compruébese si el difeomorfismo hallado en el apartado anterior es una isometría.}
+\end{itemize}
+
+\vspace{2mm}
+\noindent \textbf{(a)} Se trata de comprobar que la aplicación
+\[
+\begin{aligned}[t]
+f \colon S &\longrightarrow S' \\
+(x,y,z) & \longmapsto f(x,y,z) = (x,y,0)
+\end{aligned}
+\]
+es un difeomorfismo. La inyectividad, sobreyectividad y diferenciabilidad de $f$ son inmediatas. También se comprueba fácilmente que la inversa es
+\[
+\begin{aligned}[t]
+f^{-1} \colon S' &\longrightarrow S \\
+(x,y,z) & \longmapsto f(x,y,z) = (x,y,x^2)
+\end{aligned}
+\]
+que evidentemente es diferenciable. Por tanto, $S$ y $S'$ son difeomorfas.
+
+\vspace{2mm}
+\noindent \textbf{(b)} Hay que investigar si se verifica o no
+\[\langle df_pv,df_pw \rangle = \langle v,w \rangle\]
+para todo $p \in S$ y para todos $v,w \in T_pS$. Dado $p \in S$, primero se hallará $df_p$. Sea $v \in T_pS$ y sea $\alpha$ una curva con componentes $x,y,z$ tal que $\alpha(0)=p, \alpha'(0)=v$. Entonces
+\[df_p(v) = (f \circ \alpha)'(0) = (x(t),y(t),0)'(0) = (x'(0),y'(0),0) = (v_1,v_2,0)\]
+Por tanto, para todos $v,w \in T_pS$ se tiene que
+\[\langle df_pv, df_pw \rangle = v_1w_1+v_2w_2\]
+que no coincide con $\langle v,w \rangle = v_1w_1+v_2w_2+v_3w_3$ en todos los puntos del plano tangente. En consecuencia, $f$ no es una isometría.
+
+\vspace{4mm}
+\noindent \textbf{3. } \textit{Considérese el subconjunto de $\R^3$
+\[S =\{(x,y,z) \in \R^3  \colon 2x^2-y^2-2z^2 = 2\}\]}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Pruébese que es una superficie regular y proporciona una orientación suya.}
+    \item[\textit{(b)}] \textit{Hállese el plano tangente en el punto $p = (1,0,0)$.}
+    \item[\textit{(c)}] \textit{Calcúlense las direcciones y curvaturas principales de $S$ en $p$.}
+\end{itemize}
+
+\noindent \textbf{(a) } Se tiene que $S = f^{-1}\{0\}$, donde $f \colon \R^3 \to \R$ es la función dada por $f(x,y,z) = 2x^2-y^2-2z^2-2$. Se trata de una función diferenciable en un abierto de $\R^3$ cuya matriz jacobiana es
+\[Jf(x,y,z) =\begin{pmatrix}
+    4x & -2y & -4z
+\end{pmatrix}\]
+que solo se anula en el punto $(0,0,0)$. Como $f(0,0,0) = -2 \neq 0$, entonces $(0,0,0) \notin f^{-1}\{0\}$ y puede asegurarse que $0$ es un valor regular de $f$. Por tanto, $S$ es una superficie regular.
+
+\vspace{2mm}
+\noindent \textbf{(b) } Como $S$ es la imagen inversa de un valor regular de $f$, el plano tangente en el punto $p = (1,0,0)$ es $T_pS = \ker df_p$. La matriz jacobiana en el punto $p$ es
+\[Jf(1,0,0) = \begin{pmatrix}
+    4 & 0 & 0
+\end{pmatrix}\]
+así que la aplicación $df_p$ está dada por
+\[df_p(v)  = \begin{pmatrix}
+    4 & 0 & 0
+\end{pmatrix} \begin{pmatrix}
+    v_1 \\
+    v_2 \\
+    v_3 
+\end{pmatrix} = 4v_1\]
+Por tanto, $T_pS$ es el plano de ecuación $x = 0$.
+
+\vspace{2mm}
+\noindent \textbf{(c)} La superficie regular $S$ se puede recubrir mediante las cartas $(\R^2,\varphi)$ y $(\R^2,\psi)$, donde
+\[
+\begin{aligned}[t]
+\varphi \colon \R^2 &\longrightarrow \R^3 \\
+(u,v) & \longmapsto \varphi(u,v) = \biggl(\sqrt{1+\frac{u^2}{2}+v^2}, u,v\biggr)
+\end{aligned} \qquad  \begin{aligned}[t]
+\psi \colon \R^2 &\longrightarrow \R^3 \\
+(u,v) & \longmapsto \psi(u,v) = \biggl(-\sqrt{1+\frac{u^2}{2}+v^2}, u,v\biggr)
+\end{aligned}
+\]
+Como $p = (1,0,0) = \varphi(0,0) \in \varphi(\R^2)$, para hallar las direcciones y curvauras principales se trabajará con la primera de las cartas. Derivando,
+\[\varphi_u = \biggl(\frac{u}{2(1+\frac{u^2}{2}+v^2)^{1/2}} ,1,0 \biggr) \qquad \varphi_v = \biggl(\frac{v}{2(1+\frac{u^2}{2}+v^2)^{1/2}},0,1 \biggr)\]
+Derivando otra vez, 
+\[
+\begin{aligned}[t]
+\varphi_{uu} &= \biggl( \frac{1}{2(1+\frac{u^2}{2}+v^2)^{1/2}}-\frac{u^2}{4(1+\frac{u^2}{2}+v^2)^{3/2}},0,0\biggr) \\
+\varphi_{vv} &= \biggl( \frac{1}{2(1+\frac{u^2}{2}+v^2)^{1/2}}-\frac{v^2}{4(1+\frac{u^2}{2}+v^2)^{3/2}},0,0\biggr) \\
+\varphi_{uv} &= \biggl(-\frac{uv}{4(1+\frac{u^2}{2}+v^2)^{3/2}},0,0\biggr) \\
+\end{aligned}
+\]
+Sustituyendo $u = 0, v =0$, quedaría
+\[\varphi_u = (0,1,0) \qquad \varphi_v=(0,0,1) \qquad \varphi_{uu} = (1/2,0,0) \qquad \varphi_{vv} = (1/2,0,0) \qquad \varphi_{uv} = (0,0,0)\]
+En consecuencia,
+\[E = 1 \qquad F = 0 \qquad G = 1 \qquad e = \frac{1}{2} \qquad f = 0 \qquad g = \frac{1}{2}\]
+Para calcular las direcciones y curvaturas principales, se hallará la matriz de $d\mathcal{N}_p$ en la base coordenada mediante las ecuaciones de Weingarten:
+\[
+a_{11} = \frac{fF-eG}{EG-F^2} = -\frac{1}{2} \qquad
+a_{12} = \frac{gF-fG}{EG-F^2} = 0 \qquad
+a_{21} = \frac{eF-fE}{EG-F^2} = 0 \qquad
+a_{22} = \frac{fF-gE}{EG-F^2} = -\frac{1}{2}
+\]
+De aquí se deduce que los autovalores del operador de Weingarten son $\frac{1}{2}$, y los correspondientes autovectores son los vectores de la base coordenada. En otras palabras, las curvaturas principales son
+\[k_1(p)=\frac{1}{2} \qquad k_2(p) = \frac{1}{2}\]
+y las direcciones principales,
+\[e_1 = (0,1,0) \qquad e_2 = (0,0,1)\]
+
+\vspace{4mm}
+\textbf{4.} \textit{Pruébese que la suma de las curvaturas normales en un punto de una superficie regular a lo largo de cualquier par de direcciones ortogonales es constante.} 
+
+\vspace{2mm}
+Sea $S$ una superficie regular y sea $p \in S$. Considérense dos direcciones ortogonales, es decir, dos vectores $v,w \in T_pS$ unitarios tales que $\langle v,w \rangle =0$, y veamos que $k_{n,p}(v)+k_{n,p}(w)$ es constante. Sea $\{e_1,e_2\}$ una base ortonormal de autovectores del operador de Weingarten. Como $v,w$ son unitarios, existen $\theta_1,\theta_2 \in [0,2\pi)$ tales que
+\[v = \cos\theta_1 \, e_1+\sen\theta_1 \, e_2 \qquad w = \cos\theta_2 \, e_1+\sen\theta_2 \, e_2\]
+y como son ortogonales, entonces
+\[
+\langle \cos\theta_1 \, e_1+\sen\theta_1 \, e_2, \cos\theta_2 \, e_1+\sen\theta_2 \, e_2 \rangle = 0 \iff \cos \theta_1 \cos \theta_2 + \sen\theta_1 \sen\theta_2 = 0
+\]
+luego $\cos(\theta_1-\theta_2) = 0$, es decir, $\theta_1-\theta_2 = \frac{\pi}{2}+k\pi$, donde $k \in \{0,1\}$. Supóngase que $\theta_1 = \theta_2 + \frac{\pi}{2}$. Entonces, utilizando la fórmula de Euler,
+\[
+\begin{aligned}[t]
+    k_{n,p}(v)+k_{n,p}(w) &= \cos^2\theta_1 \, k_1(p)+\sen^2\theta_1 \, k_2(p)+\cos^2\theta_2 \, k_1(p)+\sen^2\theta_2 \, k_2(p) \\
+    &= \cos^2\biggl(\theta_2+\frac{\pi}{2} \biggr) \, k_1(p)+\sen^2 \biggl(\theta_2+\frac{\pi}{2} \biggr) \, k_2(p) + \cos^2\theta_2 \, k_1(p)+\sen^2\theta_2 \, k_2(p) \\
+    &= \sen^2\theta_2 \, k_1(p)+\cos^2\theta_2 \, k_2(p) + \cos^2\theta_2 \, k_1(p)+\sen^2\theta_2 \, k_2(p) \\
+    &= k_1(p)+k_2(p)
+\end{aligned}
+\]
+así que la suma de las curvaturas normales de $S$ en el punto $p$ a lo largo de dos direcciones ortogonales es constante, que es lo que quería probarse. El caso $\theta_1 = \theta_2 + \frac{3\pi}{2}$ es totalmente análogo.
+\end{document}

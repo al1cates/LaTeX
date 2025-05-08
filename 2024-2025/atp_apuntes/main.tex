@@ -1,0 +1,1435 @@
+\documentclass[a4paper, 11pt, extrafontsizes]{memoir}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{titlingpage*}
+
+    \vspace*{0.5cm}
+  
+    \begin{tikzpicture}[remember picture,overlay]
+    
+        \fill[black] ($(current page.north west)-(0cm,4cm)$) rectangle ($(current page.south east)-(0cm,-20.75cm)$);
+    
+    \end{tikzpicture}
+    
+    \centering
+    
+    \vspace{\baselineskip}
+
+    {\fontsize{27.5pt}{0pt}\selectfont\textbf{\color{white}Ampliación de}}
+
+    \vspace{\baselineskip}
+
+    {\fontsize{27.5pt}{0pt}\selectfont\textbf{\color{white}Teoría de la Probabilidad}}
+
+    \vspace{5\baselineskip}
+    
+    {\color{black}\itshape\bfseries{
+    
+    Universidad de Málaga
+
+    \vspace{0.5\baselineskip}
+    
+    Grado en Matemáticas
+    
+    \vspace{0.5\baselineskip}
+
+    Curso 2024-2025
+    
+    }}
+    
+\end{titlingpage*}
+  
+\tableofcontents*
+\thispagestyle{empty}  
+
+\chapter{Introducción}
+
+Este tema no es más que un recordatorio de varias nociones elementales de la teoría de la probabilidad que se deben haber estudiado ya en unas cuantas asignaturas distintas.
+
+\section{Espacio de probabilidad}
+
+\begin{definition}
+    Sea $\Omega$ un conjunto no vacío y sea $\mathcal{A} \subset \mathcal{P}(\Omega)$. Se dice que $\mathcal{A}$ es una \emph{$\sigma$-álgebra sobre $\Omega$} si se verifica lo siguiente:
+    \begin{enumerate}
+        \item $\emptyset \in \mathcal{A}$.
+        \item Si $A \in \mathcal{A}$, entonces $A^c \in \mathcal{A}$.
+        \item Si $\{A_i\}_{i=1}^\infty$ es una sucesión de elementos de $\mathcal{A}$, entonces $\bigcup_{i=1}^\infty A_i \in \mathcal{A}$.
+    \end{enumerate}
+    La dupla $(\Omega, \mathcal{A})$ se denomina \emph{espacio medible}, y los elementos de $\mathcal{A}$, \emph{conjuntos medibles}.
+\end{definition}
+
+\begin{definition}
+    Sea $(\Omega, \mathcal{A})$ un espacio medible. Una aplicación $\mu \colon \mathcal{A} \to [0,\infty]$ se dice que es una \emph{medida} si se verifica lo siguiente:
+    \begin{enumerate}
+        \item $\mu(\emptyset) = 0 $.
+        \item Si $\{A_i\}_{i=1}^\infty$ es una sucesión de conjuntos medibles disjuntos dos a dos, entonces
+        \[\mu\biggl( \, \bigcup_{i=1}^\infty A_i\biggr) = \sum_{i=1}^\infty \mu(A_i).\]
+    \end{enumerate}
+    La terna $(\Omega, \mathcal{A}, \mu)$ se denomina \emph{espacio de medida}.
+\end{definition}
+
+\begin{proposition}
+    Sea $(\Omega, \mathcal{A},\mu)$ un espacio de medida.
+    \begin{enumerate}
+        \item Si $A,B \in \mathcal{A}$ y $A \subset B$, entonces $\mu(A) \leq \mu(B)$.
+        \item Si $A,B \in \mathcal{A}$, $A \subset B$ y $\mu(A)< \infty$, entonces $\mu(B \setminus A) = \mu(B)-\mu(A)$.
+        \item Si $\{A_i\}_{i=1}^\infty$ es una sucesión de conjuntos medibles tal que $A_i \subset A_{i+1}$ para todo $i \in \N$, entonces
+        \[\mu\biggl(\, \bigcup_{i=1}^\infty A_i \biggr) = \lim_{i \to \infty} \mu(A_i).\]
+        \item Si $\{A_i\}_{i=1}^\infty$ es una sucesión de conjuntos medibles tal que $A_i \supset A_{i+1}$ para todo $i \in \N$ y $\mu(A_1) < \infty$, entonces
+        \[\mu\biggl(\, \bigcap_{i=1}^\infty A_i \biggr) = \lim_{i \to \infty} \mu(A_i).\]
+        \item Si $\{A_i\}_{i=1}^\infty$ es una sucesión de conjuntos medibles, entonces
+        \[\mu\biggl(\, \bigcup_{i=1}^\infty A_i \biggr) \leq \sum_{i=1}^\infty \mu(A_i).\]
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}
+    Sea $(\Omega, \mathcal{A}, \mu)$ un espacio de medida.
+    \begin{enumerate}
+        \item Si existe una sucesión $\{A_i\}_{i=1}^\infty$ de elementos de $\mathcal{A}$ con $\Omega = \bigcup_{i=1}^\infty A_i$ y $\mu(A_i) < \infty$ para cada $i \in \N$, se dice que $\mu$ es una \emph{medida $\sigma$-finita} y que $(\Omega,\mathcal{A},\mu)$ es un \emph{espacio de medida $\sigma$-finita}.
+        \item Si $\mu(\Omega) < \infty$, se dice que $\mu$ es una \emph{medida finita} y que $(\Omega,\mathcal{A},\mu)$ es un \emph{espacio de medida finita}.
+        \item Si $\mu(\Omega) = 1$, se dice que $\mu$ es una \emph{medida de probabilidad} y que $(\Omega,\mathcal{A},\mu)$ es un \emph{espacio de probabilidad}.
+    \end{enumerate}
+\end{definition}
+
+Por motivos evidentes, en un espacio de probabilidad la medida se suele denotar por $P$ en lugar de $\mu$. Además, a los conjuntos medibles de un espacio de probabilidad también se les conoce como \emph{sucesos}.
+
+\begin{example}
+    Sea $\Omega$ un conjunto finito y sea $\mathcal{A} = \mathcal{P}(\Omega)$. La aplicación $\mu \colon \mathcal{A} \to [0,1]$ definida por
+    \[\mu(A)= \frac{\#A}{\#\Omega}\]
+    es una medida de probabilidad, conocida como \emph{medida uniforme}.
+\end{example}
+
+\begin{example}
+    Sea $\Omega$ un conjunto numerable, sea $\mathcal{A} = \mathcal{P}(\Omega)$, sea $\{p_\omega\}_{\omega \in \Omega}$ una sucesión de números reales no negativos y sea $\mu \colon \mathcal{A} \to [0,\infty]$ la función definida por
+    \[\mu(A) = \sum_{\omega \in A}p_\omega.\]
+    Se prueba fácilmente que $\mu$ es una medida (no necesariamente de probabilidad). En caso de que sea $p_w = 1$ para todo $\omega \in \Omega$, a $\mu$ se le conoce como \textit{{medida de conteo}}.
+\end{example}
+
+\begin{example}\label{eje:1.1.7}
+    Sea $\Omega$ un conjunto no vacío, sea $\mathcal{A} = \mathcal{P}(\Omega)$, sea $\omega \in \Omega$ y sea $\delta_\omega \colon \mathcal{A} \to [0,1]$ la función dada por
+    \[\delta_\omega(A) = \begin{cases}
+        1 & \text{si } \omega \in A, \\
+        0 & \text{si } \omega \not\in A.
+    \end{cases}\]
+    Se prueba fácilmente que $\delta_\omega$ es una medida de probabilidad, conocida como \textit{delta de Dirac}.
+\end{example}
+
+\begin{definition}
+    Sea $\Omega$ un conjunto no vacío y sea $\mathcal{E} \subset \mathcal{P}(\Omega)$. A la menor $\sigma$-álgebra que contiene a $\mathcal{E}$ se le conoce como \emph{$\sigma$-álgebra generada por $\mathcal{E}$}, y se le denota por $\sigma(\mathcal{E})$.
+\end{definition}
+
+Se demuestra que la intersección de una familia arbitraria de $\sigma$-álgebras sobre un conjunto no vacío $\Omega$ es también una $\sigma$-álgebra sobre $\Omega$, de donde se deduce que $\sigma(\mathcal{E})$ es la intersección de todas las $\sigma$-álgebras sobre $\Omega$ que contienen a $\mathcal{E}$.
+
+\begin{definition}
+    Dado un espacio topológico $(\Omega, \tau)$, a la $\sigma$-álgebra generada por $\tau$ se le conoce como \emph{$\sigma$-álgebra de Borel de $\Omega$}, y se le denota por $\mathcal{B}_\Omega$.
+\end{definition}
+
+Siempre que se hable de la $\sigma$-álgebra de Borel de $\R$ o de $\R^n$, se entenderá que la topología que hay detrás es la topología usual. A $\mathcal{B}_\R$ y $\mathcal{B}_{\R^n}$ se les suele denotar por $\mathcal{B}$ y $\mathcal{B}^n$, respectivamente.
+
+\begin{proposition}
+    La $\sigma$-álgebra de Borel de $\R$ junto con la topología usual está generada por cada una de las siguientes familias de intervalos:
+    \begin{enumerate}
+        \item $\mathcal{E}_1 = \{(a,b) \colon a,b\in \R \}$.
+        \item $\mathcal{E}_2 = \{[a,b) \colon a,b\in \R \}$.
+        \item $\mathcal{E}_3 = \{(a,b] \colon a,b\in \R \}$.
+        \item $\mathcal{E}_4 = \{[a,b] \colon a,b\in \R \}$.
+        \item $\mathcal{E}_5 = \{(a,\infty) \colon a\in \R \}$.
+        \item $\mathcal{E}_6 = \{[a,\infty) \colon a\in \R \}$.
+        \item $\mathcal{E}_7 = \{(-\infty,b) \colon b\in \R \}$.
+        \item $\mathcal{E}_8 = \{(-\infty,b] \colon b\in \R \}$.
+    \end{enumerate}
+\end{proposition}
+
+Por la densidad de $\Q$ en $\R$, este resultado sigue valiendo si todos los extremos de los intervalos se toman en $\Q$. En $\R^n$ se tiene un resultado totalmente análogo.
+
+En un espacio de medida $(\Omega,\mathcal{A},\mu)$ verificando ciertas hipótesis, no va a ser necesario dar la imagen por $\mu$ de todos los elementos de $\mathcal{A}$ para que $\mu$ quede totalmente determinada.
+
+\begin{definition}
+    Sea $\Omega$ un conjunto no vacío y sea $\mathcal{E} \subset \mathcal{P}(\Omega)$. Se dice que $\mathcal{E}$ es un \emph{$\pi$-sistema} si para todos $A,B \in \mathcal{E}$ se tiene que $A \cap B \in \mathcal{E}$.
+\end{definition}
+
+\begin{theorem}
+    Sea $(\Omega,\mathcal{A})$ un espacio medible y sean $\mu_1, \mu_2 \colon \mathcal{A} \to [0,\infty]$ dos medidas tales que $\mu_1(\Omega) = \mu_2(\Omega) < \infty$. Si $\mathcal{E}$ es un $\pi$-sistema con $\sigma(\mathcal{E}) = \mathcal{A}$ y $\mu_1=\mu_2$ en $\mathcal{E}$, entonces $\mu_1 = \mu_2$ en $\mathcal{A}$.
+\end{theorem}
+
+En particular, este resultado afirma que en un espacio de probabilidad $(\Omega,\mathcal{A},P)$, la medida de probabilidad queda totalmente determinada por los valores que toma en cualquier $\pi$-sistema que genere $\mathcal{A}$.
+
+\begin{example}
+Considérese el espacio medible $(\R,\mathcal{B})$, y sea $\mathcal{E} = \{(-\infty,x] \colon x \in \R\}$. Como $\mathcal{E}$ es un $\pi$-sistema que genera $\mathcal{B}$, cualquier medida de probabilidad sobre $\mathcal{B}$ queda totalmente determinada por los valores que toma en intervalos de la forma $(-\infty,x]$, $x \in \R$.
+\end{example}
+
+El ejemplo que sigue muestra que la condición de que la familia $\mathcal{E}$ que genera $\mathcal{A}$ sea cerrada para intersecciones es fundamental para que el teorema anterior sea cierto.
+
+\begin{example}
+    Sean $\Omega = \{1,2,3,4\}$, $\mathcal{A} = \mathcal{P}(\Omega)$ y $\mathcal{E} = \{\{1,2\},\{2,3\}\}$. Es fácil ver que $\sigma(\mathcal{E}) = \mathcal{A}$, y como $\{2\} \not\in \mathcal{E}$, entonces $\mathcal{E}$ no es cerrado para intersecciones. Considérense las medidas de probabilidad $\alpha = \frac{1}{2}\delta_2+\frac{1}{2}\delta_4$ y $\beta = \frac{1}{2}\delta_1 + \frac{1}{2}\delta_3$. Se tiene que
+    $\alpha(\{1,2\}) = \frac{1}{2}$, $\alpha(\{2,3\}) = \frac{1}{2}$, $\beta(\{1,2\}) = \frac{1}{2}$ y $\beta(\{2,3\}) = \frac{1}{2}$. Por tanto, $\alpha = \beta$ en $\mathcal{E}$, pero $\alpha \neq \beta$ en $\mathcal{A}$.
+\end{example}
+
+\section{Variables aleatorias}
+
+\begin{definition}
+    Sean $(\Omega,\mathcal{A})$ y $(\Omega', \mathcal{A}')$ dos espacios medibles y sea $X \colon \Omega \to \Omega'$.
+    \begin{enumerate}
+        \item Se dice que $X$ es \emph{medible con respecto a $\mathcal{A}$ y $\mathcal{A'}$} si $X^{-1}(A) \in \mathcal{A}$ para todo $A \in \mathcal{A'}$.
+        \item Si $\Omega' = \R$ y $\mathcal{A}' = \mathcal{B}$, se dice que $X$ es una \emph{variable aleatoria}.
+        \item Si $\Omega' = \R^n$ y $\mathcal{A}' = \mathcal{B}^n$, se dice que $X$ es un \emph{vector aleatorio}.
+        \item Si $\Omega = \R^m$, $\mathcal{A} = \mathcal{B}^m$, $\Omega' = \R^n$ y $\mathcal{A}' = \mathcal{B}^n$, se dice que $X$ es una \emph{función de Borel}.
+    \end{enumerate}
+\end{definition}
+
+El siguiente resultado muestra que las funciones medibles permiten, de alguna manera, transferir una medida de un espacio medible a otro.
+
+\begin{proposition}\label{pro:1.2.2}
+    Sean $(\Omega,\mathcal{A})$ y $(\Omega',\mathcal{A}')$ dos espacios medibles, sea $T \colon \Omega \to \Omega'$ una función medible con respecto a $\mathcal{A}$ y $\mathcal{A}'$ y sea $\mu$ una medida en $(\Omega,\mathcal{A})$.
+    \begin{enumerate}
+        \item La función
+        \[
+        \begin{aligned}[t]
+            \mu T^{-1} \colon \mathcal{A}' &\longrightarrow [0,\infty] \\
+            A &\longmapsto \mu(T^{-1}(A))
+        \end{aligned}
+        \]
+        es una medida en $(\Omega',\mathcal{A}')$.
+        \item Si $(\Omega,\mathcal{A},\mu)$ es un espacio de probabilidad, entonces $(\Omega',\mathcal{A}',\mu T^{-1})$ también.
+    \end{enumerate}
+\end{proposition}
+
+Lo habitual será trabajar con variables aleatorias en lugar de funciones medibles, y con espacios de probabilidad en lugar de espacios medibles. A veces, por ahorrar estritura, ni siquiera se hará referencia a espacios de probabilidad o espacios medibles. Cuando eso ocurra, debe entenderse que todas las variables aleatorias que aparezcan se consideran en un mismo espacio de probabilidad $(\Omega,\mathcal{A},P)$.
+
+\begin{proposition}
+    Sean $X$ e $Y$ variables aleatorias en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. Entonces:
+    \begin{enumerate}
+        \item $X+Y$ es una variable aleatoria.
+        \item $\lambda X$ es una variable aleatoria para todo $\lambda \in \R$.
+        \item $XY$ es una variable aleatoria.
+        \item Si $Y(\omega) \neq 0$ para todo $\omega \in \Omega$, $\frac{X}{Y}$ es una variable aleatoria.
+        \item $\max\{X,Y\}$ es una variable aleatoria.
+        \item $\min\{X,Y\}$ es una variable aleatoria.
+    \end{enumerate}
+\end{proposition}
+
+Este resultado se generaliza muy fácilmente por inducción a un número finito de variables aleatorias.
+
+\begin{definition}
+    Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. La \emph{medida de probabilidad de $X$} es la función $P_X \colon \mathcal{B} \to [0,1]$ dada por $P_X(B) = P(X^{-1}(B))$.
+\end{definition}
+
+Por la \hyperref[pro:1.2.2]{\color{gray}Proposición 1.2.2}, se tiene que $P_X$ es una medida en $(\R,\mathcal{B})$ y que $(\R,\mathcal{B},P_X)$ es un espacio de probabilidad. 
+    
+Si $a \in \R$ y $B \in \mathcal{B}$, en contextos probabilísticos se suelen emplear las notaciones $P(X \in B) = P_X(B)$, $P(X = a) = P_X(\{a\})$, $P(X \leq a) = P_X((-\infty,a])$, $P(X \geq a) = P_X([a,\infty))$,  $P(X < a) = P_X((-\infty,a))$ y  $P(X > a) = P_X((a,\infty))$. Generalmente, también se omiten los puntos en los que se evalúan las variables aleatorias. Por ejemplo, si $X$ e $Y$ son variables aleatorias en un espacio de probabilidad $(\Omega,\mathcal{A},P)$, se denota $P(X=Y)=P(\{\omega \in \Omega \colon X(\omega) = Y(\omega)\})$.
+
+\begin{definition}
+    Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. La \emph{{función de masa de $X$}} es la función $p_X \colon \R \to [0,1]$ dada por $p_X(a) = P(X = a)$.
+\end{definition}
+
+\begin{definition}
+    Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. La \emph{{función de distribución de $X$}} es la función $F_X \colon \R \to [0,1]$ dada por $F_X(a) = P(X \leq a)$.
+\end{definition}
+
+No debe confundirse \emph{función de distribución} con \emph{distribución}; este último término se suele utilizar para referirse a la medida de probabilidad o a la función de distribución de una variable aleatoria, dependiendo del contexto. Por ejemplo, dos variables aleatorias $X$ e $Y$ se dice que \emph{siguen la misma distribución}, o que son \emph{idénticamente distribuidas}, si $P_X = P_Y$.
+
+\begin{proposition}
+    Si $X$ es una variable aleatoria y $g \colon \R \to \R$ es una función de Borel, entonces $Y = g \circ X$ es una variable aleatoria y $P_Y = P_Xg^{-1}$.
+\end{proposition}
+
+Se estudiarán a continuación las propiedades más relevantes sobre la función de distribución y la medida de probabilidad de una variable aleatoria. Antes de ello, se necesita introducir algo de notación: si $F \colon \R \to \R$ es una función cualquiera y $a \in \R$, se escribe
+\[F(-\infty) = \lim_{x \to -\infty}F(x), \quad F(\infty) = \lim_{x \to \infty}F(x), \quad F(a^-) = \lim_{x \to a^-} F(x),  \quad F(a^+) = \lim_{x \to a^+} F(x).\]
+
+\begin{proposition}
+    Sea $X$ una variable aleatoria. Entonces:
+    \begin{enumerate}
+        \item $F_X$ es continua por la derecha.
+        \item $F_X$ es creciente.
+        \item $F_X(-\infty) = 0$.
+        \item $F_X(\infty) = 1$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+    Sea $X$ una variable aleatoria. Si $a,b \in \R$ y $a<b$, entonces:
+    \begin{enumerate}
+        \item $P_X((a,b]) = F_X(b)-F_X(a)$.
+        \item $P_X((a,b)) = F_X(b^-)-F_X(a)$.
+        \item $P_X([a,b)) = F_X(b^-)-F_X(a^-)$.
+        \item $P_X([a,b]) = F_X(b)-F_X(a^-)$.
+        \item $P_X((-\infty,a)) = F_X(a^-)$.
+        \item $P_X((a,\infty)) = 1-F_X(a)$.
+        \item $P_X([a,\infty)) = 1-F_X(a^-)$.
+        \item $p_X(a) = F_X(a)-F_X(a^-)$.
+        \item $F_X$ es continua en $a$ si y solo si $p_X(a) = 0$.
+    \end{enumerate}
+\end{proposition}
+
+El conjunto de puntos de discontinuidad de una función $F \colon \R \to \R$ cualquiera se va a denotar por $D_F$, y el conjunto de puntos de continuidad, por $C_F$. 
+
+Así, si $F_X$ es la función de distribución de una variable aleatoria $X$, por la proposición anterior se tiene $D_{F_X} = \{a \in \R \colon p_X(a)>0\}$ y $C_{F_X} = \{a \in \R \colon p_X(a)=0\}$.
+
+\begin{proposition}
+    Sea $X$ una variable aleatoria. Entonces:
+    \begin{enumerate}
+        \item $D_{F_X}$ es finito o infinito numerable.
+        \item $C_{F_X}$ es denso en $\R$.
+    \end{enumerate}
+\end{proposition}
+
+Los siguientes resultados justifican que en muchas ocasiones se mencionen funciones de distribución o medidas de probabilidad sobre $(\R,\mathcal{B})$ sin hacer referencia a ninguna variable aleatoria.
+
+\begin{theorem}\label{teo:1.2.8}
+    Sea $F \colon \R \to \R$ una función verificando las siguientes propiedades:
+    \begin{enumerate}
+        \item $F$ es continua por la derecha.
+        \item $F$ es creciente.
+        \item $F(-\infty) = 0$.
+        \item $F(\infty) = 1$.
+    \end{enumerate}
+    Entonces existe en algún espacio de probabilidad una variable aleatoria $X$ tal que $F$ es la función de distribución de $X$.
+\end{theorem}
+
+A toda función $F \colon \R \to \R$ verificando las cuatro propiedades anteriores se le llama \emph{función de distribución}, a secas, sin variables aleatorias de por medio.
+
+Si $P$ es una medida de probabilidad en el espacio medible ($\R,\mathcal{B}$), es fácil probar que la función $F \colon \R \to \R$ dada por $F(x) = P((-\infty,x])$ es una función de distribución.
+
+En resumen, una variable aleatoria $X$ tiene asociadas una función de distribución y una medida de probabilidad sobre $(\R,\mathcal{B})$. Recíprocamente, una medida de probabilidad $P$ en $(\R,\mathcal{B})$ permite definir una función de distribución $F$, que, a su vez, proporciona una variable aleatoria $X$ en algún espacio de probabilidad que tiene a $F$ por función de distribución y a $P$ por medida de probabilidad.
+
+\section{Variables aleatorias discretas}
+
+\begin{definition}
+    Una variable aleatoria $X$ en un espacio de probabilidad $(\Omega,\mathcal{A},P)$ se dice que es \emph{discreta} si existe un conjunto $B \in \mathcal{B}$ numerable tal que $P(X \in B) = 1$.
+\end{definition}
+
+Si $X$ es una variable aleatoria discreta y $B = \{b_i \colon i \in \N\} \in \mathcal{B}$ es tal que $P(X \in B)= 1$, entonces $P_X$ queda totalmente determinada por los valores $P(X = b_i)$, $i \in \N$.
+
+La siguiente definición recoge las variables aleatorias discretas a las que les suelen dar más importancia los probabilistas. 
+
+\begin{definition}
+    Sea $X$ una variable aleatoria discreta en un espacio de probabilidad $(\Omega,\mathcal{A},P)$.
+    \begin{enumerate}
+        \item Si $x_0 \in \R$, se dice que $X$ sigue una \emph{{distribución degenerada en el punto ${x_0}$}}, y se denota $X \sim D(x_0)$, cuando
+        \[P(X = x) = \begin{cases}
+            1 & $si$ \ x = x_0, \\
+            0 & $si$ \ x \neq x_0.
+        \end{cases}\]
+        \item Si $\{x_1,\mathellipsis,x_n\} \subset \R$ y $x_i \neq x_j$ si $i \neq j$, se dice que $X$ sigue una \emph{{distribución uniforme sobre los $n$ puntos}}, y se denota $X \sim U(\{x_1,\mathellipsis,x_n\})$, cuando
+        \[P(X=x) = \begin{cases}
+            \displaystyle \frac{1}{n} & $si$ \ x \in \{x_1,\mathellipsis,x_n\}, \\[10pt]
+            0 & $si$ \ x \not\in \{x_1,\mathellipsis,x_n\}.
+        \end{cases}\]
+        \item Si $p \in (0,1)$, se dice que $X$ sigue una \emph{{distribución de Bernoulli de parámetro ${p}$}}, y se denota $X \sim \textup{\emph{Ber}}(p)$, cuando
+        \[P(X=x) =
+            \begin{cases}
+            1-p & $si$ \ x = 0, \\
+            p & $si$ \ x = 1, \\
+            0 & $en otro caso$.
+            \end{cases}
+        \]
+        Usualmente se escribe $q = 1-p$.
+        \item Si $n \in \N$ y $p \in (0,1)$, se dice que $X$ sigue una \emph{{distribución binomial de parámetros ${n}$ y ${p}$}}, y se denota $X \sim \textup{\emph{Bin}}(n,p)$, cuando
+        \[P(X=k) =
+            \begin{cases}
+            \displaystyle\binom{n}{k}p^kq^{n-k} & $si$ \ k \in \N \cup \{0\}, \, k \leq n, \\[10pt]
+            0 & $en otro caso$.
+            \end{cases}
+        \]
+        \item Si $p \in (0,1)$, se dice que $X$ sigue una \emph{{distribución geométrica de parámetro ${p}$}}, y se denota $X \sim \textup{\emph{Geo}}(p)$, cuando
+        \[P(X=k) =
+            \begin{cases}
+            q^kp & $si$ \ k \in \N \cup \{0\}, \\
+            0 & $en otro caso$.
+            \end{cases}
+        \]
+        \item Si $\lambda > 0$, se dice que $X$ sigue una \emph{{distribución de Poisson de parámetro ${\lambda}$}}, y se denota $X \sim P(\lambda)$, cuando
+        \[P(X=k) =
+            \begin{cases}
+            \displaystyle e^{-\lambda}\frac{\lambda^k}{k!} & $si$ \ k \in \N \cup \{0\}, \\[10pt]
+            0 & $en otro caso$.
+            \end{cases}
+        \]
+        \item Se dice que $X$ sigue una \emph{distribución de Rademacher}, y se denota $X \sim \textup{\emph{Rad}}$, cuando
+        \[P(X=k) =
+            \begin{cases}
+            \displaystyle \frac{1}{2} & $si$ \ k \in \{-1,1\}, \\[10pt]
+            0 & $en otro caso$.
+            \end{cases}
+        \]
+    \end{enumerate}
+\end{definition}
+
+\section{Variables aleatorias absolutamente continuas}
+
+\begin{definition}
+    Una variable aleatoria $X$ en un espacio de probabilidad $(\Omega,\mathcal{A},P)$ se dice que es \emph{absolutamente continua} si existe una función de Borel $f_X \colon \R \to \R$ no negativa tal que
+    \[P(X \in B) = \int_B f_X(t) \, dt\]
+    para cada $B \in \mathcal{B}$. A $f_X$ se le denomina \emph{función de densidad de $X$}.
+\end{definition}
+
+Nótese que la integral anterior tiene perfecto sentido cualquiera que sea $B \in \mathcal{B}$ porque $f_X$ es una función de Borel y no negativa.
+
+Para el resultado que sigue, se recuerda que toda función creciente es derivable en casi todo punto (respecto de la medida de Lebesgue) y su derivada, allá donde exista, es no negativa.
+
+\begin{proposition}
+    Sea $X$ una variable aleatoria absolutamente continua.
+    \begin{enumerate}
+        \item Si $a,b \in \R$ y $a < b$,
+        \[F_X(b) - F_X(a) = \int_a^b f_X(t) \, dt.\]
+        \item Para todo $b \in \R$,
+        \[F_X(b) = \int_{-\infty}^b f_X(t) \, dt.\]
+        \item $F_X'(t) = f(t)$ para casi todo $t \in \R$.
+        \item Se tiene que \[\int_\R f_X(t) \, dt = 1.\]
+    \end{enumerate}
+\end{proposition}
+
+Al igual que en el caso discreto, existe una lista de variables aleatorias absolutamente continuas especialmente relevantes en la teoría de la probabilidad. 
+
+\begin{definition}
+    Sea $X$ una variable aleatoria absolutamente continua y sea $f_X$ la función de densidad de $X$.
+    \begin{enumerate}
+        \item Dado un intervalo $[a,b] \subset \R$, se dice que $X$ sigue una \emph{{distribución uniforme en $[a,b]$}}, y se denota $X \sim U([a,b])$, cuando
+        \[f_X(t)=\begin{cases}
+            \displaystyle{\frac{1}{b-a}} & $ si $ t \in [a,b],\\[10pt]
+            0 & $ en otro caso$.
+        \end{cases}\]
+        \item Si $\mu \in \R$ y $\sigma^2 > 0$, se dice que $X$ sigue una \emph{{distribución normal de parámetros ${\mu}$ y ${\sigma^2}$}}, y se denota $X \sim N(\mu,\sigma^2)$, cuando
+        \[f_X(t) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(t-\mu)^2}{2\sigma^2}}.\]
+        Si $\mu=0$ y $\sigma^2=1$, se habla de \emph{{distribución normal estándar}}.
+        \item Si $\lambda > 0$, se dice que $X$ sigue una \emph{{distribución exponencial de parámetro ${\lambda}$}}, y se denota $X \sim \textup{\emph{Exp}}(\lambda)$, cuando
+        \[f_X(t) = \begin{cases}
+            \lambda e^{-\lambda t} & $si$ \ t \geq 0, \\
+            0 & $si$ \ t < 0.
+        \end{cases}\]
+        \item Si $x_0 \in \R$ y $\gamma > 0$, se dice que $X$ sigue una \emph{distribución de Cauchy de parámetros $x_0$ y $\gamma$}, y se denota $X \sim \textup{\emph{C}}(x_0,\gamma)$, cuando
+        \[f_X(t) = \frac{1}{\pi \gamma (1+(\frac{x-x_0}{\gamma})^2)}.\]
+        Si $x_0 = 0$ y $\gamma = 1$, se habla de \emph{distribución de Cauchy estándar}.
+        \item Si $a,b,c \in \R$ son tales que $a < c < b$, se dice que $X$ sigue una \emph{distribución triangular de parámetros $a$, $b$ y $c$}, y se denota $X \sim T(a,b,c)$, cuando
+        \[f_X(t) = \begin{cases}
+            0 & $ si $ x < a, \\[5pt]
+            \displaystyle \frac{2(x-a)}{(b-a)(c-a)} & $ si $ a \leq x < c, \\[10pt]
+            \displaystyle \frac{2}{b-a} & $ si $ x = c, \\[10pt]
+            \displaystyle \frac{2(b-x)}{(b-a)(b-c)} & $ si $ c \leq x < b, \\[10pt]
+            0 & $ si $ b < x.
+        \end{cases}\]
+    \end{enumerate}
+\end{definition}
+
+Nótese que la clasificación de variables aleatorias realizada hasta ahora no es exhaustiva: existen variables aleatorias que no son ni discretas ni absolutamente continuas.
+
+\section{Vectores aleatorios}
+
+Se recuerda que los vectores aleatorios ya fueron definidos junto con las variables aleatorias. Las similitudes entre ambos son más que notables.
+
+\begin{proposition}
+    Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad. Una función $(X_1,X_2,\mathellipsis,X_n) \colon \Omega \to \R^n$ es un vector aleatorio si y solo si $X_i \colon \Omega \to \R$ es una variable aleatoria para cada $i = 1,2,\mathellipsis,n$.
+\end{proposition}
+
+La mayoría de los resultados expuestos sobre variables aleatorias pueden ser adaptados convenientemente para vectores aleatorios, pero no se va a profundizar en ello. Solo se van a aportar las definiciones más elementales.
+
+\begin{definition}
+    Sea $X = (X_1,X_2,\mathellipsis,X_n)$ un vector aleatorio. La \emph{medida de probabilidad de $X$} es la función $P_X \colon \mathcal{B}^n \to [0,1]$ dada por $P_X(B) = P(X^{-1}(B))$.
+\end{definition}
+
+\begin{definition}
+    Sea $X = (X_1,X_2,\mathellipsis,X_n)$ un vector aleatorio. La \emph{función de masa de $X$} es la función $p_X \colon \R^n \to [0,1]$ dada por $p_X(a_1,a_2,\mathellipsis,a_n) = P(X_1 = a_1,X_2 = a_2, \mathellipsis, X_n = a_n)$.
+\end{definition}
+
+\begin{definition}
+    Sea $X = (X_1,X_2,\mathellipsis,X_n)$ un vector aleatorio. La \emph{función de distribución de $X$} es la función $F_X \colon \R^n \to [0,1]$ dada por $F_X(a_1,a_2,\mathellipsis,a_n) = P(X_1 \leq a_1,X_2 \leq a_2, \mathellipsis, X_n \leq a_n)$.
+\end{definition}
+
+A veces se utiliza el término \emph{distribución conjunta} para referirse a la función de distribución o a la medida de probabilidad de un vector aleatorio.
+
+\section{Independencia de sucesos y variables aleatorias}
+
+\begin{definition}
+    Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad. Una colección $\{A_i\}_{i \in I}$ de elementos de $\mathcal{A}$ se dice que es \emph{independiente} si para toda subcolección finita $\{A_{i_1}, A_{i_2}, \mathellipsis, A_{i_k}\} \subset \{A_i\}_{i \in I}$ se tiene
+    \[P(A_{i_1} \cap A_{i_2} \cap \mathellipsis \cap A_{i_k}) = P(A_{i_1})P(A_{i_2})\mathellipsis P(A_{i_k}).\]
+\end{definition}
+
+\begin{definition}
+    Una colección $\{X_i\}_{i \in I}$ de variables aleatorias sobre un espacio de probabilidad $(\Omega,\mathcal{A},P)$ se dice que es \emph{independiente} si para toda subcolección finita $\{X_{i_1}, X_{i_2}, \mathellipsis, X_{i_k}\} \subset \{X_i\}_{i \in I}$ y para $B_1,B_2,\mathellipsis,B_k \in \mathcal{B}$ cualesquiera, se tiene
+    \[P(X_{i_1} \in B_1, X_{i_2} \in B_2, \mathellipsis, X_{i_k} \in B_k) = P(X_{i_1} \in B_1)P(X_{i_2} \in B_2)\mathellipsis P(X_{i_k} \in B_k).\]
+\end{definition}
+
+Al ser $I$ un conjunto arbitrario, también queda definida la independencia de un número finito de sucesos o variables aleatorias, así como la independencia de una sucesión de sucesos o variables aleatorias.
+
+\begin{proposition}
+    Sea $X = (X_1,X_2,\mathellipsis,X_n)$ un vector aleatorio en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. Entonces las variables aleatorias $X_1,X_2,\mathellipsis,X_n$ son independientes si y solo si para todo $(a_1,a_2,\mathellipsis,a_n) \in \R^n$ se tiene que
+    \[F_X(a_1,a_2,\mathellipsis,a_n) = F_{X_1}(a_1)F_{X_2}(a_2)\mathellipsis F_{X_n}(a_n).\]
+    
+\end{proposition}
+
+\begin{proposition}
+    Sea $X = (X_1,X_2,\mathellipsis,X_n)$ un vector aleatorio en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. Si $X_i$ es una variable aleatoria discreta para todo $i \in \{1,\mathellipsis,n\}$, entonces las variables aleatorias $X_1,X_2,\mathellipsis,X_n$ son independientes si y solo si
+    para todo $(a_1,a_2,\mathellipsis,a_n) \in \R^n$ se tiene que
+    \[p_X(a_1,a_2,\mathellipsis,a_n) = p_{X_1}(a_1)p_{X_2}(a_2)\mathellipsis p_{X_n}(a_n).\]
+    
+\end{proposition}
+
+\begin{proposition}
+    Si $X$ e $Y$ son variables aleatorias independientes y $f,g \colon \R \to \R$ son funciones de Borel, entonces $f(X)$ y $g(Y)$ también son variables aleatorias independientes.
+\end{proposition}
+
+\section{Esperanza}
+
+\begin{definition}
+    Sea $\Omega$ es un conjunto no vacío y sea $X \colon \Omega \to \R$ una función cualquiera.
+    \begin{enumerate}
+    \item Se define la \emph{parte positiva de $X$}, y se denota por $X^+$, como $X^+ = \max\{X,0\}$.
+    \item Se define la \emph{parte negativa de $X$}, y se denota por $X^-$, como $X^- = \max\{-X,0\}$.
+    \end{enumerate}
+\end{definition}
+
+Es inmediato comprobar que $X = X^+ - X^-$ y que $|X| = X^+ + X^-$. Además, si $X$ es una variable aleatoria, entonces $X^+$, $X^-$ y $|X|$ también lo son.
+
+\begin{definition}
+    Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. Se define la \emph{esperanza de $X$} como
+    \[E(X) = \int_\Omega X \, dP,\]
+    siempre que dicha integral tenga sentido. Si $E(X) \in \R$, se dice que $X$ es \emph{integrable}.
+\end{definition}
+
+Recuérdese que la esperanza de $X$ tiene sentido siempre que $E(X^+)<\infty$ o $E(X^-) < \infty$, en cuyo caso se tiene que $E(X) = E(X^+)-E(X^-)$. Además, las esperanzas de $X^+$ y $X^-$ siempre existen (pudiendo valer $\infty$) porque son variables aleatorias no negativas. El único caso en que una variable aleatoria no admite esperanza es cuando $E(X^+) = \infty$ y $E(X^-) = \infty$.
+
+Por otra parte, si $1 \leq p < \infty$, se denota $\mathcal{L}^p(\Omega,\mathcal{A},P)$, o simplemente $\mathcal{L}^p$, al conjunto de variables aleatorias $X \colon \Omega \to \R$ tales que
+\[E(|X|^p) = \int_\Omega |X|^p \, d\mu < \infty.\]
+
+\begin{proposition}
+    Si $X, Y \in \mathcal{L}^p$ y $\alpha,\beta \in \R$, entonces $\alpha X + \beta Y \in \mathcal{L}^p$ y $E(\alpha X + \beta Y) = \alpha E(X)+\beta E(Y)$.
+\end{proposition}
+
+El resultado anterior establece que $\mathcal{L}^p$ junto con la suma de funciones y el producto por escalares reales tiene estructura de espacio vectorial sobre $\R$ y, además, que la esperanza es una aplicación lineal sobre dicho espacio vectorial.
+
+\begin{proposition}
+    Si $X$ e $Y$ son variables aleatorias con $X = Y$ en casi todo punto, entonces $X$ es integrable si y solo si $Y$ es integrable, y en ese caso, $E(X) = E(Y)$.
+\end{proposition}
+
+El resultado anterior sugiere introducir en el conjunto $\mathcal{L}^p$ la relación $\sim$ definida de la siguiente manera:
+\[X \sim Y \textup{\emph{ si y solo si }} X=Y \textup{\emph{ en casi todo punto.}}\]
+Es fáicl probar que esta relación es de equivalencia. El conjunto cociente será denotado por $L^p$ y,
+por comodidad, se llamará de la misma manera a las clases de equivalencia de $L^p$ y a sus representantes: en lugar de decir $[X] \in L^p$, se escribe simplemente $X \in L^p$. De nuevo, $L^p$ es un espacio vectorial sobre $\R$.
+
+\begin{proposition}\label{pro:1.6.5}
+    Si $1 \leq p \leq q$, entonces $L^q \subset L^p$.
+\end{proposition}
+
+\begin{proposition}
+    Una variable aleatoria $X$ es integrable si y solo si $E(|X|) <\infty$, y en ese caso, $|E(X)| \leq E(|X|)$.
+\end{proposition}
+
+En otras palabras, esta proposición dice que una variable aleatoria $X$ es integrable si y solo si $X \in L^1$.
+
+Cuando haya que calcular esperanzas en casos concretos, lo más habitual será recurrir a los dos teoremas que siguen.
+
+\begin{theorem}\label{teo:1.6.7}
+    Sea $X$ una variable aleatoria y sea $g \colon \R \to \R$ una función de Borel.
+    \begin{enumerate}
+        \item Se tiene que
+        \[E(g \circ X) = \int_\R g(t) \, dP_X(t),\]
+        siempre que la esperanza de $g \circ X$ tenga sentido. En particular,
+        \[E(X)= \int_\R t \, dP_X(t),\]
+        siempre que la esperanza de $X$ tenga sentido.
+        \item Si $X$ es discreta y $D_X = \{x \in \R \colon p_X(x)>0\}$, entonces
+        \[E(g \circ X) = \sum_{t \in D_x}g(t)p_X(t),\]
+        siempre que la esperanza de $g \circ X$ tenga sentido. En particular,
+        \[E(X) = \sum_{t \in D_x}tp_X(t),\]
+        siempre que la esperanza de $X$ tenga sentido.
+        \item Si $X$ es absolutamente continua, entonces
+        \[E(g \circ X) = \int_\R g(t)f_X(t) \, dt,\]
+        siempre que la esperanza de $g \circ X$ tenga sentido. En particular,
+        \[E(X) = \int_\R tf_X(t) \, dt,\]
+        siempre que la esperanza de $X$ tenga sentido.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Si $X \in L^1$, entonces
+    \[E(X) = \int_0^\infty P(X > t) \, dt - \int_{-\infty}^0 P(X < t) \, dt.\]
+\end{theorem}
+
+Estos teoremas son útiles incluso cuando no se sabe si una variable aleatoria $X$ admite esperanza, pues se puede aplicar primero a $|X|$ (o a $X^+$ y $X^-$), y si la esperanza sale finita, entonces ya se puede aplicar a $X$.
+
+\begin{example}
+    Sea $X$ una variable aleatoria absolutamente continua con función de densidad dada por $f_X(t) = \frac{1}{\pi(1+t^2)}$, $t \in \R$. Como la función $g \colon \R \to \R$ dada por $g(t)=\max\{t,0\}$ es de Borel y $X^+ = \max\{X,0\} = g \circ X$ es una variable aleatoria no negativa, por el teorema anterior,
+    \[E(X^+) = \int_\R \max\{t,0\} f_X(t) \, dt = \int_0^\infty \frac{t}{\pi(1+t^2)} \, dt \geq \frac{1}{\pi}\int_1^\infty \frac{t}{1+t^2} \, dt \geq \frac{1}{\pi}\int_1^\infty \frac{1}{2t} \, dt = \infty,\]
+    donde se ha usado que $\frac{x}{x^2+1} \geq \frac{1}{2x}$ para todo $x \geq 1$ (se prueba fácilmente). De forma similar,
+    \[E(X^-) = \int_\R \max\{-t,0\} f_X(t) \, dt = \int_{-\infty}^0 -\frac{t}{\pi(1+t^2)} \, dt = \int_0^\infty \frac{t}{\pi(1+t^2)} \, dt = \infty.\]
+    Por tanto, $X$ no admite esperanza.
+\end{example}
+
+\begin{example}
+    Sea $X$ una variable aleatoria con $X \sim \textup{\emph{Exp}}(\lambda)$, $\lambda > 0$. Se prueba fácilmente que la función de distribución de $X$ es $F_X(t) = (1-e^{-\lambda t})\mathbbm{1}_{[0,\infty)}(t)$, $t \in \R$.
+    Como $P(X < 0) = 0$, entonces $X \geq 0$ en casi todo punto (respecto de la medida $P$) y por tanto
+    \[E(X) = E(|X|) = \int_0^\infty P(X > t) \, dt = \int_0^\infty ( 1 - F_X(t)) \, dt = \int_0^\infty e^{-\lambda t} \, dt = \frac{1}{\lambda}.\]
+\end{example}
+
+\begin{proposition}[Desigualdad de Markov]
+    Sea $X$ una variable aleatoria. Para todo $\alpha > 0$ y todo $k \in \N$,
+    \[P(|X| \geq \alpha) \leq \frac{1}{\alpha^k}E(|X|^k).\]
+\end{proposition}
+
+Nótese que esta desigualdad tiene sentido incluso cuando $X^k$ no es integrable, o sea, incluso cuando $E(|X|^k) = \infty$.
+
+Al aplicar la desigualdad anterior a la variable aleatoria $X - E(X)$ (es necesario entonces que $X \in L^1$) y poner $k = 2$, se obtiene lo siguiente:
+
+\begin{corollary}[Desigualdad de Chebyshev]
+    Sea $X$ una variable aleatoria con $X \in L^1$. Para todo $\alpha > 0$,
+    \[P(|X-E(X)| \geq \alpha) \leq \frac{1}{\alpha^2}E((X-E(X))^2).\]
+\end{corollary}
+
+\begin{definition}
+    Si $X \in L^1$, se define la \emph{varianza de $X$} como $\Var{X} = E((X-E(X))^2)$.
+\end{definition}
+
+Nótese que $\Var{X}$ tiene sentido incluso cuando $X \not\in L^2$, pues $(X-E(X))^2 = X^2+E(X)^2-2E(X)X$, y se tiene que $X^2 +E(X)^2$ admite esperanza por ser no negativa y $2XE(X)$ tiene esperanza finita por ser $X \in L^1$. Así, la desigualdad de Chebyshev también puede escribirse de manera más abreviada como
+\[P(|X-E(X)| \geq \alpha) \leq \frac{1}{\alpha^2}\Var{X}.\]
+
+
+\begin{proposition}
+    Se verifican las siguientes propiedades:
+    \begin{enumerate}
+        \item Si $X \in L^1$, entonces $\Var{X} = E(X^2) - E(X)^2$.
+        \item Si $a, b \in \R$ y $X \in L^1$, entonces $\textup{Var}(aX+b) = a^2 \textup{Var}(X)$.
+        \item Si $X,Y \in L^1$ y son independientes, entonces $\Var{X+Y} =\Var{X}+\Var{Y}$.
+    \end{enumerate}
+\end{proposition}
+
+
+\begin{definition}
+    Si $X \in L^k$ para algún $k \in \N$, se dice que $E(X^k)$ es el \emph{momento de orden $k$ de X}.
+\end{definition}
+
+De la \hyperref[pro:1.6.5]{\color{gray}Proposición 1.7.5} se sigue que si existe el momento de orden $k$ de $X$, también existe el de orden $j$ para todo $j \leq k$.
+
+
+
+\chapter{Convolución}
+
+En este breve tema se estudiará una noción que en ciertas ocasiones facilita el cálculo de la distribución de la suma de dos variables aleatorias.
+
+\section{Convolución de medidas de probabilidad}
+
+\begin{definition}
+    Sean $X$ e $Y$ dos variables aleatorias. La \emph{convolución de $P_X$ y $P_Y$} es la función $P_X\ast P_Y \colon \mathcal{B} \to [0,1]$ dada por
+    \[P_X \ast P_Y(B) = \int_\R P_Y(B-t)\, dP_X(t).\]
+\end{definition}
+
+\begin{proposition}
+    Si $X$ e $Y$ son variables aleatorias independientes, entonces $P_X \ast P_Y$ es la medida de probabilidad de la variable aleatoria $X+Y$.
+\end{proposition}
+
+Como la suma de variables aleatorias es conmutativa y asociativa, lo mismo puede decirse de la convolución de medidas de probabilidad.
+
+\section{Convolución de funciones de distribución}
+
+Si $X$ es una variable aleatoria cualquiera, en las integrales respecto de $P_X$ a veces se escribe $dF_X$ en lugar de $dP_X$. 
+
+\begin{definition}
+    Sean $X$ e $Y$ dos variables aleatorias. La \emph{convolución de $F_X$ y $F_Y$} es la función $F_X \ast F_Y \colon \R \to [0,1]$ definida por
+    \[F_X \ast F_Y(z) = \int_\R F_Y(z-t) \, dF_X(t).\]
+\end{definition}
+
+\begin{proposition}
+    Si $X$ e $Y$ son variables aleatorias independientes, entonces $F_X \ast F_Y$ es la función de distribución de $X+Y$.
+\end{proposition}
+
+\section{Convolución y funciones de densidad}
+
+La convolución posee algunas propiedades interesantes cuando se trata con variables aleatorias absolutamente continuas.
+
+\begin{definition}
+    Sean $X$ e $Y$ dos variables aleatorias.
+    \begin{enumerate}
+        \item Si $Y$ es absolutamente continua, la \emph{convolución de $F_X$ y $f_Y$} no es más que la función $F_X \ast f_y \colon \R \to \R$ dada por
+        \[F_X \ast f_Y(z) = \int_\R f_Y(z- t) \, dF_X(t).\]
+        \item Si además $X$ es absolutamente continua, la \emph{convolución de $f_X$ y $f_Y$} no es más que la función $f_X \ast f_Y \colon \R \to \R$ dada por
+        \[f_X \ast f_Y(z) = \int_\R f_Y(z-t)f_X(t) \, dt.\]
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    Sean $X$ e $Y$ dos variables aleatorias independientes.
+    \begin{enumerate}
+        \item Si $Y$ es absolutamente continua, entonces $X+Y$ es absolutamente continua y $f_{X+Y} = F_X \ast f_Y$.
+        \item Si $X$ también es absolutamente continua, entonces $f_{X+Y}=f_X\ast f_Y$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{example}
+    Sean $X$ e $Y$ dos variables aleatorias independientes y absolutamente continuas con $X,Y \sim U([0,1])$. Se comprueba fácilmente que sus respectivas funciones de distribución están definidas por
+    \[F_X(t)=F_Y(t)=\begin{cases}
+        0 & $ si $ t < 0, \\
+        t & $ si $ 0 \leq t < 1, \\
+        1 & $ si $ 1 \leq t.
+    \end{cases}\]
+    Sea $z \in \R$ y calculemos
+    \[F_X \ast F_Y(z)=\int_{\R} F_X(z-t) \, dF_Y(t) = \int_\R F_X(z-t)f_Y(t) \, dt,\]
+    donde $f_Y$ es la función de densidad de $Y$. Como $\sop f_Y = [0,1]$, entonces
+    \[F_X \ast F_Y(z)= \int_0^1 F_X(z-t)f_Y(t) \, dt.\]
+    Se distinguen los siguientes casos:
+    \begin{enumerate}
+        \item Si $z < 0$, entonces $z-t < 0$ para todo $t \in [0,1]$ y, en consecuencia, $F_X \ast F_Y(z)=0$.
+        \item Supongamos que $0 \leq z < 1$. Si $0 \leq z -t < 1$, es decir, si $0 < t \leq z$, entonces
+        $F_X(z-t) = z-t$, y si $z - t <0$, es decir, si $z< t \leq 1$, entonces $F_X(z-t) = 0$. Nótese que el caso $1 \leq z-t$ no puede darse. De todo esto se deduce que
+        \[F_X \ast F_Y(z) = \int_0^z (z-t) \, dt =\left[-\frac{(z-t)^2}{2}\right]_{t=0}^{t=z} = \frac{z^2}{2}.\]
+        \item  Supongamos que $1 \leq z < 2$. Ahora el caso $z-t < 0$ no puede darse. Si $0 \leq z-t< 1$, es decir, si $z-1 < t \leq 1$, entonces $F_X(z-t) = z-t$. Y si $1 \leq z-t$, es decir, si $0 \leq t \leq z-1$, entonces $F_X(z-t) = 1$. En consecuencia,
+        \[F_X \ast F_Y(z)=\int_{z-1}^1 (z-t) \, dt + \int_0^{z-1} 1 \, dt = \left[-\frac{(z-t)^2}{2}\right]_{t=z-1}^{t=1} + z-1 = -\frac{z^2}{2}+2z-1.\]
+        \item Si $2 \leq z$, entonces $1 \leq z-t$ para todo $t \in [0,1]$, luego $F_X(z-t) = 1$ y entonces
+        \[F_X \ast F_Y(z) = \int_0^1 1 \, dt = 1.\]
+    \end{enumerate}
+    La función de distribución de $X+Y$ sería entonces
+    \[F_{X+Y}(z)=\begin{cases}
+        0 & $ si $ z < 0, \\
+        \displaystyle \frac{z^2}{2} & $ si $ 0 \leq z < 1, \\
+        \displaystyle -\frac{z^2}{2} + 2z -1 & $ si $ 1 \leq z < 2, \\
+        1 & $ si $ 2 \leq z.
+    \end{cases}\]
+\end{example}
+
+\begin{example}
+    Sean $X$ e $Y$ dos variables aleatorias independientes y absolutamente continuas con $X,Y \sim U([0,1])$. Entonces $X+Y$ es absolutamente continua con función de densidad dada por
+    \[f_{X+Y}(z)= \int_\R f_Y(z-t) f_X(t) \, dt.\]
+    Razonando como en el último ejemplo, se comprueba que
+    \[f_{X+Y}(z)=\begin{cases}
+        0 & $ si $ z < 0, \\
+        z & $ si $ 0 \leq z < 1, \\
+        2-z & $ si $ 1 \leq z < 2, \\
+        0 & $ si $ 2 \leq z.
+    \end{cases}\]
+    Se observa que $F_{X+Y}' = f_{X+Y}$ en casi todo punto, como no podía ser de otra forma. 
+\end{example}
+
+
+\chapter{Función característica}
+
+\begin{definition}
+    Sea $X$ una variable aleatoria. La \emph{función característica de $X$} es la función $\varphi_X \colon \R \to \C$ definida por $\varphi_X(t) = E(e^{itX})$.
+\end{definition}
+
+Lo primero que debe observarse es que $\varphi_X$ está bien definida, es decir, $e^{itX}$ es una variable aleatoria y su esperanza tiene sentido. Lo primero es porque la función $g \colon \R \to \R$ dada por $g(s) = e^{its}$ es de Borel (pues es continua); lo segundo, porque para todo $t \in \R$ se tiene
+\[E(|e^{itX}|) = \int_\Omega |e^{itX(\omega)}| dP(\omega) = \int_\Omega dP(\omega) = P(\Omega) = 1 < \infty.\]
+Además, por el \hyperref[teo:1.6.7]{\color{gray}Teorema 1.7.7},
+\[\varphi_X(t) = \int_\R e^{its} dP_X(s).\]
+
+\section{Propiedades elementales y ejemplos}
+
+\begin{proposition}
+    Sea $X$ una variable aleatoria. Se verifican las siguientes propiedades:
+    \begin{enumerate}
+        \item $\varphi_X(0)=1$.
+        \item $|\varphi_X(t)| \leq 1$ para todo $t \in \R$.
+        \item $\overline{\varphi_X(t)} = \varphi_X(-t)$ para todo $t \in \R$.
+        \item $\varphi_X$ es uniformemente continua.
+        \item Si $Y = aX+b$ con $a,b \in \R$, entonces $\varphi_Y(t) = e^{itb}\varphi_X(ta)$ para todo $t \in \R$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+    Si $X$ e $Y$ son variables aleatorias independientes, entonces para todo $t \in \R$ se verifica $\varphi_{X+Y}(t) = \varphi_X(t)\varphi_Y(t)$.
+\end{proposition}
+
+\begin{proposition}[Identidad de Parseval]
+    Sean $X$ e $Y$ dos variables aleatorias. Entonces
+    \[\int_\R \varphi_X(t) \, dP_Y(t) = \int_\R \varphi_Y(t) \, dP_X(t).\]
+\end{proposition}
+
+El resultado anterior resulta especialmente útil para hallar ciertas integrales evitando el cálculo de primitivas.
+
+\pagebreak
+
+\begin{table}[!ht]
+    \centering
+    \setlength\extrarowheight{6.5pt}
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Distribución} & \textbf{Función característica} \\[6pt] \hline
+        $\textup{\emph{Deg}}(a)$ & $e^{ita}$ \\[6pt] \hline
+        $\textup{\emph{Rad}}$ & $\cos(t)$ \\[6pt] \hline
+        $\textup{\emph{Ber}}(p)$ & $1-p+pe^{it}$ \\[6pt] \hline
+        $\textup{\emph{Bin}}(n,p)$ & $(1-p+pe^{it})$ \\[6pt] \hline
+        $\textup{\emph{Ge}}(p)$ & $p(1-(1-p)e^{it})^{-1}$ \\[6pt] \hline
+        $\textup{\emph{P}}(\lambda)$ & $e^{\lambda(e^{it}-1)}$ \\[6pt] \hline
+        $\textup{\emph{U}}([a,b])$ & $\frac{e^{itb}-e^{ita}}{it(b-a)}$ \\[6pt] \hline
+        $\textup{\emph{Exp}}(\lambda)$ & $\frac{\lambda}{\lambda-it}$ \\[6pt] \hline
+        $\textup{\emph{N}}(\mu,\sigma^2)$ & $e^{it\mu-\frac{\sigma^2t^2}{2}}$ \\[6pt] \hline
+        $\textup{\emph{C}}(0,1)$ & $e^{-|t|}$ \\[6pt] \hline
+    \end{tabular}
+    \caption*{\emph{Cuadro.} Funciones características de algunas distribuciones.}
+\end{table}
+
+En los ejemplos que siguen se calculan varias de las funciones características que aparecen en el cuadro anterior.
+
+\begin{example}
+    Sea $X$ una variable aleatoria absolutamente continua con $X \sim N(0,1)$. Para cada $t \in \R$,
+    \[\varphi_X(t) = E(e^{itX}) = \int_\R e^{its}f_X(s) \, ds  = \frac{1}{\sqrt{2\pi}}\left(\int_\R \cos(ts)e^{-\frac{s^2}{2}} \, ds + i \int_\R \sen(ts)e^{-\frac{s^2}{2}} \, ds\right).\]
+    Nótese que
+    \[\int_\R \sen(ts)e^{-\frac{s^2}{2}} \, ds = 0\]
+    por ser el integrando una función par. Por tanto,
+    \[\varphi_X(t) = \frac{1}{\sqrt{2\pi}}\int_\R\cos(ts)e^{-\frac{s^2}{2}}\, ds.\]
+    Como se tiene que  $|\frac{\partial}{\partial t}\cos(ts)e^{-\frac{s^2}{2}}| = |-s\sen(ts)e^{-\frac{s^2}{2}}| \leq |s|e^{-\frac{s^2}{2}}$ y la función $s \mapsto |s|e^{-\frac{s^2}{2}}$, $s \in \R$ es integrable, entonces $\varphi_X$ es derivable y para todo $t \in \R$,
+    \[
+    \begin{aligned}[t]
+        \varphi_X'(t) &= -\frac{1}{\sqrt{2\pi}}\int_\R s\sen(ts)e^{-\frac{s^2}{2}}\, ds \\
+        &= \frac{1}{\sqrt{2\pi}}\lim_{n\to \infty}\int_{-n}^n -s\sen(ts)e^{-\frac{s^2}{2}} \, ds \\
+        &= \frac{1}{\sqrt{2\pi}}\lim_{n \to \infty} \left(\left[\sen(ts)e^{-\frac{s^2}{2}}\right]_{s=-n}^{s=n}-t \int_{-n}^n\cos(ts)e^{-\frac{s^2}{2}}\, ds\right) \\
+        &= -\frac{t}{\sqrt{2\pi}}\int_\R \cos(ts)e^{-\frac{s^2}{2}} \, ds \\
+        &= -t\varphi_X(t),
+    \end{aligned}
+    \]
+    donde en la tercera igualdad se ha integrado por partes ($u(s) = \sen(ts)$, $v(s) = e^{-\frac{s^2}{2}}$). Por tanto, resolviendo la ecuación diferencial obtenida, existe $C \in \R$ tal que $\varphi_X(t)= Ce^{-\frac{t^2}{2}}$ para todo $t \in \R$. Como
+    \[\varphi_X(0)=\frac{1}{\sqrt{2\pi}}\int_\R e^{-\frac{s^2}{2}}\, ds = \frac{1}{\sqrt{2\pi}}\sqrt{2\pi} = 1,\]
+    entonces $C = 1$ y se concluye que $\varphi_X(t) = e^{-\frac{t^2}{2}}$ para todo $t \in \R$
+\end{example}
+
+\begin{example}
+    Sea $X$ una variable aleatoria absolutamente continua con $X \sim N(\mu,\sigma^2)$. Entonces $Y = \frac{X-\mu}{\sigma} \sim N(0,1)$, así que, por lo probado en el ejemplo anterior, $\varphi_Y(t) = e^{-\frac{t^2}{2}}$ para todo $t \in \R$. Y como 
+    $\varphi_Y(t) = e^{-\frac{it\mu}{\sigma}}\varphi_X\left(\frac{t}{\sigma}\right)$, entonces
+    $\varphi_X(t) = e^{it\mu}e^{-\frac{\sigma^2t^2}{2}}$ para todo $t \in \R$.
+\end{example}
+
+\begin{example}
+    Sea $X$ una variable aleatoria absolutamente continua con $X \sim U([-1,1])$. Para cada $t \in \R$ con $t \neq 0$,
+    \[\varphi_X(t) = E(e^{itX}) = \int_\R e^{its}f_X(s) \, ds = \frac{1}{2}\int_{-1}^1 e^{its} \, ds = \frac{1}{2}\left[\frac{1}{it}e^{its}\right]_{s = -1}^{s =1} = \frac{2i\sen t}{2it} = \frac{\sen t}{t},\]
+    mientras que $\varphi_X(0) = 1$.
+\end{example}
+
+\begin{example}
+    Sea $X$ una variable aleatoria discreta con $X \sim \textup{\emph{Rad}}$. Para cada $t \in \R$,
+    \[\varphi_X(t)=E(e^{itX}) = e^{it \cdot(-1)} P(X=-1) + e^{it \cdot 1}P(X=1) = \frac{e^{-it}+e^{it}}{2} = \cos(t).\]
+\end{example}
+
+\begin{example}
+    Sea $X$ una variable aleatoria discreta con $X \sim \textup{\emph{Ber}}(p)$. Para cada $t \in \R$,
+    \[\varphi_X(t)= E(e^{itX}) = e^{it \cdot 1}P(X = 1) + e^{it \cdot 0}P(X = 0) = pe^{it}+1-p.\]
+\end{example}
+
+\begin{example}
+    Sea $X$ una variable aleatoria discreta con $X \sim \textup{\emph{Bin}}(n,p)$. Se sabe que la distribución de probabilidad de $X$ es la misma que la de $Y_1+\mathellipsis+Y_n$, para ciertas variables aleatorias $Y_1,\mathellipsis,Y_n$ independientes y con $Y_i \sim \textup{\emph{Ber}}(p)$ para cada $i \in \{1,\mathellipsis,n\}$. Por tanto, por el ejemplo anterior, para todo $t \in \R$ se tiene
+    \[\varphi_X(t)=\varphi_{Y_1+\mathellipsis+Y_n}(t) = \varphi_{Y_1}(t)\mathellipsis\varphi_{Y_n}(t) = (pe^{it}+1-p)^n.\]
+\end{example}
+
+\begin{example}\label{eje:1.9.8}
+    Sea $X$ una variable aleatoria discreta con $X \sim P(\lambda)$. Para cada $t \in \R$,
+    \[\varphi_X(t) = E(e^{itX}) = \sum_{k = 0}^\infty e^{itk}e^{-\lambda}\frac{\lambda^k}{k!} = e^{-\lambda}\sum_{k=0}^\infty \frac{(\lambda e^{it})^k}{k!} = e^{-\lambda}e^{\lambda e^{it}} = e^{\lambda(e^{it}-1)}.\]
+\end{example}
+
+\begin{example}
+    Sea $X$ una variable aleatoria con función de distribución definida mediante $F_X(t) = (1-\frac{1}{2}e^{-t})\mathbbm{1}_{[0,\infty)}(t)$, $t \in \R$. Se trata de hallar la función característica de $X$. Sea $t \in \R$. Como $P_X((-\infty,0)) = 0$, entonces
+    \[\varphi_X(t) = \int_\R e^{its} \, dP_X(s) = \int_{[0,\infty)} e^{its} dP_X(s) = \int_{\{0\}}e^{its}dP_X(s) + \int_{(0,\infty)}e^{its} \, dP_X(s).\]
+    Examinemos cada uno de los sumandos. Por un lado, 
+    \[\int_{\{0\}}e^{its}dP_X(s) = P(X = 0) = F_X(0) - F_X(0^-) = \frac{1}{2}.\]
+    Por otro lado, se observa que, para todo $t \in (0,\infty)$,
+    \[F_X(t)=1-\frac{1}{2}e^{-t}, \qquad \qquad F_X'(t) = \frac{1}{2}e^{-t} = \frac{1}{2}f_Y(t),\]
+    donde $Y$ es una variable absolutamente continua con $Y \sim \textup{\emph{Exp(1)}}$. Por tanto,
+    \[\begin{aligned}[t]
+        \int_{(0,\infty)}e^{its} \, dP_X(s) &= \frac{1}{2}\int_0^\infty e^{its} f_Y(s) \, ds = \frac{1}{2}\int_0^\infty e^{(it-1)s} \, ds = \frac{1}{2}\lim_{n \to \infty}\left[\frac{e^{(it-1)s}}{it-1}\right]_{s=0}^{s=n}.
+    \end{aligned}\]
+    Como
+    \[|e^{(it-1)n}| = |e^{-n}| = e^{-n} \xrightarrow{n \to \infty} 0,\]
+    entonces
+    \[\frac{1}{2}\lim_{n \to \infty}\left[\frac{e^{(it-1)s}}{it-1}\right]_{s=0}^{s=n} = \frac{1}{2(1-it)},\]
+    concluyéndose que
+    \[\varphi_X(t) = \frac{1}{2}+\frac{1}{2(1-it)}\]
+    para todo $t \in \R$.
+\end{example}
+
+\section{Reconocimiento de funciones características}
+
+Dada una función $\varphi \colon \R \to \C$, cabe preguntarse si existe una variable aleatoria $X$ que tenga a $\varphi$ por función característica.
+
+\begin{definition}
+    Una función $\varphi \colon \R \to \C$ se dice que es una \emph{función característica} si existe una variable aleatoria $X$ en algún espacio de probabilidad que tenga a $\varphi$ por función característica.
+\end{definition}
+
+\begin{proposition}
+    Sea $X$ una variable aleatoria. Entonces:
+    \begin{enumerate}
+        \item $\overline{\varphi_X}$ es una función característica.
+        \item $\textup{Re}(\varphi_X)$ es una función característica.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de  variables aleatorias y sea $\{p_n\}_{n=1}^\infty$ una sucesión de números reales positivos verificando $\sum_{n=1}^\infty p_n = 1$. Entonces la función $\varphi \colon \R \to \C$ definida por $\varphi(t) =\sum_{n=1}^\infty p_n\varphi_{X_n}(t)$ es una función característica.
+\end{proposition}
+
+Nótese que la función $\varphi$ de la proposición anterior está bien definida porque para todo $t \in \R$ se tiene $|\varphi_{X_n}(t)| \leq 1$, así que la serie $\sum_{n=1}^\infty p_n\varphi_{X_n}(t)$ es absolutamente convergente y, por tanto, convergente.
+
+\begin{example}
+    Dado $n \in \N$, se trata de estudiar si la función $g \colon \R \to \R$ dada por $g(t)=\cos^n(t)$ es una función característica. Previamente se ha visto que si $X \sim \textup{\emph{Rad}}$, entonces $\varphi_X(t)=\cos(t)$. Por tanto, si $X_1,\mathellipsis,X_n$ son variables aleatorias independientes con $X_i \sim \textup{\emph{Rad}}$ para cada $i \in \{1,\mathellipsis,n\}$, se tiene que $\varphi_{X_1+\mathellipsis+X_n}(t) = \varphi_{X_1}(t)\mathellipsis\varphi_{X_n}(t) = \cos^n(t)$, así que $X_1+\mathellipsis+X_n$ es una variable aleatoria cuya función característica es $g$.
+\end{example}
+
+\begin{example}
+    Dado $n \in \N$, se trata de estudiar si la función $g \colon \R \to \R$ dada por $g(t)=e^{2(\cos(t)-1)}$ es una función característica. Para todo $t \in \R$ se tiene
+    \[g(t)=e^{-2}e^{2\cos(t)} = e^{-2}\sum_{n=0}^\infty\frac{(2\cos(t))^n}{n!} = \sum_{n=0}^\infty\frac{1}{e^2}\frac{2^n}{n!}\cos^n(t).\]
+    Por el ejemplo anterior, la función $t \mapsto \cos^n(t)$, $t \in \R$ es la función característica de la variable aleatoria $X_1+\mathellipsis+X_n$, donde $X_i \sim \textup{\emph{Rad}}$ para cada $i \in \{1,\mathellipsis,n\}$. Y como
+    \[\sum_{n=0}^\infty \frac{1}{e^2}\frac{2^n}{n!} = e^{-2}e^2 = 1,\]
+    entonces, por la proposición anterior, $g$ es una función característica.
+\end{example}
+
+\begin{example}
+    Otra forma de resolver la cuestión planteada en el ejemplo anterior es la siguiente: para todo $t \in \R$,
+    \[g(t)=e^{2(\frac{e^{it}+e^{-it}}{2}-1)} = e^{e^{it}+e^{-it}-2} = e^{e^{it}-1}e^{-it-1}.\]
+    Si $X$ e $Y$ son variables aleatorias independientes con $X,Y \sim P(1)$, recordando el \hyperref[eje:1.9.8]{\color{gray}Ejemplo 3.1.10}, se tiene $g(t)=\varphi_X(t)\varphi_Y(-t) = \varphi_X(t)\varphi_{-Y}(t) = \varphi_{X-Y}(t)$, así que $g$ es la función característica de la variable aleatoria $X-Y$.
+\end{example}
+
+\begin{example}
+    Sea $X$ una variable aleatoria con función de característica $\varphi_X \colon \R \to \C$ dada por
+    $\varphi_X(t)= \log(g(t))+1$ para alguna función $g \colon \R \to (0,\infty)$. Se trata de probar que $g$ es una función característica. En efecto, para todo $t \in \R$,
+    \[g(t) = e^{\varphi_X(t)-1} =e^{-1}\sum_{n=0}^\infty\frac{\varphi_X^n(t)}{n!} = \sum_{n=0}^\infty \frac{e^{-1}}{n!}\varphi_X^n(t).\]
+    Se tiene que
+    \[\sum_{n=0}^\infty \frac{e^{-1}}{n!} = 1\]
+    y además $\varphi_X^n$ es la función característica de la suma de $n$ variables aleatorias independientes con la misma distribución que $X$, así que, por la proposición anterior, $g$ es una función característica.
+\end{example}
+
+\begin{definition}
+    Una función $g \colon \R \to \C$ se dice que es \emph{definida positiva} si para todo $n \in \N$ y todos $t_1,\mathellipsis,t_n \in \R$, $\alpha_1,\mathellipsis,\alpha_n \in \C$, se verifica
+    \[\sum_{i=1}^n \sum_{j=1}^n \alpha_i\overline{\alpha_j}g(t_i-t_j) \geq 0.\]
+\end{definition}
+
+Puede probarse que para cada $i,j\in\{1,\mathellipsis,n\}$ se tiene que $\alpha_i\overline{\alpha_j}g(t_i-t_j) \in \R$, así que tiene sentido preguntarse si la suma anterior es positiva o negativa.
+
+\begin{theorem}[Teorema de Bochner]
+    Una función $\varphi \colon \R \to \C$ es una función característica si y solo si es definida positiva, continua en $0$ y tal que $\varphi(0)=1$.
+\end{theorem}
+
+\begin{theorem}[Criterio de Pólya]
+    Sea $\varphi \colon \R \to \R$ una función verificando:
+    \begin{enumerate}
+        \item $\varphi(0) = 1$.
+        \item $\varphi$ es no negativa, par y continua.
+        \item $\varphi$ es convexa y decreciente en $[0,\infty)$.
+    \end{enumerate}
+    Entonces $\varphi$ es una función característica.
+\end{theorem}
+
+\section{Teoremas de inversión}
+
+En esta sección se exponen algunos resultados que permiten obtener información de una variable aleatoria $X$ a partir de su función característica.
+
+\begin{theorem}[Teorema de inversión]
+    Sea $X$ una variable aleatoria y sean $a,b \in \R$ con $a<b$. Entonces
+    \[P(a<X<b)+\frac{1}{2}P(X=a)+\frac{1}{2}P(X=b) = \lim_{T \to \infty} \frac{1}{2\pi}\int_{-T}^T\frac{e^{-ita}-e^{-itb}}{it}\varphi_X(t)\, dt.\]
+\end{theorem}
+
+Como consecuencia de este resultado, se obtiene que la función característica de una variable aleatoria determina de forma única su función de distribución y su medida de probabilidad.
+
+\begin{theorem}
+    Dos variables aleatorias $X$ e $Y$ son idénticamente distribuidas si y solo si $\varphi_X = \varphi_Y$.
+\end{theorem}
+
+\begin{theorem}[Teorema de inversión para densidades]
+    Si $X$ es una variable aleatoria con
+    \[\int_\R |\varphi_X(s)| \, ds< \infty,\]
+    entonces $X$ es absolutamente continua y para todo $t \in \R$,
+    \[f_X(t)=\frac{1}{2\pi}\int_\R e^{-its}\varphi_X(s) \, ds.\]
+\end{theorem}
+
+\begin{example}
+    Como aplicación del teorema anterior, vamos a calcular
+    \[\int_0^\infty \left(\frac{\sen x}{x}\right)^2 \, dx.\]
+    La comprobación de que esta integral es finita es fácil. En un ejemplo anterior se vio que si $X \sim U([-1,1])$, entonces $\varphi_X(t) = \frac{\sen t}{t}$ para todo $t \neq 0$. En consecuencia, si $X$ e $Y$ son variables aleatorias independientes con $X,Y \sim U([-1,1])$, entonces $\varphi_{X+Y}(t)=\left(\frac{\sen t}{t}\right)^2$ para todo $t \neq 0$. Por el teorema anterior, $X+Y$ es absolutamente continua con función de densidad dada por
+    \[f_{X+Y}(t) = \frac{1}{2\pi}\int_\R e^{-its}\frac{\sen^2 s}{s^2}\,ds\]
+    para todo $t \in \R$. En particular,
+    \[f_{X+Y}(0) = \frac{1}{2\pi}\int_\R \frac{\sen^2 s}{s^2}\,ds. \tag{$\ast$}\]
+    Por otro lado, la densidad de $X+Y$ puede hallarse por convolución, obteniéndose tras hacer un par de cuentas que $f_{X+Y}(t) = \frac{1}{2}(1-\frac{1}{2}|t|)\mathbbm{1}_{[-2,2]}(t)$, $t \in \R$. Como $f_{X+Y}(0) = \frac{1}{2}$, igualando con $(\ast)$ y usando que el integrando es una función par se concluye que
+    \[\int_0^\infty \left(\frac{\sen x}{x}\right)^2 \, dx = \frac{1}{2}\int_\R \left(\frac{\sen x}{x}\right)^2 \, dx = \frac{1}{2}\frac{2\pi }{2} = \frac{\pi}{2}.\]
+\end{example}
+
+\section{Función característica y momentos}
+
+\begin{theorem}
+    Sea $X$ una variable aleatoria. Si para algún $k \in \N$ se tiene que $X \in L^k$, entonces $\varphi_X$ es $k$ veces derivable y $\varphi_X^{(j)}(t) = E((iX)^j e^{itX})$ para todo $j \leq k$ y todo $t \in \R$.
+\end{theorem}
+
+Como consecuencia inmediata de este teorema se obtiene un resultado que permite calcular los momentos de una variable aleatoria (siempre que tengan sentido) a partir de la función característica.
+
+\begin{corollary}\label{cor:1.9.13}
+    Sea $X$ una variable aleatoria. Si para algún $k \in \N$ se tiene que $X \in L^k$, entonces
+    $\varphi_X^{(k)}(0)=i^k E(X^k)$.
+\end{corollary}
+
+\begin{example}
+    Si $X$ es una variable aleatoria absolutamente continua con $X \sim N(\mu,\sigma^2)$, se ha visto que $\varphi_X(t) = e^{it\mu}e^{-\frac{\sigma^2t^2}{2}}$ para todo $t \in \R$, luego $\varphi'_X(t) = (i\mu -\sigma^2 t) e^{it\mu-\frac{\sigma^2t^2}{2}}$, y por el corolario anterior, $E(X) = \frac{\varphi_X'(0)}{i} = \mu$.
+\end{example}
+
+En caso de que existan los momentos de todos los órdenes, la función característica de una variable aleatoria adopta una expresión sencilla y manejable.
+
+\begin{theorem}
+    Sea $X$ una variable aleatoria. Si $X \in L^k$ para cada $k \in \N$, entonces para todo $t \in \R$ se tiene
+    \[\varphi_X(t) = \sum_{k=0}^\infty \frac{(it)^k}{k!}E(X^k).\]
+\end{theorem}
+
+La existencia de los momentos de todos los órdenes es una condición bastante restrictiva. Con tener la existencia algún momento ya se puede obtener una estimación decente de $\varphi_X$.
+
+\begin{theorem}
+    Sea $X$ una variable aleatoria. Si $X \in L^k$ para algún $k \in \N$, entonces para todo $t \in \R$ se tiene
+    \[\varphi_X(t) = \sum_{j=0}^k \frac{(it)^j}{j!}E(X^j) + o(t^k).\]
+\end{theorem}
+
+Se recuerda que si $f,g \colon \R \to \R$ son funciones no nulas, cuando se escribe $f(t) = o(g(t))$ se está diciendo que \[\lim_{t \to \infty} \frac{f(t)}{g(t)} = 0.\]
+
+\chapter[Convergencia de variables aleatorias]{Convergencia de \\[-10pt] variables aleatorias}
+
+
+Al manejar variables aleatorias y funciones de distribución, la convergencia puntual presenta ciertos inconvenientes, pues, como consecuencia del mal comportamiento de la convergencia puntual frente a la continuidad, el límite puntual de funciones de distribución no tiene por qué ser una función de distribución. Es por esto que interesa estudiar otros tipos de convergencia.
+
+\begin{example}
+    Para cada $n \in \N$, sea $X_n$ una variable aleatoria discreta con $X_n \sim D(\frac{1}{n})$. La función de distribución de $X_n$ viene dada por
+    \[F_{X_n}(x) = \begin{cases}
+        0 & $ si $ x < \frac{1}{n}, \\[5pt]
+        1 & $ si $ \frac{1}{n} \leq x.
+    \end{cases}\]
+    Para todo $x \in \R$,
+    \[\lim_{n \to \infty}F_{X_n}(x) = \begin{cases}
+        0 & $ si $ x \leq 0, \\
+        1 & $ si $ 0 < x,
+    \end{cases}\]
+    luego el límite puntual de $\{F_{X_n}\}_{n=1}^\infty$ no es una función de distribución, pues no es continua por la derecha.
+\end{example}
+
+\section{Convergencia débil y en distribución}
+
+\begin{definition}
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias.
+    \begin{enumerate}
+        \item Se dice que $\{F_{X_n}\}_{n=1}^\infty$ \emph{converge débilmente a $F_X$}, y se denota $F_{X_n} \dconv F_X$,
+        si para todo $t \in C_F$ se tiene que
+        \[\lim_{n \to \infty} F_{X_n}(t)=F_X(t).\]
+        \item Se dice que $\{X_n\}_{n=1}^\infty$ \emph{converge en distribución a $X$}, y se denota $X_n \dconv X$, si $\{F_{X_n}\}_{n=1}^\infty$ converge débilmente a $F_X$.
+        \item Se dice que $\{P_{X_n}\}_{n=1}^\infty$ \emph{converge débilmente a $P_X$}, y se denota $P_{X_n} \dconv P_X$, si para todo $t \in \R$ con $p_X(t) = 0$ se tiene que
+        \[\lim_{n \to \infty} P(X_n \leq t) = P(X \leq t).\]
+    \end{enumerate}
+\end{definition}
+\begin{proposition}\label{pro:1.8.3}
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Entonces
+    \[F_{X_n} \dconv F_X \iff P_{X_n} \dconv P_X.\]
+\end{proposition}
+
+Ya no hace falta especificar si con \emph{límite débil} se está hablando de funciones de distribución o de medidas de probabilidad, pues ambas nociones son equivalentes.
+
+\begin{proposition}
+    El límite débil, si existe, es único.
+\end{proposition}
+
+\begin{theorem}
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Si $P_{X_n} \dconv P_X$ y $g \colon \R \to \R$ es una función de Borel tal que $P_X(D_g) = 0$, entonces $P_{X_n}g^{-1} \dconv P_Xg^{-1}$.
+\end{theorem}
+
+Nótese que $P_X(D_g)$ tiene perfecto sentido porque $D_g \in \mathcal{B}$, como es fácil demostar (esto sigue siendo cierto para una función $g \colon \R \to \R$ arbitraria, no necesariamente de Borel).
+
+Por otra parte, se recuerda que $P_{X_n}g^{-1}$ es la medida de probabilidad de la variable aleatoria $g \circ X_n$ para cada $n \in \N$, y $P_Xg^{-1}$ es la medida de probabilidad de $g \circ X$.
+
+\begin{corollary}
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Si $X_n \dconv X$ y $g \colon \R \to \R$ es una función de Borel tal que $P_X(D_g) = 0$, entonces $g \circ X_n \dconv g \circ X$.
+\end{corollary}
+
+Antes de enunciar el próximo teorema, se aclara que la frontera de un subconjunto $B \subset \R^n$ se va a denotar por $\partial B$ . También se denota $\mathcal{C}_b(\R) = \{f \colon \R \to \R \colon f \textup{ es continua y acotada}\}$,
+mientras que $\mathcal{C}_c(\R) = \{f \colon \R \to \R \colon f \textup{ es continua y } \overline{\sop f} \textup{ es compacto}\}$.
+
+
+\begin{theorem}\label{teo:4.1.6}
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Son equivalentes:
+    \begin{enumerate}
+        \item $P_{X_n} \dconv P_X$.
+        \item Para toda $f \in \mathcal{C}_b(\R)$,
+        \[\lim_{n \to \infty} \int_\R f \, dP_{X_n} = \int_\R f \, dP_X.\]
+        \item Para toda $f \in \mathcal{C}_c(\R)$,
+        \[\lim_{n \to \infty} \int_\R f \, dP_{X_n} = \int_\R f \, dP_X.\]
+        \item Para todo $B \in \mathcal{B}$ con $P(X \in \partial B) = 0$,
+        \[\lim_{n \to \infty} P(X_n \in B) = P(X \in B).\]
+    \end{enumerate}
+\end{theorem}
+
+Gracias al último apartado, en la definición de convergencia débil de medidas de probabilidad puede sustituirse $P(X_n \leq t)$ (siendo $t \in \R$ tal que $p_X(t)=0$) por $P(X_n \in B)$, para cualquier $B \in \mathcal{B}$ con $P(X \in \partial B) = 0$. Si $P(X \in \partial B) \neq 0$, el resultado no es cierto. Veámoslo.
+
+\begin{example}
+    En el espacio medible $(\R,\mathcal{B})$, considérese la medida de probabilidad $\delta_0$ y la sucesión de medidas de probabilidad $\{\delta_{\frac{1}{n}}\}_{n=1}^\infty$. Si $f \colon \R \to \R$ es continua y acotada,
+    \[\int_\R f \, d\delta_{\frac{1}{n}} = f\left(\frac{1}{n}\right).\]
+    Como $f$ es continua, 
+    \[\lim_{n \to \infty}\int_\R f \, d\delta_{\frac{1}{n}} = \lim_{n\to\infty}f\left(\frac{1}{n}\right) = f(0).\]
+    Por tanto,
+    \[\int_\R f \, d\delta_0 = f(0) =\lim_{n \to \infty}\int_\R f \, d\delta_{\frac{1}{n}}.\]
+    Por el teorema anterior, $\delta_{\frac{1}{n}} \dconv \delta_0$. Sin embargo, tomando $B = (-\infty,0]$, se tiene que
+    \[\lim_{n \to \infty} \delta_{\frac{1}{n}}(B) = \lim_{n \to \infty} 0 = 0,\]
+    pero $\delta_0(B) = 1$, luego
+    \[\lim_{n \to \infty} \delta_{\frac{1}{n}}(B) \neq \delta_0(B).\] 
+    La hipótesis que falla es que $\delta_0(\partial B) = \delta_0(\{0\}) = 1 \neq 0$.
+\end{example}
+
+Si se trabaja con variables aleatorias absolutamente continuas, se dispone de una condición suficiente para la convergencia en distribución que puede ser útil en la práctica.
+
+\begin{proposition}
+    Sea $X$ una variable aleatoria absolutamente continua y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias absolutamente continuas. Si para casi todo $t \in \R$ se tiene que
+    \[\lim_{n \to \infty}f_{X_n}(t) = f_X(t),\]
+    entonces $X_n \dconv X$.
+\end{proposition}
+
+
+\begin{example}
+    Sea $\{U_n\}_{n=1}^\infty$ una sucesión de variables aleatorias independientes y absolutamente continuas con $U_n \sim U([0,1])$ para todo $n \in \N$. Consideremos la sucesión de variables aleatorias $\{X_n\}_{n=1}^\infty$, donde $X_n = \max\{U_1,U_2,\mathellipsis,U_n\}$ para cada $n \in \N$. Se trata de estudiar la convergencia en distribución de $\{X_n\}_{n=1}^\infty$. Dado $n \in \N$,
+    \[F_{X_n}(t)=P(X_n \leq t) = P(U_1 \leq t, U_2 \leq t, \mathellipsis, U_n \leq t) = \prod_{i=1}^n P(U_i \leq t) = \prod_{i=1}^n F_{U_i}(t),\]
+    donde, para cada $i \in \{1,\mathellipsis,n\}$,
+    \[F_{U_i}(t) = \begin{cases}
+        0 & $ si $ t < 0, \\
+        t & $ si $ 0 \leq t < 1, \\
+        1 & $ si $ 1 \leq t.
+    \end{cases}\]
+    Por tanto,
+    \[F_{X_n}(t)= \begin{cases}
+        0 & $ si $ t < 0, \\
+        t^n & $ si $ 0 \leq t < 1, \\
+        1 & $ si $ 1 \leq t.
+    \end{cases}\]
+    Tomando límite,
+    \[\lim_{n \to \infty} F_{X_n}(t) =\begin{cases}
+        0 & $ si $ t < 1, \\
+        1 & $ si $ 1 \leq t. 
+    \end{cases} \]
+    Se observa que $\{F_{X_n}\}_{n=1}^\infty$ converge débilmente a $F_X$, siendo $F_X$ la función de distribución de una variable aleatoria discreta $X$ con $X \sim D(1)$. Se concluye que la sucesión de variables aleatorias $\{X_n\}_{n=1}^\infty$ converge en distribución a $X$, o, como suele decirse,  $\{X_n\}_{n=1}^\infty$ converge en distribución a $D(1)$.
+\end{example}
+
+\begin{example}
+    Siguiendo con el ejemplo anterior, sea $Y_n = n(1-X_n)$ para cada $n \in \N$. Se trata de estudiar la convergencia en distribución de $\{Y_n\}_{n=1}^\infty$. Se tiene que
+    \[F_{Y_n}(t) = P(Y_n \leq t) = P\left(X_n \geq 1-\frac{t}{n}\right) = 1 - F_{X_n}\left(\left(1-\frac{t}{n}\right)^-\right).\]
+    Como $F_{X_n}$ es continua,
+    \[F_{Y_n}(t) = 1 - F_{X_n}\left(1-\frac{t}{n}\right) = \begin{cases}
+        1 & $ si $ 1 - \frac{t}{n} < 0, \\
+        1 - \left(1-\frac{t}{n}\right)^n & $ si $ 0 \leq 1- \frac{t}{n} < 1, \\
+        0 & $ si $ 1 \leq 1 - \frac{t}{n}.
+    \end{cases} =  \begin{cases}
+        0 & $ si $ t \leq 0, \\
+        1 - \left(1-\frac{t}{n}\right)^n & $ si $ 0 < t \leq n, \\
+        1 & $ si $ n < t.
+    \end{cases}\]
+    Por tanto,
+    \[\lim_{n \to \infty} F_{Y_n}(t) = \begin{cases}
+        0 & $ si $ t \leq 0, \\
+        1-e^{-t} & $ si $ 0 < t.
+    \end{cases}\]
+    En consecuencia, $\{F_{Y_n}\}_{n=1}^\infty$ converge débilmente a la función de distribución de una variable aleatoria $Y$ absolutamente continua y con $Y \sim \textup{\emph{Exp}}(1)$, luego $\{Y_n\}_{n=1}^\infty$ converge en distribución a $Y$, o, como suele decirse, $\{Y_n\}_{n=1}^\infty$ converge en distribución a $\textup{\emph{Exp}}(1)$.
+\end{example}
+
+\begin{example}
+    Para cada $n \in \N$, sea $F_n \colon \R \to [0,1]$ la función definida por
+    \[F_n(x) = \left(\frac{1}{2}+n\frac{x}{2}\right)\mathbbm{1}_{(-\frac{1}{n},\frac{1}{n})}(x)+\mathbbm{1}_{[\frac{1}{n},\infty)}(x).\]
+    Es claro que $F_n$ es una función de distribución para cada $n \in \N$. Además,
+    \[\lim_{n \to \infty} F_n(x) = \begin{cases}
+        0 & $ si $ x < 0, \\
+        \frac{1}{2} & $ si $ x = 0, \\
+        1 & $ si $ 0 < x.
+    \end{cases}\]
+    Se observa que el límite puntual de $F_n$ no es una función de distribución (no es continuo por la derecha en $0$), así que no puede ser límite débil de $\{F_n\}_{n=1}^\infty$. Sin embargo, si se define $\widetilde{F} \colon \R \to [0,1]$ mediante
+    \[\widetilde{F}(x) = \begin{cases}
+        0 & $ si $ x < 0, \\
+        1 & $ si $ 0 \leq x,
+    \end{cases}\]
+    entonces $\widetilde{F}$ es una función de distribución y
+    \[\lim_{n \to \infty} F_n(x) = \widetilde{F}(x)\]
+    para todo $x \in C_{\widetilde{F}}$. Por tanto, $\{F_n\}_{n=1}^\infty$ converge en distribución a $\widetilde{F}$.
+\end{example}
+
+Para simplificar la escritura, en el resultado que sigue se hará referencia a una función característica $\varphi$ asociada a una función de distribución $F$. Esto quiere decir que si $X$ es una variable aleatoria con función de distribución $F$ (que se sabe que existe), entonces $\varphi$ es la función característica de $X$. 
+
+Recuérdese que si $Y$ fuese otra variable aleatoria con función característica $\varphi$, entonces $X$ e $Y$ son idénticamente distribuidas, así que esto de hablar de funciones características asociadas a funciones de distribución en lugar de variables aleatorias no presenta ninguna ambigüedad.
+
+\begin{theorem}[Teorema de continuidad de Lévy]\label{teo:1.9.30}
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias.
+    \begin{enumerate}
+        \item Si existe una función de distribución $F$ tal que $F_{X_n} \dconv F$, entonces $\varphi_{X_n}(t) \nconv \varphi(t)$ para todo $t \in \R$, donde $\varphi$ es la función característica asociada a $F$.
+        \item Recíprocamente, si existe una función $\varphi \colon \R \to \C$ continua en $0$ y con $\varphi_{X_n}(t) \nconv \varphi(t)$ para todo $t \in \R$, entonces $\varphi$ es la función característica asociada a una función de distribución $F$ verificando $F_{X_n} \dconv F$.
+    \end{enumerate}
+    \end{theorem}
+    
+    \begin{example}
+        Considérense $n$ variables aleatorias independientes $X_1,\mathellipsis,X_n$ con $X_i \sim \textup{\emph{Rad}}$ para cada $i \in \{1,\mathellipsis,n\}$. Se sabe que $\varphi_{X_i}(t) = \cos(t)$ para todo $i \in \{1,\mathellipsis,n\}$ y todo $t \in \R$. Estudiemos la convergencia en distribución de $\{Y_n\}_{n=1}^\infty$, donde, para cada $n \in \N$, $Y_n = \frac{X_1+\mathellipsis+X_n}{\sqrt{n}}$. Si $n \in \N$ y $t \in \R$,
+        \[\varphi_{Y_n}(t) = \varphi_{X_1+\mathellipsis+X_n}\left(\frac{t}{\sqrt{n}}\right) = \varphi_{X_1}\left(\frac{t}{\sqrt{n}}\right)\mathellipsis \varphi_{X_n}\left(\frac{t}{\sqrt{n}}\right) =\cos^n \left(\frac{t}{\sqrt{n}}\right).\]
+        Se tiene que
+        \[\lim_{n \to \infty} \cos^n\left(\frac{t}{\sqrt{n}}\right) = \lim_{n \to \infty} e^{\log(\cos^n(\frac{t}{\sqrt{n}}))} = \lim_{n \to \infty} e^{n\log(\cos(\frac{t}{\sqrt{n}}))}. \tag{$\ast$}\]
+        Se halla primero el límite del exponente:
+        \[\begin{aligned}[t]
+            \lim_{x \to \infty} x\log\left(\cos\left(\frac{t}{\sqrt{x}}\right)\right) &= \lim_{x \to \infty} \frac{\log(\cos(\frac{t}{\sqrt{x}}))}{\frac{1}{x}} 
+            = \lim_{x \to \infty} \frac{\frac{1}{\cos(\frac{t}{\sqrt{x}})}\sen(\frac{t}{\sqrt{x}})\frac{t}{2x^{3/2}}}{-\frac{1}{x^2}} =-\frac{t}{2} \lim_{x \to \infty}\sqrt{x}\frac{\sen(\frac{t}{\sqrt{x}})}{\cos(\frac{t}{\sqrt{x}})} \\
+            &= -\frac{t}{2}\lim_{x \to \infty} \frac{\sen(\frac{t}{\sqrt{x}})}{\frac{t}{\sqrt{x}}} \frac{t}{\cos(\frac{t}{\sqrt{x}})} = -\frac{t}{2} \cdot 1 \cdot \frac{t}{\cos(0)} = -\frac{t^2}{2},
+        \end{aligned}
+        \]
+        utilizándose en la segunda igualdad la regla de L'Hôpital, y en la última igualdad que
+        \[\lim_{x \to 0} \frac{\sen x}{x} = 1.\]
+        Volviendo a $(\ast)$, para todo $t \in \R$ se verifica
+        \[\lim_{n \to \infty} \varphi_{Y_n}(t) =\lim_{n \to \infty} \cos^n\left(\frac{t}{\sqrt{n}}\right)=e^{-\frac{t^2}{2}} = \varphi(t).\]
+        Se observa que $\varphi$, además de ser continua en $0$, es la función característica de una variable aleatoria $Y$ absolutamente continua con $Y \sim N(0,1)$, como ya se ha visto en algún ejemplo anterior. Por el \hyperref[teo:1.9.30]{\color{gray}teorema de continuidad de Lévy}, se concluye que $\{Y_n\}_{n=1}^\infty$ converge en distribución a $N(0,1)$.
+    \end{example}
+
+    \section{Convergencia vaga}
+
+    \begin{definition}
+        Sea $\mu$ una medida sobre $(\R,\mathcal{B})$ y sea $\{\mu_n\}_{n=1}^\infty$ una sucesión de medidas sobre $(\R,\mathcal{B})$. Se dice que $\{\mu_n\}_{n=1}^\infty$ \emph{converge vagamente a $\mu$} y se denota $\mu_n \vconv \mu$, si para toda $f \in \mathcal{C}_c(\R)$ se tiene que
+        \[\lim_{n \to \infty} \int_\R f\,d\mu_n = \int_\R f \, d\mu.\]
+    \end{definition}
+
+    En caso de que todas las medidas que aparecen en la definición anterior sean de probabilidad, el \hyperref[teo:4.1.6]{\color{gray}Teorema 4.1.6} permite afirmar que la convergencia vaga y la convergencia débil son equivalentes.
+
+    \begin{definition}
+       Una familia $\{\mu_i\}_{i \in I}$ de medidas de probabilidad sobre $(\R,\mathcal{B})$ se dice que es \emph{ajustada} si para todo $\varepsilon > 0$ existe $a > 0$ tal que $\mu_i([-a,a]) \geq 1-\varepsilon$ para todo $i \in I$.
+    \end{definition}
+
+    Al ser $I$ un conjunto arbitrario, queda claro qué quiere decir que una sucesión de medidas de probabilidad sobre $(\R,\mathcal{B})$ sea ajustada.
+
+    \begin{proposition}
+        Sea $\mu$ una medida de probabilidad sobre $(\R,\mathcal{B})$ y sea $\{\mu_n\}_{n=1}^\infty$ una sucesión de medidas de probabilidad sobre $(\R,\mathcal{B})$. Si $\mu_n \dconv \mu$, entonces $\{\mu_n\}_{n=1}^\infty$ es ajustada.
+    \end{proposition}
+
+    En el ejemplo que sigue se muestra una sucesión de medidas de probabilidad sobre $(\R,\mathcal{B})$ que no es ajustada.
+
+    \begin{example}
+        Para cada $n \in \N$, sea $\mu_n = \frac{1}{2}(\delta_0+\delta_n)$. Es claro que $\mu_n$ es una medida de probabilidad sobre $(\R,\mathcal{B})$ para cada $n \in \N$. Veamos que la sucesión $\{\mu_n\}_{n=1}^\infty$ no es ajustada, es decir, que existe $\varepsilon_0 >0$ tal que para todo $a > 0$ existe $n_0 \in \N$ verificando $\mu_{n_0}([-a,a]) < 1-\varepsilon_0$.
+        En efecto, si $a >0$, tomamos $n_0 \in \N$ con $a < n_0$ y entonces se tiene
+        \[\mu_{n_0}([-a,a])  = \frac{1}{2}(\delta_0([-a,a])+\delta_{n_0}([-a,a]))= \frac{1}{2}.\]
+        Basta tomar $\varepsilon_0 = \frac{1}{2}$.
+    \end{example}
+
+    \begin{theorem}
+        Sea $\{\mu_n\}_{n=1}^\infty$ una sucesión de medidas de probabilidad sobre $(\R,\mathcal{B})$ y sea $\mu$ una medida sobre $(\R,\mathcal{B})$ y  Si $\mu_n \vconv \mu$, entonces $\mu(\R) = 1$ si y solo si la sucesión $\{\mu_n\}_{n=1}^\infty$ es ajustada, y en ese caso, $\mu_n \dconv \mu$.
+    \end{theorem}
+
+    \begin{definition}
+        Una familia $\mathcal{M} = \{\mu_i\}_{i \in I}$ de medidas de probabilidad sobre $(\R,\mathcal{B})$ se dice que es \emph{relativamente compacta} si toda sucesión en $\mathcal{M}$ tiene una subsucesión que converge débilmente.
+    \end{definition}
+
+    Si una familia $\mathcal{M} = \{\mu_i\}_{i \in I}$ de medidas de probabilidad sobre $(\R,\mathcal{B})$ es relativamente compacta y $\{\mu_n\}_{n=1}^\infty$ es una sucesión en $\mathcal{M}$, el límite débil de una subsucesión cualquiera de $\{\mu_n\}_{n=1}^\infty$ (en caso de que exista) no tiene por qué estar en $\mathcal{M}$.
+
+    \begin{theorem}[Teorema de Prohorov]
+        Una familia $\{\mu_i\}_{i \in I}$ de medidas de probabilidad sobre $(\R,\mathcal{B})$ es relativamente compacta si y solo si es ajustada.
+    \end{theorem}
+
+    \begin{corollary}
+        Una sucesión $\{\mu_n\}_{n=1}^\infty$ de medidas de probabilidad sobre $(\R,\mathcal{B})$ es ajustada si y solo si existe una subsucesión de $\{\mu_n\}_{n=1}^\infty$ que converge débilmente.
+    \end{corollary}
+
+\section{Ley 0-1 de Kolmogorov}
+
+\begin{definition}
+    Sea $(\Omega,\mathcal{A})$ un espacio medible y sea $\{A_n\}_{n=1}^\infty$ una sucesión de elementos de $\mathcal{A}$.
+    \begin{enumerate}
+        \item Se define el \emph{límite inferior de $\{A_n\}_{n=1}^\infty$} como
+        \[\linf_{n \to \infty} A_n = \bigcup_{n=1\vphantom{k}}^\infty \bigcap_{k=n}^\infty A_k.\]
+        \item Se define el \emph{límite superior de $\{A_n\}_{n=1}^\infty$} como
+        \[\lsup_{n \to \infty} A_n = \bigcap_{n=1\vphantom{k}}^\infty \bigcup_{k=n}^\infty A_k.\]
+    \end{enumerate}
+\end{definition}
+
+Es claro que el límite superior y el límite inferior son elementos de $\mathcal{A}$, pues no son más que intersecciones o uniones numerables de elementos de $\mathcal{A}$. Además,
+\[\omega \in \linf_{n \to \infty} A_n \iff \textup{ existe } n \in \N \textup{ tal que para todo } k \geq n \textup{ se tiene que } \omega \in A_k,\]
+es decir,
+\[\omega \in \linf_{n \to \infty} A_n \iff \omega \textup{ pertenece a todos los } A_k \textup{ excepto un número finito}.\]
+Por otro lado,
+\[\omega \in \lsup_{n \to \infty} A_n \iff \textup{ para todo } n \in \N \textup{ existe } k \geq n \textup{ tal que } \omega \in A_k,\]
+o, dicho de otra manera,
+\[\omega \in \lsup_{n \to \infty} A_n \iff \omega \textup{ pertenece a infinitos } A_k.\]
+
+\begin{proposition}
+    Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad y sea $\{A_n\}_{n=1}^\infty$ una sucesión de elementos de $\mathcal{A}$. Entonces
+    \[P\left(\linf_{n \to \infty} A_n\right) \leq \linf_{n \to \infty} P(A_n) \leq \lsup_{n \to \infty} P(A_n) \leq P\left(\lsup_{n \to \infty} A_n\right).\]
+\end{proposition}
+
+Un resultado en el que se afirma que un determinado suceso tiene probabilidad 0 o probabilidad 1, se conoce como \emph{ley 0-1}. El teorema que sigue es una de estas leyes.
+
+\begin{theorem}[Lemas de Borel-Cantelli]\label{teo:1.10.3}
+    Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad y sea $\{A_n\}_{n=1}^\infty$ una sucesión de elementos de $\mathcal{A}$.
+    \begin{enumerate}
+        \item Si $\sum_{n=1}^\infty P(A_n) < \infty$, entonces
+        \[P\left(\lsup_{n \to \infty} A_n\right) = 0.\]
+        \item Si los sucesos $\{A_n\}_{n=1}^\infty$ son independientes y $\sum_{n=1}^\infty P(A_n) =\infty$, entonces
+        \[P\left(\lsup_{n \to \infty} A_n\right) = 1.\]
+    \end{enumerate}
+\end{theorem}
+
+El primer apartado del resultado anterior se conoce como \emph{primer lema de Borel-Cantelli}, y el segundo, como \emph{segundo lema de Borel-Cantelli}.
+
+\begin{definition}
+    Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad y sea $\{A_n\}_{n=1}^\infty$ una sucesión de elementos de $\mathcal{A}$. Se define la \emph{$\sigma$-álgebra cola de $\{A_n\}_{n=1}^\infty$} como $\mathcal{T} = \bigcap_{n=1}^\infty \sigma(\{A_k \colon k \geq n\})$. Los elementos de $\mathcal{T}$ se denominan \emph{sucesos cola}.
+\end{definition}
+
+Si $(\Omega,\mathcal{A},P)$ es un espacio de probabilidad y $\{A_n\}_{n=1}^\infty$ es una sucesión de elementos de $\mathcal{A}$, se observa que
+\[\linf_{n \to \infty} A_n = \bigcup_{n=1}^\infty \bigcap_{k= n}^\infty A_k \in \sigma(\{A_k \colon k \geq m\}), \qquad \qquad \lsup_{n \to \infty} A_n = \bigcap_{n=1}^\infty \bigcup_{k= n}^\infty A_k \in \sigma(\{A_k \colon k \geq m\}),\]
+para todo $m \in \N$, así que
+\[\liminf_{ n \to \infty} A_n \in \mathcal{T}, \qquad \qquad \limsup_{n \to \infty} A_n \in \mathcal{T}.\]
+
+\begin{theorem}[Ley 0-1 de Kolmogorov]\label{teo:1.10.5}
+    Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad y sea $\{A_n\}_{n=1}^\infty$ una sucesión de elementos de $\mathcal{A}$. Si los sucesos $\{A_n\}_{n=1}^\infty$ son independientes, entonces para todo $A \in \mathcal{T}$ se tiene que $P(A) \in \{0,1\}$.
+\end{theorem}
+
+En consecuencia, si $\{A_n\}_{n=1}^\infty$ son sucesos independientes en un espacio de probabilidad $(\Omega,\mathcal{A},P)$, entonces
+\[P\left(\lsup_{n \to \infty}A_n\right) \in \{0,1\}.\]
+
+Posteriormente será de utilidad disponer de una \hyperref[teo:1.10.5]{\color{gray}ley 0-1 de Kolmogorov} en términos de variables aleatorias en lugar de sucesos. Se introducen para ello las definiciones siguientes:
+
+\begin{definition}
+Sea $X$ una variable aleatoria. Se define la \emph{$\sigma$-álgebra generada por $X$} como
+$\sigma(X) = \{X^{-1}(B) \colon B \in \mathcal{B}\}$.
+\end{definition}
+
+\begin{definition}
+    Sea $\{X_i\}_{i \in I}$ una familia de variables aleatorias. Se define la \emph{$\sigma$-álgebra generada por $\{X_i\}_{i \in I}$} como
+    $\sigma(X_i \colon i \in I) = \sigma(\bigcup_{i \in I} \sigma(X_i))$.
+\end{definition}
+
+En otros términos, la $\sigma$-álgebra generada por una variable aleatoria $X$ es la menor $\sigma$-álgebra respecto de la cual $X$ es una variable aleatoria, mientras que la $\sigma$-álgebra generada por una familia de variables aleatorias $\{X_i\}_{i \in I}$ es la menor $\sigma$-álgebra respecto de la cual $X_i$ es una variable aleatoria para todo $i \in I$.
+
+\begin{definition}
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Se define la \emph{$\sigma$-álgebra cola de $\{X_n\}_{n=1}^\infty$} como $\mathcal{T} = \bigcap_{n=1}^\infty \sigma(X_k \colon k \geq n)$.
+\end{definition}
+
+\begin{theorem}[Ley 0-1 de Kolmogorov]\label{teo:1.10.8}
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias independientes. Entonces $P(A) \in \{0,1\}$ para todo $A \in \mathcal{T}$.
+\end{theorem}
+
+\section{Convergencia casi segura}
+
+\begin{definition}
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Se dice que $\{X_n\}_{n=1}^\infty$ \emph{converge casi seguro a $X$}, y se denota $X_n \csconv X$, si
+    \[P(\{\omega \in \Omega \colon \lim_{n \to \infty}X_n(\omega) = X(\omega)\}) = 1.\]
+\end{definition}
+
+Es bien sabido que $A = \{\omega \in \Omega \colon \lim_{n \to \infty} X_n(\omega) = X(\omega)\}$ es un conjunto medible, y para probarlo basta tener en cuenta que
+\[A = \bigcap_{k=1}^\infty \bigcup_{n = 1\vphantom{k}}^\infty \bigcap_{m=n\vphantom{k}}^\infty \left\{\omega \in \Omega \colon |X_m(\omega) - X(\omega)| < \frac{1}{k}\right\}.\]
+Esto también muestra que $A \in \mathcal{T} = \bigcap_{n=1}^\infty \sigma(X_k \colon k \geq n)$, y de la \hyperref[teo:1.10.8]{\color{gray}ley 0-1 de Kolmogorov} se deduce lo siguiente:
+
+\begin{corollary}
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Si las variables aleatorias $\{X_n\}_{n=1}^\infty$ son independientes, entonces $X_n \csconv X$ si y solo si
+    \[P(\{\omega \in \Omega \colon \lim_{n \to \infty}X_n(\omega) = X(\omega)\}) \neq 0.\]
+\end{corollary}
+
+\begin{theorem}[Caracterización de la convergencia casi segura]
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Entonces $X_n \csconv X$ si y solo si para todo $\varepsilon > 0$ se tiene que
+    \[\lim_{n \to \infty} P\left(\bigcap_{m=n}^\infty \{\omega \in \Omega \colon |X_m(\omega) - X(\omega)| < \varepsilon\}\right) = 1,\]
+    o, equivalentemente,
+    \[\lim_{n \to \infty} P\left(\bigcup_{m=n}^\infty \{\omega \in \Omega \colon |X_m(\omega) - X(\omega)| \geq \varepsilon\}\right) = 0.\]
+\end{theorem}
+
+\section{Convergencia en probabilidad}
+
+\begin{definition}
+    Sea $X$ una variable aleatoria y sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias. Se dice que $\{X_n\}_{n=1}^\infty$ \emph{converge en probabilidad a $X$}, y se denota $X_n \pconv X$, si para todo $\varepsilon > 0$ se tiene que
+    \[\lim_{n \to \infty} P\left(\{\omega \in \Omega \colon |X_n(\omega) - X(\omega)| \geq \varepsilon\}\right) = 0, \]
+    o, equivalentemente,
+    \[\lim_{n \to \infty} P\left(\{\omega \in \Omega \colon |X_n(\omega) - X(\omega)| < \varepsilon\}\right) = 1. \]
+\end{definition}
+
+Se enuncian a continuación las propiedades más destacadas de la convergencia en probabilidad, entre ellas su relación con la convergencia casi segura y la convergencia en distribución.
+
+\begin{proposition}
+    Se verifican las siguientes propiedades:
+    \begin{enumerate}
+        \item Si $X_n \pconv X$ y $X_n \pconv Y$, entonces $P(\{\omega \in \Omega \colon X(\omega) = Y(\omega)\}) = 1$.
+        \item Si $f \colon \R \to \R$ es continua y $X_n \pconv X$, entonces $f(X_n) \pconv f(X)$.
+        \item Si $f \colon \R^2 \to \R$ es continua, $X_n \pconv X$ e $Y_n \pconv Y$, entonces $f(X_n,Y_n) \pconv f(X,Y)$.
+        \item Si $X_n \csconv X$, entonces $X_n \pconv X$.
+        \item Si $X_n \pconv X$, entonces $X_n \dconv X$.
+        \item Si $X_n \dconv c$ para alguna constante $c \in \R$, entonces $X_n \pconv c$.
+        \item $X_n \pconv X$ si y solo si para cada subsucesión $\{X_{n_k}\}_{k=1}^\infty$ de $\{X_n\}_{n=1}^\infty$ hay una subsucesión $\{X_{n_{k_j}}\}_{j=1}^\infty$ de $\{X_{n_k}\}_{k=1}^\infty$ tal que $X_{n_{k_j}} \csconv X$.
+    \end{enumerate}
+\end{proposition}
+
+Como consecuencia del tercer apartado, se obtiene que la convergencia en probabilidad se comporta bien frente a la suma y el producto.
+
+\begin{corollary}
+    Supóngase que $X_n \pconv X$ e $Y_n \pconv Y$. Entonces:
+    \begin{enumerate}
+        \item $aX_n + bY_n \pconv aX+bY$ para $a,b \in \R$ cualesquiera.
+        \item $X_nY_n \pconv XY$.
+        \item Si $P(\{\omega \in \Omega \colon Y_n(\omega) \neq 0\}) = 1$ para todo $n \in \N$, entonces $\frac{X_n}{Y_n} \pconv \frac{X}{Y}$.
+    \end{enumerate}
+\end{corollary}
+
+\section{Leyes de los grandes números}
+
+Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias y sean $\{a_n\}_{n=1}^\infty$ y $\{b_n\}_{n=1}^\infty$ dos sucesiones de números reales. Si $b_n \neq 0$ para todo $n \in \N$ y $b_n \nconv \infty$, las \emph{leyes de los grandes números} estudian la convergencia en algún sentido de la sucesión de variables aleatorias $\{\frac{S_n-a_n}{b_n}\}_{n=1}^\infty$, donde $S_n = \sum_{i=1}^n X_i$. En concreto, en esta sección se estudiará la convergencia en probabilidad y la convergencia casi segura de la sucesión $\{\frac{S_n-E(S_n)}{n}\}_{n=1}^\infty$.
+
+\begin{definition}
+    Una sucesión de variables aleatorias $\{X_n\}_{n=1}^\infty$ se dice que verifica la \emph{ley débil de los grandes números} si
+    \[\frac{S_n-E(S_n)}{n} \pconv 0,\]
+    donde $S_n = \sum_{i=1}^n X_i$ para cada $n \in \N$.
+\end{definition}
+
+\begin{definition}
+    Una sucesión de variables aleatorias $\{X_n\}_{n=1}^\infty$ se dice que verifica la \emph{ley fuerte de los grandes números} si
+    \[\frac{S_n-E(S_n)}{n} \csconv 0,\]
+    donde $S_n = \sum_{i=1}^n X_i$ para cada $n \in \N$.
+\end{definition}
+
+\begin{theorem}
+    Si $\{X_n\}_{n=1}^\infty$ es una sucesión de variables aleatorias independientes e idénticamente distribuidas con esperanza $\mu \in \R$, entonces
+    \[\frac{S_n}{n} \pconv \mu,\]
+    es decir, $\{X_n\}_{n=1}^\infty$ verifica la ley débil de los grandes números.
+\end{theorem}
+
+\begin{theorem}[Criterio de convergencia de Kolmogorov]
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias independientes con $X_n \in L^1$ para todo $n \in \N$. Si $\sum_{n=1}^\infty \Var{X_n} < \infty$, entonces
+    \[P\left(\sum_{n=1}^\infty (X_n-E(X_n)) < \infty\right) = 1.\]
+\end{theorem}
+
+\begin{example}
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias independientes tales que
+    \[P\left(X_n = \frac{1}{n^\alpha}\right) = P\left(X_n = -\frac{1}{n^\alpha}\right) = \frac{1}{2}\]
+    para cada $n \in \N$, con $\alpha > 0$ fijo. Entonces $E(X_n) = 0$ y 
+    \[\Var{X_n} = E(X_n^2)-E(X_n)^2 = \frac{1}{n^{2\alpha}}\frac{1}{2}+\frac{1}{n^{2\alpha}}\frac{1}{2} = \frac{1}{n^{2\alpha}}\]
+    para todo $n \in \N$. Por tanto, si $\alpha > \frac{1}{2}$, se tiene que $\sum_{n=1}^\infty \Var{X_n}<\infty$ y el teorema anterior permite afirmar que
+    \[P\left(\sum_{n=1}^\infty X_n < \infty\right) = 1.\]
+\end{example}
+
+\begin{theorem}[Lema de Kronecker]\label{teo:4.5.7}
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias y sea $\{a_n\}_{n=1}^\infty$ una sucesión de números reales con $a_n > 0$ para todo $n \in \N$ y $a_n \nconv \infty$. Si
+    \[P\left(\sum_{n=1}^\infty \frac{X_n}{a_n} < \infty\right) = 1,\]
+    entonces
+    \[\frac{1}{a_n}\sum_{k=1}^n X_k \csconv 0.\]
+\end{theorem}
+
+\begin{theorem}
+    Si $\{X_n\}_{n=1}^\infty$ es una sucesión de variables aleatorias independientes e idénticamente distribuidas con esperanza $\mu \in \R$, entonces
+    \[\frac{S_n}{n} \csconv \mu,\]
+    es decir, $\{X_n\}_{n=1}^\infty$ verifica la ley fuerte de los grandes números.
+\end{theorem}
+
+Si las variables aleatorias son independientes pero no idénticamente distribuidas, bajo ciertas hipótesis se sigue verificando la ley fuerte de los grandes números.
+
+\begin{theorem}[Condición suficiente de Kolmogorov]\label{teo:4.6.9}
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias independientes con $X_n \in L^1$ para todo $n \in \R$. Si $\sum_{n=1}^\infty \frac{\Var{X_n}}{n^2} < \infty$, entonces
+    \[\frac{S_n-E(S_n)}{n} \csconv 0,\]
+    es decir, $\{X_n\}_{n=1}^\infty$ verifica la ley fuerte de los grandes números.
+\end{theorem}
+
+\begin{definition}
+    Dos sucesiones de variables aleatorias $\{X_n\}_{n=1}^\infty$ e $\{Y_n\}_{n=1}^\infty$ se dicen \emph{equivalentes en convergencia} si $\sum_{n=1}^\infty P(X_n \neq Y_n) < \infty$.
+\end{definition}
+
+Por ejemplo, si $\{X_n\}_{n=1}^\infty$ es una sucesión de variables aleatorias y $\{c_n\}_{n=1}^\infty$ es una sucesión de números reales tal que $\sum_{n=1}^\infty P(|X_n| > c_n) < \infty$,
+entonces $\{X_n\}_{n=1}^\infty$ e $\{X_n\mathbbm{1}_{|X_n| \leq c_n}\}_{n=1}^\infty$ son equivalentes en convergencia.
+
+\begin{proposition}
+    Si dos sucesiones de variables aleatorias $\{X_n\}_{n=1}^\infty$ e $\{Y_n\}_{n=1}^\infty$ son equivalentes en convergencia, entonces $\{X_n\}_{n=1}^\infty$ verifica la ley fuerte de los grandes números si y solo si $\{Y_n\}_{n=1}^\infty$ verifica la ley fuerte de los grandes números.
+\end{proposition}
+
+Si $\{X_n\}_{n=1}^\infty$ es una sucesión de variables aleatorias tal que $\sum_{n=1}^\infty \frac{\Var{X_n}}{n^2} = \infty$ y quiere estudiarse la convergencia casi segura de la sucesión $\{\frac{S_n-E(S_n)}{n}\}_{n=1}^\infty$, puede construirse una sucesión $\{Y_n\}_{n=1}^\infty$ que sea equivalente en convergencia a $\{X_n\}_{n=1}^\infty$ y que verifique $\sum_{n=1}^\infty \frac{\Var{Y_n}}{n^2} < \infty$. En estas circunstancias, la proposición anterior y la \hyperref[teo:4.6.9]{\color{gray}condición suficiente de Kolmogorov} permitirán afirmar que $\{X_n\}_{n=1}^\infty$ verifica la ley fuerte de los grandes números.
+
+Por otro lado, si $X$ es una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$ y $c > 0$, se denota $X^{(c)} = X\mathbbm{1}_{|X_n| \leq c}$.
+
+\begin{theorem}[Teorema de las tres series de Kolmogorov]
+    Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias independientes. Si existe $c > 0$ tal que
+    \[\sum_{n=1}^\infty P(|X_n| > c) < \infty, \qquad \sum_{n=1}^\infty E(X_n^{(c)}) < \infty, \qquad \sum_{n=1}^\infty \Var{X_n^{(c)}} < \infty,\]
+    entonces
+    \[P\left(\sum_{n=1}^\infty X_n < \infty\right) = 1.\]
+\end{theorem}
+
+\begin{definition}
+    Una sucesión de variables aleatorias $\{X_n\}_{n=1}^\infty$ se dice que verifica el \emph{teorema central del límite} si
+    \[\frac{S_n-E(S_n)}{\sqrt{\Var{S_n}}} \dconv N(0,1),\]
+    donde $S_n = \sum_{i=1}^n X_i$ para cada $n \in \N$.
+\end{definition}
+
+\begin{theorem}[Teorema de Lindeberg-Lévy]
+    Considérese una sucesión $\{X_n\}_{n=1}^\infty$ de variables aleatorias independientes e idénticamente distribuidas con esperanza $\mu \in \R$ y varianza $\sigma^2 \in (0,\infty)$. Entonces
+    \[\frac{S_n - n\mu}{\sigma \sqrt{n}} \dconv N(0,1),\]
+    es decir, $\{X_n\}_{n=1}^\infty$ verifica el teorema central del límite.
+\end{theorem}
+
+\end{document}

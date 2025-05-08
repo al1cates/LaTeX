@@ -1,0 +1,51 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ticks = none,
+        xmin = -5,
+        xmax = 5,
+        ymin = -4,
+        ymax = 4,
+        samples = 200,
+        xtick={},
+        xticklabels={},
+        ytick = {},
+        yticklabels = {},
+        scale=0.6
+    ]
+    \end{axis}
+    \begin{axis}[
+        axis lines* = middle,
+        xmin = -5,
+        xmax = 5,
+        ymin = -4,
+        ymax = 4,
+        samples = 200,
+        xtick= {-3, -1, 1, 3},
+        xticklabels= {\scriptsize -3,\scriptsize  -1,\scriptsize  1,\scriptsize  3},
+        x tick label style = below left,
+        ytick = {2},
+        yticklabels = {\scriptsize 2},
+        y tick label style = above left,
+        scale = 0.6,
+        grid = major,
+        extra y ticks = {-2},
+        extra y tick labels = {},
+        extra y tick style = {tick label style = {below left}}
+    ]
+    \addplot[domain=-5:-2, color=c3, line width=2pt]{0};
+    \addplot[domain=-2:2, color=c3, line width=2pt]{1};
+    \addplot[domain=2:5, color=c3, line width=2pt]{0};
+    \addplot[excl, c3] coordinates {(-2,1)};
+    \addplot[excl, c3, fill=white] coordinates {(-2,0)};
+    \addplot[excl, c3] coordinates {(2,1)};
+    \addplot[excl, c3, fill=white] coordinates {(2,0)};
+    \end{axis}
+    \end{tikzpicture}
+
+\end{document}

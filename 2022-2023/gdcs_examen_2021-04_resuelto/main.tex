@@ -1,0 +1,73 @@
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+
+\parindent=0pt
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\small
+
+\textbf{Geometría Diferencial de Curvas y Superficies} \hfill \textbf{Examen de abril de 2021}
+\linebreak
+
+\textbf{1. } \textit{Sea $\alpha \colon \R \to \R^2$ una curva parametrizada por el arco y periódica, es decir, tal que $\alpha(s) = \alpha(s+A)$ para todo $s \in \R$, siendo $A >0$ fijo. }
+
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Demuéstrese que dado $v \in \R^2$, existe un vector tangente a $\alpha$ y perpendicular a $v$.}
+    \item[\textit{(b)}] \textit{Dedúzcase del apartado anterior que dado $w \in \R^2$, existe una recta tangente a $\alpha$ y paralela a $w$.}
+\end{itemize}
+
+\textbf{(a) } Sea $v \in \R$. Se considera la función
+\[\begin{aligned}[t]
+    f \colon \R &\longrightarrow \R \\
+    s &\longmapsto f(s) = \langle \alpha(s),v \rangle
+\end{aligned}\]
+Fíjese cualquier $s \in \R$. Se tiene entonces $f(s) = f(s+A)$. Además, $f$ es continua en $[s,s+A]$ y derivable en $(s,s+A)$, así que por el teorema de Rolle, existe $c \in (s,s+A)$ tal que 
+\[f'(c) = 0 \iff \langle \alpha'(c),v \rangle = 0\]
+luego $\alpha'(c)$ es un vector tangente a $\alpha$ y perpendicular a $v$.
+
+\vspace{2mm}
+\textbf{(b) } Sea $w = (w_1,w_2) \in \R^2$. Aplicando el teorema anterior a $w' = (-w_2,w_1)$, existe un vector $\alpha'(c)$ tangente a $\alpha$ y perpendicular a $w'$. Como $w$ es perpendicular a $w'$ y $w'$ es perpendicular a $\alpha'(c)$, entonces $w$ y $\alpha'(c)$ llevan la misma dirección. La recta que pasa por $\alpha(c)$ y lleva la dirección de $\alpha'(c)$ es tangente a $\alpha$ y paralela a $w$.
+
+\vspace{4mm}
+\textbf{2. } \textit{Sea $\alpha \colon \R \to \R^3$ una curva regular definida por $\alpha(t) =(e^t,e^{-t},e^t+e^{-t})$. Calcúlese su curvatura y su torsión. }
+
+\vspace{2mm}
+Se tiene que $\alpha'(t) = (e^t,-e^{-t},e^t-e^{-t})$, así que $\alpha$ no es parametrizada por el arco. La curvatura y la torsión serán entonces
+\[k(t) = \frac{||\alpha'(t) \wedge \alpha''(t)||}{||\alpha'(t)||^3} \qquad \tau(t) = \frac{\det(\alpha'(t),\alpha''(t),\alpha'''(t))}{||\alpha'(t) \wedge \alpha''(t)||^2}\]
+y el desafío que plantea este ejercicio es tener la voluntad de realizar un puñado de cálculos tediosos e insulsos.
+
+\vspace{4mm}
+\textbf{3. } 
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Defínanse los puntos críticos (o singulares) de una función $f \colon V \to \R$, siendo $V$ un abierto de $\R^3$.}
+    \item[\textit{(b)}] \textit{Para cada $a \in \R$, se considera el conjunto $S_a = \{(x,y,z) \in \R^3 \colon x^2+y^2-az^2 = a\}$. ¿Para qué valores de $a$ es $S_a$ una superficie regular?}
+\end{itemize}
+
+\textbf{(a) } Sea $f \colon V \to \R$ una función definida en un abierto de $\R^3$. Un punto $p \in V$ se dice que es \textit{punto crítico} (o \textit{singular}) cuando la aplicación $df_p$ es no sobreyectiva.
+
+\vspace{2mm}
+\textbf{(b) } Para cada $a \in \R$, considérese la función $f \colon \R^3 \to \R$ definida por $f(x,y,z) = x^2+y^2-az^2-a$. La matriz
+\[Jf_p = \begin{pmatrix}
+    2x & 2y & -2az
+\end{pmatrix}_p\]
+no tiene rango máximo si y solo si $p = (0,0,0)$, es decir, $df_p$ es no sobreyectiva si y solo si $p = (0,0,0)$. Ahora bien, para todo $a \neq 0$ se tiene que $(0,0,0) \notin f^{-1}(0)$, luego $0$ es valor regular y por tanto $S_a$ es superficie regular. Si fuese $a = 0$, entonces el conjunto
+\[S_0 = \{(x,y,z) \in \R^3 \colon x^2+y^2 = 0\} = \{(x,y,z) \in \R^3 \colon x = 0, y = 0\}\]
+es el eje $z$, que no es una superficie regular. Se concluye que $S_a$ es una superficie regular si y solo si $a \neq 0$.
+
+\end{document}

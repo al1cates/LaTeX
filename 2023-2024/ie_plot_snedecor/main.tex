@@ -1,0 +1,79 @@
+\documentclass[11pt]{report}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Paquetes
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[spanish, es-lcroman]{babel} % es-lcroman para poder usar números romanos en minúscula
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{fouriernc} % Fuente
+\usepackage[svgnames, x11names, rgb]{xcolor}
+\usepackage{parskip} % Cambia la sangría por espacio vertical
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[labelfont=bf, labelsep=period]{caption} % Cambia «Figura 1:» por «Figura 1.» (en negrita)
+\usepackage{float} % Para que el texto después de una gráfica no se ponga antes
+\usepackage[active,tightpage]{preview}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Ajustes generales
+
+\pgfplotsset{compat=1.18}
+
+\setlength{\PreviewBorder}{0pt}
+
+\PreviewEnvironment[{[]}]{tikzpicture}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Colores
+
+\definecolor{p1c1}{HTML}{222831}
+\definecolor{p1c2}{HTML}{434242}
+\definecolor{p1c3}{HTML}{00ADB5}
+\definecolor{p1c4}{HTML}{76ABAE}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+\begin{tikzpicture}[
+    declare function={
+            gamma(\z)=
+            (2.506628274631*sqrt(1/\z) + 0.20888568*(1/\z)^(1.5) + 0.00870357*(1/\z)^(2.5) - (174.2106599*(1/\z)^(3.5))/25920 - (715.6423511*(1/\z)^(4.5))/1244160)*exp((-ln(1/\z)-1)*\z);
+        },
+    declare function={
+            beta(\x,\y)=gamma(\x)*gamma(\y)/gamma(\x+\y);
+        },
+    declare function={
+        fdst(\x,\a,\b) = 1 / beta(\a/2, \b/2) * (\a/\b)^(\a/2) * \x^(\a/2-1) * (1 + \a/\b*\x)^(-(\a + \b)/2);
+        }
+]
+\begin{axis}[
+    xmin = 0,
+    xmax = 5,
+    ymin = 0,
+    ymax = 2.5,
+    samples = 200,
+    xtick={0,1,2,3,4,5},
+    ytick={0.5,1,1.5,2,2.5},
+    xticklabels={0,1,2,3,4,5},
+    yticklabels={0.5,1,1.5,2,2.5},
+    grid=major,
+    scale=1.5,
+    legend cell align={left}
+]
+\addplot[domain=0.01:5, color=p1c1, line width=2pt]{fdst(x,1,1)};
+\addlegendentry{\(n=1, \phantom{00} \ m = 1\)}
+\addplot[domain=0:5, color=p1c2, line width=2pt]{fdst(x,10,1)};
+\addlegendentry{\(n=10,\phantom{0} \ m = 1\)}
+\addplot[domain=0:5, color=p1c3, line width=2pt]{fdst(x,5,2)};
+\addlegendentry{\(n=5, \phantom{00} \ m = 2\)}
+\addplot[domain=0:5, color=p1c4, line width=2pt]{fdst(x,100,100)};
+\addlegendentry{\(n=100, \ m = 100\)}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,194 @@
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{hyperref} % Para poder insertar hiperenlaces a secciones del documento
+\usepackage[table, x11names]{xcolor} % Para cambiar las letras de color
+\usepackage{dirtytalk} % Para usar comillas de apertura y cierre
+\usepackage{fbox} % Para las cajas en las demostraciones de "si y solo si" y doble contención
+\usepackage{mathtools}
+\usepackage{multicol} % Para dividir una lista en varias columnas
+\usepackage{soul} % Para cambiar de línea con palabras subrayadas
+\usepackage{imakeidx}
+\usepackage{graphicx}
+\usepackage{faktor} % Conjuntos cociente
+\usepackage{float} % Para que algunas figuras no se coloquen al inicio de la página
+\usepackage{centernot} % Para negar símbolos como \implies
+\usepackage{soulutf8} % Para pegar el subrayado al texto
+\usepackage{esvect}
+\usepackage{spalign}
+\usepackage{array}
+\usepackage{enumitem}
+
+\makeindex[columns=3, intoc]
+
+\setlength{\columnsep}{0.8cm} % Recta que separa dos columnas (multicols)
+\setlength{\columnseprule}{1.5pt}
+
+\makeatletter % Para que el título de los teoremas estén en negrita
+\def\th@plain{%
+  \thm@notefont{}
+  \itshape
+}
+\def\th@definition{
+  \thm@notefont{}
+  \normalfont
+}
+\makeatother
+
+\graphicspath{{./images/}}
+
+\newtheorem{proposition}{Proposición}[chapter]
+\newtheorem{corollary}{Corolario}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Ejemplo}[chapter]
+\theoremstyle{remark}
+\newtheorem*{obs}{Observación} % * para que no se numeren
+\renewcommand*{\proofname}{Demostración}
+\setcounter{chapter}{-1} % Para que el primer tema sea el Tema 0 y no el Tema 1
+\addto\captionsspanish{\renewcommand{\chaptername}{Tema}} % Para que ponga "Tema 1" en vez de "Capítulo 1"
+\addto\captionsspanish{\renewcommand{\contentsname}{Índice}} % Para cambiar el título del índice
+
+\setuldepth{Berlin}
+
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\small
+
+% Longitud antes y después de una expresión matemática:
+\setlength{\abovedisplayskip}{10pt}
+\setlength{\belowdisplayskip}{10pt}
+
+\begin{center}
+    \textbf{Ejemplos importantes del Tema 1}
+\end{center}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textit{Sucesión de funciones continuas que converge puntualmente a una función no continua.}
+    \[
+    \begin{aligned}[t]
+    f_k \colon [0,1] &\longrightarrow \R \\
+    x &\longmapsto f_k(x)=x^k
+    \end{aligned}
+    \]
+    También sirve como ejemplo de función que converge puntualmente pero no uniformemente.
+    \item \textit{Sucesión de funciones derivables que converge puntual y uniformemente a una función no derivable.}
+    \[
+    \begin{aligned}[t]
+    f_k \colon [0,1] &\longrightarrow \R \\
+    x &\longmapsto f_k(x)=\sqrt{x^2+\frac{1}{k}}
+    \end{aligned}
+    \]
+    \item \textit{Sucesión de funciones integrables que converge puntualmemente a una función no integrable.}
+    \[
+    \begin{aligned}[t]
+    f_k \colon [0,1] &\longrightarrow \R \\
+    x &\longmapsto f_k(x)=\begin{cases}
+        1 $\ \ si \ \ $ x=x_1, x=x_2,\mathellipsis, x=x_{k-1} $\ ó \ $ x = x_k \\
+        0 $\ \ en caso contrario$
+    \end{cases}
+    \end{aligned}
+    \]
+    donde $\{x_k\}$ es una enumeración de los racionales de $[0,1]$.
+    \item \textit{Sucesiones uniformemente convergentes cuyo producto no converge uniformemente.}
+    \[
+    \begin{aligned}[t]
+    f_k \colon \R &\longrightarrow \R \\
+    x &\longmapsto f_k(x)=x+\frac{1}{k}
+    \end{aligned} \qquad \qquad    \begin{aligned}[t]
+    g_k \colon \R &\longrightarrow \R \\
+    x &\longmapsto g_k(x)=x+\frac{1}{k}
+    \end{aligned}
+    \]
+    \item \textit{Serie funcional de una sucesión de funciones uniformemente convergente a la función nula que no converge uniformemente}.
+    \[\sum_{n=1}^\infty \frac{x^n}{n} \ \textup{en} \ [0,1]\]
+    \item \textit{Serie funcional que converge uniformemente pero no verifica las hipótesis del criterio de Weierstrass}.
+    \[\sum_{n=1}^\infty \frac{(1-x)x^n}{\log(n+1)} \ \textup{en} \ [0,1]\]
+    También sirve cualquier serie funcional que no converja absolutamente pero sí uniformemente, como
+    \[\sum_{n=1}^\infty (-1)^n \frac{1}{x+n} \ \textup{en} \ (0,\infty)\]
+    \item \textit{Función de clase infinito y no desarrollable en serie de potencias.}
+    \[
+    \begin{aligned}[t]
+    f \colon \R &\longrightarrow \R \\
+    x &\longmapsto f(x)=\begin{cases}
+        e^{-\frac{1}{x^2}} $\ \ si $ x\neq 0 \\
+        0 \phantom{^{-\frac{1}{x^2}}} $\ \ si $ x = 0
+    \end{cases}
+    \end{aligned}
+    \]
+    No es desarrollable en serie de potencias en $a = 0$.
+\end{enumerate}
+
+\thispagestyle{empty}
+
+\pagebreak
+
+\thispagestyle{empty}
+
+\begin{center}
+    \textbf{Ejemplos importantes del Tema 2}
+\end{center}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textit{Conjunto acotado y de medida cero que no tiene volumen cero.}
+    \[\Q \cap [0,1]\]
+    \item \textit{Función integrable con secciones no integrables.}
+    \[
+    \begin{aligned}[t]
+    f \colon [0,1] \times [0,1] &\longrightarrow \R \\
+    (x,y) &\longmapsto f(x,y) = \begin{cases}
+        1 \phantom{-\frac{1}{q}} \ \ \ \ $si$ \ x \in \R \setminus \Q \\
+        1 \phantom{-\frac{1}{q}} \ \ \ \ $si$ \ x \in \Q, y \in \R \setminus \Q \\
+        1-\frac{1}{q} \ \ \: $si$ \ x, y \in \Q \ $y$ \ x = \frac{p}{q} \ $es frac. irred.$
+    \end{cases}
+    \end{aligned}
+    \]
+    Las secciones no integrables son las $f_x$.
+    \item \textit{Función cuyas integrales iteradas existen y son distintas.}
+    \[
+    \begin{aligned}[t]
+        f \colon [0,1] \times [0,1] &\longrightarrow \R \\
+        (x,y) &\longmapsto f(x,y) = \begin{cases}
+            \frac{x-y}{(x+y)^3} \ \ $si$ \ x>0,y>0 \\
+            0 \ \ \ \ \ \ \ \: \: $en caso contrario$
+        \end{cases}
+    \end{aligned}
+    \]
+    El problema es que $f$ no es integrable, pues no es acotada.
+    \item \textit{Conjunto acotado que no es J-medible.}
+    \[A = \bigcup_{i=1}^\infty \, (x_i-r_i,x_i+r_i)\]
+    donde $\{x_i\}_{i=1}^\infty$ es una enumeración de los racionales de $(0,1)$ y $r_i$ es tal que $(x_i-r_i,x_i+r_i) \subset (0,1)$ y $r_i < \frac{1}{2^{i+2}}$. La frontera es $[0,1] \setminus A$, que se prueba que no tiene medida cero usando que $\sum_{i=1}^\infty \frac{1}{2^{i+2}}<1$.
+\end{enumerate}
+
+\pagebreak
+
+\thispagestyle{empty}
+
+\begin{center}
+    \textbf{Ejemplos importantes del Tema 3}
+\end{center}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textit{Campo vectorial no conservativo cuyas derivadas cruzadas coinciden.}
+    \[\begin{aligned}[t]
+    F \colon \R^2 \setminus \{(0,0)\} &\longrightarrow \R^2 \\
+    (x,y) &\longmapsto F(x,y) = \biggl(\frac{y}{x^2+y^2},-\frac{x}{x^2+y^2}\biggr)
+    \end{aligned}\]
+    Se tiene que $\frac{\partial F_1}{\partial y} = \frac{\partial F_2}{\partial x}$ pero el campo no es conservativo porque la integral sobre la circunferencia de centro $(0,0)$ y radio $1$ no es nula.
+\end{enumerate}
+\end{document}
+

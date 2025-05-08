@@ -1,0 +1,27 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xmin = -3,
+    xmax = 3,
+    ymin = 0,
+    ymax = 6,
+    samples = 200,
+    xtick={-1, 2, 3},
+    ytick={1.5, 4.5, 6},
+    xticklabels={$a$, $b$},
+    yticklabels={$\varphi(a)$, $\varphi(b)$},
+    scale=1.25,
+    legend cell align={left},
+    grid=major,
+]
+\addplot[domain=-5:5, color=c1, line width=2pt]{x^2+0.5};
+\addplot[domain=-5:5, color=gray, style = dashed]{x+5/2};
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

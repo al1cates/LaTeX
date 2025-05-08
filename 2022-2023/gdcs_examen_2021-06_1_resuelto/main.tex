@@ -1,0 +1,158 @@
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+
+\parindent=0pt
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\small
+
+\textbf{Geometría Diferencial de Curvas y Superficies} \hfill \textbf{Examen de junio de 2021}
+\linebreak
+
+\textbf{1.} \textit{Sea $\alpha \colon (0,\pi) \to \R^2$ la curva dada por $\alpha(t) = (\sen t, \cos t +\log(\tan\frac{t}{2}))$.}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Estúdiese la regularidad de $\alpha$.}
+    \item[\textit{(b)}] \textit{Pruébese que en cualquier punto de la traza de $\alpha$, la longitud del segmento de la recta tangente entre dicho punto y el eje  $y$ es constante e igual a uno.}
+    \item[\textit{(c)}] \textit{Calcúlese la curvatura de $\alpha$.}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(a) } En primer lugar, $\alpha$ está bien definida porque $\frac{t}{2} \in (0,\frac{\pi}{2}) \subset (-\frac{\pi}{2},\frac{\pi}{2})$ para todo $t \in (0,\pi)$, y además $\tan\frac{t}{2} > 0$ para todo $t \in (0,\pi)$. Hay que estudiar la existencia de puntos singulares de $\alpha$. Se tiene que
+\[\alpha'(t) = 0 \iff \biggl(\cos t, -\sen t+\frac{1}{2\tan\frac{t}{2}\cos^2\frac{t}{2}}\biggr) \iff \biggl(\cos t, \frac{\cos t}{\tan t}\biggr) = 0\]
+Se deduce que $t = \frac{\pi}{2}$ es el único punto singular de $\alpha$.
+
+\vspace{2mm}
+\textbf{(b) } La recta tangente en un punto $\alpha(t)$ de la traza de $\alpha$ es aquella que pasa por $\alpha(t)$ y tiene vector director $\alpha'(t)$. Hay que hallar entonces el punto en que dicha recta corta al eje $y$. La ecuación punto-pediente de la recta tangente es
+
+\[
+y = \frac{1}{\tan t}(x - \sen t)+\cos t + \log (\tan \textstyle \frac{t}{2})
+\]
+Poniendo $x = 0$ se obtiene $y = \log(\tan\frac{t}{2})$, luego el punto de corte de la recta tangente con el eje $y$ es $(0,\log(\tan\frac{t}{2}))$. La longitud $L$ pedida no es más que la distancia entre $\alpha(t)$ y este punto:
+\[L = \sqrt{\sen^2t+(\cos t +\log (\textstyle \tan \frac{t}{2})-\log(\tan\frac{t}{2}))^2} = 1\]
+
+\vspace{2mm}
+\textbf{(c)} Como $\alpha$ no está parametrizada por el arco, la curvatura será
+\[k_\alpha(t)=\frac{\langle \alpha''(t),J\alpha'(t)\rangle}{||\alpha'(t)||^3}\]
+y como lo que queda consiste en hacer cuentas, el ejercicio se da por terminado.
+
+\vspace{4mm}
+\textbf{2. } \textit{Sea $f \colon U \to \R$ una función diferenciable en un abierto $U \subset \R^2$. Pruébese que
+\[\textup{gr} \, f = \{(x,y,z) \in \R^3 \colon (x,y) \in U, z = f(x,y)\}\]
+es una superficie regular.}
+
+\vspace{2mm}
+Va a probarse que $(U,\varphi)$ es una carta global de $S$, donde
+\[
+\begin{aligned}[t]
+\varphi \colon U &\longrightarrow \R^3 \\
+(u,v) &\longmapsto \varphi(u,v) = (u,v,f(u,v))
+\end{aligned}
+\]
+Como $f$ es diferenciable, entonces $\varphi$ también. La inyectividad es clara, pues si $(u,v),(u',v') \in U$ son tales que $(u,v,f(u,v)) = (u',v',f(u'v'))$, entonces tiene que ser $u = u'$ y $v = v'$, de forma que $(u,v) = (u',v')$. La inversa de $\varphi \colon U \to \varphi(U)$ es
+\[
+\begin{aligned}[t]
+\psi \colon \varphi(U) &\longrightarrow U \\
+(u,v,w) &\longmapsto \psi(u,v,w) = (u,v)
+\end{aligned}
+\]
+como se comprueba fácilmente. Evidentemente, es una aplicación continua, así que $\varphi \colon U \to \varphi(U)$ es homeomorfismo. Por último, la matriz jacobiana de $\varphi$ en cada punto $q = (u,v) \in U$ es
+\[J\varphi_q = \begin{pmatrix}
+    1 & 0 \\
+    0 & 1 \\
+    f_u & f_v
+\end{pmatrix}\]
+que tiene siempre rango máximo. Por tanto $d\varphi_q$ es inyectiva para cada $q \in U$. Esto prueba que $(U,\varphi)$ es una carta global de $S$ y en consecuencia $S$ es una superficie regular.
+
+\vspace{4mm}
+\textbf{3. } \textit{Sea 
+\[S = \{(x,y,z) \in \R^3 \colon x^2+y^2=1, z>0\}\] el semicilindro vertical, y sea 
+\[C = \{(x,y,z) \in \R^3 \colon x^2+y^2=z^2,z>0\}
+\] el cono. Considérese la aplicación $f \colon S \to C$ definida por $f(x,y,z) = (zx,zy,z)$.}
+
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Calcúlese la curvatura de Gauss y la curvatura media de $S$ y $C$.}
+    \item[\textit{(b)}] \textit{Compruébese que $f$ está bien definida y es un difeomorfismo.}
+    \item[\textit{(c)}] \textit{¿Es $f$ una isometría?}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(a) } El semicilindro vertical $S$ queda recubierto por las cartas $(U,\varphi)$ y $(V, \psi)$, siendo los dominios de las cartas $U = (0,2\pi) \times (0,\infty)$ y $V = (-\pi, \pi) \times (0,\infty)$, mientras que 
+\[
+\begin{aligned}[t]
+    \varphi \colon U &\longrightarrow \R^3 \\
+    (u,v) &\longmapsto \varphi(u,v) = (\cos u, \sen u, v)
+\end{aligned} \qquad
+\begin{aligned}[t]
+    \psi \colon V &\longrightarrow \R^3 \\
+    (u,v) &\longmapsto \psi(u,v) = (\cos u, \sen u, v)
+\end{aligned}
+\]
+Se tiene que
+\[\varphi_u = (-\sen u, \cos u, 0) \qquad \varphi_v = (0,0,1) \qquad \psi_u = (-\sen u, \cos u, 0) \qquad \psi_v = (0,0,1)\]
+Como se van a obtener los mismos resultados con cada una de las cartas, de aquí en adelante se trabajará solo con la primera de ellas. Los coeficientes de la métrica son
+\[E = 1 \qquad F = 0 \qquad G = 1\]
+Por otro lado,
+\[\varphi_{uu} = (-\cos u, -\sen u, 0) \qquad \varphi_{vv} = (0,0,0) \qquad \varphi_{uv} = (0,0,0)\]
+luego
+\[e = -1 \qquad f = 0 \qquad g = 0\]
+Las curvaturas del semicilindro vertical serían
+\[k_S = \frac{eg-f^2}{EG-F^2} = 0 \qquad H_S = \frac{1}{2}\frac{eG-2fF+gE}{EG-F^2} = -\frac{1}{2}\]
+En cuanto al cono, puede ser recubierto por las cartas $(U,\varphi)$, $(V,\psi)$ siendo los dominios de las cartas los mismos de antes, mientras que
+\[
+\begin{aligned}[t]
+    \varphi \colon U &\longrightarrow \R^3 \\
+    (u,v) &\longmapsto \varphi(u,v) = (v\cos u, v\sen u, v)
+\end{aligned} \qquad
+\begin{aligned}[t]
+    \psi \colon V &\longrightarrow \R^3 \\
+    (u,v) &\longmapsto \psi(u,v) = (v \cos u, v \sen u, v)
+\end{aligned}
+\]
+Como se van a obtener los mismos resultados con cada una de las cartas, de aquí en adelante se trabajará solo con la primera de ellas. Se tiene que
+\[\varphi_u = (-v\sen u, v\cos u, 0) \qquad \varphi_v = (\cos u, \sen u, 1)\]
+Los coeficientes de la métrica son
+\[E = v^2 \qquad F = 0 \qquad G = 2\]
+Por otro lado,
+\[\varphi_{uu} = (-v\cos u, -v\sen u, 0) \qquad \varphi_{vv} = (0,0,0) \qquad \varphi_{uv} = (-\sen u, \cos u, 0)\]
+luego
+\[e = -\frac{v^2}{\sqrt{2}v} = -\frac{v}{\sqrt{2}} \qquad f = 0 \qquad g = 0\]
+Las curvaturas del cono serían
+\[k_C = \frac{eg-f^2}{EG-F^2} = 0 \qquad H_C = \frac{1}{2}\frac{eG-2fF+gE}{EG-F^2} = -\frac{v}{2\sqrt{2}v^2} = -\frac{1}{2\sqrt{2}v}\]
+
+\textbf{(b) } Si $(x,y,z) \in S$ y $f(x,y,z) = (zx,zy,z) = (x',y',z')$, entonces
+\[x'^2+y'^2 = z^2x^2+z^2y^2 = z^2 = z'^2\]
+luego $(x',y',z') = f(x,y,z) \in C$ y por tanto $f$ está bien definida. Es fácil comprobar (queriendo decir con esto que no va a hacerse) que $f$ es difeomorfismo.
+
+\vspace{2mm}
+\textbf{(c) } Dado $p = (p_1,p_2,p_3) \in S$, hay que estudiar si se tiene
+\[\langle df_p(v),df_p(w) \rangle = \langle v,w \rangle\]
+para todos $v,w\in T_pS$. Primero se calculará $df_p$. Sea $v = (v_1,v_2,v_3) \in T_pS$ representado por la curva $\alpha = (x,y,z)$. Entonces
+\[
+\begin{aligned}[t]
+df_p(v) &= (f \circ \alpha)'(0) \\
+&= (z(t)x(t),z(t)y(t),z(t))'(0) \\
+&= (z'(0)x(0)+z(0)x'(0),z'(0)y(0)+z(0)y'(0),z'(0)) \\
+&= (v_3p_1+p_3v_1,v_3p_2+p_3v_2,v_3)
+\end{aligned}
+\]
+y por tanto,
+\[\langle df_p(v),df_p(v) \rangle = (v_3p_1+p_3v_1)^2+(v_3p_2+p_3v_2)^2+v_3^2\]
+que evidentemente no coincide con $\langle v,v \rangle$. Como $df_p$ no preserva la norma, entonces tampoco preserva el producto escalar, así que puede concluirse que $f$ no es una isometría.
+
+\end{document}

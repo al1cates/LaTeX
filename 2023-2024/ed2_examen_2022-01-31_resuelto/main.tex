@@ -1,0 +1,325 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.9in, left = 0.9in, top = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage[partialup]{kpfonts}
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\begin{center}
+    \textbf{Examen final de Ecuaciones Diferenciales II} \\
+    \textbf{Lunes, 31 de enero de 2022}
+\end{center}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 1. \textit{Probar que el problema}
+\[(P) \begin{cases}
+    x'=xe^{t-x}\\
+    x(0)=1
+\end{cases}\]
+\textit{tiene solución maximal única, definida en todo $\R$.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+Considérese la función $f \colon \R^2 \to \R$ definida por $f(t,x)=xe^{t-x}$. Al ser $f \in \mathcal{C}^1(\R^2,\R)$, entonces $f \in \mathcal{C}(D,\R) \cap \textup{Lip}_{\textup{loc}}(x,\R^2,\R)$, así que, por el TEUL, el problema $(P)$ tiene solución local única, que puede extenderse (de manera única gracias al TUG) a una solución maximal $\varphi \colon I \to \R$. Hay que demostrar que $I=\R$.
+
+\vspace{2mm}
+
+En primer lugar, obsérvese que la función nula es solución de la ecuación $(E) \ x'=xe^{t-x}$ pero no del problema $(P)$. Como $(E)$ verifica la PUG (pues $f \in \mathcal{C}(D,\R) \cap \textup{Lip}_{\textup{loc}}(x,\R^2,\R)$), entonces $\varphi(t) \neq 0$ para todo $t \in I$, y como $\varphi(0)=1>0$, por continuidad, debe ser $\varphi(t)>0$ para cada $t \in I$. Además, $\varphi'(t)=\varphi(t)e^{t-\varphi(t)}>0$ para todo $t \in I$, luego $\varphi$ es estrictamente creciente en $I$.
+
+\vspace{2mm}
+
+Por otra parte, como $\R^2$ es abierto, el resultado sobre soluciones maximales con gráficas en abiertos permite afirmar que $I=(a,b)$, donde $-\infty \leq a < 0<b\leq \infty$. Por el mismo resultado, si $t^*$ es un extremo finito de $I$, entonces debe verificarse una de las siguientes condiciones:
+\begin{itemize}
+    \item[\textit{(i)}] $\displaystyle \lim_{t\to t^*} |\varphi(t)| = \lim_{t \to t^*}\varphi(t)= \infty$.
+    \item[\textit{(ii)}] La gráfica de $\varphi$ posee un punto límite para $t \to t^*$, y este y todos los puntos límite de la gráfica de $\varphi$ para $t \to t^*$ están en $\partial \R^2$.
+\end{itemize}
+
+Nótese que $(ii)$ es imposible por ser la frontera de $\R^2$ vacía. Se demostrará entonces que $(i)$ es también imposible. Es claro que no puede ser $t^*=a$, pues el crecimiento estricto de $\varphi$ impide que sea $\lim_{t \to a}\varphi(t)=\infty$. Supóngase que $t^*=b$. Entonces $\varphi'(t)=\varphi(t)e^{t-\varphi(t)}$ es continua y acotada en $I_0^+=[0,b)$ (pues $\lim_{t \to b^-}\varphi(t)=\infty$ y $\lim_{x \to \infty}xe^{-x}=0$, luego $\lim_{t \to b^-}\varphi'(t)=0$). Como además $b < \infty$, el resultado sobre soluciones con derivada acotada dice que $\lim_{t \to b^-}\varphi(t)$ es un número real, lo que contradice $(i)$.
+
+\vspace{2mm}
+
+Se concluye que ni $a$ ni $b$ pueden ser extremos finitos, o, en otras palabras, que $I=\R$, luego $(P)$ tiene una única solución maximal y está definida en $\R$.
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 2.
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Considérese la ecuación diferencial autónoma}
+    \[(E) \quad x'=g(x),\]
+    \textit{siendo $g \in \mathcal{C}^1(\R,\R)$. Supóngase que $\varphi \colon I \to \R$, con $I$ un intervalo de $\R$, es una solución maximal no constante de $(E)$. Sabemos entonces, por teoría, que $\varphi$ es estrictamente monótona, luego $\varphi(I)$ es también un intervalo de $\R$. Probar que, para cada $(t_0,x_0) \in \R \times \varphi(I)$, el problema}
+    \[(P_{(t_0,x_0)}) \begin{cases}
+        x'=g(x) \\
+        x(t_0)=x_0
+    \end{cases}\]
+    \textit{tiene solución maximal única, que además resulta ser una trasladada de $\varphi$.}
+    \item[\textit{(b)}] \textit{Realizar un estudio lo más exhaustivo posible de las soluciones maximales de la ecuación
+    \[(E) \quad x'=x(e^{x-2}-1),\]}
+    \textit{y esbozar el aspecto de las gráficas de estas posibles soluciones.}
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+En primer lugar, por ser $g \in \mathcal{C}^1(\R,\R)$, se tiene $g \in \mathcal{C}(\R,\R)\cap \textup{Lip}_{\textup{loc}}(x,\R,\R)$, así que el TEUL proporciona una solución local única del problema $(P_{(t_0,x_0)})$ que puede extenderse (de manera única por verificarse la PUG) a una solución maximal $\psi \colon J \to \R$.
+
+\vspace{2mm}
+
+Por otro lado, como $x_0 \in \varphi(I)$, existe $t_1 \in I$ tal que $x_0=\varphi(t_1)$. Ahora se considera la función $\varphi_{t_0-t_1} \colon I+t_0-t_1 \to \R$. dada por $\varphi_{t_0-t_1}(t)=\varphi(t-t_0+t_1)$. Entonces
+\begin{itemize}
+    \item[\textit{(i)}] $\varphi_{t_0-t_1}$ es derivable en $I+t_0-t_1$ por serlo $\varphi$.
+    \item[\textit{(ii)}] $\textup{gráf}(\varphi_{t_0-t_1}) \subset \R^2$.
+    \item[\textit{(iii)}] ~$\varphi_{t_0-t_1}'(t)=\varphi'(t-t_0+t_1)=g(\varphi(t-t_0+t_1))=g(\varphi_{t_0-t_1}(t))$ para todo $t \in I+t_0-t_1$.
+    \item[\textit{(iv)}] $\varphi_{t_0-t_1}(t_0)=\varphi(t_1)=x_0$.
+\end{itemize}
+
+Además, $\varphi_{t_0-t_1}$ es una solución maximal de $(E)$ por ser la traslación de una solución maximal de $(E)$. Ahora bien, como $\varphi_{t_0-t_1}$ es solución de $(P_{(t_0,x_0)})$ y $\psi$ es la única solución maximal de dicho problema, entonces $\psi =\varphi_{t_0-t_1}$, concluyéndose que $(P_{(t_0,x_0)})$ tiene solución maximal única, y resulta ser una trasladada de $\varphi$.
+
+\vspace{2mm}
+
+Para el apartado segundo, considérese la función $g \colon \R \to \R$ dada por $g(x)=x(e^{x-2}-1)$. Se observa que $x(e^{x-2}-1)=0$ si y solo si $x=0$ o $x=2$, luego $\varphi_0 \equiv 0$ y $\varphi_2 \equiv 2$ son las únicas soluciones constantes de $(E) \ x'=x(e^{x-2}-1)$, definidas en $\R$. Como además $(E)$ verifica la PUG, cualquier solución maximal distinta de las anteriores es estrictamente monótona, y su gráfica está contenida en una de las siguientes regiones:
+\[D_1=\R \times (-\infty,0), \qquad D_2=\R \times (0,2) \qquad \textup{o} \qquad D_3= \R \times (2,\infty)\]
+
+Sea $\varphi \colon I \to \R$ una solución maximal no constante de la ecuación $(E)$. Como $\R^2$ es abierto, el resultado sobre soluciones maximales con gráficas en abiertos permite afirmar que $I=(a,b)$, con $-\infty \leq a <b \leq \infty$. También por dicho resultado, teniendo en cuenta que la frontera de $\R^2$ es vacía, puede afirmarse que $\lim_{t \to t^*}|\varphi(t)|=\infty$, siendo $t^*$ un extremo finito de $(a,b)$ (en caso de haberlo). Se distinguen tres casos:
+\begin{itemize}
+    \item[\textit{(i)}] $\textup{gráf}(\varphi) \subset D_1$. Entonces $\varphi(t) <0$ y $e^{\varphi(t)-2} <1$, así que $\varphi'(t)=\varphi(t)(e^{\varphi(t)-2}-1) >0$ para todo $t \in (a,b)$ y, en consecuencia, $\varphi$ es estrictamente creciente. Además, si $t^*$ fuese un extremo finito de $(a,b)$, entonces $\lim_{t \to t^*}|\varphi(t)|=\infty$, o, equivalentemente, $\lim_{t \to t^*}\varphi(t)=-\infty$. Por ser $\varphi$ estrictamente creciente, esto no sería posible para $t^*=b$, luego $b=\infty$. Obsérvese también que $B=\lim_{t \to \infty}\varphi(t)=0$ (si fuese $B<0 \in \R$ entonces tendríamos una solución constante de $(E)$ diferente de las anteriores; tampoco es $B=-\infty$ por el crecimiento de $\varphi$). En el lado izquierdo, podría ser $a=-\infty$ o $a>-\infty$, pero, en cualquier caso, $A=\lim_{t \to a^{+}} \varphi(t)=-\infty$ (en efecto, $A$ no podría ser un número real negativo porque obtendríamos otra solución constante de $(E)$; tampoco puede ser cero por ser $\varphi$ estrictamente creciente). En resumen, o bien se tiene
+    \[a=-\infty, \qquad A=-\infty, \qquad b=\infty \qquad \textup{y} \qquad B=0,\]
+    o bien
+    \[a>-\infty, \qquad A=-\infty, \qquad b=\infty \qquad \textup{y} \qquad B=0,\]
+    \item[\textit{(ii)}] $\textup{gráf}(\varphi) \subset D_2$. Como la gráfica de $\varphi$ está entre la gráfica de dos soluciones constantes, debe ser $I=\R$. Además, como $\varphi(t)>0$ y $e^{\varphi(t)-2}<1$, entonces $\varphi'(t)<0$ para todo $t \in (a,b)$, luego $\varphi$ es estrictamente decreciente. En consecuencia, $A=\lim_{t \to -\infty} \varphi(t)=2$ y $B=\lim_{t \to \infty}\varphi(t)=0$. La conclusión de este caso es
+    \[a=-\infty, \qquad A=2, \qquad b=\infty \qquad \textup{y} \qquad B=0\]
+    \item[\textit{(iii)}] $\textup{gráf}(\varphi) \subset D_3$. Entonces $\varphi(t) >0$ y $e^{\varphi(t)-2} >1$, así que $\varphi'(t)=\varphi(t)(e^{\varphi(t)-2}-1) >0$ para todo $t \in (a,b)$ y, en consecuencia, $\varphi$ es estrictamente creciente. Además, si $t^*$ fuese un extremo finito de $(a,b)$, entonces $\lim_{t \to t^*}|\varphi(t)|=\infty$, o, equivalentemente, $\lim_{t \to t^*}\varphi(t)=\infty$. Por ser $\varphi$ estrictamente creciente, esto no sería posible para $t^*=a$, luego $a=-\infty$. Obsérvese también que $A=\lim_{t \to -\infty}\varphi(t)=2$ (si fuese $A>2 \in \R$ entonces tendríamos una solución constante de $(E)$ diferente de las anteriores; tampoco es $A=\infty$ por el crecimiento de $\varphi$). En el lado derecho, podría ser $b=\infty$ o $b<\infty$, pero, en cualquier caso, $B=\lim_{t \to b^{-}} \varphi(t)=\infty$ (en efecto, $B$ no podría ser un número real positivo porque obtendríamos otra solución constante de $(E)$; tampoco puede ser $2$ por ser $\varphi$ estrictamente creciente). En resumen, o bien se tiene
+    \[a=-\infty, \qquad A=2, \qquad b=\infty \qquad \textup{y} \qquad B=\infty,\]
+    o bien
+    \[a=-\infty, \qquad A=2, \qquad b<\infty \qquad \textup{y} \qquad B=\infty,\]
+\end{itemize}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 3. \textit{Sean}
+\[A(t)=\begin{pmatrix}
+    \phantom{-}a(t) & 1 \\
+    -1 & 1
+\end{pmatrix} \qquad \textup{y} \qquad b(t)=\begin{pmatrix}
+    \phantom{-}e^{2t-2} \\
+    -e^{2t-2}
+\end{pmatrix}\]
+\textit{funciones matriciales definidas en $\R$, con $a \in \mathcal{C}(\R,\R)$. Consideremos el sistema}
+\[(S) \quad x'=Ax+b\]
+\textit{y el sistema homogéneo asociado,}
+\[(S_H) \quad x'=Ax\]
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Probar que $(S_H)$ tiene una única matriz fundamental $\Phi$ tal que}
+    \[\Phi(1)=\begin{pmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{pmatrix}\]
+    \textit{Para $a$ constante, dar el aspecto de $\Phi$ (no calcularla).}
+    \item[\textit{(b)}] \textit{Dar una condición necesaria y suficiente para que cualquier matriz fundamental de $(S_H)$ tenga determinante constante}.
+    \item[\textit{(c)}] \textit{En el caso en que $a(t)= 3$ para todo $t \in \R$, dar la solución del sistema $(S)$ que satisface}
+    \[x(1)=\begin{pmatrix}
+        1 \\
+        1
+    \end{pmatrix}\]
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+Sea $\Psi$ una matriz fundamental cualquiera de $(S_H)$ (existe porque el conjunto de soluciones de $(S_H)$ es un subespacio vectorial bidimensional de $\mathcal{C}^1(\R,\R)$, así que posee una base cuyos vectores constituyen una matriz fundamental). Considérese la matriz $\Phi(t) =\Psi(t) \Psi^{-1}(1)$. Como $\Psi^{-1}(1)$ es una matriz invertible, tenemos que $\Phi$ es también matriz fundamental de $(S_H)$, y además verifica $\Phi(1)=\Psi(1)\Psi^{-1}(1)=\textup{Id}$. Para probar la unicidad, supóngase que $\Theta$ es otra matriz fundamental de $(S_H)$ con $\Theta(1)=\textup{Id}$. Entonces existe $C \in \mathcal{M}_2(\R)$ invertible y tal que $\Theta=\Phi C$. Evaluando en 1, se obtiene $\Theta(1)=\Phi(1)C=C=\textup{Id}$, deduciéndose que $\Theta=\Phi \cdot \textup{Id} = \Phi$. Además, si $a$ es constante, entonces $A$ también lo es, así que la matriz fundamental canónica en $1$ es $\Phi(t)=e^{(t-1)A}$.
+
+\vspace{2mm}
+
+En cuanto al apartado $(b)$, una matriz fundamental de $(S_H)$ tiene determinante constante si y solo si $a(t)=-1$ para todo $t \in \R$. En efecto, fijando $t_0 \in \R$, por la fórmula de Abel-Liouville-Jacobi, para cada $t \in \R$ se tiene
+\[(\textup{det}\, \Phi)'(t)=\textup{tr}(A(t))\,(\textup{det} \, \Phi)(t),\]
+y como $\textup{det} \, \Phi(t) \neq 0$ para todo $t \in \R$ por ser $\Phi$ matriz fundamental, entonces $\Phi$ tiene determinante constante si y solo si $\textup{tr}(A(t))=0$ para todo $t \in \R$, es decir, si y solo si $a(t)=-1$ para todo $t \in \R$.
+
+\vspace{2mm}
+
+Por último, supóngase que $a(t)=3$ para todo $t \in \R$. La ecuación $(S)$ es una ecuación lineal de coeficientes constantes, así que el problema
+\[(P) \begin{cases}
+ x'(t)=Ax(t)+b(t) \\
+x(t_0)=x^0\end{cases}\]
+tiene solución única en $\R$, donde
+\[A(t)=\begin{pmatrix}
+    \phantom{-}3 & 1 \\
+    -1 & 1
+\end{pmatrix} \qquad \qquad b(t)=\begin{pmatrix}
+    \phantom{-}e^{2t-2} \\
+    -e^{2t-2}
+\end{pmatrix} \qquad \qquad t_0=1 \qquad \qquad x^0=\begin{pmatrix}
+    1 \\
+    1
+\end{pmatrix}\]
+Dicha solución viene dada por
+\[\varphi(t)=e^{(t-1)A}x^0+\int_{1}^t e^{(t-s)A}b(s) \, ds,\]
+así que la resolución del problema se reduce al cálculo de la exponencial de la matriz $A$.
+
+\vspace{2mm}
+
+Se va a tratar de hallar la forma canónica de Jordan  $J$ asociada a la matriz $A$. Primero se calculan los autovalores:
+
+\[\textup{det}(A-\lambda \textup{Id})=0 \iff (3-\lambda)(1-\lambda)+1=0 \iff \lambda^2-4\lambda+4=0 \iff (\lambda-2)^2=0\]
+
+Se observa que el único autovalor de $A$ es $\lambda=2$, de multiplicidad $2$. Para hallar $\textup{dim} \,\textup{ker}(A-2\textup{Id})$, se resuelve el sistema $(A-2\textup{Id})X=0$. Se tiene que
+\[(A-2\textup{Id})X=0 \iff \begin{pmatrix}
+    \phantom{-}1 & \phantom{-}1 \\
+    -1 & -1
+\end{pmatrix}\begin{pmatrix}
+    x_1 \\
+    x_2
+\end{pmatrix}=0 \iff \begin{cases}
+    \phantom{-}x_1+x_2=0 \\
+    -x_1-x_2=0
+\end{cases} \iff x_1=-x_2\]
+
+En consecuencia, $\textup{dim} \,\textup{ker}(A-2\textup{Id})=1$, así que $J$ posee una sola caja del tipo $D_r(2)$, y esta caja ha de ser de tamaño 2. Se tiene entonces
+\[J=\begin{pmatrix}
+    2 & 1 \\
+    0 & 1
+\end{pmatrix}\]
+
+Ahora hay que hallar la matriz de paso, es decir, la matriz $P \in \mathcal{M}_2(\R)$ inversible verificando $AP=PJ$. Se tiene que
+\[AP=PJ \iff A\begin{pmatrix}
+    P_1 & P_2
+\end{pmatrix}=\begin{pmatrix}
+    P_1 & P_2
+\end{pmatrix}\, J \iff \begin{pmatrix}
+    AP_1 & AP_2
+\end{pmatrix} = \begin{pmatrix}
+    2P_1 & P_1+P_2
+\end{pmatrix} \iff \begin{cases}
+    (A-2\textup{Id})P_1=0 \\
+    (A-\phantom{2}\textup{Id})P_2=P_1
+\end{cases}\]
+
+Por tanto, $P_1$ es solución del sistema $(A-2\textup{Id})X=0$, que ya ha sido resuelto. Se puede tomar, por ejemplo,
+\[P_1=\begin{pmatrix}
+    \phantom{-}1 \\
+    -1
+\end{pmatrix}\]
+
+Por otro lado, $P_2$ es solución del sistema $(A-\textup{Id})X=P_1$, que se resuelve fácilmente por el método de Gauss para proporcionar, por ejemplo,
+\[P_2=\begin{pmatrix}
+    1 \\
+    0
+\end{pmatrix}\]
+
+Tenemos entonces $AP=PJ$, o, equivalentemente, $A=PJP^{-1}$, luego la exponencial de $tA$ sería, para cada $t \in \R$,
+\[e^{tA}=Pe^{tJ}P^{-1}=e^{2t}\begin{pmatrix}
+    \phantom{-}1 & 1 \\
+    -1 & 0
+\end{pmatrix}\begin{pmatrix}
+    1 & t \\
+    0 & 1
+\end{pmatrix}\begin{pmatrix}
+    0 & -1 \\
+    1 & \phantom{-}1
+\end{pmatrix}=e^{2t}\begin{pmatrix}
+    \phantom{-}1 & t+1 \\
+    -1 & -t
+\end{pmatrix}\begin{pmatrix}
+    0 & -1 \\
+    1 & \phantom{-}1
+\end{pmatrix}=e^{2t}\begin{pmatrix}
+    t+1 & t \\
+    -t & 1-t
+\end{pmatrix},\]
+concluyéndose que la única solución de $(P)$ en $\R$ es
+\[\begin{aligned}[t]
+    \varphi(t)&=e^{(t-1)A}x^0+\int_{1}^t e^{(t-s)A}b(s) \, ds \\
+    &=e^{2t-2)}\begin{pmatrix}
+        t & t-1 \\
+        1-t & 2-t
+    \end{pmatrix} \begin{pmatrix}
+        1 \\
+        1
+    \end{pmatrix}+\int_1^te^{2t-2s}\begin{pmatrix}
+        t-s+1 & t-s \\
+        s-t & 1+s-t
+    \end{pmatrix}\begin{pmatrix}
+        \phantom{-}e^{2s-2} \\
+        -e^{2s-2}
+    \end{pmatrix} \, ds \\
+    &=e^{2t-2}\begin{pmatrix}
+        2t-1 \\
+        3-2t
+    \end{pmatrix}+\int_1^t\begin{pmatrix}
+        t-s+1 & t-s \\
+        s-t & 1+s-t
+    \end{pmatrix}\begin{pmatrix}
+        \phantom{-}e^{2t-2} \\
+        -e^{2t-2}
+    \end{pmatrix} \, ds \\
+    &=e^{2t-2}\begin{pmatrix}
+        2t-1 \\
+        3-2t
+    \end{pmatrix}+\int_1^t\begin{pmatrix}
+        e^{2t-2}(t-s)+e^{2t-2}-e^{2t-2}(t-s) \\
+        e^{2t-2}(s-t)-e^{2t-2}-e^{2t-2}(s-t)
+    \end{pmatrix} \, ds \\
+    &= e^{2t-2}\begin{pmatrix}
+        2t-1 \\
+        3-2t
+    \end{pmatrix}+\int_1^t\begin{pmatrix}
+        \phantom{-}e^{2t-2} \\
+        -e^{2t-2}
+    \end{pmatrix} \, ds \\
+    &= e^{2t-2}\begin{pmatrix}
+        2t-1 \\
+        3-2t
+    \end{pmatrix}+\Biggl[\begin{pmatrix}
+        \phantom{-}se^{2t-2} \\
+        -se^{2t-2}
+    \end{pmatrix}\Biggr]_1^t \\
+    &= e^{2t-2}\begin{pmatrix}
+        2t-1 \\
+        3-2t
+    \end{pmatrix}+\begin{pmatrix}
+        \phantom{-}te^{2t-2} \\
+        -te^{2t-2}
+    \end{pmatrix}+\begin{pmatrix}
+        -e^{2t-2} \\
+        \phantom{-}e^{2t-2}
+    \end{pmatrix} \\
+    &= e^{2t-2}\begin{pmatrix}
+        3t-2 \\
+        4-3t
+    \end{pmatrix}
+\end{aligned}\]
+
+\end{document}

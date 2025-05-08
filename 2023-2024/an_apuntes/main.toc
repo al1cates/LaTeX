@@ -1,0 +1,39 @@
+\babel@toc {spanish}{}\relax 
+\pagestyle {empty}
+\thispagestyle {empty}
+\contentsline {chapter}{\numberline {1}Introducción}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Problemas de Cauchy}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Algunos modelos matemáticos basados en EDO}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Método de Euler}{5}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Métodos de Taylor}{8}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Método del punto medio y método de Heun}{9}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Métodos de Runge-Kutta}{10}{section.1.6}%
+\contentsline {chapter}{\numberline {2}Métodos unipaso}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Consistencia, estabilidad y convergencia}{15}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Orden de un método unipaso}{18}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Análisis de los métodos de Runge-Kutta}{22}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Métodos multipaso}{31}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Motivación}{31}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Interpolación polinómica}{32}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Métodos basados en integración numérica}{34}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Métodos de Adams-Bashforth}{35}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Métodos de Adams-Moulton}{36}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Métodos basados en diferenciación numérica}{37}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Expresión general de un método multipaso}{39}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Orden de un método multipaso}{40}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Estabilidad de un método multipaso}{46}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Métodos predictor-corrector}{50}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Estabilidad absoluta}{52}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introducción}{52}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Estabilidad absoluta de los métodos de Runge-Kutta}{56}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Estabilidad absoluta de los métodos multipaso}{60}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Método de localización de la frontera}{62}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Problemas de contorno}{64}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Introducción}{64}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Método del tiro}{64}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Derivación numérica}{65}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Método de Taylor}{66}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Método de interpolación}{67}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Método de diferencias finitas para el caso lineal}{69}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Otras condiciones de contorno}{73}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Método de diferencias finitas para el caso general}{74}{section.5.6}%

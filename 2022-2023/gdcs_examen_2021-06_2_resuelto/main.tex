@@ -1,0 +1,148 @@
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 9in}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+
+\parindent=0pt
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\small
+
+\textbf{Geometría Diferencial de Curvas y Superficies} \hfill \textbf{Examen de junio de 2021}
+\linebreak
+
+\textbf{1.} \textit{Considérese una curva $\alpha \colon I \to \R^3$ parametrizada por el arco. Demostrar que si todos los planos osculadores contienen a un punto fijo, entonces la curva es plana.}
+
+\vspace{2mm}
+Sea $\alpha \colon I \to \R^3$ una curva parametrizada por el arco. Supóngase que existe $p_0 = (x_0,y_0,z_0) \in \R^3$ tal que para cada $s \in I$, el plano osculador en $\alpha(s)$ contiene al punto $p_0$. El plano osculador es el que generan los vectores $\{T(s),N(s)\}$, y cada uno de estos planos tiene por ecuación
+\[A(x-x_0)+B(y-y_0)+C(z-z_0) = 0\]
+donde $B(s) = (A,B,C)$ es el vector normal al plano. Como $\alpha(s)$ está en el plano, debe verificar la ecuación del mismo:
+\[A(x(s)-x_0) + B(y(s)-y_0)+C(z(s)-z_0) = 0 \iff \langle B(s),\alpha(s)-p_0 \rangle = 0 \]
+Derivando,
+\[\langle B'(s), \alpha(s)-p_0 \rangle + \langle B(s),T(s) \rangle = 0 \iff \tau(s) \langle N(s),\alpha(s)-p_0 \rangle = 0\]
+Si fuese $\tau(s)$ en todo $s \in I$ el ejercicio está resuelto. Si en algún punto se tuviese $\langle N(s),\alpha(s)-p_0 \rangle = 0$, derivando se obtendría
+\[
+\begin{aligned}[t]
+   \langle N'(s),\alpha(s)-p_0 \rangle+\langle N(s),T(s) \rangle = 0 &\iff \langle -k(s)T(s)-\tau(s)B(s) , \alpha(s)-p_0\rangle = 0 \\
+   &\iff -k(s)\langle T(s),\alpha(s)-p_0 \rangle -\tau(s) \langle B(s),\alpha(s)-p_0 \rangle = 0 \\
+   &\iff -k(s)\langle T(s),\alpha(s)-p_0 \rangle = 0
+\end{aligned}
+\]
+Que sea $\langle T(s),\alpha(s)-p_0 \rangle = 0$ es imposible porque entonces $\alpha(s)-p_0$ sería ortogonal a $T(s),N(s)$ y $B(s)$. Tampoco tendría sentido $k(s)=0$ porque entonces no estaría definido el vector normal $N(s)$. Por tanto, $\langle N(s),\alpha(s)-p_0 \rangle$ no puede anularse y esto significa que $\tau(s) = 0$ para todo $s \in I$, luego la curva es plana.
+
+\vspace{4mm}
+\textbf{2.} \textit{Demuéstrese que una superficie regular dada como la imagen inversa de un valor regular es orientable.}
+
+\vspace{2mm}
+Sea $S = f^{-1}\{a\}$ la imagen inversa de un valor regular de una función $f \colon U \to \R$ definida en un abierto de $\R^3$. Que $a$ sea valor regular significa que para todo $p \in f^{-1}\{a\}$ se tiene que $df_p$ es sobreyectiva, es decir, que
+\[Jf_p = \begin{pmatrix}
+    f_x & f_y & f_z
+\end{pmatrix}_p\]
+no se anula. Se va a probar que para cada $p \in S$, el vector
+\[\mathcal{N}_p = \frac{(f_x,f_y,f_z)_p}{||(f_x,f_y,f_z)_p||}\]
+es unitario y normal a $T_pS = \ker df_p$. En primer lugar, el vector está bien definido por ser $p$ punto regular. Por otro lado, si $v = (v_1,v_2,v_3) \in T_pS$, entonces
+\[\langle \mathcal{N}_p,v \rangle = \frac{1}{||(f_x,f_y,f_z)||_p}\begin{pmatrix}
+    f_x & f_y & f_z
+\end{pmatrix}_p \begin{pmatrix}
+    v_1 \\
+    v_2 \\
+    v_3
+\end{pmatrix} = \frac{1}{||(f_x,f_y,f_z)||_p} \, df_p(v) = 0\]
+luego el vector $\mathcal{N}_p$ es normal a la superficie. Como $S$ admite un campo normal unitario en toda la superficie, entonces es orientable.
+
+\pagebreak
+
+\vspace{4mm}
+\textbf{3. } \textit{Sea $E = \{(x,y,z) \in \R^3 \colon \frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2} = 1\}$ con $a,b,c \in \R$ distintos de cero.}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Demostrar que $E$ es una superficie regular}.
+    \item[\textit{(b)}] \textit{Calcular el plano tangente y la recta normal a $E$ en el punto $p = (a,0,0) \in E$.}
+    \item[\textit{(c)}] \textit{Clasificar los puntos de $E$ según su curvatura de Gauss.}
+    \item[\textit{(d)}] \textit{Demostrar que $E$ es difeomorfo a la esfera unidad. ¿Es $E$ isométrico a la esfera unidad?}
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(a)} Sea $f \colon \R^3 \to \R$ la función definida por
+\[f(x,y,z) = \frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2} - 1 \]
+Se tiene que $f$ es diferenciable y
+\[Jf_p =\begin{pmatrix}
+    \frac{2x}{a^2} & \frac{2y}{b^2} & \frac{2z}{c^2}
+\end{pmatrix}_p\]
+solo se anula en el punto $(0,0,0) \notin f^{-1}\{0\}$. Por tanto, $0$ es valor regular, así que $E = f^{-1}\{0\}$ es una superficie regular.
+
+\vspace{2mm}
+\textbf{(b) } Sea $p = (a,0,0) \in E$. Como $E$ es la imagen inversa de un valor regular de $f$, se tiene que $T_pE = \ker df_p$, así que habrá que calcular $df_p$. Sea $v = (v_1,v_2,v_3) \in T_pE$. Entonces
+\[df_p(v) = \begin{pmatrix}
+    \frac{2 \cdot a}{a^2} & \frac{2 \cdot 0}{b^2} & \frac{2 \cdot 0}{c^2}
+\end{pmatrix} \begin{pmatrix}
+    v_1 \\
+    v_2 \\
+    v_3
+\end{pmatrix} = \frac{2}{a} \, v_1\]
+luego $T_pS$ es el plano $x = 0$. La recta $r$ normal a $E$ en $p$ tiene por ecuaciones paramétricas
+\[r \equiv (x,y,z) = p + \lambda \mathcal{N}_p\]
+Ya se vio en el ejercicio anterior que
+\[\mathcal{N}_p = \frac{a}{2}\biggl(\frac{2}{a},0,0 \biggr) = (1,0,0)\]
+es un vector normal unitario en el punto $p$. Por tanto, la recta normal a $E$ en $p$ es
+\[r \equiv (a,0,0)+\lambda(1,0,0)\]
+
+\vspace{2mm}
+\textbf{(c) } El elipsoide está parametrizado por
+\[
+\begin{aligned}[t]
+    \varphi \colon (0,2\pi) \times (0,\pi) &\longrightarrow \R^3 \\
+    (u,v) &\longmapsto \varphi(u,v) = (a \cos u \sen v, b \sen u \sen v, c \cos v)
+\end{aligned}
+ \]
+Los vectores de la base coordenada son
+\[\varphi_u = (-a \sen u \sen v, b \cos u \sen v, 0) \qquad \varphi_v = (a \cos u \cos v, b \sen u \cos v, -c \sen v)\]
+Derivando otra vez,
+\[
+\begin{aligned}[t]
+    \varphi_{uu} &= (-a\cos u \sen v, -b \sen u \sen v, 0) \\
+    \varphi_{vv} &= (-a \cos u \sen v, -b \sen u \sen v, -c \cos v) \\
+    \varphi_{uv} & = (-a \sen u \cos v, b \cos u \cos v, 0)
+\end{aligned}
+\]
+En cuanto a los coeficientes de la métrica,
+\[
+\begin{aligned}[t]
+    E &= a^2 \sen^2 u \sen^2 v + b^2 \cos^2 u \sen^2 v \\
+    F &= -a^2 \sen u \sen v \cos u \cos v + b^2 \sen u \sen v \cos u \cos v \\
+    G &= a^2 \cos^2 u \cos^2 v + b^2 \sen^2 u \cos^2 v + c^2 \sen^2 v
+\end{aligned}
+\]
+El capricho de bautizar al elipsoide por $E$ en vez de por $S$ causa un pequeño conflicto con la notación de uno de los coeficientes de la métrica, pero no cuesta trabajo hacer la vista gorda. Por otro lado,
+\[
+\begin{aligned}[t]
+    e &= \frac{abc \sen v}{\sqrt{EG-F^2}}  \\
+    f &= \frac{0}{\sqrt{EG-F^2}} = 0 \\
+    g &= \frac{abc \sen v(1+\cos^2v)}{\sqrt{EG-F^2}}
+\end{aligned}
+\]
+La curvatura de Gauss sería
+\[k = \frac{eg-f^2}{EG-F^2} = \frac{a^2b^2c^2 \sen^2 v(1+\cos^2 v)}{(EG-F^2)^{2}} > 0\]
+No se sorprenderá nadie cuando se diga que todos los puntos del elipsoide son elípticos.
+
+\vspace{2mm}
+\textbf{(d) } Defínase la aplicación
+\[\begin{aligned}[t]
+    g \colon S &\longrightarrow E \\
+    (x,y,z) &\longmapsto g(x,y,z) = (ax,by,cz)
+\end{aligned}\]
+siendo $S$ la esfera unidad. Puede comprobarse fácilmente que $g$ es difeomorfismo. Se afirma que $S$ y $E$ no son isométricas, pues ni siquiera son localmente isométricas. Por reducción al absurdo, supóngase que $f \colon E \to S$ es una isometría local. Por el Teorema Egregium de Gauss, se tiene que $k^E = k^S \circ f$, que es claramente falso, pues $S$ tiene curvatura constante (concretamente, $k^S = \frac{1}{r^2}$), y ya se ha visto que la curvatura de $E$ no lo es.
+\end{document}

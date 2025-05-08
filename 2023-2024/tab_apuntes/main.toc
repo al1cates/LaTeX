@@ -1,0 +1,18 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Homotopía}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Nociones básicas}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Espacios contráctiles}{6}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Aplicaciones homotópicamente triviales}{6}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Un invariante algebraico del tipo de homotopía de espacios topológicos}{7}{section.1.4}%
+\contentsline {chapter}{\numberline {2}El grupo fundamental}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}En busca del elemento neutro}{10}{section.2.1}%
+\contentsline {section}{\numberline {2.2}En busca de la asociatividad}{11}{section.2.2}%
+\contentsline {section}{\numberline {2.3}En busca de los elementos inversos}{12}{section.2.3}%
+\contentsline {section}{\numberline {2.4}El grupo fundamental}{13}{section.2.4}%
+\contentsline {section}{\numberline {2.5}El grupo fundamental de la circunferencia}{17}{section.2.5}%
+\contentsline {chapter}{\numberline {3}El teorema de Seifert-Van Kampen}{23}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Producto libre de grupos}{23}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Grupo libre generado por un conjunto}{25}{section.3.2}%
+\contentsline {section}{\numberline {3.3}El teorema de Seifert-Van Kampen}{25}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Adjunción de celdas a espacios topológicos}{28}{section.3.4}%
+\contentsline {chapter}{\hbox to\@tempdima {4.\hfil }Espacios recubridores}{43}{section*.3}%

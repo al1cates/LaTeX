@@ -1,0 +1,40 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+\begin{axis}[
+    legend style = {at = {(0.325,0.975)}},
+    xmin = 0,
+    xmax = 1,
+    ymin = 0,
+    ymax = 1,
+    samples = 200,
+    xtick={1},
+    ytick={1},
+    xticklabels={1},
+    yticklabels={1},
+    scale=1.25,
+    legend cell align={left},
+    grid = major,
+    y tick label style = left,
+    extra x ticks = {0},
+    extra x tick labels = {0},
+    extra x tick style = {tick label style = {below left}}
+]
+\addplot[domain=0:1, color=c3, line width=2pt]{x};
+\addlegendentry{$f_1(x)=x$};
+\addplot[domain=0:1, color=c3!80, line width=2pt]{x^2};
+\addlegendentry{$f_2(x)=x^2$};
+\addplot[domain=0:1, color=c3!60, line width=2pt]{x^3};
+\addlegendentry{$f_3(x)=x^3$};
+\addplot[domain=0:1, color=c3!40, line width=2pt]{x^4};
+\addlegendentry{$f_4(x)=x^4$};
+\addplot[domain=0:1, color=c3!20, line width=2pt]{x^5};
+\addlegendentry{$f_5(x)=x^5$};
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

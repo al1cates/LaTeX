@@ -1,0 +1,659 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage{fouriernc}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{parskip}
+\usepackage{aligned-overset}
+\usepackage{hyperref}
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+
+\newcommand{\pars}[1]{\left( #1 \right)} % Paréntesis de tamaño automático
+\renewcommand{\Re}[1]{\,\textup{Re}\pars{#1}}
+\renewcommand{\Im}[1]{\,\textup{Im}\pars{#1}}
+\newcommand{\pder}[3][2]{\frac{\partial #2}{\partial #3}}
+
+\newtheorem{exercise}{Ejercicio}
+\theoremstyle{remark}
+\newtheorem*{resolution}{Solución}
+
+\begin{document}
+
+\textit{Variable Compleja} \hfill \textit{Curso 2023-2024}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	{\LARGE \textbf{Relación 2}} % Title
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+\begin{exercise}
+Determinar los puntos en que las siguientes funciones complejas de variable compleja son derivables y aquellos en que son holomorfas:
+\begin{enumerate}
+    \item $f(z)=|z|$
+    \item $f(z)=|z|^3$
+    \item $f(z)=x^2$
+    \item $f(z)=y^3$
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Sean $u(z) = \Re{f(z)} = \sqrt{x^2+y^2}, v(z) = \Im{f(z)} = 0$. Tenemos que $u$ y $v$ son diferenciables en sentido real en $\C \setminus \{0\}$ y además, si $z \in \C \setminus \{0\}$,
+    \[u_x(z) = \frac{x}{\sqrt{x^2+y^2}}, \qquad u_y(z) = \frac{y}{\sqrt{x^2+y^2}}, \qquad v_x(z) = 0, \qquad v_y(z) = 0,\]
+    luego $f$ no es derivable en $z \neq 0$ porque no se verifican las ecuaciones de Cauchy-Riemann. Es más, $f$ no es derivable en $0$ porque no es diferenciable en sentido real. Por tanto, $f$ no es holomorfa en ningún punto de $\C$.
+    \item Sean $u(z) = \Re{f(z)} = (x^2+y^2)^{3/2}, v(z) = \Im{f(z)} = 0$. Tenemos que $u$ y $v$ son diferenciables en sentido real en $\C$, pues tienen derivadas parciales continuas: si $z \in \C$,
+    \[u_x(z) = 3x\sqrt{x^2+y^2}, \qquad u_y(z) = 3y\sqrt{x^2+y^2}, \qquad v_x(z) = 0, \qquad v_y(z) = 0\]
+    Se tiene que
+    \[u_x(z) = v_y(z) \iff x = 0, \qquad u_y(z) = -v_x(z) \iff y = 0\]
+    Por tanto, las ecuaciones de Cauchy-Riemann solo se verifican en $0$, así que $f$ solo es derivable en $0$ y, en consecuencia, no es holomorfa en ningún punto de $\C$.
+    \item Sean $u(z) = \Re{f(z)} = x^2, v(z) = \Im{f(z)} = 0$. Tenemos que $u$ y $v$ son diferenciables en sentido real en $\C$, pues tienen derivadas parciales continuas: si $z \in \C$,
+    \[u_x(z) = 2x, \qquad u_y(z) = 0, \qquad v_x(z) = 0, \qquad v_y(z) = 0\]
+    Se tiene que
+    \[u_x(z) = v_y(z) \iff x = 0, \qquad u_y(z) = -v_x(z) \textup{ para todo } z \in \C\]
+    Por tanto, las ecuaciones de Cauchy-Riemann solo se verifican en el eje imaginario, así que $f$ solo es derivable en el eje imaginario. Además, no es holomorfa en ningún punto de $\C$, pues un entorno de cualquier punto del eje imaginario siempre contiene puntos donde $f$ no es derivable.
+    \item Sean $u(z) = \Re{f(z)} = y^3, v(z) = \Im{f(z)} = 0$. Tenemos que $u$ y $v$ son diferenciables en sentido real en $\C$, pues tienen derivadas parciales continuas: si $z \in \C$,
+    \[u_x(z) = 0, \qquad u_y(z) = 3y^2, \qquad v_x(z) = 0, \qquad v_y(z) = 0\]
+    Se tiene que
+    \[u_x(z) = v_y(z) \textup{ para todo } z \in \C, \qquad u_y(z) = -v_x(z) \iff y = 0\]
+    Por tanto, las ecuaciones de Cauchy-Riemann solo se verifican en el eje real, así que $f$ solo es derivable en el eje real. Además, no es holomorfa en ningún punto de $\C$, pues un entorno de cualquier punto del eje real siempre contiene puntos donde $f$ no es derivable.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Para cada una de las siguientes funciones $f = u+iv$ con $u=\Re{f}$ y $v = \Im{f}$, estudiar si existen o no las derivadas parciales de $u$ y $v$ en 0, si $u$ y $v$ satisfacen o no las condiciones de Cauchy-Riemann en 0 y, finalmente, estudiar la derivabilidad de $f$ en 0 (en cada caso, se usa la notación $z = x+iy$, con $x,y\in\R$).
+\begin{enumerate}
+    \item $f \colon \C \to \C$ dada por
+    \[f(z) = \left\{
+    \begin{alignedat}{2}
+        & \frac{x^3-y^3}{|z|^2}+i\frac{x^3+y^3}{|z|^2} && \ \textup{ si } z \neq 0 \\
+        & 0  && \ \textup{ si } z = 0
+    \end{alignedat}
+    \right.\]
+    \item $f \colon \C \to \C$ dada por
+    \[f(z) = \left\{
+    \begin{alignedat}{2}
+        & \frac{z^5}{|z|^4} && \ \textup{ si } z \neq 0 \\
+        & 0  && \ \textup{ si } z = 0
+    \end{alignedat}
+    \right.\]
+    \item $f \colon \C \to \C$ dada por
+    \[f(z) = \left\{
+    \begin{alignedat}{2}
+        & \sqrt{|xy|} && \ \textup{ si } z \neq 0 \\
+        & 0  && \ \textup{ si } z = 0
+    \end{alignedat}
+    \right.\]
+    \item $f \colon \C \to \C$ dada por
+    \[f(z) = \left\{
+    \begin{alignedat}{2}
+        & \frac{x^2y}{x^4+y^2} && \ \textup{ si } z \neq 0 \\
+        & 0  && \ \textup{ si } z = 0
+    \end{alignedat}
+    \right.\]
+    \item $f \colon \C \to \C$ dada por
+    \[f(z) = \left\{
+    \begin{alignedat}{2}
+        & (1+i) \frac{\Im{z^2}}{|z|^2} && \ \textup{ si } z \neq 0 \\
+        & 0 && \ \textup{ si } z = 0
+    \end{alignedat}
+    \right.\]
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Se tiene que
+    \[\lim_{x \to 0}\frac{u(x) - u(0)}{x} =  \lim_{x \to 0} \frac{\frac{x^3}{x^2}-0}{x} = \lim_{x \to 0} 1 = 1, \qquad \lim_{y \to 0}\frac{u(y)-u(0)}{y} = \lim_{y \to 0} \frac{-\frac{y^3}{y^2}-0}{y} = \lim_{y \to 0} -1 = -1\]
+    Por tanto, existen las derivadas parciales de $u$ en 0: $u_x(0) = 1$ y $u_y(0) = -1$. Por otra parte,
+    \[\lim_{x \to 0}\frac{v(x) - v(0)}{x} =  \lim_{x \to 0} \frac{\frac{x^3}{x^2}-0}{x} = \lim_{x \to 0} 1 = 1, \qquad \lim_{y \to 0}\frac{v(y)-v(0)}{y} = \lim_{y \to 0} \frac{\frac{y^3}{y^2}-0}{y} = \lim_{y \to 0} 1 = 1,\]
+    luego existen las derivadas parciales de $v$ en 0: $v_x(0) = 1$ y $v_y(0) = 1$. Y como $u_x(0) = v_y(0) = 1$ y $u_y(0)=-v_y(0)=-1$, se satisfacen las ecuaciones de Cauchy-Riemann en 0. Para estudiar la derivabilidad de $f$ en 0, comprobamos si $u$ y $v$ son diferenciables en sentido real en $0$. Si $u$ fuese diferenciable en 0 en sentido real, entonces $d_\R u_0(x,y) = u_x(0)x+u_y(0)y = x-y$. Se tiene que
+    \[
+    \lim_{(x,y) \to (0,0)} \frac{u(x,y)-u(0,0)-x+y}{\sqrt{x^2+y^2}} = \lim_{(x,y) \to (0,0)} \frac{\frac{x^3-y^3}{x^2+y^2}-x+y}{\sqrt{x^2+y^2}} = \lim_{(x,y) \to (0,0)} \frac{\cancel{x^3}-\cancel{y^3}-\cancel{x^3}-xy^2+x^2y+\cancel{y^3}}{(x^2+y^2)^{3/2}}
+    \]
+    Pero este límite no existe, pues
+    \[\lim_{\substack{(x,y) \to (0,0) \\ y=2x}} \frac{x^2y-xy^2}{(x^2+y^2)^{3/2}} = \lim_{\substack{(x,y) \to (0,0) \\ y=2x}} -\frac{2x^3}{(5x^2)^{3/2}} = \lim_{\substack{(x,y) \to (0,0) \\ y=2x}} -\frac{2}{5^{3/2}}\frac{x^3}{|x|^3},\]
+    y en consecuencia,
+    \[\lim_{\substack{(x,y) \to (0,0) \\ y=2x, \ x>0}} -\frac{2}{5^{3/2}}\frac{x^3}{|x|^3} = -\frac{2}{5^{3/2}}, \qquad \lim_{\substack{(x,y) \to (0,0) \\ y=2x, \ x<0}} -\frac{2}{5^{3/2}}\frac{x^3}{|x|^3} =\frac{2}{5^{3/2}}\]
+    Se concluye que $u$ no es diferenciable en sentido real en $0$, luego $f$ no es derivable en $0$.
+    \item Se tiene que
+    \[(x+iy) ^5 = \sum_{k=0}^5\binom{5}{k}x^{5-k}(iy)^k = x^5+5ix^4y-10x^3y^2-10ix^2y^3+5xy^4+iy^5,\]
+    luego, si $x+iy \in \C \setminus \{0\}$,
+    \[u(x+iy) = \frac{x^5-10x^3y^2+5xy^4}{(x^2+y^2)^2}, \qquad \qquad v(x+iy) = \frac{5x^4y-10x^2y^3+y^5}{(x^2+y^2)^2}\]
+    Estudiemos la existencia de las derivadas parciales de $u$ en 0:
+    \[\lim_{x \to 0} \frac{u(x)-u(0)}{x} = \lim_{x \to 0} \frac{x^4}{(x^2)^2} = 1\]
+    Por tanto, $u_x(0) = 1$, mientras que
+    \[\lim_{y \to 0} \frac{u(y)-u(0)}{y} = \lim_{y \to 0} 0 = 0,\]
+    así que $u_y(0)=0$. Estudiemos ahora la existencia de las derivadas parciales de $v$ en 0:
+    \[\lim_{x \to 0} \frac{v(x)-v(0)}{x} = \lim_{x \to 0} 0 = 0,\]
+    luego $v_x(0)=0$. Por otra parte,
+    \[\lim_{y \to 0} \frac{v(y)-v(0)}{y} = \lim_{y \to 0} 0 = 0\]
+    En consecuencia, $v_y(0) =0$, y no se verifican las ecuaciones de Cauchy-Riemann en $0$, así que $f$ no es derivable en $0$.
+
+    \item Se tiene que
+    \[\lim_{x \to 0} \frac{u(x)-u(0)}{x} = \lim_{x \to 0} 0 = 0, \qquad \lim_{y \to 0} \frac{u(y)-u(0)}{y} = \lim_{x \to 0} 0 = 0,\]
+    luego $u_x(0)=0$ y $u_y(0)=0$. Es claro que $v_x(0) = 0$ y $v_y(0)=0$, así que se verifican las ecuaciones de Cauchy-Riemann en $0$. Estudiemos la diferenciabilidad en sentido real de $u$ en 0. Si $u$ fuese diferenciable en sentido real en $0$, entonces $d_\R u_0(x,y) = u_x(0)x+u_y(0)y = 0$. Se tiene que
+    \[\lim_{(x,y) \to (0,0)} \frac{u(x,y)-u(0,0)-0}{\sqrt{x^2+y^2}} = \lim_{(x,y) \to (0,0)} \frac{\sqrt{|xy|}}{\sqrt{x^2+y^2}}\]
+    Pero este límite no existe, pues
+    \[\lim_{\substack{(x,y) \to (0,0) \\ x = 0}} \frac{\sqrt{|xy|}}{\sqrt{x^2+y^2}} = \lim_{\substack{(x,y) \to (0,0) \\ x = 0}} 0 = 0, \qquad \lim_{\substack{(x,y) \to (0,0) \\ y = x}} \frac{\sqrt{|x^2|}}{\sqrt{2x^2}} = \lim_{\substack{(x,y) \to (0,0) \\ x = 0}} \frac{1}{\sqrt{2}}\frac{|x|}{|x|} = \frac{1}{\sqrt{2}}\]
+    Se concluye que $f$ no es derivable en $0$.
+    \item Se tiene que
+    \[\lim_{x \to 0} \frac{u(x)-u(0)}{x} = \lim_{x \to 0} 0 = 0, \qquad \lim_{y \to 0} \frac{u(y)-u(0)}{y} = \lim_{x \to 0} 0 = 0,\]
+    luego $u_x(0)=0$ y $u_y(0)=0$. Es claro que $v_x(0) = 0$ y $v_y(0)=0$, así que se verifican las ecuaciones de Cauchy-Riemann en $0$. Estudiemos la diferenciabilidad en sentido real de $u$ en 0. Si $u$ fuese diferenciable en sentido real en $0$, entonces $d_\R u_0(x,y) = u_x(0)x+u_y(0)y = 0$. Se tiene que
+    \[\lim_{(x,y) \to (0,0)} \frac{u(x,y)-u(0,0)-0}{\sqrt{x^2+y^2}} = \lim_{(x,y) \to (0,0)} \frac{x^2y}{(x^4+y^2)\sqrt{x^2+y^2}}\]
+    Pero este límite no existe, pues
+    \[\lim_{\substack{(x,y) \to (0,0) \\ y=x^2}} \frac{x^2y}{(x^4+y^2)\sqrt{x^2+y^2}}=\lim_{\substack{(x,y) \to (0,0) \\ y=x^2}} \frac{x^4}{2x^4\sqrt{x^2+x^4}} = \lim_{\substack{(x,y) \to (0,0) \\ y=x^2}} \frac{1}{2\sqrt{x^2+x^4}} = +\infty\]
+    Por tanto, $f$ no es derivable en 0.
+    \item Si $z =x+iy \in \C$,
+    \[z^2 = x^2-y^2+2ixy,\]
+    luego $\Im{z^2} = 2xy$ y, por tanto, si $x+iy \in \C \setminus \{0\}$,
+    \[u(x+iy) = \frac{2xy}{x^2+y^2} = v(x+iy)\]
+    Así,
+    \[\lim_{x \to 0} \frac{u(x)-u(0)}{x} = \lim_{x \to 0} 0 = 0, \qquad \lim_{y \to 0} \frac{u(y)-u(0)}{y} = \lim_{x \to 0} 0 = 0,\]
+    luego $u_x(0)=0$ y $u_y(0)=0$. Por tenerse $u = v$ es claro que $v_x(0) = 0$ y $v_y(0)=0$, así que se verifican las ecuaciones de Cauchy-Riemann en $0$. Estudiemos la diferenciabilidad en sentido real de $u$ (o de $v$, da lo mismo) en 0. Si $u$ fuese diferenciable en sentido real en $0$, entonces se tendría $d_\R u_0(x,y) = u_x(0)x+u_y(0)y = 0$. Pero
+    \[\lim_{(x,y) \to (0,0)} \frac{u(x,y)-u(0,0)-0}{\sqrt{x^2+y^2}} = \lim_{(x,y) \to (0,0)} \frac{2xy}{(x^2+y^2)\sqrt{x^2+y^2}}\]
+    y este límite no existe, ya que
+    \[\lim_{\substack{(x,y) \to (0,0) \\ y=x}} \frac{2xy}{(x^2+y^2)\sqrt{x^2+y^2}} = \lim_{\substack{(x,y) \to (0,0) \\ y=x}} \frac{2x^2}{2x^2\sqrt{x^2+y^2}} = \lim_{\substack{(x,y) \to (0,0) \\ y=x}} \frac{1}{\sqrt{x^2+y^2}} = +\infty\]
+    Se concluye que $f$ no es derivable en $0$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Para cada una de las siguientes funciones $f = u+iv$ con $u=\Re{f}$ y $v = \Im{f}$, estudiar si existen las derivadas parciales de $u$ y $v$ en 0, si satisfacen o no las condiciones de Cauchy-Riemann en 0 y, finalmente, estudiar la continuidad y la derivabilidad de $f$ en 0. Para cada $r >0$, calcular $f\pars{\{z \in \C \colon 0<|z|<r\}}$.
+\begin{enumerate}
+    \item $f \colon \C \to \C$ dada por
+    \[f(z) = \left\{
+    \begin{alignedat}{2}
+        & e^{\frac{1}{z}} && \ \textup{ si } z \neq 0 \\
+        & 0 && \ \textup{ si } z = 0
+    \end{alignedat}
+    \right.\]
+    \item $f \colon \C \to \C$ dada por
+    \[f(z) = \left\{
+    \begin{alignedat}{2}
+        & e^{\frac{1}{z^2}} && \ \textup{ si } z \neq 0 \\
+        & 0 && \ \textup{ si } z = 0
+    \end{alignedat}
+    \right.\]
+    \item $f \colon \C \to \C$ dada por
+    \[f(z) = \left\{
+    \begin{alignedat}{2}
+        & e^{\frac{1}{z^4}} && \ \textup{ si } z \neq 0 \\
+        & 0 && \ \textup{ si } z = 0
+    \end{alignedat}
+    \right.\]
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Como $e^{\frac{1}{z}} = e^{\frac{x-iy}{x^2+y^2}}$, entonces, para cada $x+iy \in \C \setminus \{0\}$,
+    \[u(x+iy) = e^{\frac{x}{x^2+y^2}}\cos\left(-\frac{y}{x^2+y^2}\right), \qquad \qquad v(x+iy) = e^{\frac{x}{x^2+y^2}}\sen\left(-\frac{y}{x^2+y^2}\right)\]
+    Se tiene que
+    \[\lim_{x \to 0} \frac{u(x)-u(0)}{x} = \lim_{x \to 0} \frac{e^{\frac{1}{x}}}{x},\]
+    pero este límite no existe, pues
+    \[\lim_{x \to 0^+} \frac{e^{\frac{1}{x}}}{x} = \lim_{x \to 0^+} \frac{e^{\frac{1}{x}}}{\frac{1}{x}} \frac{1}{x^2} = +\infty,\]
+    ya que
+    \[\lim_{x \to +\infty} \frac{e^x}{x} = +\infty, \qquad \qquad \lim_{x \to 0^+} \frac{1}{x^2} = +\infty\]
+    Por otra parte,
+    \[\lim_{y \to 0} \frac{u(y)-u(0)}{y} = \lim_{y \to 0} \frac{\cos\left(-\frac{1}{y}\right)}{y},\]
+    y este límite tampoco existe, porque la sucesión $\{\frac{1}{2\pi k}\}_{k\in \N}$ tiene límite $0$ y verifica
+    \[\frac{\cos\left(-2\pi k \right)}{\frac{1}{2\pi k}} = 2\pi k \xrightarrow[]{k \to +\infty} +\infty\]
+    Por tanto, las derivadas parciales de $u$ en $0$ no existen. Análogamente se prueba que $v$ tampoco tiene derivadas parciales en $0$. Con esto queda probado que $f$ no es derivable en $0$; falta estudiar la continuidad. Se tiene que
+    \[\lim_{\substack{x \to 0 \\ x \in \R^+}} f(z) = \lim_{\substack{x \to 0 \\ x \in \R^+}} e^{\frac{1}{z}} = +\infty,\]
+    luego $f$ no es continua en $0$. Por último, la función $z \mapsto \frac{1}{z}$ transforma $\{z \in \C \colon 0<|z|<r\}$ en $\C \setminus \{z \in \C \colon 0 < |z| < \frac{1}{r}\} = \{z \in \C \colon \frac{1}{r} \leq |z|\}$. Por otra parte, la función exponencial transforma $\frac{1}{z}$ en un número complejo de módulo $e^{\Re{\frac{1}{z}}} = e^{\frac{\Re{z}}{|z|^2}}$ y argumento
+    $\Im{\frac{1}{z}} = -\frac{\Im{z}}{|z|^2}$. Como $\Re{z}$ puede tomar cualquier valor real (no nulo en caso de que $\Im{z} = 0$), entonces $\frac{\Re{z}}{|z|^2}$ también, así que $e^{\Re{\frac{1}{z}}}$ puede ser cualquier número positivo. Análogamente, $\Im{z}$ toma cualquier valor real (no nulo en caso de que $\Re{z} = 0$), luego $-\frac{\Im{z}}{|z|^2}$ también. Así, $f(\{z \in \C \colon 0<|z|<r\}) = \C \setminus \{0\}$.
+
+    \item Se tiene que
+    \[\lim_{x \to 0} \frac{u(x) -u(0)}{x} = \lim_{x \to 0} \frac{e^{\frac{1}{x^2}}}{x} = \lim_{x \to 0} \frac{e^{\frac{1}{x^2}}}{\frac{1}{x^2}}\frac{1}{x^3},\]
+    pero este límite no existe, pues
+    \[\lim_{x \to 0^+} \frac{e^{\frac{1}{x^2}}}{\frac{1}{x^2}}\frac{1}{x^3} = +\infty, \qquad \qquad \lim_{x \to 0^-} \frac{e^{\frac{1}{x^2}}}{\frac{1}{x^2}}\frac{1}{x^3} = -\infty\]
+    Por otro lado,
+    \[\lim_{y \to 0} \frac{u(y) -u(0)}{y} = \lim_{y \to 0} \frac{e^{-\frac{1}{y^2}}}{y} = \lim_{y \to 0} \frac{\frac{1}{y^2}}{e^{\frac{1}{y^2}}} y = 0,\]
+    ya que
+    \[\lim_{y \to \infty} \frac{y}{e^y} = 0, \qquad \qquad \lim_{y \to 0} y = 0\]
+    Por tanto, $u_x(0)$ no existe y $u_y(0) = 0$. Por otra parte,
+    \[\lim_{x \to 0} \frac{v(x)-v(0)}{x} = \lim_{x \to 0} 0 = 0, \qquad \qquad \lim_{y \to 0} \frac{v(y)-v(0)}{x} = \lim_{y \to 0} 0 = 0,\]
+    luego $v_x(0) = 0$ y $v_y(0) = 0$. Estudiemos la continuidad de $f$ en 0: se tiene que
+    \[\lim_{\substack{x \to 0 \\ x \in \R}} f(x) = \lim_{\substack{x \to 0 \\ x \in \R}} e^{\frac{1}{x^2}} = +\infty,\]
+    así que $f$ no es continua en 0. Evidentemente, tampoco es derivable en 0. Razonando como en el apartado anterior, $f(\{z \in \C \colon 0<|z|<r\}) = \C \setminus \{0\}$.
+
+    \item Se tiene que
+    \[\lim_{x \to 0} \frac{u(x) -u(0)}{x} = \lim_{x \to 0} \frac{e^{\frac{1}{x^4}}}{x} = \lim_{x \to 0} \frac{e^{\frac{1}{x^4}}}{\frac{1}{x^4}}\frac{1}{x^5},\]
+    pero este límite no existe, pues
+    \[\lim_{x \to 0^+} \frac{e^{\frac{1}{x^4}}}{\frac{1}{x^4}}\frac{1}{x^5} = +\infty, \qquad \qquad \lim_{x \to 0^-} \frac{e^{\frac{1}{x^4}}}{\frac{1}{x^4}}\frac{1}{x^5} = -\infty\]
+    Por otro lado,
+    \[\lim_{y \to 0} \frac{u(y) -u(0)}{y} = \lim_{y \to 0} \frac{e^{\frac{1}{y^4}}}{y}, \]
+    y se acaba de ver que este límite no existe. Por tanto, $u$ no tiene derivadas parciales en $0$. Por otra parte,
+    \[\lim_{x \to 0} \frac{v(x)-v(0)}{x} = \lim_{x \to 0} 0 = 0, \qquad \qquad \lim_{y \to 0} \frac{v(y)-v(0)}{x} = \lim_{y \to 0} 0 = 0,\]
+    luego $v_x(0) = 0$ y $v_y(0) = 0$. Estudiemos la continuidad de $f$ en 0: se tiene que
+    \[\lim_{\substack{x \to 0 \\ x \in \R}} f(x) = \lim_{\substack{x \to 0 \\ x \in \R}} e^{\frac{1}{x^4}} = +\infty,\]
+    así que $f$ no es continua en 0. Evidentemente, tampoco es derivable en 0. Razonando como en el apartado primero, $f(\{z \in \C \colon 0<|z|<r\}) = \C \setminus \{0\}$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Si es posible, encontrar una función $F \colon \C \to \C$ que sea derivable en cada punto de la parábola de ecuación $y = x^2$ y no lo sea en ningún otro punto.
+\end{exercise}
+
+\begin{resolution}
+La idea es buscar una función $F=u+iv$ de manera que $u$ y $v$ tengan derivadas parciales continuas en $\C$ y se verifique, por ejemplo,
+\[v_x(z)=0, \qquad v_y(z) = y, \qquad u_x(z) =x^2, \qquad u_y(z) = 0\]
+Basta tomar
+\[u(z) = \frac{x^3}{3}, \qquad v(z) = \frac{y^2}{2}\]
+Tenemos entonces que $u$ y $v$ son diferenciables en sentido real en $\C$ (tienen derivadas parciales continuas en $\C$) y se verifican las ecuaciones de Cauchy-Riemann si y solo si $y = x^2$, concluyéndose que la función $F \colon \C \to \C$ dada por $F(z) = \frac{x^3}{3}+i\frac{y^2}{2}$ es derivable única y exclusiavmente en los puntos de la parábola $y = x^2$.
+\end{resolution}
+
+\begin{exercise}
+Sea $D$ un dominio en $\C$ y sea $f$ una función holomorfa (y de clase $\mathcal{C}^2$) y nunca nula en $D$. Probar que $\Delta |f| = |f|^{-1}|f'|^2$. Calcular también $\Delta\pars{|f|^2}$.
+\end{exercise}
+
+\begin{resolution}
+Si $f = u+iv$, entonces $|f| = \sqrt{u^2+v^2}$. Sea $x+iy \in \C$. Por la regla de la cadena,
+\[|f|_x = \frac{uu_x}{\sqrt{u^2+v^2}}+\frac{vv_x}{\sqrt{u^2+v^2}}\]
+Derivando otra vez,
+\[
+\begin{aligned}[t]
+|f|_{xx} &= \frac{u_x^2+uu_{xx}}{\sqrt{u^2+v^2}}-\frac{uu_x}{2(u^2+v^2)^{3/2}}(2uu_x+2vv_x)+ \frac{v_x^2+vv_{xx}}{\sqrt{u^2+v^2}}-\frac{vv_x}{2(u^2+v^2)^{3/2}}(2uu_x+2vv_x) \\
+&= \frac{u_x^2+uu_{xx}+v_x^2+vv_{xx}}{\sqrt{u^2+v^2}}-\frac{u^2u_x^2+2uvu_xv_x+v^2v_x^2}{(u^2+v^2)^{3/2}} \\
+&= \frac{u_x^2+uu_{xx}+v_x^2+vv_{xx}}{\sqrt{u^2+v^2}}-\frac{(uu_x+vv_x)^2}{(u^2+v^2)^{3/2}}
+% &= \frac{(u^2+v^2)(u_x^2+uu_{xx}+v_x^2+vv_{xx})-u^2u_x^2-2uvu_xv_x-v^2v_x^2}{(u^2+v^2)^{3/2}} \\
+% &= \frac{u^2u_x^2+u^3u_{xx}+u^2v_x^2+u^2vv_{xx}+v^2u_x^2+uv^2u_{xx}+v^2v_x^2+v^3v_{xx}-u^2u_x^2-2uvu_xv_x-% v^2v_x^2}{(u^2+v^2)^{3/2}}
+\end{aligned}
+\]
+Análogamente,
+\[|f|_{yy} = \frac{u_y^2+uu_{yy}+v_y^2+vv_{yy}}{\sqrt{u^2+v^2}}-\frac{(uu_y+vv_y)^2}{(u^2+v^2)^{3/2}}\]
+Aplicando las ecuaciones de Cauchy-Riemann,
+\[|f|_{yy} = \frac{v_x^2+uu_{yy}+u_x^2+vv_{yy}}{\sqrt{u^2+v^2}}-\frac{(vu_x-uv_x)^2}{(u^2+v^2)^{3/2}}\]
+Por tanto, usando las expresiones anteriores y también que $u_{xx}+u_{yy} = v_{xx}+v_{yy} = 0$ (pues $u$ y $v$ son armónicas por ser $f$ de clase $\mathcal{C}^2$), se llega a
+\[\begin{aligned}[t]
+\Delta|f| &= |f|_{xx}+|f|_{yy} \\
+&= \frac{2(u_x^2+v_x^2)}{\sqrt{u^2+v^2}}-\frac{(uu_x+vv_x)^2+(vu_x-uv_x)^2}{(u^2+v^2)^{3/2}} \\
+&= \frac{2(u_x^2+v_x^2)}{\sqrt{u^2+v^2}}-\frac{u^2u_x^2+v^2v_x^2+v^2u_x^2+u^2v_x^2}{(u^2+v^2)^{3/2}} \\
+&= \frac{2(u_x^2+v_x^2)}{\sqrt{u^2+v^2}}-\frac{u_x^2(u^2+v^2)+v_x^2(u^2+v^2)}{(u^2+v^2)^{3/2}} \\
+&= \frac{2(u_x^2+v_x^2)}{\sqrt{u^2+v^2}}-\frac{u_x^2}{\sqrt{u^2+v^2}} -\frac{v_x^2}{\sqrt{u^2+v^2}} \\
+&= \frac{2(u_x^2+v_x^2)-(u_x^2+v_x^2)}{\sqrt{u^2+v^2}} \\
+&= \frac{u_x^2+v_x^2}{\sqrt{u^2+v^2}} \\
+&= |f|^{-1}|f'|^2
+\end{aligned}\]
+Por otra parte, como $|f|^2 = u^2+v^2$, entonces
+\[|f|^2_x = 2uu_x+2vv_x,\]
+luego
+\[|f|^2_{xx} = 2u_x^2+2uu_{xx}+2v_x^2+2vv_{xx}\]
+Análogamente,
+\[|f|^2_{yy} = 2u_y^2+2uu_{yy}+2v_y^2+2vv_{yy}\]
+Por tanto, empleando de nuevo las condiciones de Cauchy-Riemann y la armonicidad de $u$ y $v$,
+\[\Delta |f|^2 = |f|^2_{xx}+|f|^2_{yy} = 4u_x^2+4v_x^2 = 4|f'|^2\]
+\end{resolution}
+
+\begin{exercise}
+\label{ex6}
+Sean $D$ un dominio en $\C$ y $u \colon D \to \R$ una función armónica. ¿Cuándo es $u^2$ también armónica en $D$?
+\end{exercise}
+
+\begin{resolution}
+Se tiene que
+\[u^2_x = 2uu_x,\]
+luego
+\[u^2_{xx} = 2u_x^2+2uu_{xx}\]
+Análogamente,
+\[u^2_{yy} = 2u_y^2+2uu_{yy}\]
+Por tanto, si $u$ es armónica,
+\[\Delta u^2 = 2(u_x^2+u_y^2)\]
+Pero $u_x^2$ y $u_y^2$ toman valores reales, luego $\Delta u^2 = 0$ si y solo si $u_x = u_y = 0$, concluyéndose que $u^2$ es también armónica si y solo si $u$ es constante.
+\end{resolution}
+
+\begin{exercise}
+Sean $D$ un dominio en $\C$ y $u \colon D \to \R$ una función armónica. Sea $f = u_x - iu_y$. Probar que $f$ es holomorfa en $D$.
+\end{exercise}
+
+\begin{resolution}
+Como $u$ es armónica, entonces es de clase $\mathcal{C}^2$, luego $u_x$ y $-u_y$ tienen derivadas parciales continuas, así que $f = u_x-iu_y$ es diferenciable en sentido real. Además, llamando $\widetilde{u} = u_x$ y $\widetilde{v} = -u_y$, se tiene
+\[\widetilde{u}_x = u_{xx}, \qquad \widetilde{u}_y = u_{xy}, \qquad \widetilde{v}_x = -u_{yx}, \qquad \widetilde{v}_y = - u_{yy}\]
+Por un lado, como $u$ es armónica, entonces $u_{xx}+u_{yy} = 0$, esto es,
+\[\widetilde{u}_x = \widetilde{v}_y\]
+Por otro lado, como $u$ es de clase $\mathcal{C}^2$, entonces $u_{xy} = u_{yx}$, luego
+\[\widetilde{u}_y = -\widetilde{v}_x\]
+Como $f$ es diferenciable en sentido real y se verifican las condiciones de Cauchy-Riemann en todo punto de $D$, entonces $f$ es derivable en $D$, o lo que es lo mismo (por ser $D$ un dominio), $f$ es holomorfa en $D$.
+\end{resolution}
+
+\begin{exercise}
+Sean $D_1$ y $D_2$ dos dominios en $\C$, $u \colon D_2 \to \R$ armónica y $f \colon D_1 \to D_2$ holomorfa (y de clase $\mathcal{C}^2$). Probar que $u \circ f$ es armónica en $D_1$.
+\end{exercise}
+
+\begin{resolution}
+En primer lugar, $u \circ f$ es de clase $\mathcal{C}^2$ por serlo $u$ y $f$, así que tiene sentido preguntarse si es armónica o no. Pongamos $f = U+iV$ y tomemos $z = x+iy \in D_1$. Identificando $\C$ con $\R^2$, se tendría que $u \circ f(x,y) = u(U(x,y),V(x,y))$, luego
+\[\pder{(u \circ f)}{x}(x,y) = \pder{u}{x}(U(x,y),V(x,y))\pder{U}{x}(x,y) + \pder{u}{y}(U(x,y),V(x,y))\pder{V}{x}(x,y),\]
+o lo que es lo mismo, volviendo a la notación compleja,
+\[(u \circ f)_x(z) = u_x(f(z))U_x(z)+u_y(f(z))V_x(z)\]
+Derivando otra vez y omitiendo los puntos en los que se evalúan las funciones para facilitar la legibilidad,
+\[
+\begin{aligned}[t]
+(u \circ f)_{xx} &= (u_{xx}U_x+u_{xy}V_x)U_x+u_xU_{xx}+(u_{yx}U_x+u_{yy}V_x)V_x+u_yV_{xx} \\
+&= u_{xx}U_x^2+u_{xy}U_xV_x+u_xU_{xx}+u_{yx}U_xV_x+u_{yy}V_x^2+u_yV_{xx}
+\end{aligned}
+\]
+Como $u$ es de clase $\mathcal{C}^2$, entonces $u_{xy} = u_{yx}$, luego
+\[
+\begin{aligned}[t]
+(u \circ f)_{xx} &= u_{xx}U_x^2+u_{yy}V_x^2+2u_{xy}U_xV_x+u_xU_{xx}+u_yV_{xx}
+\end{aligned}
+\]
+\end{resolution}
+Por otra parte,
+\[(u \circ f)_y(z) = u_x(f(z))U_y(z)+u_y(f(z))V_y(z)\]
+Derivando otra vez,
+\[
+\begin{aligned}[t]
+(u \circ f)_{yy} &= (u_{xx}U_y+u_{xy}V_y)U_y+u_xU_{yy}+(u_{yx}U_y+u_{yy}V_y)V_y+u_yV_{yy} \\
+&= u_{xx}U_y^2+u_{xy}U_yV_y+u_xU_{yy}+u_{yx}U_yV_y+u_{yy}V_y^2+u_yV_{yy}
+\end{aligned}
+\]
+De nuevo, como $u_{xy} = u_{yx}$,
+\[(u \circ f)_{yy} = u_{xx}U_y^2+u_{yy}V_y^2+2u_{xy}U_yV_y+u_xU_{yy}+u_yV_{yy}\]
+Al ser $f$ holomorfa, se verifican las ecuaciones de Cauchy-Riemann, es decir, $U_x = V_y$ y $U_y = -V_x$, así que
+\[(u \circ f)_{yy} = u_{xx}V_x^2+u_{yy}U_x^2-2u_{xy}U_xV_x+u_xU_{yy}+u_yV_{yy}\]
+En consecuencia,
+\[
+\begin{aligned}[t]
+(u \circ f)_{xx}+(u \circ f)_{yy} &= u_{xx}(U_x^2+V_x^2)+u_{yy}(U_x^2+V_x^2)+u_x(U_{xx}+U_{yy})+u_y(V_{xx}+V_{yy}) \\
+&= (u_{xx}+u_{yy})(U_x^2+V_x^2)+u_x(U_{xx}+U_{yy})+u_y(V_{xx}+V_{yy})
+\end{aligned}
+\]
+Pero $u$, $U$ y $V$ son armónicas ($u$ por hipótesis; $U$ y $V$ por ser, respectivamente, parte real e imaginaria de una función de clase $\mathcal{C}^2$), así que $u_{xx}+u_{yy}=U_{xx}+U_{yy}=V_{xx}+V_{yy} = 0$ y podemos concluir que
+\[(u \circ f)_{xx}+(u \circ f)_{yy} = 0,\]
+luego $u \circ f$ es armónica.
+\begin{exercise}
+Sea $D$ un dominio en $\C$ y sea $f$ una función holomorfa en $D$ con $u = \Re{f}$, $v = \Im{f}$. Probar que $f$ es constante si satisface alguna de las siguientes condiciones:
+\begin{enumerate}
+    \item $v = u^2$ en $D$.
+    \item $u^2+v^2$ es constante en $D$.
+    \item $27u^2 +3v^2 = 12$ en $D$.
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Si $v = u^2$ en $D$, entonces $v_x = 2uu_x$ y $v_y = 2uu_y$, y, por las ecuaciones de Cauchy-Riemann (se verifican porque $f$ es holomorfa), es $u_x = 2uu_y$ y $u_y = -2uu_x$. Multiplicando por $u_y$ en la primera y por $u_x$ en la segunda se obtiene $u_xu_y = 2uu_y^2 = -2uu_x^2$, de donde se deduce que $2u(u_x^2+u_y^2) = 0$ en $D$, luego, teniendo en cuenta que $u$, $u_x$ y $u_y$ toman valores reales, puede afirmarse que o bien $u = 0$ en $D$, o bien $u_x=u_y = 0$ en $D$. En cualquier caso, $u$ es constante en $D$, luego $v = u^2$ y $f=u+iv$ también lo son.
+
+    \textit{Otra forma}: utilizar el \hyperref[ex6]{\color{blue}Ejercicio 6}.
+
+    \item Supongamos que existe una constante $c \in \C$ con $u^2+v^2 = c$ (se puede suponer que $c > 0$;  en caso contrario tendríamos $u=v=0$ y por tanto $f$ sería la función nula, que es constante). Al derivar parcialmente se obtiene
+    \[2uu_x+2vv_x = 0, \qquad \qquad 2uu_y+2vv_y = 0,\]
+    es decir,
+    \[uu_x+vv_x = 0, \qquad \qquad uu_y+vv_y = 0,\]
+    o lo que es lo mismo, por Cauchy-Riemann,
+    \[uu_x+vv_x =0, \qquad \qquad -uv_x+vu_x = 0 \]
+    Matricialmente,
+    \[\left(\begin{array}{@{}cc@{}}
+         u & \phantom{-}v \\
+         v & -u 
+    \end{array}\right)\left(\begin{array}{@{}c@{}}
+         u_x \\
+         v_x 
+    \end{array}\right) = \left(\begin{array}{@{}c@{}}
+         0  \\
+         0 
+    \end{array}\right)\]
+    Se observa que $u_x$ y $v_x$ son solución de un sistema lineal cuya matriz de coeficientes tiene determinante $-u^2-v^2=-c <0$, luego la única solución del sistema es la trivial, concluyéndose que $u$ y $v$ son constantes en $D$ y, por tanto, $f$ es constante en $D$.
+    \item Si $27u^2+3v^2 = 12$ en $D$, al derivar parcialmente se obtiene
+    \[54uu_x+6vv_x = 0, \qquad \qquad 54uu_y+6vv_y = 0,\]
+    o lo que es lo mismo, por Cauchy-Riemann,
+    \[9uu_x+vv_x = 0, \qquad \qquad -9uv_x+vu_x = 0\]
+    Matricialmente,
+    \[\left(\begin{array}{@{}cc@{}}
+         9u & \phantom{-9}v \\
+         \phantom{9}v & -9u 
+    \end{array}\right)\left(\begin{array}{@{}c@{}}
+         u_x \\
+         v_x 
+    \end{array}\right) = \left(\begin{array}{@{}c@{}}
+         0  \\
+         0 
+    \end{array}\right)\]
+    Se observa que $u_x$ y $v_x$ constituyen la solución de un sistema lineal cuya matriz de coeficientes tiene determinante $-81u^2-v^2$. Como $u$ y $v$ toman valores reales, se tiene que $-81u^2-v^2 = 0$ si y solo si $u = v = 0$, que es imposible porque, por hipótesis $27u^2+3v^2 = 12$. Así, $-81u^2-v^2<0$, luego el sistema anterior tiene como única solución a la solución trivial, pudiéndose afirmar que $u_x=v_x = 0$ y por tanto $f$ es constante en $D$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Si $u$ y $v$ son funciones reales en las variables $(x,y) \neq (0,0)$, el cambio a coordenadas polares, $\{x = r\cos\theta, y = r\sen\theta\}$, permite escribir $u$ y $v$ como funciones de $(r,\theta)$,
+\[u(x,y)=U(r,\theta), \qquad \qquad v(x,y)=V(r,\theta)\]
+\begin{enumerate}
+    \item Probar que las ecuaciones de Cauchy-Riemann en coordenadas cartesianas,
+    \[(C\textup{-}R) \ \left\{\begin{alignedat}{1}
+        u_x &= \phantom{-}v_y \\
+        u_y &= -v_x,
+    \end{alignedat}\right.\]
+    adoptan el siguiente aspecto en coordenadas polares:
+    \[(C\textup{-}R)_p \ \left\{\begin{alignedat}{1}
+        U_r &=\frac{1}{r}V_\theta \\
+        U_\theta &= -rV_r
+    \end{alignedat}\right.\]
+    \item Si $f = u+iv$ es derivable, entonces \[f' = u_x+iv_x \leftrightarrow \left(\begin{array}{@{}c@{}}
+        u_x \\
+        v_x
+    \end{array}\right)\] Probar que el aspecto que toma en coordenadas polares es
+    \[\left(\begin{array}{@{}c@{}}
+        u_x \\
+        v_x 
+    \end{array}\right) = \left(\begin{array}{@{}cc@{}}
+        \phantom{-}\cos\theta & \sen\theta \\
+        -\sen\theta & \cos\theta
+    \end{array}\right)\left(\begin{array}{@{}c@{}}
+        U_r \\
+        V_r
+    \end{array}\right) = \frac{1}{r} \left(\begin{array}{@{}cc@{}}
+        -\sen\theta & \phantom{-}\cos\theta \\
+        -\cos\theta & -\sen\theta
+    \end{array}\right)\left(\begin{array}{@{}c@{}}
+        U_\theta \\
+        V_\theta
+    \end{array}\right)\]
+    \item Probar que el laplaciano en coordenadas cartesianas para $u$, $\Delta u = u_{xx}+u_{yy}$, adopta el siguiente aspecto en coordenadas polares:
+    \[\Delta_pU=\frac{1}{r}U_r+U_{rr}+\frac{1}{r^2}U_{\theta\theta} \equiv \frac{1}{r}(rU_r)_r+\frac{1}{r^2}U_{\theta\theta}\]
+    \item Como aplicación del último apartado, usar coordenadas polares para probar que la función $u$ dada por $u(z) = \textup{Arg}(z)\log|z|$ es armónica en $\C\setminus(-\infty,0]$. Probarlo también de otra forma.
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Como $U(r,\theta) = u(r\cos\theta, r \sen\theta)$ y $V = (r,\theta) = v(r\cos\theta, r \sen\theta)$, al derivar se obtiene
+    \[U_r = u_x\cos\theta + u_y\sen\theta, \qquad \qquad V_\theta = -v_xr\sen\theta+v_yr\cos\theta\]
+    Aplicando las ecuaciones de Cauchy-Riemann,
+    \[U_r = u_x\cos\theta + u_y\sen\theta, \qquad \qquad V_\theta = u_yr\sen\theta+u_xr\cos\theta\]
+    Por tanto,
+    \[\frac{1}{r}V_\theta = u_y\sen\theta+u_x\cos\theta = U_r\]
+    Por otra parte,
+    \[U_\theta = -u_xr\sen\theta+u_yr\cos\theta, \qquad \qquad V_r = v_x\cos\theta+v_y\sen\theta\]
+    Aplicando las ecuaciones de Cauchy-Riemann,
+    \[U_\theta = -u_xr\sen\theta+u_yr\cos\theta, \qquad \qquad V_r = -u_y\cos\theta+u_x\sen\theta\]
+    Por tanto,
+    \[-rV_r = u_yr\cos\theta-u_xr\sen\theta = U_\theta\]
+    Así, las ecuaciones de Cauchy-Riemann se han traducido en
+    \[(C\textup{-}R)_p \ \left\{\begin{alignedat}{1}
+        U_r &=\frac{1}{r}V_\theta \\
+        U_\theta &= -rV_r
+    \end{alignedat}\right.\]
+    \item Utilizando las expresiones del apartado anterior,
+    \[
+    \begin{aligned}[t]
+        U_r\cos\theta+V_r\sen\theta &= (u_x\cos\theta+u_y\sen\theta)\cos\theta+(-u_y\cos\theta+u_x\sen\theta)\sen\theta \\
+        &= u_x\cos^2\theta+\cancel{u_y\sen\theta\cos\theta}-\cancel{u_y\sen\theta\cos\theta}+u_x\sen^2\theta \\
+        &= u_x
+    \end{aligned}
+    \]
+    Por otra parte,
+    \[
+    \begin{aligned}[t]
+        -U_r\sen\theta+V_r\cos\theta &= -(u_x\cos\theta+u_y\sen\theta)\sen\theta+(-u_y\cos\theta+u_x\sen\theta)\cos\theta \\
+        &= \cancel{-u_x\cos\theta\sen\theta}-u_y\sen^2\theta-u_y\cos^2\theta+\cancel{u_x\sen\theta\cos\theta} \\
+        &= -u_y \\
+        &= v_x
+    \end{aligned}
+    \]
+    Con esto se ha probado la igualdad
+    \[\left(\begin{array}{@{}c@{}}
+        u_x \\
+        v_x 
+    \end{array}\right) = \left(\begin{array}{@{}cc@{}}
+        \phantom{-}\cos\theta & \sen\theta \\
+        -\sen\theta & \cos\theta
+    \end{array}\right)\left(\begin{array}{@{}c@{}}
+        U_r \\
+        V_r
+    \end{array}\right)\]
+    Para la otra se procede de forma totalmente análoga.
+    \item Por la regla de la cadena,
+    \[u_x = U_rr_x+U_\theta \theta_x, \qquad \qquad v_x = V_rr_x+V_\theta\theta_x\]
+    Por el apartado primero, $U_\theta = -rV_r$ y $V_\theta = rU_r$, luego
+    \[u_x = U_rr_x-rV_r \theta_x, \qquad \qquad v_x = V_rr_x+rU_r\theta_x\]
+    Matricialmente,
+    \[\left(\begin{array}{@{}c@{}}
+        u_x \\
+        v_x 
+    \end{array}\right) = \left(\begin{array}{@{}cc@{}}
+        r_x & -r\theta_x \\
+        r\theta_x & r_x
+    \end{array}\right)\left(\begin{array}{@{}c@{}}
+        U_r \\
+        V_r
+    \end{array}\right)\]
+    Pero, por el apartado anterior,
+    \[\left(\begin{array}{@{}c@{}}
+        u_x \\
+        v_x 
+    \end{array}\right) = \left(\begin{array}{@{}cc@{}}
+        \phantom{-}\cos\theta & \sen\theta \\
+        -\sen\theta & \cos\theta
+    \end{array}\right)\left(\begin{array}{@{}c@{}}
+        U_r \\
+        V_r
+    \end{array}\right)\]
+    De aquí se deduce que $r_x = \cos\theta$ y $\theta_x = -\frac{1}{r}\sen\theta$. Ahora se trata de encontrar expresiones similares para $r_y$ y $\theta_y$. Se tiene que
+    \[u_y = U_rr_y+U_\theta\theta_y,\qquad\qquad v_y = V_rr_y+V_\theta\theta_y \]
+    De nuevo, por el apartado primero, $U_\theta=-rV_r$ y $V_\theta = rU_r$, luego
+    \[u_y = U_rr_y-rV_r\theta_y,\qquad\qquad v_y = V_rr_y+rU_r\theta_y\]
+    Matricialmente y teniendo en cuenta que $u_y = -v_x$ y $v_y = u_x$,
+    \[\left(\begin{array}{@{}c@{}}
+        u_x \\
+        v_x 
+    \end{array}\right) = \left(\begin{array}{@{}cc@{}}
+        r\theta_y & r_y \\
+        -r_y & r\theta_y
+    \end{array}\right)\left(\begin{array}{@{}c@{}}
+        U_r \\
+        V_r
+    \end{array}\right)\]
+    Por tanto, $r_y = \sen\theta$ y $\theta_y = \frac{1}{r}\cos \theta$. Averigüemos ahora quién es $u_{xx}+u_{yy}$. Al derivar en 
+    \[u_x = U_r\cos\theta+V_r\sen\theta\]
+    se obtiene
+    \[
+    \begin{aligned}[t]
+    u_{xx} &= (U_{rr}r_x+U_{r\theta}\theta_x)\cos\theta-U_r\theta_x\sen\theta+(V_{rr}r_x+V_{r\theta}\theta_x)\sen\theta+V_r\theta_x\cos\theta \\
+    &= (U_{rr}\cos\theta-\frac{1}{r}U_{r\theta}\sen\theta )\cos\theta+\frac{1}{r}U_r\sen^2\theta+(V_{rr}\cos\theta-\frac{1}{r}V_{r\theta}\sen\theta)\sen\theta-\frac{1}{r}V_r\sen\theta\cos\theta \\
+    &= U_{rr}\cos^2\theta-\frac{1}{r}U_{r\theta}\sen\theta\cos\theta +\frac{1}{r}U_r\sen^2\theta+V_{rr}\sen\theta\cos\theta-\frac{1}{r}V_{r\theta}\sen^2\theta-\frac{1}{r}V_r\sen\theta\cos\theta,
+    \end{aligned}
+    \]
+    y al derivar en
+    \[u_y = -v_x = U_r\sen\theta-V_r\cos\theta\]
+    se obtiene
+    \[
+    \begin{aligned}[t]
+        u_{yy} &= (U_{rr}r_y+U_{r\theta}\theta_y)\sen\theta+U_r\theta_y\cos\theta-(V_{rr}r_y+V_{r\theta}\theta_y)\cos\theta+V_r\theta_y\sen\theta \\
+        &= (U_{rr}\sen\theta+\frac{1}{r}U_{r\theta}\cos\theta)\sen\theta+\frac{1}{r}U_r\cos^2\theta-(V_{rr}\sen\theta+\frac{1}{r}V_{r\theta}\cos\theta)\cos\theta+\frac{1}{r}V_r\cos\theta\sen\theta \\
+        &= U_{rr}\sen^2\theta+\frac{1}{r}U_{r\theta}\sen\theta\cos\theta+\frac{1}{r}U_r\cos^2\theta-V_{rr}\sen\theta\cos\theta-\frac{1}{r}V_{r\theta}\cos^2\theta+\frac{1}{r}V_r\sen\theta\cos\theta
+    \end{aligned}
+    \]
+    Consecuentemente,
+    \[\begin{aligned}[t]
+        u_{xx}+u_{yy} &= U_{rr}+\frac{1}{r}U_r-\frac{1}{r}V_{r\theta}
+    \end{aligned}\]
+    Ya casi está: por el apartado primero tenemos $V_r = -\frac{1}{r}U_\theta$, luego $-\frac{1}{r}V_{r\theta} = \frac{1}{r^2}U_{\theta\theta}$ y queda probado que
+    \[u_{xx}+u_{yy} = U_{rr}+\frac{1}{r}U_r+\frac{1}{r^2}U_{\theta\theta},\]
+    pudiendo concluirse que el aspecto del laplaciano en coordenadas polares no es más que
+    \[\Delta_pU=\frac{1}{r}U_r+U_{rr}+\frac{1}{r^2}U_{\theta\theta} \equiv \frac{1}{r}(rU_r)_r+\frac{1}{r^2}U_{\theta\theta}\]
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+    En cada uno de los siguientes casos, probar que la función dada es armónica en $D$, y encontrar (si es que existe) una conjugada armónica de $u$ en $D$ (se vuelve a usar la ntoación $z = x+iy$, con $x,y\in\R$).
+    \begin{enumerate}
+        \item $D = \C$ y $u(z) = x^2-y^2$.
+        \item $D = \C$ y $u(z) = xy+3x^2y-y^3$.
+        \item $D = \C$ y $u(z) = e^{x^2-y^2}\cos(2xy)$.
+        \item $D = \{z \in \C \colon \Re{z} > 0\}$ y $u(z) = \arctan\frac{y}{x}$.
+        \item $D = \C\setminus (-\infty,0]$ y $u(z) = \textup{Arg}\sqrt{z}$, denotando por $\sqrt{\cdot}$ a la rama principal de la raíz cuadrada en $\C \setminus \{0\}$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Se observa que $x^2-y^2 = \Re{z^2}$, siendo $f(z) = z^2$ holomorfa en $\C$. Por tanto, $\Im{z^2} = 2xy$ es una conjugada armónica de $u$ en $\C$.
+    \item Se tiene que
+    \[u_x(z) = y+6xy, \qquad \qquad u_y(z) = x+3x^2-3y^2\]
+    De existir, una conjugada armónica $v \colon \C \to \R$ de $u$ debe satisfacer 
+    \[v_x(z) = -u_y(z) = -x-3x^2+3y^2, \qquad \qquad v_y(z) = u_x(z) = y+6xy\]
+    De la primera condición se deduce que
+    \[v(z) = -\frac{x^2}{2}-x^3+3y^2x+c_1(y),\]
+    siendo $c_1(y) \in \C$ una constante que depende de $y$. Y de la segunda condición deducimos
+    \[v(z) = \frac{y^2}{2}+3xy^2+c_2(x),\]
+    siendo $c_2(x) \in \C$ una constante que depende de $x$. Como debe cumplirse
+    \[-\frac{x^2}{2}-x^3+\cancel{3y^2x}+c_1(y) = \frac{y^2}{2}+\cancel{3xy^2}+c_2(x),\]
+    podemos tomar $c_1(y) = \frac{y^2}{2}, c_2(x) = -\frac{x^2}{2}-x^3$, y tenemos que la función $v \colon \C \to \R$ dada por
+    \[v(z) = -\frac{x^2}{2}-x^3+3y^2x+\frac{y^2}{2}\]
+    es, por construcción, una conjugada armónica de $u$ en $\C$.
+    \item Se tiene que $u(z) = e^{\Re{z^2}}\cos(\textup{Im}(z^2))$, así que $u(z) = \textup{Re}(e^{z^2})$. Como $f(z)= e^{z^2}$ es holomorfa en $\C$, concluimos que la función $v \colon \C \to \R$ dada por $v(z) = \textup{Im}(e^{z^2})= e^{x^2-y^2}\sen(2xy)$ es una conjugada armónica de $u$ en $\C$.
+    \item Tenemos que $u(z) =\textup{Arg}(z) = \Im{\textup{Log}(z)}$ para todo $z \in D$. Como $f(z)=\textup{Log}(z)$ es holomorfa en $D \subset \C \setminus (-\infty,0]$, entonces $g(z) = -i\textup{Log}(z)$ también lo es, y se tiene que $u(z) = \Re{g(z)}$. Por tanto, $v(z) = \textup{Im}(g(z)) 
+    =-\log|z|$ es una conjugada armónica de $u$ en $D$.
+    \item Si $z \in \C \setminus\{0\}$, la rama principal de la raíz cuadrada en $\C$ viene dada por \[\sqrt{z} = \sqrt{|z|}e^{i\frac{\textup{Arg}(z)}{2}}\] Así, $u(z) = \textup{Arg}(\sqrt{z}) = \frac{\textup{Arg}(z)}{2}$ y, razonando como en el apartado anterior, una conjugada armónica de $u$ en $D$ sería $v(z) = -\frac{\log|z|}{2}$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Sea $f$ una función entera tal que $\Re{f(z)} = x^3-3x+axy^2$, $v = \Im{f}$, para $z = x+iy$ con $x,y \in \R$ y cierto $a \in \R$. Determinar $a$ y $\Im{f}$.
+\end{exercise}
+
+\begin{resolution}
+Como $f$ es una función entera, entonces $u = \Re{f}$ es una función armónica, así que debe cumplirse $u_{xx}+u_{yy} = 0$ en $\C$. Se tiene que
+\[u_x(z) = 3x^2-3+ay^2, \qquad \qquad u_y(z) = 2axy,\]
+luego
+\[u_{xx}(z)=6x, \qquad \qquad u_{yy}(z) = 2ax\]
+Por tanto, ha de ser $2a = -6$, es decir, $a = -3$. Por otra parte, que $f$ sea entera también dice que deben satisfacerse las condiciones de Cauchy-Riemann:
+\[u_x(z) = 3x^2-3-3y^2 = v_y(z), \qquad \qquad u_y(z) = -6xy = -v_x(z)\]
+De aquí se obtiene
+\[v(z) = 3x^2y-3y-y^3+c_1(x), \qquad \qquad v(z) =3x^2y+c_2(y),\]
+siendo $c_1(x), c_2(y) \in \C$ constantes que dependen de $x$ e $y$, respectivamente. Al comprar los dos términos se deduce que $c_1(x) = 0$, y se concluye que $v(z) = 3x^2y-3y-y^3$.
+\end{resolution}
+
+\end{document}

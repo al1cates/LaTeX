@@ -1,0 +1,362 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.9in, left = 0.9in, top = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage[partialup]{kpfonts}
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\begin{center}
+    \textbf{Examen final de Ecuaciones Diferenciales II} \\
+    \textbf{Miércoles, 20 de julio de 2022}
+\end{center}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 1. \textit{Considérese el problema de Cauchy}
+\[(P) \begin{cases}
+    x'=x^2+\sen^2(tx) \\
+    x(0)=1
+\end{cases}\]
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Probar que $(P)$ tiene una única solución maximal $\varphi \colon I \to \R$, siendo $I$ de la forma $I=(a,b)$, con $0 \in I$. ¿Presenta $\varphi$ algún tipo de monotonía?}
+    \item[\textit{(b)}] \textit{Probar que $a=-\infty$.}
+    \item[\textit{(c)}] \textit{El objetivo ahora es probar que $b \leq 1$. Para ello, se propone seguir los siguientes pasos:}
+    \begin{itemize}
+        \item[\textit{(i)}] \textit{Probar que, para cada $t \in [0,b)$, se tiene que $\varphi(t) \geq \psi(t)$, siendo}
+        \[\psi(t)=1+\int_0^t \varphi^2(s)\, ds, \quad t \in [0,b)\]
+        \item[\textit{(ii)}] \textit{Probar que $\psi$ es derivable en $[0,b)$ y que $\psi'(t) \geq \psi^2(t)$, $t \in [0,b)$.}
+        \item[\textit{(iii)}] \textit{Probar que, para cada $t \in [0,b)$,}
+        \[\psi(t) \geq \frac{1}{1-t}\]
+        \textit{Concluir que, necesariamente, $b \leq 1$.}
+    \end{itemize}
+    \item[\textit{(d)}] \textit{Probar que $\displaystyle \lim_{t \to -\infty} \varphi(t) = 0$.}
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\begin{itemize}
+    \item[\textit{(a)}] Sea $f\colon \R^2 \to \R$ la función definida por $f(t,x)=x^2+\sen^2(tx)$. Al ser $f \in \mathcal{C}^1(\R^2,\R)$, se tiene que $f \in \mathcal{C}(\R^2,\R)\cap \textup{Lip}_{\textup{loc}}(x,\R^2,\R)$, y como $0 \in \mathring{\R}^2$, por el TEUL, $(P)$ posee solución local única, que puede extenderse (de manera única gracias a la PUG) a una solución maximal $\varphi \colon I \to \R$. Además, por el resultado sobre soluciones maximales con gráficas en abiertos (evidentemente, $\R^2$ es abierto), $I$ es de la forma $I=(a,b)$, con $-\infty \leq a < 0 < b \leq \infty$.
+
+    \vspace{2mm}
+
+    Por otro lado, como la función nula es solución de la ecuación $(E) \ x'=x^2+\sen^2(tx)$ en $\R$ pero no del problema $(P)$, entonces, por la PUG, la gráfica de $\varphi$ no puede cortar a la de la función nula, o, en otras palabras, $\varphi(t) \neq 0$ para todo $t \in I$. Como $\varphi(0)=1 > 0$ y $\varphi$ es continua, se deduce que $\varphi(t) >0$ para todo $t \in I$. En consecuencia, $\varphi'(t)=\varphi(t)^2+\sen^2(t\varphi(t)) >0$ para todo $t \in I$, luego $\varphi$ es estrictamente creciente.
+
+    \item[\textit{(b)}] Por reducción al absurdo, supóngase que $a > - \infty$. En virtud del resultado sobre soluciones maximales con gráficas en abiertos, se presenta una de las siguientes circunstancias:
+    \begin{itemize}
+        \item[\textit{(i)}] $\displaystyle \lim_{t \to a^+} |\varphi(t)|=\infty$, o, equivalentemente, $\displaystyle \lim_{t \to a^+}\varphi(t)=\infty$.
+        \item[\textit{(ii)}] La gráfica de $\varphi$ tiene un punto límite para $t \to a$, y este y todos los puntos límite de la gráfica de $\varphi$ para $t \to a$ están en $\partial \R^2$.
+    \end{itemize}
+    Lo primero es imposible por ser $\varphi$ estrictamente creciente; lo segundo tampoco puede darse porque $\partial \R^2 = \emptyset$. Habiéndose llegado a una contradicción, se concluye que $a = -\infty$.
+    \item[\textit{(c)}] Si $t \in [0,b)$, por ser $\varphi$ solución de $(E)$, para todo $s \in [0,t]$ se tiene
+        \[\varphi'(s)=\varphi^2(s)+\sen^2(s\varphi(s)) > \varphi^2(s)\]
+        Obsérvese que tanto $\varphi'$ como $\varphi^2$ son integrables en $[0,t]$ por ser continuas. Por tanto, por la monotonía de la integral y la regla de Barrow,
+        \[\int_0^t \varphi'(s) \, ds = \varphi(t)-\varphi(0)=\varphi(t)-1 \geq \int_0^t \varphi^2(s) \, ds,\]
+        de donde se deduce que
+        \[\psi(t)=1+\int_0^t \varphi^2(s) \, ds \leq \varphi(t)\]
+        Además, por el primer TFC, $\psi$ es derivable en $[0,b)$ (por la izquierda en $b$) y $\psi'(t)=\varphi^2(t)$. Pero como se tiene $\psi(t) \leq \varphi(t)$ y también $\psi(t),\varphi(t)>0$, entonces $\psi^2(t) \leq \varphi^2(t)=\psi'(t)$, o, equivalentemente, $\psi'(t)\psi^{-2}(t) \geq 1$, para todo $t \in [0,b)$. Integrando en $[0,t]$ y usando que $\psi(0)=1$, se obtiene
+        \[\int_0^t \psi'(s)\psi^{-2}(s)\, ds = \bigl[-\psi^{-1}(s)\bigr]_0^t = 1-\frac{1}{\psi(t)} \geq \int_0^t 1 \, ds = t,\]
+        o, equivalentemente,
+        \[\frac{1}{\psi(t)} \leq 1-t,\]
+        de donde se deduce que
+        \[\varphi(t) \geq \psi(t) \geq \frac{1}{1-t}\]
+        Si fuese $b > 1$, se podría tomar límites en la expresión anterior cuando $t \to 1^-$ para obtener $\lim_{t \to 1^-}\varphi(t) = \infty$, que no es posible por la continuidad de $\varphi$ en $(-\infty,b)$. Por tanto, ha de ser $b \leq 1$.
+    \item[\textit{(d)}] En primer lugar, como $\varphi$ es estrictamente creciente, entonces existe $A = \lim_{t \to -\infty} \varphi(t) \in \R$, y por ser $\varphi(t)>0$ para todo $t \in (-\infty,b)$, debe tenerse $A \geq 0$. Veamos que $A = 0$.
+
+    \vspace{2mm}
+
+    Considérese el problema
+    \[(\tilde{P}) \begin{cases}
+        x'=x^2 \\
+        x(0)=1,
+    \end{cases}\]
+    y defínase la función $g \colon \R^2 \to \R$ mediante $g(t,x) = x^2$. Como $g \in \mathcal{C}^1(\R^2,\R)$, entonces es $g \in \mathcal{C}(\R^2,\R) \cap \textup{Lip}_{\textup{loc}}(x,\R^2,\R)$, luego la ecuación $(E) \ x'=x^2$ verifica la PUG en $\R^2$, y además $(\tilde{P})$ tiene solución maximal única a la izquierda de 0, llámese $\psi \colon J \to \R$. Como la función nula es solución de $(\tilde{P})$ en $\R^2$ pero no resuelve $(\tilde{P})$, entonces $\psi$ no corta a la gráfica de la función nula, esto es, $\psi(t) \neq 0$ para todo $t \in J$. Y como $\psi(0)=1>0$, entonces $\psi(t) >0$ para todo $t \in J$ por temas de continuidad, así que podemos despejar en $(E)$ sin preocupación alguna:
+    \[
+    \begin{aligned}[t]
+    x'(t)=x^2(t) &\implies x'(t)x^{-2}(t)=1 \implies \int_0^tx'(s)x^{-2}(s) \, ds = \int_0^t 1 \, ds \implies \bigl[ -x^{-1}(s)\bigr]_0^t = t \\
+    &\implies 1-\frac{1}{x(t)} = t \implies x(t) = \frac{1}{1-t}
+    \end{aligned}
+    \]
+    Obtenemos entonces que
+    \[\psi(t)=\frac{1}{1-t}\]
+    es solución de $(\tilde{P})$ en $(-\infty,0]$. Como además $f(t,x) \geq g(t,x)$ para todo $(t,x) \in (-\infty,0] \times \R$ y $\psi(0)=\varphi(0)$, por el teorema de comparación de soluciones de ecuaciones diferenciales escalares, se tiene $0 < \varphi(t) \leq \psi(t)$ para todo $t \in (-\infty,0]$. Como $\lim_{t \to -\infty} \psi(t) =0$, tomando límites en la desigualdad anterior se concluye que $A = \lim_{t \to -\infty} \varphi(t) = 0$.
+    \end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 2. \textit{Sean $t_0 \in \R$, $|| \cdot ||$ una norma en $\R^n$ y $f \colon [t_0,\infty) \times \R^n \to\R^n$ una función continua. Supóngase que existe una función continua y no negativa $a \colon [t_0,\infty) \to [0,\infty)$ tal que}
+\[||f(t,x)|| \leq a(t) \quad \textup{\textit{para todo }} t \geq t_0 \textup{\textit{ y todo }} x \in \R^n\]
+\textit{Probar que, para cada $x^0 \in \R^n$, todas las soluciones maximales del problema}
+\[(P_{(t_0,x^0)}) \begin{cases}
+    x'=f(t,x) \\
+    x(t_0)=x^0
+\end{cases}\]
+\textit{están definidas en $[t_0,\infty)$.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+Sea $\varphi \colon I \to \R$ una solución maximal del problema $(P_{(t_0,x^0)})$. Tenemos tres opciones: $I = [t_0,t_1)$, $I = [t_0,t_1]$ y $I = [t_0,\infty)$ (con $t_1 < \infty$). El objetivo es descartar las dos primeras opciones.
+
+\begin{itemize}
+    \item[\textit{(i)}] Supóngase que $I = [t_0,t_1)$, con $t_1 < \infty$. Al ser $a$ continua en el compacto $[t_0,t_1]$, entonces $a$ alcanza el máximo, es decir, existe $M >0$ tal que $a(t) \leq M$ para todo $t \in [t_0,t_1]$. Por tanto,
+    \[||f(t,x)|| \leq a(t) \leq M \quad \textup{para todo } t \in [t_0,t_1) \textup{ y todo } x \in \R^n\]
+    En consecuencia, $f$ es acotada en la gráfica de $\varphi$, y el resultado sobre soluciones con derivada acotada (versión lateral derecha) permite afirmar que $x^1 = \lim_{t \to t_1^-} \varphi(t) \in \R^n$, y como $(t_1,x^1) \in [t_0,\infty) \times \R^n$, el mismo resultado garantiza que $\varphi$ puede ser prolongada al intervalo $[t_0,t_1]$, lo que contradice que $\varphi$ sea solución maximal de $(P_{(t_0,x^0)})$.
+    \item[\textit{(ii)}] Supóngase que $I = [t_0,t_1]$, con $t_1 < \infty$. Considérese el problema
+    \[(P_{(t_1,\varphi(t_1))}) \begin{cases}
+        x'=f(t,x) \\
+        x(t_1)=\varphi(t_1)
+    \end{cases}\]
+    Para todos $a,b > 0$ se tiene que
+    \[Q_{a,b}^+ = [t_1,t_1+a] \times \overline{B}_{||\cdot ||}(x^1,b) \subset D= [t_0,\infty) \times \R^n,\]
+    y como $f$ es continua en $D$, entonces también lo es en $Q_{a,b}^+$. Por tanto, por el TEL, el problema $(P_{(t_1,\varphi(t_1))})$ tiene al menos una solución $\psi$ definida en $I_h^+ = [t_1,t_1+h]$ para cierto $h > 0$. Ahora se considera la función $\tilde{\varphi} \colon [t_0,t_1+h] \to \R$ definida por
+    \[\tilde{\varphi}(t) = \begin{cases}
+        \varphi(t) & $ si $ t_0 \leq t \leq t_1 \\
+        \psi(t) & $ si $ t_1 \leq t \leq t_1+h
+    \end{cases}\]
+    Como $\varphi(t_1)=\psi(t_1)$ y tanto $\varphi$ como $\psi$ son soluciones de $(E) \ x'=f(t,x)$, por el lema del pegamento, $\tilde{\varphi}$ es otra solución de $(E)$, que además es prolongación estricta de $\varphi$ a la derecha (pues $[t_0,t_1] \subset [t_0,t_1+h]$ y $\tilde{\varphi} |_{[t_0,t_1]} = \varphi$), lo que contradice la maximalidad de $\varphi$ como solución de ${(P_{(t_0,x_0)})}$.
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 3. \textit{Realizar un estudio, lo más exhaustivo posible, de las soluciones maximales de la ecuación}
+\[(E) \quad x'=(x-1)\log(1+x^2)\]
+\textit{y esbozar el aspecto de las gráficas de estas posibles soluciones.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+En primer lugar, se observa que la ecuación $(E)$ es una ecuación diferencial escalar autónoma de primer orden. Considérese la función $g \colon \R \to \R$ definida por $g(x)=(x-1)\log(1+x^2)$. Como $g \in \mathcal{C}^1(\R,\R)$, entonces $g \in \mathcal{C}(\R,\R) \cap \textup{Lip}_{\textup{loc}}(x,\R,\R)$, así que la ecuación $(E) \ x'=(x-1)\log(1+x^2)$ verifica la PUG en $\R^2$.
+
+\vspace{2mm}
+
+Se tiene que $(x-1)\log(1+x^2)=0$ si y solo si $x=1$ o $x=0$, luego $\varphi_1 \equiv 1$ y $\varphi_0 \equiv 0$ son las únicas soluciones constantes de $(E)$, definidas en $\R$. Como se verifica la PUG, cualquier solución maximal de $(E)$ no constante tendrá su gráfica contenida en una de las siguientes regiones:
+\[D_1= \R \times (-\infty,0), \qquad D_2 = \R \times (0,1) \qquad \textup{o} \qquad D_3 = \R \times (1,\infty)\]
+
+\vspace{2mm}
+
+Sea $\varphi \colon I \to \R$ una solución maximal de la ecuación $(E)$. Como $\R^2$ es abierto, por el resultado sobre soluciones maximales con gráficas en abiertos, los intervalos de definición de las soluciones maximales de $(E)$ son de la forma $I = (a,b)$, con $-\infty \leq a < b \leq \infty$. Además, por el mismo resultado, si $t^*$ es un extremo finito de $I$, entonces ha de tenerse $\lim_{t \to t^*} |\varphi(t)| = \infty$ (pues $\partial \R^2 = \emptyset$). Ahora se distinguen los siguientes casos:
+
+\begin{itemize}
+    \item[\textit{(i)}] $\textup{gráf}(\varphi) \subset D_1$. Entonces $\varphi(t) <0$ para todo $t \in I$. Por tanto, $\varphi(t)-1 <0$ para todo $t \in I$, luego $\varphi'(t)= (\varphi(t)-1)\log(1+\varphi^2(t)) <0$ para todo $t \in I$, así que $\varphi$ es estrictamente decreciente. Sabemos además que si $t^*$ es un extremo finito de $I$, entonces $\lim_{t \to t^*} |\varphi(t)| = \infty$, o lo que es lo mismo, $\lim_{t \to t^*} \varphi(t) = -\infty$. El decrecimiento estricto de $\varphi$ impide que sea $t^* = a$, luego $a = -\infty$, mientras que $b$ podría ser $\infty$ o menor que $\infty$. Por otro lado, que $\varphi$ sea estrictamente decreciente también indica que $\varphi$ tiene límite en los extremos de $I$. Sean $A =\lim_{t \to -\infty} \varphi(t)$ y $B = \lim_{t \to b^-} \varphi(t)$. Como $A \leq 0$ y no puede ser $A=-\infty$, entonces $A = 0$ (si fuese $-\infty<A<0$, tendríamos otra solución constante). Por otra parte, si $b$ es finito ya sabemos que $B = -\infty$. Pero si fuese $b=\infty$, al ser $B \leq 0$ y $\varphi$ estrictamente decreciente, solo puede suceder $B = \infty$ (de nuevo, si ocurriese $-\infty<B<0$ se tendrían nuevas soluciones constantes). La conclusión de este caso es que o bien
+    \[a=-\infty, \qquad A = 0, \qquad b < \infty \qquad \textup{y} \qquad B = -\infty,\]
+    o bien
+    \[a=-\infty, \qquad A = 0, \qquad b = \infty \qquad \textup{y} \qquad B = -\infty,\]
+    \item[\textit{(ii)}] $\textup{gráf}(\varphi) \subset D_2$. Como la gráfica de $\varphi$ está comprendida entre la gráfica de dos soluciones constantes, entonces $I = \R$. Y como $0 < \varphi(t) < 1$, entonces $\varphi(t)-1<0$, y por tanto se tiene $\varphi'(t) = (\varphi(t)-1)\log(1+\varphi^2(t))<0$ para todo $t \in \R$, luego $\varphi$ es estrictamente decreciente. De esto se deduce que $A = \lim_{t \to -\infty} \varphi(t)=1$ y $B = \lim_{t \to \infty} \varphi(t) = 0$. La conclusión de este caso es
+    \[a=-\infty, \qquad A = 1, \qquad b = \infty \qquad \textup{y} \qquad B = 0\]
+    \item[\textit{(iii)}] $\textup{gráf}(\varphi) \subset D_3$. Entonces $\varphi(t) >1$ para todo $t \in I$. Por tanto, $\varphi(t)-1 >0$ para todo $t \in I$, luego $\varphi'(t)= (\varphi(t)-1)\log(1+\varphi^2(t)) >0$ para todo $t \in I$, así que $\varphi$ es estrictamente creciente. Sabemos además que si $t^*$ es un extremo finito de $I$, entonces $\lim_{t \to t^*} |\varphi(t)| = \infty$, o lo que es lo mismo, $\lim_{t \to t^*} \varphi(t) = \infty$. El crecimiento estricto de $\varphi$ impide que sea $t^* = a$, luego $a = -\infty$, mientras que $b$ podría ser $\infty$ o menor que $\infty$. Por otro lado, que $\varphi$ sea estrictamente creciente también indica que $\varphi$ tiene límite en los extremos de $I$. Sean $A =\lim_{t \to -\infty} \varphi(t)$ y $B = \lim_{t \to b^-} \varphi(t)$. Como $A \geq 1$ y no puede ser $A=\infty$, entonces $A = 1$ (si fuese $1<A<\infty$, tendríamos otra solución constante). Por otra parte, si $b$ es finito ya sabemos que $B =\infty$. Pero si fuese $b=\infty$, al ser $B \geq 1$ y $\varphi$ estrictamente creciente, solo puede suceder $B = \infty$ (de nuevo, si ocurriese $1<A<\infty$ se tendrían nuevas soluciones constantes). La conclusión de este caso es que o bien
+    \[a=-\infty, \qquad A = 1, \qquad b < \infty \qquad \textup{y} \qquad B = \infty,\]
+    o bien
+    \[a=-\infty, \qquad A = 1, \qquad b = \infty \qquad \textup{y} \qquad B = \infty,\]
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 4. \textit{Supóngase que $A \colon \R \to \mathcal{M}_n(\R)$ y $b \colon \R \to \R^n$ son continuas y periódicas, de periodo $\omega \in (0,\infty)$, y considérense los sistemas}
+\[(S) \quad x'=A(t)x+b(t), \qquad \qquad (H) \quad x'=A(t)x\]
+\begin{itemize}
+    \item[\textit{(a)}] \textit{Sea $\varphi \colon \R \to \R^n$ una solución de $(S)$. Demostrar que $\varphi$ es periódica de periodo $\omega$ si y solo si $\varphi(0) =\varphi(\omega)$.}
+    \item[\textit{(b)}] \textit{Probar que si $\Phi$ es una matriz fundamental de $(H)$, entonces $\Psi(t)=\Phi(t+\omega)$ también es matriz fundamental de $(H)$.}
+    \item[\textit{(c)}] \textit{Supongamos que $\Phi$ es una matriz fundamental de $(H)$. Probar que $(H)$ tiene solución periódica no trivial de periodo $\omega$ si y solo si $\textup{det}(\Phi(0)-\Phi(\omega))=0$.}
+    \item[\textit{(d)}] \textit{Probar que $(S)$ tiene una única solución periódica de periodo $\omega$ si y solo si $(H)$ no tiene más soluciones periódicas de periodo $\omega$ que la solución trivial.}
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\begin{itemize}
+    \item[\textit{(a)}] Supóngase que $\varphi \colon \R \to \R^n$ es una solución de $(S)$ periódica y de periodo $\omega$. Esto significa que $\varphi(t)=\varphi(t+\omega)$ para todo $t \in \R$. Evaluando en 0 se obtiene $\varphi(0)=\varphi(\omega)$.
+
+    \vspace{2mm}
+
+    Recíprocamente, supóngase que $\varphi \colon \R \to \R^n$ es una solución de $(S)$ verificando $\varphi(0)=\varphi(\omega)$. Sea $x^0=\varphi(0)=\varphi(\omega)$. Como $(S)$ es un sistema diferencial lineal de primer orden, el problema
+    \[(P) \begin{cases}
+        x'=A(t)x+b(t) \\
+        x(0)=x^0
+    \end{cases}\]
+    tiene solución única en $\R$. Por una parte, tenemos que $\varphi$ es solución de $(P)$. Por otra parte, si se define $\varphi_\omega \colon \R \to \R^n$ mediante $\varphi_\omega(t) = \varphi(t+\omega)$, se tiene que
+    \begin{itemize}
+        \item[\textit{(i)}] $\varphi_\omega$ es derivable por serlo $\varphi$.
+        \item[\textit{(ii)}] $\textup{gráf}(\varphi_{\omega}) \subset \R^2$, evidentemente.
+        \item[\textit{(iii)}] Por la regla de la cadena, \[\varphi_\omega'(t) = \varphi'(t+\omega)=A(t+\omega)\varphi(t+\omega)+b(t+\omega)=A(t)\varphi(t+\omega)+b(t)=A(t)\varphi_\omega(t)+b(t),\] donde se ha usado que $A$ y $b$ son periódicas de periodo $\omega$.
+        \item[\textit{(iv)}] $\varphi_\omega(0) = \varphi(\omega)=x^0$.
+    \end{itemize}
+    Por tanto, $\varphi_\omega$ es también solución de $(P)$, así que debe ser $\varphi_\omega = \varphi$ por asuntos de unicidad, concluyéndose que $\varphi$ es periódica de periodo $\omega$.
+    \item[\textit{(b)}] Sea $\Phi$ una matriz fundamental de $(H)$, y sea $\Psi(t) = \Phi(t+\omega)$. Por la regla de la cadena, $\Psi$ es derivable en $\R$ y $\Psi'(t) = \Phi'(t+\omega) = A(t+\omega)\Phi(t+\omega) = A(t)\Psi(t)$, donde se ha usado que $A$ es periódica de periodo $\omega$ y que $\Phi$ es matriz solución de $(H)$. Además, como $\textup{det}(\Phi(t)) \neq 0$ para todo $t \in \R$ por ser $\Phi$ matriz fundamental, entonces $\textup{det}(\Phi(t+\omega))=\textup{det}(\Psi(t)) \neq 0$ para todo $t \in \R$, luego $\Psi$ es también matriz fundamental de $(H)$.
+    \item[\textit{(c)}] Sea $\Phi$ una matriz fundamental de $(H)$, y supóngase que $\varphi \colon \R \to \R^n$ es solución $\omega$-periódica de $(H)$ no trivial. Sea $x^0=\varphi(0)$ y considérese el problema
+    \[(P) \begin{cases}
+        x'=A(t)x \\
+        x(0)=x^0
+    \end{cases}\]
+    Como $\Phi$ es matriz fundamental, la única solución de $(P)$ en $\R$ viene dada por
+    \[\psi(t)=\Phi(t)\Phi^{-1}(0)x^0,\]
+    y como $\varphi$ es solución de $(P)$, entonces
+    \[\varphi(t)=\Phi(t)\Phi^{-1}(0)x^0\]
+    Pero, por el apartado \textit{(a)}, $\varphi(0)=\varphi(\omega)$, luego
+    \[x^0=\Phi(\omega)\Phi^{-1}(0)x^0\]
+    Equivalentemente,
+    \[(\Phi(\omega)\Phi^{-1}(0)-\textup{Id})x^0= (\Phi(\omega)-\Phi(0))\Phi^{-1}(0)x^0 =0,\]
+    Obsérvese que $x^0 \neq 0$ (si fuese $x^0$ se contradiría que $\varphi$ es no trivial, ya que la función nula resolvería $(P)$) y $\Phi^{-1}(0) \neq 0$ (de lo contrario sería $\varphi(t) = \Phi(t)\Phi^{-1}(0)x^0=0$ para todo $t \in \R$, lo que también contradice que $\varphi$ es no trivial). Por tanto, $\textup{rg}(\Phi(\omega)-\Phi(0)) < n$, o lo que es lo mismo, $\textup{det}(\Phi(\omega)-\Phi(0))=\textup{det}(\Phi(0)-\Phi(\omega))=0$.
+
+    \vspace{2mm}
+
+    Recíprocamente, supóngase que $\textup{det}(\Phi(0)-\Phi(\omega)) =0$. Entonces el sistema $(\Phi(0)-\Phi(\omega))X=0$ tiene solución no trivial, llámese $x^0$. Nótese que $\Phi(0)x^0=\Phi(\omega)x^0$. Sea $\varphi \colon I \to \R^n$ la función definida por $\varphi(t) = \Phi(t) x^0$. Se tiene que
+    \begin{itemize}
+        \item[\textit{(i)}] $\varphi$ es solución de $(E)$, pues $\varphi'(t) = \Phi'(t)x^0 = A(t)\Phi(t)x^0=A(t)\varphi(t)$ para cada $t \in \R$.
+        \item[\textit{(ii)}] $\varphi$ no es la función nula, pues $x^0 \neq 0$ y $\Phi$ es una matriz regular.
+        \item[\textit{(iii)}] $\varphi(0) = \Phi(0)x^0=\Phi(\omega)x^0=\varphi(\omega)$, luego, por $(a)$, $\varphi$ es periódica de periodo $\omega$.
+    \end{itemize}
+    \item[\textit{(d)}] Supongamos que $(S)$ tiene una única solución periódica $\varphi \colon \R \to \R^n$ de periodo $\omega$ y, por reducción al absurdo, que $\psi \colon \R \to \R^n$ es una solución periódica no trivial de $(H)$ de periodo $\omega$. Consideremos la función $\varphi - \psi \colon \R \to \R^n$. Se tiene que
+    \begin{itemize}
+        \item[\textit{(i)}] $\varphi - \psi$ es solución de $(S)$, pues es derivable (ya que $\varphi$ y $\psi$ lo son) y, para cada $t \in \R$,
+        \[(\varphi-\psi)'(t)= A(t)\varphi(t)+b(t)-A(t)\psi(t)=A(t)(\varphi(t)-\psi(t))+b(t)=A(t)(\varphi-\psi)(t)+b(t)\]
+        \item[\textit{(ii)}] $\varphi-\psi$ es periódica de periodo $\omega$, pues si $t \in \R$,
+        \[(\varphi-\psi)(t+\omega)=\varphi(t+\omega)-\psi(t+\omega)=\varphi(t)-\psi(t)=(\varphi-\psi)(t),\]
+        donde se ha usado que tanto $\varphi$ como $\psi$ son periódicas y de periodo $\omega$.
+        \item[\textit{(iii)}] $\varphi-\psi$ es distinta de $\varphi$, pues $\psi$ es no trivial.
+    \end{itemize}
+    Esto contradice la unicidad de $\varphi$ como solución periódica de $(S)$.
+
+    \vspace{2mm}
+
+    Recíprocamente, supóngase que $(H)$ no tiene más soluciones periódicas de periodo $\omega$ que la solución trivial, y veamos que $(S)$ tiene una única solución periódica de periodo $\omega$. Sean $\varphi, \psi \colon \R \to \R$ soluciones periódicas de $(S)$ de periodo $\omega$ y veamos que $\varphi = \psi$. En efecto, tenemos que $\varphi-\psi$ es solución de $(H)$, pues es derivable (ya que $\varphi$ y $\psi$ lo son), y además
+    \[(\varphi-\psi)'(t)=A(t)\varphi(t)+b(t)-A(t)\psi(t)-b(t)=A(t)(\varphi(t)-\psi(t))=A(t)(\varphi-\psi)(t)\]
+    Obsérvese que $\varphi-\psi$ es periódica de periodo $\omega$ por serlo $\varphi$ y $\psi$, así que $\varphi-\psi$ es solución periódica de periodo $\omega$. Por hipótesis, ha de ser $\varphi-\psi=0$, o, equivalentemente, $\varphi=\psi$.
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 5. \textit{Dar la solución del sistema diferencial lineal}
+\[(S)\begin{cases}
+    x'=Ax+b(t) \\
+    x(t_0)=x^0,
+\end{cases}\]
+\textit{donde}
+\[A=\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 3 & 1 \\
+0 & 0 & 3
+\end{pmatrix} \qquad \qquad b(t)=\begin{pmatrix}
+    e^{3t} \\
+    e^{3t} \\
+    e^{3t}
+\end{pmatrix} \qquad \qquad t_0=0 \qquad \qquad x^0=\begin{pmatrix}
+    1 \\
+    1 \\
+    0
+\end{pmatrix}\]
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+Como $(S)$ es un sistema diferencial lineal de primer orden, entonces tiene solución única, y dicha solución es la función $\varphi \colon \R \to \R$ dada por
+\[\varphi(t)=e^{tA}x^0+\int_{0}^te^{(t-s)A}b(s)\, ds\]
+
+Por tanto, el problema se reduce al cálculo de la exponencial de $tA$, $t \in \R$. Como $A$ ya es una matriz formada por bloques de Jordan, la matriz exponencial se calcula fácilmente:
+\[e^{tA} = \begin{pmatrix}
+    e^{t} & 0 & 0 \\
+    0 & e^{3t} & te^{3t} \\
+    0 & 0 & e^{3t}
+\end{pmatrix}\]
+En consecuencia,
+\[\begin{aligned}[t]\varphi(t) &=
+\begin{pmatrix}
+    e^{t} & 0 & 0 \\
+    0 & e^{3t} & te^{3t} \\
+    0 & 0 & e^{3t}
+\end{pmatrix}\begin{pmatrix}
+    1 \\
+    1 \\
+    0
+\end{pmatrix}+\int_0^t\begin{pmatrix}
+    e^{t-s} & 0 & 0 \\
+    0 & e^{3t-3s} & te^{3t-3s}-se^{3t-3s} \\
+    0 & 0 & e^{3t-3s}
+\end{pmatrix}\begin{pmatrix}
+    e^{3s}\\
+    e^{3s}\\
+    e^{3s}
+\end{pmatrix} \, ds\\
+&=\begin{pmatrix}
+    e^t\\
+    e^{3t} \\
+    0
+\end{pmatrix}+\int_0^t \begin{pmatrix}
+    e^{t+2s}\\
+    e^{3t}+te^{3t}-se^{3t} \\
+    e^{3t}
+\end{pmatrix} \, ds \\
+&=\begin{pmatrix}
+    e^t\\
+    e^{3t} \\
+    0
+\end{pmatrix}+\biggl[\begin{pmatrix}
+    \frac{1}{2}e^{t+2s}\\
+    se^{3t}+ste^{3t}-\frac{1}{2}s^2e^{3t}\\
+    se^{3t}
+\end{pmatrix}\biggr]_0^t \\ &=
+\begin{pmatrix}
+    e^t\\
+    e^{3t} \\
+    0
+\end{pmatrix}+\begin{pmatrix}
+    \frac{1}{2}e^{3t}-\frac{1}{2}e^t \\
+    te^{3t}+t^2e^{3t}-\frac{1}{2}t^2e^{3t} \\
+    te^{3t}
+\end{pmatrix}\\
+&=\begin{pmatrix}
+    \frac{1}{2}e^t(1+e^{2t}) \\
+    e^{3t}(1+t+\frac{1}{2}t^2)\\
+    te^{3t}
+\end{pmatrix}
+\end{aligned}
+\]
+
+\end{document}

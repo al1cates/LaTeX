@@ -1,0 +1,469 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.9in, left = 0.9in, top = 1in, bottom = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage[partialup]{kpfonts}
+\usepackage{cancel}
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\begin{document}
+
+\begin{center}
+    \textbf{Examen final de Ecuaciones Diferenciales II} \\
+    \textbf{Viernes, 10 de noviembre de 2023}
+\end{center}
+
+\noindent \textit{Los apartados que comienzan por (V-F) piden decidir si el enunciado que sigue es verdadero o falso. En esos casos, también se pide justificar la respuesta que se dé.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 1. \textit{Sea $f \colon \Omega \subset \R \times \R^n \to \R^n$.}
+\begin{itemize}
+    \item[\textit{(a)}] \textit{¿Qué se entiende por que la ecuación $x'=f(t,x)$ tenga la propiedad de unicidad global en una región $D \subset \Omega$?}
+    \item[\textit{(b)}] \textit{Probar el teorema de unicidad global:} si $D \subset \Omega$ es una región tal que $f \in \mathcal{C}(D,\R^n)\cap \textup{Lip}_{\textup{loc}}(x,D)$, entonces la ecuación $(E) \ x'=f(t,x)$ tiene la propiedad de unicidad global en $D$.
+\end{itemize}
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{2mm}
+
+\begin{itemize}
+    \item[\textit{(a)}] Que la ecuación $(E) \ x'=f(t,x)$ tenga la propiedad de unicidad global en una región $D \subset \Omega$ significa que si $\varphi \colon I \to \R^n$ y $\psi \colon J \to \R^n$ son soluciones de $(E)$ con gráfica en $D$ y existe $t_0 \in I \cap J$ tal que $\varphi(t_0)=\psi(t_0)$, entonces $\varphi(t)=\psi(t)$ para todo $t \in I \cap J$.
+    \item[\textit{(b)}] Para la prueba, se va a hacer uso de la siguiente desigualdad de Gronwall: \textit{si $u,v \colon I \to [0,\infty)$ son funciones continuas no negaivas y para todo $t \in I$ se verifica}
+    \[u(t) \leq k +\Biggl|\int_{t_0}^t v(s)u(s) \, ds, \Biggr|\]
+    \textit{donde $t_0 \in I$ y $k \geq 0$, entonces se tiene}
+    \[u(t) \leq ke^{|\int_{t_0}^t v(s) \, ds|}\]
+    \textit{para todo $t \in I$.} 
+
+    \vspace{2mm}
+    
+    Comienza la demostración como tal: fijemos una norma $||\cdot ||$ de $\R^n$. Sea $t \in I\cap J$ y supóngase que $t> t_0$ (el otro caso se demuestra de manera totalmente análoga). Como $f\in \textup{Lip}_{\textup{loc}}(x,D)$ y $K_1=[t_0,t] \times \varphi([t_0,t]), K_2=[t_0,t] \times \psi([t_0,t])$ son compactos contenidos en $D$ (pues $\varphi$ y $\psi$ tienen gráfica en $D$), entonces $f \in \textup{Lip}(x,K)$, donde 
+$K=K_1 \cup K_2$, luego existe $L \geq 0$ tal que
+    \[||f(t,x)-f(t,y)|| \leq L||x-y|| \tag{$\ast$}\]
+    para todos $(t,x),(t,y) \in K$. Por otra parte,
+    \[
+    \begin{aligned}[t]
+        ||\varphi(t)-\psi(t)|| &= \Biggl|\Biggl|\int_{t_0}^t \varphi'(s) \, ds +\cancel{\varphi(t_0)}-\int_{t_0}^t \psi'(s)\, ds - \cancel{\psi(t_0)}\Biggr|\Biggr| = \Biggl|\Biggl|\int_{t_0}^t (\varphi'(s)-\psi'(s)) \, ds\Biggr|\Biggr| \\
+        &\leq \int_{t_0}^t ||\varphi'(s)-\psi'(s)|| \, ds = \int_{t_0}^t ||f(s,\varphi(s))-f(s,\psi(s))|| \, ds \overset{(\ast)}{\leq} \int_{t_0}^t L||\varphi(s)-\psi(s)|| \, ds
+    \end{aligned}
+    \]
+    En la primera igualdad se ha utilizado que, por ser $f \in \mathcal{C}(D,\R)$, $\varphi$ y $\psi$ son soluciones de la ecuación integral asociada a $(E)$. Así, se verifican las hipótesis de la desigualdad de Gronwall con $u(t)=||\varphi(t)-\psi(t)||$, $v(t)=L$ (que son continuas y no negativas en $I \cap J$) y $k=0$. Por tanto, se tiene
+    \[||\varphi(t)-\psi(t)|| \leq 0 e^{L(t-t_0)}=0,\]
+    luego $\varphi(t)=\psi(t)$.
+\end{itemize}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 2. \textit{(V-F) El problema siguiente tiene solución única definida en $(-1,\infty)$:}
+\[(P) \ \begin{cases}
+    x'=\log(1+t)-|\cos(ty)|, \ & x(1)=3 \\
+    y'=xe^t-1+\sen^2(1-ty), \ & y(1)=\pi
+\end{cases}\]
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+La afirmación es verdadera; probémoslo. Sea $D =(-1,\infty) \times \R^2$ y sea $f \colon D \to \R^2$ la función dada por $f(t,x,y)=(f_1(t,x,y),f_2(t,x,y))$, con $f_1(t,x,y)=\log(1+t)-|\cos(ty)|, f_2(t,x,y)=xe^t-1+\sen^2(1-ty)$. Veamos que $f \in \textup{LipG}(x,D,\R^2)$, o, equivalentemente, que $f_1,f_2 \in \textup{LipG}(x,D,\R)$ (nótese que $D$ es una banda vertical). 
+
+\begin{itemize}
+    \item[\textit{(i)}] Si $(t,x,y),(t,x',y') \in D$, entonces
+\[
+\begin{aligned}[t]
+    |f_1(t,x,y)-f_1(t,x',y')|&=|\log(1+t)-|\cos(ty)|-\log(1+t)+|\cos(ty')|| =||\cos(ty)|-|\cos(ty')|| \\
+    &\leq |\cos(ty)-\cos(ty')| \overset{(\ast)}{\leq} |ty-ty'|=|t||y-y'|\leq |t| ||(x,y)-(x',y')||_{\infty}
+\end{aligned}
+\]
+Al ser $L_1(t)=|t|$ no negativa y acotada en cualquier subintervalo compacto de $(-1,\infty)$, se tiene $f_1 \in \textup{LipG}(x,D,\R)$. 
+
+\vspace{2mm}
+
+Probemos la desigualdad $(\ast)$. Sea $I$ el intervalo compacto de extremos $ty$ y $ty'$, y sea $g \colon I \to \R$ la función definida mediante $g(x)=\cos(x)$. Como $g$ es continua y derivable, por el teorema del valor medio, existe $c \in \mathring{I}$ tal que
+\[|g(ty)-g(ty')|=|g'(c)||ty-ty'|,\]
+es decir,
+\[|\cos(ty)-\cos(ty')|=|-\sen(c)||ty-ty'| \leq |ty-ty'|,\]
+donde se ha usado que $|\sen(x)| \leq 1$ para todo $x \in \R$.
+\item[\textit{(ii)}] Si $(t,x,y),(t,x',y') \in D$, entonces
+\[
+\begin{aligned}[t]
+    |f_2(t,x,y)-f_2(t,x',y')|&=|xe^t-1+\sen^2(1-ty)-x'e^t+1-\sen^2(1-ty')| \\
+    &\leq e^t|x-x'|+|\sen^2(1-ty)-\sen^2(1-ty')| \overset{(\ast\ast)}{\leq} e^t|x-x'|+2|t||y-y'| \\
+    &\leq (e^t+2|t|)||(x,y)-(x',y')||_{\infty}
+\end{aligned}
+\]
+Al ser $L_2(t)=e^t+2|t|$ no negativa y acotada en cualquier subintervalo compacto de $(-1,\infty)$, se tiene $f_2 \in \textup{LipG}(x,D,\R)$. 
+
+\vspace{2mm}
+
+Probemos la desigualdad $(\ast\ast)$. Sea $I$ el intervalo compacto de extremos $1-ty$ y $1-ty'$, y sea $g \colon I \to \R$ la función definida mediante $g(x)=\sen^2(x)$. Como $g$ es continua y derivable, por el teorema del valor medio, existe $c \in \mathring{I}$ tal que
+\[|g(1-ty)-g(1-ty')|=|g'(c)||1-ty-1+ty'|,\]
+es decir,
+\[|\sen^2(1-ty)-\sen^2(1-ty')|=|2\sen(c)\cos(c)||ty'-ty| \leq 2|ty-ty'|=2|t||y-y'|,\]
+donde se ha usado que $|\sen(x)| \leq 1$ y $|\cos(x)| \leq 1$ para todo $x \in \R$.
+\end{itemize}
+
+Por tanto, como $f \in \mathcal{C}(D,\R) \cap \textup{LipG}(x,D,\R^2)$ y $(1,3,\pi) \in D$, por el TEUG, el problema $(P)$ tiene solución única en $(-1,\infty)$.
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 3. \textit{(V-F) El problema $(P) \ \{x''=\cos(x); x(0)=1\}$ tiene infinitas soluciones definidas en todo $\R$.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+La afirmación es verdadera; probémoslo. Para ello, se va a demostrar que para cada $x_0 \in \R$, el problema $(\widetilde{P}) \ \{x''=\cos(x); \ x(0)=1; \ x'(0)=x_0\}$ tiene solución única en $\R$, o, equivalentemente, que el sistema
+\[(S) \ \begin{cases}
+    z_1'=z_2 \\
+    z_2'=\cos(z_1) \\
+    z_1(0)=1, \ z_2(0)=x_0
+\end{cases}\]
+tiene solución única en $\R$. Sea $f \colon \R^3 \to \R^2$ la función definida por
+\[f(t,z_1,z_2)=(f_1(t,z_1,z_2),f_2(t,z_1,z_2))=(z_2,\cos(z_1))\]
+
+Veamos que $f \in \textup{LipG}(x,\R^3,\R^2)$ (nótese que $\R^3$ es una banda vertical), o, equivalentemente, que $f_1,f_2 \in \textup{LipG}(x,\R^3,\R)$.
+
+\begin{itemize}
+    \item[\textit{(i)}] Si $(t,z_1,z_2),(t,z_1',z_2') \in \R^3$, entonces
+    \[|f_1(t,z_1,z_2)-f_1(t,z_1',z_2')|=|z_2-z_2'|\leq ||(z_1,z_2)-(z_1',z_2')||_\infty\]
+    Como $L_1(t)=1$ es una función no negativa y acotada en cada subintervalo compacto de $\R$, entonces $f_1 \in \textup{LipG}(x,\R^3,\R)$.
+    \item[\textit{(ii)}] Si $(t,z_1,z_2),(t,z_1',z_2') \in \R^3$, entonces
+    \[|f_2(t,z_1,z_2)-f_2(t,z_1',z_2')|=|\cos(z_1)-\cos(z_2)|\overset{(\ast)}{\leq} |z_1-z_2| \leq ||(z_1,z_2)-(z_1',z_2')||_\infty\]
+    Como $L_2(t)=1$ es una función no negativa y acotada en cada subintervalo compacto de $\R$, entonces $f_2 \in \textup{LipG}(x,\R^3,\R)$. Para la desigualdad $(\ast)$, véase el ejercicio anterior.
+\end{itemize}
+
+En consecuencia, como $f \in \mathcal{C}(\R^3,\R^2) \cap \textup{LipG}(x,\R^3,\R^2)$, en virtud del TEUG, el sistema $(S)$ tiene solución única en $\R$, luego el problema $(\widetilde{P})$ también. Así, para cada $x_0 \in \R$, obtenemos una solución distinta de $(P)$ en $\R$, concluyéndose que $(P)$ tiene infinitas soluciones definidas en $\R$.
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 4. \textit{(V-F) Las soluciones no prolongables de $(E) \ x'=\sqrt{t}+\sqrt{x}$ están definidas en intervalos compactos.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+La afirmación es falsa; probémoslo. Sea $\varphi \colon I \to \R$ una solución no prolongable de $(E)$ y, por reducción al absurdo, supóngase que $I=[t_0,t_1]$, con $0 \leq t_0 < t_1 < \infty$. Considérese el problema
+\[(P) \ \begin{cases}
+    x'=\sqrt{t}+\sqrt{x} \\
+    x(t_1)=x_1,
+\end{cases}\]
+donde $x_1=\varphi(t_1)$. Veamos primero que $x_1 >0$. Como $\varphi'(t)=\sqrt{t}+\sqrt{\varphi(t)} >0$ para todo $t \in (t_0,t_1]$ (solo podría anularse en el caso $t_0=0,\varphi(t_0)=0$ y $t=t_0$), entonces $\varphi$ es estrictamente creciente en $(t_0,t_1]$, y como $\varphi(t) \geq 0$ para todo $t \in [t_0,t_1]$, entonces $\varphi(t_1)=x_1>0$.
+
+\vspace{2mm}
+
+Sea $D =[0,\infty) \times [0,\infty)$ y sea $f \colon D \to \R$ la función definida por $f(t,x)=\sqrt{t}+\sqrt{x}$. Como $t_1 >0$, para cualquier $a>0$ se tiene que $[t_1,t_1+a] \subset [0,\infty)$, y como $x_1 >0$, existe $b >0$ tal que $x_1-b \geq 0$ y, por tanto, $[x_1-b,x_1+b] \subset [0,\infty)$. Así,
+\[Q_{a,b}^+=[t_1,t_1+a] \times [x_1-b,x_1+b] \subset D\]
+
+Como además $f \in \mathcal{C}(Q_{a,b}^+,\R)$ (pues $f \in \mathcal{C}(D,\R)$), entonces, por el TEL, el problema $(P)$ tiene solución local a la derecha de $t_1$, es decir, existe una solución $\psi$ de $(P)$ definida en un intervalo de la forma $[t_1,t_1+h]$, con $h >0$. Definamos la función $\widetilde{\varphi} \colon [t_0,t_1+h] \to \R$ mediante
+\[\widetilde{\varphi}(t)=\begin{cases}
+    \varphi(t) & $ si $ t \in [t_0,t_1] \\
+    \psi(t) & $ si $ t \in [t_1,t_1+h]
+\end{cases}\]
+
+Como $\varphi, \psi$ son soluciones de $(E)$ y $\varphi(t_1)=\psi(t_1)=x_1$, entonces, por el lema del pegamento, $\widetilde{\varphi}$ es solución de $(E)$. Pero $[t_0,t_1+h] \supsetneq [t_0,t_1]$ y $\widetilde{\varphi}|_{[t_0,t_1]}=\varphi$, luego $\widetilde{\varphi}$ es una prolongación estricta de $\varphi$ como solución de $(E)$, lo que contradice que $\varphi$ sea una solución no prolongable de $(E)$.
+
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 5. \textit{(V-F) Sea $f \colon \R^2 \to \R$ continua. Entonces la función $\varphi \colon [-1,0)$ dada por $\varphi(t)=\frac{1}{t}$ no puede ser solución de $(E) \ x'=f(t,x)$.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+La afirmación es falsa; probémoslo. Sea $f \colon \R^2 \to \R$ la función definida por $f(t,x)=-x^2$. Es claro que $f$ es continua. Además, $\varphi$ es solución de la ecuación $(E) \ x'=f(t,x)$, pues su gráfica está contenida en $\R^2$ (evidentemente), es derivable en $[-1,0)$ y, para todo $t \in [-1,0)$,
+\[\varphi'(t)=-\frac{1}{t^2}=-\varphi(t)^2=f(t,\varphi(t))\]
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 6. \textit{Probar que el problema $(P) \ \{x'=\frac{x}{t}+\sen(x^2); \, x(1)=1\}$ tiene una única solución $\varphi$, definida en un intervalo de la forma $I=(0,b)$ con $1<b \leq \infty$. Probar asimismo que $\lim_{t \to 0} \varphi(t)=0$.} Ayuda: \textit{$-1 \leq \sen(\theta) \leq 1$ para todo $\theta \in \R$.}
+
+\vspace{4mm}
+
+\hrule
+
+\vspace{4mm}
+
+Considérese la función dada por $f(t,x)=\frac{x}{t}+\sen(x^2)$, que está bien definida en $D= (0,\infty) \times \R$. Se tiene que $(1,1) \in \mathring{D}$ y $f \in \mathcal{C}^1(D,\R)$, luego $f \in \mathcal{C}(D,\R) \cap \textup{Lip}_{\textup{loc}}(x,D,\R)$. Por el TEUL, el problema $(P)$ tiene solución local única, y como también se verifica la PUG (pues se satisfacen las hipótesis del TUG al tenerse $f \in \mathcal{C}(D,\R) \cap \textup{Lip}_{\textup{loc}}(x,D,\R)$), entonces dicha solución puede extenderse de manera única a una solución maximal $\varphi \colon I \to \R$. 
+
+\vspace{2mm}
+
+Obsérvese, por otra parte, que la función nula es solución de $(E) \ x'=\frac{x}{t}+\sen(x^2)$ pero no de $(P)$. Como se verifica la PUG en $D$, entonces la gráfica de $\varphi$ no corta la de la función nula, o, en otras palabras, $\varphi(t) \neq 0$ para todo $t \in I$. Pero $\varphi(1)=1>0$, luego, por continuidad, debe ser $\varphi(t)>0$ para todo $t \in I$.
+
+\vspace{2mm}
+
+Además, al ser $D$ un abierto de $\R^2$, por el resultado sobre soluciones con gráficas en abiertos, se tiene que $I=(a,b)$, con $0 \leq a < 1 < b \leq \infty$. El mismo resultado afirma que si $t^*$ es un extremo finito de $I$, entonces se verifica una de las siguientes circunstancias:
+\begin{itemize}
+    \item[\textit{(i)}] $\lim_{t \to t^*} |\varphi(t)|=\lim_{t \to t^*} \varphi(t)=\infty$.
+    \item[\textit{(ii)}] La gráfica de $\varphi$ tiene un punto límite para $t \to t^*$, y este y todos los puntos límite de la gráfica de $\varphi$ para $t \to t^*$ están en $\partial D = \{0\} \times \R$.
+\end{itemize}
+
+Veamos que $a=0$. Como $a$ es un extremo finito de $I$, entonces se verifica $(i)$ o $(ii)$. Por reducción al absurdo, supóngase que se tiene $(i)$. Entonces existe $\delta >0$ tal que para todo $t \in (a,\delta]$ se verifica $\varphi(t)>t$, luego $\frac{\varphi(t)}{t}>1$, y, por tanto, para todo $t \in (a,\delta]$
+\[\varphi'(t)=\frac{\varphi(t)}{t}+\sen(\varphi(t)^2) \geq \frac{\varphi(t)}{t}-1 > 0,\]
+luego $\varphi$ es estrictamente creciente en $(a,\delta]$, que es imposible porque $\lim_{t \to a^+}\varphi(t)=\infty$. Por tanto, tiene que darse el caso $(ii)$. Ahora bien, cualquier punto límite de la gráfica de $\varphi$ para $t \to a$ es de la forma $(a,A)$, y como debe ser $(a,A) \in \partial D=\{0\} \times \R$, entonces $a=0$. 
+
+\vspace{2mm}
+
+Para demostrar que $\lim_{t \to 0^+}\varphi(t)=0$, considérese el problema $(Q) \ \{x'=\frac{x}{t}-1;x(1)=1\}$. La ecuación $(E) \ x'=\frac{x}{t}-1$ es una ecuación diferencal lineal no homogénea de primer orden, así que $(Q)$ tiene solución única, y la solución general de $(E)$ es $\psi(t)=\psi_h(t)+\psi_p(t)$, donde $\psi_h$ es la solución general de $(H) \ x'=\frac{x}{t}$, y $\psi_p$ es una solución particular de $(E)$. La solución general de $(H)$ es
+\[\psi_h(t)=ce^{\int \frac{1}{t} \, dt} = ce^{\log(t)} = ct, \quad c \in \R\]
+
+\vspace{2mm}
+
+Se va a tratar de hallar una solución particular de la forma $\psi_p(t)=c(t)t$. Se tendría entonces $\psi_p'(t)=c'(t)t+c(t)$, luego
+\[\begin{aligned}[t]
+    \psi_p \textup{ es solución de } (E) &\iff \psi_p'(t)=\frac{\psi_p(t)}{t}-1 \iff c'(t)t+c(t)=c(t)-1 \iff c'(t)=-\frac{1}{t} \\
+    &\iff c(t)=-\log(t)+d, \quad d \in \R
+\end{aligned} \]
+
+Tomando $d=0$, se obtiene la solución particular $\psi_p(t)=-\log(t)t$, $t \in (0,\infty)$. Por tanto, la solución general de $(E)$ es 
+\[\psi(t)=ct-\log(t)t, \quad c\in \R\]
+
+Como buscamos que $\psi(1)=1$, debe tomarse $c=1$, con lo que $\psi(t)=t-\log(t)t$ es la única solución de $(Q)$ en $(0,\infty)$.
+
+\vspace{2mm}
+
+Obsérvese que $f(t,x)=\frac{x}{t}+\sen(x^2) \geq g(t,x)=\frac{x}{t}-1$ para todo $(t,x) \in D$ y $\varphi(1)=\psi(1)$. Por tanto, por el teorema de comparación de soluciones de ecuaciones escalares, para todo $t \in (0,1]$ se tiene que $0 < \varphi(t) \leq \psi(t)$. Nótese que $\lim_{t \to 0^+}\log(t)t=0$, así que, tomando límites cuando $t \to 0^+$ en la desigualdad anterior, se obtiene
+\[\lim_{t \to 0^+} \varphi(t)=0\]
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+\noindent 7. \textit{Resolver el siguiente problema de datos iniciales:}
+\[(P) \ \begin{cases}
+    x'=\begin{pmatrix}
+        1 & 0 & \phantom{-}0 \\
+        0 & 1 & \phantom{-}2 \\
+        0 & 0 & -1
+    \end{pmatrix}x+\begin{pmatrix}
+        2te^t \\
+        -3t^2e^t \\
+        0
+    \end{pmatrix} \\
+    x(0)=\begin{pmatrix}
+        \phantom{-}1 \\
+        \phantom{-}1 \\
+        -1
+    \end{pmatrix}
+\end{cases}\]
+
+\vspace{2mm}
+
+\hrule
+
+\vspace{4mm}
+
+El sistema asociado al problema dado es un sistema diferencial lineal de primer orden de coeficientes constantes, así que $(P)$ tiene solución única en $\R$, y viene dada por
+\[\varphi(t)=e^{(t-t_0)A}x^0+\int_{t_0}^te^{(t-s)A}b(s) \, ds,\]
+donde
+\[A=\begin{pmatrix}
+    1 & 0 & \phantom{-}0 \\
+    0 & 1 & \phantom{-}2 \\
+    0 & 0 & -1
+\end{pmatrix} \qquad b(t)=\begin{pmatrix}
+    2te^t \\
+    -3t^2e^t \\
+    0
+\end{pmatrix} \qquad t_0=0 \qquad x^0=\begin{pmatrix}
+    \phantom{-}1 \\
+    \phantom{-}1 \\
+    -1
+\end{pmatrix}\]
+
+El problema se reduce entonces al cálculo de $e^{tA}$. Para ello, se va a tratar de hallar una matriz de Jorden $J$ semejante a $A$. En primer lugar, se calculan los autovalores de $A$. Se tiene que
+\[\textup{det}(A-\lambda \textup{Id})=0 \iff (1-\lambda)^2(-1-\lambda)=0,\]
+así que los autovalores de $A$ son $\lambda_1=1$ y $\lambda_2=-1$, de multiplicidades $m(\lambda_1)=2$ y $m(\lambda_2)=1$. Por tanto, debe ser $\textup{dim}(\textup{ker}(A+\textup{Id}))=1$, pero hay que hallar $\textup{dim}(\textup{ker}(A-\textup{Id}))$. Para ello, va a resolverse el sistema $(A-\textup{Id})X=0$:
+\[(A-\textup{Id})X=0 \iff \begin{pmatrix}
+    0 & 0 & \phantom{-}0 \\
+    0 & 0 & \phantom{-}2 \\
+    0 & 0 & -2
+\end{pmatrix}\begin{pmatrix}
+    x_1 \\
+    x_2 \\
+    x_3
+\end{pmatrix}=0 \iff x_3=0\]
+
+En consecuencia, $\textup{dim}(\textup{ker}(A-\lambda\textup{Id}))=2$. Con toda esta información, se sabe que $J$ contiene tantas cajas de Jordan del tipo $D_r(\lambda_j)$ como indique $\textup{dim}(\textup{ker}(A-\lambda_j\textup{Id}))$, y la suma de los tamaños de estas cajas tiene que ser $m(\lambda_j)$, $j=1,2$. Así, hay una caja del tipo $D_r(-1)$ de tamaño 1, y dos cajas del tipo $D_r(1)$ de tamaño 1. Por tanto,
+\[J=\begin{pmatrix}
+    -1 & 0 & 0 \\
+    \phantom{-}0 & 1 & 0 \\
+    \phantom{-}0 & 0 & 1
+\end{pmatrix}\]
+
+A continuación, hay que encontrar la matriz de paso, esto es, la matriz $P$ inversible tal que $AP=PJ$. Se tiene que
+\[\begin{aligned}[t]
+    AP=PJ &\iff A\begin{pmatrix}
+        P_1 & P_2 & P_3
+    \end{pmatrix} = \begin{pmatrix}
+        P_1 & P_2 & P_3
+    \end{pmatrix} \, J \iff \begin{pmatrix}
+        AP_1 & AP_2 & AP_3
+    \end{pmatrix} = \begin{pmatrix}
+        -P_1 & P_2 & P_3
+    \end{pmatrix} \\
+    &\iff \begin{cases}
+        (A+\textup{Id})P_1=0 \\
+        (A-\textup{Id})P_2=0 \\
+        (A-\textup{Id})P_3=0
+    \end{cases}
+\end{aligned}\]
+
+Se observa que $P_1$ es solución del sistema $(A+\textup{Id})X=0$, así que se resuelve dicho sistema y se escoge una solución cualquiera:
+\[(A+\textup{Id})X=0 \iff \begin{pmatrix}
+    2 & 0 & 0 \\
+    0 & 2 & 2 \\
+    0 & 0 & 0
+\end{pmatrix}\begin{pmatrix}
+    x_1 \\
+    x_2 \\
+    x_3
+\end{pmatrix}=0 \iff \begin{cases}
+    2x_1&=0 \\
+    2x_2+2x_3&=0
+\end{cases}\]
+Podemos tomar entonces
+\[P_1=\begin{pmatrix}
+    \phantom{-}0 \\
+    \phantom{-}1 \\
+    -1
+\end{pmatrix}\]
+
+Por otra parte, $P_2$ y $P_3$ son soluciones linealmente independientes (pues $P$ ha de ser inversible) del sistema $(A-\textup{Id})X=0$, que ya ha sido resuelto antes, así que puede tomarse, por ejemplo,
+\[P_2=\begin{pmatrix}
+    1 \\
+    0 \\
+    0
+\end{pmatrix} \qquad P_3=\begin{pmatrix}
+    0 \\
+    1 \\
+    0
+\end{pmatrix}\]
+Así, tenemos que
+\[P=\begin{pmatrix}
+    \phantom{-}0 & 1 & 0 \\
+    \phantom{-}1 & 0 & 1 \\
+    -1 & 0 & 0
+\end{pmatrix}\]
+Por tanto,
+
+\[e^{tA}=e^{tPJP^{-1}}=Pe^{tJ}P^{-1}=\begin{pmatrix}
+    \phantom{-}0 & 1 & 0 \\
+    \phantom{-}1 & 0 & 1 \\
+    -1 & 0 & 0
+\end{pmatrix}\begin{pmatrix}
+    e^{-t} & 0 & 0 \\
+    0 & e^t & 0 \\
+    0 & 0 & e^t
+\end{pmatrix}\begin{pmatrix}
+    0 & 0 & -1 \\
+    1 & 0 & \phantom{-}0 \\
+    0 & 1 & \phantom{-}1
+\end{pmatrix}=\begin{pmatrix}
+    e^t & 0 & 0 \\
+    0 & e^t & e^t-e^{-t} \\
+    0  & 0 & e^{-t}
+\end{pmatrix}\]
+Se concluye que
+\[
+\begin{aligned}[t]
+\varphi(t)&=e^{tA}\begin{pmatrix}
+    \phantom{-}1 \\
+    \phantom{-}1 \\
+    -1
+\end{pmatrix}+\int_0^te^{(t-s)A}\begin{pmatrix}
+    2se^s \\
+    -3s^2e^s \\
+    0
+\end{pmatrix} \, ds \\
+&= \begin{pmatrix}
+    e^t & 0 & 0 \\
+    0 & e^t & e^t-e^{-t} \\
+    0  & 0 & e^{-t}
+\end{pmatrix}\begin{pmatrix}
+    \phantom{-}1 \\
+    \phantom{-}1 \\
+    -1
+\end{pmatrix}+\int_0^t\begin{pmatrix}
+    e^{t-s} & 0 & 0 \\
+    0 & e^{t-s} & e^{t-s} - e^{s-t} \\
+    0 & 0 & e^{s-t}
+\end{pmatrix}\begin{pmatrix}
+    2se^s \\
+    -3s^2e^s \\
+    0
+\end{pmatrix} \, ds \\
+&=\begin{pmatrix}
+    \phantom{-}e^t \\
+    \phantom{-}e^{-t} \\
+    -e^{-t}
+\end{pmatrix}+\int_0^t\begin{pmatrix}
+    2se^{t} \\
+    -3s^2e^t \\
+    0
+\end{pmatrix} \, ds \\
+&=\begin{pmatrix}
+    \phantom{-}e^t \\
+    \phantom{-}e^{-t} \\
+    -e^{-t}
+\end{pmatrix}+\Biggl[\begin{pmatrix}
+    s^2e^t\\
+    -s^3e^t\\
+    0 \\
+\end{pmatrix}\Biggr]_0^t \\
+&=\begin{pmatrix}
+    t^2e^t+e^t\\
+    -t^3e^t+e^{-t} \\
+    -e^{-t}
+\end{pmatrix}
+\end{aligned}
+\]
+
+\end{document}

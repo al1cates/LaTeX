@@ -1,0 +1,646 @@
+\documentclass[11pt]{report}
+
+%-------------------------------------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{multicol}
+\usepackage{fouriernc}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{parskip}
+\usepackage{cancel}
+\usepackage{aligned-overset}
+
+%-------------------------------------------------------------------------------------------------------------------------------%
+
+% AJUSTES GENERALES
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\makeatletter % Para quitar el espacio adicional que el paquete parskip añade al principio y al final de una demostración
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep\z@skip % <---- changed here
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+%-------------------------------------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\mathbb D}
+
+\newcommand{\pars}[1]{\left( #1 \right)} % Paréntesis de tamaño automático
+\newcommand{\Log}[1]{\,\textup{Log}\pars{#1}}
+
+%-------------------------------------------------------------------------------------------------------------------------------%
+
+% EJERCICIOS Y SOLUCIONES
+
+\newtheorem{exercise}{Ejercicio}
+\addto\captionsspanish{\renewcommand*{\proofname}{Solución}}
+
+%-------------------------------------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+%-------------------------------------------------------------------------------------------------------------------------------%
+
+% TÍTULO
+
+\textit{Variable Compleja} \hfill \textit{Curso 2023-2024}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	{\LARGE \textbf{Relación 5}} % Title
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+%-------------------------------------------------------------------------------------------------------------------------------%
+
+\begin{exercise}
+\hfill
+\begin{enumerate}
+    \item Sean $\gamma_1$ y $\gamma_2$ dos curvas simples en $\C$ con el mismo origen, extremo y soporte. Probar que son la misma curva.
+    \item Sean $J_1$ y $J_2$ dos curvas de Jordan en $\C$ con el mismo origen y el mismo soporte. ¿Qué se puede decir sobre ellas?
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item Sean $\varphi_1 \colon [a_1,b_1] \to\C$, $\varphi_2 \colon [a_2,b_2] \to \C$ parametrizaciones de las curvas $\gamma_1$ y $\gamma_2$, respectivamente. Como $\gamma_2$ es simple, entonces $\varphi_2$ tiene inversa, y como ambas curvas tienen el mismo soporte, entonces $\varphi_1([a_1,b_1]) = \varphi_2([a_2,b_2])$. En consecuencia, la aplicación $h = \varphi_2^{-1} \circ \varphi_1 \colon [a_1,b_1] \to \C$ está bien definida. Además, usando que $\varphi_1(a_1)=\varphi_2(a_2)$ y que $\varphi_1(b_1) = \varphi_2(b_2)$ (pues $\gamma_1$ y $\gamma_2$ comparten origen y extremo), se tiene
+    \[h(a_1) = \varphi_2^{-1} \circ \varphi_1(a_1) = \varphi_2^{-1} \circ \varphi_2(a_2) = a_2, \qquad \qquad h(b_1) = \varphi_2^{-1} \circ \varphi_1(b_1) = \varphi_2^{-1} \circ \varphi_2(b_2) = b_2,\]
+    luego $h([a_1,b_1]) = [a_2,b_2]$. Al ser $\varphi_2^{-1}$ y $\varphi_1$ inyectivas, $h \colon [a_1,b_1] \to [a_2,b_2]$, y por tanto es una biyección. Más aún, por ser $\varphi_1$ y $\varphi_2$ continuas, puede afirmarse que $h$ y $h^{-1} = \varphi_1^{-1} \circ \varphi_2$ también lo son. Por último, como $h(a_1) = a_2$, $h(b_1) = b_2$ y $h$ es una biyección continua, entonces es creciente.
+
+    Hemos encontrado un homeomorfismo creciente $h \colon [a_1,b_1] \to [a_2,b_2]$ con $\varphi_1 = \varphi_2 \circ h$, luego $\gamma_1$ y $\gamma_2$ son la misma curva.
+
+    \item Razonando de forma similar se prueba que o bien $J_1 = J_2$ o bien $J_1 = -J_2$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Sea $\gamma$ la curva parametrizada por $\varphi\colon[-\frac{2}{\pi},0] \to \C$, $\varphi(t) = t+it\sen\frac{1}{t}$ si $t \in [-\frac{2}{\pi},0)$, y $\varphi(0)=0$. Probar que $\gamma$ no es rectificable.
+\end{exercise}
+
+\begin{proof}
+Veamos que el conjunto
+\[\left\{\textup{V}(\varphi, \Pi) \colon \Pi \textup{ es partición de } \left[-\frac{2}{\pi},0\right]\right\}\]
+no está acotado superiormente, lo que probará que $\gamma$ no es rectificable. Para cada $n \in \N \cup \{0\}$, sea
+\[t_n = -\frac{1}{\frac{\pi}{2}+\pi n}\]
+Dado $n \in \N \cup \{0\}$, nótese que \[\sen\left(\frac{1}{t_n}\right) = 1 \textup{ si } n \textup{ es par}, \qquad \qquad \sen\left(\frac{1}{t_n}\right) = -1 \textup{ si } n \textup{ es impar},\] y por tanto, \[\varphi(t_n) = t_n+it_n \textup{ si } n \textup{ es par}, \qquad \qquad \varphi(t_n) = t_n-it_n \textup{ si } n \textup{ es impar}\] En consecuencia, si $n$ es par,
+\[\left|\varphi(t_n)-\varphi(t_{n-1})\right| =\left|t_n+it_n-t_{n-1}+it_{n-1}\right| = \sqrt{2t_n^2+2t_{n-1}^2} =\sqrt{2}\sqrt{t_n^2+t_{n-1}^2} \geq \sqrt{2}|t_n|,\]
+y si $n$ es impar,
+\[\left|\varphi(t_n)-\varphi(t_{n-1})\right| =\left|t_n-it_n-t_{n-1}-it_{n-1}\right| = \sqrt{2t_n^2+2t_{n-1}^2} =\sqrt{2}\sqrt{t_n^2+t_{n-1}^2} \geq \sqrt{2}|t_n|\]
+Sea $N \in \N$ y consideremos la partición $\Pi_N = \{-\frac{2}{\pi} = t_0<t_1<\mathellipsis<t_{N-1}<t_N<0\}$ de $[-\frac{2}{\pi},0]$. Entonces
+\[\begin{aligned}[t]
+\textup{V}(\varphi,\Pi_N) &= \sum_{n=1}^N \left|\varphi(t_n)-\varphi(t_{n-1})\right|+\left|\varphi(0)-\varphi(t_N)\right| 
+=  \sqrt{2}\sum_{n=1}^N \sqrt{t_n^2+t_{n-1}^2}+\sqrt{2}|t_N|\\ &\geq \sqrt{2}\sum_{n=1}^N |t_n|+\sqrt{2}|t_N| 
+\end{aligned}
+\]
+Como la serie $\sum_{n=1}^\infty |t_n|$ no converge (se prueba fácilmente comparando con $\sum_{n=1}^\infty$) y la sucesión $\{|t_N|\}_{N=1}^\infty$ tiene límite cero, entonces
+\[\lim_{N \to \infty}\left(\sqrt{2}\sum_{n=1}^N |t_n|+\sqrt{2}|t_N|\right) = \infty,\]
+luego
+\[\lim_{N \to \infty} \textup{V}(\varphi,\Pi_N) = \infty,\]
+lo que prueba que $\gamma$ no es rectificable.
+\end{proof}
+
+\begin{exercise}
+Sea $\gamma$ el segmento $[-i,1+2i]$. Calcular las siguientes integrales:
+\begin{multicols}{3}
+\begin{enumerate}
+\centering
+    \item $\displaystyle \int_\gamma y \, dz$,
+    \item $\displaystyle \int_\gamma z \, dz$,
+    \item $\displaystyle \int_\gamma z^2 \, dz$.
+\end{enumerate}
+\end{multicols}
+\end{exercise}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item
+    Una parametrización del segmento es la función $\varphi \colon [0,1] \to \C$ dada por \[\varphi(t) = (1+2i)t-i(1-t) = t+i(3t-1),\] que es de clase $\mathcal{C}^1$ y su derivada es $\varphi'(t) = 1+3i$. Por tanto,
+    \[ \int_\gamma y\, dz = \int_0^1 \textup{Im}(\varphi(t))(1+3i) \, dt = (1+3i)\int_0^1(3t-1) \, dt = (1+3i)\left(\frac{3}{2}-1\right) = \frac{1}{2}+\frac{3}{2}i\]
+    \item Como $f(z)=z$ tiene primitiva en $\C$, por la regla de Barrow se tiene
+    \[\int_\gamma z \, dz = \left.\frac{z^2}{2}\right]_{-i}^{1+2i} = \frac{(1+2i)^2}{2}+\frac{1}{2}\]
+    \item Como $f(z)=z^2$ tiene primitiva en $\C$, por la regla de Barrow se tiene
+    \[\int_\gamma z^2 \, dz =\left.\frac{z^3}{3}\right]_{-i}^{1+2i} = \frac{(1+2i)^3}{3}-\frac{1}{2}i \qedhere\]
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Sea $\gamma$ el arco de la parábola $y = x^2$ desde $1+i$ hasta $2+4i$. Calcular las siguientes integrales:
+\begin{multicols}{4}
+\begin{enumerate}
+\centering
+    \item $\displaystyle \int_\gamma z \, dz$,
+    \item $\displaystyle \int_\gamma \overline{z} \, dz$,
+    \item $\displaystyle \int_\gamma y \, dz$,
+    \item $\displaystyle \int_\gamma z^2 \, dz$.
+\end{enumerate}
+\end{multicols}
+\end{exercise}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item Como $f(z)=z$ tiene primitiva en $\C$, por la regla de Barrow se tiene
+    \[\int_\gamma z \, dz = \left.\frac{z^2}{2}\right]_{1+i}^{2+4i} = \frac{(2+4i)^2}{2}-\frac{(1+i)^2}{2}\]
+    \item Una parametrización de $\gamma$ es la función $\varphi \colon [1,2] \to \C$ definida por $\varphi(t)=t+it^2$, que es de clase $\mathcal{C}^1$ y su derivada es $\varphi'(t)=1+2it$. Por tanto,
+    \[
+    \begin{aligned}[t]
+    \int_\gamma \overline{z} \, dz = \int_1^2 \left(t-it^2\right)\left(1+2it\right) \, dt = \int_1^2\left(t+2t^3-it^2+2it^2\right) \, dt =\left.\frac{t^2}{2}\right]_1^2+\left.\frac{t^4}{2}\right]_1^2+\left.\frac{it^3}{3}\right]_1^2= (...)   
+    \end{aligned}
+    \]
+    \item Usando la parametrización del apartado anterior,
+    \[\int_\gamma y \, dz = \int_1^2 \textup{Im}(t+it^2)(1+2it) \, dt = \int_1^2\left(t^2+2it^3\right) \, dt = \left.\frac{t^3}{3}\right]_1^2+\left.\frac{it^4}{2}\right]_1^2 = (...)\]
+    \item Como $f(z)=z^2$ tiene primitiva en $\C$, por la regla de Barrow se tiene
+    \[\int_\gamma z^2 \, dz = \left.\frac{z^3}{3}\right]_{1+i}^{2+4i} = \frac{(2+4i)^3}{3}-\frac{(1+i)^3}{3} = (...) \qedhere\]
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Calcular las siguientes integrales:
+\begin{multicols}{2}
+\begin{enumerate}
+    \item $\displaystyle \int_\gamma \overline{z}^2 \, dz, \quad \gamma \colon \varphi(t) = e^{2\pi i t}, \ t \in [0,1]$,
+    \item $\displaystyle \int_\gamma \overline{z}^2 \, dz, \quad \gamma \colon \varphi(t) = e^{4\pi i t}, \ t \in [0,1]$,
+    \item $\displaystyle \int_\gamma z^n \, dz, \quad \gamma \colon \varphi(t) = e^{2\pi i t}, \ t \in [0,1], \ n \in \Z$,
+    \item $\displaystyle \int_\gamma \overline{z} \, dz, \quad \gamma =[1,1+i,i,0,1]$.
+\end{enumerate}
+\end{multicols}
+\end{exercise}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item La parametrización $\varphi$ es de clase $\mathcal{C}^1$ y su derivada es $\varphi'(t) = 2\pi i e^{2\pi i t}$. Por tanto,
+    \[\int_\gamma \overline{z}^2\, dz = \int_0^1 2\pi i e^{2\pi i t}\overline{e^{2\pi i t}}^2 \, dt = \int_0^1 2\pi ie^{2\pi i t}e^{-4\pi i t} \, dt = \int_0^1 2\pi i e^{-2\pi i t} \, dt = \left.-e^{-2\pi i t}\right]_0^1 = 1-e^{-2\pi i} = 0\]
+    \emph{Otra forma}. Si $z \in \textup{sop}(\gamma) = \partial  \D$, entonces $\overline{z}^2 = \frac{1}{z^2} = f(z)$, siendo $f$ una función que tiene primitiva en $\C \setminus \{0\}$. Por tanto, por la regla de Barrow,
+    \[\int_\gamma \overline{z}^2 \, dz = \left.-\frac{1}{z}\right]_{\varphi(0)}^{\varphi(1)} = 0,\]
+    ya que $\varphi(0)=\varphi(1) = 1$.
+    \item La función $f(z) = \frac{1}{z^2} $ tiene primitiva en el dominio $\C \setminus \{0\}$, así que la integral es independiente del camino. Además, $f(z)=\overline{z}^2$ para todo $z \in \textup{sop}(\gamma)$ y el camino $\gamma$ tiene el mismo soporte que el del apartado anterior. Por tanto, como la integral es independiente del camino,
+    \[\int_\gamma \overline{z}^2\, dz = 0\]
+    \item Si $n \neq -1$, entonces $f(z)=z^n$ tiene primitiva en el dominio $\C \setminus \{0\}$, luego la integral es independiente del camino en $D$. Por ser $\gamma$ un camino cerrado en $D$, se tiene
+    \[\int_\gamma z^n \, dz = 0\]
+    Si $n = -1$, usamos la parametrización para calcular la integral:
+    \[\int_\gamma \frac{1}{z}\, dz = \int_0^1 \frac{1}{e^{2\pi i t}} 2\pi i e^{2\pi i t} \, dt = 2\pi i\]
+    \emph{Otra forma}. Como $f(z)=1$ es holomorfa en el dominio convexo $\C$, $\gamma$ es un camino cerrado en $D$ y $0 \not\in \textup{sop}(\gamma)$, por la fórmula de Cauchy para dominios convexos,
+    \[\textup{n}(\gamma,0)f(0)= \frac{1}{2\pi i}\int_\gamma \frac{f(\xi)}{\xi} \, d\xi, \]
+    de donde se deduce que
+    \[\int_\gamma \frac{1}{\xi} \, d\xi = 2\pi i \cdot 1 = 2\pi i\]
+    \item Sean $\gamma_1 = [1,1+i]$, $\gamma_2 = [1+i,i]$, $\gamma_3 = [i,0]$ y $\gamma_4 = [0,1]$. Sean $\varphi_i\colon [0,1] \to \C$, $i\in\{1,2,3,4\}$, las funciones dadas por
+    \[\varphi_1(t) = (1+i)t+(1-t), \qquad \varphi_2(t) = it+(1+i)(1-t), \qquad \varphi_3(t) = i(1-t), \qquad \varphi_4(t) = t,\]
+    es decir,
+    \[\varphi_1(t) = 1+it, \qquad \varphi_2(t) =1-t+i, \qquad \varphi_3(t) = i(1-t), \qquad \varphi_4(t) = t,\]
+    Tenemos que $\varphi_i$ es una parametrización de clase $\mathcal{C}^1$ de la curva $\gamma_i$, $i \in \{1,2,3,4\}$. Además,
+    \[\varphi_1'(t) = i, \qquad \varphi_2'(t) = -1, \qquad \varphi_3'(t) = -i, \qquad \varphi_4'(t) = 1, \qquad \]
+    Por tanto, como $\gamma = \gamma_1+\gamma_2+\gamma_3+\gamma_4$,
+    \[
+        \int_\gamma \overline{z} \, dz = \sum_{i=1}^4 \int_{\gamma_i} \overline{z} \, dz = \int_0^1 i(1-it) \, dt +\int_0^1 i \, dt -\int_0^1 i(t-1) \, dt = \left.3it+\frac{t^2}{2}-i\frac{t^2}{2}\right]_0^1 =\frac{1}{2}+\frac{5}{2}i \qedhere\]
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Sea $\gamma_r$ la semicircunferencia de centro $0$ y radio $r$ en el semiplano superior, parametrizada por $ \varphi \colon [0,\pi] \to \C$, $ \varphi(t) = re^{it}$. Probar que
+\[\lim_{r \to \infty} \int_{\gamma_r}\frac{e^{iz}}{z} \, dz = 0\]
+\end{exercise}
+
+\begin{proof}
+Dado $r>0$, se tiene
+\[\begin{aligned}[t]
+    \left|\int_{\gamma_r} \frac{e^{iz}}{z} \, dz \right| &= \left|\int_{0}^\pi \frac{e^{i\varphi(t)}}{\varphi(t)} \varphi'(t) \, dt\right| = \left|\int_0^\pi ie^{ire^{it}} \, dt\right| \\ &\leq \int_0^\pi |ie^{ire^{it}}| \, dt=\int_0^\pi|e^{ir(\cos t+i\sen t)}| \, dt = \int_0^\pi |e^{-r\sen t +ir\cos t }| \, dt = \int_0^\pi e^{-r\sen t} \, dt \overset{(*)}{=} 2\int_0^{\frac{\pi}{2}}e^{-r\sen t} \, dt \\
+    \overset{(**)}&{\leq} 2\int_0^{\frac{\pi}{2}}e^{-\frac{2r}{\pi}t} \, dt = \left.-\frac{\pi}{r}e^{-\frac{2r}{\pi}t}\right]_0^{\frac{\pi}{2}} = \frac{\pi}{r}-\frac{\pi}{r}e^{-r} \xrightarrow[]{r \to \infty} 0
+\end{aligned}\]
+Algunas aclaraciones:
+\begin{itemize}
+    \item[($*$)] La función $t \mapsto \sen t$, $t \in [0,\pi]$ es simétrica con respecto a $\frac{\pi}{2}$, luego $t \mapsto e^{-r\sen t}$, $t \in [0,\pi]$ también.
+    \item[($**$)] Si $t \in [0,\frac{\pi}{2}]$, entonces $\sen t \geq \frac{2}{\pi} t$. En efecto, sea $g \colon [0,\frac{\pi}{2}] \to \R$ la función definida por
+    \[g(t)=\frac{\sen t}{t}\]
+    Tenemos que $g$ es derivable en $(0,\frac{\pi}{2})$ y
+    \[g'(t) = \frac{t\cos t -\sen t}{t^2} = \frac{h(t)}{t^2}, \quad t \in \left(0,\frac{\pi}{2}\right)\]
+    donde $h \colon [0,\frac{\pi}{2}] \to \R$, $h(t)=t\cos t - \sen t$ es también derivable en $(0,\frac{\pi}{2})$ y verifica
+    \[h'(t) = -t\sen t <0, \quad t \in \left(0,\frac{\pi}{2}\right)\]
+    Como $h(0) = 0$ y $h$ es decreciente en $(0,\frac{\pi}{2})$, entonces $h(t) <0$ para todo $t \in (0,\frac{\pi}{2})$, de donde $g'(t) <0$ para todo $t \in (0,\frac{\pi}{2})$ y por tanto $g$ también es decreciente en $(0,\frac{\pi}{2})$. Por tanto, $g(t) \geq g(\frac{\pi}{2})$ para todo $t \in [0,\frac{\pi}{2}]$, lo que nos da la desigualdad deseada. \qedhere
+\end{itemize}
+\end{proof}
+
+\begin{exercise}
+Sea $\gamma$ el arco de la circunferencia $\{z \in \C \colon |z| = 2\}$ desde $2e^{-i\frac{\pi}{6}}$ hasta $2e^{i\frac{\pi}{6}}$ recorrido de forma simple en sentido antihorario. Probar que
+\[\left|\int_\gamma \frac{1}{z^3+1} \, dz\right| \leq \frac{2\pi}{3\sqrt{65}}\]
+\end{exercise}
+
+\begin{proof}
+Sea $\varphi \colon [-\frac{\pi}{6},\frac{\pi}{6}] \to \C$ la función definida por $\varphi(t) = 2e^{it}$. Tenemos que $\varphi$ es una parametrización de $\gamma$ de clase $\mathcal{C}^1$, luego
+\[
+\left|\int_\gamma \frac{1}{z^3+1} \, dz\right| = \left|\int_{-\frac{\pi}{6}}^{\frac{\pi}{6}}\frac{1}{8e^{3it}+1}2ie^{it} \, dt\right| \leq \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}}\frac{1}{|8e^{3it}+1|}|2ie^{it}| \, dt \overset{(*)}{\leq} \int_{-\frac{\pi}{6}}^{\frac{\pi}{6}}\frac{2}{\sqrt{65}} \, dt = \frac{2\pi}{3\sqrt{65}},
+\]
+donde en $(*)$ se ha usado que
+\[|8e^{3it}+1|^2 = (8e^{3it}+1)(8e^{-3it}+1) = 64+8e^{3it}+8e^{-3it}+1 = 65+16\cos(3t) \overset{(**)}{\geq} 65, \quad t \in \left(-\frac{\pi}{6},\frac{\pi}{6}\right),\]
+y en $(**)$ se ha usado que $\cos(t) >0$ para todo $t \in (-\frac{\pi}{2}\frac{\pi}{2})$ y por tanto $\cos(3t)>0$ para todo $t \in (-\frac{\pi}{6},\frac{\pi}{6})$.
+\end{proof}
+
+\begin{exercise}
+Sea $\gamma$ el arco de la circunferencia $\{z \in \C \colon |z| = r\}$ recorrido de forma simple y en sentido antihorario desde $r$ hasta $ir$. Probar que
+\[\left|\int_\gamma e^{iz^2} \, dz\right| \leq \frac{\pi}{2r}\left(1-e^{-r^2}\right)\]
+\end{exercise}
+
+\begin{proof}
+Sea $\varphi \colon [0,\frac{\pi}{2}] \to \C$ la función definida por $\varphi(t) = re^{it}$. Tenemos que $\varphi$ es una parametrización de $\gamma$ de clase $\mathcal{C}^1$, luego
+\[
+\begin{aligned}[t]
+\left|\int_\gamma e^{iz^2} \, dz\right| &=\left|\int_0^{\frac{\pi}{2}} e^{ir^2e^{2it}}ire^{it} \, dt\right| \\ &\leq  r\int_0^{\frac{\pi}{2}} |e^{ir^2e^{2it}}| \, dt = r\int_0^{\frac{\pi}{2}} |e^{ir^2(\cos(2t)+i\sen(2t))}| \, dt = r\int_0^{\frac{\pi}{2}} e^{-r^2\sen(2t)} \, dt \overset{(*)}{=} 2r\int_0^{\frac{\pi}{4}} e^{-r^2\sen(2t)} \, dt \\
+&\leq 2r\int_0^{\frac{\pi}{4}}e^{-\frac{4r^2}{\pi}t} \, dt =- \left.\frac{\pi}{2r}e^{-\frac{4r^2}{\pi}t}\right]_0^{\frac{\pi}{4}} = \frac{\pi}{2r}-\frac{\pi}{2r}e^{-r^2} = \frac{\pi}{2r}\left(1-e^{-r^2}\right)
+\end{aligned}
+\]
+Algunas aclaraciones:
+\begin{itemize}
+    \item[($*$)] La función $t \mapsto \sen(t)$, $t \in [0,\pi]$ es simétrica con respecto a $\frac{\pi}{2}$, luego la función $t \mapsto \sen(2t)$, $t \in [0,\frac{\pi}{2}]$ es simétrica con respecto a $\frac{\pi}{4}$, y por tanto la función $t \mapsto e^{-r^2\sen(2t)}$, $t \in [0,\frac{\pi}{2}]$ también lo es.
+    \item[($**$)] Si $t \in [0,\frac{\pi}{4}]$, entonces $2t \in [0,\frac{\pi}{2}]$ y, como se probó en el ejercicio anterior, $\sen(2t) \geq \frac{4}{\pi}t$, luego $-r^2\sen(2t) \leq -\frac{4r^2}{\pi}t$ y por tanto \[e^{-r^2\sen(2t)} \leq e^{-\frac{4r^2}{\pi}t} \qedhere\]
+\end{itemize}
+\end{proof}
+
+\begin{exercise}
+Calcular las siguientes integrales:
+\begin{multicols}{4}
+\centering
+\begin{enumerate}
+    \item $\displaystyle \int_{|z|=1} e^{z^2} \, dz$,
+    \item $\displaystyle \int_{|z| = 1} \frac{e^z}{z} \, dz$,
+    \item $\displaystyle \int_{|z| = 2}\frac{1}{z^2+1} \, dz$,
+    \item $\displaystyle \int_{|z| = 1}\frac{\sen(z)}{z^3} \, dz$.
+\end{enumerate}
+\end{multicols}
+\end{exercise}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item La función $f(z)=e^{z^2}$, $z \in \C$ es holomorfa en $\C$, que es un dominio convexo. Como $|z|=1$ es un camino cerrado en $\C$, el teorema de Cauchy para dominios convexos permite afirmar que
+    \[\int_{|z|=1} e^{z^2} \, dz = 0\]
+    \item La función $f(z)=e^{z}$, $z \in \C$ es holomorfa en $\C$, que es un dominio convexo. Como $\gamma \equiv |z|=1$ es un camino cerrado en $\C$ y $0 \in \C \setminus \textup{sop}(\gamma)$, la fórmula de Cauchy para dominios convexos permite afirmar que
+    \[\int_{|z|=1} \frac{e^z}{z} \, dz = \int_{\gamma} \frac{f(z)}{z-0} \, dz = 2\pi i \cdot \textup{n}(\gamma,0) \cdot f(0) = 2\pi i\]
+    \item Se tiene que
+    \[
+    \begin{aligned}[t]
+    \int_{|z| = 2} \frac{1}{z^2+1} \, dz &= \int_{|z| = 2} \frac{1}{(z+i)(z-i)} \, dz \\ &= -\frac{1}{2}\int_{|z| = 2} \frac{1}{z+i}\, dz + \frac{1}{2} \int_{|z| = 2} \frac{1}{z-i}\, dz\\ &= -\pi i \cdot \textup{n}(\gamma,-i)+\pi i \cdot \textup{n}(\gamma,i) = 0        
+    \end{aligned}\]
+    donde se ha tenido en cuenta que $i \not\in \textup{sop}(\gamma)$ y $-i\not\in \textup{sop}(\gamma)$, donde $\gamma \equiv |z| = 2$.
+    \item La función $f(z) = \sen(z)$, $z \in \C$ es holomorfa en el dominio convexo $\C$, $\gamma \equiv |z| = 1$ es un camino cerrado en $\C$ y $0 \not\in \textup{sop}(\gamma)$. Estamos en condiciones de aplicar la fórmula de Cauchy para la derivada $n$-ésima en dominios convexos, con $n = 2$:
+    \[\int_{|z| = 1}\frac{\sen(z)}{z^3} \, dz = \int_{\gamma} \frac{f(z)}{(z-0)^{2+1}} \, dz =\frac{2\pi i}{2!} \cdot f^{(2)}(0) \cdot \textup{n}(\gamma,0) = 0,\]
+    ya que $f^{(2)}(0) = -\sen(0)=0$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Sea $P$ un polinomio de grado $n \geq 1$ y sea $R>0$ lo suficientemente grande para que los ceros de $P$ tengan módulo menor que $R$. Hallar
+\[\int_{|z| = R} \frac{P'(z)}{P(z)} \, dz\]
+¿Qué sucede si solo $k$ (con $k \leq n$) de los ceros de $P$ tienen módulo menor que $R$?
+\end{exercise}
+
+\begin{proof}
+Como $P$ tiene $n$ raíces, se puede escribir
+\[P(z) = A(z-a_1)\mathellipsis(z-a_n)\]
+Por tanto, como la derivada logarítmica del producto es la suma de las derivadas logarítmicas,
+\[\frac{P'(z)}{P(z)} = \frac{1}{z-a_1}+\mathellipsis+\frac{1}{z-a_n}\]
+para todo $z \in \textup{sop}(\gamma)$, con $\gamma \equiv |z| = R$. En consecuencia,
+\[\int_{|z| = R} \frac{P'(z)}{P(z)} \, dz = \sum_{i=1}^n\int_{|z| = R}\frac{1}{z-a_i} \, dz = \sum_{i=1}^n 2\pi i \cdot \textup{n}(\gamma,a_i) = \sum_{i=1}^n 2\pi i = 2\pi n i\]
+Si solo $k$ (con $k \leq n$) de los ceros de $P$ tienen módulo menor que $R$, se prueba de forma análoga que
+\[\int_{|z| = R} \frac{P'(z)}{P(z)} \, dz = 2\pi k i,\]
+pues el índice de los $k$ ceros respecto de $\gamma$ será 1, y el índice del resto de ceros será $0$.
+\end{proof}
+
+\begin{exercise}
+Sea $z = Re^{i\phi}$ con $R>0$ y sea $\gamma$  un camino en $\C \setminus \{0\}$ desde $1$ hasta $z$. Probar que
+\[\int_{\gamma}\frac{1}{\xi} \, d\xi = \textup{Log}(R) + i(\phi+2N\pi)\]
+para algún $N \in \Z$.
+\end{exercise}
+
+\begin{proof}
+Sea $\varphi \colon [a,b] \to \C$ una parametrización de $\gamma$. Como $\varphi(t) \neq 0$ para todo $t \in [a,b]$ y $\varphi$ es continua, entonces existe una rama del $\textup{log}(\varphi)$ en $[a,b]$. Si llamamos $h$ a esta rama, también sabemos que $h$ es derivable en $(a,b)$ y $h'(t) = \frac{\varphi'(t)}{\varphi(t)}$ para todo $t \in (a,b)$. Por otra parte, sabemos que $h$ es de la forma
+\[h(t) = \textup{Log}|\varphi(t)| +ig(t),\]
+donde $g \colon [a,b] \to \C \setminus \{0\}$ es una rama del $\textup{arg}(\varphi)$. Como $g(b) \in \textup{arg}(\varphi(b)) = \textup{arg}(z)$ y $\phi \in \textup{arg}(z)$, entonces existe $N_1 \in \Z$ tal que $g(b) = \phi+2N_1\pi$. Y como $g(a) \in \textup{arg}(\varphi(a)) = \textup{arg}(1)$ y $0 \in \textup{arg}(1)$, entonces existe $N_2 \in \Z$ tal que $g(a) = 2N_2 \pi$. Así,
+\[
+\begin{aligned}[t]
+\int_{\gamma} \frac{1}{\xi} \, d\xi &= \int_a^b \frac{\varphi'(t)}{\varphi(t)} \, dt = \int_a^b h'(t) \, dt = h(b)-h(a) = \textup{Log}|\varphi(b)|+ig(b)-\textup{Log}|\varphi(a)|-ig(a) \\&= \textup{Log}|z|+i(\phi+2N_1\pi)-\textup{Log}|1|-i2N_2\pi = \textup{Log}(R)+i(\phi+2(N_1-N_2)\pi) = \textup{Log}(R)+i(\phi+2Npi),
+\end{aligned}
+\]
+con $N = N_1-N_2 \in \Z$.
+\end{proof}
+
+\begin{exercise}
+Sea $D$ un dominio en $\C$ y sea $\gamma$ un camino en $D$ con origen $a$ y extremo $b$. Si $f$ y $g$ son funciones holomorfas en $D$, probar que
+\[\int_\gamma f(z)g'(z)\, dz = f(b)g(b)-f(a)g(a)-\int_\gamma g(z)f'(z)\, dz\]
+\end{exercise}
+
+\begin{proof}
+Sea $\varphi \colon [c,d] \to \R$ una parametrización de $\gamma$. Entonces
+\[\begin{aligned}[t]
+    \int_\gamma f(z)g'(z) \, dz &= \int_c^d f(\varphi(t))g'(\varphi(t))\varphi'(t) \, dt \\ &=  \int_c^d (f \circ \varphi)(t)(g \circ \varphi)'(t) \, dt \\
+    &= (f \circ \varphi)(d)(g \circ \varphi)(d)-(f \circ \varphi)(c)(g \circ \varphi)(c)-\int_c^d (f \circ \varphi)'(t)(g \circ \varphi)(t) \, dt \\
+    &= f(b)g(b)-f(a)g(a)-\int_c^d f'(\varphi(t))\varphi'(t)g(\varphi(t)) \, dt \\
+    &= f(b)g(b)-f(a)g(a)-\int_\gamma g(z)f'(z) \, dz \\
+\end{aligned}\]
+donde se ha empleado la regla de la cadena, la fórmula de integración por partes para integrales sobre intervalos reales y el hecho de que $\varphi(d) = b$, $\varphi(c) = a$.
+\end{proof}
+
+\begin{exercise}
+Para $n \in \N$, calcular
+\[\int_{|z|=1} \left(z+\frac{1}{z}\right)^{2n} \frac{1}{z}\, dz\]
+Usar esto para obtener que
+\[\frac{1}{2\pi}\int_0^{2\pi} \cos^{2n}(t) \, dt = \frac{1\cdot 3 \cdot 5 \cdot \mathellipsis \cdot (2n-1)}{2\cdot 4 \cdot 6 \cdot \mathellipsis \cdot 2n}\]
+\end{exercise}
+
+\begin{proof}
+Sea $\varphi \colon [0,2\pi] \to \C$, $\varphi(t) =e^{it}$. Como $\varphi$ es una parametrización de la circunferencia $|z| = 1$ de clase $\mathcal{C}^1$, entonces
+\[\int_{|z| = 1}\left(z+\frac{1}{z}\right)^{2n}\frac{1}{z} \, dz = \int_0^{2\pi}\left(e^{it}+e^{-it}\right)^{2n}e^{-it} i e^{it} \, dt = 2^{2n}i\int_0^{2\pi}\cos^{2n} (t)\, dt \tag{$*$}\]
+Por otra parte,
+\[\int_{|z| = 1} \left(z+\frac{1}{z}\right)^{2n}\frac{1}{z}\, dz = \sum_{k=0}^{2n}\binom{2n}{k}\int_{|z| = 1}\frac{z^k}{z^{2n-k+1}} \, dz\]
+Dado $k \in \N$, la función $f_k(z) = z^k$ es holomorfa en el dominio convexo $\C$. Como $\gamma \equiv |z|=1$ es una curva cerrada en $\C$ y $0 \not\in \textup{sop}(\gamma)$, por la fórmula de Cauchy para la derivada en dominios convexos,
+\[f_k^{(2n-k)}(0) \, \textup{n}(\gamma,0) = \frac{(2n-k)!}{2\pi i}\int_{|z|=1} \frac{z^k}{z^{2n-k+1}} \, dz\]
+Pero $f^{(2n-k)}_k(0) = 0$ siempre que $2n-k \neq k$, es decir, siempre que $n \neq k$. Y si $n = k$, entonces
+\[\int_{|z| = 1} \frac{z^k}{z^{k+1}} \, dz =\int_{|z| = 1} \frac{1}{z} \, dz = 2\pi i\]
+En consecuencia,
+\[\sum_{k=0}^{2n}\binom{2n}{k}\int_{|z| = 1}\frac{z^k}{z^{2n-k+1}} \, dz = \binom{2n}{n}2\pi i \tag{$**$}\]
+Al igualar $(*)$ y $(**)$ se obtiene
+\[\frac{1}{2\pi}\int_0^{2\pi} \cos^{2n}(t) \, dt =\frac{(2n)!}{2^nn! \cdot 2^nn!} = \frac{(2n)!}{(2 \cdot 4 \cdot 6 \cdot \mathellipsis \cdot 2n)(2 \cdot 4 \cdot 6 \cdot \mathellipsis \cdot 2n)} = \frac{1\cdot 3 \cdot 5 \cdot \mathellipsis \cdot (2n-1)}{2\cdot 4 \cdot 6 \cdot \mathellipsis \cdot 2n} \qedhere\]
+\end{proof}
+
+\begin{exercise}
+Calcular las siguientes integrales:
+\begin{multicols}{2}
+\begin{enumerate}
+\centering
+    \item $\displaystyle \int_{|z| = 1}\frac{1}{(z+2)z^3} \, dz$,
+    \item $\displaystyle \int_{|z| = 1} \frac{e^{z^2}-1}{z^3} \, dz$.
+\end{enumerate}
+\end{multicols}
+\end{exercise}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item La función $f(z) = \frac{1}{z+2}$ en holomorfa en el dominio convexo $D =\Delta(0,\frac{3}{2})$, $\gamma \equiv |z| = 1$ es un camino cerrado en $D$ y $0 \in D \setminus \textup{sop}(\gamma)$. Por la fórmula de Cauchy para la derivada segunda en dominios convexos,
+    \[\int_{|z| = 1} \frac{1}{(z+2)z^3} dz = \frac{2\pi i}{2!} f^{(2)}(0) \, \textup{n}(\gamma, 0) = \frac{\pi i}{4},\]
+    donde se ha usado que $f^{(2)}(z) = \frac{2}{(z+2)^3}$, $z \in D$.
+    \item La función $f(z) = e^{z^2}-1$ en holomorfa en el dominio convexo $\C$, $\gamma \equiv |z| = 1$ es un camino cerrado en $\C$ y $0 \in\C \setminus \textup{sop}(\gamma)$. Por la fórmula de Cauchy para la derivada segunda en dominios convexos,
+    \[\int_{|z| = 1} \frac{e^{z^2}-1}{z^3} dz = \frac{2\pi i}{2!} f^{(2)}(0) \, \textup{n}(\gamma, 0) =2\pi i,\]
+    donde se ha usado que $f^{(2)}(z) = 2e^{z^2}+4z^2e^{z^2}$, $z \in \C$. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Sea $\gamma$ la elipse de ecuación $\frac{x^2}{a^2}+\frac{y^2}{b^2} =1$, $a, b >0$, recorrida de forma simple y en sentido positivo. Expresar
+\[\int_\gamma \frac{1}{z}\, dz\]
+de dos formas distintas para deducir el valor de
+\[\int_0^{2\pi} \frac{1}{a^2\cos^2t+b^2\sen^2t}\, dt\]
+\end{exercise}
+
+\begin{proof}
+Una parametrización de la elipse es $\varphi \colon [0,2\pi] \to \C$, $\varphi(t) = a\cos t+ib\sen t$, que es de clase $\mathcal{C}^1$ y verifica $\varphi'(t) = -a\sen t+ib\cos t$. Entonces
+\[
+\begin{aligned}[t]
+\int_\gamma \frac{1}{z} \, dz &=\int_0^{2\pi} \frac{-a\sen t+ib\cos t}{a\cos t +ib\sen t} \, dt \\ &= \int_0^{2\pi} \frac{(-a\sen t+ib\cos t)(a\cos t-ib\sen t)}{a^2\cos^2t+b^2\sen^2t} \, dt \\
+&=\int_0^{2\pi} \frac{-a^2\sen t \cos t +iab+b^2\sen t \cos t}{a^2\cos^2t+b^2\sen^2t} \, dt \\ &= \int_0^{2\pi}\frac{-a^2\sen t\cos t+b^2\sen t \cos t}{a^2\cos^2t+b^2\sen^2t} \, dt+iab\int_0^{2\pi}\frac{1}{a^2\cos^2t+b^2\sen^2t} \, dt \\
+&= \frac{1}{2}\int_0^{2\pi}\frac{-2a^2\sen t\cos t+2b^2\sen t \cos t}{a^2\cos^2t+b^2\sen^2t} \, dt+iab\int_0^{2\pi}\frac{1}{a^2\cos^2t+b^2\sen^2t} \, dt \\
+&= \frac{1}{2}\left.\log\left(a^2\cos^2t+b^2\sen^2t\right)\right]_0^{2\pi}+iab\int_0^{2\pi}\frac{1}{a^2\cos^2t+b^2\sen^2t} \, dt \\
+&= iab\int_0^{2\pi}\frac{1}{a^2\cos^2t+b^2\sen^2t} \, dt
+\end{aligned}
+\]
+Por otra parte,
+\[\int_\gamma \frac{1}{z}\, dz = 2\pi i \, \textup{n}(\gamma,0) = 2\pi i\]
+Se concluye que
+\[\int_0^{2\pi}\frac{1}{a^2\cos^2t+b^2\sen^2t}  = \frac{2\pi i}{iab} = \frac{2\pi}{ab} \qedhere\]
+\end{proof}
+
+\begin{exercise}
+Calcular
+\[\int_0^\infty \frac{\cos(x)}{(x^2+4)^2} \, dx\]
+\end{exercise}
+
+\begin{proof}
+En primer lugar, como la función $x \mapsto \cos(x)$, $x \in \R$ es par, entonces la función $x \mapsto \frac{\cos(x)}{(x^2+4)^2}$, $x \in \R$ también lo es, luego
+\[\int_0^\infty \frac{\cos(x)}{(x^2+4)^2} \, dx = \frac{1}{2}\int_{-\infty}^\infty\frac{\cos(x)}{(x^2+4)^2} \, dx \]
+Consideremos la función
+\[f(z) = \frac{e^{iz}}{(z+2i)^2}, \quad z \in D = \{z \in \C \colon \textup{Im}(z) > -2\},\]
+y, dado $R > 0$, consideremos el camino
+\[\gamma_R = [-R,R] + C_R,\]
+donde $C_R$ es la semicircunferencia de centro el origen y radio $R$ en el semiplano superior. Tenemos que $f$ es holomorfa en el dominio convexo $D$, $\gamma$ es un camino cerrado en $D$ y $2i \in D \setminus \textup{sop}(\gamma)$ para $R$ lo suficientemente grande. Por la fórmula de Cauchy para la derivada primera en dominios convexos,
+\[\int_{\gamma_R} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz = 2\pi i \, f'(2i) \, \textup{n}(\gamma_R,2i)\]
+Tenemos que
+\[f'(z) = \frac{ie^{iz}}{(z+2i)^2}-\frac{2e^{iz}}{(z+2i)^3}, \quad z \in D\]
+Por tanto, \[f'(2i) = -\frac{ie^{-2}}{16}+\frac{2e^{-2}}{64i} = -\frac{4ie^{-2}}{64}-\frac{2ie^{-2}}{64} = -\frac{3ie^{-2}}{32},\]
+así que
+\[\int_{\gamma_R} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz = \frac{3\pi}{16e^2}\]
+Por otra parte,
+\[\int_{\gamma_R} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz = \underbracket{\int_{[-R,R]} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz}_{(i)}+\underbracket{\int_{C_R} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz}_{(ii)} \tag{$*$}\]
+Hallamos las integrales:
+\begin{itemize}
+    \item[$(i)$] Una parametrización de $[-R,R]$ es $\varphi_1 \colon [-R,R] \to \C$, $\varphi_1(t) = t$. Por tanto,
+    \[\begin{aligned}[t] 
+    \int_{[-R,R]} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz &= \int_{-R}^R \frac{e^{it}}{(t^2+4)^2} \, dt = \int_{-R}^R\frac{\cos(t)}{(t^2+4)^2}+\int_{-R}^R\frac{\sen(t)}{(t^2+4)^2}
+    \end{aligned}
+    \]
+    Nótese que
+    \[\int_{-R}^R\frac{\sen(t)}{(t^2+4)^4} = 0\]
+    porque $t \mapsto \sen(t)$ es una función impar, así que $t \mapsto \frac{\sen (t)}{(t^2+4)^2}$ también lo es, y por tanto su integral en cualquier intervalo centrado en el origen es nula. Consecuentemente,
+    \[\int_{[-R,R]} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz \xrightarrow[]{R \to \infty}\int_{-\infty}^\infty \frac{e^{it}}{(t^2+4)^2} \, dt  \]
+    \item[$(ii)$] Una parametrización de $C_R$ es $\varphi_2 \colon [0,\pi] \to \C$, $\varphi_2(t) = Re^{it}$. Por tanto,
+    \[\left|\int_{C_R} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz \right|= \left|iR\int_0^\pi \frac{e^{iRe^{it}}}{(R^2e^{2it}+4)^2} \, dt\right| \leq R\int_0^\pi \frac{1}{|R^2e^{2it}+4|^2} \, dt \]
+    Pero
+    \[\begin{aligned}[t]
+        |R^2e^{2it}+4|^2 &= |R^2(\cos(2t)+i\sen(2t))+4|^2 \\ &= (R^2\cos(2t)+4)^2+R^4\sen^2(2t) \\
+        &=R^4\cos^2(2t)+16+8R^2\cos(2t)+R^4\sen^2(2t) \\
+        &=R^4+16+8R^2\cos(2t) \\ &\geq R^4+16-8R^2,
+    \end{aligned}\]
+    luego
+    \[\frac{1}{|R^2e^{2it}+4|^2} \leq \frac{1}{R^4+16-8R^2},\]
+    y por tanto,
+    \[R\int_0^\pi \frac{1}{|R^2e^{2it}+4|^2} \, dt \leq \frac{R\pi}{R^4+16-8R^2} \xrightarrow[]{R \to \infty} 0\]
+    En consecuencia,
+    \[\left|\int_{C_R} \frac{e^{iz}}{(z+2i)^2(z-2i)^2} \, dz \right| \xrightarrow[]{R \to \infty} 0\]
+\end{itemize}
+Tomando límites cuando $R \to \infty$ en la expresión $(*)$ obtenemos
+\[\int_{-\infty}^{\infty}\frac{e^{it}}{(t^2+4)^2} \, dt = \frac{3\pi}{16e^2},\]
+concluyéndose que
+\[\int_0^\infty \frac{\cos(t)}{(t^2+4)^2} \, dt = \frac{1}{2}\int_{-\infty}^\infty\frac{\cos(t)}{(t^2+4)^2} \, dt =\frac{3\pi}{32e^2} \qedhere\]
+\end{proof}
+
+\begin{exercise}
+Para $a,b>0$, se considera el camino rectangular $\gamma = [-a,a,a+ib,-a+ib,-a]$. Calcular \[\int_\gamma e^{-z^2} \, dz\] y probar que
+\[\int_{-\infty}^\infty e^{-x^2}\cos(2bx) \, dx = \sqrt{\pi}e^{-b^2}\]
+\end{exercise}
+
+\begin{proof}
+Si se consideran los caminos
+\[\gamma_1 = [-a,a], \qquad \qquad \gamma_2 = [a,a+ib], \qquad \qquad \gamma_3 = [a+ib,-a+ib], \qquad \qquad \gamma_4 = [-a+ib,-a],\]
+se tiene que $\gamma = \gamma_1+\gamma_2+\gamma_3+\gamma_4$. Parametrizamos los caminos:
+\[
+\begin{alignedat}{4}
+\varphi_1(t) &=t, \quad &t\in [-a,a], \qquad \qquad \varphi_2(t) &=a+ibt, \quad &&t\in [0,1], \\
+\varphi_3(t) &=ib-t, \quad &t\in [-a,a], \qquad \qquad \varphi_4(t)&=-a+i(1-t), \quad &&t \in [0,b]
+\end{alignedat}
+\]
+Cada una de estas parametrizaciones es de clase $\mathcal{C}^1$, y además, se verifica
+\[\begin{alignedat}{2} \varphi_1'(t) = 1, \qquad \qquad \varphi_2'(t) = ib, \qquad \qquad \varphi_3'(t) = -1, \qquad \qquad \varphi_4'(t) = -i
+\end{alignedat}\]
+Tenemos que la $f \colon \C \to \C$ definida mediante $f(z) =e^{-z^2}$ es holomorfa en $\C$, que es un dominio convexo. Además, $\gamma$ es un camino cerrado en $\C$, así que el teorema de Cauchy para dominios convexos permite afirmar que
+\[\int_{\gamma} e^{-z^2} \, dz = \underbracket{\int_{\gamma_1}e^{-z^2} \, dz}_{(i)}+ \underbracket{\int_{\gamma_2}e^{-z^2} \, dz}_{(ii)} +\underbracket{\int_{\gamma_3}e^{-z^2} \, dz}_{(iii)} +\underbracket{\int_{\gamma_4}e^{-z^2} \, dz}_{(iv)} = 0 \tag{$*$}\]
+
+\pagebreak
+
+Calculemos o estimemos cada una de las integrales anteriores:
+\begin{itemize}
+    \item[($i$)] $\displaystyle \int_{\gamma_1} e^{-z^2} \, dz = \int_{-a}^a e^{-t^2} \, dt \xrightarrow[]{a \to \infty} \sqrt{\pi}$.
+    \item[($ii$)] $\displaystyle \left|\int_{\gamma_2} e^{-z^2} \, dz\right| = \left| \int_0^1ibe^{-a^2+b^2t^2-2iabt} \, dt\right|  \leq be^{-a^2}\int_0^1 |e^{b^2t^2}||e^{-2iabt}| \, dt = be^{-a^2}\int_0^1 e^{b^2t^2} \, dt \xrightarrow[]{a\to \infty} 0$.
+    \item[($iii$)] $\displaystyle \begin{aligned}[t]
+        \int_{\gamma_3} e^{-z^2} \, dz &= -\int_{-a}^ae^{b^2-t^2+2ibt} \, dt = -e^{b^2}\int_{-a}^ae^{-t^2}\cos(2bt) \, dt -ie^{b^2}\underbracket{\int_{-a}^ae^{-t^2}\sen(2bt) \, dt}_{I}
+    \end{aligned}$
+
+    Nótese que $I = 0$ porque el seno es una función impar y por tanto la función $t \mapsto e^{-t^2}\sen(2bt)$ también, así que la integral en cualquier intervalo centrado en el origen vale cero.
+    \item[($iv$)] $\displaystyle \left|\int_{\gamma_4} e^{-z^2} \, dz \right|= \left|\int_0^b e^{-a^2+(1-t)^2+2ai(1-t)} \, dt\right|\leq  e^{-a^2} \int_0^b |e^{(1-t)^2}||e^{2ai(1-t)}| \, dt =  e^{-a^2} \int_0^b e^{(1-t)^2} \, dt \xrightarrow[]{a \to \infty} 0$
+\end{itemize}
+Por tanto, al tomar límites cuando $a \to \infty$ en $(*)$ se obtiene
+\[\sqrt{\pi}-e^{b^2}\int_{-\infty}^\infty e^{-t^2}\cos(2bt) \, dt =0,\]
+y de aquí se llega a 
+\[\sqrt{\pi}e^{-b^2}=\int_{-\infty}^\infty e^{-t^2}\cos(2bt) \, dt \qedhere\]
+
+\end{proof}
+
+\begin{exercise}
+Calcular las siguientes integrales:
+\[\textup{\emph{(a)}} \ \int_{|z| = 1}\frac{\sen(z)}{z^{27}} \, dz, \qquad \qquad \textup{\emph{(b)}} \ \int_{|z| = 1}\left(\frac{z-2}{2z-1}\right)^3 \, dz, \qquad \qquad \textup{\emph{(c)}} \ \int_{0}^{2\pi}\frac{1}{|1-re^{i\theta}|^2} \, d\theta, \quad 0<r<1.\]
+\end{exercise}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item La función $f(z) = \sen(z)$ es holomorfa en $\C$, que es un dominio convexo; $\gamma \equiv |z| = 1$ es un camino en $D$, y $0 \not\in \textup{sop}(\gamma)$. Por la fórmula de Cauchy para la derivada vigesimosexta en dominios convexos,
+    \[\int_{|z|=1} \frac{\sen(z)}{z^{27}} \, dz = \frac{2\pi i}{26!} \, f^{(26)}(0) \, \textup{n}(\gamma,0) = 0,\]
+    ya que $f^{(26)}(z)$ es o bien $\sen(z)$ o bien $-\sen(z)$.
+    \item La función $f(z) = (\frac{z}{2}-1)^3$ es holomorfa en $\C$, que es un dominio convexo; $\gamma \equiv |z| = 1$ es un camino en $D$, y $\frac{1}{z} \not\in \textup{sop}(\gamma)$. Por la fórmula de Cauchy para la derivada segunda en dominios convexos,
+    \[\int_{|z|=1} \left(\frac{z-2}{2z-1}\right)^3 \, dz = \int_{|z|=1}\frac{\left(\frac{z}{2}-1\right)^3}{\left(z-\frac{1}{2}\right)^3}\, dz = \frac{2\pi i}{2!}f''\left(\frac{1}{2}\right)\, \textup{n}\left(\gamma,\frac{1}{2}\right) = -\frac{9\pi i}{8},\]
+    ya que para todo $z \in \C$ es $f'(z) = \frac{3}{2}\left(\frac{z}{2}-1\right)^2$ y $f''(z) =\frac{3}{2}\left(\frac{z}{2}-1\right),$ y por tanto $f''(\frac{1}{2}) = -\frac{9}{8}$.
+    \item Sea $0<r<1$. Tenemos que
+    \[\int_0^{2\pi} \frac{1}{|1-re^{i\theta}|^2} \, d\theta = \int_0^{2\pi} \frac{1}{(1-re^{i\theta})(1-re^{-i\theta})} \, d\theta = \int_0^{2\pi} \frac{ire^{i\theta}}{ire^{i\theta}(1-re^{i\theta})(1-re^{-i\theta})} \, d\theta\]
+    Sea $\gamma$ la circunferencia de centro el origen y radio $r$ recorrida de forma simple en sentido positivo, y sea $\varphi \colon [0,2\pi] \to \C$ la función dada por $\varphi(\theta) = re^{i\theta}$. Entonces
+    \[-i\int_{\gamma}\frac{1}{(1-z)(z-r^2)} \, dz=\int_{\gamma}\frac{1}{iz(1-z)(1-\frac{r^2}{z})} \, dz = \int_0^{2\pi}\frac{ire^{i\theta}}{ire^{i\theta}(1-re^{i\theta})(1-re^{-i\theta})} \, d\theta\]
+    La función $f(z) = \frac{1}{1-z}$ está bien definida en $\D$. Además, $\D$ es un dominio convexo, $f$ es holomorfa en $\D$, $\gamma$ es un camino en $\D$ y $r^2 \in \D \setminus \textup{sop}(\gamma)$ (pues $0<r^2<r<1$). Por la fórmula de Cauchy para dominios convexos,
+    \[\int_\gamma \frac{\frac{1}{1-z}}{z-r^2} \, dz = 2\pi i f(r^2) \, \textup{n}(\gamma, r^2) = \frac{2\pi i}{1-r^2}\]
+    Se concluye que
+    \[\int_0^{2\pi} \frac{1}{|1-re^{i\theta}|^2}=-i\int_{\gamma}\frac{1}{(1-z)(z-r^2)} \, dz=\frac{2\pi}{1-r^2} \qedhere\]
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+Sea $f$ una función holomorfa en el disco unidad $\D$. Supongamos que
+\[\frac{1}{2\pi} \int_0^{2\pi} |f(re^{it})| \, dt \leq \frac{r}{1-r}\]
+para cada $r \in (0,1)$. Si $\sum_{n=0}^\infty a_nz^n$ es la serie de Taylor de $f$ en $0$, probar que $|a_n| \leq ne$ para cada $n \in \N$.
+\end{exercise}
+
+\begin{proof}
+Dado $r \in (0,1)$, llamamos $\gamma_r$ a la circunferencia de centro el origen y radio $r$ recorrida de forma simple y en sentido positivo. Como $\D$ es un dominio convexo, $f$ es holomorfa en $\D$, $\gamma$ es un camino en $\D$ y $0 \in \D \setminus \textup{sop}(\gamma)$, la fórmula de Cauchy para la derivada $n$-ésima en dominios convexos afirma que
+\[f^{(n)}(0) \, \textup{n}(\gamma,0) = \frac{n!}{2\pi i} \int_{\gamma_r}\frac{f(z)}{z^{n+1}} \, dz,\]
+es decir,
+\[\begin{aligned}[t]
+a_n = \frac{f^{(n)}(0)}{n!} = \frac{1}{2\pi i}  \int_{\gamma_r} \frac{f(z)}{z^{n+1}} \, dz
+\end{aligned}\]
+Sea $\varphi \colon [0,2\pi] \to \C$ la función dada por $\varphi(t)=re^{it}$. Como $\varphi$ es una parametrización de $\gamma_r$ de clase $\mathcal{C}^1$, entonces
+\[a_n = \frac{1}{2\pi i}\int_{\gamma_r} \frac{f(z)}{z^{n+1}} \, dz = \frac{1}{2\pi i}\int_0^{2\pi} \frac{f(re^{it})}{r^{n+1}e^{it(n+1)}}ire^{it} \, dt\]
+Por tanto,
+\[|a_n| = \left|\frac{1}{2\pi i}\int_{\gamma_r} \frac{f(z)}{z^{n+1}} \, dz\right| \leq \frac{1}{2\pi r^n} \int_{0}^{2\pi} |f(re^{it})|\, dt \leq \frac{1}{r^{n-1}(1-r)}\]
+Dado $n \in \N$, sea $g \colon (0,1) \to \R$ la función definida por $g(r) = \frac{1}{r^{n-1}(1-r)}$. Tenemos que $g$ es derivable y 
+\[g'(z) = -\frac{1}{(r^{n-1}-r^n)^2}\left((n-1)r^{n-2}-nr^{n-1}\right), \quad r \in (0,1)\]
+Por tanto,
+\[g'(z) = 0 \iff (n-1)r^{n-2}=nr^{n-1} \iff r = \frac{n-1}{n}\]
+Además,
+\[g'(z) < 0 \iff (n-1)r^{n-2}-nr^{n-1} > 0 \iff (n-1)r^{n-2} > nr^{n-1} \iff n-1 > nr \iff r < \frac{n-1}{n}\]
+Observamos que $g$ es estrictamente decreciente en $(0,\frac{n-1}{n})$ y estrictamente creciente en $(\frac{n-1}{n},1)$. Por tanto, $\frac{n-1}{n}$ es el mínimo global de $g$, y el valor mínimo de $g$ sería
+\[g\left(\frac{n-1}{n}\right) = \frac{n^{n-1}}{(n-1)^{n-1}(1-\frac{n-1}{n})} =n\frac{n^{n-1}}{(n-1)^{n-1}} = n\left(1+\frac{1}{n-1}\right)^{n-1}\]
+La sucesión $b_n = (1+\frac{1}{n-1})^{n-1}$, $n \geq 2$ es creciente y con límite $e$, luego para todo $n \in \N$ se tiene \[n(1+\frac{1}{n-1})^{n-1} \leq e\] En consecuencia,
+\[g\left(\frac{n-1}{n}\right) \leq ne\]
+Usando que $|a_n| \leq g(r)$ para todo $r \in (0,1)$, concluimos que
+\[|a_n| \leq g\left(\frac{n-1}{n}\right) \leq ne\]
+para todo $n \in \N$.
+\end{proof}
+
+\begin{exercise}
+Hallar las series de Taylor en $0$ de las siguientes funciones, especificando en cada caso el radio de convergencia.
+\begin{multicols}{2}
+\centering
+\begin{enumerate}
+    \item $\displaystyle f(z) = \left(\Log{\frac{1}{1-z}}\right)^2$,
+    \item $\displaystyle f(z) = \sqrt{1-z} \quad $ \emph{(}la rama tal que $f(0) =1$\emph{)}.
+\end{enumerate}
+\end{multicols}
+\end{exercise}
+
+\begin{proof}
+\hfill
+\begin{enumerate}
+    \item Estudiemos primero dónde es holomorfa la función $f$. Sea $z=x+iy \in \C$. Entonces
+    \[\frac{1}{1-z} = \frac{1-\overline{z}}{|1-z|^2} = \frac{1-x}{(1-x)^2+y^2}-i\frac{y}{(1-x)^2+y^2}\]
+    Se tiene que
+    \[z \in \C \setminus (-\infty,0]  \iff y= 0, \frac{1-x}{(1-x)^2+y^2} \leq 0 \iff y = 0, \frac{1}{1-x} \leq 0 \iff y = 0, x \geq 1\]
+    Como la función logaritmo principal es holomorfa en $\C \setminus (-\infty,0]$ (y no puede ser holomorfa en un conjunto mayor), entonces la función definida por $g(z)= \textup{Log}(\frac{1}{1-z})$ es holomorfa en $\C \setminus[1,\infty)$ (y no puede ser holomorfa en un conjunto mayor), deduciéndose que $f$ es holomorfa en $\C \setminus [1,\infty)$. De aquí se deduce que la serie de Taylor de $f$ en $0$ tendrá radio de convergencia menor o igual que $1$.
+
+    Hallemos la serie de Taylor de $g$ centrada en $0$. Si $z \in \C \setminus [1,\infty)$,
+    \[g'(z) = \frac{1}{1-z}, \qquad g''(z) = \frac{1}{(1-z)^2}, \qquad g'''(z) = \frac{2}{(1-z)^3}\]
+    Se prueba fácilmente por inducción que
+    \[g^{(n)}(z) = \frac{(n-1)!}{(1-z)^{n-1}}\]
+    para todo $n \in \N$. Por tanto,
+    \[\frac{g^{(n)}(0)}{n!} = \frac{1}{n},\]
+    lo que nos dice que la serie de Taylor de $g$ centrada en cero es $\sum_{n=1}^\infty \frac{1}{n}z^n$, que converge siempre que $|z|<1$. Por tanto,
+    \[g(z) = \sum_{n=1}^\infty \frac{g^{(n)}(0)}{n!}z^n = \sum_{n=1}^\infty \frac{1}{n}z^n\]
+    Si llamamos
+    \[a_n = \begin{cases}
+        \frac{1}{n} & $ si $ n \geq 1, \\
+        0 & $ en otro caso,$
+    \end{cases}\]
+    se tiene, aplicando la fórmula para el producto de Cauchy,
+    \[f(z) =\left(\textup{Log}\left(\frac{1}{1-z}\right)\right)^2 = \sum_{n=0}^\infty \left( \sum_{k=0}^n a_ka_{n-k} \right)z^n=  \sum_{n=0}^\infty \left(\sum_{k=1}^n \frac{1}{k(n-k)}\right)z^n \]
+    Como esto es válido siempre que $|z|<1$, concluimos que la serie anterior es la serie de Taylor de $f$ en $0$ y el radio de convergencia es $1$.
+    \item Como $f$ no está definida en $z = 1$, la serie de Taylor de $f$ en $0$ tendrá radio de convergencia como mucho $1$. La función $g(z)=1-z$ es holomorfa y nunca nula en $\D$, y como $\D$ es simplemente conexo, entonces existe una rama de la $\sqrt{g}$ en $\D$ y además es holomorfa. De esto se deduce que $f$ está bien definida y es holomorfa en $\D$, y además su serie de Taylor en $0$ tiene radio de convergencia $1$. Se tiene que
+    \[f'(z)=-\frac{1}{2\sqrt{1-z}}, \qquad \qquad f''(z)=\frac{1}{4(1-z)^{3/2}}, \qquad \qquad f'''(z)=-\frac{3}{8(1-z)^{5/2}},\]
+    luego
+    \[f'(0)=-\frac{1}{2}, \qquad \qquad f''(0)=\frac{1}{4}, \qquad \qquad f'''(0)=-\frac{3}{8}\]
+    Se demuestra fácilmente por inducción que para todo $n \in \N$ con $n \geq 2$ se tiene
+    \[f^{(n)}(0) =(-1)^{n} \frac{3\cdot 5 \cdot \mathellipsis \cdot (2n-3)}{2^{n}}\]
+    En consecuencia,
+    \[f(z)=\sum_{n=0}^\infty a_nz^n,\]
+    donde, para $n \geq 2$,
+    \[a_n =
+         (-1)^n\frac{3\cdot 5 \cdot \mathellipsis \cdot (2n-3)}{n!2^{n}}\]
+    mientras que $a_0=1$ y $a_1=-\frac{1}{2}$.
+\end{enumerate}
+\end{proof}
+
+
+\end{document}

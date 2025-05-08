@@ -1,0 +1,48 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        unit vector ratio*={10 1 1},
+        ticks = none,
+        xmin = -pi,
+        xmax = pi,
+        ymin = -5,
+        ymax = 30,
+        samples = 1000,
+        scale = 1
+    ]
+    \end{axis}
+    \begin{axis}[
+        unit vector ratio*={10 1 1},
+        axis lines* = middle,
+        xmin = -pi,
+        xmax = pi,
+        ymin = -5,
+        ymax = 30,
+        samples = 1000,
+        xtick={},
+        ytick={},
+        xticklabels={},
+        yticklabels={},
+        scale=1,
+        legend cell align={left},
+        grid = major,
+        x tick label style = above right,
+        y tick label style = above right,
+        extra x ticks = {},
+        extra x tick labels = {},
+        extra x tick style = {xticklabel style = {below left}},
+        extra y ticks = {},
+        extra y tick labels = {},
+        extra y tick style = {yticklabel style = {above left}}
+    ]
+    \addplot[domain=-pi:pi, color=c2, line width=2pt]{(1-0.1^2)/(1 - 2*0.1*cos(deg(x)) + 0.1^2)};
+    \addlegendentry{$ y = p_{0.1}(t)$};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

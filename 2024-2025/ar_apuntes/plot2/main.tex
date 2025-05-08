@@ -1,0 +1,46 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+\begin{axis}[
+    ticks = none,
+    xmin = -5,
+    xmax = 5,
+    ymin = -5,
+    ymax = 5,
+    samples = 200,
+    scale=1.25
+    ]
+\end{axis}
+\begin{axis}[
+    axis lines* = middle,
+    xmin = -5,
+    xmax = 5,
+    ymin = -5,
+    ymax = 5,
+    samples = 200,
+    xtick={-5,5},
+    ytick={-5,5},
+    xticklabels={},
+    yticklabels={},
+    scale=1.25,
+    legend cell align={left},
+    grid = major,
+]
+\addplot[domain=0:5, color=c3, line width=2pt]{x};
+\addplot[domain=-5:0, color=c3, line width=2pt]{-x};
+\addplot[domain=-5:5, color=c3!50]{0.5*x};
+\addplot[domain=-5:5, color=c3!50]{-0.5*x};
+\addplot[domain=-5:5, color=c3!50]{0.25*x};
+\addplot[domain=-5:5, color=c3!50]{-0.25*x};
+\addplot[domain=-5:5, color=c3!50]{0.75*x};
+\addplot[domain=-5:5, color=c3!50]{-0.75*x};
+\addplot[domain=-5:0, color=c3, style=dashed]{x};
+\addplot[domain=-0:5, color=c3, style=dashed]{-x};
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

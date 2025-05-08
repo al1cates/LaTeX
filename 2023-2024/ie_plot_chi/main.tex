@@ -1,0 +1,72 @@
+\documentclass[11pt]{report}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Paquetes
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[spanish, es-lcroman]{babel} % es-lcroman para poder usar números romanos en minúscula
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{fouriernc} % Fuente
+\usepackage[svgnames, x11names, rgb]{xcolor}
+\usepackage{parskip} % Cambia la sangría por espacio vertical
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[labelfont=bf, labelsep=period]{caption} % Cambia «Figura 1:» por «Figura 1.» (en negrita)
+\usepackage{float} % Para que el texto después de una gráfica no se ponga antes
+\usepackage[active,tightpage]{preview}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Ajustes generales
+
+\pgfplotsset{compat=1.18}
+
+\setlength{\PreviewBorder}{0pt}
+
+\PreviewEnvironment[{[]}]{tikzpicture}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Colores
+
+\definecolor{p1c1}{HTML}{222831}
+\definecolor{p1c2}{HTML}{434242}
+\definecolor{p1c3}{HTML}{00ADB5}
+\definecolor{p1c4}{HTML}{76ABAE}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+\begin{tikzpicture}[
+    declare function={gamma(\z)=
+    (2.506628274631*sqrt(1/\z) + 0.20888568*(1/\z)^(1.5) + 0.00870357*(1/\z)^(2.5) - (174.2106599*(1/\z)^(3.5))/25920 - (715.6423511*(1/\z)^(4.5))/1244160)*exp((-ln(1/\z)-1)*\z);},
+    declare function={gammapdf(\x,\k,\theta) = \x^(\k-1)*exp(-\x/\theta) / (\theta^\k*gamma(\k));}
+]
+\begin{axis}[
+    xmin = 0,
+    xmax = 8,
+    ymin = 0,
+    ymax = 0.8,
+    samples = 200,
+    xtick={0,2,4,6,8,10,12,14,16,18,20},
+    ytick={0.2,0.4,0.6,0.8},
+    xticklabels={0,2,4,6,8,10,12,14,16,18,20},
+    yticklabels={0.2,0.4,0.6,0.8},
+    grid=major,
+    scale=1.5,
+    legend cell align={left}
+]
+\addplot[domain=0:8, restrict y to domain=0:1,color=p1c1, line width=2pt]{gammapdf(x,1/2,2)};
+\addlegendentry{\(n=1\)}
+\addplot[domain=0:8, color=p1c2, line width=2pt]{gammapdf(x,1,2)};
+\addlegendentry{\(n=2\)}
+\addplot[domain=0:8, color=p1c3, line width=2pt]{gammapdf(x,3/2,2)};
+\addlegendentry{\(n=3\)}
+\addplot[domain=0:8, color=p1c4, line width=2pt]{gammapdf(x,5/2,2)};
+\addlegendentry{\(n=5\)}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

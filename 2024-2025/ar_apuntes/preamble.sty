@@ -1,0 +1,160 @@
+%------------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage{aligned-overset}
+\usepackage{anyfontsize} % lo uso en el título
+\usepackage[spanish]{babel} % es-lcroman para romanos en minúscula
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage[labelfont = it, labelsep = period]{caption} % cambia Figura 1: por Figura 1. (en cursiva)
+\usepackage{centernot} % para que /not en símbolos más anchos esté centrado
+\usepackage{emptypage} % para que las páginas vacías de antes de un tema no tengan encabezado ni pie
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{float} % para que el texto después de una gráfica no se ponga antes
+\usepackage[includehead, right = 25mm, left = 25mm, top = 25mm, bottom = 25mm]{geometry}
+\usepackage{graphicx}
+\usepackage[naturalnames]{hyperref} % sin naturalnames el hiperenlace de los apéndices no funciona
+\usepackage{mathtools} % underbracket
+\usepackage[final, nopatch = footnote]{microtype}
+\usepackage{subcaption}
+\usepackage[svgnames, table, x11names]{xcolor}
+
+\usepackage{newpx}
+
+\usepackage{accents} % si lo cargo al principio da error
+
+%------------------------------------------------------------------------------------------------------%
+
+% COLORES
+
+\definecolor{c1}{HTML}{3878C1}
+\definecolor{c2}{HTML}{57905E} % ahora mismo no se usa
+\definecolor{c3}{HTML}{4A45AC} % ahora mismo no se usa
+
+%------------------------------------------------------------------------------------------------------%
+
+% DEFINICIONES, TEOREMAS Y DEMÁS
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{proposition}[theorem]{Proposición}
+\newtheorem{corollary}[theorem]{Corolario}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+
+%------------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+
+\newcommand{\sop}{\textup{sop}\,}
+\newcommand{\cesaro}{\ (\textup{Cesàro})}
+\newcommand{\abel}{\ (\textup{Abel})}
+
+\DeclareMathOperator*{\supes}{sup\,es\,} % supremo esencial
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+
+%------------------------------------------------------------------------------------------------------%
+
+% ENCABEZADOS Y PIES DE PÁGINA
+
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyhead[L]{\slshape\nouppercase\leftmark}
+\fancyhead[R]{\thepage}
+
+\fancyfoot{}
+
+%------------------------------------------------------------------------------------------------------%
+
+% TÍTULOS DE CAPÍTULOS
+
+% http://zoonek.free.fr/LaTeX/LaTeX_samples_chapter/0.html
+
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+  %\vspace*{50\p@}%
+  \vspace*{10\p@}%
+  {\parindent \z@ \centering \reset@font
+        \thickhrulefill\quad
+        \@chapapp{} \thechapter
+        \quad \thickhrulefill
+        \par\nobreak
+        \vspace*{10\p@}%
+        \interlinepenalty\@M
+        \hrule
+        \vspace*{10\p@}%
+        \Huge \bfseries #1\par\nobreak
+        \par
+        \vspace*{10\p@}%
+        \hrule
+    %\vskip 40\p@
+    \vskip 100\p@
+  }}
+\def\@makeschapterhead#1{%
+  %\vspace*{50\p@}%
+  \vspace*{10\p@}%
+  {\parindent \z@ \centering \reset@font
+        \thickhrulefill
+        \par\nobreak
+        \vspace*{10\p@}%
+        \interlinepenalty\@M
+        \hrule
+        \vspace*{10\p@}%
+        \Huge \bfseries #1\par\nobreak
+        \par
+        \vspace*{10\p@}%
+        \hrule
+    %\vskip 40\p@
+    \vskip 100\p@
+  }}
+
+%------------------------------------------------------------------------------------------------------%
+
+% OTROS AJUSTES
+
+\setlist[enumerate]{label={\normalfont({\alph*})}}
+
+\addto\captionsspanish{\renewcommand{\chaptername}{Tema}}
+\addto\captionsspanish{\renewcommand{\contentsname}{Contenidos}}
+
+\makeatletter % ajusta el espacio antes del nombre de las secciones en la TDC
+\renewcommand{\l@section}{\@dottedtocline{1}{1.5em}{2.6em}}
+\renewcommand{\l@subsection}{\@dottedtocline{2}{4.0em}{3.6em}}
+\renewcommand{\l@subsubsection}{\@dottedtocline{3}{7.4em}{4.5em}}
+\makeatother
+
+\renewcommand{\thefigure}{\hspace{-1mm}}
+
+\makeatletter % título opcional de los teoremas en negrita
+\def\th@plain{
+  \thm@notefont{}
+  \itshape
+}
+\def\th@definition{
+  \thm@notefont{}
+  \normalfont
+}
+\makeatother
+
+\setlength{\headheight}{13.6pt} % para que fancyhdr no proteste
+
+\unaccentedoperators % \newpx no funciona bien con los operadores con tilde 
+
+\setlength{\fboxsep}{0pt}
+
+%------------------------------------------------------------------------------------------------------%
+

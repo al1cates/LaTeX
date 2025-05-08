@@ -1,0 +1,28 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Espacios \textit {L\textsuperscript {p}}}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Funciones convexas}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Cuatro desigualdades importantes}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Espacios $L^p$ con $1 \leq p < \infty $}{8}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Espacios $L^\infty $}{9}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Funciones continuas de soporte compacto}{11}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Espacios $l^p$}{12}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Convergencia en $L^p$}{13}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Relaciones de inclusión entre los espacios $L^p$}{20}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Teoremas de densidad}{22}{section.1.9}%
+\contentsline {section}{\numberline {1.10}Lema de las traslaciones}{25}{section.1.10}%
+\contentsline {chapter}{\numberline {2}Convolución}{28}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Propiedades elementales de la convolución}{28}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Propiedades de regularidad de la convolución}{31}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Aproximaciones de la identidad}{34}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Más teoremas de densidad}{39}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Transformada de Fourier}{41}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Transformada de Fourier para funciones de $L^1$}{41}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Teorema de inversión}{51}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Transformada de Fourier para funciones de $L^2$}{57}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Métodos de sumabilidad para integrales de Fourier}{64}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Series de Fourier}{67}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Coeficientes de Fourier}{69}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Convergencia puntual de series de Fourier}{73}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Convergencia en el sentido de Cesàro de series de Fourier}{82}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Convergencia en el sentido de Abel de series de Fourier}{91}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Convergencia en $L^2$ de series de Fourier}{96}{section.4.5}%

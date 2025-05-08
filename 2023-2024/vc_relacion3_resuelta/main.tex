@@ -1,0 +1,691 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage{fouriernc}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{parskip}
+\usepackage{aligned-overset}
+\usepackage{hyperref}
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\mathbb D}
+
+\newcommand{\pars}[1]{\left( #1 \right)} % Paréntesis de tamaño automático
+\renewcommand{\Re}[1]{\,\textup{Re}\pars{#1}}
+\renewcommand{\Im}[1]{\,\textup{Im}\pars{#1}}
+\newcommand{\Log}[1]{\,\textup{Log}\pars{#1}}
+\newcommand{\pder}[3][2]{\frac{\partial #2}{\partial #3}}
+\newcommand{\serie}[2][0]{\sum_{n=#1}^\infty #2}
+
+\newtheorem{exercise}{Ejercicio}
+\theoremstyle{remark}
+\newtheorem*{resolution}{Solución}
+
+\begin{document}
+
+\textit{Variable Compleja} \hfill \textit{Curso 2023-2024}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	{\LARGE \textbf{Relación 3}} % Title
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+\begin{exercise}
+Sean $\{a_n\}_{n=0}^\infty$ y $\{b_n\}_{n=0}^\infty$ las sucesiones dadas por $a_n = b_n = \frac{(-1)^n}{\sqrt{n+1}}$, $n \geq 0$. Probar que las series $\sum_{n=0}^\infty a_n$ y $\sum_{n=0}^\infty b_n$ son convergentes, no absolutamente convergentes, y su producto de Cauchy no lo es.
+\end{exercise}
+\begin{resolution}
+La sucesión $x_n=\frac{1}{\sqrt{n+1}}$, $n \geq 0$, es decreciente y con límite $0$. Por el criterio de Leibniz, la serie $\serie{(-1)^nx_n}$ es convergente. Por otra parte, como para todo $n \in \N$ se tiene
+\[0 \leq \frac{1}{n+1} \leq \frac{1}{\sqrt{n+1}}\]
+y la serie $\sum_{n=0}^\infty \frac{1}{n+1}$ no converge, entonces, por el criterio de comparación, tenemos que la serie $\sum_{n=0}^\infty \frac{1}{\sqrt{n+1}}$ tampoco converge. Esto demuestra que $\serie{a_n}$ y $\serie{b_n}$ convergen pero no convergen absolutamente. En cuanto al producto de Cauchy,
+\[c_n = \sum_{k=0}^n a_kb_{n-k} = \sum_{k=0}^n\frac{(-1)^k}{\sqrt{k+1}}\frac{(-1)^{n-k}}{\sqrt{n-k+1}} = \sum_{k=0}^n \frac{(-1)^n}{\sqrt{k+1}\sqrt{n-k+1}}\]
+Si $k,n \in \N_0$ son tales que $0 \leq k \leq n$, entonces
+\[\frac{1}{\sqrt{k+1}\sqrt{n-k+1}} \geq \frac{1}{\sqrt{n+1}\sqrt{n+1}} = \frac{1}{n+1}\]
+Por tanto,
+\[\sum_{k=0}^n \frac{1}{\sqrt{k+1}\sqrt{n-k+1}} \geq \sum_{k=0}^n \frac{1}{n+1} = \frac{n+1}{n+1} = 1,\]
+luego $c_n = (-1)^n \sum_{k=0}^n \frac{1}{\sqrt{k+1}\sqrt{n-k+1}}$ no tiene límite cero, concluyéndose que $\sum_{n=0}^\infty c_n$ no converge.
+\end{resolution}
+
+\begin{exercise}
+Determinar el radio de convergencia de cada una de las siguientes series de potencias:
+\begin{enumerate}
+    \item $\displaystyle \sum_{n=1}^\infty \frac{z^n}{n}$
+    \item $\displaystyle \sum_{n=1}^\infty 3^nz^n$
+    \item $\displaystyle \sum_{n=1}^\infty z^{n!}$
+    \item $\displaystyle \sum_{n=1}^\infty 2^nz^{n^2}$
+    \item $\displaystyle \sum_{n=1}^\infty \frac{n!}{n^n}z^n$
+    \item $\displaystyle \sum_{n=1}^\infty z^{2^n}$
+    \item $\displaystyle \sum_{n=1}^\infty (3+(-1)^n)z^{2n}$
+    \item $\displaystyle \sum_{n=1}^\infty (n^3+2n)z^{4n}$
+\end{enumerate}    
+\end{exercise}
+
+\pagebreak
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Se tiene que
+    \[\limsup_{n \to \infty} \sqrt[n]{\left|\frac{1}{n}\right|} = \limsup_{n \to \infty} \frac{1}{\sqrt[n]{n}} = 1,\]
+    luego $R = 1$.
+    \item Se tiene que
+    \[\limsup_{n \to \infty} \sqrt[n]{|3^n|} = \limsup_{n \to \infty} \, 3 = 3,\]
+    luego $R = \frac{1}{3}$.
+    \item Sea
+    \[a_k = \begin{cases}
+        1 & $ si $ k = n! $ para algún $ n \in \N \\
+        0 & $ en otro caso$
+    \end{cases}\]
+    Entonces $\serie[1]{z^{n!}} = \sum_{k=1}^\infty a_kz^k$, y como
+    \[\limsup_{k \to \infty} \sqrt[k]{|a_k|} = 1,\]
+    se concluye que $R = 1$.
+    \item Sea
+    \[a_k = \begin{cases}
+        2^{\sqrt{k}} & $ si $ k = n^2 $ para algún $ n \in \N \\
+        0 & $ en otro caso$
+    \end{cases}\]
+    Entonces $\serie[1]{2^nz^{n^2}} = \sum_{k=1}^\infty a_kz^k$. Se tiene que
+    \[\lim_{k \to \infty} \frac{|a_{k+1}|}{|a_k|} = \lim_{k \to \infty} \frac{2^{\sqrt{k+1}}}{2^{\sqrt{k}}} = \lim_{k \to \infty}2^{\sqrt{k+1}-\sqrt{k}} = 1,\]
+    donde en la última igualdad se ha usado que
+    \[\lim_{k \to \infty}(\sqrt{k+1}-\sqrt{k}) = \lim_{k \to \infty} \frac{k+1-k}{\sqrt{k+1}+\sqrt{k}} = \lim_{k \to \infty} \frac{1}{\sqrt{k+1}+\sqrt{k}} = 0\]
+    Se concluye que $R = 1$.
+
+    \textit{Otra forma}: como
+    \[\limsup_{k \to \infty} \sqrt[k]{|a_k|} = \lim_{n \to \infty} \sqrt[n^2]{|a_{n^2}|} = \lim_{n \to \infty} \sqrt[n^2]{2^n} = \lim_{n \to \infty} \sqrt[n]{2} = 1,\]
+    entonces $R = 1$.
+    \item Sea $a_n = \frac{n!}{n^n}$. Entonces
+    \[\lim_{n \to \infty} \frac{|a_{n+1}|}{|a_n|} = \lim_{n \to \infty} \frac{(n+1)!}{(n+1)^{n+1}}\frac{n^n}{n!} = \lim_{n \to \infty} \frac{n^n}{(n+1)^n} =  \lim_{n \to \infty} \left(\frac{1}{\frac{n+1}{n}}\right)^n = \lim_{n \to \infty} \frac{1}{(1+\frac{1}{n})^n} = \frac{1}{e},\]
+    luego $ R= e$.
+    \item Sea
+    \[a_k = \begin{cases}
+        1 & $ si $ k = 2^n $ para algún $ n \in \N \\
+        0 & $ en otro caso$
+    \end{cases}\]
+    Entonces $\serie[1]{z^{2^n}} = \sum_{k=1}^\infty a_kz^k$, y como
+    \[\limsup_{k \to \infty} \sqrt[k]{|a_k|} = 1,\]
+    se concluye que $R = 1$.
+    \item Sea
+    \[a_k = \begin{cases}
+        3+(-1)^{\frac{k}{2}} & $ si $ k = 2n $ para algún $ n \in \N \\
+        0 & $ en caso contrario $
+    \end{cases} = \begin{cases}
+        4 & $ si $ k = 2n $ para algún $ n \in \N $ par$ \\
+        2 & $ si $ k = 2n $ para algún $ n \in \N $ impar$ \\
+        0 & $ en caso contrario $
+    \end{cases} \]
+    Entonces $\serie[1]{(3+(-1)^n)z^{2n}} = \sum_{k=1}^\infty a_kz^k$, y como
+    \[\limsup_{k \to \infty} \sqrt[k]{|a_k|} = \limsup_{n \to \infty} \, \sqrt[2n]{4} = 1,\]
+    se concluye que $R = 1$.
+    \item Sea
+    \[a_k = \begin{cases}
+        (\frac{k}{4})^3+2\frac{k}{4} & $ si $ k = 4n $ para algún $ n \in \N \\
+        0 & $ en caso contrario $
+    \end{cases} =\begin{cases}
+        \frac{k^3}{64}+\frac{k}{2} & $ si $ k = 4n $ para algún $ n \in \N \\
+        0 & $ en caso contrario $
+    \end{cases} \]
+    Entonces $\serie[1]{(n^3+2n)z^{4n}} = \sum_{k=1}^\infty a_kz^k$. Se tiene que
+    \[\limsup_{k \to \infty} \sqrt[k]{|a_k|} = \limsup_{n \to \infty} \sqrt[4n]{n^3+2n} = 1,\]
+    ya que
+    \[\lim_{x \to \infty}\frac{\log(x^3+2x)}{4x} \overset{\textup{L'H}}{=} \lim_{x \to \infty} \frac{3x^2+2}{4(x^3+2x)} = 0,\]
+    y por tanto
+    \[\lim_{n \to \infty}\left(n^3+2n\right)^{\frac{1}{4n}} = \lim_{n \to \infty} e^{\frac{1}{4n}\log(n^3+2n)} = e^0 = 1,\]
+    concluyéndose que $R = 1$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Las siguientes series de potencias convergen en el disco unidad $\D$. Encontrar una fórmula para las mismas que sea válida en dicho disco.
+\begin{enumerate}
+    \item $\displaystyle \sum_{n=1}^\infty nz^n$
+    \item $\displaystyle \sum_{n=1}^\infty n^2 (n+1)z^n$
+    \item $\displaystyle \sum_{n=1}^\infty\left(2n+\frac{1}{n!}\right)z^n$
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item En el disco unidad, se sabe que
+    \[\frac{1}{1-z} = \serie{z^n}\]
+    Derivando,
+    \[\frac{1}{(1-z)^2} = \serie[1]{nz^{n-1}}\]
+    Multiplicando por $z$,
+    \[\frac{z}{(1-z)^2} =\serie[1]{nz^n}\]
+    \item Por el apartado anterior, en el disco unidad se verifica
+    \[\frac{z}{(1-z)^2} = \sum_{n=1}^\infty nz^n\]
+    Derivando,
+    \[\frac{1+z}{(1-z)^3}= \sum_{n=1}^\infty n^2z^{n-1}\]
+    Multiplicando por $z^2$,
+    \[\frac{z^2+z^3}{(1-z)^3} = \sum_{n=1}^\infty n^2z^{n+1}\]
+    Derivando otra vez,
+    \[\frac{2z+3z^2}{(1-z)^3}+\frac{3(z^2+z^3)}{(1-z)^4} = \frac{2z+3z^2-2z^2-\cancel{3z^3}+3z^2+\cancel{3z^3}}{(1-z)^4}= \frac{2z(1+2z)}{(1-z)^4} = \sum_{n=1}^\infty n^2(n+1)z^{n}\]
+    \item Si $|z|<1$, entonces
+    \[\serie[1]{\left(2n+\frac{1}{n!}\right)z^n} = \serie[1]{2nz^n}+\serie[1]{\frac{z^n}{n!}},\]
+    ya que todas las series anteriores convergen en el disco unidad. Se tiene que
+    \[\serie[1]{2nz^n}+\serie[1]{\frac{z^n}{n!}} = \frac{2z}{(1-z)^2}+e^z-1,\]
+    luego
+    \[\serie[1]{\left(2n+\frac{1}{n!}\right)z^n} = \frac{2z}{(1-z)^2}+e^z-1\]
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Expresar cada función como serie de potencias centrada en $1$ e indicar la región de validez de su desarollo.
+\begin{enumerate}
+    \item $\displaystyle \frac{z}{z-6}$
+    \item $\displaystyle \frac{z+1}{(z-4)(z+3)}$
+    \item $\displaystyle \frac{1}{1+z^2}$
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Se tiene que
+    \[\frac{z}{z-6} = \frac{z-6+6}{z-6} = 1+\frac{6}{z-6} = 1-\frac{6}{6-z} =  1-\frac{6}{5-(z-1)} = 1-\frac{\frac{6}{5}}{1-\frac{z-1}{5}} = 1-\frac{6}{5}\serie{\left(\frac{z-1}{5}\right)^n}\]
+    siempre que $|\frac{z-1}{5}| < 1$, es decir, siempre que $z \in \Delta(1,5)$.
+    \item Se tiene que
+    \[\begin{aligned}[t]
+        \frac{z+1}{(z-4)(z+3)} &= \frac{\frac{5}{7}}{z-4}+\frac{\frac{2}{7}}{z+3} = -\frac{\frac{5}{7}}{4-z}-\frac{\frac{2}{7}}{-3-z} = -\frac{\frac{5}{7}}{3-(z-1)}-\frac{\frac{2}{7}}{-4-(z-1)} \\
+        &= -\frac{\frac{5}{21}}{1-\frac{z-1}{3}}+\frac{\frac{1}{14}}{1+\frac{z-1}{4}} = -\frac{5}{21}\serie{\left(\frac{z-1}{3}\right)^n}+\frac{1}{14}\serie{\left(-\frac{z-1}{4}\right)^n}
+    \end{aligned}\]
+    siempre que $|\frac{z-1}{3}|<1$ y $|\frac{z-1}{4}|<1$, es decir, siempre que $z \in \Delta(1,3)$.
+    \item Se tiene que
+    \[
+    \begin{aligned}[t]
+    \frac{1}{1+z^2} &= \frac{\frac{i}{2}}{z+i}-\frac{\frac{i}{2}}{z-i} = -\frac{\frac{i}{2}}{-i-z}+\frac{\frac{i}{2}}{i-z} = -\frac{\frac{i}{2}}{-1-i-(z-1)}+\frac{\frac{i}{2}}{i-1-(z-1)}
+    = \frac{\frac{i}{2(1+i)}}{1+\frac{z-1}{1+i}}+\frac{\frac{i}{2(i-1)}}{1-\frac{z-1}{i-1}} \\ &= \frac{i}{2(1+i)}\serie{\left(-\frac{z-1}{1+i}\right)^n}+\frac{i}{2(i-1)}\serie{\left(\frac{z-1}{i-1}\right)^n} = \frac{1+i}{4}\serie{\left(-\frac{z-1}{1+i}\right)^n}+\frac{1-i}{4}\serie{\left(\frac{z-1}{i-1}\right)^n}
+    \end{aligned}
+    \]
+    siempre que $|\frac{z-1}{1+i}|<1$ y $|\frac{z-1}{i-1}|<1$, es decir, siempre que $z \in \Delta(1,\sqrt{2})$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Sea $\{a_n\}_{n=0}^\infty$ una sucesión de números complejos tal que la serie de potencias $\sum_{n=0}^\infty a_nz^n$ tiene radio de convergencia $R$. Determinar el radio de convergencia de cada una de las siguientes series de potencias.
+\begin{enumerate}
+    \item $\displaystyle\sum_{n=0}^\infty a^3_nz^n$
+    \item $\displaystyle\sum_{n=0}^\infty a_nz^{5n}$
+    \item $\displaystyle\sum_{n=0}^\infty a_nz^{n^2}$
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Se tiene que
+    \[\limsup_{n \to \infty} \sqrt[n]{|a_n|} = \frac{1}{R},\]
+    luego
+    \[\limsup_{n \to \infty} \sqrt[n]{|a_n^3|} = \limsup_{n \to \infty} \sqrt[n]{|a_n|^3} = \limsup_{n \to \infty} \left(\sqrt[n]{|a_n|}\right)^3 = \frac{1}{R^3}\]
+    Por tanto, el radio de convergencia es $R^3$.
+    \item Sea
+    \[b_k = \begin{cases}
+        a_{\frac{k}{5}} & $ si $ k = 5n $ para algún $ n \in \N \\
+        0 & $ en otro caso$
+    \end{cases}\]
+    Entonces $\serie{a_nz^{5n}} = \serie{b_kz^k}$, y como
+    \[\limsup_{k \to \infty} \sqrt[k]{|b_k|} = \limsup_{n \to \infty} \sqrt[5n]{|b_{5n}|} = \limsup_{n \to \infty} \sqrt[5n]{|a_n|} = \limsup_{n \to \infty} \left(\sqrt[n]{|a_n|}\right)^{\frac{1}{5}} = \frac{1}{\sqrt[5]{R}},\]
+    entonces el radio de convergencia es $\sqrt[5]{R}$.
+
+    \textit{Otra forma}: la serie $\serie{a_n}z^{5n} = \serie{a_n}(z^5)^n$ converge si $|z^5| = |z|^5<R$, es decir, si $|z| < \sqrt[5]{R}$.
+    \item Supongamos que $\rho = \frac{1}{R} \not\in \{0,\infty\}$. Sea
+    \[b_k = \begin{cases}
+        a_{\sqrt{k}} & $ si $ k = n^2 $ para algún $ n \in \N \\
+        0 & $ en otro caso$
+    \end{cases}\]
+    Entonces $\serie{a_nz^{n^2}} = \serie{b_kz^k}$, y como
+    \[\limsup_{k \to \infty} \sqrt[k]{|b_k|} = \limsup_{n \to \infty} \sqrt[n^2]{|b_{n^2}|} = \limsup_{n \to \infty} \sqrt[n^2]{|a_n|} = \limsup_{n \to \infty} \left(\sqrt[n]{|a_n|}\right)^{\frac{1}{n}} = 1,\]
+    entonces el radio de convergencia es $1$. En los casos $\rho = 0$ o $\rho= \infty$ no podemos decir nada del límite superior de $\sqrt[n]{|a_n|}$. Por ejemplo, si $a_n = \frac{1}{n^n}$, entonces
+    \[\limsup_{n \to \infty} \sqrt[n]{|a_n|} =\limsup_{n \to \infty} \frac{1}{n} =0,\]
+    y además,
+    \[\limsup_{n \to \infty} \left(\sqrt[n]{|a_n|}\right)^{\frac{1}{n}} = \limsup_{n \to \infty}\frac{1}{\sqrt[n]{n}} = 1\]
+    Pero si $a_n = \frac{1}{2^{n^n}}$, entonces
+    \[\limsup_{n \to \infty} \sqrt[n]{|a_n|} = \limsup_{n \to \infty} \frac{1}{2^n} = 0,\]
+    y además,
+    \[\limsup_{n \to \infty} \left(\sqrt[n]{|a_n|}\right)^{\frac{1}{n}} = \limsup_{n \to \infty}\frac{1}{2} = \frac{1}{2}\]
+    En el caso $\rho = \infty$ sucede lo mismo.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+La sucesión de Fibonacci $\{c_n\}_{n=0}^\infty$ está definida por la relación de recurrencia
+\[c_0=c_1=1, \qquad \qquad c_n=c_{n-1}+c_{n-2}, \quad n \in \N, n \geq 2\]
+Probar que $0 \leq c_{n+1} \leq 2c_n$ para todo $n \in \N$ y deducir que la serie de potencias $\sum_{n=0}^\infty c_nz^n$ tiene radio de convergencia $R>0$ y, por tanto, define una función $f$ holomorfa en el disco $\Delta(0,R)$. Dar una fórmula explícita para $f$, determinar $R$, y dar una fórmula explícita para los $c_n$.
+\end{exercise}
+
+\begin{resolution}
+Como $c_n >0$ para todo $n \in \N \cup \{0\}$, entonces $c_{n-1}\leq c_{n-1}+c_{n-2} = c_n$ para todo $n \in \N$ con $n \geq 2$ (si $n = 1$ también se tiene $c_{n-1} \leq c_n$). Por tanto,
+\[0 \leq c_{n+1} = c_n+c_{n-1}<c_n+c_n = 2c_n\]
+para todo $n \in \N$. Por inducción se prueba fácilmente que $c_{n} \leq 2^{n}$ para todo $n \in \N \cup \{0\}$. En efecto, si $n = 0$ la desigualdad es trivialmente cierta, y si $n \in \N \cup \{0\}$ es tal que $c_n \leq 2^n$, entonces, por lo ya probado, $c_{n+1} \leq 2c_n \leq 2\cdot 2^n= 2^{n+1}$. Por tanto, para todo $z \in \C$ se verifica $ 0 \leq c_n|z|^n \leq 2^n|z|^n = |2z|^n$, y como la serie $\serie{(2z)^n}$ converge absolutamente siempre que $|2z|<1$, por el criterio de comparación, podemos afirmar que $\serie{c_nz^n}$ converge absolutamente siempre que $|2z|<1$, es decir, $|z|<\frac{1}{2}$, con lo que queda probado que la serie $\serie{c_nz^n}$ tiene radio de convergencia $R \geq \frac{1}{2}>0$, y en consecuencia, define una función $f \colon \Delta(0,R) \to \C$ holomorfa. Se tiene que
+\[\begin{aligned}[t]
+    f(z)&=\serie{c_nz^n} =1+z+\serie[2]{c_nz^n} = 1+z+\serie[2]{(c_{n-1}+c_{n-2})z^n} = 1+z+\serie[2]{c_{n-1}z^n}+\serie[2]{c_{n-2}z^n} \\
+    &= 1+z+z\serie[2]{c_{n-1}z^{n-1}}+z^2\serie[2]{c_{n-2}z^{n-2}} = 1+z+z\serie[1]{c_{n}z^{n}}+z^2\serie{c_{n}z^{n}} \\
+    &= 1+z+z\left(\serie{c_{n}z^{n}}-1\right)+z^2\serie{c_{n}z^{n}} = 1+z+z(f(z)-1)+z^2f(z) = 1+zf(z)+z^2f(z),
+\end{aligned}\]
+de donde se deduce que
+\[
+\begin{aligned}[t]
+f(z) &= \frac{1}{1-z-z^2} = \frac{1}{(z+\frac{1+\sqrt{5}}{2})(z+\frac{1-\sqrt{5}}{2})}=\frac{-\frac{1}{\sqrt{5}}}{z+\frac{1+\sqrt{5}}{2}}+\frac{\frac{1}{\sqrt{5}}}{z+\frac{1-\sqrt{5}}{2}} = \frac{\frac{1}{\sqrt{5}}}{-z-\frac{1+\sqrt{5}}{2}}+\frac{-\frac{1}{\sqrt{5}}}{-z-\frac{1-\sqrt{5}}{2}} \\
+&= \frac{(-\frac{2}{1+\sqrt{5}})\frac{1}{\sqrt{5}}}{1+\frac{2z}{1+\sqrt{5}}}+\frac{\frac{2}{1-\sqrt{5}}\frac{1}{\sqrt{5}}}{1+\frac{2z}{1-\sqrt{5}}} = -\frac{1}{\sqrt{5}}\cdot \frac{2}{1+\sqrt{5}}\serie{\left(-\frac{2z}{1+\sqrt{5}}\right)^n}+\frac{1}{\sqrt{5}}\cdot\frac{2}{1-\sqrt{5}}\serie{\left(-\frac{2z}{1-\sqrt{5}}\right)^n} \\
+&=\frac{1}{\sqrt{5}}\serie{\left(\left(-\frac{2}{1-\sqrt{5}}\right)^{n+1}-\left(-\frac{2}{1+\sqrt{5}}\right)^{n+1}\right)z^n} = \frac{1}{\sqrt{5}}\serie{\left(\left(\frac{1+\sqrt{5}}{2}\right)^{n+1}-\left(\frac{1-\sqrt{5}}{2}\right)^{n+1}\right)z^n}
+\end{aligned}
+\]
+siempre que $|\frac{2z}{1+\sqrt{5}}|<1$ y $|\frac{2z}{1-\sqrt{5}}|$, esto es, siempre que $|z|<\frac{1+\sqrt{5}}{2}$ y $|z| < \frac{\sqrt{5}-1}{2}$. El radio de convergencia sería entonces $R = \min\{\frac{1+\sqrt{5}}{2},\frac{\sqrt{5}-1}{2}\} = \frac{\sqrt{5}-1}{2}$, y, finalmente,
+\[c_n =\frac{1}{\sqrt{5}}\left(\left(\frac{1+\sqrt{5}}{2}\right)^{n+1}-\left(\frac{1-\sqrt{5}}{2}\right)^{n+1}\right)\]
+es la fórmula explícita de la sucesión de Fibonacci.
+\end{resolution}
+
+\begin{exercise}
+Dar el desarrollo de Taylor alrededor de $a$ de las siguientes funciones, indicando su radio de convergencia y el valor de la derivada $n$-ésima en $a$.
+\begin{enumerate}
+    \item $\displaystyle \frac{e^z}{1-z}$, $ a=0$.
+    \item $\displaystyle \frac{z}{z^2-2z-3}$, $a = 0$.
+    \item $\cos^2(z)$, $a = 0$.
+    \item $e^{z^2}$, $a = 0$.
+    \item $\displaystyle \frac{2z}{z^2-1}$, $a = i$.
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Si $|z|<1,$ se tiene que
+    \[e^z = \serie{\frac{z^n}{n!}}, \qquad \frac{1}{1-z} = \serie{z^n}\]
+    Como ambas series son absolutamente convergentes, entonces, por la fórmula del producto de Cauchy,
+    \[f(z)=\frac{e^z}{1-z} = \left(\serie{\frac{z^n}{n!}}\right)\left(\serie{z^n}\right) = \sum_{n=0}^\infty\sum_{m=0}^n\frac{z^m}{m!}z^{n-m} = \sum_{n=0}^\infty \left(\sum_{m=0}^n\frac{1}
+    {m!}\right)z^n\]
+    El radio de convergencia de la serie es $1$ y, además,
+    \[f^{(n)}(0) = n!\sum_{m=0}^n \frac{1}{m!}\]
+    \item Se tiene que
+    \[
+    \begin{aligned}
+    f(z)&=\frac{z}{z^2-2z-3} = \frac{z}{(z-3)(z+1)} = \frac{\frac{3}{4}}{z-3}+\frac{\frac{1}{4}}{z+1} =  \frac{-\frac{3}{4}}{3-z}+\frac{\frac{1}{4}}{1+z} = \frac{-\frac{1}{4}}{1-\frac{z}{3}}+\frac{\frac{1}{4}}{1+z} \\
+    &= -\frac{1}{4}\serie{\frac{1}{3^n}z^n}+\frac{1}{4}\serie{(-1)^nz^n} = \serie{\frac{1}{4}\left((-1)^n-\frac{1}{3^n}\right)z^n},
+    \end{aligned}
+    \]
+    siempre que $|\frac{z}{3}|<1$ y $|z|<1$, es decir, siempre que $|z|<1$. De esto se deduce que
+    \[f^{(n)}(0)=\frac{n!}{4}\left((-1)^n-\frac{1}{3^n}\right)\]
+    \item Para todo $z \in \C$ se verifica
+    \[\cos(2z)= \cos(z+z)=\cos^2(z)-\sen^2(z) = \cos^2(z)-(1-\cos^2(z)) = 2\cos^2(z)-1,\]
+    luego
+    \[f(z)=\cos^2(z)=\frac{1}{2}+\frac{1}{2}\cos(2z) = \frac{1}{2}+\frac{1}{2}\serie{\frac{(-1)^n}{(2n)!}(2z)^{2n}} =  \frac{1}{2}+\frac{1}{2}\serie{\frac{(-1)^n4^n}{(2n)!}z^{2n}}\]
+    si llamamos $g(z) = 2\cos^2(z)-1$, se tiene que
+    \[g(z) = \serie{\frac{(-1)^n4^n}{(2n)!}z^{2n}},\]
+    luego
+    \[g^{(k)}(0) =\begin{cases}
+        \displaystyle k!\frac{(-1)^{\frac{k}{2}}2^k}{k!} & $ si $ k $ es par$ \\
+        0 & $ si $ k $ es impar$
+    \end{cases} = \begin{cases}
+        \displaystyle (-1)^{\frac{k}{2}}2^k & $ si $ k $ es par$ \\
+        0 & $ si $ k $ es impar$
+    \end{cases} \]
+    Como $f(z)=\frac{1}{2}+\frac{1}{2}g(z)$, entonces
+    \[f^{(k)}(0) = \frac{1}{2}g^{(k)}(0)= \begin{cases}
+        \displaystyle (-1)^{\frac{k}{2}}2^{k-1} & $ si $ k $ es par$ \\
+        0 & $ si $ k $ es impar$
+    \end{cases}\]
+    \item Para todo $z \in \C$ se tiene
+    \[e^z = \serie{\frac{z^n}{n!}}\]
+    Por tanto,
+    \[f(z)=e^{z^2} = \serie{\frac{(z^2)^n}{n!}} = \serie{\frac{z^{2n}}{n!}} = \sum_{k=0}^\infty a_kz^k,\]
+    donde 
+    \[a_k = \begin{cases}
+        \displaystyle \frac{1}{(\frac{k}{2})!} & $ si $ k = 2n $ para algún $ n \in \N \\
+        0 & $ en otro caso$
+    \end{cases}\]
+    En consecuencia,
+    \[f^{(k)}(0) = a_kk! = \begin{cases}
+        \displaystyle \frac{k!}{(\frac{k}{2})!} & $ si $ k $ es par$ \\
+        0 & $ si $ k $ es impar$
+    \end{cases}\]
+    \item Se tiene que
+    \[\begin{aligned}[t]
+        f(z)&= \frac{2z}{z^2-1} = \frac{2z}{(z+1)(z-1)} = \frac{1}{z+1}+\frac{1}{z-1} =  -\frac{1}{-1-z}-\frac{1}{1-z} = -\frac{1}{-1-i-(z-i)}-\frac{1}{1-i-(z-i)} \\
+        &= \frac{\frac{1}{1+i}}{1+\frac{z-i}{1+i}}-\frac{\frac{1}{1-i}}{1-\frac{z-i}{1-i}} = \frac{1}{1+i}\serie{\left(-\frac{z-i}{1+i}\right)^n}-\frac{1}{1-i}\serie{\left(\frac{z-i}{1-i}\right)^n}\\
+        &= \serie{\frac{(-1)^n}{(1+i)^{n+1}}(z-i)^n}-\serie{\frac{1}{(1-i)^{n+1}}(z-i)^n} = \serie{\left(\frac{(-1)^n}{(1+i)^{n+1}}-\frac{1}{(1-i)^{n+1}}\right)(z-i)^n},
+    \end{aligned}\]
+    de donde se deduce que
+    \[f^{(n)}(i) = n!\left(\frac{(-1)^n}{(1+i)^{n+1}}-\frac{1}{(1-i)^{n+1}}\right)\]
+    Todo esto es válido si $|\frac{z-i}{1+i}| <1$ y $|\frac{z-i}{1-i}| < 1$, luego el radio de convergencia es $\sqrt{2}$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Sea $f \colon \C \to \C$ definida por $f(0)=0$ y $f(z) = e^{-\frac{1}{z^4}}$ si $z\neq 0$. Probar que $u \equiv \Re{f}$ y $v \equiv \Im{f}$ satisfacen las condiciones de Cauchy-Riemann en todo el plano. ¿Es $f$ una función entera?
+\end{exercise}
+
+\begin{resolution}
+Si $z \neq 0$, entonces $f$ es derivable en 0 y verifica las ecuaciones de Cauchy-Riemann en $z$. Por otro lado,
+\[\lim_{x \to 0} \frac{u(x)-u(0)}{x} = \lim_{x \to 0} \frac{e^{-\frac{1}{x^4}}}{x} = \lim_{x \to 0} \frac{\frac{1}{x^4}}{e^{\frac{1}{x^4}}} x^3 = 0,\]
+ya que
+\[\lim_{x \to \infty} \frac{x}{e^x} =0, \qquad \qquad \lim_{x \to 0} x^3 = 0\]
+Por tanto, $u_x(0)=0$. Además,
+\[\lim_{y \to 0}\frac{u(iy)-u(0)}{y}= \lim_{y \to 0} \frac{\Re{e^{-\frac{1}{(iy)^4}}}}{y} =  \lim_{y \to 0} \frac{e^{-\frac{1}{y^4}}}{y} =0,\]
+así que $u_y(0)=0$. Seguimos:
+\[\lim_{x \to 0} \frac{v(x)-v(0)}{x} = \lim_{x \to 0} 0 = 0, \qquad \qquad \lim_{y \to 0} \frac{v(iy)-v(0)}{y} = \lim_{y \to 0} 0 = 0,\]
+así que $v_x(0)=v_y(0)=0$ y $f$ verifica las ecuaciones de Cauchy-Riemann en $0$. Sin embargo, $f$ no es una función entera, pues ni siquiera es continua en $0$: si se considera la semirrecta $s = \{r^{e^{i(\pi/4)}} \colon r >0\}$, se tiene
+\[\lim_{\substack{z \to 0 \\ z \in r}} -\frac{1}{z^4}= \lim_{r \to 0^+} -\frac{1}{(re^{i\frac{\pi}{4}})^4} = \lim_{r \to 0^+} -\frac{1}{r^4e^{i\pi}} = \lim_{r \to 0^+}\frac{1}{r^4} = +\infty,\]
+luego
+\[\lim_{\substack{z \to 0 \\ z \in r}} f(z) =\lim_{\substack{z \to 0 \\ z \in r}} e^{-\frac{1}{z^4}} =+\infty\]
+
+\end{resolution}
+
+\begin{exercise}
+\hfill
+\begin{enumerate}
+    \item Sea $\delta >0$. Probar que la función exponencial toma cada valor complejo salvo el $0$ infinitas veces en el sector $\{z \in \C \colon |\textup{arg}\,(z)-\frac{\pi}{2}| < \delta\}$.
+    \item Sea $f(z)= e^{\frac{1}{z}}, z \neq0$. Probar que para cada $r >0$, $f$ toma cada valor complejo salvo $0$ infinitas veces en $\{z \in \C \colon 0 <|z|<r\}$.
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Sea $z \in \C \setminus\{0\}$ y consideremos la recta vertical
+    \[r = \bigl\{x+iy \in \C \colon x = \log|z|\bigr\}\]
+    Como la intersección de $S_{\frac{\pi}{2}} = \{z \in \C \colon |\textup{arg}\,(z)-\frac{\pi}{2}| < \delta\}$ con cualquier recta vertical es no vacía, podemos tomar $w = \log|z|+iy \in r \cap S_{\frac{\pi}{2}}$. Así, la semirrecta vertical contenida en $r$ que parte de $w_0$ hacia arriba está contenida en $S_{\frac{\pi}{2}}$. Por tanto, tomando cualquier $\theta_0 \in \textup{arg}(z) \cap [y,y+2\pi)$ se tiene que $w_0 = \log|z|+i\theta_0 \in S_{\frac{\pi}{2}}$, así que $w_k = \log|z|+i(\theta_0+2\pi k) \in S_{\frac{\pi}{2}}$ para cualquier $k \in \N$. Como además $e^{w_k} = z$, tenemos que la función exponencial toma el valor $z$ infinitas veces  (una vez por cada $k \in \N \cup \{0\}$).
+    \item Sea $z \in \C \setminus\{0\}$ y consideremos la recta vertical
+    \[r = \bigl\{x+iy \in \C \colon x = \log|z|\bigr\}\]
+    Como la intersección de $D_2=\{z \in \C \colon \frac{1}{r}<|z|\}$ con cualquier recta vertical es no vacía, podemos tomar $w = \log|z|+iy \in r \cap D_2$. Así, la semirrecta vertical contenida en $r$ que parte de $w_0$ hacia arriba está contenida en $D_2$. Por tanto, tomando cualquier $\theta_0 \in \textup{arg}(z) \cap [y,y+2\pi)$ se tiene que $w_0 = \log|z|+i\theta_0 \in D_2$, así que $w_k = \log|z|+i(\theta_0+2\pi k) \in D_2$ para cualquier $k \in \N$. Además, si $g(z) = \frac{1}{z}$ para $z \neq 0$ y $D_1 = \{z \in \C \colon 0 < |z| <r\}$, se tiene que $g(D_1)=D_2$, luego existe $\widetilde{w}_k \in D_1$ tal que $w_k = \frac{1}{\widetilde{w}_k}$, y por tanto $f(\widetilde{w}_k) = e^{w_k} = z$, concluyéndose que $f$ toma el valor $z$ infinitas veces (una vez por cada $k \in \N \cup \{0\}$).
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Si $f(z) = \frac{e^z-1}{z}$ para $z\neq0$ y $f(0)=1$, probar que $f$ es una función entera.
+\end{exercise}
+
+\begin{resolution}
+Para todo $z \in \C$ se verifica
+\[e^z-1 = \serie[1]{\frac{z^n}{n!}}\]
+Por tanto, si $z \neq 0$,
+\[\frac{e^z-1}{z} = \serie[1]\frac{z^{n-1}}{n!} = \serie{\frac{z^n}{(n+1)!}}\]
+Esta serie de potencias tiene radio de convergencia infinito (hemos visto que converge en $\C \setminus \{0\}$, y en $0$ evidentemente también), así que
+\[g(z) =  \serie{\frac{z^n}{(n+1)!}}\]
+define una función holomorfa en $\C$, es decir, una función entera. Pero es que $g(0)=1=f(0)$ y también se ha probado que $f(z) = g(z)$ para todo $z \neq 0$, así que $f = g$ en $\C$ y puede concluirse que $f$ es una función entera.
+\end{resolution}
+
+\begin{exercise}
+Estudiar la existencia de los siguientes límites y calcular los que existen:
+\begin{enumerate}
+    \item $\displaystyle \lim_{z \to 0}\frac{e^{z^2}-1}{z^2}$
+    \item $\displaystyle \lim_{z \to 0} \frac{\sen(3z)}{z}$
+    \item $\displaystyle \lim_{z \to 1} \frac{e^{z^2-z}-1}{z^2-1}$
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Si $z \in \C$,
+    \[e^{z^2} = \serie{\frac{z^{2n}}{n!}},\]
+    luego
+    \[e^{z^2}-1=\serie[1]{\frac{z^{2n}}{n!}},\]
+    y si $z \neq 0$,
+    \[\frac{e^{z^2}-1}{z^2} =\serie[1]{\frac{z^{2n-2}}{n!}} = \serie{\frac{z^{2n}}{(n+1)!}} = g(z)\]
+    Como $g$ es una función entera (pues la serie de potencias tiene radio de convergencia infinito), entonces es continua en $0$, así que
+    \[\lim_{z \to 0}\frac{e^{z^2}-1}{z^2} = \lim_{z \to 0} g(z) = g(0)=1\]
+    \item Si $z \in \C$,
+    \[\sen(3z)=\serie{\frac{(-1)^n}{(2n+1)!}(3z)^{2n+1}} = \serie{\frac{(-1)^n3^{2n+1}}{(2n+1)!}z^{2n+1}},\]
+    y si $z \neq 0$,
+    \[\frac{\sen(3z)}{z} = \serie{\frac{(-1)^n3^{2n+1}}{(2n+1)!}z^{2n}} = g(z)\]
+    Como $g$ es una función entera (pues la serie de potencias tiene radio de convergencia infinito), entonces es continua en $0$, así que
+    \[\lim_{z \to 0}\frac{\sen(3z)}{z} = \lim_{z \to 0} g(z) = g(0)=3\]
+    \item Si $z \in \C$,
+    \[e^{z^2-z}-1 = \serie[1]{\frac{(z^2-z)^n}{n!}},\]
+    y si $z \not\in \{-1,1\}$, entonces
+    \[
+    \begin{aligned}
+    \frac{e^{z^2-z}-1}{z^2-1} &= \frac{1}{(z+1)(z-1)}\serie[1]{\frac{z^n(z-1)^n}{n!}} =\frac{1}{z+1}\serie[1]{\frac{z^n(z-1)^{n-1}}{n!}} =\frac{1}{z+1}\serie{\frac{z^{n+1}(z-1)^{n}}{(n+1)!}} \\
+    &=\frac{1}{z(z+1)}\serie{\frac{(z^2-z)^n}{(n+1)!}}
+    \end{aligned}
+    \]
+    La serie de potencias $\serie{\frac{w^n}{(n+1)!}}$ tiene radio de convergencia infinito (pues $\frac{|a_{n+1}|}{|a_n|} =\frac{1}{n+2} \xrightarrow[]{n \to \infty}0$), así que la función dada por $g(w)=\serie{\frac{w^n}{(n+1)!}}$ es continua en 1. Por tanto,
+    \[\lim_{z \to 1}\frac{e^{z^2-z}-1}{z^2-1} = \lim_{z \to 1}\frac{1}{z(z+1)}g(z^2-z) = \frac{1}{2},\]
+    ya que
+    \[\lim_{z \to 1} \frac{1}{z(z+1)} = \frac{1}{2}, \qquad \qquad \lim_{z \to 1}g(z^2-z)=g(0) = 1\]
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Realizar un estudio del comportamiento de $f(z) = \frac{1}{2}(z+\frac{1}{z})$, $z \neq 0$, sobre circunferencias centradas en $0$ y sobre semirrectas que parten de $0$. Determinar dominios maximales de inyectividad de $f$, así como las imágenes de dichos dominios.
+\end{exercise}
+
+\begin{resolution}
+Si $r>0$ y $\theta \in \R$,
+\[f\pars{re^{i\theta}} =\frac{1}{2}\pars{re^{i\theta}+\frac{1}{r}e^{-i\theta}} = \frac{1}{2}\pars{\pars{r+\frac{1}{r}}\cos\theta+i\pars{r-\frac{1}{r}}\sen\theta}\]
+Si $ u \equiv \frac{1}{2}\pars{r+\frac{1}{r}}\cos\theta$ y $v \equiv \frac{1}{2}\pars{r-\frac{1}{r}}\cos\theta$, entonces
+\[\frac{u^2}{\pars{\frac{1}{2}\pars{r+\frac{1}{r}}}^2}+\frac{v^2}{\pars{\frac{1}{2}\pars{r-\frac{1}{r}}}^2}=1\]
+De aquí puede deducirse que $f$ transforma una circunferencia de radio $r \neq 1$ centrada en $0$ en una elipse centrada en $0$, con vértices principales en $\pm{\frac{1}{2}(r+\frac{1}{r})}$ y vértices secundarios en $\pm{\frac{1}{2}(r-\frac{1}{r})}$ (ya que $|\frac{1}{2}(r+\frac{1}{r})|>|\frac{1}{2}(r-\frac{1}{r})|$). También, como $(r+\frac{1}{r})^2-(r-\frac{1}{r})^2 = 4$, entonces se satisface la relación
+\[\frac{u^2}{\cos^2\theta}-\frac{v^2}{\sen^2\theta} = 1\]
+Si $\theta$ es constante se observa que $f$ transforma una semirrecta que parte de $0$ y forma ángulo constante con el origen $\theta$ (se llamará, de aquí en adelante, $r_\theta$) en una hipérbola centrada en cero con vértices principales en $\pm{\cos\theta}$ y asíntotas de pendientes $\pm{\frac{\sen\theta}{\cos\theta}}$.
+
+Habría que estudiar a parte los casos en los que las divisiones realizadas causan problemas. Primero, si $r = 1$, entonces $f(e^{i\theta}) = \frac{1}{2}(e^{i\theta}+e^{-i\theta}) = \cos\theta$, luego $f$ envía la circunferencia unidad en el segmento $[-1,1]$ (recorrido dos veces). Si fuera $\cos^2\theta = 0$, o sea, $\theta = \frac{\pi}{2}+\pi k$, $k \in \Z$, entonces $f(re^{i\theta})=i\frac{1}{2}(r-\frac{1}{r})$, y como
+\[\lim_{r \to \infty}\pars{r-\frac{1}{r}}= \infty, \qquad\qquad \lim_{r \to 0^+} \pars{r-\frac{1}{r}} = -\infty,\]
+entonces $f$ envía la semirrecta $r_{\frac{\pi}{2}+\pi k}$ en el eje imaginario. De forma análoga, si $\sen^2\theta = 0$, o sea, si $\theta = \pi k$ con $k \in \Z$, entonces $f(re^{i\theta}) = (-1)^k\frac{1}{2}(r+\frac{1}{r})$, y además,
+\[\lim_{r \to \infty}\pars{r+\frac{1}{r}}= \infty, \qquad\qquad \lim_{r \to 0^+} \pars{r+\frac{1}{r}} = \infty,\]
+Si $k$ es par, entonces la parametrización $r \mapsto \frac{1}{2}(r+\frac{1}{r})$, $ r \in (0,\infty)$ de $f(r_{\pi k})$ recorre la semirrecta del eje real $\{x \in \R \colon x \geq 1\}$, empezando por el infinito, llegando hasta $1$ y volviendo al infinito. Y si $k$ es impar, entonces $f(r_{\pi k})$ es la semirrecta $\{x \in \R \colon x \leq -1\}$ recorrida empezando por $-\infty$, llegando hasta $-1$ y volviendo a $-\infty$.
+
+Analicemos ahora cuándo $f$ es inyectiva. Se tiene que
+\[
+\begin{aligned}[t]
+f(z)= f(w) &\iff z+\frac{1}{z}=w+\frac{1}{w} \iff z^2+1=zw+\frac{z}{w} \iff z^2w+w=zw^2+z \\
+&\iff z^2w+w-zw^2-z=0 \iff (zw-1)(z-w)=0 \iff \begin{cases}
+    $o bien $ z=w^{-1} \\
+    $o bien $ z = w
+\end{cases}
+\end{aligned}
+\]
+\end{resolution}
+
+Obsérvese que $f$ es inyectiva en cualquier dominio $D$ en el que se verifique la propiedad siguiente: $z \in D \implies z^{-1} \not\in$. Sean $D_1=\{z \in \C \colon 0\leq |z| <1\}$ y $D_2 = \{z \in \C \colon 1<|z|\}$. Entonces $z^{-1} \in D_2$ para todo $z \in D_1$, y al revés, $z^{-1} \in D_1$ para todo $z \in D_2$. Observamos entonces que $f$ es inyectiva en $D_1$ y $D_2$ y no puede ser inyectiva en un dominio que contenga a alguno de los dos.
+
+\begin{exercise}
+Sean $\{a_n\}_{n=0}^\infty$ y $\{b_n\}_{n=0}^\infty$ dos sucesiones de números complejos. Consideremos la sucesión $\{A_n\}_{n=0}^\infty$ de sumas parciales asociada a $\{a_n\}_{n= 0}^\infty$, $A_n = \sum_{k=0}^n a_k, n \geq 0$.
+\begin{enumerate}
+    \item Demostrar la \itshape{fórmula de sumación por partes}: para $n \in \N$,
+    \[\sum_{k=0}^n a_kb_k = A_nb_n+\sum_{k=0}^{n-1}A_k(b_k-b_{k+1})\]
+    \item Demostrar los siguientes resultados:
+
+    \textbf{Teorema 1 (\textit{Teorema de Abel})}. \textit{Si $\sum_{k=0}^\infty |b_k-b_{k+1}| < \infty$, $\lim b_n = 0$ y la sucesión $\{A_n\}_{n=0}^\infty$ está acotada, entonces la serie $\sum_{n=0}^\infty a_nb_n$ converge.}
+
+    \textbf{Teorema 2}. \textit{Si $\{b_n\}_{n=0}^\infty$ es una sucesión decreciente, $\lim b_n=0$ y la sucesión $\{A_n\}_{n=0}^\infty$ es acotada, entonces la serie $\sum_{n=0}^\infty a_nb_n$ converge.}
+
+    Dar resultados análogos que garanticen la convergencia uniforme para series funcionales.
+    \item Sabemos que las series de potencias $\sum_{n=1}^\infty \frac{z^n}{n^2}$, $\sum_{n=1}^\infty \frac{z^n}{n}$ y $\sum_{n=1}^\infty z^n$ tienen radio de convergencia $1$. Estudiar la convergencia de las mismas en $\partial \D = \{z \in \C \colon |z|=1\}$.
+
+    \item Probar el siguiente resultado:
+
+    \textbf{Teorema 3 (\textit{Teorema de Abel})}. \textit{Supongamos que la serie de potencias $\sum_{n=0}^\infty a_nz^n$ tiene radio de convergencia $1$ y que $\sum_{n=0}^\infty a_n$ converge, digamos a $A$. Entonces
+    $\lim_{r \to 1^-} \sum_{n=0}^\infty a_nr^n$
+    existe y vale $A$.}
+
+    \textit{Indicación}: usar la fórmula de sumación por partes para deducir que si $|z|<1$, entonces
+    \[\sum_{n=0}^\infty a_nz^n = (1-z)\sum_{k=0}^\infty A_kz^k \qquad \textup{y} \qquad \sum_{n=0}^\infty a_nz^n-A=(1-z)\sum_{k=0}^\infty(A_k-A)z^k\]
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Usando que $a_n = A_n-A_{n-1}$ para todo $n \in \N$ y $a_0=A_0$, se tiene 
+    \[\begin{aligned}[t]
+        \sum_{k=0}^na_kb_k&= a_0b_0+\sum_{k=1}^n(A_k-A_{k-1})b_k= A_0b_0+\sum_{k=1}^nA_kb_k-\sum_{k=1}^nA_{k-1}b_k \\
+        &=A_0b_0+\sum_{k=1}^nA_kb_k-\sum_{k=0}^{n-1}A_{k}b_{k+1} =\cancel{A_0b_0}-\cancel{A_0b_0}+A_nb_n+\sum_{k=0}^{n-1}A_kb_k-\sum_{k=0}^{n-1}A_{k}b_{k+1} \\
+        &=A_nb_n+\sum_{k=0}^{n-1}A_k(b_k-b_{k+1})
+    \end{aligned}\]
+    \item \textit{Demostración del Teorema 1}. Si $|A_n| \leq M$ para todo $n \in \N$, entonces, aplicando el apartado anterior y la desigualdad triangular, para todo $n \in \N$ se tiene
+    \[\left|\sum_{k=0}^n a_kb_k\right| \leq M|b_n|+M\sum_{k=0}^{n-1}|b_k-b_{k+1}|\]
+    Como por hipótesis
+    \[\lim_{n \to \infty} |b_n| = 0, \qquad \qquad \lim_{n \to \infty} \sum_{k=0}^{n-1}|b_k-b_{k+1}| =\sum_{k=0}^\infty |b_k-b_{k+1}|=L< \infty,\] al tomar límites en la desigualdad anterior se obtiene
+    \[\lim_{n \to \infty} \left|\sum_{k=0}^na_kb_k\right| \leq L < \infty,\]
+    luego $\sum_{k=0}^\infty a_kb_k \leq L<\infty$ y por tanto la serie converge.
+
+    \textit{Demostración del Teorema 2}. Si la sucesión $\{b_n\}_{n=0}^\infty$ es decreciente, entonces $b_k-b_{k+1}>0$ para todo $k \in \N$, luego, para todo $n \in \N$
+    \[\sum_{k=0}^n |b_k-b_{k+1}| = \sum_{k=0}^n (b_k-b_{k+1}) = b_0-b_{n+1},\]
+    luego, tomando límites, \[\lim_{n \to \infty} \sum_{k=0}^n |b_k-b_{k+1}| = b_0\]
+    y el apartado anterior termina la prueba.
+
+    \textit{Resultados análogos que garanticen la convergencia uniforme para series funcionales.} Sean $\{f_n\}_{n=0}^\infty$ y $\{g_n\}_{n=0}^\infty$ dos sucesiones de funciones definidas en $\Omega \subset \C$ y tomando valores complejos. Sea $\{F_n\}_{n=0}^\infty$ la sucesión de sumas parciales asociada a $\{f_n\}_{n= 0}^\infty$, $F_n = \sum_{k=0}^n f_k, n \geq 0$.
+
+    \textbf{Teorema}. \textit{Si $\sum_{k=0}^\infty |g_k-g_{k+1}|$ converge uniformemente, $\{g_n\}_{n=0}^\infty$ converge uniformemente a $0$ y $\{F_n\}_{n=0}^\infty$ es uniformemente acotada, entonces la serie $\sum_{n=0}^\infty f_ng_n$ es converge uniformemente.}
+
+    \textbf{Teorema}. \textit{Si $\{g_n\}_{n=0}^\infty$ verifica $g_{n+1}(z) \leq g_{n}(z)$ para todo $n \in \N$ y todo $z \in \Omega$, la sucesión $\{g_n\}_{n=0}^\infty$ converge uniformemente a $0$ y la sucesión $\{F_n\}_{n=0}^\infty$ es uniformemente acotada, entonces la serie $\sum_{n=0}^\infty f_ng_n$ converge uniformemente.}
+
+    \item En primer lugar, para todo $z \in \partial \D$ y todo $n \in \N$ se verifica
+    \[\left|\frac{z^2}{n^2}\right| =\frac{1}{n^2},\]
+    y como la serie $\serie{\frac{1}{n^2}}$ es convergente, entonces, por el criterio de Weierstrass, la serie $\serie{\frac{z^2}{n^2}}$ es absoluta y uniformemente convergente en $\partial \D$. Veamos que la serie $\serie{\frac{z^n}{n}}$ es puntualmente convergente en $\partial D \setminus \{1\}$. Sea $z=e^{i\theta} \in \partial D$ con $z \neq 1$ (o sea, $\theta \not\in \{2\pi k \colon k \in \Z\}$). Sean $b_n = \frac{1}{n}$, $a_n = z^n$. La sucesión $\{b_n\}_{n=0}^\infty$ es decreciente y con límite cero, y, por otro lado, para todo $n \in \N$,
+    \[\left|A_n\right| =\left|\sum_{k=0}^n z^n\right| = \left|\frac{1-z^{n+1}}{1-z}\right| = \left|\frac{1-e^{i(n+1)\theta}}{1-e^{i\theta}}\right| \leq \frac{1+|e^{i(n+1)\theta}|}{|1-e^{i\theta}|} = M\]
+    Por el apartado anterior, la serie $\serie{a_nb_n} = \serie{\frac{z^n}{n}}$ es convergente. Sin embargo, la serie no converge absolutamente, pues $\serie{\frac{1}{n}}$ no converge. Por último, la serie $\serie{z^n}$ no converge de ninguna de las maneras, pues la sucesión $\{z^n\}_{n=0}^\infty$ no tiene límite $0$ para ningún $z \in \partial \D$.
+    \item \textit{Demostración del Teorema 3}. Si $|z|<1$, por la fórmula de sumación por partes aplicada a $\{a_n\}_{n=0}^\infty$ y $\{z^n\}_{n=0}^\infty$, para todo $n \in \N$ se tiene
+    \[\sum_{k=0}^n a_kz^k = A_nz^n+\sum_{k=0}^{n-1}A_k(z^k-z^{k+1}) = \sum_{k=0}^n a_kz^k = A_nz^n+(1-z)\sum_{k=0}^{n-1}A_kz^k\]
+    Por hipótesis se tiene
+    \[\lim_{n \to \infty} A_n = A, \qquad \qquad \lim_{n \to \infty} \sum_{k=0}^n a_kz^k = \sum_{k=0}^\infty a_kz^k < \infty\]
+    Además, por ser $|z|<1$,
+    \[\lim_{n \to \infty} z^n = 0\]
+    Por tanto, podemos tomar límite en límite en la igualdad anterior para obtener
+    \[\sum_{k=0}^\infty a_kz^k = A \cdot 0 +(1-z)\sum_{k=0}^\infty A_kz^k=(1-z)\sum_{k=0}^\infty A_kz^k,\]
+    y en consecuencia,
+    \[
+    \sum_{k=0}^\infty a_kz^k-A = (1-z)\sum_{k=0}^\infty A_kz^k-(1-z)\frac{A}{1-z} = (1-z)\sum_{k=0}^\infty A_kz^k-(1-z)\sum_{k=0}^\infty Az^k= (1-z)\sum_{k=0}^\infty (A_k-A)z^k\]
+    Veamos ahora que
+    \[\lim_{r \to 1^-}(1-r)\sum_{k=0}^\infty (A_k-A)r^k = 0,\]
+    lo que dejará demostrado el teorema. Hay que probar que para todo $\varepsilon >0$ existe $\delta >0$ tal que para todo $r \in \D$ con $0<|r-1|<\delta$ se tiene que 
+    \[\left|(1-r)\sum_{k=0}^\infty (A_k-A)r^k\right|<\varepsilon\]
+    Sea $\varepsilon >0$. En primer lugar, como
+    \[\lim_{k \to \infty} (A_k-A) = 0,\]
+    entonces existe $k_0\in \N$ tal que para todo $k \in \N$ con $k \geq k_0$ es
+    \[|A_k-A| < \frac{\varepsilon}{2M}\]
+    Por otra parte, como
+    \[\lim_{r \to 1^-} |1-r|\sum_{k=0}^{k_0-1} |A_k-A||r|^k = 0,\]
+    entonces existe $\delta >0$ tal que para todo $r \in \D$ con $0<|r-1|<\delta$ se verifica
+    \[|1-r|\sum_{k=0}^{k_0-1} |A_k-A||r|^k < \frac{\varepsilon}{2}\]
+    Por último, sea $M \geq 0$ de forma que para todo $r \in \D$ con $0<|r-1|<\delta$ se tenga
+    \[\frac{|1-r|}{1-|r|} < M\]
+    Entonces, si $r \in \D$ y $0 < |r-1|<\delta$,
+    \[
+    \begin{aligned}[t]
+    \left|(1-r)\sum_{k=0}^\infty (A_k-A)r^k\right|
+    &\leq |1-r|\sum_{k=0}^\infty |A_k-A||r|^k = |1-r|\sum_{k=0}^{k_0-1} |A_k-A||r|^k+|1-r|\sum_{k=k_0}^{\infty} |A_k-A||r|^k \\
+    &\leq \frac{\varepsilon}{2}+\frac{\varepsilon}{2M}|1-r|\sum_{k=k_0}^\infty |r|^k = \frac{\varepsilon}{2}+\frac{\varepsilon}{2M}\frac{|1-r||r|^{k_0}}{1-|r|} \\
+    &\leq  \frac{\varepsilon}{2}+\frac{\varepsilon M|r|^{k_0}}{2M} = \frac{\varepsilon}{2}+\frac{\varepsilon |r|^{k_0}}{2}\\
+    &\leq \frac{\varepsilon}{2}+\frac{\varepsilon}{2} = \varepsilon
+    \end{aligned}
+    \]
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+\hfill
+\begin{enumerate}
+    \item Sea $\D = \{z \in \C \colon |z| < 1\}$ el disco unidad. Probar que existe una rama de $\log(\frac{1}{1+z})$ en $\D$. Tomar la que en $0$ vale $0$ y obtener su desarollo en serie de potencias alrededor de $0$.
+    \item Usar el teorema de Abel anterior para comprobar que $\textup{Log}\,(2) = \sum_{n=1}^\infty(-1)^{n+1}\frac{1}{n}$.
+    \item Para $|z-1| \leq r<1$ y la rama principal de $\log(z)$, probar que $|\textup{Log}\,(z)| \leq \textup{Log}\,(\frac{1}{1-r})$.
+\end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Si $z=x+iy \in \D$, entonces
+    \[\frac{1}{1+z} = \frac{\overline{1+z}}{|1+z|^2} = \frac{1+x-iy}{(1+x)^2+y^2}= \frac{1+x}{(1+x)^2+y^2}-i\frac{y}{(1+x)^2+y^2}\]
+    Como $x \in (-1,1)$ (pues $z \in \D$), entonces $1+x>0$, luego
+    \[\Re{\frac{1}{1+z}} = \frac{1+x}{(1+x)^2+y^2} >0 \]
+    así que la imagen de la función $f \colon \D \to \C$, $f(z)= \frac{1}{1+z}$ está contenida en $\C \setminus (-\infty,0]$, donde existe una rama del $\textup{arg}(z)$; concretamente, el argumento principal. Por tanto, $g(z)=\Log{\frac{1}{1+z}}$ es una rama de $\log(\frac{1}{1+z})$ y además en $0$ vale $\Log{1} = 0$. Como $f$ es derivable en el abierto $\D$ y $f(\D) \subset \C \setminus \{0\}$, entonces $g$ es derivable en $\D$ y
+    \[g'(z)=\frac{f'(z)}{f(z)} = -\frac{\frac{1}{(1+z)^2}}{\frac{1}{1+z}} = -\frac{1}{1+z} = -\serie{(-1)^nz^n},\]
+    de donde se deduce que
+    \[g(z)=-\serie{\frac{(-1)^n}{n+1}z^{n+1}} = \serie{\frac{(-1)^{n+1}}{n+1}z^{n+1}} = \serie[1]{\frac{(-1)^{n}}{n}z^{n}} \]
+    siempre que $z \in \D$.
+    \item Como la serie de potencias
+    \[\serie[1]{\frac{(-1)^n}{n}z^n}\]
+    tiene radio de convergencia $1$ y la serie
+    \[A = \serie[1]{\frac{(-1)^n}{n}}\]
+    es convergente (por el criterio de Leibniz), entonces el teorema de Abel permite afirmar que
+    \[\lim_{z \to 1^-} \serie[1]{\frac{(-1)^n}{n}z^n} = \lim_{z \to 1^-} g(z)\]
+    existe y vale $A$, concluyéndose que podemos extender $g$ a $\D \cup \{1\}$ de manera continua mediante $g(1) = A$, es decir, $\Log{\frac{1}{2}} = -\Log{2} = A$, con lo que
+    \[\Log{2} = -A = \serie[1]{\frac{(-1)^{n+1}}{n}}\]
+    \item Si $r<1$ y $z \in \Delta(1,r)$, entonces
+    \[
+    \begin{aligned}[t]
+    \left|\Log{z}\right| &= \left|-\Log{\frac{1}{z}}\right| = \left|-\Log{\frac{1}{1+z-1}}\right| = \left|-g(z-1)\right| = \left|-\serie[1]\frac{(-1)^n}{n}(z-1)^n\right| \leq \serie[1]\frac{1}{n}|z-1|^n \\
+    &\leq \serie[1]\frac{r^n}{n} = \serie[1]{\frac{(-1)^n}{n}(-r)^n} = g(-r) = \Log{\frac{1}{1-r}},
+    \end{aligned}
+    \]
+    donde se ha usado que $z-1 \in \D$ y que $-r \in \D$.
+\end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+Estudiar el comportamiento de las siguientes series de potencias en las fronteras de sus respectivos discos de convergencia.
+\begin{enumerate}
+    \item $\displaystyle \sum_{n=2}^\infty \frac{(-1)^n}{\textup{Log}\,(n)}z^{3n-1}$
+    \item $\displaystyle \sum_{n=1}^\infty \frac{z^{n!}}{n^2}$
+    \item $\displaystyle \sum_{n=1}^\infty \frac{(-1)^n}{n}z^n$
+\end{enumerate}
+\end{exercise}
+
+\pagebreak
+
+\begin{resolution}
+\hfill
+\begin{enumerate}
+    \item Sea
+    \[a_k =\begin{cases}
+        \displaystyle\frac{(-1)^n}{\Log{n}} & $ si $ k =3n-1 $ para algún $ n \in \N \\
+        0 & $ en otro caso$
+    \end{cases}\]
+    Entonces
+    \[\limsup_{k \to \infty} \sqrt[k]{|a_k|} = \limsup_{n \to \infty}\sqrt[3n-1]{|a_{3n-1}|} = \limsup_{n \to \infty} \Log{n}^{\frac{1}{1-3n}} = \limsup_{n \to \infty} \, e^{\frac{\Log{\Log{n}}}{1-3n}}\]
+    Se tiene que
+    \[\lim_{x \to \infty} \frac{\Log{\Log{x}}}{1-3x} =\lim_{x \to \infty} -\frac{\Log{\Log{x}}}{3x-1} \overset{\textup{L'H}}{=} \lim_{x \to \infty}\frac{1}{3x\Log{x}} = 0,\]
+    así que
+    \[\limsup_{k \to \infty} \sqrt[k]{|a_k|} = 1\]
+    y el radio de convergencia es 1. Como además la serie
+    \[\serie[2]{\frac{(-1)^n}{\Log{n}}}\]
+    es convergente (por el criterio de Leibniz), entonces $\sum_{k=0}^\infty a_k$ también, así que el teorema de Abel permite afirmar que
+    \[\lim_{z \to 1^-} \serie[2]\frac{(-1)^n}{\Log{n}}z^n = \sum_{k=0}^\infty a_k,\]
+    con lo que la serie de potencias converge en la frontera del disco de convergencia.
+        \item Sea
+    \[a_k =\begin{cases}
+        \displaystyle \frac{1}{n^2} & $ si $ k =n! $ para algún $ n \in \N \\
+        0 & $ en otro caso$
+    \end{cases}\]
+    Entonces
+    \[\limsup_{k \to \infty} \sqrt[k]{|a_k|} = \limsup_{n \to \infty}\sqrt[n!]{|a_{n!}|} = \limsup_{n \to \infty}\frac{1}{\sqrt[n!]{n^2}} = 1\]
+    y el radio de convergencia es 1. Como además la serie
+    \[\serie[1]{\frac{1}{n^2}}\]
+    es convergente, entonces $\sum_{k=0}^\infty a_k$ también, así que el teorema de Abel permite afirmar que
+    \[\lim_{z \to 1^-} \serie[1]\frac{z^{n!}}{n^2} = \sum_{k=0}^\infty a_k,\]
+    con lo que la serie de potencias converge en la frontera del disco de convergencia.
+    \item Se tiene que
+    \[\limsup_{n \to \infty} \sqrt[n]{\frac{1}{n}} = 1,\]
+    luego el radio de convergencia es $1$. Como además la serie \[\serie[1]{\frac{(-1)^n}{n}}\] es convergente (por el criterio de Leibniz), entonces el teorema del límite de Abel permite afirmar que
+    \[\lim_{z \to 1^-} \serie[1]{\frac{(-1)^n}{n}z^n} =\serie[1]{\frac{(-1)^n}{n}}\]
+    con lo que la serie de potencias converge en la frontera del disco de convergencia.
+\end{enumerate}
+\end{resolution}
+
+\end{document}

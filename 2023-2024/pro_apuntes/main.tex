@@ -1,0 +1,2166 @@
+\documentclass[11pt]{report}
+
+%-------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[spanish, es-lcroman]{babel} % es-lcroman para romanos en minúscula
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{fouriernc} % Fuente
+\usepackage{imakeidx} % Índice
+\usepackage{setspace} % Espacio entre líneas del índice
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage[naturalnames]{hyperref} % Sin naturalnames el hiperenlace de los apéndices no funciona
+\usepackage[table, svgnames, x11names]{xcolor}
+\usepackage{enumitem}
+\usepackage{parskip} % Cambia la sangría por espacio vertical
+\usepackage{array}
+\usepackage{aligned-overset}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{titlesec}
+\usepackage{emptypage} % Para que las páginas vacías de antes de un tema no tengan encabezado ni pie
+\usepackage[labelfont=bf, labelsep=period]{caption} % Cambia «Figura 1:» por «Figura 1.» (en negrita)
+\usepackage{float} % Para que el texto después de una gráfica no se ponga antes
+\usepackage[framemethod=tikz]{mdframed}
+
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{dirtytalk} % Comillas de apertura y cierre
+\usepackage{fbox} % Cajas en las demostraciones de "si y solo si" y doble contención
+\usepackage{multicol}
+\usepackage{faktor} % Conjuntos cociente
+\usepackage{centernot} % Negar símbolos como \implies
+\usepackage{spalign}
+\usepackage[outline]{contour}
+\usepackage{ulem}
+\usepackage{fancyhdr}
+\usepackage{bm}
+\usetikzlibrary{shadows} % Sombras de los recuadros
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
+\usepackage{bbm}
+\usepackage{diagbox}
+
+%-------------------------------------------------------------------------------------------------%
+
+% AJUSTES GENERALES
+
+\decimalpoint
+
+\setlist[enumerate]{label={\normalfont\textbf{(\textit{\roman*})}}} % Enumerar las listas con romanos en minúscula, cursiva y negrita
+% normalfont para que los teoremas no italicen los paréntesis
+
+\makeatletter % Para que no se ignore el espacio antes y después de los teoremas; también hace que la barra a la izquierda de definiciones, teoremas y todo eso aparezca correctamente
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=0pt
+}
+\makeatother
+
+\makeatletter % Quitar el espacio adicional que el paquete parskip añade al principio y al final de una demostración
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep\z@skip % <---- changed here
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\addto\captionsspanish{\renewcommand{\chaptername}{Tema}} % Cambiar el título de los temas
+\addto\captionsspanish{\renewcommand{\contentsname}{Contenidos}} % Cambiar el título del índice
+
+\pgfplotsset{compat=1.18}
+
+\titlespacing{\section}{0pt}{0.5\baselineskip}{0.5\baselineskip} % Espacio antes y después del título de una sección
+\titlespacing{\subsection}{0pt}{0.5\baselineskip}{0.5\baselineskip} % Espacio antes y después del título de una subsección
+
+\usepgfplotslibrary{fillbetween}
+
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+
+\counterwithout{figure}{chapter} % Para que la numeración de las figuras sea global y no por temas
+\counterwithout{equation}{chapter} 
+
+\DeclareMathAlphabet{\mathcal}{OMS}{zplm}{m}{n}
+
+%-------------------------------------------------------------------------------------------------%
+
+% COLORES
+
+\definecolor{c1}{HTML}{0065ff}
+\definecolor{c2}{HTML}{ff5d00}
+
+%-------------------------------------------------------------------------------------------------%
+
+% PROPOSICIONES, COROLARIOS, TEOREMAS, DEFINICIONES Y EJEMPLOS
+
+\newtheoremstyle{mydefinition}{}{}{}{}{\color{c1}\bfseries}{.}{ }{}
+\newtheoremstyle{mytheorem}{}{}{\itshape}{}{\color{c2}\bfseries}{.}{ }{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}} % El último paréntesis para que el título opcional esté en negrita
+\newtheoremstyle{myexample}{}{}{}{}{\bfseries}{.}{ }{}
+
+\theoremstyle{mytheorem}
+\newtheorem{proposition}{Proposición}
+\newtheorem{corollary}{Corolario} % [proposition] hace que siga la misma numeración que las proposiciones
+\newtheorem{theorem}{Teorema}
+
+\theoremstyle{mydefinition}
+\newtheorem{definition}{Definición}
+
+\theoremstyle{myexample}
+\newtheorem*{example}{Ejemplo}
+\newtheorem*{notation}{Notación}
+
+\addto\captionsspanish{ % Para que la palabra «Demostración» esté en negrita y sin cursiva
+\let\oldproofname=\proofname
+\renewcommand{\proofname}{\rm\bf{\oldproofname}}}
+
+\newenvironment{cdefinition} % Definiciones con raya a la izquierda
+  {\begin{mdframed}[
+        linewidth=3pt,
+        linecolor=c1,
+        bottomline=false,
+        topline=false,
+        rightline=false,
+        innerrightmargin=0pt,
+        innertopmargin=0pt,
+        innerbottommargin=0pt,
+        innerleftmargin=1em,
+        skipabove=\baselineskip]
+    \begin{definition}}
+  {\end{definition}\end{mdframed}}
+
+\newenvironment{ctheorem} % Teoremas con raya a la izquierda
+  {\begin{mdframed}[
+        linewidth=3pt,
+        linecolor=c2,
+        bottomline=false,
+        topline=false,
+        rightline=false,
+        innerrightmargin=0pt,
+        innertopmargin=0pt,
+        innerbottommargin=0pt,
+        innerleftmargin=1em,
+        skipabove=\baselineskip]
+    \begin{theorem}}
+  {\end{theorem}\end{mdframed}}
+
+\newenvironment{cproposition} % Proposiciones con raya a la izquierda
+  {\begin{mdframed}[
+        linewidth=3pt,
+        linecolor=c2,
+        bottomline=false,
+        topline=false,
+        rightline=false,
+        innerrightmargin=0pt,
+        innertopmargin=0pt,
+        innerbottommargin=0pt,
+        innerleftmargin=1em,
+        skipabove=\baselineskip]
+    \begin{proposition}}
+  {\end{proposition}\end{mdframed}}
+
+\newenvironment{ccorollary} % Corolarios con raya a la izquierda
+  {\begin{mdframed}[
+        linewidth=3pt,
+        linecolor=c2,
+        bottomline=false,
+        topline=false,
+        rightline=false,
+        innerrightmargin=0pt,
+        innertopmargin=0pt,
+        innerbottommargin=0pt,
+        innerleftmargin=1em,
+        skipabove=\baselineskip]
+    \begin{corollary}}
+  {\end{corollary}\end{mdframed}}
+
+%-------------------------------------------------------------------------------------------------%
+
+% ATAJOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+
+\newcommand{\pars}[1]{\left( #1 \right)}
+\newcommand{\comment}[1]{}
+\newcommand{\mybf}[1]{\boldmath\textbf{\color{c1}#1}\unboldmath} % Negrita de color c1
+
+%-------------------------------------------------------------------------------------------------%
+
+% TÍTULOS DE CAPÍTULOS
+
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+  %\vspace*{50\p@}%
+  \vspace*{10\p@}%
+  {\parindent \z@ \centering \reset@font
+        \thickhrulefill\quad
+        {\scshape \@chapapp{} \thechapter}
+        \quad \thickhrulefill
+        \par\nobreak
+        \vspace*{10\p@}%
+        \interlinepenalty\@M
+        \hrule
+        \vspace*{0.5mm}%
+        \Huge \bfseries #1\par\nobreak
+        \par
+        \vspace*{3mm}%
+        \hrule
+    %\vskip 40\p@
+    \vskip 50\p@
+  }}
+\def\@makeschapterhead#1{%
+  %\vspace*{50\p@}%
+  \vspace*{10\p@}%
+  {\parindent \z@ \centering \reset@font
+        \thickhrulefill
+        \par\nobreak
+        \vspace*{10\p@}%
+        \interlinepenalty\@M
+        \hrule
+        \vspace*{0.5mm}%
+        \Huge \bfseries #1\par\nobreak
+        \par
+        \vspace*{3mm}%
+        \hrule
+    %\vskip 40\p@
+    \vskip 50\p@
+  }}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+%-------------------------------------------------------------------------------------------------%
+
+% PÁGINA DEL TÍTULO
+
+\begin{titlepage}
+
+\vspace*{0.5cm}
+
+\begin{tikzpicture}[remember picture,overlay]
+
+  \fill[black] ($(current page.north west)-(0cm,4cm)$) rectangle ($(current page.south east)-(0cm,-22cm)$);
+
+\end{tikzpicture}
+
+\centering
+
+\vspace{3\baselineskip}
+	
+{\fontsize{40pt}{0pt}\selectfont\textbf{\color{white}Probabilidad}}
+
+\vspace{5\baselineskip}
+
+{\color{black}\itshape\bfseries{
+
+Universidad de Málaga
+
+Grado en Matemáticas
+
+Curso 2023-2024
+
+}}
+
+\end{titlepage}
+
+\addtocounter{page}{1} % Para que la página del título cuente en la numeración
+
+%-------------------------------------------------------------------------------------------------%
+
+% PÁGINA DE LA TABLA DE CONTENIDOS
+
+\doublespacing
+\addtocontents{toc}{\protect\pagestyle{empty}}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\tableofcontents
+\thispagestyle{empty}
+\singlespacing
+
+%-------------------------------------------------------------------------------------------------%
+
+\tikzset{ % Puntos en saltos de continuidad
+  jumpdot/.style={mark=*,solid},
+  excl/.append style={jumpdot,fill=white},
+  incl/.append style={jumpdot,fill=black},
+}
+
+\graphicspath{{./images/}}
+
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+
+%-------------------------------------------------------------------------------------------------%
+
+\chapter{Espacios de probabilidad}
+
+\section{Espacios muestrales y \texorpdfstring{$\sigma$}{σ}-álgebras}
+
+\begin{cdefinition}
+Al conjunto de todos los posibles resultados de un experimento aleatorio se le llama \mybf{{espacio muestral}}, y se denota por $\Omega$.
+\end{cdefinition}
+
+De aquí en adelante, la letra $\Omega$ se referirá siempre a un espacio muestral, que no es más que un conjunto arbitrario no vacío.
+
+\begin{cdefinition}
+Se dice que una familia de subconjuntos $\mathcal{A} \subset \mathcal{P}(\Omega)$ es una \mybf{{$\bm{\sigma}$-álgebra sobre $\bm{\Omega}$}} cuando
+\begin{enumerate}
+    \item $\Omega \in \mathcal{A}$.
+    \item Para todo $A \in \mathcal{A}$ se tiene que $A^c \in \mathcal{A}$.
+    \item Para toda familia numerable $\{A_i\}_{i \in I}$ de elementos de $\mathcal{A}$ se tiene que $\bigcup_{i \in I} A_i \in \mathcal{A}$.
+\end{enumerate}
+Un \mybf{{suceso}} no es más que un elemento de $\mathcal{A}$.
+\end{cdefinition}
+
+\begin{cdefinition}
+Dada una familia de subconjuntos $E \subset \mathcal{P}(\Omega)$, la menor $\sigma$-álgebra sobre $\Omega$ que contiene a $E$ se denomina \mybf{{$\bm{\sigma}$-álgebra generada por $\bm{E}$}}, y se denota por $\sigma(E)$.
+\end{cdefinition}
+
+\begin{cproposition}
+Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item Si $E_1,E_2 \subset \mathcal{P}(\Omega)$ son tales que $E_1 \subset E_2$, entonces $\sigma(E_1) \subset \sigma(E_2)$.
+    \item Dado $E \subset \mathcal{P}(\Omega)$, se tiene que $\sigma(E) = E$ si y solo si $E$ es una $\sigma$-álgebra sobre $\Omega$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Se remite a la asignatura \textit{Teoría de la Medida e Integración}.
+\end{proof}
+
+\begin{cdefinition}
+Sea $(\Omega,\tau)$ un espacio topológico. La \mybf{{$\bm{\sigma}$-álgebra de Borel sobre $\bm{\Omega}$}}, denotada por $\mathcal{B}(\Omega)$ o $\mathcal{B}_{\Omega}$, es la $\sigma$-álgebra generada por $\tau$, es decir, $\mathcal{B}(\Omega) \coloneqq \sigma(\tau)$.
+\end{cdefinition}
+
+\begin{cproposition}
+La $\sigma$-álgebra de Borel de $\R^n$ junto con la topología usual está generada por cada una de las siguientes familias de intervalos:
+\begin{enumerate}
+    \item $\mathcal{E}_1 = \{(a,b) = (a_1,b_1) \times \mathellipsis \times (a_n,b_n) \colon a,b \in \R^n\}$.
+    \item $\mathcal{E}_2 = \{[a,b) = [a_1,b_1) \times \mathellipsis \times [a_n,b_n) \colon a,b \in \R^n\}$.
+    \item $\mathcal{E}_3 = \{(a,b] = (a_1,b_1] \times \mathellipsis \times (a_n,b_n] \colon a,b \in \R^n\}$.
+    \item $\mathcal{E}_4 = \{[a,b] = [a_1,b_1] \times \mathellipsis \times [a_n,b_n] \colon a,b \in \R^n\}$.
+    \item $\mathcal{E}_5 = \{(a,+\infty) = (a_1,+\infty) \times \mathellipsis \times (a_n,+\infty) \colon a \in \R^n\}$.
+    \item $\mathcal{E}_6 = \{[a,+\infty) = [a_1,+\infty) \times \mathellipsis \times [a_n,+\infty) \colon a \in \R^n\}$.
+    \item $\mathcal{E}_7 = \{(-\infty,b) = (-\infty,b_1) \times \mathellipsis \times (-\infty,b_n) \colon b \in \R^n\}$.
+    \item $\mathcal{E}_8 = \{(-\infty,b] = (-\infty,b_1] \times \mathellipsis \times (-\infty,b_n] \colon b \in \R^n\}$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Se remite a la asignatura \textit{Teoría de la Medida e Integración}.
+\end{proof}
+
+\begin{cdefinition}
+Dada una $\sigma$-álgebra $\mathcal{A}$ sobre $\Omega$, la dupla $(\Omega, \mathcal{A})$ se llama \mybf{{espacio medible}}, mientras que la dupla $(\Omega, \mathcal{B}(\Omega))$, o simplemente $(\Omega, \mathcal{B})$, se denomina \mybf{{espacio medible-Borel}}.
+\end{cdefinition}
+
+Si no se hace mención alguna sobre cuál es el espacio topológico del que procede una $\sigma$-álgebra de Borel $\mathcal{B}$, se supondrá siempre que se trata de $\R$ junto con la topología usual.
+
+\section{Medidas}
+
+\begin{cdefinition}
+Dado un espacio medible $(\Omega, \mathcal{A})$, una \mybf{{medida positiva}} (o simplemente \mybf{{medida}}) es una aplicación $\mu \colon \mathcal{A} \to [0,\infty]$ verificando
+\begin{enumerate}
+    \item $\mu(\emptyset) = 0.$
+    \item Si $\{A_n\}_{n \in \N}$ es una familia de elementos de $\mathcal{A}$ disjuntos dos a dos, entonces
+    \[\mu\biggl( \, \bigcup_{n=1}^\infty A_n\biggr) = \sum_{n=1}^\infty \mu(A_n)\]
+    Esta propiedad suele ser denominada \mybf{{$\bm{\sigma}$-aditividad}}.
+\end{enumerate}
+\end{cdefinition}
+
+\begin{cproposition}
+\label{prop1.1.}
+Sea $\mu \colon \mathcal{A} \to [0,\infty]$ una medida positiva. Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item Si $A \subset B$, entonces $\mu(A) \leq \mu(B)$. Si además $\mu(A) < \infty$, entonces $\mu(B \setminus A) = \mu(B) - \mu(A)$.
+    \item $\mu(A)+\mu(B) = \mu(A \cup B) + \mu(A \cap B)$.
+    \item Si $\{A_n\}_{n \in \N}$ es una familia de elementos de $\mathcal{A}$, entonces
+    \[\mu \biggl(\, \bigcup_{n=1}^\infty A_n\biggr) \leq \sum_{n=1}^\infty \mu(A_n)\]
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Solo se va a demostrar la última propiedad. Dada una familia $\{A_n\}_{n \in \N}$ de elementos de $\mathcal{A}$, se construye otra familia $\{B_n\}_{n \in \N}$, donde $B_n = A_n \setminus A_{n-1}$ para cada $n \geq 2$ y $B_1 = A_1$. Se tiene que los $B_n$ son disjuntos dos a dos, que $B_n \subset A_n$ para cada $n \in \N$ y que
+\[\bigcup_{n=1}^\infty B_n = \bigcup_{n=1}^\infty A_n\]
+Consecuentemente,
+\[\mu\biggl(\, \bigcup_{n=1}^\infty A_n\biggr) = \mu\biggl(\, \bigcup_{n=1}^\infty B_n \biggr) = \sum_{n=1}^\infty \mu(B_n) \leq \sum_{n=1}^\infty \mu(A_n),\]
+donde se han usado la $\sigma$-aditividad y el apartado primero.
+\end{proof}
+
+\begin{cdefinition}
+Una medida positiva $\mu$ en un espacio medible $(\Omega,\mathcal{A})$ se dice que es \mybf{{finita}} cuando $\mu(E) < \infty$ para todo $E \in \mathcal{A}$, o, equivalentemente, cuando $\mu(\Omega) < \infty$.
+\end{cdefinition}
+
+\begin{cdefinition}
+Una medida positiva finita $P$ en un espacio medible $(\Omega,\mathcal{A})$ se dice que es una \mybf{{medida de probabilidad}} cuando $P(\Omega) = 1$.
+\end{cdefinition}
+
+\begin{example}
+Sea $\omega \in \Omega$ un elemento fijo de un espacio muestral cualquiera, y considérese la función $\delta_\omega \colon \mathcal{A} \to [0,1]$ dada por 
+\[\delta_\omega (A) = \begin{cases}
+    1 & $si$ \ \omega \in A \\
+    0 & $si$ \ \omega \in A^c
+\end{cases}\]
+Se verifica que $\delta_\omega$ es una medida de probabilidad en cualquier $\sigma$-álgebra $\mathcal{A}$ sobre $\Omega$, y se denomina \textit{{delta de Dirac}}.
+\end{example}
+
+\begin{example}
+Sea $\Omega$ un espacio muestral finito. Se considera la función $\mu \colon \mathcal{A} \to [0,1]$ dada por
+\[\mu(A) = \frac{\#A}{\#\Omega}\]
+Resulta que $\mu$ es una medida de probabilidad en cualquier $\sigma$-álgebra $\mathcal{A}$ sobre $\Omega$, denominada \textit{{medida uniforme}}.
+\end{example}
+
+\begin{example}
+Sea $\Omega$ un espacio muestral numerable y sea $\mathcal{A} = \mathcal{P}(\Omega)$. Sea $\{p_w\}_{w \in \Omega}$ una sucesión de números reales no negativos. Se define la función $\mu \colon \mathcal{A} \to [0,\infty]$ mediante
+\[\mu(A) = \sum_{\omega \in A}p_\omega\]
+Se verifica que $\mu$ es una medida positiva, pero podría no ser de probabilidad. Cuando se tenga $p_w = 1$ para todo $w \in \Omega$, se dirá que $\mu$ es la \textit{{medida de conteo}}.
+\end{example}
+
+\begin{cdefinition}
+Sea $\mathcal{A}$ una $\sigma$-álgebra sobre $\Omega$ y sea $P$ una medida de probabilidad definida sobre $\mathcal{A}$. La terna $(\Omega, \mathcal{A}, P)$ se dice que es un \mybf{{espacio de probabilidad}}.
+\end{cdefinition}
+
+\chapter{Funciones de distribución}
+
+\section{Nociones básicas}
+
+\begin{cdefinition}
+Una función $F \colon \R \to [0,1]$ se dice que es una \mybf{{función de distribución}} si
+\begin{enumerate}
+    \item Es monótona creciente.
+    \item Es continua por la derecha.
+    \item $F(-\infty) \equiv \lim_{x \to -\infty}F(x) = 0$.
+    \item $F(+\infty) \equiv \lim_{x \to +\infty}F(x) = 1$.
+    \item Existe $F(a^-) \equiv \lim_{x \to a^{-}}F(x) $ para todo $a \in \R$.
+\end{enumerate}
+\end{cdefinition}
+
+\begin{cproposition}
+Si $P$ es una medida de probabilidad en el espacio medible-Borel $(\R, \mathcal{B})$, entonces la función $F \colon \R \to [0,1]$ dada por $F(x) = P((-\infty,x])$ es una función de distribución.
+\end{cproposition}
+
+\begin{proof}
+Ya se vio en la asignatura \textit{Introducción a la Probabilidad y a la Estadística}.
+\end{proof}
+
+\begin{cdefinition}
+Dada una medida de probabilidad $P$ en $(\R,\mathcal{B})$, la función de distribución definida en la proposición anterior se denomina \mybf{{función de distribución asociada a $\bm{P}$}}.
+\end{cdefinition}
+
+\begin{cproposition}
+Sea $F \colon \R \to [0,1]$ la función de distribución asociada a una medida de probabilidad $P$. Para cada $a \in \R$, se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $P((-\infty,a)) = F(a^-)$.
+    \item $P((a,+\infty)) = 1-F(a)$.
+    \item $P([a,+\infty)) = 1-F(a^-)$.
+    \item $p(a) \equiv P(\{a\}) = F(a)-F(a^-)$.
+    \item $F$ es continua en $a$ si y solo si $p(a) = 0$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Ya se vio en la asignatura \textit{Introducción a la Probabilidad y a la Estadística}.
+\end{proof}
+
+Obsérvese que el apartado quinto de la proposición anterior permite escribir el conjunto de puntos de discontinuidad de una función de distribución $F$ asociada a una medida de probabilidad como \[D_F \coloneqq \{x \in \R \colon p(x) >0\}\]
+
+\begin{cproposition}
+Dada una función de distribución $F$ asociada a una medida de probabilidad, el conjunto $D_F$ es finito o infinito numerable.
+\end{cproposition}
+
+\begin{proof}
+Sea $x \in D_F$. Entonces se tiene que $F(x^-) < F(x)$, y por la densidad de $\Q$ en $\R$, existe $q_x \in \Q$ tal que $F(x^-) < q_x < F(x)$. Sea $y \in D_F$ con $y \neq x$ y veamos que $q_y \neq q_x$. Usando que $x,y \in D_F$ y que $F$ es creciente, se tiene que $F(x^-) < q_x < F(x) \leq F(y^-) < q_y < F(y)$, así que es claro que $q_x \neq q_y$. En consecuencia, la función dada por $x \mapsto q_x$ es inyectiva, y como $\Q$ es numerable, entonces $D_F$ también lo es.
+\end{proof}
+
+\begin{ccorollary}
+El conjunto de puntos de continuidad de una función de distribución $F$ asociada a una medida de probabilidad es denso en $\R$.
+\end{ccorollary}
+
+\begin{proof}
+Sea $C_F$ el conjunto de puntos de continuidad de $F$. Hay que demostrar que todo abierto no vacío de $\R$ interseca a $C_F$. Sea $I$ un abierto no vacío de $\R$. Como $D_F$ es numerable e $I$ es no numerable, entonces $I \setminus D_F = I \cap D_F^c = I \cap C_F$ es no numerable, luego $I \cap C_F \neq \emptyset$ y por tanto $C_F$ es denso en $\R$.
+\end{proof}
+
+\begin{cdefinition}
+Dada una función de distribución $F$ asociada a una medida de probabilidad $P$, el \mybf{{soporte de $\bm{F}$}} se define como
+\[S_F = \{x \in \R \colon F(x+\varepsilon)-F(x-\varepsilon)>0 \textup{ para todo } \varepsilon >0\}\]
+\end{cdefinition}
+
+Nótese que
+un punto no se encuentra en el soporte de $F$ si y solo si $F$ es constante en algún entorno de dicho punto, lo que permite calcular fácilmente $S_F$ observando la gráfica de $F$.
+
+\section{Funciones de distribución discretas}
+
+\begin{cdefinition}
+Una función de distribución $F$ asociada a una medida de probabilidad $P$ se dice que es \mybf{{discreta}} cuando
+\[\sum_{x \in \R}p(x) = 1\]
+\end{cdefinition}
+
+\begin{cproposition}
+Sea $F$ una función de distribución discreta asociada a una medida de probabilidad $P$. Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $P(D_F) = 1$.
+    \item $S_F = D_F$.
+    \item  Si $B \in \mathcal{B}$, entonces
+    \[P(B) = \sum_{x \in D_F \cap B}p(x)\]
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Ejercicio.
+\end{proof}
+
+\section{Funciones de distribución continuas}
+
+\begin{cdefinition}
+Una función de distribución $F$ asociada a una medida de probabilidad $P$ se dice que es \mybf{{continua}} cuando
+\[\sum_{x \in \R}p(x) = 0\]
+\end{cdefinition}
+
+\begin{cdefinition}
+Sea $F$ una función de distribución continua asociada a una medida de probabilidad $P$. La \mybf{{función de pseudodensidad de $\bm{F}$}} es la función $\tilde{f} \colon \R \to \R$ definida por
+\[\tilde{f}(x)=\begin{cases}
+    F'(x) & $si$ \ x \in A \\
+    0 & $si$ \ x \in A^c,
+\end{cases}\]
+donde $A$ es el conjunto de puntos donde $F$ es derivable.
+\end{cdefinition}
+
+\begin{cproposition}
+Sea $F$ una función de distribución continua asociada a una medida de probabilidad $P$ y con función de pseudodensidad $\tilde{f}$. Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $D_F=\emptyset$.
+    \item $S_F = \{x \in \R \colon \tilde{f}(x) >0\} \cup A^c$.
+    \item Si $A^c$ es numerable y $\tilde{f}$ es integrable, entonces, dado $B \in \mathcal{B}$,
+    \[P(B) = \int_B\tilde{f}(t)dt\]
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Otro ejercicio.
+\end{proof}
+
+\section{Funciones de distribución absolutamente continuas}
+
+\begin{cdefinition}
+Una función de distribución $F$ asociada a una medida de probabilidad $P$ se dice que es \mybf{{absolutamente continua}} cuando existe una función $f \colon \R \to \R$ integrable y no negativa tal que
+\[F(x) = \int_{-\infty}^xf(t)dt\]
+Esta función $f$ se denomina \mybf{{función de densidad de $\bm{F}$}}.
+\end{cdefinition}
+
+\begin{cproposition}
+Considérese una función de distribución absolutamente continua $F$ asociada a una medida de probabilidad $P$ y con función de densidad $f$. Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $D_F=\emptyset$.
+    \item $S_F = \{x \in \R \colon f(x) >0\}$.
+    \item  Si $B \in \mathcal{B}$, entonces
+    \[P(B) = \int_Bf(t)dt\]
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Más ejercicios.
+\end{proof}
+
+\section{Funciones de distribución mixtas}
+
+\begin{cdefinition}
+Una función de distribución $F$ asociada a una medida de probabilidad $P$ se dice que es \mybf{{mixta}} cuando
+\[0 < \sum_{x \in \R}p(x) <1\]
+\end{cdefinition}
+
+\begin{ctheorem}
+Toda función de distribución $F$ admite una descomposición de la forma
+\[F = \alpha F_d +(1-\alpha) F_c,\]
+donde $\alpha \in [0,1]$, $F_d$ es una función de distribución discreta y $F_c$ una continua.
+\end{ctheorem}
+
+\begin{proof}
+Se define 
+\[\alpha = \sum_{x \in D_F}p(x)\] Si fuese $\alpha = 0$ o $\alpha = 1$, $F$ sería continua o discreta (respectivamente) y la descomposición sale gratis. Se supone entonces que $0 < \alpha < 1$. Sea $G \colon \R \to [0,1]$ la función definida por
+\[G(x) = \frac{1}{\alpha}\sum_{\substack{t \in D_F \\ t \leq x}} p(t)\]
+Es fácil comprobar que $G$ es una función de distribución, y además cumple
+\[\sum_{x \in \R}(G(x)-G(x^-)) = \sum_{x \in \R}\frac{1}{\alpha}\biggl( \, \sum_{\substack{t \in D_F \\ t \leq x}} p(t) - \sum_{\substack{t \in D_F \\ t < x}} p(t) \, \biggr) = \frac{1}{\alpha} \sum_{ x \in \R}p(x) = \frac{1}{\alpha}\alpha = 1,\]
+luego $G$ es una función de distribución discreta.
+Se define también la función $H \colon \R \to [0,1]$ mediante
+\[H(x) = \frac{F(x)-\alpha G(x)}{1-\alpha}\]
+Es claro que $H$ es función de distribución y que $F(x) = \alpha G(x)+(1-\alpha)H(x)$. Además,
+\[F(x)-\alpha G(x) - (F(x^-)-\alpha G(x^-)) = F(x) - F(x^-) -\alpha(G(x)-G(x^-)) = p(x) -\alpha \frac{1}{\alpha}p(x) = 0,\]
+de donde se deduce que $H(x) - H(x^-) = 0$, y por tanto $H$ es continua.
+\end{proof}
+
+\begin{cproposition}
+Sea $F$ una función de distribución mixta asociada a una medida de probabilidad $P$. Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $P(D_F)+P(S_F) = 1$.
+    \item  Si $B \in \mathcal{B}$, entonces
+    \[P(B) = \sum_{x \in D_F \cap B}p(x)+\int_B\tilde{f}(t)dt,\]
+    siempre que $F_c$ sea derivable salvo en un conjunto a lo sumo numerable y siempre que la función de pseudodensidad de $F_c$ sea integrable.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Tampoco se va a demostrar.
+\end{proof}
+
+\begin{example}
+Sea $F \colon \R \to [0,1]$ la función de distribución definida por
+\[F(x) = \begin{cases}
+    0 & $si$ \ x < 0 \\
+    \frac{x^2}{16} & $si$ \ 0 \leq x < 2 \\
+    \frac{1}{4} & $si$ \ 2 \leq x < 4 \\
+    \frac{x}{4}-\frac{5}{8} & $si$ \ 4 \leq x < 5 \\
+    1-\frac{5}{4x} & $si$ \ x \geq 5
+\end{cases}\]
+Se tratará de realizar la descomposición del teorema anterior. En primer lugar, se tiene que
+\[D_F = \{4,5\}, \qquad p(4) = \biggl(\frac{4}{4}-\frac{5}{8}\biggr)-\frac{1}{4} = \frac{1}{8} \qquad \textup{y} \qquad p(5) = \frac{1}{8},\]
+así que $\alpha = \frac{1}{4}$. La parte discreta viene dada por
+\[G(x) = \begin{cases}
+    0 & $si$ \ x < 4 \\
+    \frac{1}{\alpha} p(4) & $si$ \ 4 \leq x < 5 \\
+    \frac{1}{\alpha} (p(4) + p(5)) & $si$ \ 5 \leq x
+\end{cases} = \begin{cases}
+    0 & $si$ \ x < 4 \\
+    \frac{1}{2} & $si$ \ 4 \leq x < 5 \\
+    1 & $si$ \ 5 \leq x
+\end{cases}\]
+La parte continua sería
+\[H(x) = \frac{4}{3}(F(x)-\frac{1}{4}G(x)) = \begin{cases}
+    0 & $si$ \ x < 0 \\
+    \frac{x^2}{12} & $si$ \ 0 \leq x < 2 \\
+    \frac{1}{3} & $si$ \ 2 \leq x < 4 \\
+    \frac{x}{3}-1 & $si$ \ 4 \leq x < 5 \\
+    1-\frac{5}{3x} & $si$ \ 5 \leq x
+\end{cases}\]
+\end{example}
+
+\chapter{Variables aleatorias}
+
+\section{Nociones básicas}
+
+\begin{cdefinition}
+Sean $(X,\mathcal{M}_X)$ e $(Y,\mathcal{M}_Y)$ dos espacios medibles. Una función $f \colon X \to Y$ se dice que es \mybf{{medible con respecto a $\bm{\mathcal{M}_X}$ y $\bm{\mathcal{M}_Y}$}} (o simplemente \mybf{{medible}}) si $f^{-1}(B) \in \mathcal{M}_X$ para todo $B \in \mathcal{M}_Y$. Si $(X,\tau_X)$ y $(X,\tau_Y)$ son espacios topológicos, se dirá que $f$ es una \mybf{{función de Borel}} o que $f$ es \mybf{{medible-Borel}} si es medible con respecto a $\mathcal{B}(X)$ y $\mathcal{B}(Y)$.
+\end{cdefinition}
+
+\begin{cdefinition}
+Sea $(\Omega, \mathcal{A},P)$ un espacio de probabilidad. Una \mybf{{variable aleatoria con respecto a $\bm{\mathcal{A}}$}} (o simplemente \mybf{{variable aleatoria}}) es una función $X \colon \Omega \to \R$ medible, es decir, tal que $X^{-1}(B) \in \mathcal{A}$ para cada $B \in \mathcal{B}$.
+\end{cdefinition}
+
+\begin{cdefinition}
+Dada una variable aleatoria $X \colon \Omega\to \R$ en un espacio de probabilidad $(\Omega,\mathcal{A},P)$, la \mybf{{medida de probabilidad inducida por $\bm{X}$}} no es más que la función $P_X \colon \mathcal{B} \to [0,1]$ definida por $P_X(B) = P(X^{-1}(B))$ para cada $B \in \mathcal{B}$.
+\end{cdefinition}
+
+\begin{cdefinition}
+Dada una variable aleatoria $X \colon \Omega\to \R$ en un espacio de probabilidad $(\Omega,\mathcal{A},P)$, la \mybf{{función de distribución asociada a $\bm{X}$}} no es más que la función $F_X \colon \R \to [0,1]$ definida mediante $F_X(a) = P_X((-\infty,a]) = P(X^{-1}((-\infty,a]))$ para cada $a \in \R$.
+\end{cdefinition}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria y sea $F$ la función de distribución asociada a $X$. El conjunto $D_{F_X} = \{x \in \R \colon p(x) > 0\}$, también denotado por $D_X$, se denomina \mybf{{rango de $\bm{X}$}}.
+\end{cdefinition}
+
+En lugar de $P_X((-\infty,a])$, a veces se utiliza la notación $P(X \leq a)$. En el caso de $P_X(\{a\})$, también se escribe $P(X = a)$, y en general, será habitual escribir $P(X \in B)$ en lugar de $P_X(B)$.
+
+\begin{cdefinition}
+Sea $X \colon \Omega \to \R$ una variable aleatoria en un espacio de probabilidad $(\Omega, \mathcal{A}, P)$.
+\begin{enumerate}
+    \item Se dice que $X$ es \mybf{{discreta}} cuando $F_X$ lo es.
+    \item Se dice que $X$ es \mybf{{continua}} cuando $F_X$ lo es.
+    \item Se dice que $X$ es \mybf{{mixta}} cuando $F_X$ lo es.
+    \item Se dice que $X$ es \mybf{{absolutamente continua}} cuando $F_X$ lo es, es decir, cuando existe una función $f_X \colon \R \to \R$ integrable y no negativa tal que
+    \[F_X(a)= \int_{-\infty}^a f_X(t) dt\]
+    De $f_X$ se dirá que es la \mybf{{función de densidad de $\bm{X}$}}.
+\end{enumerate}
+\end{cdefinition}
+
+En cuanto a las variables aleatorias discretas, lo más natural habría sido definirlas como aquellas que toman un número finito o infinito numerable de valores. ¿Será esto equivalente a la definición que se ha dado en la página anterior?
+
+\vspace{2mm}
+
+Supóngase que $X$ toma un conjunto infinito numerable de valores distintos, llámense $\{x_i\}_{i=1}^\infty$ (en el caso finito se razona igual). Entonces
+\[\sum_{x \in \R}p(x) = \sum_{i=1}^\infty p(x_i) = \sum_{i=1}^\infty P_X(\{x_i\}) = \sum_{i=1}^\infty P(X^{-1}(\{x_i\})) =  P\biggl(\, \bigcup_{i=1}^\infty X^{-1}(\{x_i\}) \biggr) = P(\Omega) = 1,\]
+luego la función de distribución asociada a $X$ es discreta. Para tratar de probar el recíproco, supóngase que
+\[\sum_{x \in \R}p(x) = 1\]
+
+Es bien sabido que el conjunto $D(F_X) = \{x \in \R \colon p(x) > 0\}$ es finito o infinito numerable. Se va a suponer que es infinito numerable (el caso finito se razona igual) y se va a considerar una enumeración $\{x_i\}_{i=1}^\infty$ de los elementos de $D(F_X)$ (lo que quiere decir que todos los $x_i$ son distintos). Entonces
+\[\sum_{x \in \R}p(x) = \sum_{x \in D(F_X)}p(x) = \sum_{i=1}^\infty p(x_i) = P\biggl( X^{-1} \biggl(\,\bigcup_{i=1}^\infty \{x_i\} \biggr)\biggr) = 1 = P(\Omega),\]
+pero esto no implica que se tenga la igualdad
+\[\Omega \overset{(*)}{=} X^{-1} \biggl(\, \bigcup_{i=1}^\infty \, \{x_i\}\biggr)\]
+
+Sin embargo, lo que sí puede afirmarse es que $\Omega$ y $X^{-1}(\bigcup_{i=1}^\infty \{x_i\})$ se diferencian en un conjunto de probabilidad cero. Desde el punto de vista probabilístico, estos conjuntos van a ignorarse por completo, y como el rigor matemático en esta asignatura se suele tomar por el pito del sereno, puede afirmarse sin temor alguno que \textit{una variable aleatoria $X$ toma un número finito o infinito numerable de valores si y solo si $F_X$ es una función de distribución discreta}.
+
+\begin{example}
+Sea $\Omega = \{w_1,w_2,w_3,w_4\}$ un espacio muestral cualquiera y sea $A = \{w_1,w_2\}$. Se considera la $\sigma$-álgebra $\mathcal{A} = \{\Omega, \emptyset, A, A^c\}$ sobre $\Omega$ y se define la variable aleatoria $X \colon \Omega \to \R$ mediante
+\[X(w_1) = X(w_2) = -1, \qquad \qquad X(w_3) = X(w_4) = 1\]
+Veamos que, en efecto, $X$ es una variable aleatoria. Se recuerda que $\mathcal{B}$ es la $\sigma$-álgebra generada por el conjunto 
+\[E = \{(-\infty,x] \colon x \in \R\}\]
+Por tanto, será suficiente demostrar que para todo $a \in \R$ se verifica que $X^{-1}((-\infty,a]) \in \mathcal{A}$. Tomamos $a \in \R$.
+\begin{enumerate}
+    \item Si $a < -1$, entonces $X^{-1}((-\infty,a]) = \emptyset$, que está en $\mathcal{A}$ por ser $\sigma$-álgebra.
+    \item Si $1 \leq a < 2$, entonces $X^{-1}((-\infty,a]) = \{w_1,w_2\} = A$, que está en $\mathcal{A}$ por cómo se ha definido.
+    \item Si $2 \leq a$, entonces $X^{-1}((-\infty,a]) = \{w_1,w_2,w_3,w_4\} = \Omega$, que está en $\mathcal{A}$ por ser $\sigma$-álgebra.
+\end{enumerate}
+Ya puede afirmarse con valentía que $X$ es una variable aleatoria.
+\end{example}
+
+\begin{example}
+Sean $\Omega = [0,4]$, $\mathcal{A} = [0,4] \cap \mathcal{B}$. Se define la función $X \colon \Omega \to \R$ mediante
+\[
+X(\omega) = \begin{cases}
+    \omega+1 & $si$ \ 0 \leq \omega < 2 \\
+    2 & $si$ \ 2 \leq \omega < 3 \\
+    9-2\omega & $si$ \ 3 \leq \omega \leq 4
+\end{cases}
+\]
+Se tratará de ver que $X$ es variable aleatoria. Sea $a \in \R$.
+\begin{enumerate}
+    \item Si $a < 1$, entonces $X^{-1}((-\infty,a]) = \emptyset \in \mathcal{A}$.
+    \item Si $1 \leq a < 2$, entonces $X^{-1}((-\infty,a]) = [0,a-1] \cup [\frac{9-a}{2},4] \in \mathcal{A}$.
+    \item Si $2 \leq a < 3$, entonces $X^{-1}((-\infty,a]) = [0,a-1] \cup [2,3] \cup [\frac{9-a}{2},4] \in \mathcal{A}$.
+    \item Si $3 \leq a$, entonces $X^{-1}((-\infty,a]) = [0,4] \in \mathcal{A}$.
+\end{enumerate}
+Por tanto, $X$ es variable aleatoria. Su gráfica es
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    axis line style = thick,
+    axis lines = left,
+    xmin = 0,
+    xmax = 4.3,
+    ymin = 0,
+    ymax = 3.3,
+    xtick={0.5,1,2,3,3.75,4},
+    ytick={1,1.5,2,3},
+    xticklabels={\tiny $a-1$,1,2,3,\tiny $\frac{9-a}{2}$,4},
+    yticklabels={1,\tiny $a$,2,3},
+]
+\addplot[thick, samples=50, smooth, red] coordinates {(0,1)(2,3)};
+\addplot[thick, samples=50, smooth, red] coordinates {(2,2)(3,2)};
+\addplot[thick, samples=50, smooth, red] coordinates {(3,3)(4,1)};
+\addplot[thick, samples=50, smooth, gray, dotted] coordinates {(0,1.5)(3.75,1.5)} node[pos = 4/30, fill, circle, gray, inner sep = 0pt, minimum size = 5pt] {} node[pos = 1, fill, circle, gray, inner sep = 0pt, minimum size = 5pt] {};
+\addplot[thick, samples=50, smooth, gray, dotted] coordinates {(0.5,0)(0.5,1.5)};
+\addplot[thick, samples=50, smooth, gray, dotted] coordinates {(3.75,0)(3.75,1.5)};
+\addplot[incl, red] coordinates {(0,1)};
+\addplot[incl, red] coordinates {(2,2)};
+\addplot[excl, red, fill=white] coordinates {(2,3)};
+\addplot[excl, red, fill=white] coordinates {(3,2)};
+\addplot[excl, red] coordinates {(3,3)};
+\addplot[excl, red] coordinates {(4,1)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\noindent Si se considera ahora la medida de probabilidad dada por $P(A)=\frac{1}{4}l(A)$, con $l(A)$ la longitud de $A$, la función de distribución asociada a la variable aleatoria $X$ vendría dada por
+\[F_X(a) = \begin{cases}
+    0 & $si$ \ a < 1 \\
+    \frac{3a-3}{8} & $si$ \ 1 \leq 2 \\
+    \frac{3a-1}{8} & $si$ \ 2 \leq a < 3 \\
+    1 & $si$ \ a \geq 3
+\end{cases}\]
+La gráfica de $F_X$ sería
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    unit vector ratio = 1 2 1
+    axis line style = thick,
+    axis lines = center,
+    xmin = -0.5,
+    xmax = 3.8,
+    ymin = 0,
+    ymax = 1.1,
+    xtick={1,2,3},
+    ytick={3/8,5/8,1},
+    xticklabels={1,2,3},
+    yticklabels={$\frac{3}{8}$,$\frac{5}{8}$,1},
+]
+\addplot[thick, samples=50, smooth, red] coordinates {(-1,0)(1,0)};
+\addplot[thick, samples=50, smooth, red] coordinates {(1,0)(2,3/8)};
+\addplot[thick, samples=50, smooth, red] coordinates {(2,5/8)(3,1)};
+\addplot[thick, samples=50, smooth, red] coordinates {(3,1)(3.8,1)};
+\addplot[incl, red] coordinates {(2,5/8)};
+\addplot[excl, red, fill=white] coordinates {(2,3/8)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{example}
+
+\begin{example}
+Sea $\Omega = \R_+$, sea $\mathcal{A} = \mathcal{B} \cap \R_+$ y, para cierto $\lambda >0$, sea $P \colon \mathcal{A} \to [0,1]$ la función definida mediante $P([0,\omega]) = P([0,\omega)) = 1-e^{-\lambda \omega}$. Se considera la variable aleatoria $X \colon \Omega \to \R$ dada por
+\[X(\omega) = \begin{cases}
+    3(3\omega-1) & $si$ \ 0 \leq \omega < \frac{1}{3} \\
+    0 & $si$ \ \frac{1}{3} \leq \omega < 2 \\
+    1 & $si$ \ 2 \leq \omega < 3 \\
+    3 & $si$ \ 3 \leq \omega
+\end{cases}\]
+Se tratará de construir la función de distribución $F_X$. La gráfica de $X$ es
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95]
+\begin{axis}[
+    unit vector ratio = 2 2 2
+    axis line style = thick,
+    axis lines = center,
+    xmin = 0,
+    xmax = 4,
+    ymin = -3.5,
+    ymax = 3.5,
+    xtick={1,2,3},
+    ytick={-3,-2,-1,1,2,3},
+    xticklabels={1,2,3},
+    yticklabels={-3,-2,-1,1,2,3},
+]
+\addplot[thick, samples=50, smooth, red] coordinates {(0,-3)(1/3,0)};
+\addplot[thick, samples=50, smooth, red] coordinates {(1/3,0)(2,0)};
+\addplot[thick, samples=50, smooth, red] coordinates {(2,1)(3,1)};
+\addplot[thick, samples=50, smooth, red] coordinates {(3,3)(4,3)};
+\addplot[incl, red] coordinates {(2,1)};
+\addplot[incl, red] coordinates {(3,3)};
+\addplot[excl, red, fill=white] coordinates {(2,0)};
+\addplot[excl, red, fill=white] coordinates {(3,1)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\noindent Sea $a \in \R$.
+\begin{enumerate}
+    \item Si $a < -3$, entonces $X^{-1}((-\infty,a]) = \emptyset$, luego $F_X(a) = 0$.
+    \item Si $-3 \leq a < 0$, entonces $X^{-1}((-\infty,a]) = [0,\frac{a+3}{9}]$, luego $F_X(a) = 1-e^{-\lambda(\frac{a+3}{9})}$.
+    \item Si $0 \leq a < 1$, entonces $X^{-1}((-\infty,a]) = [0,2)$, luego $F_X(a) = 1-e^{-2\lambda}$.
+    \item Si $1 \leq a <3$, entonces $X^{-1}((-\infty,a]) = [0,3)$, luego $F_X(a) = 1-e^{-3\lambda}$.
+    \item Si $3 \leq a$, entonces $F_X(a)=1$.
+\end{enumerate}
+En resumidas cuentas,
+\[
+F_X(a)= \begin{cases}
+    0 & $si$ \ a < -3 \\
+    1-e^{-\lambda(\frac{a+3}{9})} & $si$ \ -3 \leq a < 0 \\
+    1-e^{-2\lambda} & $si$ \ 0 \leq a < 1 \\
+    1-e^{-3\lambda} & $si$ \ 1 \leq a < 3 \\
+    1 & $si$ \ 3 \leq a
+\end{cases}
+\]
+
+\end{example}
+
+\begin{example}
+Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad y sea $X \colon \Omega \to \R$ una variable aleatoria discreta cuyos valores son todos los números naturales. Supóngase que la medida de probabilidad inducida por la variable aleatoria $X$ viene dada por $P(X^{-1}(\{n\})) \equiv P(X = n) = p(1-p)^{n-1}$ para todo $n \in N$, siendo $p \in (0,1)$ constante. Se define ahora la función $Y \colon \Omega \to \R$ que envía cada $\omega \in \Omega$ al resto de la división entera $\frac{X}{3}$. Es claro que $Y$ es también una variable aleatoria discreta, y se tiene que
+\begin{enumerate}
+    \item $P(Y=0) = P(X=3)+P(X=6)+P(X=9)+\mathellipsis = p[(1-p)^2+(1-p)^5+(1-p)^8+\mathellipsis]$.
+    \item $P(Y=1) = P(X=1)+P(X=4)+P(X=7)+\mathellipsis = p[1+(1-p)^3+(1-p)^6+\mathellipsis]$.
+    \item $P(Y=2) = P(X=2)+P(X=5)+P(X=8)+\mathellipsis = p[1-p+(1-p)^4+(1-p)^7+\mathellipsis]$.
+\end{enumerate}
+
+\end{example}
+
+\begin{cproposition}
+Sea $\mathcal{S}$ un subconjunto de $\mathcal{B}$ tal que $\sigma(\mathcal{S})=\mathcal{B}$. Una función $X \colon \Omega \to \R$ es una variable aleatoria si y solo si $X^{-1}(E) \in \mathcal{A}$ para todo $E \in \mathcal{S}$.
+\end{cproposition}
+
+\begin{proof}
+Una de las implicaciones es trivial. Supóngase que $X^{-1}(E) \in \mathcal{A}$ para cada $E \in \mathcal{S}$. Sea $\mathcal{D} = \{D \in \mathcal{B} \colon X^{-1}(D) \in \mathcal{A}\}$. Probar que $X$ es variable aleatoria es lo mismo que probar que $\mathcal{D} = \mathcal{B}$. Se tiene que $\mathcal{S} \subset \mathcal{D} \subset \mathcal{B}$, luego $\sigma(\mathcal{S}) = \mathcal{B} \subset \sigma(\mathcal{D})$. Basta demostrar entonces que $\mathcal{D}$ es $\sigma$-álgebra sobre $\R$. 
+
+\begin{enumerate}
+    \item $\R \in \mathcal{D}$ porque $X^{-1}(\R) = \Omega \in \mathcal{A}$ al ser $\mathcal{A}$ $\sigma$-álgebra.
+    \item Si $D \in \mathcal{D}$, entonces $X^{-1}(D^c) = X^{-1}(D)^c \in \mathcal{A}$ porque $X^{-1}(D) \in \mathcal{A}$ y $\mathcal{A}$ es $\sigma$-álgebra. Por tanto, $D^c \in \mathcal{D}$.
+    \item Si $\{D_i\}_{i \in I}$ es una familia numerable de elementos de $\mathcal{D}$, entonces
+    \[X^{-1}\biggl(\, \bigcup_{i \in I} D_i \biggr) = \bigcup_{i \in I}X^{-1}(D_i)\]
+    Por definición de $\mathcal{D}$, se tiene que $X^{-1}(D_i) \in \mathcal{A}$ para cada $i \in I$, y como $\mathcal{A}$ es $\sigma$-álgebra, la unión de los $X^{-1}(D_i)$ también es un elemento de $\mathcal{A}$. Esto demuestra que
+    \[\bigcup_{i \in I} D_i \in \mathcal{D}\]
+\end{enumerate}
+
+    Se concluye que $\sigma(\mathcal{D}) = \mathcal{D}$. Por tanto, $\mathcal{B} \subset \sigma(\mathcal{D}) = \mathcal{D}$, luego $\mathcal{D} = \mathcal{B}$ y queda demostrado que $X$ es variable aleatoria.
+\end{proof}
+
+\begin{cproposition}
+\label{prop1.4.}
+Sea $\varphi \colon \R \to \R$ una función de Borel y sea $X \colon \Omega \to \R$ una variable aleatoria. Entonces la composición $\varphi \circ X$ es también una variable aleatoria.
+\end{cproposition}
+
+\begin{proof}
+Sea $B \in \mathcal{B}$. Por ser $\varphi$ medible, se tiene que $\varphi^{-1}(B) \in \mathcal{B}$, y como $X$ es variable aleatoria, entonces $X^{-1}(\varphi^{-1}(B)) = (\varphi \circ X)^{-1}(B)$, luego $\varphi \circ X$ es variable aleatoria.
+\end{proof}
+
+\begin{example}
+Sea $X \colon \Omega \to \R$ una variable aleatoria y sea $\varphi \colon \R \to \R$ la función definida por $\varphi(x) = ax+b$, con $a > 0$. Es claro que $\varphi$ es una función de Borel, luego $Y = \varphi \circ X$ es variable aleatoria. Además, si $y \in \R$,
+\[F_Y(y) = P(Y^{-1}(-\infty,y]) = P(X^{-1}(\varphi^{-1}((-\infty,y]))) = P(X^{-1}(-\infty,\textstyle{\frac{y-b}{a}}]) = F_X(\textstyle{\frac{y-b}{a}})\]
+\end{example}
+
+\begin{example}
+Sea $X$ una variable aleatoria absolutamente continua con función de densidad
+\[f_X(x) = \begin{cases}
+    e^{-x} & $si$ \ x > 0 \\
+    0 & $en caso contrario$
+\end{cases}\]
+Sea $Y = [X]$ la variable aleatoria dada por la parte entera de $X$. Es fácil comprobar que la parte entera es una función de Borel, implicando que $Y$ es, efectivamente, una variable aleatoria. Además,
+\begin{enumerate}
+    \item $P(Y = 0) = P(0 \leq X < 1) = \displaystyle{\int_0^1 e^{-x}dx}= 1-\frac{1}{e}$;
+    \item $P(Y = 1) = P(1 \leq X < 2) = \displaystyle{\int_1^2 e^{-x}dx = \frac{1}{e}-\frac{1}{e^2}}$;
+    \item $P(Y = n) = P(n \leq X < n+1) = \displaystyle{\int_n^{n+1} e^{-x}dx = \frac{1}{e^n}-\frac{1}{e^{n+1}}}$ para cada $n \in \N$.
+\end{enumerate}
+\end{example}
+
+\begin{cproposition}
+Sean $X$ e $Y$ variables aleatorias en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. Entonces
+\begin{enumerate}
+    \item $X+Y$ es una variable aleatoria.
+    \item $\lambda X$ es una variable aleatoria para todo $\lambda \in \R$.
+    \item $XY$ es una variable aleatoria.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Ya se vio en la asignatura \textit{Introducción a la Probabilidad y a la Estadística}.
+\end{proof}
+
+\begin{cproposition}
+Sean $(\Omega,\tau)$ y $(\Omega',\tau')$ espacios topológicos y sea $f \colon \Omega \to \Omega'$ una aplicación continua. Entonces $f$ es medible con respecto a $\mathcal{B}(\Omega)$ y $\mathcal{B}(\Omega')$.
+\end{cproposition}
+
+\begin{proof}
+Como $\tau'$ genera $\mathcal{B}(\Omega')$, basta ver que $f^{-1}(B) \in \mathcal{B}(\Omega)$ para todo $B \in \tau'$. Por ser $f$ continua y $B$ abierto, se tiene que $f^{-1}(B)$ es abierto de $\tau$, luego $f^{-1}(B) \in \sigma(\tau) = \mathcal{B}(\Omega)$.
+\end{proof}
+
+\begin{cproposition}
+\label{prop3.5.}
+Sea $(\Omega, \mathcal{A})$ un espacio medible. Dadas $n$ funciones $f_1,f_2,\mathellipsis,f_n \colon \Omega \to \R$, se define $f =(f_1,f_2,\mathellipsis,f_n) \colon \Omega \to \R^n$. Entonces $f$ es medible (con respecto a $\mathcal{A}$ y $\mathcal{B}_{\R^n}$) si y solo si $f_i$ es medible (con respecto a $\mathcal{A}$ y $\mathcal{B}_\R$) para todo $i = 1,2,\mathellipsis,n$.
+\end{cproposition}
+
+\begin{proof}
+Supóngase que $f$ es medible. Para cada $i =1,2,\mathellipsis,n$, se considera la proyección
+\[
+\begin{aligned}[t]
+    \pi_i \colon \R^n &\longrightarrow \R \\
+    (x_1,x_2,\mathellipsis,x_n) &\longmapsto x_i
+\end{aligned}
+\]
+Es claro que $\pi_i$ es una aplicación continua. Como $\pi_i$ es medible con respecto a $\mathcal{B}_{\R^n}$ y $\mathcal{B}_\R$ (usando la proposición anterior), entonces $\pi_i^{-1}(B) \in \mathcal{B}_{\R^n}$, y como $f$ es medible con respecto a $\mathcal{A}$ y $\mathcal{B}_{\R^n}$ (por hipótesis), entonces $f^{-1}(\pi_i^{-1}(B)) = (\pi_i \circ f)^{-1}(B) = f_i^{-1}(B) \in \mathcal{A}$. Por tanto, $f^{-1}_i$ es medible.
+
+\vspace{2mm}
+
+Supóngase ahora que $f_i$ es medible para cada $i=1,2,\mathellipsis,n$. Basta ver que $f^{-1}((-\infty,b]) \in \mathcal{A}$ para cada $b =(b_1,b_2,\mathellipsis,b_n)\in \R^n$, siendo
+\[(-\infty,b] = (-\infty,b_1] \times (-\infty,b_2] \times \mathellipsis \times (-\infty,b_n]\]
+En efecto, es fácil probar que
+\[f^{-1}((-\infty,b]) = \bigcap_{i=1}^\infty f^{-1}_i((-\infty,b_i]),\]
+de donde se deduce que $f^{-1}((-\infty,b]) \in \mathcal{A}$ por ser intersección numerable de elementos de $\mathcal{A}$.
+\end{proof}
+
+\section{Variables aleatorias simples}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega, \mathcal{A},P)$. Se dice que $X$ es \mybf{{simple}} si toma un número finito de valores, en cuyo caso se puede escribir
+\[X(\omega) = \sum_{i=1}^n \alpha_i \mathbbm{1}_{A_i}(\omega),\]
+donde los $\alpha_i$ son los valores que toma $X$, $\mathbbm{1}$ es la función indicadora y $A_i = X^{-1}(\{\alpha_i\})$ para cada $i = 1,\mathellipsis,n$. Dicha representación es denominada \mybf{{representación canónica de $\bm{X}$}}.
+\end{cdefinition}
+
+\begin{example}
+Considérese el experimento consistente en el lanzamiento de $3$ monedas, proporcionando el espacio muestral siguiente:
+\[\Omega = \{CCC,CCF,CFC,FCC,CFF,FCF,FFC,FFF\}\]
+Sea $X$ la variable aleatoria que toma como valores el número de caras en cada lanzamiento y defínanse los conjuntos
+
+\vspace{-0.5\baselineskip}
+
+\begin{multicols}{2}
+\begin{enumerate}
+    \item $A_1 = X^{-1}(\{0\}) = \{CCC\}$.
+    \item $A_2 = X^{-1}(\{1\}) = \{CCF,CFC,FCC\}$.
+    \item $A_3 = X^{-1}(\{2\}) = \{CFF,FCF,FFC\}$.
+    \item $A_4 = X^{-1}(\{3\}) = \{FFF\}$.
+\end{enumerate}
+\end{multicols}
+
+\vspace{-\baselineskip}
+
+La representación canónica de $X$ es
+\[X(\omega) = 0 \cdot \mathbbm{1}_{A_1}(\omega)+1 \cdot \mathbbm{1}_{A_2}(\omega)+2 \cdot \mathbbm{1}_{A_3}(\omega)+3 \cdot \mathbbm{1}_{A_4}(\omega)\]
+\end{example}
+
+\begin{cdefinition}
+Dado un espacio de probabilidad $(\Omega, \mathcal{A}, P)$, una \mybf{{partición de $\bm{\Omega}$}} no es más que una familia numerable $\mathcal{D}=\{D_i\}_{i \in I}$ de elementos de $\mathcal{A}$ tales que $D_i \cap D_j = \emptyset$ para todo $i \neq j$ y 
+\[\bigcup_{i \in I}D_i = \Omega\]
+\end{cdefinition}
+
+\begin{cproposition}
+Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad y sea $\mathcal{D} = \{D_i\}_{i=1}^\infty$ una partición de $\Omega$. Entonces $X \colon \Omega \to \R$ es una variable aleatoria con respecto a $\sigma(\mathcal{D})$ si y solo si es constante en cada $D_i$.
+\end{cproposition}
+
+\begin{proof}
+Supongamos que $X$ es variable aleatoria. Sea $n \in \N$ y veamos que $X$ es constante en $D_n$. Sea $\omega_n \in D_n$ y sea $x_n = X(\omega_n)$. Como $\{x_n\}$ es un cerrado de $\R$, entonces $\{x_n\} \in \mathcal{B}$, y como $X$ es variable aleatoria, entonces $X^{-1}(\{x_n\}) \in \sigma(\mathcal{D})$. Se sabe que
+\[\sigma(\mathcal{D}) = \biggl\{\, \bigcup_{i \in I}D_i \colon I \subset \N\biggr\}\]
+Por tanto, existe $I \subset \N$ tal que
+\[X^{-1}(\{x_n\}) = \bigcup_{i \in I}D_i\]
+Como se tiene que $\omega_n \in X^{-1}(\{x_n\})$ y $D_n$ es el único elemento de la partición que contiene a $\omega_n$, entonces
+\[D_n \subset \bigcup_{i \in I}D_i = X^{-1}(\{x_n\}),\]
+luego para todo $\omega \in D_n$ se verifica $X(\omega) = X(\omega_n) = x_n$.
+
+\vspace{2mm}
+
+Suponemos ahora que $X$ es constante $x_i$ en cada $D_i$ y veamos que $X^{-1}(B) \in \sigma(\mathcal{D})$ para cada $B \in \mathcal{B}$. Sea $B \in \mathcal{B}$. Entonces
+\[X^{-1}(B) = \{\omega \in \Omega \colon X(\omega) \in B\} = \bigcup_{i=1}^{\infty}\, \{w \in D_i \colon X(\omega) \in B\}\]
+Ahora bien,
+\[\{w \in D_i \colon X(\omega) \in B\} = \begin{cases}
+    D_i & $si$ \ x_i \in B \\
+    \emptyset & $si$ \ x_i \notin B
+\end{cases}\]
+Se concluye por tanto que $X^{-1}(B)$ es unión de elementos de $\sigma(\mathcal{D})$.
+\end{proof}
+
+Obsérvese que $X$ es constante en cada $D_i$ si y solo si existe una sucesión de números reales $\{\alpha_i\}_{i=1}^\infty$ de modo que
+\[X(\omega) = \sum_{i=1}^\infty \alpha_i \mathbbm{1}_{D_i}(\omega)\]
+para cada $\omega \in \Omega$. Aunque no lo parezca, este simple resultado será de cierta utilidad en el futuro.
+
+\section{Cambio de variable}
+
+\vspace{-0.5\baselineskip}
+
+Dada una función de Borel $\varphi \colon \R \to \R$ y una variable aleatoria $X \colon \Omega \to \R$, es bien sabido que $Y = \varphi \circ X$ es también una variable aleatoria. Los siguientes resultados, cuyas demostraciones no corresponden a esta asignatura, serán útiles en ciertos casos en los que $X$ sea absolutamente continua y se quieran hallar las funciones $P_Y$ o $F_Y$.
+
+\begin{ctheorem}[{Teorema del cambio de variable}]
+\label{teo3.1.}
+Considérese una variable aleatoria absolutamente continua $X$ con función de densidad $f_X$ y sea $\varphi \colon I \to \R$ una función de Borel, estrictamente monótona y con derivada continua. Entonces $Y = \varphi \circ X$ es una variable aleatoria absolutamente continua cuya función de densidad viene dada por
+\[f_Y(y) = f_X(\varphi^{-1}(y)) |(\varphi^{-1})'(y)|\]
+\end{ctheorem}
+
+\begin{ctheorem}[{Teorema del cambio de variable generalizado}]
+Considérese una variable aleatoria absolutamente continua $X$ con función de densidad $f_X$. Sea $\{D_i\}_{i=1}^N$ una partición de un intervalo $I$ y sea $\varphi \colon I \to \R$ una función de Borel tal que $\varphi|_{D_i}$ es estrictamente monótona y con derivada continua. Entonces $Y = \varphi \circ X$ es una variable aleatoria absolutamente continua cuya función de densidad viene dada por   
+\[f_Y(y) = \sum_{i=1}^N f_X(\varphi^{-1}_i(y)) |(\varphi^{-1}_i)'(y)|\]
+\end{ctheorem}
+
+\chapter{Distribuciones de probabilidad usuales}
+
+\section{Distribuciones de probabilidad discretas}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria discreta en un espacio de probabilidad $(\Omega,\mathcal{A},P)$.
+\begin{enumerate}
+    \item Dado $x_0 \in \R$, se dice que $X$ sigue una \mybf{{distribución degenerada en el punto $\bm{x_0}$}}, y se denota $X \sim D(x_0)$, cuando
+    \[P(X = x) = \begin{cases}
+        1 & $si$ \ x = x_0 \\
+        0 & $si$ \ x \neq x_0
+    \end{cases}\]
+    para cada $x \in \R$.
+    \item Dados $n$ puntos $\{x_1,\mathellipsis,x_n\}$ distintos, se dice que $X$ sigue una \mybf{{distribución uniforme sobre los $\bm{n}$ puntos}}, y se denota $X \sim U(\{x_1,\mathellipsis,x_n\})$, cuando
+    \[P(X=x) = \begin{cases}
+        \displaystyle\frac{1}{n} & $si$ \ x \in \{x_1,\mathellipsis,x_n\} \\[10pt]
+        0 & $si$ \ x \in \{x_1,\mathellipsis,x_n\}^c
+    \end{cases}\]
+    para cada $x \in \R$.
+    \item Dado $p \in (0,1)$, se dice que $X$ sigue una \mybf{{distribución de Bernoulli de parámetro $\bm{p}$}}, y se denota $X \sim Ber(p)$, cuando
+    \[P(X=0) = 1-p, \quad P(X=1) = p \quad \textup{y} \quad P(X = x)=0 \ \ \textup{en el resto}\]
+    Usualmente se escribe $q = 1-p$.
+    \item Dado $n \in \N$ y dado $p \in (0,1)$, se dice que $X$ sigue una \mybf{{distribución binomial de parámetros $\bm{n}$ y $\bm{p}$}}, y se denota $X \sim Bin(n,p)$, cuando
+    \[P(X=k)= {n \choose k}p^kq^{n-k} \ \ \textup{para cada } k \in \N \textup{ con }k \leq n, \quad \textup{y} \quad P(X = x)=0 \ \ \textup{en el resto}\]
+    \item Dado $p \in (0,1)$, se dice que $X$ sigue una \mybf{{distribución geométrica de parámetro $\bm{p}$}}, y se denota $X \sim Geo(p)$, cuando
+    \[P(X= n ) = q^np \ \ \textup{para cada } n \in \N \cup \{0\}, \quad \textup{y} \quad P(X = x)=0 \ \ \textup{en el resto}\]
+    \item Dado $\lambda > 0$, se dice que $X$ sigue una \mybf{{distribución de Poisson de parámetro $\bm{\lambda}$}}, y se denota $X \sim P(\lambda)$, cuando
+    \[P(X = k) = e^{-\lambda}\frac{\lambda^k}{k!} \ \ \textup{para cada } k \in \N\cup \{0\}, \quad \textup{y} \quad P(X = x)=0 \ \ \textup{en el resto}\]
+\end{enumerate}
+\end{cdefinition}
+
+\begin{example} Dada una variable aleatoria discreta, a cada distribución de probabilidad se le asocia de manera más o menos natural un experimento aleatorio con diversas características:
+\begin{enumerate}
+    \item Una distribución degenerada está asociada a un experimento aleatorio con un solo resultado, como tirar un dado de una cara.
+    \item Una distribución uniforme está asociada a un experimento aleatorio con varios resultados de igual probabilidad, como tirar un dado de seis caras.
+    \item Una distribución de Bernoulli de parámetro $p \in (0,1)$ está asociada a un experimento aleatorio con dos posibles resultados. Los valores que toma la variable aleatoria son $0$ (\textit{fracaso}, de probabilidad $q = 1-p$) o $1$ (\textit{éxito}, de probabilidad $p$).
+    \item Una distribución binomial de parámetros $n \in \N$ y $p \in (0,1)$ está asociada a un experimento que consiste en realizar $n$ pruebas de Bernoulli, todas con probabilidad de éxito $p$. Los valores que toma la variable aleatoria son el número de éxitos (o de fracasos).
+    \item Una distribución geométrica de parámetro $p \in (0,1)$ está asociada a un experimento aleatorio que consiste en realizar un número indefinido de pruebas de Bernoulli hasta que aparezca el primer éxito, de probabilidad $p$. Los valores que toma la variable aleatoria son el número de fracasos antes de conseguir el primer éxito.
+    \item Una distribución de Poisson de parámetro $\lambda >0$ está asociada a un experimento aleatorio que consiste en contar el número de ocurrencias de un fenómeno aleatorio, de frecuencia de ocurrencia media $\lambda$, durante un periodo de tiempo fijo o en una región fija del espacio. Los valores que toma la variable aleatoria son el número de ocurrencias por unidad de tiempo o de espacio.
+\end{enumerate}
+\end{example}
+
+\section{Distribuciones de probabilidad absolutamente continuas}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria absolutamente continua con función de densidad $f$ en un espacio de probabilidad $(\Omega,\mathcal{A},P)$.
+\begin{enumerate}
+    \item Dado un intervalo $[a,b] \subset \R$, se dice que $X$ sigue una \mybf{{distribución uniforme en $\bm{[a,b]}$}}, y se denota $X \sim U([a,b])$, cuando
+    \[f(x)=\begin{cases}
+        \displaystyle{\frac{1}{b-a}} & $ si $ x \in [a,b] \\[5pt]
+        0 & $ en otro caso$
+    \end{cases}\]
+    \item Dados $\mu \in \R$ y $\sigma^2 > 0$, se dice que $X$ sigue una \mybf{{distribución normal de parámetros $\bm{\mu}$ y $\bm{\sigma^2}$}}, y se denota $X \sim N(\mu,\sigma^2)$, cuando
+    \[f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}} \quad \textup{para cada } x \in \R\]
+    Cuando $\mu=0$ y $\sigma^2=1$, se habla de \mybf{{distribución normal estándar}}.
+    \item Dado $\lambda > 0$, se dice que $X$ sigue una \mybf{{distribución exponencial de parámetro $\bm{\lambda}$}}, y se denota $X \sim Exp(\lambda)$, cuando
+    \[f(x) = \begin{cases}
+        \lambda e^{-\lambda x} & $si$ \ x \geq 0 \\
+        0 & $si$ \ x < 0
+    \end{cases}\]
+\end{enumerate}
+\end{cdefinition}
+
+
+\chapter{Probabilidad condicionada}
+
+\section{Probabilidad condicionada de sucesos}
+
+\begin{cdefinition}
+Considérese un espacio de probabilidad $(\Omega, \mathcal{A}, P)$. Dados $A,B \in \mathcal{A}$ con $P(B) >0$, la \mybf{{probabilidad condicionada del suceso $\bm{A}$ con respecto al suceso $\bm{B}$}} se define como
+\[P(A \, | \, B) \coloneqq \frac{P(A \cap B)}{P(B)}\]
+\end{cdefinition}
+
+\begin{cproposition}
+Siempre que las probabilidades condicionadas tengan sentido, se verifica:
+\begin{enumerate}
+    \item $P(A \, | \, A) = 1$.
+    \item $P(\emptyset \, | \, A) = 0$.
+    \item Si $B \subset A$, entonces $P(A\, | \,B) = 1$.
+    \item Si $A_1$ y $A_2$ son disjuntos, entonces $P(A_1 \cup A_2\, | \,B) = P(A_1|B)+P(A_2\, | \,B)$.
+    \item $P(A\, | \,B)+P(A^c\, | \,B) = 1$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Bastante inmediata.
+\end{proof}
+
+\begin{cproposition}
+Sea $(\Omega, \mathcal{A}, P)$ un espacio de probabilidad y sea $ B \in \mathcal{A}$ con $P(B)>0$. Entonces $( \Omega, \mathcal{A},P(\, \cdot \, | \, B))$ es un espacio de probabilidad, donde
+\[
+\begin{aligned}[t]
+    P(\, \cdot \, | \, B) \colon \mathcal{A} &\longrightarrow [0,1] \\
+    A &\longmapsto P(A \, | \, B)
+\end{aligned}
+\]
+\end{cproposition}
+
+\begin{proof}
+Es una simple comprobación.
+\end{proof}
+
+\begin{ctheorem}[{Teorema de la probabilidad total}]
+Sea $(\Omega,\mathcal{A},P)$ un espacio de probabilidad y sea $\mathcal{D} = \{D_i\}_{i \in I}$ una partición de $\Omega$ tal que $P(D_i) >0$ con $i \in I$. Entonces, dado $A \in \mathcal{A}$,
+\[P(A) = \sum_{i \in I} P(A \, | \, D_i)P(D_i)\]
+\end{ctheorem}
+
+\begin{proof}
+Ya se vio en la asignatura \textit{Introducción a la Probabilidad y a la Estadística}.
+\end{proof}
+
+\begin{ctheorem}[{Teorema de Bayes}]
+\label{teo5.2.}
+Considérese un espacio de probabilidad $(\Omega, \mathcal{A},P)$ y sea $\mathcal{D} = \{D_i\}_{i \in I}$ una partición de $\Omega$ tal que $P(D_i) > 0$ para cada $i \in I$. Dado $A \in \mathcal{A}$ con $P(A) >0$, se tiene
+\[P(D_i \, | \, A) = \frac{P(A \, | \, D_i)P(D_i)}{\displaystyle{\sum_{j \in I}P(A \, | \, D_j)P(D_j)}}\]
+para todo $i \in I$.
+\end{ctheorem}
+
+\begin{proof}
+Ya se vio en la asignatura \textit{Introducción a la Probabilidad y a la Estadística}.
+\end{proof}
+
+\section{Dependencia e independencia de sucesos}
+
+\begin{cdefinition}
+Sea $(\Omega, \mathcal{A}, P)$ un espacio de probabilidad.
+\begin{enumerate}
+    \item Dos sucesos $A,B \in \mathcal{A}$ son \mybf{{independientes}} cuando 
+    \[P(A \cap B) = P(A)P(B)\]
+    \item Los sucesos de una familia $\{A_1,A_2,\mathellipsis,A_n\} \subset \mathcal{A}$ son \mybf{{mutuamente independientes}} si para toda subcolección finita $\{A_{i_1},A_{i_2},\mathellipsis,A_{i_k}\}$, con $k \leq n$, se tiene que
+    \[P(A_{i_1} \cap A_{i_2} \cap \mathellipsis \cap A_{i_k}) = P(A_{i_1})P(A_{i_2})\mathellipsis P(A_{i_k})\]
+\end{enumerate}
+\end{cdefinition}
+
+Por ejemplo, para el caso de tres sucesos $A_1,A_2$ y $A_3$, la independencia mutua requerirá que se verifique
+\[P(A \cap B) = P(A)P(B), \quad P(A \cap C) = P(A)P(C), \quad P(B \cap C) =P(B)P(C)\]
+\[\text{y} \quad P(A\cap B \cap C) =P(A)P(B)P(C)\]
+
+Evidentemente, la independencia mutua de sucesos implica la independencia a pares, pero el recíproco no es cierto. 
+
+\begin{example}
+Se considera el espacio de probabilidad $(\Omega, \mathcal{P}(\Omega),P)$, donde $\Omega = \{\omega_1,\omega_2,\omega_3,\omega_4\}$ y $P(\omega_i) = \frac{1}{4}$ para todo $i=1,2,3,4.$ Considérense los sucesos $A= \{\omega_1,\omega_2\}$, $B=\{\omega_1,\omega_3\}$ y $C=\{\omega_1,\omega_4\}$. Se tiene que
+
+\begin{multicols}{2}
+\begin{enumerate}
+    \item $P(A) = \displaystyle{\frac{1}{2}}$
+    \item $P(B) = \displaystyle{\frac{1}{2}}$
+    \item $P(C) = \displaystyle{\frac{1}{2}}$
+    \item $P(A \cap B) = \displaystyle{\frac{1}{4}} =P(A)P(B)$
+    \item $P(A \cap C) = \displaystyle{\frac{1}{4}} =P(A)P(C)$
+    \item $P(B \cap C) = \displaystyle{\frac{1}{4}} =P(B)P(C)$
+\end{enumerate}
+\end{multicols}
+
+\vspace{-0.5\baselineskip}
+
+Por tanto, los sucesos son independientes dos a dos. Sin embargo,
+\[P(A\cap B \cap C) = \frac{1}{4} \neq \frac{1}{8} =P(A)P(B)P(C),\]
+luego los sucesos no son mutuamente independientes.
+\end{example}
+
+\begin{example}
+Se considera el espacio $(\Omega, \mathcal{P}(\Omega),P)$, con $\Omega = \{(i,j) \in \N^2 \colon i,j=1,2,3,4,5,6\}$ y $P(i,j) = \frac{1}{36}$ para todo $(i,j) \in \Omega$. Sean \[A = \{(i,j) \in \N^2 \colon j=1,2,5\}, \quad B =\{(i,j) \in \N^2 \colon j=4,5,6\} \quad \text{y} \quad C =\{(i,j) \in \N^2 \colon i+j=9\}\]
+Se tiene que
+\begin{multicols}{2}
+\begin{enumerate}
+    \item $P(A) = \displaystyle{\frac{1}{2}}$
+    \item $P(B) = \displaystyle{\frac{1}{2}}$
+    \item $P(C) = \displaystyle{\frac{1}{9}}$
+    \item $P(A \cap B) = \displaystyle{\frac{1}{6}} \neq \displaystyle{\frac{1}{4}}=P(A)P(B)$
+    \item $P(A \cap C) = \displaystyle{\frac{1}{36}}\neq \displaystyle{\frac{1}{18}} =P(A)P(C)$
+    \item $P(B \cap C) = \displaystyle{\frac{1}{12}}\neq \displaystyle{\frac{1}{18}} =P(B)P(C)$
+\end{enumerate}
+\end{multicols}
+
+\vspace{-0.5\baselineskip}
+
+Por tanto, los sucesos no son independientes dos a dos. Sin embargo,
+\[P(A\cap B \cap C) = \frac{1}{36} =P(A)P(B)P(C)\]
+Aun así, los sucesos no son mutuamente independientes.
+\end{example}
+
+\section{Probabilidad condicionada con respecto a una partición}
+
+\begin{cdefinition}
+Sea $(\Omega, \mathcal{A},P)$ un espacio de probabilidad finito y sea $\mathcal{D}=\{D_i\}_{i=1}^n$ una partición de $\Omega$ con $P(D_i) > 0$ para todo $i =1,\mathellipsis,n$. Dado $A \in \mathcal{A}$, la \mybf{{probabilidad condicionada de $\bm{A}$ con respecto a la partición $\bm{\mathcal{D}}$}} es la función $P(A \, | \, \mathcal{D}) \colon \Omega \to \R$ definida por
+\[P(A \, | \, \mathcal{D}) (\omega) = \sum_{i =1}^n P(A \, | \, D_i) \mathbbm{1}_{D_i}(\omega)\]
+\end{cdefinition}
+
+\begin{cproposition}
+Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $P(A \, | \, \mathcal{D})$ es una variable aleatoria.
+    \item Si $A$ y $B$ son disjuntos, entonces $P(A \cup B \, | \, \mathcal{D}) = P(A \, | \, \mathcal{D})+P(B \, | \, \mathcal{D})$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Bastante inmediata.
+\end{proof}
+
+\section{Probabilidad condicionada con respecto a una variable aleatoria}
+
+\begin{cdefinition}
+Sea $(\Omega, \mathcal{A},P)$ un espacio de probabilidad finito y sea $X \colon \Omega \to \R$ una variable aleatoria simple con representación canónica
+\[X(\omega)=\sum_{i=1}^n \alpha_i \mathbbm{1}_{D_i}(\omega),\]
+siendo $\mathcal{D}_X = \{D_1,\mathellipsis,D_n\}$ la partición de $\Omega$ dada por $D_i = X^{-1}(\{\alpha_i\})$ para cada $i = 1,\mathellipsis,n$. Dado $A \in \mathcal{A}$, la \mybf{{probabilidad condicionada de $\bm{A}$ con respecto a la variable aleatoria $\bm{X}$}} no es más que la probabilidad condicionada de $A$ con respecto a la partición $\mathcal{D}_X$, esto es, 
+\[P(A \, | \, X) \coloneqq P(A \, | \,  \mathcal{D}_X)\]
+\end{cdefinition}
+
+\begin{example}
+Sean $X$ e $Y$ dos variables aleatorias tomando los valores $\{0,1\}$ y sea $p \in (0,1)$ con
+\[P(X=0) = 1-p, \quad P(X=1) = p, \quad P(Y=0) = 1-p \quad \text{y} \quad P(Y=1) = p\]
+Se considera la variable aleatoria $X+Y$, que toma los valores $\{0,1,2\}$. Para cada $k \in \N$, se tratará de calcular la variable aleatoria $P((X+Y)^{-1}(\{k\}) \, | \, Y) \equiv P(X+Y=k \, | \, Y)$. Se define la partición
+\[\mathcal{D}_Y = \{Y^{-1}(\{0\}),Y^{-1}(\{1\})\} = \{D_0,D_1\}\]
+Que $Y$ tome los valores $0$ y $1$ ha provocado la tentación de indexar los elementos de $\mathcal{D}_Y$ según estos valores y no según el orden, como se hace habitualmente. Se tiene que
+\[
+\begin{aligned}[t]
+P(X+Y =k \, | \, D_0) &\equiv P(X+Y =k \, | \, Y=0) = \frac{P(X+Y=k \cap Y=0)}{P(Y=0)} \\[5pt]
+&= \frac{P(X+0=k \cap Y=0)}{P(Y=0)} = \frac{P(X=k)P(Y=0)}{P(Y=0)} =P(X=k)
+\end{aligned}
+\]
+Se ha utilizado de manera crucial que los sucesos $X+0=k$ e $Y=0$ son independientes. De forma análoga se llega a $P(X+Y=k \, | \, D_1) = P(X=k-1)$, luego
+\[
+\begin{aligned}[t]
+P(X+Y =k \, | \, Y)(\omega) &= P(X+Y=k \, | \, D_0) \mathbbm{1}_{D_0}(\omega) +  P(X+Y=k \, | \, D_1) \mathbbm{1}_{D_1}(\omega) \\
+&= P(X=k)\mathbbm{1}_{D_0}(\omega)+P(X=k-1)\mathbbm{1}_{D_1}(\omega) \\
+&= \begin{cases}
+    (1-p)\mathbbm{1}_{D_0}(\omega) & $si$ \ k= 0 \\[5pt]
+    p\mathbbm{1}_{D_0}(\omega)+(1-p)\mathbbm{1}_{D_1}(\omega) & $si$ \ k = 1 \\[5pt]
+    p\mathbbm{1}_{D_1}(\omega) & $si$ \ k =2
+\end{cases}
+\end{aligned}
+\]
+¿Son conocidas las variables aleatorias $\mathbbm{1}_{D_0}$ y $\mathbbm{1}_{D_1}$? En primer lugar, en cuanto a $\mathbbm{1}_{D_0}$, se tiene
+\begin{enumerate}
+    \item $\mathbbm{1}_{D_0}(\omega) = 0 \iff Y(\omega) \notin D_0 \iff Y(\omega) \in D_1 \iff Y(\omega) = 1$.
+    \item $\mathbbm{1}_{D_0}(\omega) = 1 \iff Y(\omega) \in D_0 \iff Y(\omega) =0$.
+\end{enumerate}
+En cuanto a $\mathbbm{1}_{D_1}$,
+\begin{enumerate}
+    \item $\mathbbm{1}_{D_1}(\omega) = 0 \iff Y(\omega) \notin D_1 \iff Y(\omega) \in D_0 \iff Y(\omega) = 0$.
+    \item $\mathbbm{1}_{D_1}(\omega) = 1 \iff Y(\omega) \in D_1 \iff Y(\omega) =1$.
+\end{enumerate}
+Se observa que $\mathbbm{1}_{D_0} = 1-Y$ y $\mathbbm{1}_{D_1} = Y$, así que
+\[P(X+Y=k \, | \, Y) = \begin{cases}
+    (1-p)(1-Y)(\omega) & $si$ \ k= 0 \\[5pt]
+    p(1-Y)(\omega)+(1-p)Y(\omega) & $si$ \ k = 1 \\[5pt]
+    pY(\omega) & $si$ \ k =2
+\end{cases}\]
+\end{example}
+
+\section{Variables aleatorias truncadas}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$ y sea $A \in \mathcal{B}$ tal que $P(X \in A) > 0$. La \mybf{{variable aleatoria truncada de $\bm{X}$ por $\bm{A}$}} no es más que la variable aleatoria $Y = X |_{X^{-1}(A)}$, es decir, la función $Y \colon X^{-1}(A) \to \R$ dada por $Y(\omega) = X(\omega)$. En este contexto, de $P_X(A) = P(X \in A)$ se dirá que es el \mybf{{grado de truncamiento}}.
+\end{cdefinition}
+
+Es importante remarcar que $Y = X|_{X^{-1}(A)}$ es una variable aleatoria en el espacio de probabilidad $(X^{-1}(A),\mathcal{A},\tilde{P})$, donde
+\[
+\begin{aligned}[t]
+    \tilde{P} \colon \mathcal{A} &\longrightarrow [0,1] \\
+    T &\longmapsto \frac{P(T)}{P(X \in A)}
+\end{aligned}
+\]
+
+El motivo por el que la probabilidad de este espacio no puede ser $P$ es que, generalmente, $P(X^{-1}(A))$ no es igual a $1$, de ahí que haya que «normalizar» la probabilidad para que se tenga $\tilde{P}(X^{-1}(A)) = 1$. Por tanto, si $B \in \mathcal{B}$, la medida de probabilidad inducida por $Y$ (que se va a denotar por $P_Y$ en lugar de $\tilde{P}_Y$) viene dada por
+\[
+\begin{aligned}[t]
+    P_Y(B) &= \tilde{P}(Y^{-1}(B)) = \tilde{P}(\{\omega \in X^{-1}(A) \colon X(\omega) \in B\}) = \tilde{P}(X^{-1}(B) \cap X^{-1}(A)) \\
+    &= \frac{P(X^{-1}(B) \cap X^{-1}(A))}{P(X^{-1}(A))}  = \frac{P_X(B \cap A)}{P_X(A)} =P_X(B \, | \, A)
+\end{aligned}\]
+
+\begin{example}
+Sea $X$ una variable aleatoria discreta tomando valores en $\N \cup \{0\}$, y considérese el boreliano $A = [2,\infty) \subset \R$. Entonces la variable aleatoria truncada $Y$ de $X$ por $A$ toma los valores $\{2,3,4,...\}$, y además
+\[P_Y(\{0\}) = P(Y=  0)=\frac{P((X = 0) \cap (X \geq 2))}{P(X \geq 2)} = 0\]
+\end{example}
+
+\begin{example}
+Sea $X$ una variable aleatoria discreta tal que $X \sim Ge(p)$ (se recuerda que en este caso $X$ toma valores en $\N \cup \{0\}$ y $P(X=n) =q^np$), y sea $A = [0,a]$ para cualquier $a \in \N$. Entonces la variable aleatoria truncada $Y$ de $X$ por $A$ toma los valores $\{0,1,\mathellipsis,a\}$, y además, para cada $y \in \{0,1,\mathellipsis,a\}$,
+\[P_Y(\{y\}) = P(Y = y) = \frac{P((X = y) \cap (X \leq a))}{P(X \leq a)} = \frac{P(X = y)}{P(X \leq a)} = \frac{q^yp}{\sum_{i=0}^aq^ip}\]
+\end{example}
+
+\chapter{Esperanza}
+
+\section{Nociones básicas}
+
+\begin{cdefinition}
+Sea $X \colon \Omega \to \R$ una variable aleatoria. Se define la \mybf{{esperanza de $\bm{X}$}} como
+\[E[X] \coloneqq \int_{\Omega} X(\omega)dP(\omega),\]
+siempre que esta integral exista.
+\end{cdefinition}
+
+La integral anterior es una integral en el sentido de Lebesgue, objeto de estudio de la asignatura \textit{Teoría de la Medida e Integración}. Es por ello que algunas de las demostraciones de esta sección van a omitirse por completo. Por otro lado, es habitual encontrarse las notaciones
+\[E[X]  =\int_{\Omega}X(\omega)dP(\omega) \equiv \int_{\Omega} X(\omega)P(d\omega) \equiv\int_{\Omega}XdP\]
+
+\begin{cproposition}
+Dada una variable aleatoria no negativa $X$, la esperanza de $X$ existe si y solo si la integral
+\[\int_0^{\infty} (1-F_X(x))dx = \int_0^{\infty}P(X > x) dx\]
+es finita. Más generalmente, si $X$ es una variable aleatoria arbitraria, entonces $E[X]$ existe si y solo si las integrales
+\[\int_0^{\infty}(1-F_X(x))dx \quad \textup{y} \quad \int_{-\infty}^0 F_X(x)dx\]
+son finitas, en cuyo caso se tiene
+\[E[X] = \int_0^{\infty}(1-F_X(x))dx-\int_{-\infty}^0 F_X(x)dx\]
+\end{cproposition}
+
+Por motivos de comodidad, si no se hace mención alguna sobre la existencia de cierta esperanza es que se ha supuesto de antemano que dicha esperanza existe.
+
+\begin{cproposition}
+Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item Si $X$ e $Y$ son variables aleatorias, entonces $E[X+Y] = E[X]+E[Y]$.
+    \item Si $a,b \in \R$ y $X$ es una variable aleatoria, entonces  $E[aX+b] = aE[X]+b$.
+    \item Si $X,Y \colon \Omega \to \R$ son variables aleatorias con $X(\omega) \leq Y(\omega)$ para todo $\omega \in \Omega$, entonces $E[X] \leq E[Y]$.
+    \item Si $g \colon \R \to \R$ es medible-Borel y $X$ es una variable aleatoria, entonces
+    \[E[g \circ X] = \int_\R g(x)dP_X(x)\]
+    En particular,
+    \[E[X] = \int_\R xdP_X(x)\]
+    \item Si $X$ es una variable aleatoria discreta, entonces
+    \[E[X] =\sum_{x_ \in D_X}xP_X(\{x\})=\sum_{x \in D_X}xP(X=x)\]
+    \item Si $X$ es una variable aleatoria absolutamente continua con función de densidad $f$, entonces
+    \[E[X] = \int_\R xf(x)dx\]
+    \item Si $X$ es una variable aleatoria mixta, entonces
+    \[E[X]=\sum_{x \in D_X}xP(X=x)+\int_\R x\tilde{f}(x)\, dx,\]
+    donde $\tilde{f}$ es la pseudodensidad de la parte continua de la función de distribución de $X$.
+    \item Si $X$ e $Y$ son variables aleatorias independientes, entonces $E[XY] = E[X]E[Y]$. Si además $\varphi \colon \R \to \R$ es medible-Borel, entonces $E[\varphi (X)\varphi(Y)] = E[\varphi(X)]E[\varphi(Y)]$.
+\end{enumerate}
+\end{cproposition}
+
+\section{Momentos de una variable aleatoria}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria y sea $n \in N$.
+\begin{enumerate}
+    \item Se define el \mybf{{momento de orden $\bm{n}$ de $\bm{X}$}} como la esperanza de la variable aleatoria $X^n$.
+    \item Se define el \mybf{{momento centrado de orden $\bm{n}$ de $\bm{X}$}} como el momento de orden $n$ de $X-E[X]$.
+    \item Se define la \mybf{{varianza de $\bm{X}$}} como su momento centrado de orden $2$, es decir,
+    \[\textup{Var}[X] \coloneqq E[(X-E[X])^2] = E[X^2] - E[X]^2\]
+    \item Si $Y$ es otra variable aleatoria, se define la \mybf{{covarianza de $\bm{X}$ e $\bm{Y}$}} como
+    \[\textup{Cov}[X,Y] \coloneqq E[(X-E[X])(Y-E[Y])] = E[XY] - E[X]E[Y]\]
+    Cuando $\textup{Cov}[X,Y] = 0$ se dice que $X$ e $Y$ son \mybf{{incorreladas}}.
+\end{enumerate}
+\end{cdefinition}
+
+De la definición anterior se deduce inmediatamente que $\textup{Cov}[X,X] = 0$ y que si $X$ e $Y$ son variables aleatorias independientes entonces son incorreladas.
+
+\begin{example}
+Sea $X$ una variable aleatoria discreta con $X \sim Deg(a)$ para cierto $a \in \R$. Entonces
+\[E[X] = a \cdot  P(X = a) = a, \qquad \textup{Var}[X] = E[X^2]-E[X]^2 = 0\]
+\end{example}
+
+\begin{example}
+Sea $X$ una variable aleatoria discreta con $X \sim Ber(p)$, donde $p \in (0,1)$. Entonces
+\[E[X] = 0(1-p)+1 p = p, \qquad \textup{Var}[X] = p-p^2 = p(1-p)\]
+\end{example}
+
+\begin{example}
+Sea $X$ una variable aleatoria discreta con $X \sim Bin(n,p)$, donde $n \in \N$, $p \in (0,1)$. Como $X$ representa el número de éxitos en $n$ ensayos de Bernoulli con probabilidad $p$, se tiene $X = X_1+\mathellipsis+X_n$, donde para cada $i = 1,\mathellipsis,n $, $X_i$ toma los valores $0$ o $1$ dependiendo de si en el $i$-ésimo ensayo hay un fracaso o un éxito. Por tanto, $X_i \sim Ber(p)$, luego
+\[E[X] = E[X_1+\mathellipsis+X_n] = E[X_1]+\mathellipsis+E[X_n] = p+\mathellipsis+p = np\]
+Para la varianza, se observa que $E[X^2] = E[X(X-1)]+E[X]$, donde
+\[
+\begin{aligned}[t]
+    E[X(X-1)] &= \sum_{k=0}^n k(k-1){n \choose k}p^kq^{n-k} = \sum_{k=2}^n k(k-1){n \choose k}p^kq^{n-k} \\
+    &= \sum_{k=2}^n \frac{n!}{(k-2)!(n-k)!}p^kq^{n-k} =n(n-1)p^2 \sum_{k=2}^n {n-2 \choose k-2}p^{k-2}q^{n-k} \\ 
+    &= n(n-1)p^2\sum_{k=0}^{n-2}{n-2 \choose k}p^kq^{n-k-2} \overset{(*)}{=} n(n-1)p^2(p+q)^{n-2}=n(n-1)p^2
+\end{aligned}
+\]
+Por tanto,
+\[\textup{Var}[X] = n(n-1)p^2+np-n^2p^2 = npq\]
+Por si la igualdad $(*)$ causase incertidumbre, se recuerda que para todos $x,y \in \R$ y $ n \in \N$ se tiene
+\[\sum_{k=0}^{n} {n \choose k}x^ky^{n-k} = (x+y)^n\]
+\end{example}
+
+\begin{example}
+Sea $X$ una variable aleatoria absolutamente continua con $X \sim N(\mu,\sigma^2)$ para ciertos $\mu \in \R$, $\sigma^2>0$. Se tiene que
+\[
+\begin{aligned}[t]
+E[X] &= \int_\R xf(x)dx = \frac{1}{\sigma\sqrt{2\pi}}\int_\R xe^{-\frac{(x-\mu)^2}{2\sigma^2}}dx \overset{(*)}{=} \frac{\sqrt{2}\sigma}{\sigma\sqrt{2\pi}} \int_\R (\sqrt{2}\sigma t+\mu)e^{-t^2}dt \\
+&= \frac{1}{\sqrt{\pi}}\biggl(\sqrt{2}\sigma \int_\R te^{-t^2}dt+\mu \int_\R e^{-t^2}dt \biggr) = \frac{1}{\sqrt{\pi}}\biggl(\sqrt{2}\sigma\biggl[ -\frac{1}{2}e^{-t^2} \biggr]_{-\infty}^{+\infty}+\mu \sqrt{\pi} \biggr)= \frac{\mu \sqrt{\pi}}{\sqrt{\pi}} = \mu,
+\end{aligned}
+\]
+donde en $(*)$ se ha hecho $t = \frac{x-\mu}{\sqrt{2}\sigma}; dt = \frac{1}{\sqrt{2}\sigma} dx$. Cálculos similares demuestran que $\textup{Var}[X] = \sigma^2$.
+\end{example}
+
+\begin{example}
+Sea $X$ una variable aleatoria absolutamente continua con $X \sim Exp(\lambda)$ para cierto $\lambda >0$. Se tiene que
+\[
+\begin{aligned}[t]
+E[X] &= \int_\R xf(x)dx = \int_0^{\infty}x\lambda e^{-\lambda x}dx
+\end{aligned}
+\]
+Se halla primero la primitiva:
+\[\int \lambda x e^{-\lambda x}dx \overset{(*)}{=} -xe^{-\lambda x}-\int -e^{-\lambda x}dx = -xe^{-\lambda x}-\frac{1}{\lambda}e^{-\lambda x},\]
+donde en $(*)$ se ha integrado por partes:
+\[(*) \begin{rcases}
+    \begin{dcases}
+        u(x) = \lambda x; & u'(x) = \lambda \\
+        v(x) = -\frac{1}{\lambda} e^{-\lambda x}; & v'(x) = e^{-\lambda x}  
+    \end{dcases}
+\end{rcases}\]
+Por tanto,
+\[E[X] = \biggl[-xe^{-\lambda x}-\frac{1}{\lambda}e^{-\lambda x} \biggr]_0^{\infty} = \frac{1}{\lambda}\]
+Cálculos similares demuestran que
+\[\textup{Var}[X] = \frac{1}{\lambda^2}\]
+\end{example}
+
+\begin{example}
+Sea $X$ una variable aleatoria discreta con $X \sim P(\lambda)$ para cierto $\lambda > 0$. Se tiene que
+\[E[X] = \sum_{k=0}^\infty k e^{-\lambda} \frac{\lambda^k}{k!} = e^{-\lambda}\sum_{k=1}^\infty k \frac{\lambda^k}{k!} = e^{-\lambda}\lambda \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k-1)!} = e^{-\lambda}\lambda \sum_{k=0}^\infty \frac{\lambda^k}{k!} = e^{-\lambda}\lambda e^\lambda = \lambda\]
+Por otro lado,
+\[
+\begin{aligned}
+E[X(X-1)] &= \sum_{k=0}^n k(k-1)e^{-\lambda}\frac{\lambda^k}{k!} = \sum_{k=2}^\infty e^{-\lambda}\frac{\lambda^k}{(k-2)!} = \lambda^2 e^{-\lambda} \sum_{k=2}^\infty \frac{\lambda^{k-2}}{(k-2)!} = \lambda^2 e^{-\lambda} \sum_{k= 0}^\infty \frac{\lambda^k}{k!} \\
+&= \lambda^2 e^{-\lambda}e^{\lambda} = \lambda^2
+\end{aligned}
+\]
+Por tanto,
+\[\textup{Var}[X] = E[X(X-1)]+E[X]-E[X]^2 = \lambda\]
+\end{example}
+
+\begin{cproposition}
+Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item Si $a, b \in \R$ y $X$ es una variable aleatoria, entonces $\textup{Var}[aX+b] = a^2 \textup{Var}[X]$.
+    \item Si $X_1,\mathellipsis,X_n$ son variables aleatorias independientes dos a dos, entonces
+    \[\textup{Var}[X_1+\mathellipsis+X_n] = \textup{Var}[X_1]+\mathellipsis+\textup{Var}[X_n]\]
+    En consecuencia, si $a_1,\mathellipsis,a_n \in \R$,
+    \[\textup{Var}[a_1X_1+\mathellipsis+a_nX_n] = a_1^2\textup{Var}[X_1]+\mathellipsis+a_n^2\textup{Var}[X_n],\]
+    \end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Solo se va a probar el apartado segundo. Se tiene que
+\[
+\begin{aligned}[t]
+\textup{Var}\biggl[\sum_{i=1}^n X_i\biggr] &= E\biggl[\biggl(\sum_{i=1}^nX_i-E\biggl[\sum_{i=1}^nX_i\biggr]\biggr)^2\biggr] \\ 
+&= E\biggl[\biggl(\sum_{i=1}^nX_i-\sum_{i=1}^n E[X_i]\biggr)^2\biggr] \\
+&= E\biggl[\biggl(\sum_{i=1}^n(X_i-E[X_i])\biggr)^2\biggr]\\ 
+&= E\biggl[\sum_{i=1}^n(X_i-E[X_i])^2+2\sum_{1\leq i < j \leq n}E[(X_i-E[X_i])(X_j-E[X_j])]\biggr] \\
+&\overset{(*)}{=}E\biggl[\sum_{i=1}^n(X_i-E[X_i])^2\biggr] \\
+&= \sum_{i=1}^n E[(X_i-E[X_i])^2] \\
+&= \sum_{i=1}^n \textup{Var}[X_i],
+\end{aligned}
+\]
+donde en la igualdad $(*)$ se ha usado que $E[(X_i-E[X_i])(X_j-E[X_j])] = 0$ gracias a la independencia de las variables.
+\end{proof}
+
+\begin{cproposition}[{Desigualdad de Markov}]
+Dada una variable aleatoria no negativa $X$, para cada $t >0$ se tiene
+\[P(X \geq t) \leq \frac{E[X]}{t}\]
+\end{cproposition}
+
+\begin{proof}
+Solo va a demostrarse para variables aleatorias discretas y absolutamente continuas. Si $X$ toma los valores $x_k$ con $k \in \N$ y $P(X = x_k) = p_k$, entonces para cada $t >0$ se tiene
+\[E[X]=\sum_{k=1}^\infty x_kp_k \geq \sum_{x_k \geq t} x_kp_k \geq \sum_{x_k \geq t} tp_k = t \cdot P(X \geq t),\]
+de donde se deduce la desigualdad del enunciado. Si fuese $X$ una variable aleatoria absolutamente continua disfrutando de una función de densidad $f$, entonces
+\[E[X] = \int_\R xf(x) dx \geq \int_t^{\infty}xf(x)dx \geq \int_t^{\infty}tf(x)dx = t \int_0^{\infty}f(x)dx = t \cdot P(X \geq t),\]
+de donde se deduce la desigualdad del enunciado.
+\end{proof}
+
+\begin{ccorollary}[{Desigualdad de Chebyshev}]
+    Si $X$ es una variable aleatoria con varianza finita, entonces para todo $\varepsilon >0$ se verifica
+    \[P(|X-E[X]| \geq \varepsilon) \leq \frac{\textup{Var}[X]}{\varepsilon^2}\]
+\end{ccorollary}
+
+\begin{proof}
+Basta aplicar la proposición anterior a la variable aleatoria no negativa $(X-E[X])^2$ tomando $t = \varepsilon^2$:
+\[P((X-E[X])^2 \geq \varepsilon^2) \leq \frac{E[(X-E[X])^2]}{\varepsilon^2},\]
+de donde se deduce inmediatamente la desigualdad del enunciado.
+\end{proof}
+
+Como caso particular, tomando $\varepsilon = h\sigma$ para cualquier $h > 0$, con $\sigma = \sqrt{\textup{Var}[X]}$, la desigualdad de Chebyshev dice que
+\[P(|X-E[X]| \geq h\sigma) \leq \frac{\textup{Var}[X]}{h^2\sigma^2} = \frac{1}{h^2} \qquad \textup{y} \qquad P(|X-E[X]| < h\sigma) \geq 1- \frac{1}{h^2},\]
+lo que permite acotar la probabilidad de que un valor de una variable aleatoria desconocida se encuentre en un intervalo de centro la esperanza y longitud $2h\sigma$.
+
+\section{Función generatriz de probabilidad}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria discreta que toma valores en $\N \cup \{0\}$, y sea $p_n = P(X=n)$ para cada $n \in \N \cup \{0\}$. La \mybf{{función generatriz de probabilidad de $\bm{X}$}} es la función dada por
+\[G_X(s) = \sum_{n= 0}^\infty p_ns^n = E[s^X]\]
+para cada $s \in \R$ que consiga que la serie anterior converja.
+\end{cdefinition}
+
+Obsérvese que la función generatriz siempre tiene sentido en el intervalo $(-1,1)$, pues la serie de los valores absolutos puede acotarse por una serie geométrica de razón $|s| < 1$. Además, en $s = 1$ la serie converge y vale $1$.
+
+\begin{example}
+Supóngase que $X \sim Bin(n,p)$ para cierto $n \in \N$ y $p \in (0,1)$. Entonces, para todo $s \in \R$,
+\[G_X(s) = \sum_{k=0}^\infty p_ks^k = \sum_{k=0}^n {n \choose k}p^kq^{n-k}s^k = (ps+q)^n\]
+\end{example}
+
+\begin{example}
+Supóngase que $X \sim Ge(p)$ para cierto $p \in (0,1)$. Entonces
+\[G_X(s) = \sum_{n=0}^\infty p_ns^n = \sum_{n=0}^\infty q^nps^n = p\sum_{n=0}^\infty (sq)^n,\]
+luego $G_X(s)$ existe si y solo si $|sq|<1$, es decir, si y solo si $|s| < \frac{1}{q}$, en cuyo caso se tiene
+\[G_X(s) = \frac{p}{1-sq}\]
+\end{example}
+
+\begin{example}
+Supóngase que $X \sim P(\lambda)$ para cierto $\lambda>0$. Entonces para todo $s \in \R$ se tiene
+\[G_X(s) = \sum_{n=0}^\infty e^{-\lambda}\frac{\lambda^n}{n!}s^n = e^{-\lambda}\sum_{n= 0}^\infty \frac{(\lambda s)^n}{n!} = e^{-\lambda} e^{\lambda s} = e^{\lambda(s-1)}\]
+\end{example}
+
+\begin{cproposition}
+Sean $X_1,\mathellipsis,X_n$ variables aleatorias discretas independientes tomando valores en $\N \cup \{0\}$ y con funciones generatrices $G_{X_i}$ para cada $i = 1,\mathellipsis,n$. Entonces
+\[G_{X_1+\mathellipsis+X_n}(s) = G_{X_1}(s) \mathellipsis G_{X_n}(s)\]
+para cada $s \in \R$ donde estén definidas todas las $G_{X_i}$.
+\end{cproposition}
+
+\begin{proof}
+Es una simple comprobación:
+\[G_{X_1+\mathellipsis+X_n}(s) = E[s^{X^1+\mathellipsis+X_n}] = E[s^{X_1}\mathellipsis s^{X_n}] \overset{(*)}{=} E[s^{X_1}]\mathellipsis E[s^{X_n}] = G_{X_1}(s) \mathellipsis G_{X_n}(s)\]
+En la igualdad $(*)$ ha sido fundamental que las variables son independientes y que la función dada por $f(t) = s^t$ para cada $t \in \R$ es medible-Borel, pues es continua.
+\end{proof}
+
+\begin{ctheorem}[{Fórmula de inversión}]
+Sea $X$ una variable aleatoria discreta con valores en $\N \, \cup \, \{0\}$ y función generatriz de probabilidad $G_X$. Entonces, para cada $k \in \N \, \cup \, \{0\}$ se tiene
+\[p_k = \frac{G^{(k)}_X(0)}{k!}\]
+\end{ctheorem}
+\begin{proof}
+En primer lugar, por ser $G_X$ una serie de potencias, entonces es de clase infinito en el interior del intervalo de convergencia $I$, y además, para todo $s \in \mathring{I}$ y $k \in \N$, se verifica
+\[G_X^{(k)}(s) = \sum_{n=k}^\infty p_nn(n-1)(n-2)\mathellipsis (n-k+1)s^{n-k} = p_kk! +\sum_{n=k+1}^\infty p_nn(n-1)(n-2)\mathellipsis (n-k+1)s^{n-k}\]
+Evaluando en $0$ (obsérvese que $0 \in (-1,1) \subset \mathring{I}$) se obtiene $G^{(k)}_X(0) = p_k k!,$ de donde se deduce la fórmula del enunciado.
+\end{proof}
+
+La importancia de esta fórmula reside en el hecho de que la distribución de probabilidad de una variable aleatoria queda totalmente determinada por la función generatriz de probabilidad.
+
+\begin{example}
+Supóngase que $X \sim Bin(n,p)$ e $Y \sim Bin(m,p)$ son variables independientes, donde $m,n \in \N$ y $p \in (0,1)$. Entonces
+\[G_{X+Y}(s) = G_X(s)G_Y(s) = (ps+q)^n(ps+q)^m = (ps+q)^{n+m}\]
+Como se ha visto que la función generatriz determina completamente la distribución de $X+Y$, puede afirmarse que $X+Y \sim Bin(n+m,p)$.
+\end{example}
+
+\begin{example}
+Supóngase que $X \sim P(\lambda)$ e $Y \sim P(\mu)$ son variables independientes, donde $\lambda, \mu > 0$. Entonces $X+Y \sim P(\lambda+\mu)$, ya que
+\[G_{X+Y}(s) = G_X(s)G_Y(s) = e^{\lambda(s-1)}e^{\mu(s-1)} = e^{(\lambda+\mu)(s-1)}\]
+\end{example}
+
+\begin{cproposition}
+Sea $X$ una variable aleatoria discreta tomanndo valores en $\N \cup \{0\}$ y con función generatriz de probabilidad $G_X$. Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $E[X] = G_X'(1)$.
+    \item $E[X^2] = G_X''(1)+G_X'(1)$.
+    \item  $\textup{Var}[X] =G_X''(1)+G_X'(1)-G_X'(1)^2$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Los dos primeros apartados son simples comprobaciones y el tercero es consecuencia inmediata de los anteriores.
+\end{proof}
+
+\section{Función generatriz de momentos}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria. La \mybf{{función generatriz de momentos asociada a $\bm{X}$}} se define como
+\[M_X(t) \coloneqq E[e^{tX}]\]
+para cada $t \in \R$ donde la esperanza de $e^{tX}$ exista.
+\end{cdefinition}
+
+En particular, si $X$ es una variable aleatoria discreta tomando valores en $\N \cup 0$, entonces, recordando que $G_X(s)=E[s^X]$, se tiene
+\[M_X(t) = G_X(e^t) = \sum_{n=0}^\infty e^{tn}P(X=n)\]
+
+Por otro lado, si $X$ es una variable aleatoria absolutamente continua con función de densidad $f$, se verifica
+\[M_X(t)=\int_\R e^{tx}f(x)dx\]
+
+\begin{cproposition}
+Se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item Si $X$ e $Y$ son variables aleatorias independientes, entonces
+    \[M_{X+Y}(t)=M_X(t)M_Y(t)\]
+    para cada $t \in \R$ donde $M_X(t)$ y $M_Y(t)$ tengan sentido.
+    \item Si $a,b\in \R$ y $X$ es una variable aleatoria, entonces
+    \[M_{aX+b}(t) = e^{bt}M_X(at)\]
+    para cada $t \in \R$ donde $M_X(at)$ tenga sentido.
+    \item Si $X$ es una variable aleatoria y $k \in N$,
+    \[M_X^{(k)}(0)=E[X^k]\]
+    En particular,
+    \[M_X''(0) -\mu^2 = \sigma^2,\]
+    donde $\mu = E[X]$ y $\sigma^2 = \textup{Var}[X]$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+    La prueba de los dos primeros apartados es inmediata. La del tercero es un poco menos inmediata pero los cálculos son lo suficientemente pesados como para omitir la prueba.
+\end{proof}
+
+\section{Función característica}
+
+\begin{cdefinition}
+Dada una variable aleatoria $X$, la \mybf{{función característica de $\bm{X}$}} es la función
+$\varphi_X \colon \R \to \C$ dada por
+\[\varphi_X(t) = E[e^{itX}]
+\]
+\end{cdefinition}
+
+Se recuerda que para todo $\mu = \alpha+i\beta \in \C$ se tiene que $e^\mu = e^{\alpha}(\cos({\beta t})+i\sen({\beta t}))$. Obsérvese además que la integral
+\[\int_\R e^{itX(\omega)}dP(\omega) = \varphi_X(t)\]
+siempre existe, de ahí que se haya tenido la valentía de definir $\varphi_X$ en todo $\R$.
+
+\begin{cproposition}
+Dada una variable aleatoria $X$, se verifican las siguientes propiedades:
+\begin{enumerate}
+    \item $\varphi_X(t) = M_X(it)$ para todo $t \in \R$.
+    \item $|\varphi_X(t)| \leq 1$ para todo $t \in \R$.
+    \item $\varphi_X(-t) = \overline{\varphi_X(t)}$ para todo $t \in \R$.
+    \item $\varphi_{aX+b}(t)=e^{itb}\varphi_X(at)$ para todo $t \in \R$.
+    \item Si $\varphi_X(t) \in \R$ para todo $t \in \R$, entonces $\varphi_{-X}=\varphi_X$.
+    \item Si existe $E[X^n]$ para algún $n \in \N$, entonces
+    \[E[X^r] = \frac{\varphi_X^{(r)}(0)}{i^r}\]
+    para todo $r \in \N$ con $r \leq n$.
+\end{enumerate}
+\end{cproposition}
+\begin{proof}
+Comprobaciones fáciles e inmediatas.
+\end{proof}
+
+\section{Otras características numéricas}
+
+\vspace{-0.5\baselineskip}
+
+Además de la esperanza y la varianza, algunas características numéricas de una variable aleatoria $X$ que se han estudiado ya en múltiples ocasiones son las \textit{medidas de posición} (la mediana, la moda o los percentiles), y las \textit{medidas de dispersión} (la desviación típica o el coeficiente de variación).
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. Un número real $\textup{Me[X]} \in \R$ se dice que es una \mybf{{mediana de $\bm{X}$}} cuando
+\[P(X \leq \textup{Me}[X]) \geq \frac{1}{2} \qquad \textup{y} \qquad P(X \geq \textup{Me}[X]) \geq \frac{1}{2},\]
+o, equivalentemente, cuando
+\[\frac{1}{2} \leq F_X(\textup{Me}[X]) \leq \frac{1}{2}+P(X= \textup{Me}[X])\]
+\end{cdefinition}
+
+\begin{example}
+Sea $X$ una variable aleatoria cuya función de distribución viene dada por
+\[F(x)= \begin{cases}
+    0 & $si$ \ x < 0 \\
+    x-\frac{x^2}{2} & $si$ \ 0 \leq x < 1 \\
+    \frac{1}{2} & $si$ \ 1 \leq x < 2 \\
+    \frac{x}{4} & $si$ \ 2 \leq x < 4 \\
+    1 & $si$ 4 \leq x
+\end{cases}\]
+Cualquier punto de $[1,2]$ es una mediana de $X$.
+\end{example}
+
+\begin{cdefinition}
+    Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. Dado $\alpha \in \R$ y $P_\alpha \in \R$, se dice que $P_\alpha$ es un \mybf{{percentil de orden $\bm{\alpha}$}} cuando
+    \[P(X \leq P_\alpha)\geq \frac{\alpha}{100} \qquad \textup{y} \qquad P(X \geq P_\alpha) \geq 1- \frac{\alpha}{100}\]
+    Si $\alpha \in \{25,50,75\}$, se hablará de \mybf{{cuartiles}}, y si $\alpha=10$, de \mybf{{deciles}}.
+\end{cdefinition}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega,\mathcal{A},P)$.
+\begin{enumerate}
+    \item Si $X$ es discreta, se define la \mybf{{moda de $\bm{X}$}} como su valor de mayor probabilidad.
+    \item Si $X$ es absolutamente continua, se define la \mybf{{moda de $\bm{X}$}} como el valor máximo de su función de densidad.
+\end{enumerate}
+\end{cdefinition}
+
+\begin{cdefinition}
+Sea $X$ una variable aleatoria en un espacio de probabilidad $(\Omega, \mathcal{A},P)$. Se define la \mybf{{desviación típica de $\bm{X}$}} como \[\sigma= \sqrt{\textup{Var}[X]},\]mientras que el \mybf{{coeficiente de variación de $\bm{X}$}} no es más que
+\[C_V = \frac{\sigma}{E[X]}\]
+\end{cdefinition}
+
+\chapter{Vectores aleatorios}
+
+\section{Nociones básicas}
+
+\vspace{-0.5\baselineskip}
+
+En este tema, la $\sigma$-álgebra de Borel de $\R^n$ junto con la topología usual será denotada por $\mathcal{B}^n$ en lugar de $\mathcal{B}(\R^n)$.
+
+\begin{cdefinition}
+Dado un espacio de probabilidad $(\Omega,\mathcal{A},P)$, un \mybf{{vector aleatorio}} es una función $X \colon \Omega \to \R^n$ medible con respecto a $\mathcal{A}$ y $\mathcal{B}^n$, es decir, tal que $X^{-1}(B) \in \mathcal{A}$ para todo $B \in \mathcal{B}^n$.
+\end{cdefinition}
+
+\begin{cproposition}
+Dado un espacio de probabilidad $(\Omega,\mathcal{A},P)$, una función $X \colon \Omega \to \R^n$ es un vector aleatorio si y solo si cada compente $X_i \colon \Omega \to \R$ es una variable aleatoria.
+\end{cproposition}
+
+\begin{proof}
+Consecuencia inmediata de la \hyperref[prop3.5.]{\color{gray}Proposición 15}.
+\end{proof}
+
+\begin{cdefinition}
+Sea $X$ un vector aleatorio en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. La \mybf{{medida de probabilidad inducida por $\bm{X}$}} es la función $P_X \colon \mathcal{B}^n \to [0,1]$ definida por \[P_X(B) = P(X^{-1}(B))\]
+para cada $B \in \mathcal{B}^n$.
+\end{cdefinition}
+
+\begin{cdefinition}
+Sea $X$ un vector aleatorio en un espacio de probabilidad $(\Omega,\mathcal{A},P)$. La \mybf{{función de distribución conjunta asociada a $\bm{X}$}} es la función $F \colon \R^n \to [0,1]$ definida por \[F(a_1,\mathellipsis,a_n) =P(X_1 \leq a_1,\mathellipsis,X_n \leq a_n) \]
+para cada $(a_1,\mathellipsis,a_n) \in \R^n$
+\end{cdefinition}
+
+Respecto a la notación utilizada para referirse a $F(a_1,\mathellipsis,a_n)$, es habitual encontrarse las expresiones 
+\[P(X \leq a), \quad P_X((-\infty,a_1] \times \mathellipsis \times (-\infty,a_n]) \quad \textup{o} \quad P(X_1 \leq a_1 \cap \mathellipsis \cap X_n \leq a_n)\]
+
+\begin{cproposition}
+\label{prop7.2.}
+Sea $X$ un vector aleatorio con función de distribución conjunta $F$. Entonces
+\begin{enumerate}
+    \item Se verifica que \[F(\infty,\mathellipsis,\infty) \equiv \lim_{a_1\to\infty,\mathellipsis,a_n\to\infty} F(a_1,\mathellipsis,a_n)= 1\]
+    \item Para cada $i \in \{1,\mathellipsis,n\}$ y cada $(a_1,\mathellipsis,a_n) \in \R^n$, 
+    \[F(a_1,\mathellipsis,a_{i-1},-\infty,a_{i+1},\mathellipsis,a_n) \equiv \lim_{a_i \to -\infty}F(a_1,\mathellipsis,a_n) = 0\]
+    \item $F$ es creciente en cada componente.
+    \item $F$ es continua por la derecha en cada componente.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Como viene siendo habitual en esta asignatura, se omite la demostración.
+\end{proof}
+
+\section{Vectores aleatorios bidimensionales}
+
+\begin{cproposition}
+Sea $(X,Y)$ un vector aleatorio bidimensional y sea $F$ su función de distribución conjunta. Entonces
+\begin{enumerate}
+    \item Se verifica que \[F(\infty,\infty) \equiv \lim_{a_1\to\infty,a_2\to\infty} F(a_1,a_2)= 1\]
+    \item Para cada $(x,y) \in \R^2$, 
+    \[F(-\infty,y) \equiv \lim_{x \to -\infty}F(x,y) = 0 \qquad \textup{ \textit{y} } \qquad F(x,-\infty) \equiv \lim_{y \to -\infty}F(x,y) = 0 \]
+    \item Si $y \in \R$,
+    \[F(x,y) \leq F(x',y) \textup{ \textit{para todos} } x,x' \in \R \textup{\textit{ con }} x < x',\]
+    y si $x \in \R$,
+    \[F(x,y) \leq F(x,y') \textup{ \textit{para todos} } y,y' \in \R \textup{\textit{ con }} y < y'\]
+    \item Para cada $(x,y) \in \R$, 
+    \[\lim_{h \to 0^+} F(x+h,y) = F(x,y) \qquad \textup{ \textit{y} } \qquad \lim_{h \to 0^+} F(x,y+h) = F(x,y)\]
+    \item Para cada $(x_1,y_1),(x_2,y_2) \in \R^2$,
+    \[P(x_1 < X \leq x_2, y_1 < Y \leq y_2 ) = F(x_2,y_2)-F(x_1,y_2)-F(x_2,y_1)+F(x_1,y_1)\]
+    \item Si $X$ e $Y$ son variables aleatorias independientes, entonces $F(x,y) = F_X(x)F_Y(y)$ para todo $(x,y) \in \R^2$.
+    \item $D_{(X,Y)} = D_X \times D_Y$, donde $D_{(X,Y)} = \{(x,y) \in \R^2 \colon p((x,y)) = P(X=x,Y=y) >0\}$.
+\end{enumerate}
+\end{cproposition}
+
+\begin{proof}
+Los cuatro primeros apartados vienen de reescribir la proposición anterior para el caso bidimensional, mientras que los tres últimos se comprueban fácilmente.
+\end{proof}
+
+\begin{cdefinition}
+Dado un vector aleatorio $(X,Y)$, la \mybf{{distribución marginal de $\bm{X}$}} no es más que la medida de probabilidad inducida por $X$, mientras que la \mybf{{distribución marginal de $\bm{Y}$}} no es más que la medida de probabilidad inducida por $Y$.
+\end{cdefinition}
+
+El ejemplo que sigue demostrará que las cuatro propiedades de la \hyperref[prop7.2.]{\color{gray}Proposición 29} no caracterizan a las funciones de distribuciones conjuntas, esto es, hay funciones que verifican las propiedades mencionadas y que no son la función de distribución conjunta asociada a ningún vector aleatorio.
+
+\begin{example}
+Considérese la función $G \colon \R^2 \to [0,1]$ dada por
+\[G(x,y) = \begin{cases}
+    0 & $si$ \ x+y< 1 \\
+    1 & $si$ \ x+y \geq 1
+\end{cases}\]
+Si $G$ fuera la función de distribución conjunta asociada a algún vector aleatorio $X$, se tendría
+\[P_X((0,1] \times (0,1]) = G(1,1)-G(0,1)-G(1,0)+G(0,0) = -1,\]
+lo cual es imposible.
+\end{example}
+
+Así, dada una función $F$, para asegurar que existe algún vector aleatorio con función de distribución conjunta $F$ será necesario exigir alguna propiedad adicional.
+
+\section{Diferencia de una función con respecto a un rectángulo}
+
+\begin{cdefinition}
+Considérese una función $F \colon \R^n \to \R$, sea $A = (a,b]$ un rectángulo acotado de $\R^n$ y sea $V$ el conjunto de los $2^n$ vértices de $A$. La \mybf{{diferencia de $\bm{F}$ con respecto a $\bm{A}$}} se define como
+\[\Delta_AF \coloneqq \sum_{x \in V} \textup{sgn}(x)F(x),\]
+donde $\textup{sgn}(x) = 1$ si el número de veces que se tiene $x_i=a_i$ es par, y $\textup{sgn}(x) = -1$ en caso contrario.
+\end{cdefinition}
+
+La definición puede parecer algo confusa, pero se trata en realidad de un concepto más simple que el mecanismo de un botijo. Por ejemplo, para $n = 1$, si $A = (a,b]$, la diferencia será
+\[\Delta_AF = F(b)-F(a),\]
+y para $n = 2$, si $A = (a_1,b_1] \times (a_2,b_2]$, se tendrá
+\[\Delta_AF = F(b_1,b_2)-F(a_1,b_2)-F(b_1,a_2)+F(a_1,a_2)
+\]
+
+La diferencia de una función con respecto a un rectángulo acotado nos dará la condición que faltaba para asegurar que una función con ciertas propiedades es la función de distribución conjunta de algún vector aleatorio.
+
+\begin{cproposition}
+Si una función $F \colon \R^n \to [0,1]$ con las propiedades $(\textbf{i})$, $(\textbf{ii})$, $(\textbf{iii})$ y $(\textbf{iv})$ que aparecen en la \hyperref[prop7.2.]{\color{gray}Proposición 29} verifica
+\begin{enumerate}
+    \item[\normalfont\textbf{(\textit{v})}] $\Delta_AF \geq 0$ para todo $A = (a,b] \subset \R^n$,
+\end{enumerate}
+entonces $F$ es la función de distribución conjunta asociada a algún vector aleatorio $X$.
+\end{cproposition}
+
+\begin{proof}
+Requiere más trabajo del que le gustaría al probabilista promedio.
+\end{proof}
+
+De aquí en adelante, por motivos de comodidad en la notación, se trabajará exclusivamente con vectores aleatorios bidimensionales.
+
+\section{Vectores aleatorios discretos}
+
+\begin{cdefinition}
+Un vector aleatorio $(X,Y) \colon \Omega \to \R^2$ se dice que es \mybf{{discreto}} si $X$ e $Y$ son variables aleatorias discretas.
+\end{cdefinition}
+
+Quizá habría sido más natural definir los vectores aleatorios discretos de la misma forma que se hizo en el caso unidimensional, es decir, diciendo que \textit{un vector aleatorio es discreto cuando}
+\[\sum_{(x,y) \in \R^2}p((x,y)) =\sum_{(x,y) \in D_{(X,Y)}}p((x,y))=  1\]
+
+\vspace{-0.5\baselineskip}
+
+Pues bien, si se tiene en cuenta que $D_{(X,Y)} = D_X \times D_Y$, es sencillo demostrar que ambas definiciones son equivalentes.
+
+Por otra parte, en cuanto a las distribuciones marginales, si $D_X = \{x_i \colon i \in I\}$ es el rango de $X$ y el de $Y$ es $D_Y = \{y_j \colon j \in J\}$ (obviamente $I,J \subset \N$), entonces
+\[P_X(\{x_i\}) = P(X = x_i) = \sum_{j \in J} P(X=x_i,Y=y_j) = \sum_{j \in J}P_{(X,Y)}(\{(x_i,y_j)\}),\]
+lo que proporciona una forma de calcular la distribución marginal de $X$ de un vector aleatorio $(X,Y)$ a partir de la medida de probabilidad de dicho vector. Evidentemente, de forma análoga,
+\[P_Y(\{y_j\}) = P(Y = y_j) = \sum_{i \in I} P(X=x_i,Y=y_j) = \sum_{i \in I}P_{(X,Y)}(\{(x_i,y_j)\})\]
+
+\begin{cdefinition}
+Sea $(X,Y)$ un vector aleatorio discreto y sea $y_j \in \R$ tal que $P(Y=y_j) > 0$. Se define la \mybf{{variable aleatoria condicionada al suceso $\bm{Y=y_j}$}}, y se denota $X \, | \, Y=y_j$, como la variable aleatoria determinada por
+\[P(X=x_i \,| \, Y=y_j) = \frac{P(X=x_i, Y=y_j)}{P(Y=y_j)}\]
+para cada $x_i \in \R$.
+De forma totalmente análoga se define la \mybf{{variable aleatoria condicionada al suceso $\bm{X = x_i}$}}, para cualquier $x_i \in \R$ que verifique $P(X=x_i) > 0$.
+\end{cdefinition}
+
+\begin{example}
+Considérese el experimento aleatorio consistente en lanzar una moneda al aire cinco veces. El espacio de probabilidad sería $(\Omega,\mathcal{P}(\Omega),P)$, donde $P$ es la medida uniforme y
+\[\Omega = \{CCCCC,FFFFF,CCCCF,CCCFC,CCFCC,\mathellipsis\}\]
+Sea $X$ la variable aleatoria que cuenta el número de resultados distintos en el primer lanzamiento, y sea $Y$ la variable aleatoria que cuenta el número de resultados distintos en el quinto lanzamiento. Por ejemplo, para ilustrar un poco el panorama, se tendría
+\[\begin{aligned}[t]
+    X(CCCCC) &= 0 \\
+    X(CFCFC) &= 2 \\
+    X(CFFCF) &= 3
+\end{aligned} \qquad \qquad
+\begin{aligned}[t]
+    Y(CCCCC) &= 0 \\
+    Y(CFCFC) &= 2 \\
+    Y(CFFCF) &= 2
+\end{aligned}\]
+Las probabilidades $P_X$, $P_Y$ y $P_{(X,Y)}$ quedan totalmente determinadas por la tabla siguiente:
+
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+    \cline{1-7}
+    \diagbox{$\scriptstyle{X}$}{$\scriptstyle{Y}$} & 0 & 1 & 2 & 3 & 4 & $P_X$ \\[2.5pt] \hline
+    0 & $\frac{1}{16}$ & 0 & 0 & 0 & 0 & $\frac{1}{16}$ \\[2.5pt] \hline
+    1 & 0 & $\frac{3}{16}$ & 0 & 0 & $\frac{1}{16}$ & $\frac{4}{16}$\\[2.5pt] \hline
+    2 & 0 & 0 & $\frac{3}{16}$ & $\frac{3}{16}$ & 0 & $\frac{6}{16}$\\[2.5pt] \hline
+    3 & 0 & 0 & $\frac{3}{16}$ & $\frac{1}{16}$ & 0 & $\frac{4}{16}$\\[2.5pt] \hline
+    4 & 0 & $\frac{1}{16}$ & 0 & 0 & 0 & $\frac{1}{16}$ \\[2.5pt] \hline
+    $P_Y$ & $\frac{1}{16}$ & $\frac{4}{16}$ & $\frac{6}{16}$ & $\frac{4}{16}$ & $\frac{1}{16}$ & 1 \\[2.5pt]
+    \cline{1-7}
+\end{tabular}
+\end{center}
+
+Por ejemplo, si se quisiera calcular la probabilidad de $(0,0)$, sería
+\[
+\begin{aligned}[t]
+P_{(X,Y)}(\{(0,0)\}) &= P(X=0,Y=0) = P(\{CCCCC,FFFFF\}) \\
+&= P(\{CCCCC\})+P(\{FFFFF\}) = \frac{1}{2^5}+\frac{1}{2^5} = \frac{1}{16}
+\end{aligned}
+\]
+Por último, va a tratar de calcularse la distribución de probabilidad de la variable aleatoria $X \, | \, Y=1$, cuyo rango es $D_{X \, | \, Y = 1} = \{1,4\}$. Se tiene que
+\[\begin{aligned}[t]
+    P_{X \, |\,Y=1}(\{1\}) &= P(X=1 \, | \, Y=1) = \frac{P(X=1,Y=1)}{P(Y=1)} = \frac{3/16}{4/16} = \frac{3}{4} \\[5pt]
+    P_{X \, |\,Y=1}(\{4\}) &= P(X=4 \, | \, Y=1) = \frac{P(X=4,Y=1)}{P(Y=1)} = \frac{1/16}{4/16} = \frac{1}{4} \\
+\end{aligned}\]
+\end{example}
+
+\begin{example}
+Sea $(X,Y)$ un vector aleatorio discreto y sean $D_X=\{0,1,2,3\}$ y $D_Y = \{1,2,3\}$ los rangos de $X$ e $Y$, respectivamente. Supóngase además que $Y \sim U(\{1,2,3\})$ y que para todo $y \in D_Y$ se tiene que $X \, | \, Y = y \sim Bin(y,\frac{1}{2})$. Se va a tratar de obtener la distribución conjunta de $(X,Y)$, es decir, de calcular
+\[P(X=x_i,Y=y_j) = P(X=x_i \, | \, Y=y_j)P(Y=y_j),\]
+siendo $D_X=\{x_i \colon i =1,2,3,4\}$ y $D_Y=\{y_j \colon j=1,2,3\}$. Fijando, por ejemplo $y_1=1$, se tiene que
+\[\begin{aligned}[t]
+    P(X=0,Y=1) &= P(X=0 \, | \, Y=1)P(Y=1) = {1 \choose 0} \frac{1}{2^0} \frac{1}{2^1} \frac{1}{3} = \frac{1}{6} \\
+    P(X=1,Y=1) &= P(X=1 \, | \, Y=1)P(Y=1) = {1 \choose 1} \frac{1}{2^1} \frac{1}{2^0} \frac{1}{3} = \frac{1}{6} \\
+<    P(X=2,Y=1) &= P(X=2 \, | \, Y=1)P(Y=1) = 0\phantom{\frac{1}{1}} \\
+    P(X=3,Y=1) &= P(X=3 \, | \, Y=1)P(Y=1) = 0\phantom{\frac{1}{1}} \\
+\end{aligned}\]
+Realizando estas mismas cuentas para $y=2$ e $y=3$ queda resuelto el ejemplo.
+\end{example}
+
+\begin{example}
+Sea $(X,Y)$ un vector discreto y supongamos que $Y \sim U(\{1,2,3\})$, que $X \, | \, Y=y \sim Bin(y,\frac{1}{2})$ para cada $y \in D_Y = \{1,2,3\}$ y que $D_{X \, | \, Y=y} = \{0,1,\mathellipsis,y\}$. La distribución conjunta de $(X,Y)$ ahora es
+\begin{center}
+\setlength\extrarowheight{2.5pt}
+\begin{tabular}{|c|c|c|c|c|}
+    \cline{1-5}
+    \diagbox{$\scriptstyle{X}$}{$\scriptstyle{Y}$} & 1 & 2 & 3 & $P_X$ \\[2.5pt] \hline
+    0 & $\frac{1}{6}$ & $\frac{1}{12}$ & $\frac{1}{24}$ & $\frac{7}{24}$ \\[2.5pt] \hline
+    1 & $\frac{1}{6}$ &$\frac{1}{6}$ & $\frac{1}{8}$ & $\frac{11}{24}$\\[2.5pt] \hline
+    2 & 0 & $\frac{1}{12}$ & $\frac{1}{8}$ & $\frac{5}{24}$\\[2.5pt] \hline
+    3 & 0 & 0 & $\frac{1}{24}$ & $\frac{1}{24}$\\[2.5pt] \hline
+    $P_Y$& $\frac{8}{24}$ & $\frac{8}{24}$ & $\frac{8}{24}$ & 1 \\[2.5pt]
+    \cline{1-5}
+\end{tabular}
+\end{center}
+Se va a exponer el cálculo de, por ejemplo, $P(X=0,Y=2)$. Se tiene que
+\[P(X=0,Y=2) = P(X=0 \, | \, Y=2) P(Y=2) = {2 \choose 0}\frac{1}{2^0}\frac{1}{2^2} \frac{1}{3} =\frac{1}{12}\]
+\end{example}
+
+\begin{example}
+Supóngase que el número de huevos de insectos encima de una flor sigue una distribución de Poisson de parámetro $\lambda>0$ (es decir, $\lambda$ es la frecuencia media con la que los insectos ponen huevos). Supóngase además que, fijado un intervalo de tiempo, la probabilidad de que un huevo eclosione es $p \in (0,1)$. Los objetivos del ejemplo son
+\begin{enumerate}
+    \item \textit{Calcular la probabilidad de que no nazca ningún insecto en dicho intervalo de tiempo.} Al traducir el panorama al universo de las matemáticas, se observa que hay calcular $P(X=0)$, donde
+    \[X \equiv \textup{\textit{número de huevos en la flor que han eclosionado}}\]
+    Asimismo, considérese la variable aleatoria
+    \[Y \equiv \textup{\textit{número de huevos en la flor}}\]
+    Nótese que $D_X=D_Y=\N$, que $Y \sim P(\lambda)$ y que $X \, | \, Y=n \sim Bin(n,p)$ para cada $n \in   \N$. Además,
+    \[
+    \begin{aligned}[t]
+    P(X=0) &= \sum_{n=0}^\infty P(X=0,Y=n) = \sum_{n=0}^\infty P(X=0 \, | \, Y=n)P(Y=n) = \sum_{n=0}^\infty(1-p)^ne^{-\lambda}\frac{\lambda^n}{n!} \\
+    &= e^{-\lambda}\sum_{n=0}^\infty \frac{(\lambda(1-p))^n}{n!} = e^{-\lambda}e^{\lambda(1-p)} = e^{-\lambda p}
+    \end{aligned}
+    \]
+    \item \textit{Calcular la probabilidad de que nazcan $k$ insectos en dicho intervalo de tiempo.} Razonando como antes, ahora es menester calcular $P(X=k)$. Se tiene que
+    \[
+    \begin{aligned}[t]
+    P(X=k) &= \sum_{n=0}^\infty P(X=k,Y=n) = \sum_{n=0}^\infty P(X=k \, | \, Y=n)P(Y=n) \\
+    &= \sum_{n=k}^\infty{n \choose k}p^k(1-p)^{n-k} e^{-\lambda}\frac{\lambda^n}{n!}
+    = \sum_{n=k}^\infty\frac{n!}{k!(n-k)!}p^k(1-p)^{n-k} e^{-\lambda}\frac{\lambda^n}{n!} \\
+    &= \frac{\lambda^kp^ke^{-\lambda}}{k!} \sum_{n=k}^\infty\frac{(\lambda(1-p))^{n-k}}{(n-k)!} = \frac{\lambda^kp^ke^{-\lambda}e^{\lambda(1-p)}}{k!} = e^{-\lambda p}\frac{(\lambda p)^k}{k!}
+    \end{aligned}
+    \]
+    Esto demuestra que $X \sim P(\lambda p)$.
+    \item \textit{Calcular de que hubiesen menos de dos huevos en la flor tras haber observado que no ha nacido ningún insecto.} Se trata de calcular $P(Y < 2 \, | \, X=0)$, para lo que habrá que echar mano del \hyperref[teo5.2.]{\color{gray}teorema de Bayes}.
+    \[\begin{aligned}[t]
+        P(Y < 2 \, | \, X=0) &= P(Y=0 \, | \, X=0)+P(Y=1 \, | \, X=0) \\
+        &= \frac{P(X=0 \, | \, Y=0)P(Y=0)}{P(X=0)}+\frac{P(X=0 \, | \, Y=1)P(Y=1)}{P(X=0)} \\
+        &= \frac{e^{-\lambda}}{e^{-\lambda p}}+\frac{(1-p)e^{-\lambda} \lambda}{e^{-\lambda p}} \\
+        &= \frac{1+\lambda(1-p)}{e^{p}}
+    \end{aligned}\]
+\end{enumerate}
+\end{example}
+
+\section{Vectores aleatorios absolutamente continuos}
+
+\begin{cdefinition}
+Un vector aleatorio $(X,Y)$ con función de distribución conjunta $F \colon \R^2 \to [0,1]$ se dice que es \mybf{{absolutamente continuo}} (o que posee una distribución de probabilidad \mybf{{absolutamente continua}}) si existe una función $f \colon \R^2 \to \R$ integrable y no negativa tal que
+\[F(x,y) = \int_{-\infty}^y\int_{-\infty}^xf(u,v) \,du \, dv\]
+para cada $(x,y) \in \R^2$. La función $f$ se denominará \mybf{{función de densidad conjunta}}.
+\end{cdefinition}
+
+\begin{cproposition}
+Sea $(X,Y)$ un vector aleatorio absolutamente continuo con probabilidad inducida $P_{(X,Y)}$, función de distribución $F$ y función de densidad conjunta $f$. Entonces
+\begin{enumerate}
+    \item Se verifica que
+    \[\int_{\R^2} f(u,v) \, du \, dv = 1\]
+    \item Para todo $B \in \mathcal{B}^2$,
+    \[P_{(X,Y)}(B)=\int_Bf(u,v)\, du \, dv\]
+    \item Para todo $(x_0,y_0) \in \R^2$,
+    \[\frac{\partial^2F(x_0,y_0)}{\partial x \partial y} = \frac{\partial^2F(x_0,y_0)}{\partial y \partial x} = f(x_0,y_0)\]
+    \item $X$ e $Y$ son variables aleatorias absolutamente continuas con funciones de densidad
+    \[f_X(x) = \int_\R f(x,y)\,dy \qquad \textup{ y } \qquad f_Y(y) = \int_\R f(x,y) \, dx\]
+    \item Si $y_0 \in \R$ es tal que $f_Y(y_0) > 0$, entonces la variable aleatoria $X |_{Y=y_0}$ es absolutamente continua y su función de densidad es
+    \[f_{X|_{Y=y_0}}(x) = \frac{f(x,y_0)}{f_Y(y_0)}\]
+    \item Si $x_0 \in \R$ es tal que $f_X(x_0) > 0$, entonces la variable aleatoria $Y |_{X=x_0}$ es absolutamente continua y su función de densidad es
+    \[f_{Y|_{X=x_0}}(y) = \frac{f(x_0,y)}{f_X(x_0)}\]
+    \item Si $X$ e $Y$ son variables independientes, entonces $f(x,y) = f_X(x)f_Y(y)$ para todo $(x,y) \in \R^2$.
+\end{enumerate}
+\end{cproposition}
+
+\vspace{0.5\baselineskip}
+
+\begin{proof}
+Tampoco.
+\end{proof}
+
+Obsérvese que puede que $X$ e $Y$ sean variables aleatorias absolutamente continuas y el vector aleatorio $(X,Y)$ no sea absolutamente continuo (tómese $Y = X$, por ejemplo).
+
+\begin{cproposition}[{Cambio de variable}]
+Sea $(X,Y)$ un vector aleatorio absolutamente continuo con densidad conjunta $f_{(X,Y)}$, y sea $T \subset \R$ el conjunto de puntos donde $f_{(X,Y)}$ toma valores positivos. Sea $g \colon T \to \R^2$ una función inyectiva y diferenciable tal que, para todo $(u,v) \in T$,
+\[\textup{det}\,Jg(u,v) = \begin{vmatrix}
+    \displaystyle\frac{\partial g_1}{\partial u}(u,v) & \displaystyle\frac{\partial g_1}{\partial v}(u,v) \\[9pt]
+    \displaystyle\frac{\partial g_2}{\partial u}(u,v) & \displaystyle\frac{\partial g_2}{\partial v}(u,v) \\    
+\end{vmatrix} \neq 0\]
+Entonces $(U,V) = g(X,Y)$ es un vector aleatorio absolutamente continuo, con densidad
+\[f_{(U,V)}(u,v) = f_{(X,Y)}(g^{-1}(u,v))\, |\,\textup{det}\,Jg(g^{-1}(u,v))\,|^{-1}\]
+\end{cproposition}
+
+\begin{proof}
+Utilícese el teorema de la función inversa.
+\end{proof}
+
+\begin{example}
+Sea $(X,Y)$ un vector aleatorio absolutamente continuo con densidad conjunta 
+\[f(x,y) = \begin{cases}
+    x+y & $si$ \ 0<x<1 \\
+    0 & $en caso contrario$
+\end{cases}\]
+Se tratará de calcular la función de distribución conjunta $F$. Sea $(x,y) \in \R^2$.
+\begin{enumerate}
+    \item Si $x < 0$ o $y < 0$,
+    \[F(x,y) = \int_{-\infty}^x \int_{-\infty}^y 0\, du \, dv = 0\]
+    \item Si $0<x<1$ y $0<y<1$,
+    \[
+    F(x,y) =\int_0^x \int_0^y (u+v) \, dv \, du = \int_0^x\biggl[uv+\frac{v^2}{2}\biggr]_0^y \,du = \biggl[\frac{u^2y}{2}+\frac{uy^2}{2}\biggr]_0^x = \frac{x^2y+xy^2}{2}\]
+    \item Si $0<x<1$ y $1 \leq y$,
+    \[F(x,y) = \int_0^x \int_0^1 (u+v) \, du \, dv = \frac{x^2+x}{2}\]
+    \item Si $1 \leq x$ y $0<y<1$,
+    \[F(x,y) = \int_0^1 \int_0^y (u+v) \, du \, dv = \frac{y^2+y}{2}\]
+    \item Si $1 \leq x$ y $1 \leq 1$,
+    \[F(x,y) = \int_0^1 \int_0^1 (u+v) \, du \, dv = 1\]
+\end{enumerate}
+\end{example}
+
+\begin{example}
+Sea $(X,Y)$ un vector aleatorio absolutamente continuo con función de densidad dada por
+\[f(x,y) = \begin{cases}
+    ayx^2 & $ si$ \ 0<y<x<1 \\
+    0 & $ en caso contrario$
+\end{cases}\]
+Los propósitos del ejemplo son
+\begin{enumerate}
+    \item \textit{Calcular el valor de $a$}. Debe cumplirse lo siguiente:
+    \[\int_{\R^2}f(x,y)\,dx\,dy = 1\]
+    Se tiene que
+    \[\int_0^1\int_0^xayx^2\,dy\,dx = \int_0^1\biggl[\frac{ay^2x^2}{2}\biggr]_0^x\,dx = \int_0^1 \frac{ax^4}{2} \, dx = \biggl[\frac{ax^5}{10}\biggr]_0^1 = \frac{a}{10},\]
+    de donde se deduce que $a = 10$.
+    \item \textit{Hallar las distribuciones marginales}. Si $0 < x < 1$,
+    \[f_X(x) = \int_\R f(x,y)\,dy = \int_0^x 10yx^2 \, dy =\biggl[5y^2x^2\biggr]_0^x= 5x^4\]
+    Por tanto,
+    \[f_X(x) = \begin{cases}
+        0 & $ si $ x \leq 0 \\
+        5x^4 & $ si $ 0 < x < 1 \\
+        5x^2 & $ si $ 1 \leq x
+    \end{cases}\]
+    Por otra parte, si $0 < y < 1$,
+    \[f_Y(y) = \int_\R f(x,y)\,dx = \int_y^1 10yx^2 \, dx =\bigg[\frac{10yx^3}{3}\biggr]_y^1 = \frac{10y}{3}-\frac{10y^4}{3}\]
+    En consecuencia,
+    \[f_Y(y) = \begin{cases}
+        \displaystyle{\frac{10y}{3}} & $ si $ y \leq 0 \\[12.5pt]
+        \displaystyle{\frac{10y}{3}(1-y^3)} & $ si $ 0 < y < 1 \\[12.5pt]
+        0\phantom{\frac{1}{1}} & $ si $ 1 \leq y,
+    \end{cases}\]
+    con lo que quedan determinadas las distribuciones marginales de $X$ e $Y$.
+    \item \textit{Hallar las densidades de las variables aleatorias $X |_{Y=y_0}$ e $Y |_{X = x_0}$, donde $x_0,y_0 \in (0,1)$}. En primer lugar, si $y_0 < x < 1$,
+    \[f_{X|_{Y=y_0}}(x) = \frac{f(x,y_0)}{f_Y(y_0)} = \frac{10y_0x^2}{\frac{10y_0}{3}(1-y_0^3)} = \frac{3x^2}{1-y_0^3}\]
+    Por tanto,
+    \[f_{X|_{Y=y_0}}(x) = \begin{cases}
+    \displaystyle{\frac{3x^2}{1-y_0^3}} & $ si $ y_0 < x < 1 \\[10pt]
+    0 & $ en caso contrario$
+    \end{cases}\]
+    Por otra parte, si $0 < y <x_0$,
+    \[f_{Y|_{X=x_0}}(y) = \frac{f(x_0,y)}{f_X(x_0)} = \frac{10yx_0^2}{5x_0^4} = \frac{2y}{x_0^2}\]
+    En consecuencia,
+    \[f_{Y|_{X=x_0}}(y) = \begin{cases}
+        \displaystyle{\frac{2y}{x_0^2}} & $ si $ 0 < y < x_0 \\[10pt]
+        0 & $ en caso contrario$
+    \end{cases}\]
+    \item \textit{Calcular la esperanza de la variable aleatoria $Y|_{X=\frac{1}{2}}$}. Se tiene que
+    \[E[Y|_{X=\frac{1}{2}}] = \int_\R yf_{Y|_{X=\frac{1}{2}}}(y) \, dy = \int_0^\frac{1}{2}8y^2 \, dy = \biggl[\frac{8y^3}{3}\biggr]_0^\frac{1}{2} = \frac{1}{3}\]
+\end{enumerate}
+\end{example}
+
+\begin{example}
+Sea $(X,Y)$ un vector aleatorio absolutamente continuo con densidad conjunta
+\[f(x,y) = \begin{cases}
+    e^{-x-y} & $ si$ \ x>0,y>0 \\
+    0 & $ en caso contrario$
+\end{cases}\]
+Se tratará de hallar la distribución de la variable aleatoria $U = \frac{X}{X+Y}$. Para ello, considérense la variable $V = X+Y$ y el vector $(U,V) = g(X,Y)$, donde 
+\[\begin{aligned}[t]
+    g \colon T &\longrightarrow \R^2 \\
+    (x,y) &\longmapsto g(x,y) = \textstyle({\frac{x}{x+y}},x+y),
+\end{aligned}\]
+siendo $T = \{(x,y) \in \R^2 \colon x>0,y>0\}$. Se tiene que $g$ es inyectiva y diferenciable, y si $(x,y) \in T$,
+\[\textup{det}\,Jg(x,y) = \begin{vmatrix}
+    \displaystyle\frac{\partial g_1}{\partial x}(x,y) & \displaystyle\frac{\partial g_1}{\partial y}(x,y) \\[10pt]
+    \displaystyle\frac{\partial g_2}{\partial x}(x,y) & \displaystyle\frac{\partial g_2}{\partial y}(x,y) \\ 
+\end{vmatrix} = \begin{vmatrix}
+    \displaystyle\frac{y}{(x+y)^2} & \displaystyle-\frac{x}{(x+y)^2} \\[10pt]
+    1 & 1
+\end{vmatrix} = \frac{1}{x+y} \neq 0\]
+Además, la inversa de $g$ viene dada por $g^{-1}(u,v) = (uv,v(1-u))$, luego
+\[\textup{det} \, Jg(g^{-1}(u,v)) = \frac{1}{v}\]
+Se concluye que $(U,V)$ es una variable aleatoria absolutamente continua con función de densidad
+\[f_{(U,V)}(u,v)=ve^{-uv-v(1-u)} = ve^{-v},\]
+siempre que $(u,v) \in g(T)$. Ya puede hallarse fácilmente la función de densidad de $U$.
+\end{example}
+
+\chapter{Teorema central del límite}
+
+\section{Convergencia en distribución}
+
+\begin{cdefinition}
+Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias, y sean $\{F_n\}_{n=1}^\infty$ sus funciones de distribución. Se dice que \mybf{{la sucesión $\bm{\{X_n\}_{n=1}^\infty}$ converge en distribución a la variable aleatoria $\bm{X}$}}, si 
+\[\lim_{n\to\infty}F_n(x)=F(x)\]
+para todo $x \in C_F=\{x \in \R \colon F \textup{ es continua en }x\}$, siendo $F$ la función de distribución de $X$. Se suele denotar
+\[X_n \xrightarrow[n\to\infty]{d} X\]
+\end{cdefinition}
+
+\section{Teorema central del límite}
+
+\begin{ctheorem}
+Si $X$ es una variable aleatoria absolutamente continua con $X \sim N(\mu, \sigma^2)$, entonces
+\[\frac{X-\mu}{\sigma} \sim N(0,1)\]
+\end{ctheorem}
+
+\begin{proof}
+Sea $\varphi \colon \R \to \R$ la función definida por 
+\[\varphi(x) = \frac{x-\mu}{\sigma}\]
+La función $\varphi$ es una función de Borel (pues es continua), es derivable, tiene derivada continua y es estrictamente monótona. El \hyperref[teo3.1.]{\color{gray}teorema del cambio de variable} permite afirmar que
+\[Z=\varphi \circ X=\frac{X-\mu}{\sigma}\]
+es una variable aleatoria absolutamente continua, y su densidad es
+\[f_Y(y)=f_X(\varphi^{-1}(y))|(\varphi^{-1})'(y)|,\]
+donde $\varphi^{-1} \colon \R \to \R$ está definida por $\varphi^{-1}(y)=\sigma y +\mu$. Por tanto,
+\[f_Y(y)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(\sigma y +\mu-\mu)^2}{2\sigma^2}}|\sigma| = \frac{|\sigma|}{\sqrt{2\pi}|\sigma|}e^{-\frac{\sigma^2y^2}{2\sigma^2}}=\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}},\]
+concluyéndose que $Z \sim N(0,1)$.
+\end{proof}
+
+Este teorema permite reducir el cálculo de probabilidades de distribuciones normales cualesquiera al cálculo de probabilidades de la distribución normal estándar, pues si $X \sim N(\mu,\sigma^2)$, entonces, para cada $a \in \R$,
+\[P(X<a) =P\biggl(\frac{X-\mu}{\sigma}<\frac{a-\mu}{\sigma}\biggr) = P(Z<\frac{a-\mu}{\sigma}),\]
+donde $Z \sim N(0,1)$.
+
+\begin{ctheorem}[{Teorema central del límite de Lindeberg-Lévy}]
+Consideremos una sucesión de variables aleatorias $\{X_n\}_{n=1}^\infty$ verificando:
+\begin{enumerate}
+    \item Las variables aleatorias son mutuamente independientes.
+    \item Todas las variables aleatorias tienen la misma distribución de probabilidad.
+    \item Existen $\mu=E[X_n]$ y $\sigma^2=\textup{Var}[X_n]$.
+\end{enumerate}
+Entonces
+\[\frac{S_n-n\mu}{\sqrt{n}\sigma} \xrightarrow[n\to\infty]{d}N(0,1),\]
+donde $S_n=X_1+\mathellipsis+X_n$ para cada $n \in \N$.
+\end{ctheorem}
+
+\begin{proof}
+No hace falta.
+\end{proof}
+
+\begin{ccorollary}[{Teorema de De Moivre-Laplace}]
+Sea $\{X_n\}_{n=1}^\infty$ una sucesión de variables aleatorias mutuamente independientes tales que $X_n \sim Ber(p)$ para todo $n \in N$. Entonces
+\[\frac{S_n-np}{\sqrt{np(1-p)}} \xrightarrow[n\to\infty]{d}N(0,1),\]
+donde $S_n=X_1+\mathellipsis+X_n$ para cada $n \in \N$.
+\end{ccorollary}
+
+\begin{proof}
+Consecuencia inmediata del teorema anterior.
+\end{proof}
+
+La importancia de este corolario radica en que, para un natural $n$ lo suficientemente grande, se verifica
+\[Bin(n,p) \approx N(np,np(1-p))\]
+Esto se debe a que la variable aleatoria $S_n$ del corolario anterior sigue una distribución binomial de parámetros $n$ y $p$, siendo $\mu =np$ y $\sigma^2 =np(1-p)$ su esperanza y su varianza. Por tanto,
+\[\frac{S_n-\mu}{\sigma^2} \approx N(0,1),\]
+así que se podría decir que
+\[Bin(n,p) \approx N(\mu,\sigma^2) = N(np,np(1-p))\]
+\end{document}

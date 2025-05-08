@@ -1,0 +1,431 @@
+\documentclass[11pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{fbox}
+\usepackage{fouriernc}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{parskip}
+\usepackage{hyperref}
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\mathbb D}
+\renewcommand{\S}{\mathbb S}
+
+\newcommand{\pars}[1]{\left( #1 \right)} % Paréntesis de tamaño automático
+
+\renewcommand{\Re}[1]{\,\textup{Re}\pars{#1}}
+\renewcommand{\Im}[1]{\,\textup{Im}\pars{#1}}
+
+\newtheorem{exercise}{Ejercicio}
+\theoremstyle{remark}
+\newtheorem*{resolution}{Solución}
+
+\begin{document}
+
+\textit{Variable Compleja} \hfill \textit{Curso 2023-2024}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	{\LARGE \textbf{Relación 1}} % Title
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+\begin{exercise}
+    Encontrar la forma cartesiana (rectangular) de los siguientes números complejos:
+    \begin{enumerate}
+        \item $\displaystyle \frac{1}{6+2i}$
+        \item $\displaystyle \frac{(2+i)(3+2i)}{1-i}$
+        \item $\displaystyle \left(-\frac{1}{2}+i\frac{\sqrt{3}}{2}\right)^4$
+        \item $\displaystyle i^3$
+        \item $\displaystyle i^{27}$
+    \end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+    \hfill
+    \begin{enumerate}
+        \item Se tiene que
+        \[\frac{1}{6+2i} = \frac{6-2i}{(6+2i)(6-2i)} = \frac{6-2i}{40} = \frac{3}{20}-i\frac{1}{20}\]
+        \item Se tiene que
+        \[\frac{(2+i)(3+2i)}{1-i} = \frac{(6+4i+3i-2)(1+i)}{2} = \frac{(4+7i)(1+i)}{2} = \frac{4+4i+7i-7}{2} 
+        = -\frac{3}{2}+i\frac{11}{2}\]
+        \item Se tiene que
+        \[\pars{-\frac{1}{2}+i\frac{\sqrt{3}}{2}}^4 = \pars{\cos\pars{\frac{2\pi}{3}}+i\sen\pars{\frac{2\pi}{3}}}^4 \overset{(*)}{=} \cos\pars{\frac{8\pi}{3}}+i\sen\pars{\frac{8\pi}{3}} =\cos\pars{\frac{2\pi}{3}}+i\sen\pars{\frac{2\pi}{3}}= -\frac{1}{2}+i\frac{\sqrt{3}}{2},\]
+        donde en $(*)$ se ha utilizado la fórmula de De Moivre.
+        \item Se tiene que
+        \[i^3 = -i\]
+        \item Se tiene que
+        \[i^{27} = (i^4)^6 i^3 = -i\]
+    \end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+    Encontrar las dos raíces cuadradas de $-8+6i$ y expresarlas en forma cartesiana.
+\end{exercise}
+
+\begin{resolution}
+Sea $z = -8+6i$. Buscamos $w = x+iy \in \C$ tal que $(x+iy)^2 = z$, o sea, $x^2-y^2+i2xy = z$.
+Igualando partes reales e imaginarias, debe cumplirse
+\[\left\{ \begin{alignedat}{2}
+    x^2-y^2&=-&8 \\
+    2xy &= &6
+\end{alignedat} \\ \right. \overset{(*)}{\iff} \left\{ \begin{alignedat}{2}
+    \frac{9}{y^2}-y^2&=-&8 \\
+    x &= \frac{3}{y}
+\end{alignedat} \\ \right. \iff \left\{ \begin{alignedat}{2}
+    y^4-8y^2-9 &= 0 \\
+    x &= \frac{3}{y}
+\end{alignedat} \\ \right. \iff \left\{ \begin{alignedat}{2}
+    y &\in \{-3,3\} \\
+    x &= \frac{3}{y}
+\end{alignedat} \\ \right.\]
+Por tanto, las dos raíces cuadradas de $z$ son
+\[w_1 = -1-3i \qquad \textup{y} \qquad w_2 = 1+3i\]
+En $(*)$ se ha supuesto que $y \neq 0$, pues si fuese $ y =0$, en la primera ecuación se tendría $x^2 = -8$, que es imposible porque $x \in \R$.
+\end{resolution}
+
+\begin{exercise}
+    Sea $n \in \N$, $n \geq 2$. Resolver la ecuación $\overline{z} = z^{n-1}$.
+\end{exercise}
+
+\begin{resolution}
+Se observa que $z = 0$ es solución de la ecuación. Si $z \neq 0$, al multiplicar por $z$ se obtiene $|z|^2 = z^n$, y tomando módulos, $|z|^2 = |z|^n$, de donde $|z|^{n-2} = 1$, y como $|z| \in \R$, ha de ser $|z| = 1$ (siempre que $n >2$). Por tanto, la ecuación del enunciado es equivalente (salvo el cero) a
+\[z^n = 1,\]
+concluyéndose que, si $n>2$, las soluciones de $\overline{z} = z^{n-1}$ son el cero y las raíces $n$-ésimas de la unidad, mientras que si $n = 2$, $\overline{z} = z$ si y solo si $z \in \R$.
+\end{resolution}
+
+\begin{exercise}
+\label{ex4}
+    Probar que si $z, w \in \C$, entonces
+    \begin{enumerate}
+        \item $|z-w|^2=|z|^2+|w|^2-2\Re{z\overline{w}}$
+        \item $|1-z\overline{w}|^2-|z-w|^2 = \pars{1-|z|^2}\pars{1-|w|^2}$
+        \item $|z+w|^2+|z-w|^2=2\pars{|z|^2+|w|^2}$
+    \end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+    \hfill
+    \begin{enumerate}
+        \item Usando que $z+\overline{z}=2\Re{z}$ para todo $z \in \C$, se tiene que
+        \[\begin{aligned}[t]
+            |z-w|^2 &= (z-w)\overline{(z-w)} \\ &= (z-w)(\overline{z}-\overline{w}) \\ &= |z|^2+|w|^2-z\overline{w}-w\overline{z} \\ &= |z|^2+|w|^2-(z\overline{w}+w\overline{z}) \\ &= |z|^2+|w|^2-(z\overline{w}+\overline{z\overline{w}}) \\ &= |z|^2+|w|^2-2\Re{z\overline{w}}
+        \end{aligned}\]
+        \item Por el apartado anterior, se tiene que
+        \[\begin{aligned}[t]
+            |1-z\overline{w}|^2-|z-w|^2 &= 1+|z\overline{w}|^2-2\Re{z\overline{w}}-|z|^2-|w|^2+2\Re{z\overline{w}} \\ &=  1+|z\overline{w}|^2-|z|^2-|w|^2\\ &= \pars{1-|z|^2}\pars{1-|w|^2}
+        \end{aligned}\]
+        \item También por el apartado primero, se tiene
+        \[\begin{aligned}[t]
+            |z+w|^2+|z-w|^2 &= |z|^2+|-w|^2-2\Re{z\overline{(-w)}}+|z|^2+|w|^2-2\Re{z\overline{w}} \\ &= |z|^2+|w|^2+2\Re{z\overline{w}}+|z|^2+|w|^2-2\Re{z\overline{w}} \\ &= 2|z|^2+2|w|^2 \\ &= 2\pars{|z|^2+|w|^2} 
+        \end{aligned}\]
+    \end{enumerate}
+\end{resolution}
+
+\begin{exercise}
+    Probar que $\cos(4x)=\cos^4(x)-6\cos^2(x)\sen^2(x)+\sen^4(x)$ para todo $x \in \R$.
+\end{exercise}
+
+\begin{resolution}
+    Sea $x \in \R$. De las fórmulas del seno de la suma y el coseno de la suma se deduce que
+    \[\begin{aligned}[t]
+        \cos(2x) &= \cos^2(x)-\sen^2(x) \\
+        \sen(2x) &= 2\sen(x)\cos(x)
+    \end{aligned}\]
+    Por tanto,
+    \[\begin{aligned}[t]
+    \cos(4x) &= \cos^2(2x)-\sen^2(2x) \\
+    &= (\cos^2(x)-\sen^2(x))^2-(2\sen(x)\cos(x))^2 \\
+    &= \cos^4(x)+\sen^4(x)-2\cos^2(x)\sen^2(x)-4\cos^2(x)\sen^2(x) \\
+    &= \cos^4(x)+\sen^4(x)-6\cos^2(x)\sen^2(x)
+    \end{aligned}
+    \]
+\end{resolution}
+
+
+\begin{exercise}
+    Sea $\omega \neq 1$ una raíz $n$-ésima de la unidad. Probar que
+    \[\sum_{k=0}^{n-1} \omega^k = 0\]
+\end{exercise}
+
+\begin{resolution}
+    Tenemos que $\omega$ es una raíz del polinomio $X^n-1 \in \C[X]$. Pero
+    \[(X^n-1)=(X-1)(X^{n-1}+\mathellipsis+X+1),\]
+    y como $\omega$ no es raíz de $X-1$, entonces es raíz de $X^{n-1}+\mathellipsis+X+1$. En otras palabras,
+    \[\sum_{k=0}^{n-1}\omega^k = 0\]
+
+    \textit{Otra forma}. Usando la fórmula para las sumas parciales de una serie geométrica, se tiene
+    \[\sum_{k=0}^{n-1}\omega^k = \frac{1-\omega^n}{1-\omega} = 0,\]
+    ya que $\omega^n = 1$.
+
+    \textit{Otra forma}. Las raíces de $X^n-1 \in \C[X]$ son $\omega^k$ para $k \in \{0,1,\mathellipsis,n-1\}$, y la suma de las raíces de un polinomio de grado $n$ con $n$ raíces distintas es el opuesto del coeficiente del término de grado $n-1$. En consecuencia,
+    \[\sum_{k=0}^{n-1}\omega^k = 0,\]
+    ya que el coeficiente del término de grado $n-1$ en $X^n-1$ es nulo.
+\end{resolution}
+
+\begin{exercise}
+    Para $\theta \in \R$ con $\sen\pars{\frac{\theta}{2}} \neq 0$, probar que
+    \[1+\cos\pars{\theta}+\cos\pars{2\theta}+\mathellipsis+\cos\pars{n\theta} = \frac{1}{2}\pars{1+\frac{\sen\pars{\pars{{n+\frac{1}{2}}}\theta}}{\sen\pars{\frac{\theta}{2}}}}\]
+    Encontrar una fórmula similar para $1+\sen\pars{\theta}+\sen\pars{2\theta}+\mathellipsis+\sen\pars{n\theta}$.
+\end{exercise}
+
+\begin{resolution}
+    Para todo $k \leq n$, $\cos(k\theta) = \Re{e^{i\theta k}}$, luego
+    \[1+\cos\pars{\theta}+\cos\pars{2\theta}+\mathellipsis+\cos\pars{n\theta} = \Re{\sum_{k=0}^n e^{i\theta k}} = \Re{\sum_{k=0}^n(e^{i\theta})^k} = \Re{\frac{1-e^{i\theta(n+1)}}{1-e^{i\theta}}}\]
+    Se tiene que
+    \[
+    \begin{aligned}[t]
+        \frac{1-e^{i\theta(n+1)}}{1-e^{i\theta}} &= \frac{e^{-i\frac{\theta}{2}}(1-e^{i\theta(n+1)})}{e^{-i\frac{\theta}{2}}(1-e^{i\theta})} \\
+        &= \frac{e^{-i\frac{\theta}{2}}-e^{i\theta(n+\frac{1}{2})}}{e^{-i\frac{\theta}{2}}-e^{i\frac{\theta}{2}}} \\ 
+        &= \frac{\cos\pars{\frac{\theta}{2}}-i\sen\pars{\frac{\theta}{2}}-\cos\pars{\pars{n+\frac{1}{2}}\theta}-i\sen\pars{\pars{n+\frac{1}{2}}\theta}}{-2i\sen\pars{\frac{\theta}{2}}} \\
+        &= i\frac{\cos\pars{\frac{\theta}{2}}-i\sen\pars{\frac{\theta}{2}}-\cos\pars{\pars{n+\frac{1}{2}}\theta}-i\sen\pars{\pars{n+\frac{1}{2}}\theta}}{2\sen\pars{\frac{\theta}{2}}} \\
+        &=\frac{\sen\pars{\frac{\theta}{2}}+\sen\pars{\pars{n+\frac{1}{2}}}\theta}{2\sen\pars{\frac{\theta}{2}}}+i\pars{\frac{\cos\pars{\frac{\theta}{2}}-\cos\pars{\pars{n+\frac{1}{2}}}\theta}{2\sen\pars{\frac{\theta}{2}}}}
+    \end{aligned}
+    \]
+    En consecuencia,
+    \[\begin{aligned}[t]
+    1+\cos\pars{\theta}+\cos\pars{2\theta}+\mathellipsis+\cos\pars{n\theta} &= \Re{\frac{1-e^{i\theta(n+1)}}{1-e^{i\theta}}} \\
+    &= \frac{\sen\pars{\frac{\theta}{2}}+\sen\pars{\pars{n+\frac{1}{2}}}\theta}{2\sen\pars{\frac{\theta}{2}}} \\ 
+    &= \frac{1}{2}\pars{1+\frac{\sen\pars{\pars{n+\frac{1}{2}}}\theta}{\sen\pars{\frac{\theta}{2}}}}
+    \end{aligned}
+    \]
+    Una fórmula similar para el seno se obtiene observando la parte imaginaria en lugar de la real:
+    \[1+\sen\pars{\theta}+\sen\pars{2\theta}+\mathellipsis+\sen\pars{n\theta} = \pars{\frac{\cos\pars{\frac{\theta}{2}}-\cos\pars{\pars{n+\frac{1}{2}}}\theta}{2\sen\pars{\frac{\theta}{2}}}}\]
+    \end{resolution}
+
+\begin{exercise}
+    Probar que si $z_1,z_2 \in \C \setminus \{0\}$ se ven como vectores de $\R^2$, su producto escalar real es entonces $\Re{z_1\overline{z_2}}$. Concluir que son ortogonales si y solo si $z_1\overline{z_2}$ es puramente imaginario.
+\end{exercise}
+
+\begin{resolution}
+    Llamemos $z_1=x_1+iy_1$, $z_2 = x_2+iy_2$. Viéndolos como vectores de $\R^2$, su producto escalar sería
+    \[\langle (x_1,y_1),(x_2,y_2) \rangle = x_1x_2+y_1y_2\]
+    Por otro lado,
+    \[\Re{z_1\overline{z_2}} = \Re{x_1x_2+y_1y_2+i(x_2y_1-x_1y_2)} = x_1x_2+y_1y_2\]
+    Lo que queda de ejercicio es trivial.
+\end{resolution}
+
+\begin{exercise}
+    Para $z \in \C \setminus \{1\}$, probar que
+    \[\Re{\frac{1+z}{1-z}} > 0 \iff |z| < 1\]
+\end{exercise}
+
+\begin{resolution}
+    Se tiene que
+    \[\frac{1+z}{1-z}= \frac{(1+z)\overline{(1-z)}}{|1-z|^2} = \frac{(1+z)(1-\overline{z})}{|1-z|^2} = \frac{1-\overline{z}+z-z\overline{z}}{|1-z|^2} = \frac{1-|z|^2+2i\Im{z}}{|1-z|^2} = \frac{1-|z|^2}{|1-z|^2}+i\frac{2\Im{z}}{|1-z|^2}\]
+    Por tanto,
+    \[\Re{\frac{1+z}{1-z}} = \frac{1-|z|^2}{|1-z|^2} > 0 \iff 1-|z|^2>0 \iff |z|^2 < 1 \iff |z| < 1\]
+\end{resolution}
+
+\begin{exercise}
+    Para $z, w \in \D$, probar que
+    \[\left|\frac{z-w}{1-\overline{w}z}\right|<1\]
+\end{exercise}
+
+\begin{resolution}
+    Sean $z,w \in \D$. Entonces $1-|z|^2>0$ y $1-|w|^2>0$, luego, por el \hyperref[ex4]{\color{blue}Ejercicio 4}, 
+    \[|1-\overline{w}z|^2-|z-w|^2 = \pars{1-|z|^2}\pars{1-|w|^2} > 0,\]
+    es decir,
+    \[|z-w|^2<|1-\overline{w}z|^2,\]
+    o lo que es lo mismo,
+    \[\frac{|z-w|^2}{|1-\overline{w}z|^2} = \left|\frac{z-w}{1-\overline{w}z}\right|^2 < 1,\]
+    concluyéndose que
+    \[\left|\frac{z-w}{1-\overline{w}z}\right| < 1\]
+\end{resolution}
+
+\pagebreak
+
+\begin{exercise}
+    Describir geométricamente los siguientes conjuntos:
+    \begin{enumerate}
+        \item $\{z \in \C \colon |z-1| = |z+1|\}$
+        \item $\{z \in \C \colon |z-2| > |z-3|\}$
+        \item $\{z \in \C \colon \Re{\frac{z}{1+i}}=0\}$
+        \item $\{z \in \C \colon |z-1|+|z+1|=4\}$
+    \end{enumerate}
+\end{exercise}
+
+\begin{resolution}
+\hfill
+    \begin{enumerate}
+        \item Es el conjunto de puntos del plano que equidistan de $1$ y $-1$, es decir, el eje imaginario.
+        \item Es el conjunto de puntos del plano que se encuentran más lejos de $2$ que de $3$, es decir, el semiplano $\{z \in \C \colon \Re{z} > \frac{5}{2}\}$.
+        \item Si $z = x+iy \in \C$,
+        \[\frac{z}{1+i} = \frac{1}{2}(x+iy)(1-i) = \frac{x+y}{2}+i\frac{y-x}{2}\]
+        Por tanto, el conjunto a describir es la recta $\{x+iy \in \C \colon y = -x\}$.
+        \item Se trata de una elipse de focos $1$ y $-1$ y eje mayor $4$.
+    \end{enumerate}
+\end{resolution}
+
+\begin{exercise} 
+    Se ha visto que la ecuación general de una circunferencia es de la forma \[|z|^2+\beta z+\overline{\beta z}+\gamma = 0,\] con $\beta \in \C$, $\gamma \in \R$ y $|\beta|^2>\gamma$. Probar que esta ecuación puede escribirse en la forma
+    \[\pars{z+\overline{\beta}}\pars{\overline{z}+\beta} = |\beta|^2-\gamma\]
+    Usar esto para determinar el centro y radio de dicha circunferencia en términos de $\beta$ y $\gamma$.
+\end{exercise}
+
+\begin{resolution}
+    Se tiene que
+    \[\begin{aligned}[t]
+        |z|^2+\beta z+\overline{\beta z}+\gamma = 0 &\iff z\overline{z}+\beta z+\overline{\beta z}+\beta \overline{\beta}-\beta\overline{\beta}+\gamma = 0 \\
+        &\iff z(\overline{z}+\beta)+\overline{\beta}(\overline{z}+\beta)-\beta \overline{\beta}+\gamma=0 \\
+        &\iff (z+\overline{\beta})(\overline{z}+\beta) = |\beta|^2-\gamma
+    \end{aligned}\]
+    Si $z_0$ es el centro de la circunferencia y $r$ el radio, como $\beta = -\overline{z_0}$ y $\gamma=|z_0|^2-r^2$, entonces $z_0 = -\overline{\beta}$ y $r = \sqrt{|\beta|^2-\gamma}$ son, respectivamente, el centro y el radio de la circunferencia.
+\end{resolution}
+
+\begin{exercise}
+    Encontrar una condición para que dos números complejos $z, w \in \C$ se correspondan con puntos diametralmente opuestos de la esfera.
+\end{exercise}
+
+\begin{resolution}
+    Para que los puntos $z$ y $w$ se correspondan con puntos diametralmente opuestos de la esfera, debe verificarse
+    \[
+        \rho(z,w)=2 \iff \frac{2|z-w|}{\sqrt{|z|^2+1}\sqrt{|w|^2+1}} = 2
+        \iff |z-w| = \sqrt{|z|^2+1}\sqrt{|w|^2+1}
+    \]
+    Elevando al cuadrado,
+    \[
+    \begin{aligned}[t]
+    |z-w|^2 = \pars{|z|^2+1}\pars{|w|^2+1} &\iff |z|^2+|w|^2-2\Re{z\overline{w}} = |z|^2|w|^2+|z|^2+|w|^2+1 \\
+    &\iff z\overline{z}w\overline{w}+z\overline{w}+w\overline{z}+1=0 \\
+    &\iff \pars{1+z\overline{w}}\pars{1+w\overline{z}}=0 \\
+    &\iff z\overline{w} = -1
+    \end{aligned}
+    \]
+    Así, si $z,w \in \C$ se corresponden con puntos diametralmente opuestos de la esfera, entonces $z\overline{w}=-1$. El recíproco también es cierto, pues si $z\overline{w} = -1$, entonces \[w = -\frac{1}{\overline{z}} = -\frac{z}{|z|^2}\]
+    En consecuencia, si escribimos $ z = x+iy$, se tiene
+    \[\Pi^{-1}(z) = \pars{\frac{2x}{|z|^2+1},\frac{2y}{|z|^2+1},\frac{|z|^2-1}{|z|^2+1}}\]
+    Por otra parte,
+    \[\Re{w} = -\frac{x}{|z|^2} \qquad \qquad \Im{w} = -\frac{y}{|z|^2} \qquad \qquad |w| = \frac{1}{|z|}\]
+    Así,
+    \[\begin{aligned}[t]
+        \Pi^{-1}\pars{w} &= \pars{-\frac{2x}{|z|^2\pars{\frac{1}{|z|^2}+1}},-\frac{2y}{|z|^2\pars{\frac{1}{|z|^2}+1}},\frac{\frac{1}{|z|^2}-1}{\frac{1}{|z|^2}+1}} \\
+        &= \pars{-\frac{2x}{|z|^2+1},-\frac{2y}{|z|^2+1},\frac{\frac{1-|z|^2}{|z|^2}}{\frac{1+|z|^2}{|z|^2}}} \\
+        &= \pars{-\frac{2x}{|z|^2+1},-\frac{2y}{|z|^2+1},\frac{1-|z|^2}{1+|z|^2}} \\
+        &= -\Pi^{-1}(z),
+    \end{aligned}\]
+    luego $z$ y $\omega$ se corresponden con puntos diametralmente opuestos de la esfera.
+\end{resolution}
+
+\begin{exercise}
+    Probar que la proyección estereográfica envía circunferencias en $\S^2$ en circunferencias o rectas de $\C$, y a la inversa, circunferencias o rectas de $\C$ se corresponden con circunferencias en $\mathbb{S}^2$.
+\end{exercise}
+
+\begin{resolution}
+    Sea $C$ una circunferencia de $\S^2$. Entonces $C = P \cap \S^2$, donde $P$ es un plano de $\R^3$ de ecuación
+    \[P \equiv Ax+By+Cz = D,\]
+    donde $A,B,C \in \R$ son tales que $A^2+B^2+C^2 \neq 0$. Si $p \in C$, entonces existe $z = x+iy \in \C$ tal que
+    \[p = \Pi^{-1}(z) = \pars{\frac{2x}{|z|^2+1},\frac{2y}{|z|^2+1},\frac{|z|^2-1}{|z|^2+1}}\]
+    Este punto debe verificar la ecuación del plano, luego
+    \[
+    \begin{aligned}[t]
+    A\pars{\frac{2x}{|z|^2+1}}+B\pars{\frac{2y}{|z|^2+1}}+C\pars{\frac{|z|^2-1}{|z|^2+1}} = D &\iff 2Ax+2By+C|z|^2-C = D|z|^2+D \\
+    &\iff (C-D)|z|^2+2Ax+2By-C-D=0 \\
+    &\iff (C-D)|z|^2+A(z+\overline{z})+iB(\overline{z}-z)-C-D=0 \\
+    &\iff (C-D)|z|^2+(A-iB)z+(A+iB)\overline{z}-C-D=0
+    \end{aligned}
+    \]
+    Así, $p$ verifica una ecuación del tipo
+    \[\alpha |z|^2+\beta z+\overline{\beta z}+\gamma = 0, \tag{$\ast$}\]
+    donde $\alpha = C-D \in \R$, $\gamma = -C-D \in \R$ y $\beta = A-iB \in \C$ son tales que
+    \[|\beta|^2-\alpha\gamma = A^2+B^2+(C-D)(C+D) = A^2+B^2+C^2-D^2 > 0,\]
+    Para la última desigualdad, como $P$ interseca a $\S^2$ entonces la distancia de $P$ al origen debe ser menor que $1$:
+    \[d(P,0) = \frac{|A \cdot 0+B \cdot 0+C \cdot 0+D|}{\sqrt{A^2+B^2+C^2}} = \frac{|D|}{\sqrt{A^2+B^2+D^2}}< 1\]
+    De aquí se deduce que
+    \[D^2<A^2+B^2+C^2,\]
+    luego, efectivamente, \[|\beta|^2-\alpha \gamma =A^2+B^2+C^2-D^2>0,\] así que $(*)$ es la ecuación de una circunferencia. Queda probado entonces que las circunferencias de $\S^2$ se corresponden con circunferencias (si $\alpha \neq 0$) o rectas (si $\alpha = 0$) de $\C$.
+
+    Recíprocamente, considérese una circunferencia o recta $C \subset \C$ de ecuación
+    \[\alpha |z|^2+\beta z +\overline{\beta z}+\gamma = 0,\]
+    con $\alpha, \gamma \in \R$, $\beta \in \C$ y $|\beta|^2-\alpha\gamma >0$. Dado $z \in C$, el punto correspondiente en $\S^2$ es
+    \[p = \Pi^{-1}(z) = \pars{\frac{2x}{|z|^2+1},\frac{2y}{|z|^2+1},\frac{|z|^2-1}{|z|^2+1}} = \pars{\frac{z+\overline{z}}{|z|^2+1},\frac{i(\overline{z}-z)}{|z|^2+1},\frac{|z|^2-1}{|z|^2+1}} \equiv (x_1,x_2,x_3)\]
+    Sean
+    \[A = \Re{\beta} \qquad \qquad B = -\Im{\beta} \qquad \qquad C = \frac{\alpha-\gamma}{2} \qquad \qquad D = -\frac{\alpha+\gamma}{2}\]
+    Entonces
+    \[\begin{aligned}[t]
+        Ax_1+Bx_2+Cx_3 &= \frac{1}{|z|^2+1}\pars{\Re{\beta}z+\Re{\beta}\overline{z}-i\Im{\beta}\overline{z}+i\Im{\beta}z+\frac{1}{2}\pars{\alpha-\gamma}\pars{|z|^2-1}} \\
+        &=\frac{1}{|z|^2+1}\pars{\pars{\Re{\beta}+i\Im{\beta}}z+\pars{\Re{\beta}-i\Im{\beta}}\overline{z}+\frac{1}{2}\pars{\alpha|z|^2-\alpha-\gamma |z|^2+\gamma}} \\
+        &= \frac{1}{|z|^2+1}\pars{\beta z+\overline{\beta z}+\frac{1}{2}\pars{\alpha|z|^2-\alpha-\gamma |z|^2+\gamma}} \\
+        &=\frac{1}{|z|^2+1}\pars{-\alpha |z|^2-\gamma+\frac{1}{2}\pars{\alpha|z|^2-\alpha-\gamma |z|^2+\gamma}} \\
+        &=\frac{1}{|z|^2+1}\pars{-\frac{\alpha|z|^2}{2}-\frac{\gamma}{2}-\frac{\alpha}{2}-\frac{\gamma|z|^2}{2}} \\
+        &=-\frac{1}{2}\frac{\alpha|z|^2+\gamma+\alpha+\gamma|z|^2}{|z|^2+1} \\
+        &=-\frac{\alpha+\gamma}{2}\frac{|z|^2+1}{|z|^2+1} \\
+        &=-\frac{\alpha+\gamma}{2} \\
+        &= D
+    \end{aligned}\]
+    Además,
+    \[A^2+B^2+C^2=\Re{\beta}^2+\Im{\beta}^2+\frac{\alpha^2+\gamma^2-2\alpha\gamma}{2} = |\beta|^2-\alpha\gamma+\alpha^2+\gamma^2 >|\beta|^2-\alpha\gamma>0,\]
+    así que $p$ verifica la ecuación del plano
+    \[P \equiv Ax_1+Bx_2+Cx_3 = D\]
+    Como las circunferencias de $\S^2$ con planos de $\R^3$ intersecados con $\S^2$, se concluye que circunferencias o rectas de $\C$ se corresponden con circunferencias de $\S^2$.
+\end{resolution}
+
+\begin{exercise}
+    Sea $T$ la función racional dada por $T(z) = \frac{1}{z}$ (mejor, consideramos la extensión continua a $\C^*$ de dicha función racional). Probar que
+    \begin{enumerate}
+        \item $\rho(T(z),T(w)) = \rho(z,w)$ para todos $z, w \in \C^*$.
+        \item $T$ transforma cualquier circunferencia en una recta o circunferencia, y transforma cualquier recta en una recta o circunferencia.
+    \end{enumerate}
+\end{exercise}
+
+\pagebreak
+
+\begin{resolution}
+    \hfill
+    \begin{enumerate}
+        \item Sean $z,w \in \C^*$. Entonces
+        \[
+        \begin{aligned}[t]
+        \rho(T(z),T(w)) &= \frac{2|T(z)-T(w)|}{\sqrt{|T(z)|^2+1}\sqrt{|T(w)|^2+1}} \\
+        &= \frac{2|\frac{1}{z}-\frac{1}{w}|}{\sqrt{|\frac{1}{z}|^2+1}\sqrt{|\frac{1}{w}|^2+1}} \\
+        &= \frac{2|\frac{w-z}{zw}|}{\sqrt{\frac{1}{|z|^2}+1}\sqrt{\frac{1}{|w|^2}+1}} \\
+        &= \frac{2\frac{|w-z|}{|z||w|}}{\sqrt{\frac{|z|^2+1}{|z|^2}}\sqrt{\frac{|w|^2+1}{|w|^2}}} \\
+        &= \frac{2\frac{|w-z|}{|z||w|}}{\frac{\sqrt{|z|^2+1}}{|z|}\frac{\sqrt{|w|^2+1}}{|w|}} \\
+        &= \frac{2|w-z|}{\sqrt{|z|^2+1}\sqrt{|w|^2+1}} \\
+        &= \rho(z,w)
+        \end{aligned}
+        \]
+        \item Considérese una recta o circunferencia $C \subset \C^*$ de ecuación
+        \[\alpha|z|^2+\beta z+\overline{\beta z}+\gamma = 0,\]
+        con $\alpha,\gamma \in \R$, $\beta \in \C$ y $|\beta|^2-\alpha\gamma >0$. Si $z \in C$, entonces
+        \[
+        \begin{aligned}[t]
+            \gamma|T(z)|^2+\overline{\beta} T(z)+\beta \overline{T(z)}+\alpha
+            &= \frac{\gamma}{|z|^2}+\frac{\overline{\beta}}{z}+\frac{\beta}{\overline{z}}+\alpha \\ 
+            &= \frac{\gamma}{|z|^2}+\frac{\overline{\beta z}}{|z|^2}+\frac{\beta z}{|z|^2}+\alpha \\
+            &= \frac{1}{|z|^2}\pars{\gamma+\beta z+\overline{\beta z}+\alpha |z|^2} \\
+            &= 0
+        \end{aligned}
+        \]
+        Por tanto, $T(z)$ verifica una ecuación de la forma
+        \[a|z|^2+bz+\overline{bz}+c = 0,\]
+        con $a = \gamma \in \R$, $c = \alpha \in \R$ y $b = \overline{\beta} \in \C$. Además,
+        \[|b|^2-ac = |\beta|^2-\alpha \gamma > 0,\]
+        así que se trata de la ecuación de una circunferencia (si $\gamma \neq 0$) o recta (si $\gamma = 0$) del plano. Se concluye que $T$ transforma circunferencias en rectas o circunferencias (es el caso $\alpha \neq 0$), y también transforma rectas en circunferencias o rectas (es el caso $\alpha = 0$).
+    \end{enumerate}
+\end{resolution}
+
+\end{document}

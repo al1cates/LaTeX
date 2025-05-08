@@ -1,0 +1,41 @@
+\babel@toc {spanish}{}\relax 
+\pagestyle {empty}
+\thispagestyle {empty}
+\contentsline {chapter}{\numberline {1}Espacios de probabilidad}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Espacios muestrales y $\sigma $-álgebras}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Medidas}{5}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Funciones de distribución}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Nociones básicas}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Funciones de distribución discretas}{8}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Funciones de distribución continuas}{8}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Funciones de distribución absolutamente continuas}{9}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Funciones de distribución mixtas}{9}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Variables aleatorias}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Nociones básicas}{11}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Variables aleatorias simples}{16}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Cambio de variable}{17}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Distribuciones de probabilidad usuales}{18}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Distribuciones de probabilidad discretas}{18}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Distribuciones de probabilidad absolutamente continuas}{19}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Probabilidad condicionada}{20}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Probabilidad condicionada de sucesos}{20}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Dependencia e independencia de sucesos}{21}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Probabilidad condicionada con respecto a una partición}{22}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Probabilidad condicionada con respecto a una variable aleatoria}{22}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Variables aleatorias truncadas}{23}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Esperanza}{24}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Nociones básicas}{24}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Momentos de una variable aleatoria}{25}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Función generatriz de probabilidad}{28}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Función generatriz de momentos}{30}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Función característica}{30}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Otras características numéricas}{31}{section.6.6}%
+\contentsline {chapter}{\numberline {7}Vectores aleatorios}{33}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Nociones básicas}{33}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Vectores aleatorios bidimensionales}{34}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Diferencia de una función con respecto a un rectángulo}{35}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Vectores aleatorios discretos}{35}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Vectores aleatorios absolutamente continuos}{38}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Teorema central del límite}{42}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Convergencia en distribución}{42}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Teorema central del límite}{42}{section.8.2}%

@@ -1,0 +1,583 @@
+% Actualizado a día 2023-02-23
+
+\documentclass[12pt]{report}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 9in}, top=1.5in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{fancyhdr}
+
+\parindent=0pt
+
+% Shortcuts:
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+\pagestyle{fancy}
+\fancyhead[L]{\textbf{Métodos Numéricos I (2022-2023)}}
+\fancyhead[R]{\textbf{Relación 2}}
+
+\begin{document}
+
+\textbf{1. } La ecuación $x^3-x-1 = 0$ tiene una única raíz en el intervalo $[1,2]$. Como criterio de parada, la sucesión se detendrá al encontrar dos aproximaciones sucesivas tales que $|x_{n-1} - x_n| < \varepsilon = \frac{1}{2}10^{-5}$, en cuyo caso $x_n$ será la aproximación buscada.
+
+\vspace{2mm}
+\textbf{(a) } Mediante el método de Newton, la función de iteración es 
+\[g(x) = x - \frac{f(x)}{f'(x)} = x - \frac{x^3-x-1}{3x^2-1}\]
+Usando $x_0 = 1.5$ como semilla, tras 4 iteraciones se obtiene una aproximación satisfactoria, que es 1.3247179572447898.
+
+\vspace{2mm}
+\textbf{(b) } Mediante el método de la secante, usando $x_0 = 1, x_1 = 2$ como aproximaciones iniciales, tras 7 iteraciones se obtiene una aproximación satisfactoria, que es 1.3247179572446703.
+
+\vspace{6mm}
+\textbf{2. } Tenemos que encontrar el mínimo de la función $f: (0,\infty) \to \R$ dada por
+\[f(x) = d((x,\frac{1}{x}),(2,1))^2 = (x-2)^2+(\frac{1}{x}-1)^2 = x^2 + 4 -4x + \frac{1}{x^2} + 1 -\frac{2}{x}\]
+En la gráfica de $f$ se observa que $f$ tiene mínimo absoluto en $(0,\infty)$. Vamos a hallarlo:
+\[
+\begin{aligned}
+    f'(x) = 0 &\iff 2x -4 -\frac{2}{x^3} + \frac{2}{x^2} = 0 \\
+    &\iff 2x^4 - 4x^3 +2x -2 = 0
+\end{aligned}
+\]
+Vemos gráficamente que esta función tiene una única raíz en $(0,\infty)$. Concretamente, se encuentra en el intervalo $[1,2]$. Como criterio de parada, la sucesión se detendrá al encontrar dos aproximaciones sucesivas tales que $|x_{n-1} - x_n| < \varepsilon = \frac{1}{2}10^{-5}$, en cuyo caso $x_n$ será la aproximación buscada. La función de iteración para el método de Newton es 
+\[g(x) = x - \frac{f'(x)}{f''(x)} = x - \frac{2x^4 - 4x^3 +2x -2}{8x^3-12x^2+2}\]
+Tomando como semilla $x_0 = $ 1.5, tras 7 iteraciones se obtiene una aproximación satisfactoria, que es 1.8667603991755473 $\approx$ 1.8667. Como además se comprueba que $f''(1.8667) > 0$, entonces 1.8667 es mínimo de $f$ y (1.8667, $\frac{1}{1.8667})$ es el punto buscado.
+
+\vspace{6mm}
+\textbf{3. } Sabemos que
+\begin{itemize}
+    \item $x+y=20 \implies y = 20-x$
+    \item $(x + \sqrt{x})(y+\sqrt{y})=155 \implies (x+\sqrt{x})(20-x+\sqrt{20-x})=155$
+\end{itemize}
+Definamos $f \colon \R \to \R$ por $f(x) = (x+\sqrt{x})(20-x+\sqrt{20-x})-155$. Tenemos que resolver entonces la ecuación $f(x) = 0$. Se observa en la gráfica de $f$ que existe una raíz en el intervalo $[6,7]$. Vamos a calcularla utilizando el método de Regula Falsi con $a = 6, b = 7$ (podemos usar este método porque $f(a)f(b)<0$) para hallar dos aproximaciones sucesivas tales que $|x_{n-1} - x_n| < \varepsilon = \frac{1}{2}10^{-4}$, en cuyo caso $x_n$ será la aproximación buscada.
+
+\vspace{2mm}
+Tras 5 iteraciones, la aproximación obtenida es 6.459467510798136. Por tanto, los dos números que se piden son $x = 6.4595, y = 20-6.4595=13.5405$.
+
+\vspace{6mm}
+\textbf{4. } 
+
+\vspace{2mm}
+\textbf{(a) }Hay que hallar $A > 0$ de forma que 1 sea el valor máximo que toma la función definida por $c(t) = Ate^{-t/3}$. Tenemos que
+\[c'(t)=0 \iff Ae^{-t/3} - \frac{1}{3}Ate^{-t/3} = 0 \overset{A \neq 0}{\iff} e^{-t/3} - \frac{1}{3}te^{-t/3} = 0 \iff t = 3\]
+Además,
+\begin{itemize}
+    \item $c''(t) = -\frac{1}{3}Ae^{-t/3} - \frac{1}{3}Ae^{-t/3} + \frac{1}{9}Ate^{-t/3}$
+    \item $c''(3) = -\frac{1}{3}Ae^{-1}-\frac{1}{3}Ae^{-1}+\frac{1}{3}Ae^{-1} = -\frac{1}{3}Ae^{-1} < 0$
+\end{itemize}
+luego la concentración máxima se alcanza en $t = 3$. Como sabemos que la concentración máxima es 1, entonces podemos calcular la cantidad $A$ que hay que inyectar al paciente:
+\[c(3) = 1 \iff 3Ae^{-1} = 1 \iff A = \frac{e}{3}\]
+
+\vspace{2mm}
+\textbf{(b) } Tenemos que hallar un valor de $t$ tal que $c(t) = 0.25$, es decir. Tenemos que
+\[c(t) = 0.25 \iff \frac{te^{1-t/3}}{3} = 0.25 \iff \frac{te^{1-t/3}}{3} - 0.25=0\]
+Definamos $f \colon [0,\infty) \to \R, f(t) = \frac{te^{1-t/3}}{3} - 0.25$. En la gráfica de $f$ se observa que $f$ tiene dos raíces, una en $[0,1]$ y otra en $[10,12]$. Hay que calcular esta última, pues en el intervalo $[0,1]$ la concentración todavía no está decayendo. Mediante el método de la secante con $a = 10, b = 12$, tras 5 iteraciones obtenemos la aproximación 11.077903586275951 $\approx$ 11.0779, con 4 cifras decimales correctas. Por tanto, hay que inyectar la segunda dosis cuando pasan 11 horas y 5 minutos.
+
+\vspace{6mm}
+\textbf{5. } Vamos a aplicar el método de Newton a la función definida por $f(x) = \tan(x) - x$ en el intervalo $[4,5]$, donde vemos gráficamente que se encuentra el menor número real positivo tal que $f(x) = 0$. La función de iteración es
+\[g(x) = x - \frac{f(x)}{f'(x)} = x - \frac{\tan(x)-x}{\frac{1}{\cos^2(x)}-1}\]
+Tomando $x_0 = 4.5$ como semilla, en 3 iteraciones obtenemos una aproximación con 4 cifras decimales correctas, que es 4.493409457909247 $\approx$ 4.4934.
+
+\vspace{6mm}
+\textbf{6. } El algoritmo se detendrá cuando se estabilicen las 6 primeras cifras decimales, o lo que es lo mismo, cuando se encuentren dos aproximaciones sucesivas tales que $|x_{n-1} - x_n| < \varepsilon = \frac{1}{2}10^{-6}$, en cuyo caso $x_n$ será la aproximación buscada.
+
+\vspace{2mm}
+\textbf{(a) } La función de iteración en el caso $f(x) = \sen(x)-\frac{x}{2}$ es
+\[g(x) = x - \frac{f(x)}{f'(x)} = x - \frac{\sen(x)-\frac{x}{2}}{\cos(x) - \frac{1}{2}}\]
+Tomando $x_0 = \frac{\pi}{2}$ como semilla, tras 5 iteraciones se obtiene la aproximación buscada, que es 1.895494267033981 $\approx$ 1.895494.
+
+\vspace{2mm}
+\textbf{(b) } La función de iteración en el caso $f(x) = (\sen(x)-\frac{x}{2})^2$ es
+\[g(x) = x - \frac{f(x)}{f'(x)} = x - \frac{(\sen(x)-\frac{x}{2})^2}{2(\sen(x)-\frac{x}{2})(\cos(x) - \frac{1}{2})}\]
+Tomando $x_0 = \frac{\pi}{2}$ como semilla, tras 19 iteraciones se obtiene la aproximación buscada, que es 1.8954939015319927 $\approx$ 1.895494.
+
+\vspace{2mm}
+En este último caso, el método tarda más en converger porque la raíz no es simple (se comprueba que $f'(1.895494) \approx 0$), y en ese caso el método de Newton no es de orden 2, por lo que converge más lentamente.
+
+\vspace{6mm}
+\textbf{7. } 
+
+\vspace{2mm}
+\textbf{(a) } Gráficamente vemos que $f$ tiene una única raíz en $[0,\infty)$. Como además
+\[f(\frac{1}{\sqrt{3}}) = \frac{1}{\sqrt{3}^3}-\frac{1}{\sqrt{3}}+\frac{2}{3\sqrt{3}} = \frac{1}{3\sqrt{3}}-\frac{3}{3\sqrt{3}}+\frac{2}{3\sqrt{3}} = 0\]
+entonces $l = \frac{1}{\sqrt{3}}$ es la única solución positiva de la ecuación $f(x)=0$.
+
+\vspace{2mm}
+\textbf{(b) } La función de iteración para el método de Newton es
+\[g(x) = x - \frac{f(x)}{f'(x)} = x - \frac{x^3-x+\frac{2}{3\sqrt{3}}}{3x^2-1}\]
+Usando $x_0 = 2$ como semilla, tras 25 iteraciones se encuentra una aproximación satisfactoria, que es 0.5773503411186602 $\approx \frac{1}{\sqrt{3}}$. Además, los cocientes de errores consecutivos son próximos a $\frac{1}{2}$ en todas las iteraciones, es decir, parece que se cumple
+\[\lim_{n \to \infty} \frac{|x_{n+1}-l|}{|x_n-l|} = \frac{1}{2}\]
+en cuyo caso el método sería de orden 1 con constante asintótica de error $C = \frac{1}{2}$. Sabemos que el método de Newton es de orden 2 para aproximar raíces simples, por lo que no se trata del orden esperado (en este caso, la multiplicidad de la raíz es mayor que 1).
+
+\vspace{2mm}
+\textbf{(c) } La función de iteración para el método dado sería
+\[g(x) = x - 2\frac{f(x)}{f'(x)} = x - \frac{2x^3-2x+\frac{4}{3\sqrt{3}}}{3x^2-1}\]
+Usando $x_0 = 2$ como semilla, tras 4 iteraciones se encuentra una aproximación satisfactoria, que es 0.5773502707709312 $\approx \frac{1}{\sqrt{3}}$. Ahora los cocientes de errores consecutivos se van acercando (aproximadamente) a $0.286 \approx \frac{2}{7}$, así que parece que se cumple
+\[\lim_{n \to \infty} \frac{|x_{n+1}-l|}{|x_n-l|^2} = \frac{2}{7}\]
+por lo que el método sería de orden 2 con constante asintótica de error $C = \frac{2}{7}$ (que muy probablemente es poco precisa porque solo disponemos de 4 cocientes de errores consecutivos). Este método converge mucho más rápido que el del apartado anterior, y esto se debe a que la multiplicidad de la raíz es 2 (ver Ejercicio 8).
+
+\vspace{6mm}
+\textbf{8. }
+
+\vspace{2mm}
+\textbf{(a) } La función de iteración para el método de Newton es
+\[g(x) = x - \frac{f(x)}{f'(x)} = x - \frac{(x-l)^mh(x)}{m(x-l)^{m-1}h(x)+(x-l)^mh'(x)} = x - \frac{(x-l)h(x)}{mh(x) + (x-l)h'(x)}\]
+Vamos a calcular $g'(l)$. Tenemos que
+\begin{itemize}
+    \item
+    $
+    \begin{aligned}[t]
+        g'(x) = 1 - \frac{h(x) + (x-l)h'(x)}{mh(x) + (x-l)h'(x)} + \frac{(x-l)h(x)[(m+1)h'(x)+(x-l)h''(x)]}{[mh(x)+(x-l)h'(x)]^2}
+    \end{aligned}
+    $
+    \item
+    $
+    \begin{aligned}[t]
+        g'(l) = 1-\frac{h(x)+0}{mh(x)+0}+0=1-\frac{1}{m}
+    \end{aligned}
+    $ 
+\end{itemize}
+Como $m>0$, entonces $|g'(l)|<1$, así que el método es localmente convergente. Si además la multiplicidad de la raíz es $m > 1$, entonces $|g'(l)| \neq 0$ y el método no es de orden 2.
+
+\vspace{2mm}
+
+\textbf{(b) } Veamos que $g'(l)=0$, lo que demostrará que el método 
+\[g(x) = x-m\frac{f(x)}{f'(x)}\]
+es al menos de orden 2. Tenemos que
+\begin{itemize}
+    \item
+    $
+    \begin{aligned}[t]
+        g'(x) = 1 - \frac{mh(x) + m(x-l)h'(x)}{mh(x) + (x-l)h'(x)} + \frac{m(x-l)h(x)[(m+1)h'(x)+(x-l)h''(x)]}{[mh(x)+(x-l)h'(x)]^2}
+    \end{aligned}
+    $
+    \item
+    $
+    \begin{aligned}[t]
+        g'(l) = 1-\frac{mh(x)+0}{mh(x)+0}+0 = 1-1=0
+    \end{aligned}
+    $ 
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(c) } En el Ejercicio 7, la raíz buscada tenía multiplicidad 2, de ahí que el método de Newton necesitase muchas iteraciones para encontrar la aproximación (25 iteraciones), mientras que el método del apartado anterior con $m = 2$ convergía rápidamente (4 iteraciones).
+
+\vspace{2mm} En el segundo apartado del Ejercicio 6, la raíz buscada también tenía multiplicidad $m > 1$ y por eso el método de Newton no convergía rápidamente (19 iteraciones).
+
+\vspace{6mm}
+\textbf{9. }
+
+\vspace{2mm}
+\textbf{(a) } La ecuación de la recta que pasa por $(x_n,f(x_n))$ y tiene pendiente $\alpha \neq 0$ es
+\[y = f(x_n) + \alpha(x-x_n)\]
+Calculemos $x_{n+1}$, que es la abcisa del punto de corte de esta recta con la recta $y=0$:
+\[f(x_n) + \alpha(x_{n+1}-x_n) = 0 \iff f(x_n) + \alpha x_{n+1} - \alpha x_n = 0 \iff x_{n+1} = x_n - \frac{f(x_n)}{\alpha}\]
+Vemos que se trata de un método de punto fijo con función de iteración
+\[g(x) = x - \frac{f(x)}{\alpha}\]
+
+\vspace{2mm}
+\textbf{(b) } Para estudiar la convergencia local, hay que calcular $|g'(l)|$. Tenemos que
+\begin{itemize}
+    \item
+    $
+    \begin{aligned}[t]
+        g'(x) = 1 - \frac{f'(x)}{\alpha}
+    \end{aligned}
+    $
+    \item
+    $
+    \begin{aligned}[t]
+        g'(l) = 1 - \frac{f'(l)}{\alpha}
+    \end{aligned}
+    $ 
+\end{itemize}
+Como $l$ es raíz simple, entonces $f'(l) \neq 0$, así que $|g'(l)| \neq 1$ y podemos asegurar que el método es localmente convergente si y solo si $|g'(l)|<1$.
+\[|1-\frac{f'(l)}{\alpha}|<1 \iff -1<1-\frac{f'(l)}{\alpha}<1 \iff -2<-\frac{f'(l)}{\alpha}<0 \iff 2>\frac{f'(l)}{\alpha}>0\]
+Por tanto,
+\begin{itemize}
+    \item Si $f'(l) < 0$, entonces el método es localmente convergente si y solo si $\alpha < \frac{f'(l)}{2}<0$.
+    \item Si $f'(l) > 0$, entonces el método es localmente convergente si y solo si $\alpha > \frac{f'(l)}{2}>0$.
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(c) } Para que el método sea de al menos orden 2, debe cumplirse que $\alpha = f'(l)$ (que sabemos que es distinto de cero por ser $l$ raíz simple), ya que en ese caso será $g'(l) = 1 - 1 = 0$. Además,
+\begin{itemize}
+    \item
+    $
+    \begin{aligned}[t]
+        g''(x) = -\frac{f''(x)}{\alpha}
+    \end{aligned}
+    $
+    \item
+    $
+    \begin{aligned}[t]
+        g''(l) = -\frac{f''(l)}{\alpha}
+    \end{aligned}
+    $ 
+\end{itemize}
+así que para que el método sea de orden 2 tiene que cumplirse que $f''(l) \neq 0$. En general, tomando $\alpha = f'(l)$, para que el método sea de orden $p \in \N$, debe cumplirse que $f^{(p)}(l) \neq 0$ y $f^{(k)}(l) = 0 \ \forall \ k = 2,\mathellipsis,p-1$.
+
+\vspace{6mm}
+\textbf{10. } La función de iteración de este método es
+\[g(x) = x+c(x^2-5)\]
+Tenemos que
+\[g'(x) = 1 +2cx\]
+Vamos a estudiar para qué valores de $c$ se tiene que $|g'(\alpha_1)| = |g'(\sqrt{5})|< 1$. Tenemos que
+\[|g'(\sqrt{5})| < 1 \iff -1<g'(\sqrt{5})<1 \iff -1<1+2\sqrt{5}c<1 \iff -\frac{1}{\sqrt{5}}<c<0\]
+Por tanto, si tomamos $c \in (-\frac{1}{\sqrt{5}},0)$, el método convergerá localmente hacia $\alpha_1 = \sqrt{5}$. Por otra parte, para $\alpha_2 = -\sqrt{5}$,
+\[|g'(-\sqrt{5})| < 1 \iff -1<g'(-\sqrt{5})<1 \iff -1<1-2\sqrt{5}c<1 \iff \frac{1}{\sqrt{5}}>c>0\]
+por lo que tomando $c \in (0,\frac{1}{\sqrt{5}})$, el método convergerá localmente hacia $\alpha_2 = -\sqrt{5}$.
+
+\vspace{6mm}
+\textbf{11. }
+
+\vspace{2mm}
+\textbf{(a) } Vemos que $x = 0$ es una solución de la ecuación $x = cx(1-x)$. Además, si $x=0$, tenemos que
+\[x = cx(1-x) \iff 1 = c(1-x) \iff 1-c=-cx \iff x = 1 - \frac{1}{c}\]
+luego la ecuación tiene dos soluciones: $x_1 = 0$ y $x_2 = 1-\frac{1}{c}$.
+
+\vspace{2mm}
+\textbf{(b) } Consideremos el método dado por la función de iteración
+\[g(x)=cx(1-x)\]
+Entonces,
+\[g'(x) = c(1-x)-cx = c - 2cx\]
+así que podemos asegurar la convergencia local del método para los valores de $c \neq 0$ para los que se tenga que $|g'(1-\frac{1}{c})| < 1$, es decir,
+\[|c-2c(1-\frac{1}{c})| = |2-c| < 1 \iff -1 < 2-c < 1 \iff 3 > c > 1\]
+Por tanto, si $c \in (1,3)$, podemos asegurar que el método converge localmente hacia la solución no nula de la ecuación.
+
+\vspace{6mm}
+\textbf{12. } Como $\alpha, \beta$ son soluciones de $x^2+ax+b=0$, entonces se cumple que $(x-\alpha)(x-\beta)=0$, o equivalentemente, $x^2 +(-\alpha-\beta)x+\alpha\beta = 0$, de donde $a = -\alpha-\beta$, $b = \alpha\beta.$
+
+\vspace{2mm}
+\textbf{(a) } Supongamos que $|\alpha|>|\beta|$ y veamos que el método dado por la función de iteración
+\[g(x) = -\frac{ax+b}{x}\]
+converge localmente hacia $\alpha$. En primer lugar, $\alpha$ es un punto fijo de $g$, pues
+\[g(\alpha)=-\frac{(-\alpha-\beta)\alpha+\alpha\beta}{\alpha} = \frac{\alpha^2+\alpha\beta-\alpha\beta}{\alpha} = \alpha\]
+Además,
+\[g'(x) = -\frac{a}{x}+\frac{ax+b}{x^2}\]
+Por tanto,
+\[|g'(\alpha)| = |-\frac{-\alpha-\beta}{\alpha} + \frac{(-\alpha-\beta)\alpha+\alpha\beta}{\alpha^2}| = |1 + \frac{\beta}{\alpha} -1| = \frac{|\beta|}{|\alpha|} < 1\]
+ya que $|\alpha|>|\beta|$. Esto significa que el método converge localmente hacia $\alpha$.
+
+\vspace{2mm}
+\textbf{(b) } Se demuestra razonando como en el apartado (a).
+
+\vspace{2mm}
+\textbf{(c) } Se demuestra razonando como en el apartado (a).
+
+\vspace{6mm}
+\textbf{13. } Sea $f \colon \R \to \R, f(x) = x-e^x+2$.
+
+\vspace{2mm}
+\textbf{(a) } Estudiemos el signo de $f'$:
+\begin{itemize}
+    \item $f'(x) = 1 - e^x$
+    \item $f'(x) > 0 \iff 1 > e^x \iff x < 0$
+    \item $f'(x) < 0 \iff 1 < e^x \iff x > 0$
+\end{itemize}
+Por tanto, $f$ es estrictamente creciente en $(-\infty,0)$ y estrictamente decreciente en $(0,\infty)$. Además,
+\begin{itemize}
+    \item
+    $
+    \begin{aligned}[t]
+        \lim_{x \to -\infty} f(x) = -\infty
+    \end{aligned}
+    $
+    \item
+    $
+    \begin{aligned}[t]
+        \lim_{x \to \infty} f(x) = -\infty
+    \end{aligned}
+    $
+    \item $f(0)=1>0$
+\end{itemize}
+luego la ecuación $f(x)=0$ tiene exactamente dos soluciones: una en $(-\infty,0)$ y otra en $(0,\infty)$. Concretamente, una de ellas está en $[-2,-1]$ y la otra en $[1,2]$, pues
+\begin{itemize}
+    \item $f(-2) = -e^{-2} < 0; f(-1) = 1-e^{-1} > 1-\frac{1}{2}>0$
+    \item $f(1) = 3 - e > 0; f(2) = 4-e^2<4-2^2=0$
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(b) } La función de iteración para el método de Newton es
+\[g(x) = x-\frac{f(x)}{f'(x)} = x - \frac{x-e^x+2}{1-e^x}\]
+En el intervalo $[-2,-1]$, para asegurar 4 cifras decimales exactas, vamos a usar el test de parada $|f(x_N)|< \varepsilon = m\delta$ con $\displaystyle m = \min_{x \in [-2,-1]} |1-e^x| = |1-e^{-1}|$, $\delta = \frac{1}{2}10^{-4}$. 
+
+\vspace{2mm}
+Tomando la semilla $x_0 = -1.5$, tras 2 iteraciones, obtenemos una aproximación satisfactoria, que es -1.8414265565159298 $\approx$ -1.8414.
+
+\vspace{2mm}
+En el intervalo $[1,2]$, para asegurar 4 cifras decimales correctas, vamos a usar el test de parada $|f(x_N)|< \varepsilon = m\delta$ con $\displaystyle m = \min_{x \in [1,2]} |1-e^x| = |1-e|$, $\delta = \frac{1}{2}10^{-4}$.
+
+\vspace{2mm}
+Tomando la semilla $x_0 = 1.5$, tras 3 iteraciones, obtenemos una aproximación satisfactoria, que es 1.1462025835399627 $\approx$ 1.1462.
+
+\vspace{2mm}
+\textbf{(c) } Tenemos que estudiar la convergencia del método de punto fijo dado por la función de iteración
+\[g(x) = e^x-2\]
+en función de la semilla $x_0$ tomada. Por los apartados anteriores, sabemos que $g$ tiene un punto fijo $l_1$ en $(0,\infty)$ y otro punto fijo $l_2$ en $(-\infty,0)$. Tenemos que 
+\begin{itemize}
+    \item
+    $
+    \begin{aligned}[t]
+        g'(x) = e^x
+    \end{aligned}
+    $
+    \item
+    $
+    \begin{aligned}[t]
+        |g'(x)|<1 \iff -1<e^x<1 \iff x < 0
+    \end{aligned}
+    $
+\end{itemize}
+por lo que el método nunca va a converger a $l_1 > 0$. Vamos a demostrar que tomando cualquier semilla $x_0 \in J = (-\infty,\delta]$ para $l_2 \leq \delta<0$, el método converge al único punto fijo $l_2$ de $g$ en $J$. Se verifica que
+\begin{itemize}
+    \item $g$ es contractiva en $J$, pues $|g'(x)| = |e^x| \leq |e^\delta| < 1 \ \forall \ x \in J$.
+    \item 
+    $
+    \begin{aligned}[t]
+        g((-\infty,\delta]) = (\lim_{x \to -\infty} g(x), g(\delta)] = (-2,e^\delta-2] \subset (-\infty,\delta]
+    \end{aligned}
+    $
+    (en la última contención hemos usado que por ser $l_2 \leq \delta<0$ y $f$ estrictamente creciente en $(-\infty,0)$ se tiene que $0 = f(l_2) \leq f(\delta) = \delta - e^\delta +2 \iff e^\delta-2 \leq \delta$).
+\end{itemize}
+
+Esto significa que el método converge a $l_2$ si tomamos cualquier semilla $x_0 < 0$. 
+
+\vspace{2mm}
+Por otra parte, si tomamos $x_0 = 0$, entonces $x_1 = g(x_0) = -1$ y, por lo que acabamos de demostrar, el método converge a $l_2$.
+
+\vspace{2mm}
+Sea ahora $x_0 \in (0,l_1)$. Veamos que la sucesión del método de punto fijo $\{x_n\}$ entra en el intervalo $(-\infty,0)$ en un número finito de iteraciones, lo que demostrará que dicha sucesión converge a $l_2$. Supongamos, por reducción al absurdo, que $\{x_n\}$ nunca entra en el intervalo $(-\infty,0)$, es decir, que $x_n \geq 0 \ \forall \ n \in \N$. Por la Proposición 2.3.2, como $g$ es monótona creciente y $x_0 < l_1$, entonces se tiene que $x_n \leq l_1 \ \forall \ n \in \N$. Como además hemos supuesto que $x_n \geq 0$, entonces $x_n \in [0,l_1] \ \forall \ n \in \N$. Dicha proposición también nos dice que la sucesión $\{x_n\}$ es monótona. Veamos que $\{x_n\}$ es monótona decreciente.
+\[x_{n+1} \leq x_n \iff e^{x_n}-2 \leq x_n \iff 0 \leq f(x_n) \ \forall \ n \in \N\]
+y esto último es cierto porque $f(x) \geq 0 \ \forall \ x \in [l_2,l_1]$. Como $\{x_n\}$ es monótona y acotada, entonces tiene límite. Sea $l = \lim \{x_n\}$. Sabemos que la sucesión es monótona decreciente y que no es constante $l_1$, ya que $x_0 < l_1$. Por tanto, se tiene que $0 \leq l < l_1$ y esto significa que $f$ tiene otra raíz distinta de $l_1$ y $l_2$, lo cual es imposible.
+
+\vspace{2mm}
+Si tomásemos $x_0 = l_1$, entonces la sucesión $\{x_n\}$ es constante $l_1$, así que converge a $l_1$.
+
+\vspace{2mm}
+Por último, si tomamos $x_0 \in (l_1, \infty)$, entonces $x_n \geq l_1 \ \forall \ n \in \N$ (por la misma proposición de antes) y en este caso la sucesión sería monótona creciente, por lo que tampoco converge a ninguna de las raíces.
+
+\vspace{2mm}
+En resumen: la sucesión $\{x_n\}$ converge a una de las raíces de $f \iff x_0 \leq l_1$. 
+
+\vspace{6mm}
+\textbf{14. }
+
+\vspace{2mm}
+\textbf{(a) } Veamos que el método
+\[
+\begin{cases}
+    \ x_0 \in J \\
+    \ x_{n+1} = \sqrt{x_n+2}, \ n = 0,1,2,...
+\end{cases}
+\]
+tiene como único punto fijo a $l = 2$ y es convergente en $[-2,\infty)$. La función de iteración es $g(x) = \sqrt{x+2}$. Tenemos que
+\[g(x) = x \iff \sqrt{x+2} = x \iff \sqrt{x+2} - x = 0\]
+La función $f \colon [-2,\infty) \to \R, f(x) = \sqrt{x+2}-x$ tiene una única raíz ($l = 2$), que por tanto es el único punto fijo de la función $g$.
+
+\vspace{2mm}
+Si tomamos como semilla $x_0 \in [-1,\infty)$, tenemos que
+\begin{itemize}
+    \item $g$ es contractiva en $[-1,\infty]$, pues
+    \[|g'(x)| = |\frac{1}{2\sqrt{x+2}}| = \frac{1}{2\sqrt{x+2}} \leq \frac{1}{2} < 1 \ \forall \ x \in [-1,\infty]\]
+    \item $\displaystyle g([-1,\infty)) = [g(-1),\lim_{x \to \infty} g(x)) = [1,\infty) \subset [-1,\infty)$
+\end{itemize}
+así que el método converge a la única raíz de $g$ en $[-1,\infty)$, que es $l = 2$. Además, si $x_0 \in [-2,-1]$, entonces
+\[-2 \leq x_0 \leq -1 \implies 0 \leq x_0+2 \leq 1 \implies 0 \leq \sqrt{x_0+2} \leq 1 \implies x_1 \in [0,1] \subset [-1,\infty)\]
+por lo que la sucesión entra en la primera iteración en el intervalo $[-1,\infty)$, donde sabemos que el método converge. Esto demuestra que el método converge a $2$ en el intervalo $[-2,\infty)$.
+
+\vspace{2mm}
+\textbf{(b) } Como $g$ es contractiva en el intervalo cerrado y acotado $J = [1,3]$ y además se cumple que $g(J) = J$, entonces se tiene la cota de error
+\[|x_n-l| \leq C^n(b-a) = 2C^n\]
+donde $C$ es la constante de contractividad de $g$. Tenemos que dar un valor de $N \in \N$ para el que se tenga
+\[|x_n-l| \leq 2C^N < \frac{1}{2}10^{-6}\]
+Primero calculamos la constante de contractividad. Para todo $x \in [1,3]$ se cumple que
+\[|g'(x)| = \frac{1}{2\sqrt{x+2}}  \leq \frac{1}{2\sqrt{3}} = C < 1\]
+Por tanto,
+\[\frac{2}{(2\sqrt{3})^N} < \frac{1}{2}10^{-6} \iff (2\sqrt{3})^N > \frac{4}{10^{-6}} \iff N > \frac{\log(\frac{4}{10^{-6}})}{\log(2\sqrt{3})} \approx 12.24\]
+Una cota superior válida sería $N = 13$.
+
+\vspace{6mm}
+\textbf{15. }
+
+\vspace{2mm}
+\textbf{(a) } La función de iteración es $g \colon [1,3] \to \R, \ g(x) = 0.4 + x - 0.1x^2$, que tiene un único punto fijo ($l = 2$). Además,
+\begin{itemize}
+    \item $f(x) = 0 \iff g(x) = x$
+    \item $g$ es contractiva, pues
+    \[|g'(x)| = |1 -0.2x| \leq 0.8 = C < 1 \ \forall \ x \in [1,3]\]
+    \item $g([1,3]) = [g(1),g(3)] = [1.3,2.5] \subset [1,3]$ (en la primera igualdad hemos usado que $g'(x) = 1-0.2x > 0 \ \forall \ x \in [1,3]$ y por tanto $g$ es estrictamente creciente en $[1,3]$).
+\end{itemize}
+luego el método es convergente en $[1,3]$. Como además se tiene que $g'(l) = g'(2) = 1-0.4 \neq 0$, entonces el método es de orden 1.
+
+\vspace{2mm}
+\textbf{(b) } La función de iteración es $g \colon [-3,-1] \to \R, \ g(x) = 0.4 + x - 0.1x^2$, que tiene un único punto fijo ($l = -2$). En este caso, el método no es convergente, pues
+\[|g'(-2)| = |1+0.4| = 1.4 > 1\]
+así que no hay convergencia local.
+
+\vspace{2mm}
+\textbf{(c) } En el caso del apartado (a), el centro del intervalo es justamente la raíz, así que en la primera iteración ya se encontrará una aproximación de la raíz con error menor que $\frac{1}{2}10^{-6}$ (concretamente, con error cero).
+
+\vspace{2mm}
+\textbf{(d) } La función de iteración para el método de Newton sería
+\[g(x) = x - \frac{f(x)}{f'(x)} = x + \frac{0.4-0.1x^2}{0.2x}\]
+En el primer caso, tomando $x_0 = 1$, se tiene que
+\begin{itemize}
+    \item $f(a)f(b) = f(1)f(3) = (0.4-0.1)(0.4-0.9) < 0$
+    \item $f'(x) = 0.2x \neq 0 \ \forall \ x \in [1,3]$
+    \item $f''(x) = 0.2 \neq 0 \ \forall \ x \in [1,3]$
+    \item $f(x_0)f''(x_0) = f(1)f''(1) = (0.4-0.1)0.2 \geq 0$
+\end{itemize}
+así que la sucesión está bien definida y converge hacia la única raíz $l = 2$ de $f$ en $[1,3]$. En el segundo caso, tomando $x_0 = -1$, se tiene que
+\begin{itemize}
+    \item $f(a)f(b) = f(-3)f(-1) = (0.4-0.9)(0.4-0.1) < 0$
+    \item $f'(x) = 0.2x \neq 0 \ \forall \ x \in [-3,-1]$
+    \item $f''(x) = 0.2 \neq 0 \ \forall \ x \in [-3,-1]$
+    \item $f(x_0)f''(x_0) = f(-1)f''(-1) = (0.4-0.1)0.2 \geq 0$
+\end{itemize}
+así que la sucesión está bien definida y converge hacia la única raíz $l = -2$ de $f$ en $[-3,-1]$.
+
+\vspace{2mm}
+\textbf{(e) } La función de iteración para este método es $g(x) = x - \alpha(0.4-0.1x^2)$. Tenemos que
+\begin{itemize}
+    \item $g'(x) = 1 + 0.2\alpha x$
+    \item $|g'(2)| = |1+0.4\alpha| < 1 \iff -1 < 1+0.4\alpha < 1 \iff -5 < \alpha < 0$
+    \item $|g'(-2)| = |1-0.4\alpha| < 1 \iff -1 < 1-0.4\alpha < 1 \iff 5 > \alpha > 0$
+\end{itemize}
+Por tanto, si $\alpha \in (-5,0)$, el método convergerá localmente hacia la raíz $l =2$, y si $\alpha \in (0,5)$, el método convergerá localmente hacia la raíz $l = -2$.
+
+\vspace{2mm}
+En el caso de $l = 2$, para que el orden sea el máximo posible, deberá ocurrir que
+\[g'(2) = 0 \iff 1+0.4\alpha = 0 \iff \alpha = -2.5 \in (-5,0)\]
+Sin embargo,
+\begin{itemize}
+    \item $g''(x) = 0.2\alpha$
+    \item $g''(2) \neq 0$
+\end{itemize}
+así que el método es, como mucho, de orden 2, y solo lo es si tomamos $\alpha = -2.5$. En caso contrario, es de orden 1.
+
+\vspace{2mm}
+En el caso de $l = -2$, para que el orden sea el máximo posible, deberá ocurrir que
+\[g'(-2) = 0 \iff 1-0.4\alpha = 0 \iff \alpha = 2.5 \in (0,5)\]
+Sin embargo,
+\begin{itemize}
+    \item $g''(x) = 0.2\alpha$
+    \item $g''(-2) \neq 0$
+\end{itemize}
+así que el método es, como mucho, de orden 2, y solo lo es si tomamos $\alpha = 2.5$. En caso contrario, es de orden 1.
+
+\vspace{6mm}
+\textbf{16. }
+
+\vspace{2mm}
+\textbf{(a) } Sea $f \colon \R \to \R, f(x) = xe^{3-x}-1$. Tenemos que
+\begin{itemize}
+    \item $\displaystyle \lim_{x \to -\infty} f(x) = -\infty$
+    \item $\displaystyle \lim_{x \to \infty} f(x) = -1$ 
+    \item $f'(x) = e^{3-x} - xe^{3-x} = e^{3-x}(1-x)$
+    \item $f'(x) = 0 \iff x = 1$
+    \item $f'(x) > 0 \iff x < 1 \implies f$ estr. creciente en $(-\infty,1)$ 
+    \item $f'(x) < 0 \iff x > 1 \implies f$ estr. decreciente en $(1,\infty)$ 
+    \item $x = 1$ es máximo absoluto de $f$ y $f(1) = e^2 - 1 > 0$
+\end{itemize}
+Por el teorema de Rolle, $f$ tiene, como mucho, dos raíces: una en $(-\infty,1)$ y otra en $(1,\infty)$. En ambos intervalos hay cambios de signo, así que $f$ tiene exactamente dos raíces: una en $(-\infty,1)$ y otra en $(1,\infty)$. Concretamente, como
+\begin{itemize}
+    \item $\displaystyle f(4) = \frac{4}{e} - 1 > \frac{4}{4} - 1 = 0; f(5) = \frac{5}{e^2}-1 < \frac{5}{5}-1 = 0$
+    \item $f(0) = -1 < 0; f(1) = e^2-1 > 0$
+\end{itemize}
+entonces una raíz $l_1$ está en $[0,1]$ y la otra raíz $l_2$ en $[4,5]$.
+
+\vspace{2mm}
+\textbf{(b) }
+\begin{itemize}
+    \item[(M1)] La función de iteración es $g(x) = e^{x-3}$. Como
+    \[
+    \begin{aligned}[t]
+        0 \leq x \leq 1 &\implies -3 \leq x-3 \leq -2 \implies -1 < e^{-3} \leq e^{x-3} = g'(x) \leq e^{-2} < e^0 = 1 \\
+        &\implies |g'(x)| < 1 \ \forall \ x \in [0,1]
+    \end{aligned}
+    \]
+    entonces el método converge localmente a $l_1$.
+    \item[(M2)] La función de iteración es $g(x) = 3 + \log(x)$. Como
+    \[|g'(x)| = |\frac{1}{x}| < 1 \ \forall \ x  \in [4,5]\]
+    entonces el método converge localmente a $l_2$.
+    \item[(M3)] La función de iteración es $g(x) = e^{3-x}$. Este método no sirve para encontrar soluciones de la ecuación $f(x) = 0$, ya que las ecuaciones $g(x) = x$ y $f(x) = 0$ no son equivalentes en $[0,1]$ ni en $[4,5]$:
+    \[
+    \begin{aligned}[t]
+         f(x) = 0 &\iff xe^{3-x} -1 = 0 \iff x = \frac{1}{e^{3-x}} = \frac{1}{g(x)} \neq g(x)
+    \end{aligned}
+    \]
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(c) } Veamos que el método (M2) es convergente a $l_2$ en $J = [4,5]$:
+\begin{itemize}
+    \item $g$ es contractiva en $J$, ya que
+    \[|g'(x)| = |\frac{1}{x}| \leq \frac{1}{4} = C < 1 \ \forall \ x \in J\]
+    \item $g(J) = [g(4),g(5)] = [3+\log(4),3+\log(5)] \subset [4,5]$
+\end{itemize}
+
+\vspace{2mm}
+\textbf{(d) } Usamos la cota de error $|x_n-l| \leq C^n(b-a) = \frac{1}{4^n}$. Tenemos que encontrar el menor $N \in \N$ para el que se tenga
+\[\frac{1}{4^n} < \frac{1}{2}10^{-3} \iff 4^N > \frac{2}{10^{-3}} \iff N > \frac{\log(\frac{2}{10^{-3}})}{\log{4}} \approx 5.4829\]
+Se necesitarán unas 6 iteraciones para encontrar una aproximación de $l_2$ con 3 cifras decimales exactas.
+
+\vspace{2mm}
+\textbf{(e) } Si tomamos $x_0 = 4 \in [4,5]$, tenemos que
+\begin{itemize}
+    \item $f(4)f(5) < 0$
+    \item $f'(x) = e^{3-x}(1-x) \neq 0 \ \forall \ x \in [4,5]$
+    \item $f''(x) = e^{3-x}(x-2) \neq 0 \ \forall \ x \in [4,5]$
+    \item $\displaystyle f(4)f''(4) = (\frac{4}{e}-1)(\frac{2}{e}) \geq 0$
+\end{itemize}
+así que el método de Newton converge hacia la única raíz de $f$ en $[4,5]$, que es $l_2$.
+
+\vspace{2mm}
+\textbf{(f) } Usaremos la cota de error
+\[|x_n - l| \leq K^{2^n-1}(b-a)\]
+donde 
+\[K = \frac{M(b-a)}{2m}, M = \max_{x \in [a,b]}|f''(x)|, m = \min_{x \in [a,b]}|f'(x)|\]
+Tenemos que
+\begin{itemize}
+    \item $\displaystyle M=\max_{x \in [4,5]}|e^{3-x}(x-2)| = |e^{3-4}(4-2)|=\frac{2}{e}$
+    \item $\displaystyle m=\min_{x \in [4,5]}|e^{3-x}(1-x)| = |e^{3-5}(1-5)| = \frac{4}{e^2}$
+    \item $\displaystyle K = \frac{\frac{2}{e}}{2\frac{4}{e^2}} = \frac{2e^2}{8e} = \frac{e}{4}$
+\end{itemize}
+Vemos que $K<1$, así que la cota es útil. Tenemos que encontrar el menor $N \in \N$ para el que se tenga 
+\[
+\begin{aligned}[t]
+(\frac{e}{4})^{2^N-1} < \frac{1}{2}10^{-3} &\iff (\frac{e}{4})^{2^N} < \frac{e}{8}10^{-3} \iff 2^N\log(\frac{e}{4}) < \log(\frac{e}{8}10^{-3}) \\
+&\iff 2^N > \frac{\log(\frac{e}{8}10^{-3})}{\log(\frac{e}{4})} = M \iff N > \frac{\log(M)}{\log(2)} \approx 4.37
+\end{aligned}
+\]
+Con 5 iteraciones, aseguramos obtener una aproximación con 3 cifras decimales exactas.
+
+\vspace{6mm}
+\textbf{17. } Muy similar al Ejercicio 16.
+
+\vspace{6mm}
+\textbf{18. } Muy similar al Ejercicio 16.
+
+\vspace{6mm}
+\textbf{19. } Sea $f \colon (0,\infty) \to \R, f(x) = \frac{1}{x}-a$. Hallamos la función de iteración para el método de Newton:
+\[g(x) = x -\frac{f(x)}{f'(x)} = x + \frac{\frac{1}{x}-a}{\frac{1}{x^2}} = x + x - ax^2 = x(2-ax)\]
+Por tanto, la expresión del método es
+\[
+\begin{cases}
+    \ x_0 \in (0,\infty) \\
+    \ x_{n+1} = x_n(2-ax_n), \ n = 0,1,2,...
+\end{cases}
+\]
+En primer lugar, tenemos que $f(x) < 0 \iff x > \frac{1}{a}$ y $f(x) > 0 \iff 0 < x < \frac{1}{a}$, así que existe un cambio de signo en cualquier intervalo $[b,c] \subset (0,\infty)$ que contenga a $\frac{1}{a}$. Por otra parte,
+\begin{itemize}
+    \item $\displaystyle f'(x) = -\frac{1}{x^2} \neq 0 \ \forall \ x \in (0,\infty)$
+    \item $\displaystyle f''(x) = \frac{2}{x^3} \neq 0 \ \forall \ x \in (0,\infty)$
+    \item $f(x_0)f''(x_0) \geq 0 \iff f(x_0) \geq 0 \iff x_0 \in (0,\frac{1}{a}]$
+\end{itemize}
+Tomando cualquier semilla en el intervalo $x_0 \in (0,\frac{1}{a}]$, podemos asegurar la convergencia del método de Newton hacia la única raíz de $f$ en cualquier intervalo $[b,c] \subset (0,\infty)$ con $\frac{1}{a} \in [b,c]$.
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ticks = none,
+        xmin = -2*pi,
+        xmax = 2*pi,
+        ymin = -2,
+        ymax = 2,
+        samples = 800,
+        scale = 1
+    ]
+    \end{axis}
+    \begin{axis}[
+        axis lines* = middle,
+        xmin = -2*pi,
+        xmax = 2*pi,
+        ymin = -2,
+        ymax = 2,
+        samples = 800,
+        xtick = {-2*pi, -pi, pi, 2*pi},
+        ytick = {-2, -1, 1, 2},
+        xticklabels = {},
+        yticklabels = {},
+        scale = 1,
+        legend cell align = {left},
+        grid = major
+    ]
+    \draw[color = c3!50, line width = 2pt] (-2*pi, 1) -- (-pi, 1);
+    \draw[color = c3!50, line width = 2pt] (-pi, 1) -- (-pi, -1);
+    \draw[color = c3!50, line width = 2pt] (-pi, -1) -- (0, -1);
+    \draw[color = c3!50, line width = 2pt] (0, -1) -- (0, 1);
+    \draw[color = c3!50, line width = 2pt] (0, 1) -- (pi, 1);
+    \draw[color = c3!50, line width = 2pt] (pi, 1) -- (pi, -1);
+    \draw[color = c3!50, line width = 2pt] (pi, -1) -- (2*pi, -1);
+    \addplot[domain=-2*pi:2*pi, color=c3, line width=2pt] {\RepeatFunction{1}{\pgfkeysvalueof{/pgfplots/fun terms}}};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

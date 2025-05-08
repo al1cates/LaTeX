@@ -1,0 +1,41 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+\begin{axis}[
+    ticks = none,
+    xmin = -2,
+    xmax = 2,
+    ymin = -2,
+    ymax = 2,
+    samples = 200,
+    scale = 1.25
+]
+\end{axis}
+\begin{axis}[
+    axis lines* = middle,
+    xmin = -2,
+    xmax = 2,
+    ymin = -2,
+    ymax = 2,
+    samples = 200,
+    xtick={-1, 1, -2, 2},
+    ytick={-1, 1, -2, 2},
+    xticklabels={-1, 1},
+    yticklabels={-1, 1},
+    scale=1.25,
+    legend cell align={left},
+    grid = major,
+    x tick label style = above right,
+    y tick label style = below right
+]
+\addplot[domain=-1:1, color=c3, line width=2pt]{x^2-1};
+\addplot[domain=-5:-1, color=c3, line width=2pt]{0};
+\addplot[domain=1:5, color=c3, line width=2pt]{0};
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

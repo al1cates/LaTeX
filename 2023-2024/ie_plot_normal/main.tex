@@ -1,0 +1,70 @@
+\documentclass[11pt]{report}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Paquetes
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[spanish, es-lcroman]{babel} % es-lcroman para poder usar números romanos en minúscula
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{fouriernc} % Fuente
+\usepackage[svgnames, x11names, rgb]{xcolor}
+\usepackage{parskip} % Cambia la sangría por espacio vertical
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[labelfont=bf, labelsep=period]{caption} % Cambia «Figura 1:» por «Figura 1.» (en negrita)
+\usepackage{float} % Para que el texto después de una gráfica no se ponga antes
+\usepackage[active,tightpage]{preview}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Ajustes generales
+
+\decimalpoint
+
+\pgfplotsset{compat=1.18}
+
+\setlength{\PreviewBorder}{0pt}
+
+\PreviewEnvironment[{[]}]{tikzpicture}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+% Colores
+
+\definecolor{p1c1}{HTML}{222831}
+\definecolor{p1c2}{HTML}{434242}
+\definecolor{p1c3}{HTML}{00ADB5}
+\definecolor{p1c4}{HTML}{76ABAE}
+
+%-----------------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xmin = -5,
+    samples = 200,
+    xmax = 5,
+    ymin = 0,
+    ymax = 1,
+    xtick={-4,-2,0,2,4},
+    ytick={0,0.2,0.4,0.6,0.8,1},
+    xticklabels={-4,-2,0,2,4},
+    yticklabels={0,0.2,0.4,0.6,0.8,1},
+    grid=major,
+    scale=1.5,
+    legend cell align={left}
+]
+\addplot[color=p1c1, line width=2pt]{1/((2*pi)^(1/2))*e^(-x^2/2)};
+\addlegendentry{\(\mu = 0, \ \sigma^2 = 1\)}
+\addplot[color=p1c2, line width=2pt]{1/((2*pi*0.2)^(1/2))*e^(-x^2/(2*0.2))};
+\addlegendentry{\(\mu = 0, \ \sigma^2 = 0.2\)}
+\addplot[color=p1c3, line width=2pt]{1/((2*pi*5)^(1/2))*e^(-x^2/(2*5))};
+\addlegendentry{\(\mu = 0, \ \sigma^2 = 5\)}
+\addplot[color=p1c4, line width=2pt]{1/((2*pi*0.5)^(1/2))*e^(-(x-2)^2/(2*0.5)};
+\addlegendentry{\(\mu = 2, \ \sigma^2 = 0.5\)}
+\end{axis}
+\end{tikzpicture}
+
+\end{document}

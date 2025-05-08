@@ -1,0 +1,778 @@
+\documentclass[11pt]{report}
+
+%-------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{multicol}
+\usepackage{fouriernc}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{parskip}
+
+%-------------------------------------------------------------------------------------------------%
+
+% AJUSTES GENERALES
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\makeatletter % Para quitar el espacio adicional que el paquete parskip añade al principio y al final de una demostración
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep\z@skip % <---- changed here
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\DeclareMathAlphabet{\mathcal}{OMS}{zplm}{m}{n}
+
+%-------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\mathbb D}
+
+\newcommand{\pars}[1]{\left( #1 \right)} % Paréntesis de tamaño automático
+
+%-------------------------------------------------------------------------------------------------%
+
+% EJERCICIOS Y SOLUCIONES
+
+\newtheorem{ejercicio}{Ejercicio}
+\addto\captionsspanish{\renewcommand*{\proofname}{Solución}}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+%-------------------------------------------------------------------------------------------------%
+
+% TÍTULO
+
+\textit{Variable Compleja} \hfill \textit{Curso 2023-2024}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	{\LARGE \textbf{Relación 7}} % Title
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{ejercicio}
+  Determinar los ceros y las singularidades aisladas de las siguientes funciones. Para los ceros, decir su orden, y para las singularidades, el tipo de singularidad, así como su orden en el caso de los polos.
+
+  \begin{multicols}{3}
+    \begin{enumerate}
+      \item $\displaystyle z^9+9$
+      \item $\displaystyle \frac{z^2+9}{z^4}$
+      \item $\displaystyle z\sen(z)$
+      \item $\displaystyle (1-e^z)^2$
+      \item $\displaystyle \frac{e^z-1}{z^2(z-2\pi i)}$
+      \item $\displaystyle 1-\cos(z)$
+      \item $\displaystyle \sen(z^3)$
+      \item $\displaystyle z^2e^{\frac{1}{z}}$
+      \item $\displaystyle \frac{z^4}{1+z^4}$
+      \item $\displaystyle \frac{z^5}{1-z^2}$
+      \item $\displaystyle \frac{e^z}{1+z^2}$
+      \item $\displaystyle \frac{1}{z(z^2+4)^2}$
+      \item $\displaystyle e^{-\frac{1}{z^2}}$
+      \item $\displaystyle e^{\frac{z}{1-z}}$
+      \item $\displaystyle \frac{1}{z^3(2-\cos(z))}$
+      \item $\displaystyle \frac{1}{e^z-1}-\frac{1}{z}$
+    \end{enumerate}
+  \end{multicols}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item La función dada por $f(z)=z^9+9$ es holomorfa en $\C$, así que no tiene singularidades aisladas en $\C$. La función $g(z)=f(\frac{1}{z}) = \frac{1}{z^9}+9$ tiene un polo en $0$, luego $f$ tiene un polo en $\infty$. Como además
+    \[\lim_{z \to 0}z^9g(z) = \lim_{z \to 0} (1+9z^9) = 1,\]
+    entonces $\infty$ es un polo de orden $9$ de $f$. 
+    
+    Los ceros de $f$ son $\xi^k\sqrt[9]{-9}$, $k \in \{0,1,\mathellipsis,8\}$, donde $\xi = e^{i\frac{2\pi}{9}}$. Como $f$ es un polinomio con $9$ ceros distintos, todos estos ceros son simples.
+    \item La función dada por $f(z)=\frac{z^2+9}{z^4}$ es holomorfa en $\C \setminus \{0\}$, así que $0$ es una singularidad aislada de $f$, y es un polo porque
+    \[\lim_{z \to 0} \frac{z^2+9}{z^4} = \lim_{z \to 0} \frac{\frac{1}{z^2}+\frac{9}{z^4}}{1} = \infty\]
+    Como
+    \[\lim_{z \to 0} z^4f(z)=\lim_{z \to 0} (z^2+9) = 9,\]
+    entonces $0$ es un polo de $f$ de orden $4$. El infinito también es una singularidad aislada de $f$, y es evitable porque la función \[f\left(\frac{1}{z}\right) = \frac{\frac{1}{z^2}+9}{\frac{1}{z^4}} = z^2+9z^4\]
+    tiene una singularidad aislada evitable en $0$. 
+    
+    Los ceros de $f$ son $3i$ y $-3i$, que claramente son simples.
+    \item La función dada por $f(z)=z\sen(z)$ es holomorfa en $\C$, así que no tiene singularidades aisladas en $\C$. La función $g(z)=f(\frac{1}{z}) = \frac{1}{z}\sen(\frac{1}{z})$ no tiene límite en $0$: si consideramos la sucesión $\{\frac{1}{\pi n}\}_{n \in \N}$, cuyo límite es $0$, se tiene
+    \[g\left(\frac{1}{\pi n}\right) = \pi n\sen(\pi n) = 0 \xrightarrow[]{n \to \infty} 0,\] 
+    y si consideramos la sucesión $\{\frac{1}{\frac{\pi}{2}+2\pi n}\}_{n \in \N}$, cuyo límite es también cero, se tiene
+    \[g\left(\frac{1}{\frac{\pi}{2}+2\pi n}\right) = \left(\frac{\pi}{2}+2\pi n\right)\sen\left(\frac{\pi}{2}+2\pi n\right)= \frac{\pi}{2}+2\pi n \xrightarrow[]{n \to \infty} \infty\] 
+    Por tanto, $0$ es una singularidad aislada esencial de $f(\frac{1}{z})$, es decir, $\infty$ es una singularidad aislada esencial de $f$. 
+    
+    En cuanto a los ceros, se tiene que $f(z)=0$ si y solo si $z = \pi k$, $k \in \Z$. Como $f'(z)=\sen(z)+z\cos(z)$ y $f'(\pi k) = (-1)^k \pi k \neq 0$ si y solo si $k \neq 0$, todos los ceros de la forma $\pi k$ con $k \neq 0$ son simples. Por último, como $f''(z)=2\cos(z)-z\sen(z)$ y $f''(0) \neq 0$, concluimos que $0$ es un cero doble de $f$.
+    \item La función dada por $f(z)=(1-e^z)^2$ es holomorfa en $\C$, así que no tiene singularidades aisladas en $\C$. La función $g(z)=f(\frac{1}{z}) = (1-e^{\frac{1}{z}})^2$ no tiene límite en $0$; basta considerar las sucesiones $\{\frac{1}{2\pi ni}\}_{n \in \N}$ y $\{\frac{1}{(\frac{\pi}{2}+2\pi n)i}\}_{n \in \N}$, que tienen límite $0$ y verifican
+    \[g\left(\frac{1}{2\pi ni}\right)=0, \qquad \qquad g\left(\frac{1}{(\frac{\pi}{2}+2\pi n)i}\right) = (1-i)^2\]
+    Por tanto, $\infty$ es una singularidad aislada esencial de $f$.
+
+    Respecto a los ceros, $f(z) = 0$ si y solo si $e^z = 1 = e^0$, es decir, si y solo si $z = 2\pi k i$, $k \in \Z$. Se tiene que $f'(z)=-2e^z(1-e^z) = -2e^z+2e^{2z}$ y $f'(2\pi k i) = 0$ para todo $k \in \Z$. Además, $f''(z) = -2e^z+4e^{2z}$ y $f''(2\pi k i) = -2+4=2 \neq 0$ para todo $k \in \Z$, luego todos los ceros de $f$ son dobles.
+    \item La función dada por $f(z)=\frac{e^z-1}{z^2(z-2\pi i)} = \frac{e^z-1}{z^3-2\pi i z^2}$ es holomorfa en $\C \setminus \{0,2\pi i\}$. Se tiene que
+    \[\lim_{z \to 2\pi i}(z-2\pi i)f(z)=\lim_{z \to 2 \pi i} \frac{e^z-1}{z^2} = \frac{e^{2\pi i}-1}{(2\pi i)^2} = 0,\]
+    luego $2\pi i$ es una singularidad evitable. Por otra parte,
+    \[\lim_{z \to 0} \frac{e^z-1}{z^2(z-2\pi i)} = \infty,\]
+    donde se ha usado que 
+    \[\lim_{z \to 0} \frac{e^z-1}{z} = 1\]
+    Por tanto, $0$ es un polo de $f$, y es orden $1$, pues
+    \[\lim_{z \to 0}zf(z)=\lim_{z \to 0} \frac{e^z-1}{z}\frac{1}{z-2\pi i} = -\frac{1}{2\pi i} \neq 0\]
+    Además, $f$ no tiene límite no tiene límite en $\infty$; basta considerar las sucesiones $\{-n\}_{n \in \N}$ y $\{n\}_{n \in \N}$, que en $\C$ tienen límite $\infty$, y verifican
+    \[f(-n) = \frac{e^{-n}-1}{-n^3-2\pi i n^2} \xrightarrow[]{n \to \infty}0, \qquad \qquad f(n)=\frac{e^n-1}{n^3-2\pi i n^2} \xrightarrow[]{n \to \infty} \infty\]
+    En consecuencia, $\infty$ es una singularidad esencial de $f$. 
+    
+    Los ceros de $f$ son de la forma $2\pi k i$, con $k \in \Z \setminus \{0,1\}$. Como las funciones $e^z-1$ y $z-2\pi k i$ son holomorfas en $\C$ y se anulan en $2 \pi k i$, podemos aplicar la regla de L'Hôpital para obtener
+    \[\lim_{z \to 2\pi k i} \frac{e^z-1}{z-\pi k i} = \lim_{z \to 2\pi k i} = e^z = 1\]
+    Por tanto,
+    \[\lim_{z \to 2 \pi k i} \frac{f(z)}{z-2\pi k i} = \lim_{z \to 2\pi k i}\frac{1}{z^2(z-2\pi i)}\frac{e^z-1}{z-2\pi k i} = \frac{1}{(2\pi k i)^2\cdot 2\pi i(k-1)} \neq 0\]
+    Concluimos que todos los ceros de $f$ son simples.
+    \item La función $f(z)=1-\cos(z)$ es holomorfa en $\C$, luego no presenta singularidades aisladas en $\C$. En el infinito no tiene límite: de nuevo, basta estudiar las sucesiones $\{2n\pi \}_{n \in \N}$ y $\{(2n+1)\pi\}_{n \in \N}$. Por tanto, $\infty$ es una singularidad aislada esencial de $f$. 
+    
+    En cuanto a los ceros, 
+    \[\begin{aligned}[t]f(z)=0 &\iff \cos(z)=1 \iff \frac{e^{iz}+e^{-iz}}{2} = 1\iff e^{iz}+e^{-iz} = 2 \iff (e^{iz})^2+1-2e^{iz}=0 \\ &\iff (e^{iz}-1)^2=0 \iff e^{iz} = 1 \iff z = 2\pi k, \, k \in \Z\end{aligned}\]
+    Tenemos que $f'(z)=\sen(z)$ y $f'(2\pi k) = 0$ para todo $k \in \Z$. Además, $f''(z)=\cos(z)$ y $f''(2\pi k) = 1 \neq 0$ para todo $k\in \Z$, concluyéndose que todos los ceros de $f$ son dobles.
+    \item La función $f(z)=\sen(z^3)$ es holomorfa en $\C$ (luego no hay singularidades aisladas en $\C$) y, razonando como siempre, tiene a $\infty$ como singularidad aislada esencial. 
+    
+    Respecto a los ceros,
+    \[\begin{aligned}[t]\sen(z^3) = 0 &\iff \frac{e^{iz^3}-e^{-iz^3}}{2i} = 0 \iff e^{iz^3} = e^{-iz^3} \iff z^3=\pi k, \, k \in \Z \\ &\iff z = \xi^i \sqrt[3]{\pi k}, \, k \in \Z, \, i = 0,1,2,\end{aligned}\]
+    siendo $\xi = e^{i\frac{2\pi}{3}}$.
+    Si $k \neq 0$, $i=0,1,2$,
+    \[\begin{aligned}[t]
+      f'(z)&=3z^2\cos(z^3), \qquad \qquad f'\left(\xi^i\sqrt[3]{\pi k}\right) = 3\xi^{2i}(\pi k)^{\frac{2}{3}}\cos(\pi k) =  3\xi^{2i}(\pi k)^{\frac{2}{3}}(-1)^k \neq 0,
+    \end{aligned}\]
+    pero en $k=0$ es $f'(0) = 0$. Una derivada más:
+    \[f''(z) = 6z\cos(z^3)-9z^4\sen(z^3), \qquad \qquad f''(0) = 0\]
+    Mala suerte. A seguir derivando.
+    \[f'''(z)=6\cos(z^3)-39z^3\sen(z^3)-27z^6\cos(z^3), \qquad \qquad f'''(0) = 6 \neq 0\]
+    Concluimos que $0$ es un cero triple de $f$ y todos los demás ceros son simples.
+    \item La función $f(z)=z^2e^{\frac{1}{z}}$ es holomorfa en $\C \setminus \{0\}$. Estudiemos el límite en $0$. Si se consideran las sucesiones $\{\frac{1}{2\pi ni}\}_{n \in \N}$ y $\{\frac{1}{n}\}_{n \in \N}$, ambas con límite cero, se tiene
+    \[f\left(\frac{1}{2\pi ni}\right) =\frac{1}{(2\pi n i)^2} \xrightarrow[]{n \to \infty}0, \qquad \qquad f\left(\frac{1}{n}\right) = \frac{e^n}{n^2}\xrightarrow[]{n \to \infty}\infty\]
+    Por tanto, $0$ es una singularidad aislada esencial de $f$. En el infinito, como
+    \[\lim_{z \to \infty}e^{\frac{1}{z}} = 1, \qquad \qquad \lim_{z \to \infty} z^2 = \infty,\]
+    entonces
+    \[\lim_{z \to \infty}f(z)=\infty,\]
+    así que $\infty$ es un polo de $f$. Además, como
+    \[\lim_{z \to 0} z^2f\left(\frac{1}{z}\right) = \lim_{z \to 0} e^z = 1 \neq 0,\]
+    entonces $\infty$ es un polo de $f$ de orden $2$.
+    
+    Por último, $f$ no tiene ceros en $\C$.
+    \item La función \[f(z)=\frac{z^4}{(1+z^4)} = \frac{z^4}{(z^2+i)(z^2-i)} = \frac{z^4}{(z-e^{-i\frac{\pi}{4}})(z+e^{-i\frac{\pi}{4}})(z-e^{i\frac{\pi}{4}})(z+e^{i\frac{\pi}{4}})}\]
+    es holomorfa en $\C \setminus \{e^{-i\frac{\pi}{4}}, -e^{-i\frac{\pi}{4}},e^{i\frac{\pi}{4}},-e^{i\frac{\pi}{4}}\}$. Se comprueba inmediatamente que todos estos puntos son polos simples de $f$, y el infinito también lo es, ya que
+    \[\lim_{z \to \infty}f(z) = 1\]
+    El único cero de $f$ es, valga la redundancia, el cero, y es de orden $4$ porque \[\lim_{z \to 0} \frac{f(z)}{z^4} = \lim_{z \to 0} \frac{1}{1+z^4} = 1 \neq 0\]
+    \item La función $f(z)=\frac{z^5}{1-z^2} = \frac{z^5}{(1+z)(1-z)}$ es holomorfa en $\C \setminus \{-1,1\}$. Se comprueba inmediatamente que $-1$ y $1$ son polos simples de $f$, y como
+    \[\lim_{z \to \infty} f(z)=\infty,\]
+    entonces $\infty$ es un polo de $f$, y es de orden $3$ porque
+    \[\lim_{z \to 0} z^3f\left(\frac{1}{z}\right) = \lim_{z \to 0}z^3 \frac{\frac{1}{z^5}}{1-\frac{1}{z^2}} = \lim_{z \to 0} \frac{z^3}{z^5-z^3} = \lim_{z \to 0} \frac{1}{z^2-1} = -1 \neq 0\]
+    El único cero de $f$ es $0$, y su orden es $5$ porque
+    \[\lim_{z \to 0}\frac{f(z)}{z^5} = \lim_{z \to 0} \frac{1}{1-z^2} = 1 \neq 0\]
+    \item La función $f(z)=\frac{e^z}{1+z^2} = \frac{e^z}{(z+i)(z-i)}$ es holomorfa en $\C \setminus \{i,-i\}$. Es claro que $i$ y $-i$ son polos simples de $f$. Si consideramos las sucesiones $\{2\pi in\}_{n \in \N}$ y $\{n\}$, ambas con límite $\infty$, se tiene
+    \[f(2\pi i n) = \frac{1}{1-(2\pi n)^2} \xrightarrow[]{n \to \infty} 0, \qquad \qquad f(n)=\frac{e^n}{1+n^2} \xrightarrow[]{n \to \infty} \infty\]
+    Por tanto, $\infty$ es una singularidad aislada esencial de $f$.
+
+    Por último, se observa que $f$ no tiene ningún cero.
+    \item La función $f(z)=\frac{1}{z(z^2+4)^2} = \frac{1}{z(z+2i)^2(z-2i)^2}$ es holomorfa en $\C \setminus \{0,2i,-2i\}$. Se comprueba inmediatamente que $0$ es un polo simple de $f$ y que $2i$ y $-2i$ son polos dobles de $f$. Además, como
+    \[\lim_{z \to \infty} f(z)=0,\]
+    entonces $\infty$ es una singularidad aislada evitable de $f$.
+    
+    Por último, se observa que $f$ no tiene ningún cero.
+    \item La función $f(z) = e^{-\frac{1}{z^2}}$ es holomorfa en $\C \setminus \{0\}$ y presenta una singularidad aislada esencial en $0$. En efecto, si se consideran las sucesiones $\{\frac{e^{-i\frac{\pi}{4}}}{\sqrt{2\pi n} }\}_{n \in \N}$ y $\{\frac{e^{-i\frac{\pi}{4}}}{\sqrt{(2n+1)\pi}}\}_{n \in \N}$, ambas con límite $0$, se tiene
+    \[f\left(\frac{1}{\sqrt{2\pi n} i}\right) = e^{-2\pi ne^{i\frac{\pi}{2}}} = e^{2\pi n i} = 1, \qquad f\left(\frac{e^{-i\frac{\pi}{4}}}{\sqrt{(2n+1)\pi}}\right) = e^{-(2n+1)\pi e^{i\frac{\pi}{2}}} = e^{-(2n+1)\pi i} =-1\]
+    Por tanto, $f$ no tiene límite en $0$. En el infinito se tiene
+    \[\lim_{z \to \infty}e^{-\frac{1}{z^2}} = e^0=1,\]
+    luego $\infty$ es una singularidad aislada evitable de $f$.
+
+    Por último, $f$ no tiene ningún cero en $\C \setminus\{0\}$.
+    \item La función $f(z)=e^{\frac{z}{1-z}}$ es holomorfa en $\C \setminus \{1\}$. Como
+    \[\lim_{x \to 1^-} \frac{1}{1-x} = \infty, \qquad \qquad \lim_{x \to 1^+}\frac{1}{1-x} = -\infty,\]
+    entonces
+    \[\lim_{x \to 1^-} e^{\frac{x}{1-x}} = 1, \qquad \qquad \lim_{x \to 1^+}e^{\frac{x}{1-x}} = 0\]
+    Por tanto, $f$ presenta en $1$ una singularidad aislada esencial. Como
+    \[\lim_{z \to \infty} \frac{z}{1-z} = -1,\]
+    entonces
+    \[\lim_{z \to \infty}e^{\frac{z}{1-z}} = e^{-1}\]
+    Así, $\infty$ es una singularidad aislada evitable de $f$.
+
+    Se observa además que $f$ no tiene ceros en $\C \setminus \{1\}$.
+    \item Nótese que
+    \[
+    \begin{aligned}[t]
+    \cos(z)=2 &\iff \frac{e^{iz}+e^{-iz}}{2} = 2 \iff e^{iz}+e^{-iz} = 4 \iff (e^{iz})^2-4e^{iz}+1 = 0 \\ &\iff e^{iz} \in \left\{ \frac{4+ \sqrt{16-4}}{2},\frac{4- \sqrt{16-4}}{2}\right\} \iff e^{iz} \in \left\{2+\sqrt{3}, 2-\sqrt{3}\right\}
+  \end{aligned}\]
+  Si $e^{iz} = 2+\sqrt{3}= e^{\log(2+\sqrt{3})}$, entonces $iz=\log(2+\sqrt{3})+2\pi ki$, esto es, $z = 2\pi k -\log(2+\sqrt{3})i$, $k \in \Z$. Análogamnte, si $e^{iz} = 2-\sqrt{3} = e^{\log(2-\sqrt{3})}$ (nótese que $2-\sqrt{3}>0$), entonces $z = 2\pi k -\log(2-\sqrt{3})i$, $k \in \Z$. Así, 
+  \[z^3(2-\cos(z)) = 0 \iff z \in A= \{2\pi k-\log(2+\sqrt{3})i \colon k \in \Z\} \cup \{2\pi k-\log(2-\sqrt{3})i \colon k \in \Z\} \cup \{0\} \]
+  y por tanto la función $f(z)=\frac{1}{z^3(2-\cos(z))}$ es holomorfa en $\C \setminus A $. Es claro que $0$ es un polo de $f$ de orden 3. Por otro lado, si $z_0 \in A$ y $z_0 \neq 0$, entonces $\cos(z_0) = 2$ y, en consecuencia,
+  \[\lim_{z \to z_0}(z-z_0)f(z)= \lim_{z \to z_0}\frac{z-z_0}{z^3(2-\cos(z))} = -\lim_{z \to z_0}\frac{1}{z^3}\frac{z-z_0}{\cos(z)-\cos(z_0)} = -\frac{\sen(z_0)}{z_0^3} \neq 0,\]
+  ya que $\cos^2(z_0)+\sen^2(z_0) = 4+\sen^2(z_0) =  1$ y por tanto no puede ser $\sen(z_0) = 0$. Se tiene entonces que todos los elementos no nulos de $A$ son polos simples de $f$. Nótese que $\infty$ no es singularidad aislada de $f$ porque en todo conjunto de la forma $\{z \in \C \colon |z| > R\}$ con $R >0$ hay puntos donde el denominador de $f$ se anula. En otras palabras, $f$ no es holomorfa en ningún entorno de $\infty$.
+
+  La función $f$ no tiene ceros.
+  \item La función $f(z)=\frac{1}{e^z-1}-\frac{1}{z}$ es holomorfa en $\C \setminus \{2\pi k i \colon k \in \Z\}$. Por tanto, $\infty$ no es singularidad aislada de $f$ y los puntos de la forma $2\pi k i$, $k \in \Z$ sí lo son. Si $k \neq 0$, entonces
+  \[\lim_{z \to 2\pi k i} f(z)= \infty,\]
+  así que $2\pi k i$ es un polo de $f$. Estudiemos su orden. Las funciones $z-2\pi k i$ y $e^z-1$ son holomorfas en $\C$ y anulan al punto $2\pi ki$, luego, por la regla de L'Hôpital,
+  \[\lim_{z \to 2\pi ki} \frac{z-2\pi ki }{e^z-1} = \lim_{z \to 2\pi k i} \frac{1}{e^z} = e^{-2\pi ki} \neq 0\]
+  En consecuencia,
+  \[\lim_{z \to 2\pi k i} (z-2\pi k i)f(z)=\lim_{z \to 2\pi k i}\left(\frac{z-2\pi k i}{e^z-1} -\frac{z-2\pi k i}{z}\right) = e^{-2\pi k i}\]
+  Estudiemos el límite en $0$. Como las funciones $z-e^z+1$ y $ze^z-z$ son holomorfas en $\C$ y se anulan en $0$, por la regla de L'Hôpital se tiene
+  \[\lim_{z \to 0}\left(\frac{1}{e^z-1}-\frac{1}{z}\right) = \lim_{z \to 0} \frac{z-e^z+1}{ze^z-z} \overset{\textup{L'H}}{=} \lim_{z \to 0} \frac{1-e^z}{e^z+ze^z-1}\]
+  De nuevo, $1-e^z$ y $e^z+ze^z-1$ definen funciones holomorfas en $\C$ y que se anulan en $0$. Otra vez por L'Hôpital,
+  \[\lim_{z \to 0} \frac{1-e^z}{e^z+ze^z-1} \overset{\textup{L'H}}{=} \lim_{z \to 0} \frac{-e^z}{2e^z+ze^z} = \lim_{z \to 0} -\frac{1}{2+z} = -\frac{1}{2}\]
+  Concluimos que $0$ es una singularidad evitable de $f$. 
+  
+  Parece que hallar los ceros de $f$ no va a ser plato de buen gusto, así que se da por concluido el ejercicio.
+  \qedhere
+\end{enumerate}
+\end{proof}
+
+\pagebreak
+
+\begin{ejercicio}
+  Dar los desarrollos de Laurent de las siguientes funciones, indicando en cada caso la región de validez del mismo.
+  \begin{enumerate}
+    \item $\displaystyle f(z)=\frac{1}{z-3}$ en entornos perforados de $0$ e $\infty$.
+    \item $\displaystyle f(z)=\frac{1}{z(1-z)}$ en entornos perforados de $0$, $1$, $2$ e $\infty$.
+    \item $\displaystyle f(z)=\frac{z^2-2z+5}{(z-2)(z^2+1)}$ en el anillo $\{z \in \C \colon 1<|z|<2\}$.
+  \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item Como $f$ es holomorfa en el entorno de $0$ $\Delta(0,3)$, entonces su desarrollo de Laurent en dicho entorno coincide con su desarrollo de Taylor:
+    \[f(z)=-\frac{\frac{1}{3}}{1-\frac{z}{3}}=-\frac{1}{3}\sum_{n=0}^\infty \left(\frac{z}{3}\right)^n = -\frac{1}{3}\sum_{n=0}^\infty \frac{1}{3^n}z^n\]
+    Por otra parte, si $|\frac{3}{z}| < 1$, es decir, si $|z|>3$, entonces
+    \[f(z)=\frac{1}{z-3} = \frac{1}{z}\frac{1}{1-\frac{3}{z}} =\frac{1}{z}\sum_{n=0}^\infty \left(\frac{3}{z}\right)^n = \sum_{n=0}^\infty \frac{3^n}{z^{n+1}} = \frac{1}{3} \sum_{n=1}^\infty \frac{3^n}{z^{n}} =\frac{1}{3}\sum_{n=-\infty}^{-1}\frac{1}{3^n}z^n\]
+    Este desarrollo es válido en $\{z \in \C \colon |z| > 3\} = A(0;3,\infty)$.
+    \item Se tiene que
+    \[f(z)=\frac{1}{z(1-z)} = \frac{1}{z}+\frac{1}{1-z} = \frac{1}{z}+\sum_{n=0}^\infty z^n = \sum_{n=-1}^\infty z^n,\]
+    expresión válida en $\Delta(0,1)$. Si lo queremos centrado en $1$, pues
+    \[f(z)=\frac{1}{1+z-1}-\frac{1}{z-1} = \sum_{n=0}^\infty(-1)^n (z-1)^n-\frac{1}{z-1} = \sum_{n=-1}^\infty (-1)^n(z-1)^n,\]
+    expresión válida siempre que $|z-1|<1$, o sea, válida en $\Delta(1,1)$. Y para el $2$,
+    \[f(z)=\frac{\frac{1}{2}}{1+\frac{z-2}{2}}-\frac{1}{1+z-2} =\sum_{n=0}^\infty \frac{(-1)^n}{2^{n+1}}(z-2)^n+\sum_{n=0}^\infty(-1)^{n+1}(z-2)^n = \sum_{n=0}^\infty\left(\frac{(-1)^n}{2^{n+1}}+(-1)^{n+1}\right)(z-2)^n\]
+    Esto es válido siempre que $|z-2|<2$ y $|z-2|<1$, es decir, en el disco $\Delta(2,1)$. Por último, en el infinito,
+    \[f(z)=\frac{1}{z}+\frac{1}{z}\frac{1}{\frac{1}{z}-1} = \frac{1}{z}-\frac{1}{z}\sum_{n=0}^\infty \left(\frac{1}{z}\right)^n = \frac{1}{z}-\sum_{n=1}^\infty \frac{1}{z^{n}} = -\sum_{n=2}^\infty \frac{1}{z} = -\sum_{n=-\infty}^{-2}z^n,\]
+    expresión válida mientras $|z|>1$, o sea, en el anillo $A(0;1,\infty)$.
+    \item Tratemos de descomponer $f$ en fracciones simples: se tiene
+    \[\begin{aligned}[t]
+      \frac{A}{z-2}+\frac{B}{z+i}+\frac{C}{z-i} &= \frac{A(z^2+1)+B(z-2)(z-i)+C(z-2)(z+i)}{(z-2)(z+i)(z-i)}
+      \\ &=\frac{Az^2+A+Bz^2-Bzi-2Bz+2Bi+Cz^2+Czi-2Cz-2Ci}{(z-2)(z+i)(z-i)} \\
+      &= \frac{(A+B+C)z^2+(-2B-2C+Ci-Bi)z+A+2Bi-2Ci}{(z-2)(z+i)(z-i)}
+    \end{aligned}\]
+    Así,
+    \[\begin{cases}
+      A+B+C=1 \\
+      (-2-i)B+(-2+i)C = -2 \\
+      A+2iB-2iC = 5
+    \end{cases} \iff (...) \iff \begin{cases}
+      A=1 \\
+      B=-i \\
+      C=i
+    \end{cases}\]
+  Tenemos entonces
+  \[
+  f(z)=\frac{1}{z-2}-\frac{i}{z+i}+\frac{i}{z-i}\]
+  Por otra parte,
+  \begin{itemize}
+    \item Si $|\frac{z}{2}|<1$, o sea, si $|z|<2$, entonces
+    \[\frac{1}{z-2} = -\frac{\frac{1}{2}}{1-\frac{z}{2}} = -\frac{1}{2}\sum_{n=0}^\infty\frac{1}{2^n}z^n = -\sum_{n=0}^\infty\frac{1}{2^{n+1}}z^n \] 
+    \item Si $|\frac{i}{z}| < 1$, es decir, si $|z|>1$, entonces
+    \[-\frac{i}{z+i} = -\frac{i}{z}\frac{1}{1+\frac{i}{z}} = -\frac{i}{z}\sum_{n=0}^\infty(-i)^n\frac{1}{z^n} = \sum_{n=1}^\infty (-i)^n \frac{1}{z^b} = \sum_{n=-\infty}^{-1}\frac{1}{(-i)^n}z^n=\sum_{n=-\infty}^{-1}i^n z^n\]
+    \item Si $|\frac{i}{z}|<1$, es decir, si $|z|>1$, entonces
+    \[\frac{i}{z-i} = \frac{i}{z}\frac{1}{1-\frac{i}{z}} = \frac{i}{z}\sum_{n=0}^\infty i^n \frac{1}{z^n} = \sum_{n=1}^\infty i^n\frac{1}{z^n} = \sum_{n=-\infty}^{-1}\frac{1}{i^n}z^n=\sum_{n=-\infty}^{-1}(-i)^nz^n\]
+  \end{itemize}
+    La conclusión es que
+    \[f(z)=-\sum_{n=0}^\infty \frac{1}{2^{n+1}}z^n + \sum_{n=-\infty}^{-1}(i^n+(-i)^n)z^n\]
+    Todo esto es válido en el anillo $\{z \in \C \colon 1<|z|<2\}$. \qedhere \end{enumerate} 
+\end{proof}
+
+\begin{ejercicio}
+  Hallar las siguientes integrales:
+  \begin{enumerate}
+    \item $\displaystyle \int_{|z|=1}z^2e^{\frac{i}{z}} \, dz$.
+    \item $\displaystyle \int_{\partial Q}\frac{\sen(z)}{\cos(z^3)-1} \, dz$, donde $Q = \{x+iy \in \C \colon |x|+|y| \leq 1\}$ y $\partial Q$ está recorrido simple y positivamente.
+    \item $\displaystyle \int_{|z|=2} \frac{z}{e^z-1} \, dz$.
+    \item $\displaystyle \int_{|z-6\pi i| = 4\pi} \frac{\textup{Log}(z)}{1+e^z} \, dz$.
+    \item $\displaystyle \int_{|z|=18} \frac{z^2}{(z-1)(z-2)(z-7)(z^2+1)(z-6)^3} \, dz$.
+  \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item La función $f(z)=z^2e^{\frac{i}{z}}$ es holomorfa en $\C \setminus \{0\}$, luego, por el teorema de los residuos,
+    \[\int_{|z|=1}z^2e^{\frac{i}{z}} \, dz = 2\pi i \, \textup{n}(|z|=1, 0) \, \textup{Res}(f,0) = 2\pi i \, \textup{Res}(f,0)\]
+    Se tiene que
+    \[z^2e^{\frac{i}{z}} = z^2\sum_{n=0}^\infty \frac{1}{n!}\frac{i^n}{z^n} = \sum_{n=0}^\infty \frac{i^n}{n!}z^{2-n}\]
+    El coeficiente del término $\frac{1}{z}$ sería $\frac{i^3}{3!} = -\frac{i}{6}$, así que
+    \[\int_{|z|=1}z^2e^{\frac{i}{z}} \, dz = \frac{\pi}{3}\]
+    \item En un ejercicio anterior se probó que $\cos(z^3) = 1$ si y solo si $z^3 = 2\pi k$, $k \in \Z$, así que $\cos(z^3) = 1$ si y solo si
+    \[z \in \{2\pi k \colon k \in \Z\} \cup \{2\pi k e^{i\frac{2\pi}{3}} \colon k \in \Z\} \cup \{2\pi k e^{i\frac{4\pi}{3}} \colon k \in \Z\}\]
+    Se comprueba que el único de estos puntos que está en $Q$ es $0$. Por el teorema de los residuos,
+    \[\int_{\partial Q}\frac{\sen(z)}{\cos(z^3)-1} \, dz = 2\pi i \, \textup{Res}(f,0)\]
+    Se tiene que
+    \[\cos(z^3)-1 = \sum_{n=0}^\infty(-1)^n\frac{z^{6n}}{(2n)!}-1 = \sum_{n=1}^\infty(-1)^n\frac{z^{6n}}{(2n!)} \]
+    Observamos que $0$ es un cero de orden $6$ de $\cos(z^3)-1$, así que existe una función $h$ holomorfa en $\C$ y no nula en $0$ con
+    \[\cos(z^3)-1 = z^6g(z),\]
+    luego
+    \[\frac{\cos(z^3)-1}{\sen(z)} = z^5\frac{\sen(z)}{z}g(z)\]
+    Como
+    \[\lim_{z \to 0} \frac{\sen(z)}{z} = 1 \neq 0,\]
+    entonces puede extenderse de forma continua la función dada por $h(z)=\frac{\sen(z)}{z}g(z)$ a todo el plano y, llamando también $h$ a dicha extensión, tenemos
+    \[\frac{\cos(z^3)-1}{\sen(z)} = z^5h(z),\]
+    con $h$ holomorfa en $\C$ y no nula en $0$. Todo esto para obtener que $0$ es un cero de $\frac{1}{f}$ de orden $5$ y, en consecuencia, que $0$ es un polo de $f$ de orden $5$. Así, $\textup{Res}(f,0)$ es el coeficiente de $n=4$ de la serie de Taylor en $0$ de la función $z^5f(z)$: se tiene que
+    \[\begin{aligned}[t]
+      z^5f(z)=\sum_{n=0}^\infty a_nz^n &\iff z^5\sen(z)=(\cos(z^3)-1)\sum_{n=0}^\infty a_nz^n \\
+      &\iff \sum_{n=0}^\infty (-1)^n\frac{z^{2n+6}}{(2n+1)!} = \left(\sum_{n=1}^\infty(-1)^n \frac{z^{6n}}{(2n)!}\right)\left(\sum_{n=0}^\infty a_nz^n\right) \\
+      &\iff \sum_{n=0}^\infty (-1)^n\frac{z^{2n+6}}{(2n+1)!} = \left(\sum_{n=0}^\infty(-1)^{n+1} \frac{z^{6n+6}}{(2n+2)!}\right)\left(\sum_{n=0}^\infty a_nz^n\right) \\
+      &\iff \sum_{n=0}^\infty (-1)^n\frac{z^{2n}}{(2n+1)!} =\left(\sum_{n=0}^\infty(-1)^{n+1} \frac{z^{6n}}{(2n+2)!}\right)\left(\sum_{n=0}^\infty a_nz^n\right)
+    \end{aligned}\]
+    En el término de la derecha, al multiplicar $a_4$ (que es el coeficiente de $z^4$ en $\sum_{n=0}^\infty a_nz^n$) por $-\frac{1}{2!}$ (que es el término independiente $\sum_{n=0}^\infty(-1)^{n+1} \frac{z^{6n}}{(2n+2)!}$), obtenemos el coeficiente de $z^4$ en la serie a la izquierda de la igualdad, que sería $\frac{1}{5!}$. En otras palabras,
+    \[\frac{1}{5!} = -\frac{1}{2!}a_4 = -\frac{1}{2!}\textup{Res}(f,0),\]
+    es decir,
+    \[\textup{Res}(f,0) = -\frac{1}{60}\]
+    Concluimos que
+    \[\int_{\partial Q}\frac{\sen(z)}{\cos(z^3)-1} \, dz = -\frac{2\pi i}{60} = -\frac{\pi i}{30}\]
+    \item Por el teorema de los residuos,
+    \[\int_{|z|=2} \frac{z}{e^z-1} \, dz = 2\pi i \, \textup{Res}(f,0),\]
+    ya que los ceros del denominador son $2\pi ki$, $k \in \Z$, y $\textup{n}(|z|=2,2\pi k i) = 0$ siempre que $k \neq 0$. Como además
+    \[\lim_{z \to 0} \frac{z}{e^z-1} = 1,\]
+    entonces $0$ es una singularidad evitable de $f(z)=\frac{z}{e^z-1}$, luego $\textup{Res}(f,0) = 0$ y
+    \[\int_{|z|=2} \frac{z}{e^z-1} \, dz =0\]
+    \item Se tiene que
+    \[e^{x+iy} = -1 \iff e^x\cos(y)+i\sen(y)=-1,\]
+    luego ha de ser $\sen(y)=0$ y por tanto $\cos(y)=\pm 1$, así que
+    \[e^{x+iy} = -1 \iff y = (2k+1)\pi, \, e^x = 1 \iff y=(2k+1)\pi, \, x  =0,\]
+    con $k \in \Z$. Los únicos ceros del denominador que están en el disco de centro $6\pi i$ y radio $4\pi$ son $3\pi i$, $5\pi i$, $7\pi i$ y $9\pi i$. Si además observamos que la función $\textup{Log}$ es holomorfa en $\Delta(6\pi i, 5\pi)$ (disco que no contiene ningún punto de $(-\infty,0]$ y que contiene a la circunferencia $|z-6\pi i|=4\pi$), el teorema de los residuos nos dice que
+    \[\int_{|z-6\pi i| = 4\pi} \frac{\textup{Log}(z)}{e^z+1} \, dz = 2\pi i(\textup{Res}(f,3\pi i) + \textup{Res}(f,5\pi i) + \textup{Res}(f,7\pi i) + \textup{Res}(f,9\pi i))\]
+    Dado $k \in \{3,5,7,9\}$, por la regla de L'Hôpital,
+    \[\lim_{z \to \pi k i} \frac{z-\pi k i }{e^z+1} =\frac{1}{e^{\pi k i}} = -1, \]
+    así que
+    \[\lim_{z \to \pi k i} (z-\pi k i)\frac{\textup{Log}(z)}{e^z+1} = -\textup{Log}(\pi k i) = -\log(\pi k)-i\frac{\pi}{2}\]
+    Por tanto, $\pi k i$ es un polo simple de $f$ y entonces
+    \[\textup{Res}(f,\pi k i) = -\log(\pi k)-i\frac{\pi}{2}\]
+    La conclusión es que
+    \[
+    \begin{aligned}[t]
+    \int_{|z-6\pi i| = 4\pi} \frac{\textup{Log}(z)}{e^z+1} \, dz &= 2\pi i\left(-\log(3\pi )-i\frac{\pi}{2} -\log(5\pi )-i\frac{\pi}{2} -\log(7\pi )-i\frac{\pi}{2}-\log(9\pi)-i\frac{\pi}{2}\right) 
+    \\
+    &=4\pi^2-2\pi i(\log(3\pi )+\log(5\pi )+\log(7\pi )+\log(9\pi))  \\
+    &= 4\pi^2-2\pi i \, \log(945\pi^4)
+    \end{aligned}
+    \] 
+    \item La función
+    \[f(z)=\frac{z^2}{(z-1)(z-2)(z-7)(z+i)(z-i)(z-6)^3}\]
+    es holomorfa en $\C\setminus \{1,2,6,7,i,-i\}$, y todas las singularidades son tales que el índice de $|z|=18$ con respecto a las mismas es $1$. Por el teorema de los residuos,
+    \[\int_{|z|=18} f(z)\, dz = 2\pi i(\textup{Res}(f,1) + \textup{Res}(f,2) + \textup{Res}(f,6) + \textup{Res}(f,7) + \textup{Res}(f,i) + \textup{Res}(f,-i) + \textup{Res}(f,6))\]
+    Ahora bien, $f$ es una función racional, así que
+    \[\textup{Res}(f,1) + \textup{Res}(f,2) + \textup{Res}(f,6) + \textup{Res}(f,7) + \textup{Res}(f,i) + \textup{Res}(f,-i) + \textup{Res}(f,6)+\textup{Res}(f,\infty) = 0\]
+    y el problema se reduce a calcular $\textup{Res}(f,\infty) = \textup{Res}(-\frac{1}{z^2}f(\frac{1}{z}),0)$. Se tiene que
+    \[-\frac{1}{z^2}f\left(\frac{1}{z}\right) = -\frac{1}{(\frac{1}{z}-1)(\frac{1}{z}-2)(\frac{1}{z}-7)(\frac{1}{z}+i)(\frac{1}{z}-i)(\frac{1}{z}-6)^3} = \frac{z^8}{(1-z)(1-2z)(1-7z)(1+iz)(1-iz)(1-6z)^3}\]
+    Como 
+    \[\lim_{z \to 0}-\frac{1}{z^2}f\left(\frac{1}{z}\right) = 0,\]
+    entonces $\textup{Res}(-\frac{1}{z^2}f(\frac{1}{z}),0) = \textup{Res}(f,\infty) = 0$ y se concluye que
+    \[\int_{|z|=18} f(z)\, dz=0 \qedhere\]
+  \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+  Hallar las siguientes integrales usando el cálculo de residuos:
+  \begin{multicols}{2}
+  \begin{enumerate}
+    \item $\displaystyle \int_{0}^{2\pi} \frac{\sen^2 \theta}{4+2\cos\theta} \, d\theta$.
+    \item $\displaystyle \int_0^{2\pi} \frac{1}{(1+r\cos\theta)^2} \, d\theta$, $0<r<1$.
+    \item $\displaystyle \int_0^\infty \frac{x^2}{x^4+6x^2+13} \, dx$.
+    \item $\displaystyle \int_0^\infty \frac{x\sen(x)}{(x^2+a^2)^2} \, dx$, $a>0$.
+    \item $\displaystyle \int_0^\infty\frac{\cos(4x)}{(x^2+a^2)^2} \, dx$, $a>0$.
+    \item $\displaystyle \int_0^\infty \left(\frac{\sen(x)}{x}\right)^2 \, dx$.
+    \item $\displaystyle \int_0^\infty \left(\frac{\sen(x)}{x}\right)^3 \, dx$.
+    \item $\displaystyle \int_0^\infty \frac{\cos(x)}{1-x^2} \, dx$.
+    \item $\displaystyle \int_{-\infty}^\infty \frac{1}{1+x+x^2+x^3} \, dx$.
+  \end{enumerate}
+  \end{multicols}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item Una parametrización de la circunferencia unidad $|z|=1$ recorrida de forma simple y en sentido positivo es $\varphi(t)=e^{i\theta}$, $\theta \in [0,2\pi]$. Se va a usar que $2\cos\theta = e^{i\theta}+e^{-i\theta}$, que $2i\sen\theta = e^{i\theta}-e^{i\theta}$ y que $\frac{1}{z}=z$ en la circunferencia unidad:
+    \[
+    \begin{aligned}[t]
+    \int_{0}^{2\pi} \frac{\sen^2 \theta}{4+2\cos\theta} \, d\theta &= \int_0^{2\pi}\frac{(\frac{1}{2i})^2(e^{i\theta}-e^{-i\theta})^2}{4+e^{i\theta}+e^{-i\theta}}\frac{ie^{i\theta}}{ie^{i\theta}} \, d\theta \\
+    &=\frac{1}{4i^3} \int_{|z|=1} \frac{(z-\frac{1}{z})^2}{4+z+\frac{1}{z}}\frac{1}{z} \, dz \\
+    &= \frac{i}{4}\int_{|z|=1} \frac{z^2+\frac{1}{z^2}-2}{z^2+4z+1} \, dz \\
+    &= \frac{i}{4}\int_{|z|=1} \frac{z^2+\frac{1}{z^2}-2}{(z+2-\sqrt{3})(z+2+\sqrt{3})} \, dz \\
+    &= \frac{i}{4}\int_{|z|=1} \frac{z^4-2z^2+1}{z^2(z+2-\sqrt{3})(z+2+\sqrt{3})} \, dz \\
+    &= \frac{i}{4}\int_{|z|=1} \frac{(z^2-1)^2}{z^2(z+2-\sqrt{3})(z+2+\sqrt{3})} \, dz 
+    \end{aligned}  
+    \]
+    Por el teorema de los residuos,   \[\int_{0}^{2\pi} \frac{\sen^2 \theta}{4+2\cos\theta} \, d\theta =\frac{i}{4}2\pi i(\textup{Res}(f,0)+\textup{Res}(f,\sqrt{3}-2)) = -\frac{\pi}{2}(\textup{Res}(f,0)+\textup{Res}(f,\sqrt{3}-2)) ,\]
+    donde se ha usado que 
+    \[\textup{n}(|z|=1,0) = 1, \qquad \qquad \textup{n}(|z|=1,\sqrt{3}-2) = 1, \qquad \qquad\textup{n}(|z|=1,-\sqrt{3}-2) = 0\]
+    Por otra parte...
+    \begin{itemize}
+      \item $0$ es un polo doble de $f$:
+      \[\lim_{z \to 0} z^2f(z)=\lim_{z \to 0}\frac{(z^2-1)^2}{(z+2-\sqrt{3})(z+2+\sqrt{3})} = \frac{1}{(2-\sqrt{3})(2+\sqrt{3})} = 1\]
+      Por tanto,
+      \[\begin{aligned}[t]
+        \textup{Res}(f,0) = \frac{d}{dz} \Bigg|_{z=0}\left(\frac{(z^2-1)^2}{z^2+4z+1}\right)
+        =\left(\frac{4z(z^2-1)}{z^2+4z+1}-\frac{(2z+4)(z^2-1)^2}{(z^2+4z+1)^2}\right)\Bigg|_{z=0} =-4
+      \end{aligned}\]
+      \item $z_0=\sqrt{3}-2$ es un polo simple de $f$:
+      \[\lim_{z \to z_0} (z-z_0)f(z)=\lim_{z \to z_0} \frac{(z^2-1)^2}{z^2(z+2+\sqrt{3})}=\frac{(z_0^2-1)^2}{2z_0^2\sqrt{3}}=\frac{(z_0-\frac{1}{z_0})^2}{2\sqrt{3}} =\frac{(2\sqrt{3})^2}{2\sqrt{3}} = 2\sqrt{3}\]
+      Por tanto,
+      \[\textup{Res}(f,\sqrt{3}-2) = 2\sqrt{3}\]
+    \end{itemize}
+  Se concluye que
+  \[\int_{0}^{2\pi} \frac{\sen^2 \theta}{4+2\cos\theta} \, d\theta =-\frac{\pi}{2}(-4+2\sqrt{3}) = (2-\sqrt{3})\pi\]
+  \item Sea $r \in (0,1)$. Razonando como antes,
+  \[
+    \begin{aligned}[t]
+    \int_0^{2\pi} \frac{1}{(1+r\cos\theta)^2} \, d\theta &= \int_0^{2\pi} \frac{1}{(1+\frac{r}{2}(e^{i\theta}+e^{-i\theta}))^2} \, \frac{ie^{i\theta}}{ie^{i\theta}} d\theta \\
+    &=-i \int_{|z|=1} \frac{1}{z(1+\frac{r}{2}z+\frac{r}{2z})^2} \, dz \\
+    &=-i \int_{|z|=1} \frac{z}{(\frac{r}{2}z^2+z+\frac{r}{2})^2} \, dz \\
+    &=-4i \int_{|z|=1} \frac{z}{(rz^2+2z+r)^2} \, dz
+  \end{aligned}
+  \]
+  Se tiene que
+  \[rz^2+2z+r = 0 \iff z = \frac{-2\pm \sqrt{4-4r^2}}{2r} = \frac{-1\pm \sqrt{1-r^2}}{r}\]
+  Sean
+  \[z_0 = \frac{-1+ \sqrt{1-r^2}}{r} \qquad \textup{y} \qquad z_1 = \frac{-1- \sqrt{1-r^2}}{r}\]
+  Puede probarse que para todo $r \in (0,1)$ se tiene $|z_0| < 1$ y  $|z_1| > 1$. Por tanto, $\textup{n}(|z|=1, z_0) = 1$ y $ \textup{n}(|z|=1, z_1) = 0$. Por el teorema de los residuos,
+  \[\int_0^{2\pi} \frac{1}{(1+r\cos\theta)^2} \, d\theta = (-4i)2\pi i \, \textup{Res}(f,z_0)=8\pi \, \textup{Res}(f,z_0)\]
+  Se tiene que
+  \[\lim_{z \to z_0}(z-z_0)^2f(z)= \lim_{z \to z_0} \frac{z}{(z-z_1)^2} = \frac{z_0}{(z_0-z_1)^2} \neq 0\]
+  Por tanto, $z_0$ es un polo doble de $f$ y entonces
+  \[
+  \begin{aligned}[t]
+  \textup{Res}(f,z_0) &= \frac{d}{dz}\Bigg|_{z=z_0}\left(\frac{z}{(z-z_1)^2}\right) = \frac{(z-z_1)^2-2z(z-z_1)}{(z-z_1)^4}\Bigg|_{z=z_0} =\frac{(z_0-z_1)^2-2z_0(z_0-z_1)}{(z_0-z_1)^4} \\
+  &= \frac{z_0-z_1-2z_0}{(z_0-z_1)^3} = -\frac{z_0+z_1}{(z_0-z_1)^3} = \frac{\frac{2}{r}}{(\frac{2}{r}\sqrt{1-r^2})^3} = \frac{r^2}{4(1-r^2)^{3/2}}
+  \end{aligned}
+  \]
+  La integral pedida es
+  \[\int_0^{2\pi} \frac{1}{(1+r\cos\theta)^2} \, d\theta = \frac{2\pi r^2}{(1-r^2)^{3/2}}\]
+  \item Observamos que la función
+  \[f(z)=\frac{z^2}{z^4+6z^2+13}\]
+  es par y, en consecuencia,
+  \[\int_0^\infty \frac{x^2}{x^4+6x^2+13} \, dx = \frac{1}{2}\int_{-\infty}^\infty \frac{x^2}{x^4+6x^2+13} \, dx\]
+  Por otra parte,
+  \[z^4+6z^2+13 = 0 \iff z^2 = \frac{-6\pm \sqrt{36-52}}{2} = \frac{-6\pm 4i}{2} = -3\pm 2i\]
+  En forma polar, $-3+2i = \sqrt{13}e^{i\varphi}$ y $-3-2i=\sqrt{13}e^{-i\varphi}$ para algún $\varphi \in (\frac{\pi}{2},\pi)$. Tenemos entonces
+  \[z^4+6z^2+13=0 \iff z \in \left\{\sqrt[4]{13}e^{i\frac{\varphi}{2}}, -\sqrt[4]{13}e^{i\frac{\varphi}{2}}, \sqrt[4]{13}e^{-i\frac{\varphi}{2}}, -\sqrt[4]{13}e^{-i\frac{\varphi}{2}}\right\}\]
+  Llamemos
+  \[z_0 = \sqrt[4]{13}e^{i\frac{\varphi}{2}}, \qquad \qquad z_1 = -\sqrt[4]{13}e^{i\frac{\varphi}{2}}, \qquad \qquad z_2 = \sqrt[4]{13}e^{-i\frac{\varphi}{2}}, \qquad \qquad z_3 = -\sqrt[4]{13}e^{-i\frac{\varphi}{2}}\]
+  Sea $R_0>0$ de forma que los cuatro elementos de $S$ tienen módulo menor que $R_0$. Si $R >R_0>0$, consideramos el ciclo
+  \[\gamma_R = [-R,R]+\sigma_R,\]
+  donde $\sigma_R$ es la semicircunferencia de radio $R$ en el semiplano superior recorrida de forma simple y en sentido positivo. 
+  
+  \begin{itemize}
+  \item Como $f$ es holomorfa en $\C \setminus \{z_0,z_1,z_2,z_3\}$ y $\gamma_R$ es un ciclo en $\C \setminus \{z_0,z_1,z_2,z_3\}$ homólogo a cero módulo $\C$, por el teorema de los residuos,
+  \[\int_{\gamma_R}\frac{z^2}{z^4+6z^2+13} \, dz = 2\pi i \sum_{i=0}^3\textup{Res}(f,z_i)\textup{n}(\gamma_R, z_i) =  2\pi i\left(\textup{Res}\left(f,z_0\right) + \textup{Res}\left(f,z_3\right)\right),\]
+  donde se ha usado que $\textup{n}(\gamma_R,z) = 0$ si $\textup{Im}(z) < 0$ y $\textup{n}(\gamma_R,z) = 1$ si $\textup{Im}(z) > 0$, junto con que $\sen(\frac{\varphi}{2})>0$ porque $\varphi \in (\frac{\pi}{2},\pi)$. Esta integral no depende de $R$ y podemos tomar límite cuando $R \to \infty$. Se tiene que
+  \[\begin{aligned}[t]
+    \lim_{z \to z_0} (z-z_0)f(z)= \frac{z_0^2}{(z_0-z_1)(z_0-z_2)(z_0-z_3)} \neq 0,
+  \end{aligned} \]
+  luego $z_0$ es un polo simple de $f$ y entonces
+  \[\textup{Res}(f,z_0) = \frac{z_0^2}{(z_0-z_1)(z_0-z_2)(z_0-z_3)}\]
+  Análogamente, $z_3$ es otro polo simple de $f$ y entonces
+  \[\begin{aligned}[t]
+    \textup{Res}(f,z_3)= \frac{z_3^2}{(z_3-z_0)(z_3-z_1)(z_3-z_2)} \neq 0,
+  \end{aligned}\]
+  Por tanto,
+  \[\lim_{R \to \infty} \int_{\gamma_R}\frac{z^2}{z^4+6z^2+13} \, dz =2\pi i\left(\frac{z_0^2}{(z_0-z_1)(z_0-z_2)(z_0-z_3)}+\frac{z_3^2}{(z_3-z_0)(z_3-z_1)(z_3-z_2)}\right)\]
+  \item La integral de $f(z)$ sobre $[-R,R]$ tiene límite cuando $R \to \infty$ y es la que interesa calcular:
+  \[\lim_{R \to \infty} \int_{[-R,R]}\frac{z^2}{z^4+6z^2+13} = \lim_{R \to \infty} \int_{-R}^R \frac{x^2}{x^4+6x^2+13} \, dx = \int_{-\infty}^\infty \frac{x^2}{x^4+6x^2+13} \, dx \]
+  \item Como las integrales sobre $\gamma_R$ y $[-R,R]$ tienen límite cuando $R \to \infty$, entonces la integral sobre $\sigma_R$ también. Además,  como
+  \[\lim_{z \to \infty}  z^2f(z)=\lim_{z \to \infty}  \frac{z^4}{z^4+6z^2+13} = 1,\]
+  entonces $z^2f(z)$ está acotada en $\{z \in \C \colon |z|>R_0\}$, esto es, existe $C >0$ tal que
+  \[|f(z)| \leq \frac{C}{|z^2|}\]
+  para todo $z \in \{z \in \C \colon |z|>R_0\}$. Y si $z \in \textup{sop}(\sigma)$, entonces $|z|=R>R_0$ y por tanto
+  \[|f(z)| \leq \frac{C}{R^2}\] 
+  En consecuencia,
+  \[\left|\int_{\sigma_R}\frac{z^2}{z^4+6z^2+13}\right| \leq \max_{z \in \textup{sop}(\sigma_R)}|f(z)| \, \textup{long}(\sigma_R) \leq \frac{C}{R^2}\pi R =\frac{C\pi}{R} \xrightarrow[]{R \to \infty} 0\]
+  \end{itemize}
+  Al tomar límite cuando $R \to \infty$ en la expresión
+  \[\int_{\gamma_R}f(z)\, dz = \int_{[-R,R]}f(z)\, dz+\int_{\sigma_R}f(z)\, dz\]
+  obtenemos que
+  \[\int_{-\infty}^\infty \frac{x^2}{x^4+6x^2+13} \, dx = 2\pi i\left(\frac{z_0^2}{(z_0-z_1)(z_0-z_2)(z_0-z_3)}+\frac{z_3^2}{(z_3-z_0)(z_3-z_1)(z_3-z_2)}\right)\]
+  Por tanto,
+  \[\int_0^\infty \frac{x^2}{x^4+6x^2+13} \, dx = \pi i\left(\frac{z_0^2}{(z_0-z_1)(z_0-z_2)(z_0-z_3)}+\frac{z_3^2}{(z_3-z_0)(z_3-z_1)(z_3-z_2)}\right)\]
+  \item Nótese que la función 
+  \[g(x)=\frac{x\sen(x)}{(x^2+a^2)^2}\]
+  es par, ya que
+  \[g(-x)=\frac{-x\sen(-x)}{((-x)^2+a^2)^2} = \frac{x\sen(x)}{(x^2+a^2)^2}\]
+  Por tanto,
+  \[\int_0^\infty \frac{x\sen(x)}{(x^2+a^2)^2} = \frac{1}{2}\int_{-\infty}^\infty\frac{x\sen(x)}{(x^2+a^2)^2} \]
+  Consideremos la función
+  \[f(z)=\frac{ze^{iz}}{(z^2+a^2)^2} = \frac{ze^{iz}}{(z-ai)^2(z+ai)^2},\]
+  holomorfa en $\C \setminus \{ai, -ai\}$. Sea $R_0>0$ tal que $R_0 > |ai| = a$ y, dado $R>R_0>0$, consideremos el mismo ciclo del apartado anterior:
+  \[\gamma_R = [-R,R]+\sigma_R\]
+  Se tiene que
+  \[\int_{\gamma_R}f(z)\, dz = \int_{[-R,R]} f(z)\, dz + \int_{\sigma_R}f(z) \, dz\]
+  Calculamos por separado cada una de las integrales.
+  \begin{itemize}
+    \item $\gamma_R$ es un ciclo en $\C \setminus \{ai,-ai\}$ homólogo a cero módulo $\C$, luego estamos en condiciones de aplicar el teorema de los residuos, teniendo en cuenta que $\textup{n}(\gamma_R,ai) = 1$ y $\textup{n}(\gamma,-ai) = 0$:
+    \[\int_{\gamma_R} f(z) \, dz = 2\pi i \, \textup{Res}(f,ai)\]
+    Se tiene que
+    \[\lim_{z \to ai} (z-ai)^2f(z)=\lim_{z \to ai} \frac{ze^{iz}}{(z+ai)^2} = \frac{aie^{-a}}{-4a^2}  \neq 0,\]
+    así que $ai$ es un polo doble de $f$. Por tanto,
+    \[\begin{aligned}[t]
+      \textup{Res}(f,ai) &= \frac{d}{dz} \Bigg|_{z = ai} \left(\frac{ze^{iz}}{(z+ai)^2}\right) = \left(\frac{e^{iz}+ze^{iz}i}{(z+ai)^2}-\frac{2ze^{iz}}{(z+ai)^3}\right)\Bigg|_{z = ai} =\frac{e^{-a}-ae^{-a}}{-4a^2}+\frac{2ae^{-a}i}{8a^3i} \\
+      &= -\frac{e^{-a}}{4a^2}+\frac{e^{-a}}{4a^2}+\frac{e^{-a}}{4a} = \frac{e^{-a}}{4a}
+    \end{aligned}\]
+    En consecuencia,
+    \[\int_{\gamma_R} f(z) \, dz = \frac{\pi e^{-a}}{2a}i\]
+    Como esta integral no depende de $\gamma_R$,
+    \[\lim_{R \to \infty} \int_{\gamma_R} f(z) \, dz = \frac{\pi e^{-a}}{2a}i\]
+  \item Al tomar límite cuando $\R \to \infty$ en la integral sobre $[-R,R]$ aparece la integral que interesa calcular, que es convergente:
+  \[\lim_{R \to \infty} \int_{[-R,R]}f(z) \, dz = \int_{-\infty}^\infty f(x)\, dx\]
+  \item Como se tiene
+  \[\lim_{z \to \infty}z^3f(z)=\lim_{z \to \infty} \frac{z^4}{z^4+a^4+2z^2a^2}e^{iz} = 1,\]
+  entonces $z^3f(z)$ es acotada en $\{z \in \C \colon |z|>R_0\}$: existe $C >0$ tal que
+  \[|f(z)| \leq \frac{C}{|z^3|}\]
+  para todo $z \in \C$ con $|z|>R_0$. En consecuencia, si $z \in \textup{sop}(\sigma_R)$, entonces $|z|=R>R_0$ y 
+  \[|f(z)| \leq \frac{C}{|z^3|} = \frac{C}{R^3}\]
+  Así,
+  \[\left|\int_{\sigma_R} f(z) \, dz\right| \leq \max_{z \in \textup{sop}(\sigma_R)}|f(z)| \, \textup{long}(\sigma_R) \leq \frac{C}{R^3}\pi R = \frac{C\pi}{R^2} \xrightarrow{R \to \infty} 0\]
+  \end{itemize}
+Al tomar límite cuando $R\to \infty$ en 
+\[\int_{\gamma_R}f(z)\, dz = \int_{[-R,R]} f(z)\, dz + \int_{\sigma_R}f(z) \, dz\]
+se obtiene
+\[\int_{-\infty}^\infty \frac{xe^{ix}}{(x^2+a^2)^2} \, dx = \int_{-\infty}^\infty \frac{x\cos(x)}{(x^2+a^2)^2} \, dx +i\int_{-\infty}^\infty \frac{x\sen(x)}{(x^2+a^2)^2} \, dx =  \frac{\pi e^{-a}}{2a}i \]
+Se concluye que
+\[\int_{0}^\infty \frac{x\sen(x)}{(x^2+a^2)^2} \, dx = \frac{1}{2}\frac{\pi e^{-a}}{2a} = \frac{\pi e^{-a}}{4a}\]
+\item De nuevo, por la paridad del integrando,
+\[\int_0^\infty \frac{\cos(4x)}{(x^2+a^2)^2} \, dx = \frac{1}{2}\int_{-\infty}^\infty \frac{\cos(4x)}{(x^2+a^2)^2} \, dx\]
+Consideremos la función
+\[f(z)=\frac{e^{4iz}}{(z^2+a^2)^2}\]
+$f$ es holomorfa en $\C \setminus \{ai,-ai\}$ y, de nuevo, tomamos $R_0>|ai|=a>0$ y el ciclo de siempre:
+\[\gamma_R=[-R,R] +\sigma_{R}\]
+Hay que hallar tres integrales distintas.
+\begin{itemize}
+  \item Por el teorema de los residuos,
+  \[\int_{\gamma_R} \frac{e^{4iz}}{(z^2+a^2)^2} \, dz= 2\pi i \textup{Res}(f,ai)\]
+  Es inmediato comprobar que $ai$ es un polo doble de $f$. Por tanto, \[\begin{aligned}[t]
+    \textup{Res}(f,ai) &= \frac{d}{dz} \Bigg|_{z = ai} \left(\frac{e^{4iz}}{(z+ai)^2}\right) = \left(\frac{4ie^{4iz}}{(z+ai)^2}-\frac{2e^{4iz}}{(z+ai)^3}\right)\Bigg|_{z = ai} = -\frac{4e^{-4a}i}{4a^2}+\frac{2e^{-4a}}{8a^3i} \\
+    &=  \left(-\frac{e^{-4a}}{a^2}-\frac{e^{-4a}}{4a^3}\right)i = -e^{-4a}\left(\frac{1}{a^2}+\frac{1}{4a^3}\right)i
+  \end{aligned}\]
+  En consecuencia,
+  \[\int_{\gamma_R} f(z) \, dz = 2\pi e^{-4a}\left(\frac{1}{a^2}+\frac{1}{4a^3}\right) = 2\pi e^{-4a}\left(\frac{1}{a^2}+\frac{1}{4a^3}\right)\]
+  Como esta integral no depende de $R$,
+  \[\lim_{R \to \infty}\int_{\gamma_R} f(z) \, dz = 2\pi e^{-4a}\left(\frac{1}{a^2}+\frac{1}{4a^3}\right)\]
+  \item Al tomar límite cuando $R \to \infty$ se obtiene algo similar a integral deseada:
+  \[\lim_{R \to \infty}\int_{[-R,R]} \frac{e^{4iz}}{(z^2+a^2)^2} \, dz = \int_{-\infty}^\infty \frac{e^{4ix}}{(x^2+a^2)^2}\, dx\]
+  \item Como
+  \[\lim_{z \to \infty} z^2f(z)\ = \lim_{z \to \infty}e^{4iz}\frac{z^2}{z^4+a^4+2z^2a^2} = 0,\]
+  entonces $z^2f(z)$ es acotada en $\{z \in \C \colon |z|>R_0\}$, así que existe $C>0$ tal que
+  \[|f(z)| \leq \frac{C}{|z^2|}\]
+  para todo $z \in \C$ con $|z|>R_0$. En particular, si $z \in \textup{sop}(\sigma_R)$, entonces $|z| = R > R_0$ y 
+  \[|f(z)| \leq \frac{C}{|z^2|} = \frac{C}{R^2}\]
+  Por tanto,
+  \[\left|\int_{\sigma_R} f(z) \, dz\right| \leq \max_{z \in \textup{sop}(\sigma_R)} |f(z)| \, \textup{long}(\sigma_R) \leq \frac{C}{R^2}\pi R = \frac{C\pi}{R} \xrightarrow[]{R \to \infty} 0\]
+\end{itemize}
+Tomando límite cuando $R \to \infty$ en
+\[\int_{\gamma_R} f(z) \, dz = \int_{[-R,R]} f(z) \, dz + \int_{\sigma_R} f(z) \, dz\]
+se obtiene
+\[\int_{-\infty}^\infty \frac{e^{4ix}}{(x^2+a^2)^2} \, dx =\int_{-\infty}^\infty \frac{\cos(4x)}{(x^2+a^2)^2} \, dx+\left(\int_{-\infty}^\infty \frac{\sen(4x)}{(x^2+a^2)^2} \, dx\right)i = 2\pi e^{-4a}\left(\frac{1}{a^2}+\frac{1}{4a^3}\right) \]
+Por tanto,
+\[\int_{-\infty}^\infty \frac{\cos(4x)}{(x^2+a^2)^2} \, dx =  2\pi e^{-4a}\left(\frac{1}{a^2}+\frac{1}{4a^3}\right)\]
+y se concluye que
+\[\int_{0}^\infty \frac{\cos(4x)}{(x^2+a^2)^2} \, dx =  \pi e^{-4a}\left(\frac{1}{a^2}+\frac{1}{4a^3}\right)\]
+\item Una vez más,
+\[\int_0^\infty \left(\frac{\sen(x)}{x}\right)^2 \, dx = \frac{1}{2}\int_{-\infty}^{\infty}\left(\frac{\sen(x)}{x}\right)^2\, dx, \]
+donde se entiende que la integral de la derecha es realmente su valor principal, es decir,
+\[\int_{-\infty}^{\infty}\left(\frac{\sen(x)}{x}\right)^2\, dx = \lim_{\varepsilon \to 0^+} \left(\int_{-\infty}^\varepsilon \left(\frac{\sen(x)}{x}\right)^2\, dx+\int_\varepsilon^\infty \left(\frac{\sen(x)}{x}\right)^2\, dx\right)\]
+Es mala idea tratar de integrar la función $\frac{e^{2iz}}{z^2}$, pues tiene un cero doble en $0$. Se trata de buscar otra función cuya parte real o imaginaria tenga que ver con $\sen^2(x)$ y que tenga un cero simple en $0$, en el peor de los casos. Observamos que
+\[\sen^2(z) = \left(\frac{e^{iz}-e^{-iz}}{2i}\right)^2 = -\frac{e^{2iz}+e^{-2iz} -2}{4} = -\frac{\cos(2z)-1}{2} = \frac{1-\cos(2z)}{2}\]
+Esto sugiere que se escoja la función
+\[f(z)=\frac{1-e^{2iz}}{2z^2}\]
+que es holomorfa en $\C \setminus \{0\}$. Se tiene que
+\[\lim_{z \to 0} \frac{1-e^{2iz}}{2z^2} = \lim_{z \to 0} \frac{1-e^{(2z)i}}{2z} \cdot \frac{1}{z} = \infty,\]
+luego $0$ es un polo de $f$. Pero es un polo simple porque
+\[\lim_{z \to 0} zf(z)=\lim_{z \to 0} \frac{1-e^{(2z)i}}{2z}  \overset{\textup{L'H}}{=} -i\]
+Esto también nos dice que $\textup{Res}(f,0) = 1$, que se usará más adelante. Sea $R>0$ y sea $\varepsilon>0$ tal que $R>\varepsilon>0$. Consideramos el ciclo
+\[\gamma_{R,\varepsilon} = [-R,-\varepsilon]-\sigma_\varepsilon+[\varepsilon,R] + \sigma_R,\]
+donde $\sigma_\varepsilon$ es el camino que recorre la semicircunferencia de centro $0$ y radio $\varepsilon$ del semiplano superior de forma simple y positiva, y lo mismo para $\sigma_R$. Se tiene entonces
+\[\int_{\gamma_{R,\varepsilon}} f(z) \, dz = \int_{[-R,-\varepsilon]}f(z)\, dz-\int_{\sigma_\varepsilon} f(z) \, dz +\int_{[\varepsilon,R]}f(z) \, dz + \int_{\sigma_R} f(z) \, dz\]
+Hallamos las integrales anteriores:
+\begin{itemize}
+  \item $\gamma_{R,\varepsilon}$ es un ciclo en $\C \setminus \{0\}$ homólogo a cero módulo $\C$ y $\textup{n}(\gamma_{R,\varepsilon},0) = 0$. Como $f$ es holomorfa en $\C \setminus \{0\}$, por el teorema de los residuos,
+  \[\int_{\gamma_{R,\varepsilon}} f(z) \, dz = 0\]
+  Como esto no depende de $R$ ni de $\varepsilon$, al tomar límites cuando $R \to \infty$ y $\varepsilon \to 0^+$ la integral no se entera.
+  \item Como $f$ presenta un polo simple en $0$, su desarrollo de Laurent es de la forma
+  \[f(z)=\sum_{n=-1}^\infty a_nz^n = \frac{\textup{Res}(f,0)}{z}+\sum_{n=0}^\infty a_nz^n=-\frac{i}{z}+\sum_{n=0}^\infty a_nz^n\]
+  La función
+  \[f(z)-\frac{i}{z} = \sum_{n=0}^\infty a_nz^n\]  
+  es holomorfa en $\C \setminus \{0\}$ y presenta una singularidad aislada evitable en $0$, así que es acotada en un entorno perforado de $0$, esto es, existen $\varepsilon_0,C_0>0$ tales que
+  \[\left|f(z)-\frac{i}{z}\right| \leq C_0\]
+  para todo $z \in \Delta(0,\varepsilon_0) \setminus \{0\}$. Por tanto, si $\varepsilon_0>\varepsilon>0$,
+  \[\left|\int_{\sigma_\varepsilon}\left(f(z)-\frac{i}{z}\right)\, dz \right| \leq \max_{z \in \textup{sop}(\sigma_R)} \left|f(z)-\frac{i}{z}\right| \, \textup{long}(\sigma_R) \leq C_0\pi \varepsilon \xrightarrow[]{\varepsilon \to 0^+} 0\]
+  Por otra parte, como $\sigma_R$ está parametrizada por $\varphi(t)=\varepsilon e^{i\theta}$, $\theta \in [0,\pi]$, entonces
+  \[\int_{\sigma_\varepsilon} \frac{i}{z} \, dz = \int_0^\pi \frac{i^2\varepsilon e^{i\theta}}{\varepsilon e^{i\theta}}\, d\theta = -\pi \,\]
+  En consecuencia,
+  \[\int_{\sigma_\varepsilon} f(z) \, dz = \int_{\sigma_\varepsilon}\left(f(z)-\frac{i}{z}\right) \, dz + \int_{\sigma_\varepsilon} \frac{i}{z} \, dz \xrightarrow[\varepsilon \to 0^+]{R \to \infty} -\pi  \]
+  \item La integral sobre $[-R,-\varepsilon]+[\varepsilon,R]$ proporciona la integral que interesa calcular, pues
+  \[\int_{[-R,-\varepsilon]} f(z) \, dz + \int_{[\varepsilon,R]} f(z) \, dz = \int_{-R}^{-\varepsilon} f(x) \, dx + \int_{\varepsilon}^R f(x) \, dx \xrightarrow[\varepsilon \to 0^+]{R \to \infty} \int_{-\infty}^\infty f(x)\, dx\]
+  \item Para todo $z \in \C \setminus \{0\}$ se tiene
+  \[|z^2f(z)|=\left|\frac{1-e^{2iz}}{2}\right| \leq \frac{1}{2}+\left|\frac{e^{2iz}}{2}\right| = 1,\]
+  luego 
+  \[|f(z)| \leq \frac{1}{|z^2|}\]
+  Si $z \in \textup{sop}(\sigma_R)$, entonces $|z| = R$ y en consecuencia
+  \[|f(z)| \leq \frac{1}{R^2}\]
+  Por tanto,
+  \[\left|\int_{\sigma_R} f(z)\, dz\right| \leq \max_{z \textup{sop}(\sigma_R)}|f(z)| \, \textup{long}(\sigma_R) \leq \frac{\pi R}{R^2} = \frac{\pi}{R} \xrightarrow[\varepsilon \to 0^+]{R \to \infty} 0\]
+\end{itemize}
+Todo lo anterior nos dice que al tomar límites cuando $R \to \infty$ y $\varepsilon \to 0^+$ en 
+\[\int_{\gamma_{R,\varepsilon}} f(z) \, dz = \int_{[-R,-\varepsilon]}f(z)\, dz-\int_{\sigma_\varepsilon} f(z) \, dz +\int_{[\varepsilon,R]}f(z) \, dz + \int_{\sigma_R} f(z) \, dz\]
+se obtiene, teniendo en cuenta que $\textup{Re}(f(x)) = \frac{1-\cos(2x)}{2x^2} = \frac{\sen^2(x)}{x^2} $ e $\textup{Im}(f(x)) = \frac{1-\sen(2x)}{2x^2}$,
+\[0 = \int_{-\infty}^\infty \frac{1-e^{2ix}}{2x^2} \, dx +\pi  = \int_{-\infty}^\infty \frac{\sen^2(x)}{x^2}\, dx +\left(\int_{-\infty}^\infty\frac{1-\sen(2x)}{2x^2} \, dx \right)i +\pi,\]
+luego
+\[\int_{-\infty}^\infty \frac{\sen^2(x)}{x^2} \, dx = -\pi\]
+La conclusión es que
+\[\int_0^\infty \left(\frac{\sen(x)}{x}\right)^2 \, dx = \frac{1}{2}\int_{\infty}^\infty\left( \frac{\sen(x)}{x}\right)^2\,  dx = -\frac{\pi}{2}\]
+\item Una vez más,
+\[\int_0^\infty \left(\frac{\sen(x)}{x}\right)^3 \, dx = \frac{1}{2}\int_{-\infty}^{\infty}\left(\frac{\sen(x)}{x}\right)^3\, dx, \]
+donde se entiende que la integral de la derecha es realmente su valor principal, es decir,
+\[\int_{-\infty}^{\infty}\left(\frac{\sen(x)}{x}\right)^3\, dx = \lim_{\varepsilon \to 0^+} \left(\int_{-\infty}^\varepsilon \left(\frac{\sen(x)}{x}\right)^3\, dx+\int_\varepsilon^\infty \left(\frac{\sen(x)}{x}\right)^3\, dx\right)\]
+Es mala idea tratar de integrar la función $\frac{e^{3iz}}{z^3}$, pues tiene un cero triple en $0$. Se trata de buscar otra función cuya parte real o imaginaria tenga que ver con $\sen^3(x)$ y que tenga un cero simple en $0$, en el peor de los casos. Observamos que
+\[\begin{aligned}[t]
+  \sen^3(z) &= \left(\frac{e^{iz}-e^{-iz}}{2i}\right)^3 = -\frac{e^{3iz}-3e^{2iz}e^{-iz}+3e^{iz}e^{-2iz}-e^{-3iz}}{8i} = \frac{e^{3iz}-e^{-3iz}-3(e^{iz}-e^{-iz})}{8}i \\
+  &= \frac{2i\sen(3z)-6i\sen(z)}{8}i = \frac{3\sen(z)-\sen(3z)}{4}
+\end{aligned}
+\]
+Esto sugiere que se escoja la función
+\[g(z)=\frac{3e^{iz}-e^{3iz}}{4z^3}\]
+que es holomorfa en $\C \setminus \{0\}$ y verifica, para $x \in \R$
+\[\textup{Im}(g(x)) = \frac{3\sen(x)-\sen(3x)}{4x^3} = \frac{\sen^3(x)}{x^3}\]
+Se tiene que
+\[\lim_{z \to 0} \frac{3e^{iz}-e^{3iz}}{4z^3}= \lim_{z \to 0} e^{iz} \cdot \frac{3-e^{2iz}}{2z} \cdot \frac{1}{2z^2}= \infty,\]
+luego $0$ es un polo de $g$... y no es simple. Estamos en problemas: hay que buscar otra función. Si hallamos los términos por debajo de $n=-1$ en el desarrollo de Laurent de $g$ en el punto $0$ y se los restamos, la función resultante tendrá un polo simple en $0$ y se podrá proceder como en el apartado anterior.
+\[g(z)=\frac{1}{4z^3}\left(3\sum_{n=0}^\infty \frac{i^n}{n!}z^n-\sum_{n=0}^\infty \frac{(3i)^n}{n!}z^n\right) = \frac{1}{z^3}\left(\frac{3}{4}\sum_{n=0}^\infty \frac{i^n}{n!}z^n-\frac{1}{4}\sum_{n=0}^\infty \frac{(3i)^n}{n!}z^n\right)\]
+La suma de los términos de orden $-3$ y $-2$ es 
+\[\frac{1}{z^3}\left(\frac{3}{4}\left(1+iz\right)-\frac{1}{4}\left(1+3iz\right)\right) = \frac{1}{z^3}\left(\frac{3}{4}-\frac{1}{4}+\left(\frac{3}{4}z-\frac{3}{4}z\right)i\right) = \frac{1}{2z^3}\]
+Todo esto nos dice que la función
+\[f(z)=g(z)-\frac{1}{2z^3} = \frac{3e^{iz}-e^{3iz}-2}{4z^3}\]
+es holomorfa en $\C$ y tiene un polo simple en $0$. Nótese que si $x \in \R$, el término añadido no afecta a la parte imaginaria, de forma que se tiene \[\textup{Im}(f(x)) = \textup{Im}(g(x)) = \frac{\sen^3(x)}{x^3}\] Además, de los coeficientes de la serie de antes también se deduce que
+\[\textup{Res}(f,0) =\frac{3}{4}\frac{i^2}{2!}-\frac{1}{4}\frac{(3i)^2}{2!} = -\frac{3}{8}+\frac{9}{8} = \frac{3}{4}\]
+Ya se puede copiar y pegar lo que resta del ejercicio de antes. Sea $R>0$ y sea $\varepsilon>0$ tal que $R>\varepsilon>0$. Consideramos el ciclo
+\[\gamma_{R,\varepsilon} = [-R,-\varepsilon]-\sigma_\varepsilon+[\varepsilon,R] + \sigma_R,\]
+donde $\sigma_\varepsilon$ es el camino que recorre la semicircunferencia de centro $0$ y radio $\varepsilon$ del semiplano superior de forma simple y positiva, y lo mismo para $\sigma_R$. Se tiene entonces
+\[\int_{\gamma_{R,\varepsilon}} f(z) \, dz = \int_{[-R,-\varepsilon]}f(z)\, dz-\int_{\sigma_\varepsilon} f(z) \, dz +\int_{[\varepsilon,R]}f(z) \, dz + \int_{\sigma_R} f(z) \, dz\]
+Hallamos las integrales anteriores:
+\begin{itemize}
+  \item $\gamma_{R,\varepsilon}$ es un ciclo en $\C \setminus \{0\}$ homólogo a cero módulo $\C$ y $\textup{n}(\gamma_{R,\varepsilon},0) = 0$. Como $f$ es holomorfa en $\C \setminus \{0\}$, por el teorema de los residuos,
+  \[\int_{\gamma_{R,\varepsilon}} f(z) \, dz = 0\]
+  Como esto no depende de $R$ ni de $\varepsilon$, al tomar límites cuando $R \to \infty$ y $\varepsilon \to 0^+$ la integral no se entera.
+  \item Como $f$ presenta un polo simple en $0$, su desarrollo de Laurent es de la forma
+  \[f(z)=\sum_{n=-1}^\infty a_nz^n = \frac{\textup{Res}(f,0)}{z}+\sum_{n=0}^\infty a_nz^n=\frac{3}{4z}+\sum_{n=0}^\infty a_nz^n\]
+  La función
+  \[f(z)-\frac{3}{4z} = \sum_{n=0}^\infty a_nz^n\]  
+  es holomorfa en $\C \setminus \{0\}$ y presenta una singularidad aislada evitable en $0$, así que es acotada en un entorno perforado de $0$, esto es, existen $\varepsilon_0,C_0>0$ tales que
+  \[\left|f(z)-\frac{3}{4z}\right| \leq C_0\]
+  para todo $z \in \Delta(0,\varepsilon_0) \setminus \{0\}$. Por tanto, si $\varepsilon_0>\varepsilon>0$,
+  \[\left|\int_{\sigma_\varepsilon}\left(f(z)-\frac{3}{4z}\right)\, dz \right| \leq \max_{z \in \textup{sop}(\sigma_R)} \left|f(z)-\frac{3}{4z}\right| \, \textup{long}(\sigma_R) \leq C_0\pi \varepsilon \xrightarrow[]{\varepsilon \to 0^+} 0\]
+  Por otra parte, como $\sigma_R$ está parametrizada por $\varphi(t)=\varepsilon e^{i\theta}$, $\theta \in [0,\pi]$, entonces
+  \[\int_{\sigma_\varepsilon} \frac{3}{4z} \, dz = \int_0^\pi \frac{3i\varepsilon e^{i\theta}}{4\varepsilon e^{i\theta}}\, d\theta =\frac{3\pi}{4}i \,\]
+  En consecuencia,
+  \[\int_{\sigma_\varepsilon} f(z) \, dz = \int_{\sigma_\varepsilon}\left(f(z)-\frac{3}{4z}\right) \, dz + \int_{\sigma_\varepsilon} \frac{3}{4z} \, dz \xrightarrow[\varepsilon \to 0^+]{R \to \infty} \frac{3\pi}{4}i  \]
+  \item La integral sobre $[-R,-\varepsilon]+[\varepsilon,R]$ proporciona la integral que interesa calcular, pues
+  \[\int_{[-R,-\varepsilon]} f(z) \, dz + \int_{[\varepsilon,R]} f(z) \, dz = \int_{-R}^{-\varepsilon} f(x) \, dx + \int_{\varepsilon}^R f(x) \, dx \xrightarrow[\varepsilon \to 0^+]{R \to \infty} \int_{-\infty}^\infty f(x)\, dx\]
+  \item Para todo $z \in \C \setminus \{0\}$ se tiene
+  \[|z^3f(z)|=\left|\frac{3e^{iz}-e^{3iz}-2}{4}\right| \leq \frac{3}{4}+\frac{1}{4}+\frac{1}{2} = \frac{3}{2}\]
+  luego 
+  \[|f(z)| \leq \frac{3}{2|z^3|}\]
+  Si $z \in \textup{sop}(\sigma_R)$, entonces $|z| = R$ y en consecuencia
+  \[|f(z)| \leq \frac{3}{2R^3}\]
+  Por tanto,
+  \[\left|\int_{\sigma_R} f(z)\, dz\right| \leq \max_{z \textup{sop}(\sigma_R)}|f(z)| \, \textup{long}(\sigma_R) \leq \frac{3\pi R}{2R^3} \xrightarrow[\varepsilon \to 0^+]{R \to \infty} 0\]
+\end{itemize}
+Todo lo anterior nos dice que al tomar límites cuando $R \to \infty$ y $\varepsilon \to 0^+$ en 
+\[\int_{\gamma_{R,\varepsilon}} f(z) \, dz = \int_{[-R,-\varepsilon]}f(z)\, dz-\int_{\sigma_\varepsilon} f(z) \, dz +\int_{[\varepsilon,R]}f(z) \, dz + \int_{\sigma_R} f(z) \, dz\]
+se obtiene
+\[0 = \int_{-\infty}^\infty f(x) \, dx -\frac{3\pi}{4}i  = \int_{-\infty}^\infty\textup{Re}(f(x))\, dx +\left(\int_{-\infty}^\infty \frac{\sen^3(x)}{x} \, dx \right)i  -\frac{3\pi}{4}i,\]
+luego
+\[\int_{-\infty}^\infty \frac{\sen^2(x)}{x^2} \, dx = \frac{3\pi}{4}\]
+La conclusión es que
+\[\int_0^\infty \left(\frac{\sen(x)}{x}\right)^2 \, dx = \frac{1}{2}\int_{\infty}^\infty\left( \frac{\sen(x)}{x}\right)^2\,  dx = \frac{3\pi}{8}\]
+\item Consideremos la función
+\[f(z)=\frac{e^{iz}}{1-z^2} = \frac{e^{iz}}{(1-z)(1+z)},\]
+holomorfa en $\C \setminus \{-1,1\}$. Dado $R_0>1$ y dado $\varepsilon>0$ con $R>1+\varepsilon$, se toma el ciclo
+\[\gamma_R = [-R,-1-\varepsilon] -\sigma_{\varepsilon}^1+[-1+\varepsilon,1-\varepsilon]-\sigma_{\varepsilon}^2 +[1+\varepsilon,R]+\sigma_R\]
+Lo que queda de ejercicio es razonar como en los apartados anteriores y hacer infinitas cuentas.
+\item Considérese la función
+\[f(z)=\frac{1}{1+z+z^2+z^3}\]
+Como $z^4-1 = (z-1)(1+z+z^2+z^3)$ y las raíces de $z^4-1$ son $1$, $-1$, $i$ y $-i$, entonces
+\[f(z)=\frac{1}{(z+1)(z-i)(z+i)},\]
+y $f$ es holomorfa en $\C \setminus \{-1,i,-i\}$. Fijemos $R_0>1$. Si $R>R_0$ y $\varepsilon >0$ son tales que $R>1+\varepsilon$, el ciclo a considerar ahora es
+\[\gamma_R = [-R,-1-\varepsilon] -\sigma_{\varepsilon}+[-1+\varepsilon,R]+\sigma_R,\]
+Se tiene entonces
+\[\int_{\gamma_R}f(z) \, dz = \int_{[-R,-1-\varepsilon]}f(z) \, dz-\int_{\sigma_{\varepsilon}}f(z) \, dz+\int_{[-1+\varepsilon,R]}f(z) \, dz+\int_{\sigma_R}f(z) \, dz\]
+A calcular integrales:
+\begin{itemize}
+  \item Como $\gamma_R$ es un ciclo en $\C \setminus \{-1,i,-i\}$ homólogo a cero módulo $\C$ y \[\textup{n}(\gamma_R,-1) = 0, \qquad \qquad \textup{n}(\gamma_R,i) = 1, \qquad \qquad \textup{n}(\gamma_R,-i) = 0,\] 
+  entonces, por el teorema de los residuos,
+  \[\int_{\gamma_R}f(z) \, dz = 2\pi i \, \textup{Res}(f,i)\]
+  Se tiene que
+  \[\lim_{z \to i} (z-i)f(z)=\lim_{z \to i} \frac{1}{(z+1)(z+i)} = \frac{1}{2i(1+i)} = \frac{1}{2i-2} = \frac{-2-2i}{8} = -\frac{1}{4}(1+i) \neq 0,\]
+  así que $i$ es un polo simple y $\textup{Res}(f,i) = -\frac{1}{4}(1+i)$, luego
+  \[\int_{\gamma_R}f(z) \, dz = -\frac{2\pi i}{4}(1+i) = -\frac{\pi i}{2}+\frac{\pi}{2}  \xrightarrow[\varepsilon \to 0^+]{R \to \infty} -\frac{\pi i}{2}+\frac{\pi}{2}  \]
+  \item La integral sobre $[-R,-1-\varepsilon]+[-1+\varepsilon,R]$ es la que interesa calcular tras tomar límites cuando $R \to \infty$, $\varepsilon \to 0^+$:
+  \[\int_{[-R,-1-\varepsilon]} f(z) \, dz + \int_{[-1+\varepsilon,R]} f(z) \, dz  \xrightarrow[\varepsilon \to 0^+]{R \to \infty} \int_{-\infty}^\infty f(x) \, dx \]
+  \item Se tiene que
+  \[\lim_{z \to -1}(z+1)f(z) = \lim_{z \to -1} \frac{1}{(z-i)(z+i)} = \frac{1}{(-1-i)(-1+i)} = \frac{1}{2} \neq 0,\]
+  así que $-1$ es un polo simple de $f$. En consecuencia, la función
+  \[f(z)-\frac{\textup{Res}(f,-1)}{z+1} = f(z)-\frac{1}{2(z+1)}\]
+  presenta una singularidad aislada evitable en $-1$, luego es acotada en un entorno perforado de $-1$, esto es, existen $C_0,\varepsilon_0>0$ tales que
+  \[\left|f(z)-\frac{1}{2(z+1)}\right| \leq C_0\]
+  para todo $z \in \Delta(-1,\varepsilon_0) \setminus \{-1\}$. Por tanto, si $0<\varepsilon< \varepsilon_0$,
+  \[\left|\int_{\sigma_\varepsilon}\left(f(z)-\frac{1}{2(z+1)}\right) \, dz\right| \leq \max_{z \in \textup{sop}(\sigma_\varepsilon)}\left|f(z)-\frac{1}{2(z+1)}\right| \, \textup{long}(\sigma_\varepsilon) \leq C_0\varepsilon \pi \xrightarrow[\varepsilon \to 0^+]{R \to \infty} 0
+  \]
+  Por otra parte, parametrizando $\sigma_\varepsilon$ mediante $\varphi(\theta) =-1+ \varepsilon e^{i\theta}$, $\theta \in [0,\pi]$,
+  \[\int_{\sigma_\varepsilon} \frac{1}{2(z+1)} \, dz =\frac{1}{2} \int_0^\pi \frac{i\varepsilon e^{i\theta}}{-1+\varepsilon e^{i\theta} +1} \, d\theta =\frac{\pi i}{2} \xrightarrow[\varepsilon \to 0^+]{R \to \infty} \]
+  Así,
+  \[\int_{\sigma_\varepsilon}f(z) \, dz = \int_{\sigma_\varepsilon} \left(f(z)-\frac{1}{2(z+1)}\right) \, dz + \int_{\sigma_\varepsilon} \frac{1}{2(z+1)} \, dz \xrightarrow[\varepsilon \to 0^+]{R \to \infty} \frac{\pi i }{2}\]
+  \item Como
+  \[\lim_{z \to \infty} z^2f(z) = 0,\]
+  entonces $z^2f(z)$ es acotada en $\{z \in \C \colon |z| > R_0\}$, esto es, existe $C>0$ tal que
+  \[|f(z)| \leq \frac{C}{|z^2|}\]
+  para todo $z \in \C$ con $|z|> R_0$. En particular, si $z \in \textup{sop}(\sigma_R)$,
+  \[|f(z)| \leq \frac{C}{|z^2|} = \frac{C}{R^2}\]
+  Por tanto,
+  \[\left|\int_{\sigma_R} f(z) \, dz\right| \leq \max_{z \in \textup{sop}(\sigma_R)} |f(z)| \, \textup{long}(\sigma_R) \leq \frac{C}{R^2}\pi R \xrightarrow[\varepsilon \to 0^+]{R \to \infty} 0\]
+\end{itemize}
+De todo esto se deduce que al tomar límites cuando $R \to \infty$, $\varepsilon \to 0^+$ en la igualdad
+\[\int_{\gamma_R}f(z) \, dz = \int_{[-R,-1-\varepsilon]}f(z) \, dz-\int_{\sigma_{\varepsilon}}f(z) \, dz+\int_{[-1+\varepsilon,R]}f(z) \, dz+\int_{\sigma_R}f(z) \, dz,\]
+se llega a 
+\[-\frac{\pi i}{2}+\frac{\pi }{2}= \int_{-\infty}^\infty \frac{1}{1+x+x^2+x^3} \, dx-\frac{\pi i}{2} \]
+Resulta que
+\[\int_{-\infty}^\infty \frac{1}{1+x+x^2+x^3} \, dx = \frac{\pi}{2} \qedhere\]
+\end{enumerate}
+\end{proof}
+
+
+
+\end{document}

@@ -1,0 +1,383 @@
+\documentclass[11pt]{report}
+
+%-------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{multicol}
+\usepackage{fouriernc}
+\usepackage{enumitem}
+\usepackage{mathtools} % Solo uso \underbracket
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{parskip}
+\usepackage{cancel}
+\usepackage{aligned-overset}
+
+%-------------------------------------------------------------------------------------------------%
+
+% AJUSTES GENERALES
+
+\decimalpoint
+
+\setlist[enumerate]{label={(\textit{\alph*})}}
+
+\makeatletter % Para quitar el espacio adicional que el paquete parskip añade al principio y al final de una demostración
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep\z@skip % <---- changed here
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\DeclareMathAlphabet{\mathcal}{OMS}{zplm}{m}{n}
+
+%-------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+
+\newcommand{\pars}[1]{\left( #1 \right)} % Paréntesis de tamaño automático
+
+%-------------------------------------------------------------------------------------------------%
+
+% EJERCICIOS Y SOLUCIONES
+
+\newtheorem{ejercicio}{Ejercicio}
+\addto\captionsspanish{\renewcommand*{\proofname}{Solución}}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{document}
+
+%-------------------------------------------------------------------------------------------------%
+
+% TÍTULO
+
+\textit{Inferencia Estadística} \hfill \textit{David López del Pino}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+	{\LARGE \textbf{Tarea 2}} % Title
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+%-------------------------------------------------------------------------------------------------%
+
+\begin{ejercicio}
+  Sea $(X_1,X_2,X_3)$ una muestra aleatoria simple de una variable $X \sim B(1,p)$ con $p \in (0,1)$. Probar que el estadístico $X_1+2X_2+3X_3$ no es suficiente.
+\end{ejercicio}
+
+\begin{proof}
+  Sea $T = X_1+2X_2+3X_3$. Como $X_i \sim \textup{Bin}(1,p)$, los valores que toma $X_i$ son $1$, con probabilidad $p$, y $0$, con probabilidad $1-p$, $i \in \{1,2,3\}$. Se tiene que
+  \[P(T=3) = P(X_1 = 1, X_2 = 1, X_3 = 0) + P(X_1=0,X_2=0,X_3=1) = p^2(1-p)+p(1-p)^2\]
+  Por tanto,
+  \[
+  \begin{aligned}[t]
+    P(X_1=1,X_2=1,X_3=0 \, | \, T = 3) &= \frac{P(X_1=1,X_2=1,X_3=0, T = 3)}{P(T=3)} \\ &=\frac{P(X_1=1,X_2=1,X_3=0)}{P(T=3)} \\ &=\frac{P(X_1=1)P(X_2=1)P(X_3=1)}{P(T=3)} 
+    \\&= \frac{p^2(1-p)}{p^2(1-p)+p(1-p)^2}
+  \end{aligned}  
+  \]
+  Como este cociente depende de $p$, entonces $T$ no es un estadístico suficiente.
+\end{proof}
+
+\begin{ejercicio}
+  Aplicando el teorema de factorización, encontrar un estadístico suficiente para cada una de las siguientes familias de distribuciones (en las familias biparamétricas, suponer el caso de solo un parámetro desconocido).
+  \begin{enumerate}
+    \item $U(-\theta/2,\theta/2)$ con $\theta>0$.
+    \item $Ga(p,a)$ con $p>0$ y $a>0$.
+  \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item Sea $X \sim U(-\theta/2,\theta/2)$ y sea $(X_1,\mathellipsis,X_n)$ una muestra aleatoria simple de $X$. Entonces
+    \[L(X_1,\mathellipsis,X_n;\theta) = \prod_{i=1}^n f_\theta(X_i) \mathcal{I}_{\, \,(-\theta/2,\theta/2)}(X_i) = \prod_{i=1}^n \frac{1}{\frac{\theta}{2}+\frac{\theta}{2}}  \mathcal{I}_{\, \,(0,\theta/2)}|X_i|=  \frac{1}{\theta^n}\mathcal{I}_{\, \,(0,\theta/2)}\left(\max_{i=1,\mathellipsis,n} |X_i|\right)\]
+    Sean
+    \[T = \max_{i=1,\mathellipsis,n} |X_i|, \qquad \qquad h(X_1,\mathellipsis,X_n) = 1, \qquad \qquad g(T;\theta) = \frac{1}{\theta^n}\mathcal{I}_{\, \,(0,\theta/2)}(T)\]
+    Como $h$ y $g$ son no negativas y $L(X_1,\mathellipsis,X_n;\theta) = g(T;\theta)h(X_1,\mathellipsis,X_n)$, entonces, por el teorema de factorización, $T$ es un estadístico suficiente para $\theta$.
+    \item Supongamos que $a$ es desconocido y $p$ conocido. Entonces
+    \[L(X_1,\mathellipsis,X_n;a) = \prod_{i=1}^n \frac{a^p}{\Gamma(p)}X_i^{p-1}e^{-aX_i} \mathcal{I}_{\, \,(0,\infty)}(X_i) =  \frac{a^{np}}{\Gamma(p)^n}e^{-a\sum_{i=1}^n X_i}\prod_{i=1}^n X_i^{p-1} \mathcal{I}_{\, \,(0,\infty)}(X_i)\]
+    Sean
+    \[T = \sum_{i=1}^n X_i, \qquad \qquad h(X_1,\mathellipsis,X_n) = \prod_{i=1}^n X_i^{p-1} \mathcal{I}_{\, \,(0,\infty)}(X_i), \qquad \qquad g(T;a) = \frac{a^{np}}{\Gamma(p)^n}e^{-aT}\]
+    Como $h$ y $g$ son no negativas y $L(X_1,\mathellipsis,X_n;\theta) = g(T;a)h(X_1,\mathellipsis,X_n)$, entonces, por el teorema de factorización, $T$ es un estadístico suficiente para $a$. \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+  Probar que las siguientes familias de distribuciones son exponenciales uniparamétricas y, considerando una muestra aleatoria simple de una variable con distribución en dicha familia, obtener, si existe, un estadístico suficiente.
+  \begin{enumerate}
+    \item $B(k_0,p)$ con $p \in (0,1)$.
+    \item $P(\lambda)$ con $\lambda>0$.
+    \item $Exp(\lambda)$ con $\lambda > 0$.
+  \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+  \hfill
+  \begin{enumerate}
+    \item La distribución de una variable aleatoria $X \sim B(k_0,p)$ viene dada por
+    \[
+    \begin{aligned}[t]  
+    P_p(X=x) &= \binom{k_0}{x}p^{x}(1-p)^{k_0-x} \mathcal{I}_{\, \, \{0,1,\mathellipsis,k_0\}}(x) = \binom{k_0}{x}e^{\log(p^x(1-p)^{k_0-x})}\mathcal{I}_{\, \, \{0,1,\mathellipsis,k_0\}}(x) \\ &= \binom{k_0}{x}e^{x\log(p)+(k_0-x)\log(1-p)} \mathcal{I}_{\, \, \{0,1,\mathellipsis,k_0\}}(x)=\binom{k_0}{x}e^{x\log(p)+k_0\log(1-p)-x\log(1-p)} \mathcal{I}_{\, \, \{0,1,\mathellipsis,k_0\}}(x) \\ &=\binom{k_0}{x}e^{\log((1-p)^{k_0})}e^{x\log\frac{p}{1-p}} \mathcal{I}_{\, \, \{0,1,\mathellipsis,k_0\}}(x)=\binom{k_0}{x}(1-p)^{k_0}e^{x\log\frac{p}{1-p}} \mathcal{I}_{\, \, \{0,1,\mathellipsis,k_0\}}(x)
+    \end{aligned}\]
+    Sean
+    \[a(p) = (1-p)^{k_0}, \qquad b(x) = \binom{k_0}{x}\mathcal{I}_{\, \, \{0,1,\mathellipsis,k_0\}}(x), \qquad c(p) = \log\frac{p}{1-p}, \qquad d(x) = x\]
+    Tenemos que $a$ y $b$ son funciones no negativas, y además,
+    \[P_p(X=x) = a(p)b(x)e^{c(p)d(x)}\]
+    Esto demuestra que la distribución de $X$ es exponencial uniparamétrica, y además, dada una muestra aleatoria simple $(X_1,\mathellipsis,X_n)$ de $X$, un estadístico suficiente para $p$ sería
+    \[T=\sum_{i=1}^n d(X_i) = \sum_{i=1}^n X_i\]
+    \item La distribución de una variable aleatoria $X \sim P(\lambda)$ viene dada por
+    \[\begin{aligned}[t]
+      P_\lambda(X=x) = e^{-\lambda} \frac{\lambda^x}{x!} \mathcal{I}_{\, \, \N \cup \{0\} }(x) = e^{-\lambda}e^{x\log(\lambda)} \frac{1}{x!} \mathcal{I}_{\, \, \N \cup \{0\} }(x)
+    \end{aligned}\]
+    Sean
+    \[a(\lambda) = e^{-\lambda}, \qquad b(x) = \frac{1}{x!}\mathcal{I}_{\, \, \N \cup \{0\} }(x), \qquad c(\lambda) = \log(\lambda), \qquad d(x) = x\]
+    Tenemos que $a$ y $b$ son funciones no negativas, y además,
+    \[P_\lambda(X=x) = a(\lambda)b(x)e^{c(\lambda)d(x)}\]
+    Esto demuestra que la distribución de $X$ es exponencial uniparamétrica, y además, dada una muestra aleatoria simple $(X_1,\mathellipsis,X_n)$ de $X$, un estadístico suficiente para $\lambda$ sería
+    \[T=\sum_{i=1}^n d(X_i) = \sum_{i=1}^n X_i\]
+    \item La distribución de una variable aleatoria $X \sim Exp(\lambda)$ viene dada por
+    \[\begin{aligned}[t]
+      P_\lambda(X=x) = \lambda e^{-\lambda x}\mathcal{I}_{\,\, (0,\infty)}(x)
+    \end{aligned}\]
+    Sean
+    \[a(\lambda) = \lambda, \qquad b(x) = \mathcal{I}_{\, \, (0,\infty) }(x), \qquad c(\lambda) = -\lambda, \qquad d(x) = x\]
+    Tenemos que $a$ y $b$ son funciones no negativas, y además,
+    \[P_\lambda(X=x) = a(\lambda)b(x)e^{c(\lambda)d(x)}\]
+    Esto demuestra que la distribución de $X$ es exponencial uniparamétrica, y además, dada una muestra aleatoria simple $(X_1,\mathellipsis,X_n)$ de $X$, un estadístico suficiente para $\lambda$ sería
+    \[T=\sum_{i=1}^n d(X_i) = \sum_{i=1}^n X_i \qedhere\]
+  \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+  Sea $X$ una variable aleatoria con función de densidad de la forma
+  \[f_\theta(x) = \theta x^{\theta-1}, \quad 0<x<1\]
+  Calcular un estimador de máxima verosimilitud para $\theta$. 
+\end{ejercicio}
+
+\begin{proof}
+Sea $(X_1,\mathellipsis,X_n)$ una muestra aleatoria simple de $X$ con $X_i \in (0,1)$ para todo $i \in \{1,\mathellipsis,n\}$. Entonces
+\[L(X_1,\mathellipsis,X_n;\theta) = \prod_{i=1}^n \theta X_i^{\theta-1} =\theta^n \prod_{i=1}^n X_i^{\theta-1} \]
+Por tanto,
+\[\log(L(X_1,\mathellipsis,X_n;\theta)) = n\log(\theta)+(\theta-1)\sum_{i=1}^n \log(X_i)\]
+Derivando e igualando a cero,
+\[\frac{\partial \log(L(X_1,\mathellipsis,X_n;\theta)) }{\partial \theta} = 0 \iff \frac{n}{\theta}+\sum_{i=1}^n \log(X_i) = 0 \iff \theta = -\frac{n}{\sum_{i=1}^n \log(X_i)}\]
+Sea $\hat{\theta} = -\frac{n}{\sum_{i=1}^n \log(X_i)}$. Entonces
+\[\frac{\partial^2 \log(L(X_1,\mathellipsis,X_n;\theta)) }{\partial \theta^2} \left|_{\theta = \hat{\theta}}\right. = -\frac{n}{\hat{\theta}^2} < 0\]
+Concluimos que $\hat{\theta}$ es un estimador de máxima verosimilitud para $\theta$.
+\end{proof}
+
+\begin{ejercicio}
+  Sean $X_1,\mathellipsis,X_n$ observaciones independientes de una variable $X \sim Ga(p,a)$ con $p,a>0$. Estimar ambos parámetros mediante el método de los momentos.
+
+  \emph{Aplicación}. Ciertos neumáticos radiales han tenido vidas útiles de $35200$, $41000$, $44700$, $38600$ y $41500$ kilómetros. Suponiendo que estos datos son observaciones independientes de una variable aleatoria con distribución exponencial de parámetro $\theta$, dar una estimación de dicho parámetro por el método de los momentos.
+\end{ejercicio}
+
+\begin{proof}
+  Se tiene que
+  \[\begin{aligned}
+    \alpha_1(p,a) = E(X) = \frac{p}{a}, \qquad \qquad \alpha_2(p,a) = E(X^2) = \frac{\Gamma( p+2)}{\Gamma(p)a^2} = \frac{p(p+1)}{a^2} = \frac{p^2+p}{a^2}
+  \end{aligned}\]
+  Por tanto,
+  \[\begin{aligned}[t]
+    \left\{\begin{alignedat}{1}
+    \alpha_1(p,a) &= m_1 \\
+    \alpha_2(p,a) &= m_2
+  \end{alignedat}\right. &\iff \left\{\begin{alignedat}{1}
+    p &= am_1 \\
+    \frac{a^2m_1^2+am_1}{a^2} &= m_2
+  \end{alignedat}\right. \iff \left\{\begin{alignedat}{1}
+    p &= am_1 \\
+    \cancel{a}(am_1^2+m_1-am_2) &= 0
+  \end{alignedat}\right. \\[5pt] &\iff \left\{\begin{alignedat}{1}
+    p &= am_1 = \frac{m_1^2}{m_2-m_1^2} \\
+    a &=\frac{m_1}{m_2-m_1^2}
+  \end{alignedat}\right.
+\end{aligned}
+  \]
+Concluimos que la estimación por el método de los momentos es
+\[\hat{p} = \frac{m_1^2}{m_2-m_1^2} , \qquad \qquad \hat{a} = \frac{m_1}{m_2-m_1^2}\]
+
+Según los datos del enunciado, si $X \sim Exp(\theta) = Ga(1,\theta)$ y consideramos la muestra aleatoria simple
+\[(X_1,X_2,X_3,X_4,X_5) = (35200, 41000, 44700, 38600, 41500),\]
+entonces
+\[m_1 = \overline{X} = \frac{1}{5}(35200+41000+44700+38600+41500) = 40200\]
+Además,
+\[m_2 = \overline{X^2} = \frac{1}{5}(35200^2+41000^2+44700^2+38600^2+41500^2) \approx 1.63 \cdot 10^9\]
+Por tanto, la estimación mediante el método de los momentos de $\theta$ sería
+\[\hat{\theta} = \frac{m_1}{m_2-m_1^2}\approx 2.88 \cdot 10^{-3} \qedhere\]
+\end{proof}
+
+\begin{ejercicio}
+  Sea $\overline{X}$ la media de una muestra aleatoria simple de tamaño $n$ de una población $N(\mu,16)$. Encontrar el menor valor de $n$ para que $(\overline{X}-1,\overline{X}+1)$ sea un intervalo de confianza para $\mu$ al nivel de confianza $0.9$.
+\end{ejercicio}
+
+\begin{proof}
+Se tiene que
+\[\begin{aligned}[t]
+IC(\mu,0.9) = (\overline{X}-1,\overline{X}+1) &\iff P(\overline{X}-1 \leq \mu \leq \overline{X}+1) = 0.9 \\ &\iff P(-1 \leq\overline{X} -\mu \leq 1) = 0.9 \\ &\iff P\left(-\frac{\sqrt{n}}{4} \leq\frac{(\overline{X} -\mu)\sqrt{n}}{4} \leq \frac{\sqrt{n}}{4}\right) = 0.9 \\ \overset{(*)}&{\iff} 2P\left(Z \leq \frac{\sqrt{n}}{4}\right) -1= 0.9 \\ &\iff P\left(Z \leq \frac{\sqrt{n}}{4}\right) = 0.95,
+\end{aligned}\]  
+donde en $(*)$ se ha denotado $Z = \frac{(\overline{X}-\mu)\sqrt{n}}{4}$, y se tiene $Z \sim N(0,1)$ por ser $X \sim N(\mu,16)$. Observando la tabla de la distribución normal estándar, debe cumplirse
+\[\frac{\sqrt{n}}{4} \approx 1.65,\]
+de donde se deduce que
+\[n \approx 16 \cdot 1.65^2 =43.56\]
+Se concluye que el menor valor de $n$ para el que $(\overline{X}-1,\overline{X}+1)$ es un intervalo de confianza para $\mu$ al nivel de confianza $0.9$ es $n = 44$.
+\end{proof}
+
+\begin{ejercicio}
+  Dos muestras independientes, cada una de tamaño $7$, de poblaciones normales con igual varianza, producen medias $4.8$ y $5.4$ y cuasivarianzas muestrales $8.38$ y $7.62$, respectivamente. Encontrar un intervalo de confianza para la diferencia de medias al nivel de confianza $0.95$.
+\end{ejercicio}
+
+\begin{proof}
+Sean $X$ e $Y$ variables aleatorias independientes con $X \sim N(\mu_X,\sigma^2)$, $Y \sim N(\mu_Y,\sigma^2)$, y sean $(X_1,\mathellipsis,X_7)$, $(Y_1,\mathellipsis,Y_7)$ muestras aleatorias simples de $X$ e $Y$, respectivamente, tales que \[\overline{X} = 4.8, \qquad\qquad \overline{Y} = 5.4, \qquad\qquad S^2_{c,X} = 8.38, \qquad\qquad S^2_{c,Y} = 7.62\]
+Un intervalo de confianza para la diferencia de medias al nivel de confianza $0.95$ sería
+\[IC(\mu_X-\mu_Y,0.95) = \left[\overline{X}-\overline{Y}-S \cdot T_{1-\alpha/2}, \, \overline{X}-\overline{Y}+S \cdot T_{1-\alpha/2}\right],\]
+donde $T \sim t_{12}$ (pues $n+m-2=12$), luego $T_{1-\alpha/2} = T_{0.975} = 2.179$, y, por otra parte,
+  \[S = \sqrt{\frac{1}{n}+\frac{1}{m}}\sqrt{\frac{(n-1)S^2_{c,X}+(m-1)S^2_{c,Y}}{n+m-2}} = \sqrt{\frac{1}{7}+\frac{1}{7}}\sqrt{\frac{6 \cdot 8.38 + 6 \cdot 7.62}{12}} \approx 1.51186\]
+  Concluimos que
+  \[IC(\mu_X-\mu_Y,0.95) = \left[4.8-5.4-1.51186\cdot 2.179, \, 4.8-5.4+1.51186\cdot 2.179\right] \approx \left[-3.89434, \, 2.69434\right]\]
+  es un intervalo de confianza para la diferencia de medias al nivel de confianza $0.95$.
+\end{proof}
+
+\begin{ejercicio}
+  Con objeto de estudiar la efectividad de un agente diurético, se eligen al azar $11$ pacientes, aplicando dicho fármaco a seis de ellos y un placebo a los cinco restantes. La variable observada en esta experiencia fue la concentración de sodio en la orina a las $24$ horas, que se supone tiene una distribución normal en ambos casos. Los resultados observados fueron:
+
+  DIURÉTICO: $20.4$, $62.5$, $61.3$, $44.2$, $11.1$, $23.7$.
+
+  PLACEBO: $1.2$, $6.9$, $38.7$, $20.4$, $17.2$.
+
+  \begin{enumerate}
+    \item Calcular un intervalo de confianza para el cociente de las varianzas al nivel de confianza $0.95$.
+    \item Suponiendo que las varianzas son iguales, calcular un intervalo de confianza para la diferencia de las medias al nivel de confianza $0.9$.
+  \end{enumerate}
+\end{ejercicio}
+
+\begin{proof}
+  Consideremos las variables aleatorias
+  \[\begin{aligned}[t]
+    X &\equiv \textup{\emph{concentración de sodio en la orina de los pacientes a los que se les aplica el fármaco;}} \\
+    Y &\equiv \textup{\emph{concentración de sodio en la orina de los pacientes a los que se les aplica el placebo}}
+  \end{aligned}\]
+  Tenemos que $X \sim N(\mu_X,\sigma_X^2)$, $Y \sim N(\mu_Y, \sigma_Y^2)$ y disponemos de las muestras aleatorias simples 
+  \[(X_1,\mathellipsis,X_6) = (20.4, 62.5, 61.3, 44.2, 11.1, 23.7), \qquad \qquad (Y_1,\mathellipsis,Y_5) = (1.2, 6.9, 38.7, 20.4, 17.2)\]
+  de $X$ e $Y$, respectivamente.
+
+  \begin{enumerate}
+    \item El intervalo de confianza pedido es
+    \[IC\left(\frac{\sigma_X^2}{\sigma_Y^2}, 1-\alpha\right) = \left[\frac{S^2_{c,X}}{S^2_{c,Y}}\frac{1}{F_{1-\alpha/2}}, \, \frac{S^2_{c,X}}{S^2_{c,Y}}\frac{1}{F_{\alpha/2}}\right],\]
+    donde
+    \[F = \frac{S^2_{c,X}\sigma^2_Y}{S^2_{c,Y}\sigma^2_X} \sim F_{n-1,m-1}\]
+    Como $n = 6$, $m = 5$ y $\alpha = 0.05$, entonces, observando la tabla de la distribución $F_{5,4}$,  
+    \[F_{1-\alpha/2} = F_{0.975} \approx 9.365, \qquad \qquad F_{\alpha/2} = F_{0.025} \approx 0.135\]
+    Por otra parte, 
+    \[\overline{X} = 37.2, \qquad \qquad \overline{Y} = 16.88,\]
+    luego
+    \[
+    \begin{aligned}[t]  
+    S^2_{c,X} &= \frac{1}{5}\left(16.8^2+25.3^2+24.1^2+7^2+26.1^2+13.5^2\right)  =483.12, \\
+    S^2_{c,Y} &= \frac{1}{4}\left(15.68^2+9.98^2+21.82^2+3.52^2+0.32^2\right) = 208.517
+    \end{aligned}
+    \]
+    Por tanto,
+    \[IC\left(\frac{\sigma_X^2}{\sigma_Y^2}, 0.95\right) = \left[\frac{483.12}{208.517 \cdot 9.365} , \, \frac{483.12}{208.517 \cdot 0.135} \right] \approx \left[0.2474, \, 17.1625\right]\]
+    \item Supongamos que $\sigma^2_X = \sigma^2_Y=\sigma^2$. El intervalo de confianza pedido es
+    \[IC\left(\mu_X-\mu_Y,1-\alpha\right) = \left[\overline{X}-\overline{Y}-S \cdot T_{1-\alpha/2}, \, \overline{X}-\overline{Y}+S \cdot T_{1-\alpha/2}\right],\]
+    donde $T \sim t_{n+m-2}$ y
+    \[S = \sqrt{\frac{1}{n}+\frac{1}{m}} \sqrt{\frac{(n-1)S^2_{c,X}+(m-1)S^2_{c,Y}}{n+m-2}}\]
+    Sustituimos los datos del problema: como $n=6$, $m=5$, observando la tabla de la distribución $t_{9}$,
+    \[T_{1-\alpha/2} = T_{0.95} = 1.833\]
+    Por otra parte,
+    \[S = \sqrt{\frac{1}{6}+\frac{1}{5}} \sqrt{\frac{5\cdot 483.12+4 \cdot208.517}{9}} \approx 11.5063, \qquad \qquad \overline{X}-\overline{Y} = 37.2-16.88 = 20.32\]
+    Concluimos que
+    \[IC\left(\mu_X-\mu_Y,0.9\right) = \left[20.32-11.5063 \cdot 1.833,\, 20.32+11.5063 \cdot 1.833\right] = \approx \left[-0.771, 41.411\right]\]
+    es un intervalo de confianza para la diferencia de medias al nivel de confianza $0.9$. \qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{ejercicio}
+  Un profesor asegura que tiene un nuevo método de enseñanza mejor que el tradicional. Para comprobar si tiene razón se seleccionan de forma aleatoria e independiente dos grupos de alumnos, $A$ y $B$, utilizándose el nuevo método con el grupo $A$ y el tradicional con el $B$. Al final de curso se hace un examen a los alumnos, obteniéndose las siguientes puntuaciones:
+
+  GRUPO $A$: $6$, $5$, $4$, $7$, $3$, $5.5$, $6$, $7$, $6$.
+
+  GRUPO $B$: $5$, $4$, $5$, $6$, $4$, $6$, $5$, $3$, $7$.
+
+  Supuesto que las puntuaciones de cada grupo tienen distribución normal, ¿proporcionan estos datos evidencias para rechazar el nuevo método a nivel de significación $0.05$?
+\end{ejercicio}
+
+\begin{proof}
+  Consideremos las variables aleatorias
+  \[\begin{aligned}[t]
+    X &\equiv \textup{\emph{puntuaciones de los alumnos del grupo A;}} \\
+    Y &\equiv \textup{\emph{puntuaciones de los alumnos del grupo B}}
+  \end{aligned}\]
+  Tenemos que $X \sim N(\mu_X,\sigma_X^2)$, $Y \sim N(\mu_Y, \sigma_Y^2)$ y disponemos de las muestras aleatorias simples 
+  \[(X_1,\mathellipsis,X_9) = (6, 5, 4, 7, 3, 5.5, 6, 7, 6), \qquad \qquad (Y_1,\mathellipsis,Y_9) = (5, 4, 5, 6, 4, 6, 5, 3, 7)\]
+  de $X$ e $Y$, respectivamente. Hay que contrastar las hipótesis
+  \[H_0 \colon \mu_X \geq \mu_Y, \qquad \qquad H_1 \colon \mu_X < \mu_Y\]
+  Consideremos el estadístico de contraste
+  \[T = \frac{(\overline{X}-\overline{Y})\sqrt{n}}{\sqrt{S^2_c}} \sim t_{n-1},\]
+  donde $S^2_c$ es la cuasivarianza muestral de la muestra aleatoria simple
+  \[(X_1-Y_1,\mathellipsis,X_9-Y_9) = (1,1,-1,1,-1,-0.5,1,4,-1)\]
+  de la variable aleatoria $X-Y$. Se tiene que
+  \[\overline{X}-\overline{Y} = \overline{X-Y} =0.5, \qquad S^2_c = \frac{1}{8}\left(0.5^2+0.5^2+1.5^2+0.5^2+1.5^2+1^2+0.5^2+3.5^2+1.5^2\right)=2.625\]
+  Por tanto,
+  \[T = \frac{0.5 \cdot 3}{\sqrt{2.625}} \approx 0.92582, \qquad \qquad T_{1-\alpha} = T_{0.95} \approx1.860\]
+  Como $T > -T_{1-\alpha}$, entonces se debería aceptar la hipótesis $H_0$, es decir, la media de las puntuaciones del nuevo método es mejor que la media del método tradicional, así que se debería aceptar el nuevo método.
+\end{proof}
+
+\begin{ejercicio}
+  A partir de las siguientes observaciones de muestras independientes de dos poblaciones normales, contrastar, al nivel de significación 0.01, si la media de la primera población supera en al menos una unidad la media de la segunda.
+
+  MUESTRA $1$: $132$, $139$, $126$, $114$, $122$, $132$, $141$, $126$.
+
+  MUESTRA $2$: $124$, $141$, $118$, $116$, $114$, $132$, $145$, $123$, $121$.
+\end{ejercicio}
+
+\begin{proof}
+  Sean $X$ e $Y$ valriables aleatorias independientes con $X \sim N(\mu_X,\sigma_X^2)$, $Y \sim N(\mu_Y, \sigma_Y^2)$, y sean
+  \[\begin{aligned}[t](X_1,\mathellipsis,X_8) &= (132, 139, 126, 114, 122, 132, 141, 126), \\
+   (Y_1,\mathellipsis,Y_9) &= (124, 141, 118, 116, 114, 132, 145, 123, 121)
+  \end{aligned}
+    \]
+  muestras aleatorias simples de $X$ e $Y$, respectivamente. Hay que contrastar las hipótesis
+  \[H_0 \colon \mu_X-\mu_Y \geq 1, \qquad \qquad H_1 \colon \mu_X-\mu_Y < 1\]
+  Consideramos el estadístico de contraste
+  \[T = \frac{\overline{X}-\overline{Y}-\mu_X+\mu_Y}{\sqrt{\frac{(n-1)S^2_{c,X}+(m-1)S^2_{c,Y}}{n+m-2}}\sqrt{\frac{1}{n}+\frac{1}{m}}}= \frac{\overline{X}-\overline{Y}-\mu_X+\mu_Y}{S\sqrt{\frac{1}{n}+\frac{1}{m}}} \sim t_{n+m-2}\]
+  Se tiene que
+  \begin{itemize}
+    \item $\displaystyle \overline{X} = \frac{1032}{8} = 129$.
+    \item $\displaystyle \overline{Y} = \frac{1134}{9} = 126$.
+    \item $\displaystyle S^2_{c,X}= \frac{1}{7}(3^2+10^2+3^2+15^2+7^2+3^2+12^2+3^2) \approx 79.1429$.
+    \item $\displaystyle S^2_{c,Y}= \frac{1}{8}(2^2+15^2+8^2+10^2+12^2+6^2+19^2+3^2+5^2) = 121$.
+  \end{itemize}
+  Si suponemos $\mu_X-\mu_Y = 1$, entonces
+  \[T = \frac{\overline{X}-\overline{Y}-1}{S\sqrt{\frac{1}{n}+\frac{1}{m}}} \approx \frac{129-126-1}{\sqrt{\frac{7\cdot 79.1429+8\cdot 121}{15}}\sqrt{\frac{1}{8}+\frac{1}{9}}} \approx  0.4086\]
+  Por otra parte, como $T \sim t_{15}$ y $\alpha = 0.01$, en la tabla de la distribución de Student se observa que
+  \[T_{1-\alpha} = T_{0.99} = 2.602\] 
+  Como $T>-T_{1-\alpha}$, entonces aceptamos la hipótesis $H_0$, es decir, se puede afirmar que la media de la primera población supera en al menos una unidad la media de la segunda.
+\end{proof}
+
+\end{document}

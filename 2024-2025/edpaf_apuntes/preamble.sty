@@ -1,0 +1,140 @@
+%------------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[spanish, es-lcroman]{babel} % es-lcroman para romanos en minúscula
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage[labelfont = it, labelsep = period]{caption} % cambia Figura 1: por Figura 1. (en negrita)
+\usepackage{enumitem}
+\usepackage{faktor}
+\usepackage{float} % para que el texto después de una gráfica no se ponga antes
+\usepackage{fouriernc}
+\usepackage{graphicx}
+\usepackage[naturalnames]{hyperref} % sin naturalnames el hiperenlace de los apéndices no funciona
+\usepackage[utf8]{inputenc} %
+\usepackage{mathtools} % underbracket, mathrlap
+\usepackage[final, nopatch = footnote]{microtype}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage[svgnames, table, x11names]{xcolor}
+
+%------------------------------------------------------------------------------------------------------%
+
+% COLORES
+
+\definecolor{c1}{HTML}{56AABF}
+\definecolor{c2}{HTML}{57905E}
+\definecolor{c3}{HTML}{4A45AC}
+
+%------------------------------------------------------------------------------------------------------%
+
+% DEFINICIONES, TEOREMAS Y DEMÁS
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{proposition}[theorem]{Proposición}
+\newtheorem{corollary}[theorem]{Corolario}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+
+%------------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+
+\newcommand{\mybf}[1]{\boldmath\textbf{\color{c1}#1}\unboldmath}
+\newcommand{\sop}{\textup{sop}\,}
+\newcommand{\Var}[1]{\textup{Var}(#1)}
+\newcommand{\dconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{-}\scriptsize$d$\phantom{-}}}}
+\newcommand{\vconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{-}\scriptsize$v$\phantom{-}}}}
+\newcommand{\nconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$n \to \infty$\phantom{.}}}}
+\newcommand{\kconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$k \to \infty$\phantom{.}}}}
+\newcommand{\csconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{-}\scriptsize$cs$\phantom{-}}}}
+\newcommand{\pconv}{\xrightarrow{\raisebox{-0.15ex}[0ex][0ex]{\phantom{-}\scriptsize$p$\phantom{-}}}}
+\newcommand{\lpconv}{\xrightarrow{\raisebox{-0.15ex}[0ex][0ex]{\phantom{-}\scriptsize$L^p$\phantom{-}}}}
+\newcommand{\divergencia}[1]{\textup{div} \, #1}
+\newcommand{\Graf}[1]{\textup{Gráf} (#1)}
+\newcommand{\Proy}[1]{\textup{Proy}_{\R^2} (#1)}
+
+\DeclareMathOperator*{\supes}{sup\,es\,}
+\DeclareMathOperator*{\linf}{\textup{lím}\,\textup{inf}\,}
+\DeclareMathOperator*{\lsup}{\textup{lím}\,\textup{sup}\,}
+
+\newcommand{\bigslant}[2]{{\raisebox{.2em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+
+%------------------------------------------------------------------------------------------------------%
+
+% TÍTULOS DE CAPÍTULOS
+
+\makeatletter
+\newcommand\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\setlength\midchapskip{10pt}
+\makechapterstyle{VZ14}{
+  \renewcommand\chapternamenum{}
+  \renewcommand\printchaptername{}
+  \renewcommand\chapnamefont{\Large\scshape}
+  \renewcommand\printchapternum{%
+    \chapnamefont\null\thickhrulefill\quad
+    \@chapapp\space\thechapter\quad\thickhrulefill}
+  \renewcommand\printchapternonum{%
+    \par\thickhrulefill\par\vskip0.75\midchapskip
+    \hrule\vskip0.75\midchapskip
+  }
+  \renewcommand\chaptitlefont{\normalfont\boldmath\Huge\bfseries\centering}
+  \renewcommand\afterchapternum{%
+    \par\nobreak\vskip0.75\midchapskip\hrule\vskip0.75\midchapskip}
+  \renewcommand\afterchaptertitle{%
+    \par\vskip0.75\midchapskip\hrule\nobreak\vskip\afterchapskip}
+}
+\makeatother
+\chapterstyle{VZ14}
+
+%------------------------------------------------------------------------------------------------------%
+
+% OTROS AJUSTES
+
+\OnehalfSpacing
+
+\nouppercaseheads % eliminar las mayúsculas de los encabezados
+
+\setlist[enumerate]{label={\normalfont(\textit{\roman*})}} % normalfont hace que los teoremas no italicen los paréntesis
+
+\addto\captionsspanish{\renewcommand{\chaptername}{Tema}}
+\addto\captionsspanish{\renewcommand{\contentsname}{Contenidos}}
+
+\renewcommand{\thefigure}{\hspace{-1mm}}
+
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.18}
+
+\usetikzlibrary{calc}
+
+\setlrmarginsandblock{25mm}{25mm}{*} % márgenes a izquierda y derecha
+\setulmarginsandblock{25mm+\topmargin}{25mm}{*} % márgenes arriba y abajo
+\checkandfixthelayout % aplicar los cambios
+
+\renewcommand{\cftchapteraftersnum}{.} % para que haya un punto después del número del tema en la TDC
+
+\makeatletter % para que el título de los teoremas (en caso de haberlo) esté en negrita
+\def\th@plain{
+  \thm@notefont{}
+  \itshape
+}
+\def\th@definition{
+  \thm@notefont{}
+  \normalfont
+}
+\makeatother
+
+%------------------------------------------------------------------------------------------------------%
