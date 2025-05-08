@@ -13,7 +13,8 @@
 \contentsline {section}{\numberline {3.1}Convergencia en $L^1$}{29}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Convergencia en $L^p$ para $1<p<\infty $}{30}{section.3.2}%
 \contentsline {chapter}{\numberline {4}Provisional}{42}{chapter.4}%
-\contentsline {chapter}{Bibliografía}{43}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Isometría}{42}{section.4.1}%
+\contentsline {chapter}{Bibliografía}{43}{section.4.1}%
 \babel@toc {spanish}{}\relax 
 \babel@toc {spanish}{}\relax 
 \babel@toc {spanish}{}\relax 
