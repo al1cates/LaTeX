@@ -6,15 +6,15 @@
 \contentsline {section}{\numberline {1.1}Espacios $L^p$}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Series de Fourier}{3}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Resultados de Análisis Funcional}{6}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Convergencia puntual}{7}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Una función continua cuya serie de Fourier no converge en un punto}{7}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Una función de $L^1$ cuya serie de Fourier diverge en todo punto}{9}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Convergencia en \textit {L\textsuperscript {p}}}{28}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Convergencia en $L^1$}{29}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Convergencia en $L^p$ para $1<p<\infty $}{30}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Provisional}{42}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Isometría}{42}{section.4.1}%
-\contentsline {chapter}{Bibliografía}{43}{section.4.1}%
+\contentsline {chapter}{\numberline {2}Convergencia puntual}{8}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Una función continua cuya serie de Fourier no converge en un punto}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Una función de $L^1$ cuya serie de Fourier diverge en todo punto}{10}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Convergencia en \textit {L\textsuperscript {p}}}{29}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Convergencia en $L^1$}{30}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Convergencia en $L^p$ para $1<p<\infty $}{31}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Provisional}{45}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Isometría}{45}{section.4.1}%
+\contentsline {chapter}{Bibliografía}{46}{section.4.1}%
 \babel@toc {spanish}{}\relax 
 \babel@toc {spanish}{}\relax 
 \babel@toc {spanish}{}\relax 

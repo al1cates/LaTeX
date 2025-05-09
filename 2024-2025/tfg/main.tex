@@ -320,12 +320,19 @@ Más adelante se demostrará que si $1<p<\infty$ y $f\in L^p(\T)$, entonces la s
     Si $f \in L^2(\T)$, entonces $\{S_nf\}_{n=1}^\infty$ converge a $f$ en $L^2(\T)$.
 \end{theorem}
 
-Recordamos por último un criterio básico sobre la convergencia puntual de series de Fourier.
+Recordamos a continuación un criterio básico sobre la convergencia puntual de series de Fourier.
 
 \begin{theorem}[Criterio de Dini]
     Sea $f \in L^1(\T)$ y sea $x \in \R$. Si existen $\delta > 0$ y $A \in \C$ tales que
     \[\integral{0}{\delta}{\Bigl|\frac{f(x+t)+f(x-t)}{2}-A\Bigr|\frac{1}{t}} < \infty,\]
     entonces $Sf(x) = A$, es decir, la serie de Fourier de $f$ converge puntualmente a $A$ en $x$.
+\end{theorem}
+
+Por último, enunciamos una versión del principio del módulo máximo para funciones holomorfas que fue estudiada en la asignatura de Análisis Complejo.
+
+\begin{theorem}[Principio del módulo máximo]\label{1.2.12}
+    Sea $D$ un dominio acotado y sea $f \colon \overline{D} \to \C$ una función continua en $\overline{D}$ y holomorfa en $D$. Entonces
+    \[\max_{z\in\overline{D}}|f(z)| = \max_{z \in \partial D}|f(z)|.\]
 \end{theorem}
 
 
@@ -1148,14 +1155,14 @@ Estudiamos en primer lugar un resultado relacionado con el espacio dual de $L^p(
     \end{align*}
     luego $\Phi(\alpha g + \beta h) = \alpha \Phi(g) + \beta \Phi(h)$.
 
-    Probemos por último que $\|g\|_{p'} = \|\Phi(g)\|$ para toda $g \in L^{p'}(\T)$. Sea $g \in L^{p'}(\T)$ y veamos que $\|g\|_{p'} \leq \|\Phi(g)\|$. Si $g = 0$, la desigualdad es trivial. Supongamos entonces que $g \neq 0$, y sea
+    Probemos por último que $\|g\|_{p'} = \|\Phi(g)\|$ para toda $g \in L^{p'}(\T)$. Sea $g \in L^{p'}(\T)$ y veamos que $\|g\|_{p'} \leq \|\Phi(g)\|$. Si $g = 0$, la desigualdad es trivial. Si $g \neq 0$, tomamos
     \[f = \frac{|g|^{p'-1}\overline{\sgn(g)}}{\|g\|^{p'-1}_{p'}},\]
-    donde, para cada $z \in \C$, definimos
+    donde, para cada $z \in \C$,
     \[\sgn(z) = \begin{cases}
         \displaystyle \frac{z}{|z|} & $ si $ z \neq 0, \\[10pt]
         0 & $ si $ z = 0.
     \end{cases}\]
-    Observamos que $|\sgn(z)| = 1$ para casi todo $z\in\C$. Usando esto y que $p = \frac{p'}{p'-1}$ por ser $p$ y $p'$ exponentes conjugados, se obtiene
+    Se observa que $|\sgn(z)| = 1$ para casi todo $z\in\C$. Usando esto y que $p = \frac{p'}{p'-1}$ por ser $p$ y $p'$ exponentes conjugados, se obtiene
     \[\begin{aligned}[t]
         \|f\|_p^p &= \frac{1}{2\pi}\integral{-\pi}{\pi}{\frac{|g(t)|^{(p'-1)p}\bigl|\overline{\sgn (g(t))}\bigr|^p}{\|g\|_{p'}^{(p'-1)p}}} = \frac{1}{\|g\|_{p'}^{p'}}\frac{1}{2\pi}\integral{-\pi}{\pi}{|g(t)|^{p'}} = 1,
     \end{aligned}\]
@@ -1178,7 +1185,56 @@ De la misma manera, si $g\in L^p(\T)$, entonces
     \|g\|_{p} = \sup_{\|f\|_{p'}=1}\frac{1}{2\pi}\Bigl|\integral{-\pi}{\pi}{f(t)g(t)}\Bigr|.
 \end{equation}
 
-El siguiente resultado es una versión simplificada del teorema de interpolación de Riesz-Thorin, suficiente para los fines de este trabajo.
+El siguiente resultado es una versión simplificada del teorema de interpolación de Riesz-Thorin, suficiente para los fines de este trabajo. Para demostrarlo se ha seguido \cite{folland}, y previamente se necesita probar el lema que sigue.
+
+\begin{lemma}[Lema de las tres líneas]
+    Sea $A = \{z \in \C \mid 0 \leq \real(z) \leq 1\}$ y sea $\varphi \colon A \to \C$ una función continua y acotada en $A$ y holomorfa en $\mathring{A}$. Supongamos que existen $M_0,M_1>0$ tales que
+    \begin{itemize}
+        \item $|\varphi(z)| \leq M_0$ para todo $z \in \C$ con $\real(z) = 0$.
+        \item $|\varphi(z)| \leq M_1$ para todo $z \in \C$ con $\real(z) = 1$.
+    \end{itemize}
+    Si $0 < t < 1$, entonces para todo $z \in \C$ con $\real(z) = t$ se tiene que
+    \[|\varphi(z)| \leq M_0^{1-t}M_1^t.\]
+\end{lemma}
+
+\begin{proof}
+    Para cada $\varepsilon > 0$, sea $\varphi_\varepsilon \colon A \to \C$ la función dada por
+    \[\varphi_\varepsilon(z) = \varphi(z)M_0^{z-1}M_1^{-z}e^{\varepsilon z(z-1)}.\]
+    Sea $z = x+iy \in A$, de forma que $0 \leq x \leq 1$. Entonces
+    \begin{align}\label{3.2.4}
+    |\varphi_\varepsilon(x+iy)| &= |\varphi(x+iy)|| M_0^{x+iy-1}||M_1^{-x-iy}||e^{\varepsilon(x+iy)(x+iy-1)}| \notag \\
+    &= |\varphi(x+iy)|M_0^{x-1}M_1^{-x}|e^{\varepsilon(x^2-y^2+2ixy-x-iy)}| \notag \\
+    &= |\varphi(x+iy)|M_0^{x-1}M_1^{-x}e^{\varepsilon (x^2-x)}e^{-\varepsilon y^2} \notag \\
+    &= |\varphi(x+iy)|M_0^{x-1}M_1^{-x}e^{\varepsilon x(x-1)}e^{-\varepsilon y^2}.
+    \end{align} 
+
+    Como $\varphi$ es acotada en $A$, existe $C > 0$ tal que $|\varphi(w)| \leq C$ para todo $w \in A$. Además, como la función $t \mapsto M_0^{t-1}M_1^{-t}$ es continua en el compacto $[0,1]$, existe $C'> 0$ tal que $M_0^{t-1}M_1^{-t} \leq C'$ para todo $t \in [0,1]$. Por tanto, $M_0^{x-1}M_1^{-x} \leq C'$. Y como $x \geq 0$ y $x-1 \leq 0$, entonces $e^{\varepsilon x(x-1)} \leq 1$. 
+    
+    Llevando todo esto a \hyperref[3.2.4]{\color{blue}(3.2.4)}, obtenemos que para todo $x \in [0,1]$ y todo $y \in \R$ se verifica
+    \begin{align*}
+        |\varphi_\varepsilon(x+iy)| \leq CC'e^{-\varepsilon y^2}, 
+    \end{align*} 
+    y por tanto
+    \[\lim_{\substack{|\imag(z)| \to \infty \\ z \in A}} |\varphi_\varepsilon(z)| = 0,\]
+    luego existe $M > 0$ tal que para todo $z \in A$ con $|\imag(z)| \geq M$ se tiene que $|\varphi_\varepsilon(z)| \leq 1$. 
+    
+    Por otra parte, si $x = 0$, usando \hyperref[3.2.4]{\color{blue}(3.2.4)} y que por hipótesis se tiene $|\varphi(iy)| \leq M_0$, obtenemos
+    \[|\varphi_\varepsilon(iy)| = |\varphi(iy)|M_0^{-1}e^{-\varepsilon y^2} \leq M_0M_0^{-1}e^{-\varepsilon y^2} = e^{-\varepsilon y^2} \leq 1.\]
+    Y si $x = 1$, usando \hyperref[3.2.4]{\color{blue}(3.2.4)} y que por hipótesis se tiene $|\varphi(1+iy)| \leq M_1$, obtenemos
+    \begin{align*}
+        |\varphi_\varepsilon(1+iy)| = |\varphi(1+iy)|M_1^{-1}e^{-\varepsilon y^2} \leq M_1M_1^{-1}e^{-\varepsilon y^2} = e^{-\varepsilon y^2} \leq 1.
+    \end{align*}
+    Consideremos el dominio acotado 
+    \[D = \{z \in \C \mid 0 < \real(z) < 1, -M < \imag(z) < M\}.\]
+    Hemos probado que para todo $z \in \partial D$ se tiene $|\varphi_\varepsilon(z)| \leq 1$. Como $\varphi$ es continua en $\overline{D}$ y holomorfa en $D$, por el \hyperref[1.2.12]{\color{blue}principio del módulo máximo}, $|\varphi_\varepsilon(z)| \leq 1$ para todo $z \in \overline{D}$, es decir, $|\varphi_\varepsilon(z)| \leq 1$ para todo $z \in A$ con $|\imag(z)| \leq M$. Pero también se sabe que $|\varphi_\varepsilon(z)| \leq 1$ para todo $z \in A$ con $|\imag(z)| \geq M$, así que $|\varphi_\varepsilon(z)| \leq 1$ para todo $z \in A$.
+
+    Supongamos entonces que $0 < t < 1$. Usando de nuevo \hyperref[3.2.4]{\color{blue}(3.2.4)}, para todo $z \in \C$ con $\real(z) = t$ se verifica
+    \[\lim_{\varepsilon \to 0^+} |\varphi_\varepsilon(z)| = \lim_{\varepsilon \to 0^+}  |\varphi(z)|M_0^{t-1}M_1^{-t}e^{\varepsilon t(t-1)}e^{-\varepsilon \imag(z)^2} = |\varphi(z)|M_0^{t-1}M_1^{-t}.\]
+    Y como $|\varphi_\varepsilon(z)| \leq 1$ para todo $\varepsilon > 0$, también tenemos
+    \[\lim_{\varepsilon \to 0^+} |\varphi_\varepsilon(z)| \leq 1.\]
+    Por tanto, $|\varphi(z)| M_0^{t-1}M_1^{-t} \leq 1$, es decir,
+    \[|\varphi(z)| \leq M_0^{1-t}M_1^t. \qedhere\]
+\end{proof}
 
 \begin{theorem}[Teorema de interpolación de Riesz-Thorin]\label{3.2.2}
     Sean $p,q,r\in\overline{\R}$ con $1 \leq p \leq r \leq q \leq \infty$. Sea $T \colon L^{p}(\T) \to L^{p}(\T)$ una aplicación lineal. Supongamos que existen $M_p,M_q>0$ tales que
