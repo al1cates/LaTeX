@@ -13,6 +13,21 @@
   \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
 
 \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\bibitem {duoandikoetxea1}
+\btxnamefont {\btxlastnamefont {Duoandikoetxea}, Javier}\btxauthorcolon\
+  \btxtitlefont {Fourier analysis}, \btxvolumelong {}~\btxvolumefont {29}
+  \btxofserieslong {}\ \btxtitlefont {Graduate Studies in Mathematics}.
+\newblock \btxpublisherfont {American Mathematical Society, Providence, RI},
+  2001\ifbtxprintISBN {, \mbox{\btxISBN~\btxISBNfont {0-8218-2172-5}}}.
+\newblock {\latintext \btxurlfont{https://doi.org/10.1090/gsm/029}}, Translated
+  and revised from the 1995 Spanish original by David Cruz-Uribe.
+
+\bibitem {duoandikoetxea2}
+\btxnamefont {\btxlastnamefont {Duoandikoetxea}, Javier}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {200 años de convergencia de las series de
+  fourier}{200 años de convergencia de las series de Fourier}}.
+\newblock \btxjournalfont {La Gaceta de la RSME}, 10.3:651--688, 2007.
+
 \bibitem {fierros}
 \btxnamefont {\btxlastnamefont {{Fierros Bobadilla, Jorge Usbaldo}}}
   \btxandlong {}\ \btxnamefont {\btxlastnamefont {{Rivera Martínez,

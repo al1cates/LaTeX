@@ -57,6 +57,8 @@ INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\generic\babel\locale\es\b
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\generic\babel\locale\es\babel-es.ini
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\latex\babelbib\babelbib.sty
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\latex\babelbib\babelbib.sty
+INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\latex\cancel\cancel.sty
+INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\latex\cancel\cancel.sty
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\latex\graphics\color.sty
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\latex\graphics\color.sty
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\color.cfg
@@ -219,6 +221,7 @@ INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbxti10.
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbxti10.tfm
 OUTPUT main.toc
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsl12.tfm
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmib10.tfm
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmib10.tfm
@@ -233,7 +236,6 @@ INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\sym
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
-INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsl12.tfm
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam5.tfm
 INPUT C:\Users\lopez\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
