@@ -1,4 +1,4 @@
-%------------------------------------------------------------------------------------------------------%
+%---------------------------------------------------------------------------------------------------------%
 
 % PAQUETES
 
@@ -6,20 +6,26 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage[spanish, es-noshorthands, activeacute]{babel} % es-noshorthands para que no haya problemas con tikz
-\usepackage[fixlanguage]{babelbib}
+\usepackage[english, spanish, es-noshorthands, activeacute]{babel} % es-noshorthands para que no haya problemas con tikz
+\usepackage{babelbib}
 \usepackage{cancel}
+\usepackage[labelfont = bf, labelsep = period]{caption}
 \usepackage{color}
 \usepackage{enumitem}
 \usepackage{faktor}
 \usepackage{fancyhdr}
+\usepackage{float} % para que el texto después de una gráfica no se ponga antes
 \usepackage[left = 2.5cm, right = 2.5cm, top = 2.5cm, bottom = 2.5cm]{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % fuente (es la predeterminada, pero cargarla así evita problemas)
 \usepackage{makeidx}
+\usepackage[final, nopatch = footnote]{microtype}
+\usepackage{subcaption}
 
-%------------------------------------------------------------------------------------------------------%
+%---------------------------------------------------------------------------------------------------------%
 
 % DEFINICIONES, TEOREMAS Y DEMÁS
 
@@ -35,7 +41,7 @@
 \newtheorem{definition}[equation]{Definición}
 \newtheorem{example}[equation]{Ejemplo}
 
-%------------------------------------------------------------------------------------------------------%
+%---------------------------------------------------------------------------------------------------------%
 
 % COMANDOS
 
@@ -60,7 +66,7 @@
 \newcommand{\kconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$k \to \infty$\phantom{.}}}}
 \newcommand{\iconv}{\xrightarrow{\raisebox{-0.25ex}[0ex][0ex]{\phantom{.}\scriptsize$i \to \infty$\phantom{.}}}}
 
-%------------------------------------------------------------------------------------------------------%
+%---------------------------------------------------------------------------------------------------------%
 
 % ENCABEZADOS Y PIES DE PÁGINA
 
@@ -72,7 +78,7 @@
 
 \fancyfoot{}
 
-%------------------------------------------------------------------------------------------------------%
+%---------------------------------------------------------------------------------------------------------%
 
 % ASTERISCOS
 
@@ -105,7 +111,7 @@
 
 % chanchullo para poder usar \stars{} en expresiones matemáticas
 
-%------------------------------------------------------------------------------------------------------%
+%---------------------------------------------------------------------------------------------------------%
 
 % OTROS AJUSTES
 
@@ -124,8 +130,13 @@
 }
 \makeatother
 
-\selectbiblanguage{spanish}
-
 \setlength{\headheight}{14.5pt}
 
 \nocite{*}
+
+%\renewcommand{\thefigure}{\hspace{-1.5mm}}
+
+\makeatletter
+\let\c@figure\c@equation
+\let\thefigure\theequation
+\makeatother

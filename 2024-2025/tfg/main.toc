@@ -1,20 +1,32 @@
 \babel@toc {spanish}{}\relax 
-\contentsline {chapter}{Resumen}{\es@scroman {i}}{chapter*.1}%
-\contentsline {chapter}{Abstract}{\es@scroman {i}}{chapter*.1}%
-\contentsline {chapter}{Introducción}{\es@scroman {i}}{chapter*.1}%
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{Resumen}{\es@scroman {ii}}{chapter*.2}%
+\contentsline {chapter}{Abstract}{\es@scroman {iii}}{chapter*.3}%
+\contentsline {chapter}{Introducción}{\es@scroman {iv}}{chapter*.4}%
 \contentsline {chapter}{\numberline {1}Preliminares}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Espacios $L^p$}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Series de Fourier}{3}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Resultados de Análisis Funcional}{6}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Convergencia puntual}{8}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Una función continua cuya serie de Fourier no converge en un punto}{8}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Una función de $L^1$ cuya serie de Fourier diverge en todo punto}{10}{section.2.2}%
-\contentsline {section}{\numberline {2.3}El teorema de Carleson-Hunt}{29}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Convergencia en \textit {L\textsuperscript {p}}}{30}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Convergencia en $L^1$}{31}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Convergencia en $L^p$ para $1<p<\infty $}{32}{section.3.2}%
-\contentsline {chapter}{Bibliografía}{49}{equation.3.2.13}%
+\contentsline {chapter}{\numberline {2}Convergencia puntual}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Una función continua cuya serie de Fourier no converge en un punto}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Una función de $L^1$ cuya serie de Fourier diverge en todo punto}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Fenómeno de Gibbs}{27}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Convergencia en \textit {L\textsuperscript {p}}}{31}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Convergencia en $L^1$}{32}{section.3.1}%
+\contentsline {section}{\numberline {3.2}El teorema de interpolación de Riesz-Thorin}{33}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Convergencia en $L^p$ para $1<p<\infty $}{41}{section.3.3}%
+\contentsline {chapter}{\numberline {4}La nevera}{51}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Fenómeno de Gibbs en general}{52}{section.4.1}%
+\babel@toc {spanish}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {spanish}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {spanish}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {spanish}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {spanish}{}\relax 
+\babel@toc {english}{}\relax 
 \babel@toc {spanish}{}\relax 
 \babel@toc {spanish}{}\relax 
-\babel@toc {spanish}{}\relax 
-\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{Bibliografía}{53}{chapter*.8}%

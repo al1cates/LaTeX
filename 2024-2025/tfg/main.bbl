@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
   \providebibliographyfont{name}{}%
   \providebibliographyfont{lastname}{}%
   \providebibliographyfont{title}{\emph}%
@@ -12,7 +12,16 @@
   \providebibliographyfont{numeral}{}%
   \expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
 
-\expandafter\btxselectlanguage\expandafter {\btxfallbacklanguage}
+\btxselectlanguage {english}
+\bibitem {carleson}
+\btxnamefont {\btxlastnamefont {Carleson}, Lennart}\btxauthorcolon\
+  \btxjtitlefont {\btxifchangecase {On convergence and growth of partial sums
+  of {F}ourier series}{On convergence and growth of partial sums of {F}ourier
+  series}}.
+\newblock \btxjournalfont {Acta Math.}, 116:135--157, 1966\ifbtxprintISSN {,
+  \mbox{\btxISSN~\btxISSNfont {0001-5962,1871-2509}}}.
+\newblock {\latintext \btxurlfont{https://doi.org/10.1007/BF02392815}}.
+
 \bibitem {duoandikoetxea1}
 \btxnamefont {\btxlastnamefont {Duoandikoetxea}, Javier}\btxauthorcolon\
   \btxtitlefont {Fourier analysis}, \btxvolumelong {}~\btxvolumefont {29}
@@ -22,12 +31,22 @@
 \newblock {\latintext \btxurlfont{https://doi.org/10.1090/gsm/029}}, Translated
   and revised from the 1995 Spanish original by David Cruz-Uribe.
 
+\btxselectlanguage {spanish}
 \bibitem {duoandikoetxea2}
+\btxnamefont {\btxlastnamefont {Duoandikoetxea}, Javier}\btxauthorcolon\
+  \btxtitlefont {Lecciones sobre las series y las transformadas de Fourier}.
+\newblock \btxpublisherfont {UNAN-Managua}, 2003.
+\newblock {\latintext
+  \btxurlfont{https://www.ugr.es/~acanada/docencia/matematicas/analisisdefourier/Duoandikoetxeafourier.pdf}}.
+
+\btxselectlanguage {english}
+\bibitem {duoandikoetxea3}
 \btxnamefont {\btxlastnamefont {Duoandikoetxea}, Javier}\btxauthorcolon\
   \btxjtitlefont {\btxifchangecase {200 años de convergencia de las series de
   fourier}{200 años de convergencia de las series de Fourier}}.
 \newblock \btxjournalfont {La Gaceta de la RSME}, 10.3:651--688, 2007.
 
+\btxselectlanguage {spanish}
 \bibitem {fierros}
 \btxnamefont {\btxlastnamefont {{Fierros Bobadilla, Jorge Usbaldo}}}
   \btxandlong {}\ \btxnamefont {\btxlastnamefont {{Rivera Martínez,
@@ -38,6 +57,7 @@
 \newblock {\latintext
   \btxurlfont{https://lic.mat.uson.mx/tesis/93_94TesisMere_Fierros.PDF}}.
 
+\btxselectlanguage {english}
 \bibitem {folland}
 \btxnamefont {\btxlastnamefont {Folland}, Gerald\btxfnamespacelong
   B.}\btxauthorcolon\ \btxtitlefont {Real analysis}.
@@ -46,6 +66,15 @@
   1999\ifbtxprintISBN {, \mbox{\btxISBN~\btxISBNfont {0-471-31716-0}}}.
 \newblock Modern techniques and their applications, A Wiley-Interscience
   Publication.
+
+\bibitem {hunt}
+\btxnamefont {\btxlastnamefont {Hunt}, Richard\btxfnamespacelong
+  A.}\btxauthorcolon\ \btxtitlefont {\btxifchangecase {On the convergence of
+  {F}ourier series}{On the convergence of {F}ourier series}}.
+\newblock \Btxinlong {}\ \btxtitlefont {Orthogonal {E}xpansions and their
+  {C}ontinuous {A}nalogues ({P}roc. {C}onf., {E}dwardsville, {I}ll., 1967)},
+  \btxpageslong {}\ 235--255. \btxpublisherfont {Southern Illinois Univ. Press,
+  Carbondale, IL}, 1968.
 
 \bibitem {katznelson}
 \btxnamefont {\btxlastnamefont {Katznelson}, Yitzhak}\btxauthorcolon\

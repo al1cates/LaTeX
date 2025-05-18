@@ -1,0 +1,55 @@
+%------------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage[a4paper, right = 0.8in, left = 0.8in, top = 0.8in, bottom = 0.8in]{geometry}
+\usepackage[spanish, es-lcroman]{babel} % es-lcroman para poder usar números romanos en minúscula
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage[svgnames, x11names, rgb]{xcolor}
+\usepackage{parskip} % Cambia la sangría por espacio vertical
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[labelfont=bf, labelsep=period]{caption} % Cambia «Figura 1:» por «Figura 1.» (en negrita)
+\usepackage{float} % Para que el texto después de una gráfica no se ponga antes
+\usepackage[active,tightpage]{preview}
+
+%------------------------------------------------------------------------------------------------------%
+
+% COLORES
+
+\definecolor{c1}{HTML}{3878C1}
+\definecolor{c2}{HTML}{3878C1}
+\definecolor{c3}{HTML}{3878C1}
+
+%------------------------------------------------------------------------------------------------------%
+
+% OTROS AJUSTES
+
+\pgfplotsset{compat=1.18}
+
+\setlength{\PreviewBorder}{0pt}
+
+\PreviewEnvironment[{[]}]{tikzpicture}
+
+\tikzset{
+  jumpdot/.style={mark=*,solid},
+  excl/.append style={jumpdot,fill=white},
+  incl/.append style={jumpdot,fill=black},
+}
+
+%------------------------------------------------------------------------------------------------------%
+
+% SUMA DE UNA SERIE
+
+\ExplSyntaxOn
+\NewExpandableDocumentCommand{\RepeatFunction}{mm}{\int_step_function:nnN{#1}{#2}\RepeatFunction:n}
+\pgfplotsset{repeatable~function/.code=\DeclareExpandableDocumentCommand{\RepeatFunction:n}{m}{#1}}
+\ExplSyntaxOff
+\pgfplotsset{
+    /pgf/declare function={fun(\k,\x)=4*sin(deg((2*\k-1)*\x))/(3.14159*(2*\k-1));}, % «n» es el n.º de sumandos
+    repeatable function={+fun(#1,x)},
+    fun terms/.initial=10,
+    fun terms/.code={\pgfplotsset{fun terms/.initial=#1}}
+}
+
+%------------------------------------------------------------------------------------------------------%
