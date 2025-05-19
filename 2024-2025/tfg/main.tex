@@ -560,6 +560,28 @@ El resultado que sigue fue demostrado por Leopold Kronecker, y para probarlo se 
     Por tanto, $n\angles{k\alpha} = \angles{nk\alpha}$ y concluimos que $|n\angles{k\alpha}-x| = |\angles{nk\alpha}-x|<\varepsilon$.
 \end{proof}
 
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.49\textwidth}
+    \centering
+    \includegraphics{./plot9/main.pdf}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}
+    \centering
+    \includegraphics{./plot10/main.pdf}
+\end{subfigure}
+\par\bigskip
+\begin{subfigure}[b]{0.49\textwidth}
+    \centering
+    \includegraphics{./plot11/main.pdf}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\textwidth}
+    \centering
+    \includegraphics{./plot12/main.pdf}
+\end{subfigure}
+\caption{Representación de $\angles{\alpha},\angles{2\alpha},\mathellipsis,\angles{N\alpha}$ para $\alpha = \sqrt{2}$.}
+\end{figure}
+
 Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \colon n \in \N\}$ y $\mathbb{P} = \{2n \colon n \in \N\}$.
 
 \begin{lemma}
@@ -568,14 +590,14 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
 
 \begin{proof}
     Al igual que en el lema anterior, basta probar el resultado para $\alpha > 0$. Sea $\varepsilon > 0$, sea $x \in [0,1)$ y veamos que existe $k \in \I$ tal que $|\angles{k\alpha}-x|<\varepsilon$. Para todo $n \in \N$,
-    \begin{align}\label{2.2.7}
+    \begin{align}\label{2.2.8}
         |\angles{(2n+1)\alpha} - x| &= |\angles{2n\alpha+\alpha}-x| \overset{(\asts{1})}{=} |\angles{\angles{2n\alpha} + \angles{\alpha}} - x| \notag\\
         &= |\angles{2n\alpha}+\angles{\alpha}-E(\angles{2n\alpha}+\angles{\alpha}) - x| \notag\\
         &\leq |\angles{2n\alpha}-(x-\angles{\alpha})|+|E(\angles{2n\alpha}+\angles{\alpha})|,
     \end{align}
     donde en (\asts{1}) se ha usado la propiedad (d) de la parte fraccionaria. Como $2\alpha \in \R\setminus\Q$, entonces $\{\angles{2n\alpha}\colon n \in \N\}$ es denso en $[0,1]$, y como $x-\angles{\alpha} \in [0,1)$, existe $n_0 \in \N$ tal que
     \[|\angles{2n_0\alpha} - (x-\angles{\alpha})| < \widetilde{\varepsilon},\]
-    donde $\widetilde{\varepsilon} = \min\{\varepsilon,1-x\} > 0$. Tenemos entonces $\angles{2n_0\alpha} - (x-\angles{\alpha}) <\widetilde{\varepsilon} \leq 1-x$, luego $0 \leq \angles{2n_0\alpha}+\angles{\alpha} < 1$ y por tanto $E(\angles{2n_0\alpha}+\angles{\alpha}) = 0$. Llevando esto a \hyperref[2.2.7]{\color{blue}(2.2.7)}, concluimos
+    donde $\widetilde{\varepsilon} = \min\{\varepsilon,1-x\} > 0$. Tenemos entonces $\angles{2n_0\alpha} - (x-\angles{\alpha}) <\widetilde{\varepsilon} \leq 1-x$, luego $0 \leq \angles{2n_0\alpha}+\angles{\alpha} < 1$ y por tanto $E(\angles{2n_0\alpha}+\angles{\alpha}) = 0$. Llevando esto a \hyperref[2.2.8]{\color{blue}(2.2.8)}, concluimos
     \[|\angles{(2n_0+1)\alpha} - x| \leq |\angles{2n_0\alpha}-(x-\angles{\alpha})| < \widetilde{\varepsilon} \leq \varepsilon. \qedhere\]
 \end{proof}
 
@@ -620,7 +642,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     Supongamos ahora que $\theta \in \R\setminus\Q$. Por el lema anterior, el conjunto $\{\angles{k\theta} \colon k \in \I\}$ es denso en $[0,1)$, y como $J \subset [0,1)$, existen infinitos $k \in \I$ tales que $\angles{k\theta} \in J$. Por tanto, existe $\rho_\theta \in \I$ con $\rho_\theta \geq \rho$ y tal que $\angles{\rho_\theta\theta} \in J$. Llamando $s = E( \rho_\theta\theta)$, concluimos que $s \in \Z$ y que $\rho_\theta\theta = s + \angles{\rho_\theta\theta} \in (s +\frac{1}{12},s +\frac{5}{12})$.
 \end{proof}
 
-\begin{lemma}\label{2.2.9}
+\begin{lemma}\label{2.2.10}
     Sea $n \in \N$ y sea $\delta \in (0,\frac{\pi}{2n+1})$. Para cada $j \in \{0,1,\mathellipsis,2n\}$, sea
     \[x_j = \frac{2\pi j}{2n+1},\]
     y para cada $j \in \{0,1,\mathellipsis,2n-1\}$, sea \[I_j = (x_j+\delta,x_{j+1}-\delta).\]
@@ -643,7 +665,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     Nótese que $\rho(2n+1) \in \I$ por ser producto de números impares, luego $\rho(2n+1)-1 \in \mathbb{P}$ y por tanto $k_\rho \in \N$. Además, $2k_\rho+1=\rho(2n+1)$, luego $2k_\rho+1$ es múltiplo de $2n+1$. Por otra parte,
     \[\sen\Bigl(\Bigl(k_\rho+\frac{1}{2}\Bigr)x\Bigr) = \sen\Bigl(\Bigl(\frac{\rho(2n+1)-1}{2}+\frac{1}{2}\Bigr)x\Bigr) = \sen\Bigl(\frac{\rho(2n+1)}{2}x\Bigr).\]
     Como $(2n+1)x_{2j+2} = 2\pi(2j+2)$ y $\frac{\rho}{2} \in \N$, entonces $\frac{\rho(2n+1)}{2}x_{2j+2}$ es un múltiplo de $2\pi$, y por tanto, usando que el seno es una función impar y $2\pi$-periódica,
-    \begin{align}\label{2.2.10}
+    \begin{align}\label{2.2.11}
         -\sen\Bigl(\Bigl(k_\rho+\frac{1}{2}\Bigr)x\Bigr) &= \sen\Bigl(-\frac{\rho(2n+1)}{2}x\Bigr) = \sen\Bigl(\frac{\rho(2n+1)}{2}(x_{2j+2}-x)\Bigr) \notag \\ 
         &= \sen(2\pi \rho\theta_x).
     \end{align}
@@ -670,7 +692,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
 
     Sea $S = (\eta,\frac{1}{2}-\eta) \cup (\frac{1}{2}+\eta,1-\eta)$, que por ser $\eta \in (0,\frac{1}{4})$ verifica $S \subset (0,1)$ y $\frac{1}{2}\not\in S$. Los razonamientos anteriores prueban que
     \[x \in I_{2j} \cup I_{2j+1} \iff \theta_x \in S.\]
-    Para cada $\theta \in S$, sea $\rho_\theta$ el menor número natural impar con $\rho_\theta \geq N$ y $\sen(2\pi\rho_\theta\theta) > \frac{1}{2}$, que existe por el lema anterior. De hecho, como $\overline{S} = [\eta,\frac{1}{2}-\eta] \cup [\frac{1}{2}+\eta,1-\eta] \subset (0,1)$ y $\frac{1}{2}\not\in\overline{S}$, esto también tiene sentido para $\theta \in \overline{S}$. Por \hyperref[2.2.10]{\color{blue}(2.2.10)}, para todo $x \in I_{2j} \cup I_{2j+1}$ se tiene
+    Para cada $\theta \in S$, sea $\rho_\theta$ el menor número natural impar con $\rho_\theta \geq N$ y $\sen(2\pi\rho_\theta\theta) > \frac{1}{2}$, que existe por el lema anterior. De hecho, como $\overline{S} = [\eta,\frac{1}{2}-\eta] \cup [\frac{1}{2}+\eta,1-\eta] \subset (0,1)$ y $\frac{1}{2}\not\in\overline{S}$, esto también tiene sentido para $\theta \in \overline{S}$. Por \hyperref[2.2.11]{\color{blue}(2.2.11)}, para todo $x \in I_{2j} \cup I_{2j+1}$ se tiene
     \[-\sen\Bigl(\Bigl(k_{\rho_{\theta_x}}+\frac{1}{2}\Bigr)x\Bigr) > \frac{1}{2}.\]
     Para cada $x \in I_{2j} \cup I_{2j+1}$, sea
     \[k_x = k_{\rho_{\theta_x}} = \frac{\rho_{\theta_x}(2n+1)-1}{2}.\] Como $\rho_{\theta_x} \geq N$, entonces $k_x \geq \frac{N(2n+1)-1}{2}$. Además, $k_x$ verifica (a) y (c). 
@@ -694,7 +716,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     Reiterando este proceso, encontramos $m_0,m_1,\mathellipsis,m_n\in\N$ con $m_0 < m_1 < \cdots < m_n$ y tales que para todo $j \in \{0,1,\mathellipsis,n-1\}$ y todo $x \in I_{2j}\cup I_{2j+1}$, existe $k_x \in \N$ cumpliendo las propiedades (a), (b) y (c).
 \end{proof}
 
-\begin{lemma}\label{2.2.11}
+\begin{lemma}\label{2.2.12}
     Para cada $n \in \N$, sea $H_n = \sum_{i=1}^n \frac{1}{i}$. Entonces
     \[\lim_{n \to \infty} \frac{H_n}{\log(n)} = 1.\]
 \end{lemma}
@@ -730,28 +752,24 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     \[x_j = \frac{2\pi j}{2n+1}, \qquad I_j' = [x_j-\delta,x_j+\delta],\]
     y para cada $j \in \{0,1,\mathellipsis,2n-1\}$, sea
     \[I_j = (x_j+\delta, x_{j+1}-\delta).\]
-    Para que el intervalo $I_j$ tenga sentido, tomamos $\delta < \frac{\pi}{2n+1}$, tal y como se vio en el \hyperref[2.2.9]{\color{blue}Lema 2.2.9}. Se observa que
+    Para que el intervalo $I_j$ tenga sentido, tomamos $\delta < \frac{\pi}{2n+1}$, tal y como se vio en el \hyperref[2.2.10]{\color{blue}Lema 2.2.10}. Se observa que
     \[\Bigl(\,\bigcup_{j=0}^{2n}I_j'\Bigr) \cup\Bigl(\,\bigcup_{j=0}^{2n-1}I_j\Bigr) = [x_0-\delta,x_{2n}+\delta].\]
-    Definimos
-    \[F_n = \phi_n+f_n,\]
-    donde
+    Definimos $F_n = \phi_n+f_n$, donde
     \begin{itemize}
         \item $\phi_n(x) = \frac{1}{2}K_{m_0}((2n+1)x)$, siendo $m_0 \in \N$ tal que $K_{m_0}(0) > 2n$ (se recuerda que $K_{m_0}$ es el \hyperref[1.2.5]{\color{blue}núcleo de Fejér de orden $m_0$}). Esta elección de $m_0$ es posible porque \[\lim_{m \to \infty} K_m(0) = \lim_{m \to \infty} (m+1) = \infty.\]
-        Nótese que $K_{m_0}(0)=2m_0+1 > 2n$ implica $m_0 > \frac{2n-1}{2}$. 
-        
-        Si $j \in \{0,1,\mathellipsis,2n\}$, entonces
+        Nótese que $K_{m_0}(0)=2m_0+1 > 2n$ y por tanto $m_0 > \frac{2n-1}{2}$. Por otra parte, si $j \in \{0,1,\mathellipsis,2n\}$, entonces
         \[\phi_n(x_j) = \frac{1}{2}K_{m_0}((2n+1)x_j) = \frac{1}{2}K_{m_0}(2\pi j) = \frac{1}{2}K_{m_0}(0) > \frac{1}{2}2n = n,\] 
         utilizándose en la tercera igualdad que $K_{m_0}$ es $2\pi$-periódica. Como $\phi_n$ es continua (pues $K_{m_0}$ lo es), existe $\delta' > 0$ tal que para todo $x \in (x_j-\delta',x_j+\delta')$ se verifica $\phi_n(x) \geq n$. Tomando $\delta < \min\{\delta',\frac{\pi}{2n+1}\}$, se tiene que
-        \begin{equation}\label{2.2.13}
+        \begin{equation}\label{2.2.14}
             \phi_n(x) \geq n \textup{ para todo } x \in [x_j-\delta,x_j+\delta] = I_j'.
         \end{equation}
         Por ser $K_{m_0}$ un polinomio trigonométrico no negativo de término constante $1$ y grado $m_0$, se tiene que $\phi_n$ es un polinomio trigonométrico no negativo de término constante $\frac{1}{2}$ y grado $m_0$. 
         
-        Por otra parte, como $D_{m_0}(0) = 2m_0+1 > 0$ y $D_{m_0}$ es continua, existe $\delta'' > 0$ tal que $D_{m_0}(x) \geq 0$ para todo $x \in (-\delta'',\delta'')$. Tomando $\delta < \min\{\delta',\delta'',\frac{\pi}{2n+1}\}$, se tiene que
-        \begin{equation}\label{2.2.14}
+        Además, como $D_{m_0}(0) = 2m_0+1 > 0$ y $D_{m_0}$ es continua, existe $\delta'' > 0$ tal que $D_{m_0}(x) \geq 0$ para todo $x \in (-\delta'',\delta'')$. Tomando $\delta < \min\{\delta',\delta'',\frac{\pi}{2n+1}\}$, se tiene que
+        \begin{equation}\label{2.2.15}
             D_{m_0}(x) \geq 0 \textup{ para todo } x \in [-\delta,\delta] = I_0'.
         \end{equation}
-        \item $f_n(x) = \frac{1}{2n}\sum_{i=1}^n g_i(x)$, donde $g_i(x)= K_{m_i}(x-x_{2i})$ y $m_1,m_2,\mathellipsis,m_n$ son los números naturales proporcionados por el \hyperref[2.2.9]{\color{blue}Lema 2.2.9} (en la demostración de dicho lema se vio que puede tomarse como $m_0$ cualquier número natural; en este caso, se escoge como $m_0$ el grado de $\phi_n$). Como $g_i$ es un polinomio trigonométrico no negativo de término constante 1, entonces $f_n$ es un polinomio trigonométrico no negativo de término constante $\frac{1}{2}$.
+        \item $f_n(x) = \frac{1}{2n}\sum_{i=1}^n g_i(x)$, donde $g_i(x)= K_{m_i}(x-x_{2i})$ y $m_1,m_2,\mathellipsis,m_n$ son los números naturales proporcionados por el \hyperref[2.2.10]{\color{blue}Lema 2.2.10} (en la demostración de dicho lema se vio que puede tomarse como $m_0$ cualquier número natural; en este caso, se escoge como $m_0$ el grado de $\phi_n$). Como $g_i$ es un polinomio trigonométrico no negativo de término constante 1, entonces $f_n$ es un polinomio trigonométrico no negativo de término constante $\frac{1}{2}$.
     \end{itemize}
 
     De esta manera, tenemos que $F_n$ es un polinomio trigonométrico no negativo de término constante 1, pues $f_n$ y $\phi_n$ son polinomios trigonométricos no negativos de término constante $\frac{1}{2}$.
@@ -760,7 +778,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
 
     \begin{itemize}
         \item \textit{Si $j \in \{0,1,\mathellipsis,n-1\}$ y $k \in \N$ son tales que $m_j \leq k < \frac{1}{2}m_{j+1}$, entonces
-        \begin{equation}\label{2.2.15}
+        \begin{equation}\label{2.2.16}
             S_kf_n(x) \geq \frac{1}{2n}\sum_{i=j+1}^n \frac{m_i-k}{m_i+1}D_k(x-x_{2i})
         \end{equation}
         para todo $x \in \bigcup_{l=0}^{n-1}I_{2l}\cup I_{2l+1}$.}
@@ -794,15 +812,15 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
             &= \frac{1}{2n}\sum_{i=j+1}^n \frac{m_i-k}{m_i+1}\Bigl(1+2\sum_{m=1}^{k} \cos(m(x-x_{2i}))\Bigr) \\
             &= \frac{1}{2n}\sum_{i=j+1}^n \frac{m_i-k}{m_i+1}D_{k}(x-x_{2i}).
         \end{align*}
-        Esto completa la prueba de \hyperref[2.2.15]{\color{blue}(2.2.15)}.
+        Esto completa la prueba de \hyperref[2.2.16]{\color{blue}(2.2.16)}.
         \item \textit{Existe $C > 0$ tal que para todo $j \in \{0,1,\mathellipsis,E(n-\sqrt{n})\}$ y todo $x \in I_{2j}\cup I_{2j+1}$, se verifica
-        \begin{equation}\label{2.2.16}
+        \begin{equation}\label{2.2.17}
             S_{k_x}F_n(x) \geq C\log(n)
         \end{equation}
         para algún $k_x \in \N$ con $m_j \leq k_x < \frac{1}{2}m_{j+1}$.
         }
 
-        Sea $j \in \{0,1,\mathellipsis,E(n-\sqrt{n})\}$ y sea $x \in I_{2j} \cup I_{2j+1}$. El \hyperref[2.2.9]{\color{blue}Lema 2.2.9} permite afirmar que existe $k_x \in \N$ tal que $2k_x+1$ es múltiplo de $2n+1$, $m_{j} \leq k_x < \frac{1}{2}m_{j+1}$ y $\sen((k_x+\frac{1}{2})x) < -\frac{1}{2}$.
+        Sea $j \in \{0,1,\mathellipsis,E(n-\sqrt{n})\}$ y sea $x \in I_{2j} \cup I_{2j+1}$. El \hyperref[2.2.10]{\color{blue}Lema 2.2.10} permite afirmar que existe $k_x \in \N$ tal que $2k_x+1$ es múltiplo de $2n+1$, $m_{j} \leq k_x < \frac{1}{2}m_{j+1}$ y $\sen((k_x+\frac{1}{2})x) < -\frac{1}{2}$.
 
         Sea $\alpha \in \N$ tal que $2k_x+1 = \alpha(2n+1)$. Como $x \in I_{2j} \cup I_{2j+1}$, entonces $x < x_{2j+2}$. De esto se obtiene que si $i \geq j+1$, entonces $x \neq x_{2i}$, luego
         \begin{align*}
@@ -810,7 +828,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
             &= \frac{\sen((k_x+\frac{1}{2})x-\frac{\alpha}{2}(2n+1)x_{2i})}{\sen(\frac{1}{2}(x-x_{2i}))} = \frac{\sen((k_x+\frac{1}{2})x-\frac{\alpha}{2}(2n+1)\frac{4\pi i}{2n+1})}{\sen(\frac{1}{2}(x-x_{2i}))} \\
             &= \frac{\sen((k_x+\frac{1}{2})x-2\pi\alpha i)}{\sen(\frac{1}{2}(x-x_{2i}))} = \frac{\sen((k_x+\frac{1}{2})x)}{\sen(\frac{1}{2}(x-x_{2i}))}.
         \end{align*}
-        Usando esto y \hyperref[2.2.15]{\color{blue}(2.2.15)},
+        Usando esto y \hyperref[2.2.16]{\color{blue}(2.2.16)},
         \begin{align*}
             S_{k_x}f_n(x) &\geq \frac{1}{2n}\sum_{i=j+1}^n \frac{m_i-k_x}{m_i+1}D_{k_x}(x-x_{2i}) \\
             &= \frac{\sen((k_x+\frac{1}{2})x)}{2n}\sum_{i=j+1}^n \frac{m_i-k_x}{m_i+1}\frac{1}{\sen(\frac{1}{2}(x-x_{2i}))},
@@ -835,7 +853,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \[\begin{aligned}[t]
             S_{k_x}f_n(x) &\geq \frac{2n+1}{4\pi} \frac{1}{16n}\sum_{i=j+1}^n \frac{1}{i-j} = \frac{2n+1}{64\pi n}\sum_{i=1}^{n-j} \frac{1}{i} =  \frac{2n+1}{64\pi n}H_{n-j} \\ &= \frac{2n+1}{64\pi n}\log(n-j)\frac{H_{n-j}}{\log(n-j)}.
         \end{aligned}\]
-        Como $j \leq n-\sqrt{n}$, entonces $n-j \geq \sqrt{n}$ y por tanto $\lim_{n\to\infty}(n-j) = \infty$. Usando esto y el \hyperref[2.2.11]{\color{blue}Lema 2.2.11}, 
+        Como $j \leq n-\sqrt{n}$, entonces $n-j \geq \sqrt{n}$ y por tanto $\lim_{n\to\infty}(n-j) = \infty$. Usando esto y el \hyperref[2.2.12]{\color{blue}Lema 2.2.12}, 
         \[\lim_{n\to\infty} \frac{2n+1}{64\pi n}\frac{H_{n-j}}{\log(n-j)} = \frac{1}{32\pi} > 0,\]
         luego existe $C>0$ tal que $\frac{2n+1}{64\pi n}\frac{H_{n-j}}{\log(n-j)} > 2C$ para $n$ suficientemente grande. En consecuencia,
         \[S_{k_x}f_n(x)  \geq 2C\log(n-j)\]
@@ -845,8 +863,8 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \[
             S_{k_x}F_n(x) = S_{k_x}f_n(x) + S_{k_x}\phi_n(x) = S_{k_x}f_n(x) + \phi_n(x)\geq S_{k_x}f_n(x) \geq C\log(n),
         \]
-        utilizándose que $\phi_n$ es un polinomio trigonométrico no negativo de grado $m_0 \leq k_x$. Con esto queda probado \hyperref[2.2.16]{\color{blue}(2.2.16)}.
-        \item \textit{Si $n$ es suficientemente grande, para todo $x \in \bigcup_{j=0}^{2n}I_j'$ se verifica \begin{equation}\label{2.2.17}
+        utilizándose que $\phi_n$ es un polinomio trigonométrico no negativo de grado $m_0 \leq k_x$. Con esto queda probado \hyperref[2.2.17]{\color{blue}(2.2.17)}.
+        \item \textit{Si $n$ es suficientemente grande, para todo $x \in \bigcup_{j=0}^{2n}I_j'$ se verifica \begin{equation}\label{2.2.18}
             S_{m_0}F_n(x) > \frac{n}{2}.
         \end{equation}
         }
@@ -865,7 +883,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \end{align*}
         En cualquier caso,
         \[|x-x_{2i}| \geq \frac{\pi |l -2i|}{2n+1}.\]
-        Poniendo $k = m_0$ y $j = 0$ en la desigualdad \hyperref[2.2.15]{\color{blue}(2.2.15)} (es claro que $m_j \leq k < m_{j+1}$ y por tanto dicha desigualdad es válida), tenemos
+        Poniendo $k = m_0$ y $j = 0$ en la desigualdad \hyperref[2.2.16]{\color{blue}(2.2.16)} (es claro que $m_j \leq k < m_{j+1}$ y por tanto dicha desigualdad es válida), tenemos
         \[S_{m_0}f_n(x) \geq \frac{1}{2n}\sum_{i=1}^n \frac{m_i - m_0}{m_i + 1}D_{m_0}(x-x_{2i}).\]
         Si $l$ es impar, entonces $x-x_{2i} \neq 0$ (pues $|x-x_{2i}| \geq \frac{\pi |l-2i|}{2n+1} > 0$), luego
         \begin{align*}
@@ -900,17 +918,17 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \begin{align*}
             S_{m_0}f_n(x) &\geq -\frac{2n+1}{4\pi n}(H_n+H_n) = -\frac{2n+1}{2\pi n}H_n =-\frac{2n+1}{2\pi n}\log(n)\frac{H_n}{\log(n)} .
         \end{align*}
-        Usando de nuevo el \hyperref[2.2.11]{\color{blue}Lema 2.2.11},
+        Usando de nuevo el \hyperref[2.2.12]{\color{blue}Lema 2.2.12},
         \[\lim_{n\to\infty} \frac{2n+1}{2\pi n}\frac{H_n}{\log(n)} = \frac{1}{\pi} > 0,\]
         luego existe una constante $C'>0$ de manera que para $n$ suficientemente grande, se verifica $C' > \frac{2n+1}{2\pi n}\frac{H_n}{\log(n)}$ y por tanto
         \[S_{m_0}f_n(x) \geq -C'\log(n).\]
     
-        Supongamos ahora que $l$ es par, es decir, que existe $i_0 \in \{0,1,\mathellipsis,n\}$ tal que $l = 2i_0$. En tal caso, volviendo a usar \hyperref[2.2.15]{\color{blue}(2.2.15)} con $k = m_0$ y $j = 0$,
+        Supongamos ahora que $l$ es par, es decir, que existe $i_0 \in \{0,1,\mathellipsis,n\}$ tal que $l = 2i_0$. En tal caso, volviendo a usar \hyperref[2.2.16]{\color{blue}(2.2.16)} con $k = m_0$ y $j = 0$,
         \begin{align*}
             S_{m_0}f_n(x) &\geq \frac{1}{2n}\sum_{i=1}^n \frac{m_i-m_0}{m_i+1}D_{m_0}(x-x_{2i}) \\
             &=\frac{1}{2n}\sum_{\substack{1 \leq i \leq n \\ i \neq i_0}} \frac{m_i-m_0}{m_i+1}D_{m_0}(x-x_{2i})+\frac{1}{2n}\frac{m_{i_0}-m_0}{m_{i_0}+1}D_{m_0}(x-x_l).
         \end{align*}
-        Utilizando \hyperref[2.2.14]{\color{blue}(2.2.14)} y que $x-x_l \in I_0'$ por ser $x \in I_l'$, se obtiene $D_{m_0}(x-x_l) \geq 0$, y en consecuencia,
+        Utilizando \hyperref[2.2.15]{\color{blue}(2.2.15)} y que $x-x_l \in I_0'$ por ser $x \in I_l'$, se obtiene $D_{m_0}(x-x_l) \geq 0$, y en consecuencia,
         \[S_{m_0}f_n(x) \geq \frac{1}{2n}\sum_{\substack{1 \leq i \leq n \\ i \neq i_0}} \frac{m_i-m_0}{m_i+1}D_{m_0}(x-x_{2i}).\]
         Como $x-x_{2i} \neq 0$ para todo $i \in \{1,2,\mathellipsis,n\}$ con $i \neq i_0$, pueden repetirse los razonamientos anteriores para obtener que existe una constante $C'' > 0$ tal que
         \begin{align*}
@@ -925,12 +943,12 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
             S_{m_0}F_n(x) &= S_{m_0}f_n(x)+S_{m_0}\phi_n(x) = S_{m_0}f_n(x)+\phi_n(x) \geq S_{m_0}f_n(x)+n \\
             &> -C'''\log(n)+n > -\frac{n}{2}+n = \frac{n}{2},
         \end{align*}
-        obteniéndose así \hyperref[2.2.17]{\color{blue}(2.2.17)}. En la segunda igualdad se ha usado que $\phi_n$ es un polinomio trigonométrico de grado $m_0$, y en la primera desigualdad se ha usado \hyperref[2.2.13]{\color{blue}(2.2.13)}.
+        obteniéndose así \hyperref[2.2.18]{\color{blue}(2.2.18)}. En la segunda igualdad se ha usado que $\phi_n$ es un polinomio trigonométrico de grado $m_0$, y en la primera desigualdad se ha usado \hyperref[2.2.14]{\color{blue}(2.2.14)}.
     \end{itemize}
 
     Con todo lo anterior finaliza la definición de la sucesión $\{F_n\}_{n=n_0}^\infty$ para cierto $n_0\in\N$. Para cada $n \geq n_0$, sean
     \[E_n = \Bigl[0, \frac{4\pi E(n-\sqrt{n})}{2n+1}\Bigr], \qquad A_n = C\log(n), \qquad \lambda_n = m_0,\]
-    donde $C$ es la constante que aparece en \hyperref[2.2.16]{\color{blue}(2.2.16)}. Es claro que $A_n > 0$ (podemos suponer $n>1$) y que $\lim_{n \to \infty} A_n = \infty$.
+    donde $C$ es la constante que aparece en \hyperref[2.2.17]{\color{blue}(2.2.17)}. Es claro que $A_n > 0$ (podemos suponer $n>1$) y que $\lim_{n \to \infty} A_n = \infty$.
     
     Obsérvese que $m_0$ depende de $n$, y como se razonó que $\lambda_n = m_0 > \frac{2n-1}{2}$, entonces $\lim_{n\to\infty}\lambda_n = \infty$. 
     
@@ -946,10 +964,10 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     
     Solo queda por probar el apartado (g). Sea $n \in \N$ y sea $x \in E_n=[x_0,x_{2E(n-\sqrt{n})}]$. Se distinguen los siguientes casos.
     \begin{itemize}
-        \item Supongamos que $x\in\bigcup_{j=0}^{2n}I_j'$. Llamando $k = m_0$, se tiene $\lambda_n = m_0 = k < m_n = \nu_n$. Por \hyperref[2.2.17]{\color{blue}(2.2.17)}, también se verifica 
+        \item Supongamos que $x\in\bigcup_{j=0}^{2n}I_j'$. Llamando $k = m_0$, se tiene $\lambda_n = m_0 = k < m_n = \nu_n$. Por \hyperref[2.2.18]{\color{blue}(2.2.18)}, también se verifica 
         \[S_{k}F_n(x) = S_{m_0}F_n(x) > \frac{n}{2}.\]
         Como $\lim_{n\to\infty} \frac{n}{\log(n)} = 1$, tomando $n$ suficientemente grande, se cumple $\frac{n}{\log(n)} > 2C$, obteniéndose $\frac{n}{2} > C\log(n) = A_n$ y por tanto $S_kF_n(x) > C\log(n) = A_n$.
-        \item Supongamos que $x \in \bigcup_{j=0}^{n-1}(I_{2j}\cup I_{2j+1})$. Sea $j \in \{0,1,\mathellipsis,n-1\}$ con $x \in I_{2j} \cup I_{2j+1}$. Como $x \leq x_{2E(n-\sqrt{n})}$ (porque $x \in E_n$) y $x > x_{2j}$ (porque $x \in I_{2j} \cup I_{2j+1}$), tiene que ser $2j < 2(n-\sqrt{n})$, así que $j < n-\sqrt{n}$ y puede usarse \hyperref[2.2.16]{\color{blue}(2.2.16)} para obtener que existe $k \in \N$ con 
+        \item Supongamos que $x \in \bigcup_{j=0}^{n-1}(I_{2j}\cup I_{2j+1})$. Sea $j \in \{0,1,\mathellipsis,n-1\}$ con $x \in I_{2j} \cup I_{2j+1}$. Como $x \leq x_{2E(n-\sqrt{n})}$ (porque $x \in E_n$) y $x > x_{2j}$ (porque $x \in I_{2j} \cup I_{2j+1}$), tiene que ser $2j < 2(n-\sqrt{n})$, así que $j < n-\sqrt{n}$ y puede usarse \hyperref[2.2.17]{\color{blue}(2.2.17)} para obtener que existe $k \in \N$ con 
         \[m_0 \leq m_j \leq k < \frac{1}{2}m_{j+1} < \frac{1}{2}m_n < m_n\]
         y tal que $S_{k}F_n(x) >  C\log(n)$. Como $\nu_n = m_n$, $m_0 = \lambda_n$ y $C\log(n) = A_n$, se tiene que $\lambda_n \leq k < \nu_n$ y que $S_{k}F_n(x) > A_n$.
     \end{itemize}
@@ -1033,8 +1051,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     \[S_kf(x) = S_ku(x)+S_kv(x)+S_kw(x)> \sqrt{A_{n_i}}-20.\]
     Como $k \leq \nu_{n_i}$, entonces
     \[S_{\nu_{n_i}}f(x) \geq S_kf(x) > \sqrt{A_{n_i}}-20,\]
-    y esto es válido para todo $i \in \N$ con $i \geq i_0$. Como $\lim_{i \to \infty} n_i = \infty$ (pues $\{n_i\}_{i=1}^\infty$ es una sucesión estrictamente creciente de números naturales) y $\lim_{n \to \infty} A_n = \infty$, entonces \[\lim_{i \to \infty} \sqrt{A_{n_i}} = \infty.\]
-    Llevando esto a la desigualdad anterior, se obtiene
+    y esto es válido para todo $i \in \N$ con $i \geq i_0$. Como $\lim_{i \to \infty} n_i = \infty$ (pues $\{n_i\}_{i=1}^\infty$ es una sucesión estrictamente creciente de números naturales) y $\lim_{n \to \infty} A_n = \infty$, entonces $\lim_{i \to \infty} \sqrt{A_{n_i}} = \infty$. Llevando esto a la desigualdad anterior, se obtiene
     \[\lim_{i \to \infty} S_{\nu_{n_i}}f(x) = \infty.\]
     Como $\{S_{\nu_{n_i}}f(x)\}_{i=1}^\infty$ es una subsucesión de $\{S_nf(x)\}_{n=1}^\infty$ que no converge, entonces la serie de Fourier de $f$ en $x$ no converge.
 \end{proof}
@@ -1064,10 +1081,8 @@ Por tanto, la serie de Fourier de $f$ es
 \[Sf(x) = \frac{4}{\pi}\sum_{k=1}^\infty \frac{\sen((2k-1)x)}{2k-1}.\]
 Como $f$ es de clase $1$ a trozos en $[-\pi,\pi]$, el \hyperref[1.2.11]{\color{blue}criterio de Dirichlet} permite afirmar que $Sf(x) = f(x)$ para todo $x \in (-\pi,\pi) \setminus \{0\}$, mientras que $Sf(0) = 0$, $Sf(\pi) = 0$ y $Sf(-\pi) = 0$.
 Las sumas parciales de la serie de Fourier de $f$ son
-\[S_nf(x) = \sum_{k=1}^n b_k(f)\sen(kx) = \sum_{k=1}^{E(\frac{n+1}{2})}b_{2k-1}(f)\sen((2k-1)x) = \frac{4}{\pi}\sum_{k=1}^{E(\frac{n+1}{2})}\frac{\sen((2k-1)x)}{2k-1}.\]
-Para facilitar la escritura, llamamos $m = E(\frac{n+1}{2})$. Así,
-\[S_nf(x) = \frac{4}{\pi}\sum_{k=1}^m\frac{\sen((2k-1)x)}{2k-1},\]
-y se tiene que $Sf(x) = \lim_{n\to\infty} S_nf(x) = \lim_{m\to\infty} S_nf(x)$.
+\[S_nf(x) = \sum_{k=1}^n b_k(f)\sen(kx) = \sum_{k=1}^{E(\frac{n+1}{2})}b_{2k-1}(f)\sen((2k-1)x) = \frac{4}{\pi}\sum_{k=1}^{m}\frac{\sen((2k-1)x)}{2k-1},\]
+donde $m = E(\frac{n+1}{2})$. Como la serie de Fourier de $f$ converge puntualmente, tenemos que $Sf(x) = \lim_{n\to\infty} S_nf(x) = \lim_{m\to\infty} S_nf(x)$ para todo $x \in \R$.
 
 \begin{figure}[H]
 \centering
@@ -1124,7 +1139,7 @@ es decir, $\sen(\frac{s}{2m}) \geq \frac{2}{\pi}\frac{s}{2m} = \frac{s}{m\pi}$. 
 Por el teorema de la convergencia dominada, puede intercambiarse el límite con la integral en (\asts{1}). Llamando $G = \frac{2}{\pi}\integral[s]{0}{\pi}{\frac{\sen(s)}{s}}$, concluimos que
 \[\lim_{m\to\infty} S_nf(x_1) = G.\]
 
-Esta propiedad, que se verifica para cualquier función con discontinuidades de salto que sea suficientemente regular cerca de las discontinuidades, se conoce como \emph{fenómeno de Gibbs}. La constante $G = \frac{2}{\pi}\integral[x]{0}{\pi}{\frac{\sen(x)}{x}}$ se denomina \emph{constante de Gibbs}.
+Esta propiedad se conoce como \emph{fenómeno de Gibbs} o \emph{fenómeno de Wilbraham-Gibbs}, y la constante $G = \frac{2}{\pi}\integral[x]{0}{\pi}{\frac{\sen(x)}{x}}$ se suele denominar \emph{constante de Gibbs} o \emph{constante de Wilbraham-Gibbs}.
 
 \begin{figure}[H]
 \centering
@@ -1806,55 +1821,57 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
     \[\|S_nf\|_p \leq C_p'\|f\|_p. \qedhere\]
 \end{proof}
 
-\chapter{La nevera}
+% \chapter{La nevera}
 
-Veamos que el máximo absoluto de $S_nf$ en $[0,\frac{\pi}{2}]$ es $x_1$. Por la regla de Barrow, para todo $x \in [0,\frac{\pi}{2}]$ se tiene
-\[S_nf(x)-S_nf(0) = \integral[t]{0}{x}{(S_nf)'(t)},\]
-es decir,
-\[S_nf(x) = \frac{2}{\pi}\integral[t]{0}{x}{\frac{\sen(2mt)}{\sen(t)}}.\]
-Sea $k \in \{1,2,\mathellipsis,m-3\}$ impar, de manera que $x_k$ y $x_{k+2}$ son máximos locales de $S_nf$. Entonces
-\begin{align*}
-    S_nf(x_{k+2})-S_n(x_k) &= \frac{2}{\pi}\integral[t]{x_k}{x_{k+2}}{\frac{\sen(2mt)}{\sen(t)}} \\
-    &= \frac{2}{\pi}\integral[t]{x_k}{x_{k+1}}{\frac{\sen(2mt)}{\sen(t)}}+ \frac{2}{\pi}\integral[t]{x_{k+1}}{x_{k+2}}{\frac{\sen(2mt)}{\sen(t)}}.
-\end{align*}
-En la primera integral se realiza el cambio de variable $t = s+x_k$, $dt = ds$, y en la segunda integral, el cambio de variable $t = s+x_{k+1}$, $dt = ds$. Se obtiene
-\begin{align*}
-    S_nf(x_{k+2})-S_n(x_k) &= \frac{2}{\pi}\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2m(s+x_k))}{\sen(s+x_k)}}+ \frac{2}{\pi}\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2m(s+x_{k+1}))}{\sen(s+x_{k+1})}} \\
-    &= \frac{2}{\pi}\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms + k\pi)}{\sen(s+x_k)}} + \frac{2}{\pi}\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms + (k+1)\pi)}{\sen(s+x_{k+1})}}.
-\end{align*}
-Como $k$ es impar, entonces
-\begin{align*}
-    \sen(2ms+k\pi) &= \sen(2ms)\cos(k\pi)+\sen(k\pi)\cos(2ms) = -\sen(2ms), \\
-    \sen(2ms+(k+1)\pi) &= \sen(2ms)\cos((k+1)\pi)+\sen((k+1)\pi)\cos(2ms) = \sen(2ms).
-\end{align*}
-De esta manera,
-\begin{align*}
-    S_nf(x_{k+2})-S_n(x_k) &= \frac{2}{\pi}\Bigl(\,\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms)}{\sen(s+x_{k+1})}}-\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms)}{\sen(s+x_k)}}\Bigr).
-\end{align*}
-Si $0<s<\frac{\pi}{2m}$, entonces $0<2ms<\pi$ y por tanto $\sen(2ms) > 0$. También se verifica $0<s+x_{k+1} < \frac{\pi}{2m}+x_{k+1} = x_{k+2} < \frac{\pi}{2}$, y como el seno es estrictamente creciente en $(0,\frac{\pi}{2})$, entonces $\sen(s+x_k) < \sen(s+x_{k+1})$, luego $\frac{\sen(2ms)}{\sen(s+x_k)} > \frac{\sen(2ms)}{\sen(s+x_{k+1})}$. En consecuencia,
-\begin{align*}
-    S_nf(x_{k+2})-S_n(x_k) &\leq \frac{2}{\pi}\Bigl(\,\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms)}{\sen(s+x_{k})}}-\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms)}{\sen(s+x_k)}}\Bigr) = 0.
-\end{align*}
-Se ha probado que $S_n(x_k) \geq S_n(x_{k+2})$ para todo $k \in \{1,2,\mathellipsis,m-3\}$ impar, luego $S_nf(x_1) \geq S_nf(x_k)$ para todo $k \in \{1,2,\mathellipsis,m-3\}$ impar. El valor máximo de $S_nf$ en $(0,\frac{\pi}{2})$ es entonces
+% \section{Máximo absoluto en el fenómeno de Gibbs}
 
-\section{Fenómeno de Gibbs en general}
+% Veamos que el máximo absoluto de $S_nf$ en $[0,\frac{\pi}{2}]$ es $x_1$. Por la regla de Barrow, para todo $x \in [0,\frac{\pi}{2}]$ se tiene
+% \[S_nf(x)-S_nf(0) = \integral[t]{0}{x}{(S_nf)'(t)},\]
+% es decir,
+% \[S_nf(x) = \frac{2}{\pi}\integral[t]{0}{x}{\frac{\sen(2mt)}{\sen(t)}}.\]
+% Sea $k \in \{1,2,\mathellipsis,m-3\}$ impar, de manera que $x_k$ y $x_{k+2}$ son máximos locales de $S_nf$. Entonces
+% \begin{align*}
+%     S_nf(x_{k+2})-S_n(x_k) &= \frac{2}{\pi}\integral[t]{x_k}{x_{k+2}}{\frac{\sen(2mt)}{\sen(t)}} \\
+%     &= \frac{2}{\pi}\integral[t]{x_k}{x_{k+1}}{\frac{\sen(2mt)}{\sen(t)}}+ \frac{2}{\pi}\integral[t]{x_{k+1}}{x_{k+2}}{\frac{\sen(2mt)}{\sen(t)}}.
+% \end{align*}
+% En la primera integral se realiza el cambio de variable $t = s+x_k$, $dt = ds$, y en la segunda integral, el cambio de variable $t = s+x_{k+1}$, $dt = ds$. Se obtiene
+% \begin{align*}
+%     S_nf(x_{k+2})-S_n(x_k) &= \frac{2}{\pi}\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2m(s+x_k))}{\sen(s+x_k)}}+ \frac{2}{\pi}\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2m(s+x_{k+1}))}{\sen(s+x_{k+1})}} \\
+%     &= \frac{2}{\pi}\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms + k\pi)}{\sen(s+x_k)}} + \frac{2}{\pi}\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms + (k+1)\pi)}{\sen(s+x_{k+1})}}.
+% \end{align*}
+% Como $k$ es impar, entonces
+% \begin{align*}
+%     \sen(2ms+k\pi) &= \sen(2ms)\cos(k\pi)+\sen(k\pi)\cos(2ms) = -\sen(2ms), \\
+%     \sen(2ms+(k+1)\pi) &= \sen(2ms)\cos((k+1)\pi)+\sen((k+1)\pi)\cos(2ms) = \sen(2ms).
+% \end{align*}
+% De esta manera,
+% \begin{align*}
+%     S_nf(x_{k+2})-S_n(x_k) &= \frac{2}{\pi}\Bigl(\,\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms)}{\sen(s+x_{k+1})}}-\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms)}{\sen(s+x_k)}}\Bigr).
+% \end{align*}
+% Si $0<s<\frac{\pi}{2m}$, entonces $0<2ms<\pi$ y por tanto $\sen(2ms) > 0$. También se verifica $0<s+x_{k+1} < \frac{\pi}{2m}+x_{k+1} = x_{k+2} < \frac{\pi}{2}$, y como el seno es estrictamente creciente en $(0,\frac{\pi}{2})$, entonces $\sen(s+x_k) < \sen(s+x_{k+1})$, luego $\frac{\sen(2ms)}{\sen(s+x_k)} > \frac{\sen(2ms)}{\sen(s+x_{k+1})}$. En consecuencia,
+% \begin{align*}
+%     S_nf(x_{k+2})-S_n(x_k) &\leq \frac{2}{\pi}\Bigl(\,\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms)}{\sen(s+x_{k})}}-\integral[s]{0}{\frac{\pi}{2m}}{\frac{\sen(2ms)}{\sen(s+x_k)}}\Bigr) = 0.
+% \end{align*}
+% Se ha probado que $S_n(x_k) \geq S_n(x_{k+2})$ para todo $k \in \{1,2,\mathellipsis,m-3\}$ impar, luego $S_nf(x_1) \geq S_nf(x_k)$ para todo $k \in \{1,2,\mathellipsis,m-3\}$ impar. El valor máximo de $S_nf$ en $(0,\frac{\pi}{2})$ es entonces
 
-Veámoslo para $x = 0$. Sea $g \in L^1(\T)$ tal que $g(0^+)$ y $g(0^-)$ existen y son distintos, y supongamos que existe $\delta > 0$ tal que $\{S_ng\}_{n=1}^\infty$ converge uniformemente a $g$ en $[-\delta,\delta]$. Para cada $n \in \N$, sea $x_n \in [-\delta,\delta]$ es tal que
-\[S_ng(x_n) = \max_{x \in [-\delta,\delta]}S_ng(x).\]
-Hay que hallar el límite de la sucesión $\{S_ng(x_n)\}_{n=1}^\infty$.
+% \section{Fenómeno de Gibbs en general}
 
-Veamos primero que $\lim_{n\to\infty} x_n = 0$.
+%  Dicho fenómeno sucede para cualquier función con una discontinuidad de salto en un punto cuya serie de Fourier converja uniformemente en un entorno de dicho punto.
 
-Sea $l = \frac{1}{2}(g(0^+)-g(0^-))$. Entonces $h = g-lf$ es continua en $0$, pues, por un lado,
-\[\lim_{x\to 0^-} h(x) = g(0^-) - lf(0^-) = g(0^-)+l = \frac{1}{2}(g(0^+)+g(0^-)),\]
-y por otro lado,
-\[\lim_{x\to 0^+} h(x) = g(0^+) - lf(0^+) = g(0^+)-l = \frac{1}{2}(g(0^+)+g(0^-)).\]
+% Veámoslo para $x = 0$. Sea $g \in L^1(\T)$ tal que $g(0^+)$ y $g(0^-)$ existen y son distintos, y supongamos que existe $\delta > 0$ tal que $\{S_ng\}_{n=1}^\infty$ converge uniformemente a $g$ en $(-\delta,\delta)$. Para cada $n \in \N$, sea
+% \[x_n = \max_{x \in [0, \delta]} S_ng(x).\]
+% Hallemos el límite de la sucesión $\{S_ng(x_n)\}_{n=1}^\infty$.
 
-Por la linealidad de los coeficientes de Fourier, para todo $n \in \N$ se verifica que $S_nh = S_ng-lS_nf$. Como $\{S_ng\}_{n=1}^\infty$ y $\{S_nf\}_{n=1}^\infty$ convergen uniformemente a $g$ y $f$ (respectivamente) en $[-\varepsilon,\varepsilon]$, entonces $\{S_nh\}_{n=1}^\infty$ converge uniformemente a $h$ en $[-\varepsilon,\varepsilon]$. Por tanto,
-\begin{align*}
-    \lim_{n\to\infty} S_ng(x_n) &=\lim_{n\to\infty}(S_nh(x_n)+lS_nf(x_n)) = \lim_{n\to\infty}S_nh(x_n)+l\lim_{n\to\infty}S_nf(x_n) \\
-    &= h(0)+lG = \frac{1}{2}(g(0^+)+g(0^-))+lG.
-\end{align*}
+% Sea $l = \frac{1}{2}(g(0^+)-g(0^-))$. Entonces $h = g-lf$ es continua en $0$, pues, por un lado, se tiene
+% \[\lim_{x\to 0^-} h(x) = g(0^-) - lf(0^-) = g(0^-)+l = \frac{1}{2}(g(0^+)+g(0^-)),\]
+% y por otro lado,
+% \[\lim_{x\to 0^+} h(x) = g(0^+) - lf(0^+) = g(0^+)-l = \frac{1}{2}(g(0^+)+g(0^-)).\]
+
+% Por la linealidad de los coeficientes de Fourier, $S_nh = S_ng-lS_nf$ para todo $n \in \N$. Como $\{S_ng\}_{n=1}^\infty$ y $\{S_nf\}_{n=1}^\infty$ convergen uniformemente a $g$ y $f$ (respectivamente) en $-\delta,\delta)$, entonces $\{S_nh\}_{n=1}^\infty$ converge uniformemente a $h$ en $[-\varepsilon,\varepsilon]$. Por tanto,
+% \begin{align*}
+%     \lim_{n\to\infty} S_ng(x_n) &=\lim_{n\to\infty}(S_nh(x_n)+lS_nf(x_n)) = \lim_{n\to\infty}S_nh(x_n)+l\lim_{n\to\infty}S_nf(x_n) \\
+%     &= h(0)+lG = \frac{1}{2}(g(0^+)+g(0^-))+lG.
+% \end{align*}
 
 %--------------------------------------------------------------------------------------------------------%
 

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1747575424.98559 "main.aux" "main.bbl" "main" 1747577352.19417 0
+["bibtex main"] 1747649573.7381 "main.aux" "main.bbl" "main" 1747649583.58087 0
   "./ref.bib" 1747568282 4465 39dd3dfc1035ae99c61afa9fd6b40eb2 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/bibtex/bst/babelbib/babplain.bst" 1610365730 27810 1c1501917431ec915d8b9fdcbf0d01a4 ""
-  "main.aux" 1747577348 7390 72be3a38a1d0892479a75e76d4499dec "pdflatex"
+  "main.aux" 1747649580 7344 319cf704557eddaf4878fa7f2adcb622 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1747577344.47307 "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/tfg/main.tex" "main.pdf" "main" 1747577352.19534 0
+["pdflatex"] 1747649574.3071 "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/tfg/main.tex" "main.pdf" "main" 1747649583.58222 0
   "C:/Users/lopez/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1747569263 268023 a00b267461523652c8f0c6a34d7ceded ""
   "C:/Users/lopez/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1716209786 24240354 39248efaa9d72d3d5e429154a4aa6b9a ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
@@ -55,8 +55,10 @@
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/tfm/public/lm/rm-lmr5.tfm" 1256929440 11804 aefb10c002e6492c25236524a447f969 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/tfm/public/lm/rm-lmr6.tfm" 1256929440 11836 e3b6ce3e601aec94f64a536e7f4224d5 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/tfm/public/lm/rm-lmr8.tfm" 1256929440 11864 309fd7f43e4a0ba39f6f7644d76e8edf ""
+  "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1247596667 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1247596666 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb" 1247596667 36094 798f80770b3b148ceedd006d487db67c ""
+  "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1247596667 35752 024fb6c41858982481f6968b5fc26508 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1247596667 32734 69e00a6b65cedb993666e42eedb3d48f ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1247596666 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1247596673 34694 870c211f62cb72718a00e353f14f254d ""
@@ -178,14 +180,17 @@
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/tools/calc.sty" 1700599895 10214 547fd4d29642cb7c80bf54b49d447f01 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/tfg/main.tex" 1747577341 146939 5018880def43b5f077621ddfcd01ac77 ""
+  "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/tfg/main.tex" 1747649568 147625 5d5bbb0d86bb1f0e6e19abc303b76910 ""
   "logo.jpg" 1739442895 18707 02b18e0bd6462d4c3db3625b9a624a28 ""
-  "main.aux" 1747577348 7390 72be3a38a1d0892479a75e76d4499dec "pdflatex"
-  "main.bbl" 1747575425 5530 2957650d6d4571dcdd8a1d3af72cecdd "bibtex main"
-  "main.out" 1747577348 3173 091ef1e8407e4aca16d254defc2d71e3 "pdflatex"
-  "main.tex" 1747577341 146939 5018880def43b5f077621ddfcd01ac77 ""
-  "main.toc" 1747577348 1943 43c2005d83f2b3796840a8786ba89a61 "pdflatex"
+  "main.aux" 1747649580 7344 319cf704557eddaf4878fa7f2adcb622 "pdflatex"
+  "main.bbl" 1747649574 5530 2957650d6d4571dcdd8a1d3af72cecdd "bibtex main"
+  "main.out" 1747649580 2871 2e7e56aa05767cea5c572ba01b91e234 "pdflatex"
+  "main.tex" 1747649568 147625 5d5bbb0d86bb1f0e6e19abc303b76910 ""
+  "main.toc" 1747649580 1787 9311f0a90873132134fc3f7aba9fb317 "pdflatex"
   "plot1/main.pdf" 1747478969 43813 79b80fc1360d223ad55bad75eca3d464 ""
+  "plot10/main.pdf" 1747648675 20841 adf6cecad9e2f315d26f426d65353b3e ""
+  "plot11/main.pdf" 1747648688 23216 9aae08a1148e9d1c1693fa280c38a1c0 ""
+  "plot12/main.pdf" 1747648574 26068 08a1fa999f903d7a4bff1e141411a773 ""
   "plot2/main.pdf" 1747478995 43746 58266635c534f86b497edd37ec6df9fb ""
   "plot3/main.pdf" 1747479024 43738 1b730795caef1198857d090769cff055 ""
   "plot4/main.pdf" 1747479054 43665 6165d4657bf2eda651bd3d99e5d95f16 ""
@@ -193,6 +198,7 @@
   "plot6/main.pdf" 1747479681 46680 0e9b746763462861d9cafe2d67c30b77 ""
   "plot7/main.pdf" 1747479707 46846 9899205fe5e6525dfe8e715f60589356 ""
   "plot8/main.pdf" 1747479739 46797 6a4480b4f6de656ff3474a2c7cb89025 ""
+  "plot9/main.pdf" 1747648654 19412 2c3eb5c0e7892ca49d068903028179ff ""
   "preamble.sty" 1747571913 4416 4f567c48f2d02b1a039b60728c58b09a ""
   (generated)
   "main.aux"
