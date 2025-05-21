@@ -1,4 +1,4 @@
-Un recopilatorio de mis proyectos en LaTeX realizados durante el Grado en Matemáticas. Los más elaborados son los apuntes (especialmente los de Análisis Real) y el Trabajo de Fin de Grado.
+Los proyectos más elaborados son los apuntes (especialmente los de Análisis Real) y el Trabajo de Fin de Grado.
 
 - [Trabajo de Fin de Grado](https://github.com/dldelpino/latex/blob/main/2024-2025/tfg/main.pdf)
 - [Apuntes de Análisis Real](https://github.com/dldelpino/latex/blob/main/2024-2025/ar_apuntes/main.pdf)
