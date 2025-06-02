@@ -1,0 +1,54 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        xmin = 0,
+        xmax = 1,
+        ymin = 0,
+        ymax = 1,
+        samples = 200,
+        xtick={0.5, 1},
+        ytick={0.5, 1},
+        xticklabels={0'5, 1},
+        yticklabels={0'5, 1},
+        scale=1.5,
+        legend cell align = {left},
+        legend pos = south east,
+        grid=major,
+        extra x ticks = {0},
+        extra x tick labels = {0},
+        extra x tick style = {xticklabel style = {below left}},
+        tick label style={font=\scriptsize}
+    ]
+    \addplot[domain=0:1, color=lightgray, line width=1pt, dashed]{x};
+    \addlegendentry{\scriptsize $y = x\phantom{f}$};
+    \addplot[domain=0:0.5, color=c1, line width=2pt]{6*x-12*x^2};
+    \addlegendentry{\scriptsize $y = f(x)$};
+    \addplot[forget plot, domain=0.5:1, color=c1, line width=2pt]{12*x^2-18*x+7};
+    \addplot[domain=0:0.1056624327, color=c2, line width=2pt]{6*(6*x-12*x^2)-12*(6*x-12*x^2)^2};
+    \addlegendentry{\scriptsize $y = f^2(x)$};
+    \addplot[forget plot, domain=0.1056624327:0.39433756729, color=c2, line width=2pt]{12*(6*x-12*x^2)^2-18*(6*x-12*x^2)+7};
+    \addplot[forget plot, domain=0.39433756729:0.5, color=c2, line width=2pt]{6*(6*x-12*x^2)-12*(6*x-12*x^2)^2};
+    \addplot[forget plot, domain=0.5:0.6056624327, color=c2, line width=2pt]{12*(12*x^2-18*x+7)^2-18*(12*x^2-18*x+7)+7};
+    \addplot[forget plot, domain=0.6056624327:0.89433756729, color=c2, line width=2pt]{6*(12*x^2-18*x+7)-12*(12*x^2-18*x+7)^2};
+    \addplot[forget plot, domain=0.89433756729:1, color=c2, line width=2pt]{12*(12*x^2-18*x+7)^2-18*(12*x^2-18*x+7)+7};
+    \addplot[forget plot, excl, black] coordinates {(0,0)};
+    \addplot[forget plot, excl, black] coordinates {(0.41667,0.41667)};
+    \addplot[forget plot, excl, black] coordinates {(0.58333,0.58333)};
+    \addplot[forget plot, excl, black] coordinates {(1,1)};
+    \addplot[forget plot, excl, black] coordinates {(0.10073,0.10073)};
+    \addplot[forget plot, excl, black] coordinates {(0.48261,0.48261)};
+    \addplot[forget plot, excl, black] coordinates {(0.25,0.25)};
+    \addplot[forget plot, excl, black] coordinates {(0.33333,0.33333)};
+    \addplot[forget plot, excl, black] coordinates {(0.51739,0.51739)};
+    \addplot[forget plot, excl, black] coordinates {(0.89927,0.89927)};
+    \addplot[forget plot, excl, black] coordinates {(0.75,0.75)};
+    \addplot[forget plot, excl, black] coordinates {(0.66667,0.66667)};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

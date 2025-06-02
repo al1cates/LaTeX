@@ -1,0 +1,125 @@
+\documentclass[a4paper, 11pt, oneside]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\noindent \textbf{Práctica 9} \hfill \textbf{David López del Pino}
+
+\hfill
+
+En esta práctica se implementan varios esquemas en diferencias finitas para la ecuación de ondas no lineal $u_{tt}-u_{xx}+\gamma u^3 = 0$, con condiciones de contorno de Dirichlet homogéneas y con condiciones iniciales $u(x,0) = f(x)$ y $u_t(x,0) = g(x)$.
+
+\begin{itemize}
+    \item[1.] \emph{Esquema explícito}. Se realizan las aproximaciones 
+    \[u_{tt}(x_i,t_n) \approx \frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}, \qquad \qquad u_{xx}(x_i,t_n) \approx \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2},\]
+    y se sustituyen en la ecuación, quedando
+    \[\frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}-\frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2}+\gamma (u_i^n)^3 = 0.\]
+    Multiplicando por $\Delta t^2$ y despejando,
+    \[u_i^{n+1} = \frac{\Delta t^2}{\Delta x^2}u_{i-1}^n+ \bigl(2-2\frac{\Delta t^2}{\Delta x^2}\bigr)u_i^n + \frac{\Delta t^2}{\Delta x^2}u_{i+1}^n -u_i^{n-1} - \gamma \Delta t^2(u_i^n)^3.\]
+    Si $N$ es el número de puntos de la discretización en espacio, hay que tener en cuenta en las ecuaciones $i = 1$ e $i = N-2$ que $u_0^{k} = 0$ y $u_{N-1}^k = 0$ para todo $k \in \mathbb{N} \cup \{0\}$, pues en los extremos hay condiciones de Dirichlet homogéneas. Esto también se aplicará a los demás esquemas de la práctica.
+
+    Las aproximaciones $u_i^0$ vienen dadas por los datos iniciales, pero también es necesario conocer $u_i^1$ para implementar los esquemas. Para aproximar $u(x_i, \Delta t)$, se realiza el desarrollo de Taylor siguiente:
+    \[u(x_i,\Delta t) = u(x_i,0)+\Delta t u_t(x_i, 0) + \frac{\Delta t^2}{2}u_{tt}(x_i,0)+O(\Delta t^3).\]
+    Como $u(x_i,0) = f(x_i)$, $u_t(x_i,0) = g(x_i)$ y $u_{tt}(x_i,0) = u_{xx}(x_i,0)-\gamma f(x_i)^3$, se obtiene
+    \[u(x_i,\Delta t) = f(x_i)+\Delta t g(x_i) + \frac{\Delta t^2}{2}u_{xx}(x_i,0)-\frac{\gamma\Delta t^2}{2}f(x_i)^3+O(\Delta t^3).\]
+    Y como $u_{xx}(x_i,0) = f''(x_i) \approx \frac{f(x_{i+1})-2f(x_i)+f(x_{i-1})}{\Delta x^2}$,
+    \[u(x_i,\Delta t) \approx f(x_i)+\Delta t g(x_i) + \frac{\Delta t^2}{2\Delta x^2}(f(x_{i+1})-2f(x_i)+f(x_{i-1}))-\frac{\gamma\Delta t^2}{2}f(x_i)^3.\]
+    Por tanto,
+    \begin{align*}
+        u_i^1 &= f(x_i)+\Delta t g(x_i) + \frac{\Delta t^2}{2\Delta x^2}(f(x_{i+1})-2f(x_i)+f(x_{i-1}))-\frac{\gamma\Delta t^2}{2}f(x_i)^3 \\
+        &=\bigl(1-\frac{\Delta t^2}{\Delta x^2}\bigr)f(x_i) + \Delta t g(x_i) + \frac{\Delta t^2 }{2\Delta x^2}(f(x_{i+1})+f(x_{i-1}))-\frac{\gamma\Delta t^2}{2}f(x_i)^3,
+    \end{align*}
+    y con esto ya está bien definido el esquema. Este esquema se implementa en la función \texttt{ondas\_no\_lineal\_expl}.
+    \item[2.] \emph{Esquema semi-implícito}. Se realizan las aproximaciones 
+    \[u_{tt}(x_i,t_n) \approx \frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}, \qquad \qquad u_{xx}(x_i,t_n) \approx \frac{u_{i+1}^{n+1} - 2u_i^{n+1} + u_{i-1}^{n+1}}{\Delta x^2},\]
+    y se sustituyen en la ecuación, quedando
+    \[\frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}-\frac{u_{i+1}^{n+1} - 2u_i^{n+1} + u_{i-1}^{n+1}}{\Delta x^2}+\gamma (u_i^n)^3 = 0.\]
+    Multiplicando por $\Delta t^2$ y reagrupando términos,
+    \[-\frac{\Delta t^2}{\Delta x^2}u_{i-1}^{n+1}+\bigl(1+2\frac{\Delta t^2}{\Delta x^2}\bigr)u_i^{n+1} - \frac{\Delta t^2}{\Delta x^2}u_{i+1}^{n+1} = 2u_i^n - u_i^{n-1}-\gamma \Delta t^2(u_i^n)^3.\]
+    En cada iteración de tiempo hay que resolver el sistema lineal
+    \[\left(\begin{array}{cccc}
+        1+2s & -s & \cdots &  0 \\
+        -s & 1+2s & \cdots &  0 \\
+        \vdots & \vdots & \ddots &  \vdots \\
+        0 & 0 & \cdots & 1+2s \\
+    \end{array}\right) \left(\begin{array}{c}
+        u_{1}^{n+1} \\
+        u_{2}^{n+1} \\
+        \vdots \\
+        u_{N-2}^{n+1}
+    \end{array}\right) = \left(\begin{array}{c}
+        2u_1^n - u_1^{n-1} - \gamma \Delta t^2(u_1^n)^3 \\
+        2u_2^n - u_2^{n-1} - \gamma \Delta t^2(u_2^n)^3 \\
+        \vdots \\
+        2u_{N-2}^n - u_{N-2}^{n-1} - \gamma \Delta t^2(u_{N-2}^n)^3
+    \end{array}\right),\]
+    donde $s = \frac{\Delta t^2}{\Delta x^2}$. Este esquema se implementa en la función \texttt{ondas\_no\_lineal\_semi}.
+    \item[3.] \emph{Otro esquema semi-implícito}. Se realizan las aproximaciones 
+    \begin{align*}
+        u_{tt}(x_i,t_n) &\approx \frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}, \\
+        u_{xx}(x_i,t_n) &\approx \frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2}, \\
+        u(x_i,t_n)^3 &\approx \frac{1}{4}((u_i^{n+1})^3+(u_i^{n+1})^2u_i^{n-1}+u_i^{n+1}(u_i^{n-1})^2+(u_i^{n-2})^3),
+    \end{align*}
+    y se sustituyen en la ecuación, quedando
+    \[
+    \begin{aligned}[t]
+        &\frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}-\frac{u_{i+1}^n - 2u_i^n + u_{i-1}^n}{\Delta x^2}\\
+        &+\frac{\gamma}{4}((u_i^{n+1})^3+(u_i^{n+1})^2u_i^{n-1}+u_i^{n+1}(u_i^{n-1})^2+(u_i^{n-2})^3) = 0.
+    \end{aligned}
+    \]
+    Multiplicando por $\Delta t^2$,
+    \[
+    \begin{aligned}[t]
+        &u_i^{n+1}+\frac{\gamma \Delta t^2}{4}((u_i^{n+1})^3+(u_i^{n+1})^2u_i^{n-1}+u_i^{n+1}(u_i^{n-1})^2+(u_i^{n-2})^3)\\
+        &-2u_i^n + u_i^{n-1}-\frac{\Delta t^2}{\Delta x^2}(u_{i+1}^n - 2u_i^n + u_{i-1}^n) = 0.
+    \end{aligned}
+    \]
+    Para cada $i = 1,2,\mathellipsis,N-2$, $u_i^{n+1}$ debe ser solución de la ecuación $F(x) = 0$, siendo
+    \[F(x) = x+\frac{\gamma \Delta t^2}{4}(x^3+u_i^{n-1}x^2+(u_i^{n-1})^2x+(u_i^{n-2})^3)-2u_i^n + u_i^{n-1}-\frac{\Delta t^2}{\Delta x^2}(u_{i+1}^n - 2u_i^n + u_{i-1}^n).\]
+    Derivando,
+    \[F'(x) = 1+\frac{\gamma \Delta t^2}{4}(3x^2+2u_i^{n-1}x+(u_i^{n-1})^2).\]
+    Para hallar una solución de $F(x) = 0$, se construye la sucesión $\{x_k\}_{k=0}^\infty$ de la siguiente manera:
+    \begin{align*}
+        x_0 &= 0, \\
+        x_{k+1} &= x_k - \frac{F(x_k)}{F'(x_k)}, \qquad k \in \mathbb{N} \cup \{0\}.
+    \end{align*}
+    Cuando un término de la sucesión verifique $|F(x_k)| < \varepsilon$ para algún $\varepsilon > 0$ fijado previamente, se escoge $u_i^{n+1} = x_k$ y se tendrá que $F(u_i^{n+1}) \approx 0$. También hay que establecer previamente un número máximo de iteraciones para que asegurar que el bucle finaliza. Este esquema se implementa en la función \texttt{ondas\_no\_lineal\_semi\_newton}. Se ha escogido, por ejemplo, $\varepsilon = 10^{-6}$ y un número máximo de iteraciones de 200.
+    \item[4.] \emph{Esquema implícito}. Se realizan las aproximaciones 
+    \[u_{tt}(x_i,t_n) \approx \frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}, \qquad \qquad u_{xx}(x_i,t_n) \approx \frac{u_{i+1}^{n+1} - 2u_i^{n+1} + u_{i-1}^{n+1}}{\Delta x^2}.\]
+    El término no lineal también se discretiza implícitamente. Sustituyendo en la ecuación, quedaría
+    \[
+    \begin{aligned}[t]
+        \frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}-\frac{u_{i+1}^{n+1} - 2u_i^{n+1} + u_{i-1}^{n+1}}{\Delta x^2}+\gamma (u_i^{n+1})^3 = 0,
+    \end{aligned}
+    \]
+    o lo que es lo mismo,
+    \[-\frac{1}{\Delta x^2}u_{i-1}^{n+1} + \bigl(\frac{2}{\Delta x^2}+\frac{1}{\Delta t^2}\bigr)u_i^{n+1} + \gamma(u_i^{n+1})^3-\frac{1}{\Delta x^2}u_{i+1}^{n+1} - \frac{2}{\Delta t^2}u_i^n + \frac{1}{\Delta t^2}u_i^{n-1} = 0.\]
+    Hay que resolver la ecuación vectorial $F(U) = 0$, donde $F \colon \mathbb{R}^{N-2} \to \mathbb{R}^{N-2}$ es la función dada por
+    \[F(X) = \left(\begin{array}{c}
+        \bigl(\frac{2}{\Delta x^2}+\frac{1}{\Delta t^2}\bigr)x_1 + \gamma x_1^3-\frac{1}{\Delta x^2}x_2 - \frac{2}{\Delta t^2}u_1^n + \frac{1}{\Delta t^2}u_1^{n-1} \\[5pt]
+        -\frac{1}{\Delta x^2}x_1+\bigl(\frac{2}{\Delta x^2}+\frac{1}{\Delta t^2}\bigr)x_2 + \gamma x_2^3-\frac{1}{\Delta x^2}x_3 - \frac{2}{\Delta t^2}u_2^n + \frac{1}{\Delta t^2}u_2^{n-1} \\[5pt]
+        \vdots \\[5pt]
+        -\frac{1}{\Delta x^2}x_{N-4}+\bigl(\frac{2}{\Delta x^2}+\frac{1}{\Delta t^2}\bigr)x_{N-3} + \gamma x_{N-3}^3-\frac{1}{\Delta x^2}x_{N-2} - \frac{2}{\Delta t^2}u_{N-3}^n + \frac{1}{\Delta t^2}u_{N-3}^{n-1}  \\[5pt]
+        -\frac{1}{\Delta x^2}x_{N-3}+\bigl(\frac{2}{\Delta x^2}+\frac{1}{\Delta t^2}\bigr)x_{N-2} + \gamma x_{N-2}^3 - \frac{2}{\Delta t^2}u_{N-2}^n + \frac{1}{\Delta t^2}u_{N-2}^{n-1}
+    \end{array}\right),\]
+    donde se está denotando $X = (x_1,x_2,\mathellipsis,x_{N-2})^t$. Para resolver esta ecuación vectorial, se utilizará de nuevo el método de Newton. La matriz jacobiana de $F$ es
+    \[J_F(X) = \left(\begin{array}{cccc}
+        \frac{2}{\Delta x^2}+\frac{1}{\Delta t^2} + 3\gamma x_1^2 & -\frac{1}{\Delta x^2} & \cdots & 0 \\[5pt]
+        -\frac{1}{\Delta x^2} & \frac{2}{\Delta x^2}+\frac{1}{\Delta t^2} + 3\gamma x_2^2 & \cdots & 0 \\[5pt]
+        \vdots & \vdots & \ddots & \vdots \\[5pt]
+        0 & 0 & \cdots & \frac{2}{\Delta x^2}+\frac{1}{\Delta t^2} + 3\gamma x_{N-2}^2
+    \end{array}\right),\]
+    es decir, el elemento $i$-ésimo de la diagonal principal es $\frac{2}{\Delta x^2}+\frac{1}{\Delta t^2} + 3\gamma x_{i}^2$, y los elementos por encima y por debajo de la diagonal principal son $-\frac{1}{\Delta x^2}$. Se construye la sucesión $\{X_k\}_{k=0}^\infty$ de la siguiente manera:
+    \begin{align*}
+        X_0 &= 0, \\
+        X_{k+1} &= X_k - J_F^{-1}(X_k)F(X_k), \qquad k \in \mathbb{N} \cup \{0\}.
+    \end{align*}
+    Para evitar el cálculo de matrices inversas, tenemos en cuenta que
+    \[X_{k+1} = X_k - J_F^{-1}(X_k)F(X_k) \iff J_F(X_k)(X_{k+1}-X_k) = -F(X_k),\]
+    así que podemos resolver el sistema lineal $J_F(X_k) Y = -F(X_k)$ y definir $X_{k+1} = Y+X_k$.
+
+    Al igual que en el esquema anterior, cuando se obtenga un término de la sucesión que verifique $\|F(X_k)\|_{\infty} < \varepsilon$ para algún $\varepsilon > 0$ fijado previamente, se escoge $U^{n+1} = X_k$ y se tendrá que $F(U^{n+1}) \approx 0$. También hay que establecer previamente un número máximo de iteraciones para que asegurar que el bucle finaliza. Este esquema se implementa en la función \texttt{ondas\_no\_lineal\_impl}. Se ha escogido, como antes, $\varepsilon = 10^{-6}$ y un número máximo de iteraciones de 200.
+\end{itemize}
+
+\end{document}

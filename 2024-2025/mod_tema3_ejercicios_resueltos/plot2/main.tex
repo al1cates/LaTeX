@@ -1,0 +1,53 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        xmin = 0,
+        xmax = 1,
+        ymin = 0,
+        ymax = 1,
+        samples = 200,
+        xtick={1/3, 1/2, 2/3, 1},
+        ytick={1/3, 1/2, 2/3, 1},
+        xticklabels={$\frac{1}{3}$, $\frac{1}{2}$, $\frac{2}{3}$, 1},
+        yticklabels={$\frac{1}{3}$, $\frac{1}{2}$, $\frac{2}{3}$, 1},
+        scale=1.5,
+        legend cell align = {left},
+        legend pos = south east,
+        grid=major,
+        extra x ticks = {0},
+        extra x tick labels = {0},
+        extra x tick style = {xticklabel style = {below left}},
+        tick label style={font=\scriptsize}
+    ]
+    \addplot[domain=0:1, color=lightgray, line width=1pt, dashed]{x};
+    \addlegendentry{\scriptsize $y = x\phantom{f}$};
+    \addplot[domain=0:0.5, color=c1, line width=2pt]{3/2*x};
+    \addlegendentry{\scriptsize $y = f(x)$};
+    \addplot[forget plot, domain=0.5:1, color=c1, line width=2pt]{3/2*(1-x)};
+    \addplot[domain=0:0.33333, color=c2, line width=2pt]{3/2*(3/2*x)};
+    \addlegendentry{\scriptsize $y = f^2(x)$};
+    \addplot[forget plot, domain=0.33333:0.5, color=c2, line width=2pt]{3/2*(1-3/2*x)};
+    \addplot[forget plot, domain=0.5:0.66666, color=c2, line width=2pt]{3/2*(1-3/2*(1-x))};
+    \addplot[forget plot, domain=0.66666:1, color=c2, line width=2pt]{3/2*(3/2*(1-x))};
+    \addplot[domain=0:0.22222, color=c3, line width=2pt]{3/2*9/4*x};
+    \addlegendentry{\scriptsize $y = f^3(x)$};
+    \addplot[forget plot, domain=0.22222:0.33333, color=c3, line width=2pt]{3/2*(1-9/4*x)};
+    \addplot[forget plot, domain=0.33333:0.44444, color=c3, line width=2pt]{3/2*(1-3/2*(1-3/2*x))};
+    \addplot[forget plot, domain=0.44444:0.5, color=c3, line width=2pt]{3/2*3/2*(1-3/2*x)};
+    \addplot[forget plot, domain=0.5:0.55556, color=c3, line width=2pt]{3/2*3/2*(1-3/2*(1-x))};
+    \addplot[forget plot, domain=0.55556:0.66667, color=c3, line width=2pt]{3/2*(1-3/2*(1-3/2*(1-x)))};
+    \addplot[forget plot, domain=0.66667:0.77778, color=c3, line width=2pt]{3/2*(1-9/4*(1-x))};
+    \addplot[forget plot, domain=0.77778:1, color=c3, line width=2pt]{3/2*9/4*(1-x)};
+    \addplot[forget plot, excl, black] coordinates {(0,0)};
+    \addplot[forget plot, excl, black] coordinates {(0.46154,0.46154)};
+    \addplot[forget plot, excl, black] coordinates {(0.6,0.6)};
+    \addplot[forget plot, excl, black] coordinates {(0.69231,0.69231)};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

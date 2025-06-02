@@ -1,0 +1,47 @@
+\documentclass[a4paper, 11pt, oneside]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\noindent \textbf{Práctica 8} \hfill \textbf{David López del Pino}
+
+\hfill
+
+En esta práctica se implementa un esquema en diferencias finitas explícito para la ecuación $u_{tt}+2du_t-u_{xx}+ku = 0$, con condiciones iniciales $u(x,0) = f(x)$ y $u_t(x,0) = g(x)$, y condiciones de contorno de Dirichlet homogéneas en los extremos. Se realizan las aproximaciones
+\begin{align*}
+    u_{tt}(x_i,t_n) &\approx \frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}, \\[5pt]
+    u_{t}(x_i,t_n) &\approx \frac{u_i^{n+1}-u_i^{n-1}}{2\Delta t}, \\[5pt]
+    u_{xx}(x_i,t_n) &\approx \frac{u_{i+1}^n -2u_i^n + u_{i-1}^n}{\Delta x^2}, \\[5pt]
+    u(x_i,t_n) &\approx \frac{u_{i}^{n+1}+u_{i}^{n-1}}{2}.
+\end{align*}
+Sustituyendo en la ecuación,
+\[\frac{u_i^{n+1}-2u_i^n + u_i^{n-1}}{\Delta t^2}+d\frac{u_i^{n+1}-u_i^{n-1}}{\Delta t}-\frac{u_{i+1}^n -2u_i^n + u_{i-1}^n}{\Delta x^2}+k\frac{u_{i}^{n+1}+u_{i}^{n-1}}{2} = 0.\]
+Multiplicando por $\Delta x^2$ y reagrupando términos,
+\[\bigl(\frac{\Delta x^2}{\Delta t^2}+\frac{d\Delta x^2}{\Delta t}+\frac{k\Delta x^2}{2}\bigr)u_i^{n+1} = \bigl(\frac{2\Delta x^2}{\Delta t^2}-2\bigr)u_i^n+\bigl(\frac{d\Delta x^2}{\Delta t}-\frac{\Delta x^2}{\Delta t^2} - \frac{k\Delta x^2}{2}\bigr)u_i^{n-1}+u_{i+1}^n+u_{i-1}^n = 0.\]
+Sean
+\begin{align*}
+    \alpha &= \frac{2\Delta x^2}{\Delta t^2} - 2, \qquad \beta = \frac{d\Delta x^2}{\Delta t} - \frac{\Delta x^2}{\Delta t^2} - \frac{k\Delta x^2}{2}, \qquad \gamma = \frac{\Delta x^2}{\Delta t^2} + \frac{d\Delta x^2}{\Delta t} + \frac{k\Delta x^2}{2},
+\end{align*}
+y sean $w = u^{n-1}$, $u = u^n$ y $v = u^{n+1}$.
+Entonces
+\[\gamma v_i = \alpha u_i + \beta w_i + u_{i+1}+u_{i-1}.\]
+Dividiendo por $\gamma$ se obtiene la expresión del esquema:
+\[v_i = \frac{\alpha}{\gamma} u_i + \frac{\beta}{\gamma}w_i + \frac{1}{\gamma}(u_{i+1}+u_{i-1}).\]
+Las aproximaciones $u_i^0$ vienen dadas por los datos iniciales, pero también es necesario conocer $u_i^1 \approx u(x_i,t_1) = u(x_i,\Delta t)$ para implementar el esquema. Para aproximar $u(x_i, \Delta t)$, se realiza el desarrollo de Taylor siguiente:
+\[u(x_i,\Delta t) = u(x_i,0)+\Delta t u_t(x_i, 0) + \frac{\Delta t^2}{2}u_{tt}(x_i,0)+O(\Delta t^3).\]
+Como $u(x_i,0) = f(x_i)$, $u_t(x_i,0) = g(x_i)$ y $u_{tt}(x_i,0) = u_{xx}(x_i,0)-2du_t(x_i,0)-ku(x_i,0)$, se obtiene
+\begin{align*}
+    u(x_i,\Delta t) &= f(x_i)+\Delta t g(x_i) + \frac{\Delta t^2}{2}(u_{xx}(x_i,0)-2du_t(x_i,0)-ku(x_i,0))+O(\Delta t^3) \\
+    &= f(x_i)+\Delta t g(x_i) + \frac{\Delta t^2}{2}(f''(x_i)-2dg(x_i)-kf(x_i))+O(\Delta t^3).
+\end{align*}
+Aproximando $f''(x_i) \approx \frac{f(x_{i+1})-2f(x_i)+f(x_{i-1})}{\Delta x^2}$ y sustituyendo arriba, se obtiene
+\begin{align*}
+    u(x_i,\Delta t) &\approx f(x_i)+\Delta t g(x_i) + \frac{\Delta t^2}{2}\bigl(\frac{f(x_{i+1})-2f(x_i)+f(x_{i-1})}{\Delta x^2}-2dg(x_i)-kf(x_i)\bigr) \\
+    &= \bigl(1-\frac{\Delta t^2}{\Delta x^2}- \frac{k\Delta t^2}{2}\bigr)f(x_i) + \frac{\Delta t^2}{2\Delta x^2}(f(x_{i+1})+f(x_{i-1})) + \bigl(\Delta t - d\Delta t^2\bigr)g(x_i).
+\end{align*}
+Si llamamos
+\[a = 1-\frac{\Delta t^2}{\Delta x^2} - \frac{k\Delta t^2}{2}, \qquad b = \frac{\Delta t^2}{2\Delta x^2}, \qquad c = \Delta t - d\Delta t^2,\]
+concluimos que
+\[u_i^1 = af(x_i)+b(f(x_{i+1})+f(x_{i-1}))+cg(x_i).\]
+\end{document}

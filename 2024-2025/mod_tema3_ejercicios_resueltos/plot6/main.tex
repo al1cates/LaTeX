@@ -1,0 +1,38 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\pgfplotsset{ every non boxed x axis/.append style={x axis line style=-}, every non boxed y axis/.append style={y axis line style=-}} % elimina las flechas en los ejes y mantiene centradas las rayitas de los ejes (no darle muchas vueltas)
+
+\begin{tikzpicture}
+    \begin{axis}[
+        xmin = 0,
+        xmax = 4,
+        ymin = 0,
+        ymax = 4,
+        samples = 200,
+        xtick={0, 4},
+        ytick={0, 4},
+        xticklabels={$0$, $4$},
+        xticklabel style = {below},
+        yticklabels={},
+        scale = 1,
+        grid = major,
+        legend cell align = {left},
+        legend pos = north east,
+        extra x ticks = {2},
+        extra x tick labels = {$l_2$},
+        extra x tick style = {xticklabel style = {below}},
+        tick label style={font=\scriptsize}
+    ]
+    \addplot[domain=0:4, color=lightgray, line width=1pt, dashed]{4-x};
+    \addlegendentry{\scriptsize $y = 2l_2-x$};
+    \addplot[domain=0:4, color=c2, line width=2pt]{x*e^(2-x)};
+    \addlegendentry{\scriptsize $y = f(x)$};
+
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

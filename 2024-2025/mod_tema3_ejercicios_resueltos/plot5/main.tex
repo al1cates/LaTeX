@@ -1,0 +1,38 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\pgfplotsset{ every non boxed x axis/.append style={x axis line style=-}, every non boxed y axis/.append style={y axis line style=-}} % elimina las flechas en los ejes y mantiene centradas las rayitas de los ejes (no darle muchas vueltas)
+
+\begin{tikzpicture}
+    \begin{axis}[
+        xmin = 0,
+        xmax = 10,
+        ymin = 0,
+        ymax = 10,
+        samples = 200,
+        xtick={0, 10},
+        ytick={0, 10},
+        xticklabels={},
+        xticklabel style = {below},
+        yticklabels={$0$, $10$},
+        scale = 1.5,
+        grid = major,
+        legend cell align = {left},
+        legend pos = south east,
+        extra x ticks = {0.1, 1, 4.98174},
+        extra x tick labels = {$0'1$, $1$, $4'98174$},
+        extra x tick style = {xticklabel style = {below}},
+        tick label style={font=\scriptsize}
+    ]
+    \addplot[domain=0:10, color=lightgray, line width=1pt, dashed]{x};
+    \addlegendentry{\scriptsize $y = x\phantom{f}$};
+    \addplot[domain=0:1, color=c2, line width=2pt]{10*x^2};
+    \addlegendentry{\scriptsize $y = g(x)$};
+    \addplot[domain=1:10, color=c2, line width=2pt]{10*e^(-0.175*(x-1))};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}
