@@ -24,6 +24,7 @@
 \usepackage{makeidx}
 \usepackage[final, nopatch = footnote]{microtype}
 \usepackage{subcaption}
+\usepackage[svgnames, x11names, rgb]{xcolor}
 
 %---------------------------------------------------------------------------------------------------------%
 
@@ -107,9 +108,22 @@
 }
 \makeatother
 
-\newcommand{\asts}[1]{\textup{\stars{#1}}}
+\newcommand{\asts}[1]{\textup{\stars{#1}}} % chanchullo para poder usar \stars{} en expresiones matemáticas
 
-% chanchullo para poder usar \stars{} en expresiones matemáticas
+%---------------------------------------------------------------------------------------------------------%
+
+% COLORES DE HYPERREF
+
+\definecolor{c1}{HTML}{3878C1}
+\definecolor{c2}{HTML}{3878C1}
+\definecolor{c3}{HTML}{3878C1}
+
+\hypersetup{
+    colorlinks = true,
+    linkcolor = {blue},
+    citecolor = {green},
+    urlcolor = {red},
+}
 
 %---------------------------------------------------------------------------------------------------------%
 
