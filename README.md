@@ -1,6 +1,6 @@
-# LaTeX Maths Projects
+# LaTeX Math Projects
 
-This is a collection of every LaTeX project I have made during the maths degree at university. The most elaborated projects are the following:
+This is a collection of every LaTeX project I have made during the mathematics degree at university. The most elaborated projects are the following:
 
 - [Trabajo de Fin de Grado](https://github.com/dldelpino/latex/blob/main/2024-2025/tfg/main.pdf)
 - [Apuntes de Análisis Real](https://github.com/dldelpino/latex/blob/main/2024-2025/ar_apuntes/main.pdf)
@@ -19,4 +19,4 @@ In the future I plan to:
 - Redo some of the older projects.
 - Create notes of other courses of the degree.
 - Translate some of the projects to English.
-- Improve file organisation.
+- Improve file organization.
