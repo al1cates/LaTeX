@@ -19,4 +19,4 @@ In the future I plan to:
 - Redo some of the older projects.
 - Create notes of other courses of the degree.
 - Translate some of the projects to English.
-- Improve file organization.
+- Improve file organisation.
