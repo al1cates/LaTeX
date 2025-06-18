@@ -1,4 +1,4 @@
-# LaTeX Math Projects
+# LaTeX Maths Projects
 
 This is a collection of every LaTeX project I have made during the maths degree at university. The most elaborated projects are the following:
 
