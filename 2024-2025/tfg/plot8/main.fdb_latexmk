@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1747479709.86424 "c:/Users/lopez/Documents/Proyectos/LaTeX/2024-2025/tfg/plot8/main.tex" "main.pdf" "main" 1747479739.72505 0
-  "C:/Users/lopez/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1746721591 266372 255dbe212289c73b67f6a69c94f52300 ""
+["pdflatex"] 1748969763.91558 "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/tfg/plot8/main.tex" "main.pdf" "main" 1748969799.2865 0
+  "C:/Users/lopez/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1748700671 465129 d9e9914855bee88e13ca75eac3fa0a9e ""
   "C:/Users/lopez/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1716209786 24240354 39248efaa9d72d3d5e429154a4aa6b9a ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm" 1234365220 996 a18840b13b499c08ac2de96a99eda4bc ""
@@ -174,9 +174,9 @@
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/svgnam.def" 1700127522 4705 ec4d2f4b7125d5a5145cc9aabae1d54b ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/x11nam.def" 1700127522 9125 e0e22f8bd8f488926acdd4e96dcc4d1e ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "c:/Users/lopez/Documents/Proyectos/LaTeX/2024-2025/tfg/plot8/main.tex" 1747479708 1492 d54042e38973da048e59bb2e370f11c8 ""
-  "main.aux" 1747479739 172 89e514349255d9fca8954e0077620864 "pdflatex"
-  "main.tex" 1747479708 1492 d54042e38973da048e59bb2e370f11c8 ""
+  "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/tfg/plot8/main.tex" 1748969762 1492 c7222a4bac8e2fc975a3c0acd988b2f8 ""
+  "main.aux" 1748969798 172 89e514349255d9fca8954e0077620864 "pdflatex"
+  "main.tex" 1748969762 1492 c7222a4bac8e2fc975a3c0acd988b2f8 ""
   "preamble.sty" 1747479529 2068 a33a6ed7cc0ff424841c906d13bcb2c8 ""
   (generated)
   "main.aux"

@@ -1,0 +1,68 @@
+%---------------------------------------------------------------------------------------------------------%
+
+% PAQUETES
+
+\usepackage{aligned-overset}
+\usepackage[spanish]{babel} % es-lcroman para romanos en minúscula
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage[labelfont = it, labelsep = period]{caption} % cambia Figura 1: por Figura 1. (en cursiva)
+\usepackage{cellspace, tabularx, booktabs} % Líneas del título
+\usepackage{centernot} % para que /not en símbolos más anchos esté centrado
+\usepackage{emptypage} % para que las páginas vacías de antes de un tema no tengan encabezado ni pie
+\usepackage{enumitem}
+\usepackage{float} % para que el texto después de una gráfica no se ponga antes
+\usepackage[a4paper, right = 25mm, left = 25mm, top = 25mm, bottom = 25mm]{geometry}
+\usepackage{graphicx}
+\usepackage[naturalnames]{hyperref} % sin naturalnames el hiperenlace de los apéndices no funciona
+\usepackage{mathtools} % underbracket
+\usepackage[final, nopatch = footnote]{microtype}
+\usepackage{subcaption}
+\usepackage[svgnames, table, x11names]{xcolor}
+
+\usepackage{newpx}
+
+\usepackage{accents} % si lo cargo al principio da error
+
+%---------------------------------------------------------------------------------------------------------%
+
+% DEFINICIONES, TEOREMAS Y DEMÁS
+
+\newtheorem{exercise}{Ejercicio}
+\theoremstyle{remark}
+\newtheorem*{solution}{Solución}
+
+%---------------------------------------------------------------------------------------------------------%
+
+% COMANDOS PERSONALIZADOS
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\C}{\mathbb C}
+\newcommand{\real}{\textup{Re}}
+
+%---------------------------------------------------------------------------------------------------------%
+
+% OTROS AJUSTES
+
+\setlist[enumerate]{label={\normalfont({\alph*})}}
+
+\unaccentedoperators % \newpx no funciona bien con los operadores con tilde 
+
+\makeatletter % título opcional de los teoremas en negrita
+\def\th@plain{
+  \thm@notefont{}
+  \itshape
+}
+\def\th@definition{
+  \thm@notefont{}
+  \normalfont
+}
+\makeatother
+
+%---------------------------------------------------------------------------------------------------------%
+

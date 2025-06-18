@@ -1,4 +1,6 @@
-Los proyectos más elaborados son los apuntes (especialmente los de Análisis Real) y el Trabajo de Fin de Grado.
+# LaTeX Math Projects
+
+This is a collection of every LaTeX project I have made during the maths degree at university. The most elaborated projects are the following:
 
 - [Trabajo de Fin de Grado](https://github.com/dldelpino/latex/blob/main/2024-2025/tfg/main.pdf)
 - [Apuntes de Análisis Real](https://github.com/dldelpino/latex/blob/main/2024-2025/ar_apuntes/main.pdf)
@@ -13,7 +15,8 @@ Los proyectos más elaborados son los apuntes (especialmente los de Análisis Re
 - [Apuntes de Física II](https://github.com/dldelpino/latex/blob/main/2022-2023/f2_apuntes/main.pdf)
 - [Apuntes de Topología General](https://github.com/dldelpino/latex/blob/main/2022-2023/tg_apuntes/main.pdf)
 
-En el futuro se planea:
-- Dar un lavado de cara a los apuntes de todas las asignaturas para que se parezcan a los de Análisis Real.
-- Mejorar la organización de los archivos. Las gráficas de los apuntes de IE deberían moverse a la carpeta *ie_apuntes*. Los exámenes y ejercicios de una misma asignatura deberían encontrarse en una sola carpeta.
-- Crear apuntes de otras asignaturas.
+In the future I plan to:
+- Redo some of the older projects.
+- Create notes of other courses of the degree.
+- Translate some of the projects to English.
+- Improve file organization.

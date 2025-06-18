@@ -1,0 +1,1316 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\noindent \textit{Modelización} \hfill \textit{Curso 2024-2025}
+
+\vspace{-5mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+    \vspace{3mm}
+
+	{\LARGE \textbf{Exámenes}} % Title
+
+    \vspace{2mm}
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+\begin{exercise}[Junio de 2021]
+    La densidad $\rho$, medida en $\textup{gr}/\textup{m}^3$, de una población de microorganismos que vive en el agua contenida en una tubería cilíndrica de longitud $L$ $\textup{m}$, sigue el siguiente modelo:
+    \[(P) \ \left\{\begin{alignedat}{4}
+        \frac{\partial \rho}{\partial t}-\mu\frac{\partial^2\rho}{\partial x^2} &= f(\rho), & \qquad & x \in (0,L), \ & t \in (0,\infty), \\
+        \rho(x,0) &= \rho_0(x), & \qquad & x \in [0,L], & \\
+        \rho(0,t) &= 0, & \qquad & \ & t \in (0,\infty), \\
+        \rho(L,t) &= 0, & \qquad & \ & t \in (0,\infty),
+    \end{alignedat}\right.\]
+    siendo $\mu>0$, $\rho_0\colon [0,L]\to\R$ una función conocida y $f(\rho) = K(1-\frac{\rho}{R})\rho$, donde $K$ y $R$ son constantes positivas. Es claro que, cuando $\rho_0(x) = 0$ para todo $x \in [0,L]$, la solución es $\rho(x,t) = 0$ para todo $x \in [0,L]$ y para todo $t \geq 0$; se trata de la solución de equilibrio que corresponde a la situación en la que no hay microorganismos.
+    \begin{enumerate}
+        \item Interpretar la ecuación, las constantes, la condición inicial y las condiciones de contorno. Si el tiempo se mide en segundos, ¿qué unidades han de tener las constantes?
+        \item Supóngase que la condición inicial $\rho_0$ toma un valor muy próximo a $0$ para cada $x$. Si se linealiza la ecuación (es decir, se aproxima el término no lineal mediante su polinomio de Taylor de grado $1$ centrado en $0$), probar que, mientras la solución $\rho(x,t)$ correspondiente a dicha condición inicial siga siendo próxima a $0$, satisface aproximadamente el siguiente problema:
+        \[(PL_1) \ \left\{\begin{alignedat}{4}
+        \frac{\partial \rho}{\partial t}-\mu\frac{\partial^2\rho}{\partial x^2} &= K\rho, & \qquad & x \in (0,L), \ & t \in (0,\infty), \\
+        \rho(x,0) &= \rho_0(x), & \qquad & x \in [0,L], & \\
+        \rho(0,t) &= 0, & \qquad & \ & t \in (0,\infty), \\
+        \rho(L,t) &= 0, & \qquad & \ & t \in (0,\infty).
+        \end{alignedat}\right.\]
+        \item Probar que si $\rho(x,t)$ es solución de $(PL_1)$, entonces $\widetilde{\rho}(\widetilde{x},t) = e^{-Kt}\rho(L\widetilde{x},t)$ es solución del problema
+        \[(PL_2) \ \left\{\begin{alignedat}{4}
+        \frac{\partial \widetilde{\rho}}{\partial t}-\nu\frac{\partial^2\widetilde{\rho}}{\partial \widetilde{x}^2} &= 0, & \qquad & \widetilde{x} \in (0,1), \ & t \in (0,\infty), \\
+        \widetilde{\rho}(\widetilde{x},0) &= \widetilde{\rho}_0(\widetilde{x}), & \qquad & \widetilde{x} \in [0,1], & \\
+        \widetilde{\rho}(0,t) &= 0, & \qquad & \ & t \in (0,\infty), \\
+        \widetilde{\rho}(1,t) &= 0, & \qquad & \ & t \in (0,\infty),
+        \end{alignedat}\right.\]
+        siendo $\nu = \frac{\mu}{L^2}$ y $\widetilde{\rho}_0(\widetilde{x}) = \rho_0(L\widetilde{x})$. Recíprocamente, probar que si $\widetilde{\rho}$ es solución de $(PL_2)$, entonces $\rho(x,t) = e^{Kt}\widetilde{\rho}(\frac{x}{L},t)$ es solución de $(PL_1)$.
+        \item Con ayuda del apartado anterior, escribir formalmente (esto es, sin calcular explícitamente los coeficientes de la serie) la solución del problema $(PL_1)$ en serie de senos. ¿A qué tiende la solución cuando $t\to\infty$? ¿Qué se puede deducir de la estabilidad del equilibrio cero para el problema $(P)$?
+        \item Con ayuda de alguno de los programas disponibles en el campus virtual, resolver $(P)$ con $\mu = 0'1$, $K = 0'1$, $R = 1$, y la condición inicial
+        \[\rho_0(x) = 0'01x(L-x).\]
+        Comprobar, dando distintos valores a $L$, si se observa el comportamiento deducido en el apartado anterior cuando $t$ tiende a infinito.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item El modelo del enunciado es un modelo continuo de advección-difusión, pues la ecuación diferencial es de la forma
+        \[\frac{\partial\rho}{\partial t}(x,t) + \frac{\partial F}{\partial x}(x,t) = G(x,t),\]
+        donde $F(x,t) = -\mu\frac{\partial \rho}{\partial x}$ es el flujo de microorganismos en la tubería y $G(x,t) = f(\rho)$ es la cantidad de microorganismos que se crea o se destruye. Concretamente, esta expresión para el flujo corresponde a un modelo continuo de difusión.
+
+        La condición inicial $\rho(x,0) = \rho_0(x)$ indica que en el instante $t = 0$, la densidad de microorganismos en la tubería viene dada por la función $\rho_0$. 
+        
+        Las condiciones de contorno $\rho(0,t) = 0$ y $\rho(L,t) = 0$ quieren decir que la densidad de microorganismos en los extremos de la tubería es nula.
+
+        En primer lugar, los tres términos de la ecuación tienen las mismas unidades, luego $[f(\rho)] = [\frac{\partial \rho}{\partial t}] = \textup{gr}/(\textup{m}^3\textup{s})$. Como $1-\frac{\rho}{R}$ es adimensional (pues $1$ lo es), entonces $[f(\rho)] = [K\rho]$. Y como $[\rho] = \textup{gr}/\textup{m}^3$, se obtiene $[K] = s^{-1}$. Del hecho de que $1-\frac{\rho}{R}$ sea adimensional también se deduce que $ [R] = [\rho] = \textup{gr}/\textup{m}^3$. Por último, como $[\mu\frac{\partial^2\rho}{\partial x^2}] = \textup{gr}/(\textup{m}^3\textup{s})$ y $[\frac{\partial^2\rho}{\partial x^2}] =  \textup{gr}/\textup{m}^5$, entonces $[\mu] = \textup{m}^{2}/\textup{s}$.
+        \item Aproximando $f(\rho)$ mediante su polinomio de Taylor de grado $1$ centrado en $0$,
+        \[f(\rho) \approx f(0) + \rho f'(0) = \rho f'(0).\]
+        Como $f'(\rho) = K-\frac{2K\rho}{R}$, entonces $f'(0) = K$ y la aproximación anterior queda
+        \[f(\rho) \approx K\rho.\]
+        Supóngase que $\rho_0(x) \approx 0$ y que $\rho$ es solución del problema $(P)$ con $\rho(x,t) \approx 0$. Entonces $\rho(x,0) \approx 0 \approx \rho_0(x)$ y $\frac{\partial \rho}{\partial t}-\mu\frac{\partial^2\rho}{\partial x^2} = f(\rho) \approx K\rho$, luego $\rho$ es solución aproximada de $(PL_1)$.
+        \item Sea $\rho$ una solución de $(PL_1)$ y sea $\widetilde{\rho}\colon [0,1]\times [0,\infty)\to\R$ la función definida mediante $\widetilde{\rho}(\widetilde{x},t) = e^{-Kt}\rho(L\widetilde{x},t)$. Nótese que $L\widetilde{x}\in [0,L]$ para todo $\widetilde{x} \in [0,1]$ y por tanto $\widetilde{\rho}$ está bien definida. Además,
+        \begin{align*}
+            \frac{\partial\widetilde{\rho}}{\partial t}(\widetilde{x},t) &= -Ke^{-Kt}\rho(L\widetilde{x},t) + e^{-Kt}\frac{\partial \rho}{\partial t}(L\widetilde{x},t), \\
+            \frac{\partial\widetilde{\rho}}{\partial \widetilde{x}}(\widetilde{x},t) &= Le^{-Kt}\frac{\partial \rho}{\partial x}(L\widetilde{x},t), \\
+            \frac{\partial^2\widetilde{\rho}}{\partial \widetilde{x}^2}(\widetilde{x},t) &= L^2e^{-Kt}\frac{\partial^2 \rho}{\partial x^2}(L\widetilde{x},t).
+        \end{align*}
+        En consecuencia,
+        \begin{align*}
+            \frac{\partial\widetilde{\rho}}{\partial t}(\widetilde{x},t)-\frac{\mu}{L^2}\frac{\partial^2\widetilde{\rho}}{\partial \widetilde{x}^2}(\widetilde{x},t) &= -Ke^{-Kt}\rho(L\widetilde{x},t) + e^{-Kt}\frac{\partial \rho}{\partial t}(L\widetilde{x},t)-\frac{\mu}{L^2}L^2e^{-Kt}\frac{\partial^2 \rho}{\partial x^2}(L\widetilde{x},t) \\
+            &=  -Ke^{-Kt}\rho(L\widetilde{x},t) + e^{-Kt}\left(\frac{\partial \rho}{\partial t}(L\widetilde{x},t)-\mu\frac{\partial^2 \rho}{\partial x^2}(L\widetilde{x},t)\right) \\
+            &= -Ke^{-Kt}\rho(L\widetilde{x},t) + Ke^{-Kt}\rho(L\widetilde{x},t) = 0.
+        \end{align*}
+        utilizándose en la tercera igualdad que $\rho$ es solución de $(PL_1)$. Usando ahora que $\rho$ satisface las condiciones iniciales y las condiciones de contorno de $(PL_1)$,
+        \begin{align*}
+            \widetilde{\rho}(\widetilde{x},0) &= \rho(L\widehat{x},0) = \rho_0(L\widetilde{x}), \\
+            \widetilde{\rho}(0,t) &= e^{-Kt}\rho(0,t) = 0, \\
+            \widetilde{\rho}(1,t) &= e^{-Kt}\rho(L,t) = 0.
+        \end{align*}
+        De todo esto se obtiene que $\widetilde{\rho}$ es solución de $(PL_2)$.
+        
+        Supóngase ahora que $\widetilde{\rho}$ es solución de $(PL_2)$ y sea $\rho\colon [0,L]\times [0,\infty)\to\R$ la función definida mediante $\rho(x,t) = e^{Kt}\widetilde{\rho}(\frac{x}{L},t)$. Nótese que $\frac{x}{L}\in [0,1]$ para todo $x \in [0,L]$ y por tanto $\rho$ está bien definida. Además,
+        \begin{align*}
+            \frac{\partial\rho}{\partial t}(x,t) &= Ke^{Kt}\widetilde{\rho}\bigl(\frac{x}{L},t\bigr)+e^{Kt}\frac{\partial\widetilde{\rho}}{\partial t}\bigl(\frac{x}{L},t\bigr) = K\rho(x,t)+e^{Kt}\frac{\partial\widetilde{\rho}}{\partial t}\bigl(\frac{x}{L},t\bigr), \\
+            \frac{\partial\rho}{\partial x}(x,t) &= \frac{1}{L}e^{Kt}\frac{\partial \widetilde{\rho}}{\partial\widetilde{x}}\bigl(\frac{x}{L},t\bigr), \\
+            \frac{\partial^2\rho}{\partial x^2}(x,t) &= \frac{1}{L^2}e^{Kt}\frac{\partial^2 \widetilde{\rho}}{\partial\widetilde{x}^2}\bigl(\frac{x}{L},t\bigr).
+        \end{align*}
+        En consecuencia,
+        \begin{align*}
+            \frac{\partial\rho}{\partial t}(x,t)-\mu\frac{\partial^2\rho}{\partial x^2}(x,t) &= K\rho(x,t)+e^{Kt}\frac{\partial\widetilde{\rho}}{\partial t}\bigl(\frac{x}{L},t\bigr)-\frac{\mu}{L^2}e^{Kt}\frac{\partial^2 \widetilde{\rho}}{\partial\widetilde{x}^2}\bigl(\frac{x}{L},t\bigr) \\
+            &= K\rho(x,t)+e^{Kt}\left(\frac{\partial\widetilde{\rho}}{\partial t}\bigl(\frac{x}{L},t\bigr)-\nu\frac{\partial^2 \widetilde{\rho}}{\partial\widetilde{x}^2}\bigl(\frac{x}{L},t\bigr)\right) \\
+            &= K\rho(x,t),
+        \end{align*}
+        utilizándose en la tercera igualdad que $\widetilde{\rho}$ es solución de $(PL_2)$. Usando ahora que $\rho$ satisface las condiciones iniciales y las condiciones de contorno de $(PL_2)$,
+        \begin{align*}
+            {\rho}({x},0) &= \widetilde{\rho}\bigl(\frac{x}{L},0\bigr) = \widetilde{\rho}_0\bigl(\frac{x}{L}\bigr) = \rho_0(x), \\
+            {\rho}(0,t) &= e^{Kt}\widetilde{\rho}(0,t) = 0, \\
+            {\rho}(L,t) &= e^{Kt}\widetilde{\rho}(1,t) = 0.
+        \end{align*}
+        De todo esto se obtiene que ${\rho}$ es solución de $(PL_1)$.
+        \item Supóngase que la condición inicial de $(PL_2)$ admite desarrollo en serie de senos,
+        \[\widetilde{\rho}_0(\widetilde{x}) = \sum_{n=1}^\infty C_n\sen(n\pi\widetilde{x}),\]
+        donde \[C_n = 2\int_0^1 \widetilde{\rho}_0(\widetilde{x})\sen(n\pi \widetilde{x})\, d\widetilde{x}.\]
+        Entonces la solución del problema $(PL_2)$ será, siempre que tenga sentido,
+        \[\widetilde{\rho}(\widetilde{x},t) = \sum_{n=1}^\infty C_ne^{-\nu n^2\pi^2 t}\sen(n\pi\widetilde{x}) = \sum_{n=1}^\infty C_ne^{-\frac{\mu}{L^2} n^2\pi^2 t}\sen(n\pi\widetilde{x}).\]
+        En ese caso, usando lo probado en el apartado anterior, se tendrá que
+        \[\rho(x,t) = e^{Kt}\widetilde{\rho}\bigl(\frac{x}{L},t\bigr) = \sum_{n=1}^\infty C_ne^{t(K-\frac{\mu}{L^2} n^2\pi^2)}\sen\bigl(\frac{n\pi x}{L}\bigr)\]
+        es solución de $(PL_1)$. Para estudiar el límite de esta función cuando $t\to\infty$, se supondrá que la convergencia de la serie es lo suficientemente buena como para poder intercambiar límites e integrales.
+
+        Si $K-\frac{\mu}{L^2}\pi^2 < 0$, se tendrá que $K-\frac{\mu}{L^2}n^2\pi^2 < 0$ y por tanto $\lim_{t\to\infty}e^{t(K-\frac{\mu}{L^2}n^2\pi^2)} = 0$ para todo $n \in \N$, luego
+        \[\lim_{t\to\infty}\rho(x,t) = \sum_{n=1}^\infty C_n\sen\bigl(\frac{n\pi x}{L}\bigr)\lim_{t\to\infty}e^{t(K-\frac{\mu}{L^2} n^2\pi^2)} = 0.\]
+        En consecuencia, el equilibrio cero es estable y atractor para el problema $(P)$. 
+
+        Si $K-\frac{\mu}{L^2} \pi^2 = 0$, se tendrá que $K-\frac{\mu}{L^2}n^2\pi^2 < 0$ y por tanto $\lim_{t\to\infty}e^{t(K-\frac{\mu}{L^2} n^2\pi^2)} = 0$ para todo $n \in \N$ con $n > 1$, luego 
+        \[\lim_{t\to\infty}\rho(x,t) = \sum_{n=1}^\infty C_n\sen\bigl(\frac{n\pi x}{L}\bigr)\lim_{t\to\infty}e^{t(K-\frac{\mu}{L^2} n^2\pi^2)} = C_1\sen\bigl(\frac{\pi x}{L}\bigr).\]
+        En consecuencia, el equilibrio cero es estable para el problema $(P)$. 
+
+        En el caso $K-\frac{\mu}{L^2} \pi^2 > 0$, los primeros términos de la serie tenderán a $-\infty$ o a $\infty$, dependiendo del signo de $C_n\sen(\frac{n\pi x}{L})$. 
+        \item Utilícese el programa \texttt{adv\_dif\_cont.py}.
+    \end{enumerate}
+
+
+
+\end{solution}
+
+\begin{exercise}[Junio de 2021]
+    Se considera el modelo discreto
+    \[\begin{cases}
+        x_0\in\R, \\
+        x_{n+1} = -(1+\mu)x_n+x_n^3, \qquad n \geq 0.
+    \end{cases}\]
+    \begin{enumerate}
+        \item Estudiar los equilibrios y su estabilidad.
+        \item Para los valores $\mu = -2$, $\mu = 0$ y $\mu = 1$, estudiar la existencia de órbitas $2$-periódicas, así como su estabilidad.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill \begin{enumerate}
+        \item La sucesión del enunciado define un sistema dinámico discreto de una variable. Considérese la función $f \colon \R \to \R$ dada por $f(x) = -(1+\mu)x+x^3$. Como $f$ es continua y $f(\R)\subset\R$, el sistema dinámico tiene sentido. Los equilibrios del sistema son los puntos fijos de $f$:
+        \begin{align*}
+            f(x) &= x \iff -x-\mu x +x_n^3 -x = 0 \iff x(x^2-2-\mu) = 0 \iff x = 0 \textup{ ó } x = \pm \sqrt{2+\mu}.
+        \end{align*}
+        Por otra parte, para estudiar la estabilidad de los equilibrios será conveniente hallar la derivada de $f$:
+        \[f'(x) = 3x^2-1-\mu.\]
+        Se distinguen los siguientes casos:
+        \begin{itemize}
+            \item Supóngase que $\mu > -2$. Entonces los equilibrios del sistema son $l_1 = 0$, $l_2 = \sqrt{2+\mu}$ y $l_3 = -\sqrt{2+\mu}$. Se tiene que \[|f'(l_1)| = 1+\mu, \qquad |f'(l_2)| = |f'(l_3)| = |3(2+\mu)-1-\mu| = 5+2\mu > 5-4=1.\] En consecuencia, $l_2$ y $l_3$ son equilibrios hiperbólicos, inestables y repulsores. Para estudiar la estbilidad de $l_1$ hay que distinguir más casos.
+            \begin{itemize}
+                \item Si $-2 < \mu < 0$, entonces $|f'(l_1)| = 1+\mu < 1$ y por tanto $l_1$ es hiperbólico y asintóticamente estable. 
+                \item Si $0 < \mu$, entonces $|f'(l_1)| = 1+\mu > 1$ y por tanto $l_1$ es hiperbólico, inestable y repulsor. 
+                \item Si $\mu = 0$, entonces $|f'(l_1)|=1$ y por tanto $l_1$ es no hiperbólico. Representando gráficamente $f$ con ayuda de Python, se observa que existe $\varepsilon>0$ tal que $f$ es esctrictamente decreciente en $(l_1-\varepsilon,l_1+\varepsilon)$, $f(x) < 2l_1-x$ para todo $x \in (l_1-\varepsilon,l_1)$ y $f(x) > 2l_1-x$ para todo $x \in (l_1,l_1+\varepsilon)$. Por tanto, $l_1$ es asintóticamente estable.
+            \end{itemize}
+            \item Supóngase que $\mu \leq -2$. Entonces el único equilibrio del sistema es $l_1 = 0$, y se tiene que $|f'(l_1)| = |1+\mu| = -1-\mu$. 
+            \begin{itemize}
+                \item Si $\mu < -2$, entonces $-1-\mu>-1+2 = 1$ y por tanto $l_1$ es hiperbólico, inestable y repulsor.
+                \item Si $\mu = -2$, entonces $-1-\mu = 1$ y por tanto $l_1$ es no hiperbólico. Representando gráficamente $f$ con ayuda de Python, se observa que existe $\varepsilon>0$ tal que $f$ es esctrictamente creciente en $(l_1-\varepsilon,l_1+\varepsilon)$, $f(x) < x$ para todo $x \in (l_1-\varepsilon,l_1)$. Por tanto, $l_1$ es inestable.
+            \end{itemize}
+        \end{itemize}
+        \item Se tiene que
+        \[\textup{n.º de órbitas } 2 \textup{-periódicas } = \frac{1}{2}(\textup{ n.º de ptos. fijos de } f^2 - \textup{n.º de ptos. fijos de } f).\]
+        Para hallar el número de puntos fijos de $f^2$, se estudia con ayuda de Python el número de puntos de corte de la gráfica de $f^2$ con la recta $y = x$.
+        \begin{itemize}
+            \item Si $\mu = -2$, se observa que el único punto fijo de $f^2$ es $l_1 = 0$, que también es punto fijo de $f$. Por tanto, no hay órbitas $2$-periódicas.
+            \item Si $\mu = 0$, se observa que los puntos fijos de $f^2$ son $l_1 = 0$, $l_2 = \sqrt{2}$ y $l_3 = -\sqrt{2}$, que también son puntos fijos de $f$. Por tanto, no hay órbitas $2$-periódicas.
+            \item Si $\mu = 1$, se observa que $f^2$ tiene cinco puntos fijos. Tres ellos son $l_1=0$, $l_2 = \sqrt{3}$ y $l_3 = -\sqrt{3}$, y los otros dos son $p_1 = 1$ y $p_2 = -1$. Por tanto, la única órbita $2$-periódica es $\{p_1,p_2\}$. Como
+            \[|f'(p_1)f'(p_2)| = |(3-1-1)(3-1-1)| = 1,\]
+            entonces la órbita es no hiperbólica. En la gráfica de $f^2$ se observa que existe $\varepsilon > 0$ tal que $f^2$ es esctrictamente creciente en $(p_1-\varepsilon,p_1+\varepsilon)$, $f^2(x) > x$ para todo $x \in (p_1-\varepsilon,p_1)$ y $f(x) < x$ para todo $x \in (p_1,p_1+\varepsilon)$. Por tanto, $p_1$ es un equilibrio estable para $f^2$, así que la órbita $\{p_1,p_2\}$ es estable.
+        \end{itemize}
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2021]
+    Se considera la ecuación diferencial
+    \[x' = x-\frac{\mu x}{1+\mu x},\]
+    donde $\mu \in \R$.
+    \begin{enumerate}
+        \item Determinar los posibles equilibrios del sistema y su estabilidad, en función del parámetro $\mu$. En cada caso, representar el diagrama de fases correspondiente.
+        \item Dibujar el diagrama de bifurcación del sistema.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item La ecuación diferencial dada define un sistema dinámico continuo de una variable. Para cada $\mu\in\R$, sea $D_\mu = \{x \in \R \colon \mu x \neq -1\}$ y sea $f_\mu \colon D_\mu \to \R$ la función dada por $f_\mu(x) = x-\frac{\mu x}{1+\mu x}$. Los equilibrios del sistema son los ceros de $f_\mu$:
+        \begin{align*}
+            f_\mu(x) = 0 &\iff \frac{\mu x}{1+\mu x} = x \iff x = 0 \textup{ ó } \mu = 1+\mu x \iff x = 0 \textup{ ó } x = \frac{\mu-1}{\mu}.
+        \end{align*}
+        Para determinar la estabilidad de los equilibrios, hay que estudiar el signo de $f'$. Se tiene que
+        \[f_\mu'(x) = 1-\frac{\mu(1+\mu x) - \mu^2x}{(1+\mu x)^2} =  1-\frac{\mu}{(1+\mu x)^2}.\]
+        Se distinguen los siguientes casos:
+        \begin{itemize}
+            \item Si $\mu = 0$, el único equilibrio del sistema es $l_1 = 0$. Como $f_0'(l_1) = 1 > 0$, este equilibrio es inestable y repulsor.
+            \item Si $\mu = 1$, el único equilibrio del sistema es, de nuevo, $l_1 = 0$. Ahora se tiene $f_1'(l_1) = 0$, así que este equilibrio es no hiperbólico. Representando gráficamente $f$ con ayuda de Python se observa que existe $\varepsilon > 0$ tal que $f(x) > 0$ para todo $x \in (l_1-\varepsilon,l_1+\varepsilon) \setminus \{l_1\}$. Por tanto, $l_1$ es inestable (semiestable por la izquierda).
+            \item Si $\mu \neq 0$ y $\mu \neq 1$, los equilibrios del sistema son $l_1 = 0$ y $l_2 = \frac{\mu-1}{\mu} = 1-\frac{1}{\mu}$. Como
+            \[f_\mu'(l_1) = 1-\mu, \qquad f_\mu'(l_2) = 1-\frac{\mu}{(1+\mu\frac{\mu-1}{\mu})^2} = 1-\frac{1}{\mu},\] 
+            entonces hay que volver a distinguir casos.
+            \begin{itemize}
+                \item Si $\mu < 0$, entonces $1-\frac{1}{\mu} > 1 > 0$ y $1-\mu > 1 > 0$, así que $l_1$ y $l_2$ son inestables y repulsores.
+                \item Si $0 < \mu < 1$, entonces $1-\mu > 0$ y $1-\frac{1}{\mu} < 0$, así que $l_1$ es inestable y repulsor y $l_2$ es asintóticamente estable.
+                \item Si $\mu > 1$, entonces $1-\mu < 0$ y $1-\frac{1}{\mu} > 0$, así que $l_1$ es asintóticamente estable y $l_2$ es inestable y repulsor.
+            \end{itemize}
+        \end{itemize}
+        Se omite la representación de diagramas de diagramas de fases.
+        \item Este apartado lo realiza Python. Los puntos de bifurcación son $\mu = 0$ (cambia el número de equilibrios) y $\mu = 1$ (cambia la estabilidad de los equilibrios).
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2021]
+    Supóngase que una población de dos especies, cuyos números de individuos medidos en millares se designarán por $x$ e $y$, interactúan siguiendo el modelo
+    \[\begin{cases}
+        \displaystyle \frac{dx}{dt} = \frac{x}{8}\bigl(1-\frac{3x}{1+x}\bigr)-\frac{xy}{8}, \\[10pt]
+        \displaystyle \frac{dy}{dt} = -\frac{y}{4}+\frac{3xy}{4}.
+    \end{cases}\]
+    \begin{enumerate}
+        \item Explicar brevemente las hipótesis en las que se basa el modelo y el tipo de relación que hay entre las especies.
+        \item Estudiar analíticamente los equilibrios y su estabilidad.
+        \item Dibujar el diagrama de fases. Deducir, en función de las condiciones iniciales, la evolución de ambas poblaciones a largo plazo.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item El término $-\frac{xy}{8}$ de la primera ecuación y el término $\frac{3xy}{4}$ de la segunda indican que existe una relación de competencia entre las especies. Esta competencia favorece a la especie $y$ y desfavorece a la especie $x$. En ausencia de la especie $x$, la especie $y$ seguiría un modelo malthusiano con tasa de natalidad negativa y por tanto acabaría extinguiéndose. Todo esto indica que el modelo a considerar es un modelo depredador-presa, siendo $x$ la presa e $y$ el depredador.
+        \item Los equilibrios del sistema son los puntos $(x,y)$ tales que $f(x,y)=\frac{x}{8}(1-\frac{3x}{1+x})-\frac{xy}{8} = 0$ y $g(x,y) = -\frac{y}{4}+\frac{3xy}{4}$. Se tiene que
+        \begin{align*}
+            \begin{cases}
+                \displaystyle \frac{x}{8}\bigl(1-\frac{3x}{1+x}\bigr)-\frac{xy}{8} = 0 \\[10pt]
+                \displaystyle y\bigl(-\frac{1}{4}+\frac{3x}{4}\bigr) = 0
+            \end{cases} \iff \begin{cases}
+                \begin{cases}
+                    \displaystyle \frac{x}{8}(1-\frac{3x}{1+x}) = 0 \\[10pt]
+                    y = 0
+                \end{cases} \\[25pt]
+                \begin{cases}
+                    \displaystyle \frac{1}{24}(1-\frac{1}{1+\frac{1}{3}})-\frac{y}{24} = 0 \\[10pt]
+                    \displaystyle x = \frac{1}{3}
+                \end{cases}
+            \end{cases} \iff \begin{cases}
+                \begin{cases}
+                    x = 0 \\[10pt]
+                    y = 0
+                \end{cases} \\[25pt]
+                \begin{cases}
+                    \displaystyle x = \frac{1}{2} \\[10pt]
+                    y = 0
+                \end{cases} \\[25pt]                
+                \begin{cases}
+                    \displaystyle y = \frac{1}{4} \\[10pt]
+                    \displaystyle x = \frac{1}{3}
+                \end{cases}
+            \end{cases}
+        \end{align*}
+        Por tanto, el sistema tiene tres equilibrios: $(0,0)$, $(\frac{1}{2},0)$ y $(\frac{1}{3},\frac{1} {4})$. La matriz jacobiana del sistema es
+        \[J(x,y) = \left(\begin{array}{cc}
+            \frac{1}{8}-\frac{48x(1+x)-24x^2}{64(1+x)^2} -\frac{y}{8} & -\frac{x}{8} \\[10pt]
+            \frac{3y}{4} & -\frac{1}{4}+\frac{3x}{4}
+        \end{array}\right).\]
+        \begin{itemize}
+            \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+            \[J(0,0) = \left(\begin{array}{cc}
+                \frac{1}{8} & 0 \\
+                0 & -\frac{1}{4}
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = \frac{1}{8}$ y $\lambda_2 = -\frac{1}{4}$. Como ambos tienen parte real no nula, puede utilizarse el teorema de Hartman-Grobman. La matriz $J(0,0)$ tiene autovalores reales y su determinante es negativo, así que el diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un punto de silla, y por tanto $(0,0)$ es inestable para el sistema linealizado. Por el teorema de Hartman-Grobamn, $(0,0)$ es inestable para el sistema del enunciado.
+            \item \underline{Estabilidad de $(\frac{1}{2},0)$}. Se tiene que
+            \[J\bigl(\frac{1}{2},0\bigr) = \left(\begin{array}{cc}
+                \frac{5}{24} & -\frac{1}{16} \\[10pt]
+                0 & \frac{1}{8}
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = \frac{5}{24}$ y $\lambda_2 = \frac{1}{8}$. Como ambos tienen parte real no nula, puede utilizarse el teorema de Hartman-Grobman. La matriz $J(\frac{1}{2},0)$ tiene autovalores reales, su determinante es positivo y su traza también, así que el diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo inestable, y por tanto $(0,0)$ es inestable y repulsor para el sistema linealizado. Por el teorema de Hartman-Grobamn, $(\frac{1}{2},0)$ es inestable y repulsor para el sistema del enunciado.
+            \item \underline{Estabilidad de $(\frac{1}{3},\frac{1}{4})$}. Se tiene que
+            \[J\bigl(\frac{1}{3},\frac{1}{4}\bigr) = \left(\begin{array}{cc}
+                -\frac{9}{128} & -\frac{1}{24} \\[10pt]
+                \frac{3}{16} & 0
+            \end{array}\right).\]
+            Los autovalores de esta matriz son complejos (y no reales) de parte real no nula. Por tanto, puede utilizarse el teorema de Hartman-Grobman. Como la matriz $J(\frac{1}{3},\frac{1}{4})$ tiene traza negativa, el diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un foco estable, y por tanto $(0,0)$ es asintóticamente estable para el sistema linealizado. Por el teorema de Hartman-Grobamn, $(\frac{1}{3},\frac{1}{4})$ es asintóticamente estable para el sistema del enunciado.
+        \end{itemize}
+        \item El diagrama de fases lo dibuja \texttt{pplane}, como siempre. Se observa que para condiciones iniciales de la forma $(x_0,y_0)$ con $x_0>0$ e $y_0>0$, la población tiende al equilibrio $(\frac{1}{3},\frac{1}{4})$. Para condiciones iniciales de la forma $(0,y_0)$ con $y_0 > 0$, ambas poblaciones tienden a extinguirse, mientras que para condiciones iniciales de la forma $(x_0,0)$ con $x_0 > 0$, la población $y$ es constantemente nula y la población $x$ tiende a $\frac{1}{2}$.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2021]
+    La ecuación diferencial
+    \[x''+x'+x+x^3= 0\]
+    determina la posición de un móvil sometido a rozamiento y a una fuerza elástica no lineal. Escribir la ecuación en forma de sistema de ecuaciones de primer orden, y comprobar que $(0,0)$ es el único equilibrio. Estudiar su estabilidad mediante una función de Lyapunov de la forma
+    \[V(x,y)=\alpha x^2+\beta y^2 + \gamma x^4 + \delta y^4,\]
+    donde $\alpha,\beta,\gamma,\delta\in\R$ son coeficientes a determinar.
+\end{exercise}
+
+\begin{solution}
+    Se introduce la variable $y = x'$, que satisface
+    \[y' = x'' = -x'-x-x^3 = -y-x-x^3.\]
+    El sistema equivalente a la ecuación del enunciado sería
+    \[\begin{cases}
+        x' = y, \\
+        y' = -y-x-x^3.
+    \end{cases}\]
+    Se tien que
+    \[\begin{cases}
+        y = 0 \\
+        -y-x-x^3 = 0
+    \end{cases} \iff x = y = 0.\]
+    Por tanto, el único equilibrio del sistema es $(0,0)$. 
+
+    Considérese una función de la forma $V(x,y) = \alpha x^2+\beta y^2 + \gamma x^4 + \delta y^4$, con $\alpha,\beta,\gamma,\delta\in\R$ Para que $V$ sea definida positiva en $(0,0)$, basta tomar $\alpha,\beta,\gamma,\delta \geq 0$ con alguno de ellos no nulo. La derivada total de $V$ es
+    \begin{align*}
+        \dot{V}(x,y) &= (2\alpha x + 4\gamma x^3)y - (2\beta y + 4\delta y^3)(y+x+x^3) \\
+        &= 2\alpha xy + 4\gamma x^3y-2\beta y^2-2\beta xy-2\beta x^3y -4\delta y^4-4\delta xy^3-4\delta x^3y^3 \\
+        &= (2\alpha-2\beta)xy + (4\gamma-2\beta)x^3y - 2\beta y^2-4\delta y^4-4\delta xy^3-4\delta x^3y^3.
+    \end{align*}
+    Tomando $\beta > 0$, $\delta = 0$, $\alpha = \beta > 0$ y $\gamma = \frac{\beta}{2} > 0$, se tiene
+    \[\dot{V}(x,y) = - 2\beta y^2.\]
+    Como $\dot{V}(x,y) < 0$ en un entorno perforado de $(0,0)$, se tiene que $\dot{V}$ es una función de Lyapunov para el sistema dado y el equilibrio $(0,0)$ es asintóticamente estable.
+\end{solution}
+
+\addtocounter{exercise}{-5}
+
+\begin{exercise}[Junio de 2022]
+    Se considera el problema
+    \[\left\{\begin{alignedat}{4}
+        \frac{\partial \rho}{\partial t}+u\frac{\partial \rho}{\partial x}-\mu\frac{\partial^2\rho}{\partial x^2} &= 0, & \qquad & x \in (0,1), \ & t \in (0,\infty), \\
+        \rho(x,0) &= \rho_0(x), & \qquad & x \in [0,1], & \\
+        \rho(0,t) &= 0, & \qquad & \ & t \in (0,\infty), \\
+        \rho(1,t) &= 0, & \qquad & \ & t \in (0,\infty),
+    \end{alignedat}\right.\]
+    siendo $\mu > 0$ y $u \in \R$ constantes, y $\rho_0\colon[0,1]\to\R$ una función conocida.
+    \begin{enumerate}
+        \item Si $\rho$ representa la densidad de una sustancia disuelta en un fluido, interpretar la ecuación, la condición inicial y las condiciones de contorno.
+        \item Aplicar el método de separación de variables al problema para encontrar una familia numerable de soluciones.
+        \item Expresar la solución en términos de un desarrollo de Fourier adecuado de la condición inicial. ¿A qué equilibrio tienden las soluciones cuando el tiempo tiende a infinito?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item La ecuación del problema representa un modelo continuo de advección-difusión, pues es de la forma
+        \[\frac{\partial \rho}{\partial t}(x,t) + \frac{\partial F}{\partial x}(x,t) = G(x,t),\]
+        donde $F(x,t) = u\rho(x,t) - \mu\frac{\partial\rho}{\partial x} (x,t)$ es el flujo de sustancia en el fluido, y $G(x,t)=0$ es la cantidad de sustancia que se crea o se destruye. La constante $u$ es la velocidad de la sustancia en el fluido, mientras que $\mu$ es el coeficiente de difusión.
+
+        La condición inicial $\rho(x,0) = \rho_0(x)$ indica densidad de la sustancia en el instante inicial.
+
+        Las condiciones de contorno $\rho(0,t) = 0$ y $\rho(1,t) = 0$ se interpretan como que la densidad de sustancia en los extremos del fluido es nula.
+        \item Se trata de buscar soluciones nulas de la ecuación que sean de la forma $\rho(x,t) = f(x)g(t)$. Si se pide que $f$ y $g$ no se anulen en ningún punto, se tiene
+        \begin{align*}
+            \frac{\partial\rho}{\partial t}(x,t)+u\frac{\partial\rho}{\partial x}(x,t) - \mu\frac{\partial^2\rho}{\partial x^2}(x,t) = 0 &\iff f(x)g'(t)+uf'(x)g(t)-\mu f''(x)g(t) = 0 \\
+            &\iff f(x)g'(t) = (\mu f''(x)-uf'(x))g(t) \\
+            &\iff \frac{g'(t)}{g(t)} = \frac{\mu f''(x)-uf'(x)}{f(x)} \\
+            &\iff \exists \ \lambda\in\R \colon \lambda = \frac{g'(t)}{g(t)} = \frac{\mu f''(x)-uf'(x)}{f(x)} \\
+            &\iff \exists \ \lambda\in\R \colon \begin{cases}
+                g'(t)-\lambda g(t) = 0, \\
+                \mu f''(x) - uf'(x) - \lambda f(x) = 0.
+            \end{cases} \\
+        \end{align*}
+        Se impondrán también las condiciones de contorno:
+        \[\rho(0,t) = f(0)g(t) = 0, \qquad \rho(1,t) = f(1)g(t) = 0.\]
+        Como $g$ no es idénticamente nula, tendrá que tenerse $f(0) = 0$ y $f(1) = 0$. Hay que resolver entonces el problema
+        \[\begin{cases}
+            \mu f''(x) - uf'(x) - \lambda f(x) = 0, \\
+            f(0) = f(1) = 0.
+        \end{cases}\]
+        Se tiene que
+        \[\mu z^2-uz-\lambda = 0 \iff z = \frac{u\pm\sqrt{u^2+4\lambda\mu}}{2\mu}.\]
+        Se distinguen tres casos:
+        \begin{itemize}
+            \item Si $u^2+4\lambda\mu > 0$, entonces la solución del problema para $f$ es
+            \[f(x) = Ae^{z_1x}+Be^{z_2 x},\]
+            con $A,B\in\R$ constantes, y siendo $z_1 = \frac{u+\sqrt{u^2+4\lambda\mu}}{2\mu}$ y $z_2 = \frac{u-\sqrt{u^2+4\lambda\mu}}{2\mu}$. Se tiene que
+            \[\begin{cases}
+                f(0)=0 \\
+                f(1)=0
+            \end{cases} \iff \begin{cases}
+                A+B=0 \\
+                Ae^{z_1}+Be^{z_2}=0
+            \end{cases} \iff \begin{cases}
+                A=-B \\
+                B(e^{z_2}-e^{z_1})=0
+            \end{cases} \iff A = B = 0.\]
+            Por tanto, $f \equiv 0$.
+            \item Si $u^2+4\lambda\mu = 0$, entonces la solución del problema para $f$ es
+            \[f(x) = (A+Bx)e^{\frac{u}{2\mu}x},\]
+            con $A,B\in\R$ constantes. Se tiene que
+            \[\begin{cases}
+                f(0)=0\\
+                f(1)=0
+            \end{cases} \iff \begin{cases}
+                A = 0 \\
+                (A+B)e^{\frac{u}{2\mu}} = 0
+            \end{cases} \iff A = B = 0.\]
+            Por tanto, $f \equiv 0$.
+            \item Si $u^2+4\lambda\mu < 0$, entonces la solución del problema para $f$ es
+            \[f(x) = e^{\frac{u}{2\mu}}\bigl(A\sen\bigl(\frac{\sqrt{-u^2-4\lambda \mu}}{2\mu}x\bigr)+B\cos\bigl(\frac{\sqrt{-u^2-4\lambda \mu}}{2\mu}x\bigr)\bigr),\]
+            con $A,B\in\R$ constantes. Se tiene que
+            \begin{align*}
+                \begin{cases}
+                    f(0)=0\\
+                    f(1)=0
+                \end{cases} &\iff \begin{cases}
+                    Be^{\frac{u}{2\mu}} = 0 \\
+                    e^{\frac{u}{2\mu}}\bigl(A\sen\bigl(\frac{\sqrt{-u^2-4\lambda \mu}}{2\mu}\bigr)+B\cos\bigl(\frac{\sqrt{-u^2-4\lambda \mu}}{2\mu}\bigr)\bigr) = 0
+                \end{cases}
+                \\
+                &\iff \begin{cases}
+                    B = 0 \\
+                    A\sen\bigl(\frac{\sqrt{-u^2-4\lambda\mu}}{2\mu}\bigr) = 0
+                \end{cases}
+            \end{align*}
+            Como se busca que $f$ sea no idénticamente nula, se escoge $A \neq 0$. Así,
+            \begin{align*}
+                \sen\bigl(\frac{\sqrt{-u^2-4\lambda\mu}}{2\mu}\bigr) = 0 &\iff \frac{\sqrt{-u^2-4\lambda\mu}}{2\mu} = k\pi, \qquad k \in \Z, \\
+                &\iff 4\lambda\mu=-u^2-4k^2\pi^2\mu^2, \qquad k \in \N, \\
+                &\iff \lambda = -\frac{u^2}{4\mu}-k^2\pi^2\mu, \qquad k \in \N.
+            \end{align*}
+            Nótese que, escogiendo $\lambda$ de esta manera, se tiene $u^2+4\lambda \mu = -4k^2\pi^2\mu^2 < 0$ y la solución quedaría
+            \[f(x) = Ae^{\frac{u}{2\mu}}\sen\bigl(k\pi x\bigr),\]
+            con $A \in \R$ constante.
+        \end{itemize}
+        Se ha obtenido entonces que existe una sucesión $\{\lambda_k\}_{k=1}^\infty$ tal que el problema 
+        \[\begin{cases}
+            \mu f''(x) - uf'(x) - \lambda_k f(x) = 0, \\
+            f(0) = f(1) = 0,
+        \end{cases}\]
+        tiene solución no trivial. Ahora hay que resolver la famiia de ecuaciones
+        \[g'(t) -\lambda_k g(t) = 0, \qquad k \in \N.\]
+        Para cada $k \in \N$, la solución general de la ecuación es
+        \[g_k(t) = C_ke^{\lambda_kt},\]
+        con $C_k\in\R$ constante. Se obtiene entonces la siguiente familia de soluciones para la ecuación de partida:
+        \[\rho_k(x,t) = f(x)g(t) = C_ke^{\lambda_kt+\frac{u}{2\mu}}\sen(k\pi x), \qquad k \in \N.\]
+        Además, estas funciones satisfacen las condiciones de contorno.
+        \item Se busca una solución del problema que sea una combinación lineal de las funciones anteriores, es decir,
+        \[\rho(x,t) = \sum_{k=1}^N C_ke^{\lambda_kt+\frac{u}{2\mu}}\sen(k\pi x).\]
+        Solo falta escoger $C_k$ adecuadamente para que se satisfaga la condición inicial. Se tiene que
+        \[\rho(x,0) = \rho_0(x) \iff \sum_{k=1}^N C_ke^{\frac{u}{2\mu}}\sen(k\pi x) = \rho_0(x).\]
+        Ahora se aproxima $\rho_0$ mediante su desarrollo de Fourier en serie de senos,
+        \[\rho_0(x) \approx \sum_{k=1}^N b_k(\rho_0)\sen(k\pi x),\]
+        donde, para cada $k\in\N$,
+        \[b_k(\rho_0) = 2\int_0^1\rho_0(x)\sen(k\pi x)\, dx.\]
+        Hay que escoger entonces $C_k = b_k(\rho_0)e^{-\frac{u}{2\mu}}$, de manera que la candidata a solución del problema es
+        \[\rho(x,t) = \sum_{k=1}^Nb_k(\rho_0)e^{\lambda_kt}\sen(k\pi x) =  \sum_{k=1}^Nb_k(\rho_0)e^{(-\frac{u^2}{4\mu}-k^2\pi^2\mu)t}\sen(k\pi x).\]
+        Como $\lambda_k<0$ para todo $k \in \N$, entonces
+        \[\lim_{t\to\infty}\rho(x,t) = \sum_{k=1}^Nb_k(\rho_0)\sen(k\pi x)\lim_{t\to\infty}e^{\lambda_kt} = 0.\]
+    \end{enumerate}
+
+\end{solution}
+
+\begin{exercise}[Junio de 2022]
+    Se considera el modelo discreto
+    \[\begin{cases}
+        x_0\in\R, \\
+        x_{n+1} = (1+\mu)x_n-x_n^2, \qquad n \geq 0.
+    \end{cases}\]
+    \begin{enumerate}
+        \item Estudiar los equilibrios y su estabilidad.
+        \item Para los valores $\mu = -2$, $\mu = 0$ y $\mu = 4$, estudiar la existencia de órbitas $2$-periódicas.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item El modelo a estudiar es un sistema dinámico discreto de una variable. Para cada $\mu\in\R$, el sistema dinámico tiene sentido porque la función $f_\mu \colon\R\to\R$ dada por $f_\mu(x) =(1+\mu)x-x^2$ es continua y satisface $f(\R)\subset\R$.
+    
+        Los equilibrios del modelo son los puntos fijos de $f$:
+        \[f_\mu(x) = x \iff x(1+\mu-x) = x \iff x = 0 \textup{ ó } x = \mu.\]
+        Por tanto, si $\mu\neq 0$, los equilibrios del sistema son $l_1 = 0$ y $l_2 = \mu$, mientras que si $\mu = 0$, el único equilibrio es $l_1 = 0$. Por otra parte,
+        \[f_\mu'(x) = 1+\mu-2x,\]
+        luego $|f_\mu'(0)| = |1+\mu|$ y $|f_\mu'(\mu)| = |1-\mu|$. Se distinguen varios casos:
+        \begin{itemize}
+            \item Supóngase que $\mu \neq 0$, de manera que los equilibrios del sistema son $l_1 = 0$ y $l_2 = \mu$.
+            \begin{itemize}
+                \item Si $\mu > 2$, entonces $|f_\mu'(l_1)| = 1+\mu > 1$ y $|f_\mu'(l_2)| = \mu-1 > 2-1=1$, luego $l_1$ y $l_2$ son hiperbólicos, inestables y repulsores.
+                \item Si $\mu = 2$, entonces $|f_2'(l_1)| = 3 > 1$ y $|f_2'(l_2)| = 1$, luego $l_1$ es hiperbólico, inestable y repulsor, mientras que $l_2$ es no hiperbólico. Si se prueba a ejecutar el programa \texttt{web\_diagram.py} con varias semillas, parece ser que $l_2$ es asintóticamente estable.
+                \item Si $1 \leq \mu < 2$, entonces $|f_\mu'(l_1)| = 1+\mu > 1$ y $|f_\mu'(l_2)| = \mu-1 < 2-1 = 1$, luego $l_1$ es hiperbólico, inestable y repulsor, mientras que $l_2$ es hiperbólico y asintóticamente estable.
+                \item Si $0 < \mu < 1$, entonces $|f_\mu'(l_1)| = 1+\mu > 1$ y $|f_\mu'(l_2)| = 1-\mu < 1$, luego $l_1$ es hiperbólico, inestable y repulsor, mientras que $l_2$ es hiperbólico y asintóticamente estable. 
+                \item Si $-1 \leq \mu < 0$, entonces $|f_\mu'(l_1)| = 1+\mu < 1$ y $|f_\mu'(l_2)| = 1-\mu > 1$, luego $l_1$ es hiperbólico y asintóticamente estable, mientras que $l_2$ es hiperbólico, inestable y repulsor.
+                \item Si $-2 < \mu < -1$, entonces $|f_\mu'(l_1)| = -1-\mu<-1+2=1$ y $|f_\mu'(l_2)| = 1-\mu > 1$, luego $l_1$ es hiperbólico y asintóticamente estable, mientras que $l_2$ es hiperbólico, inestable y repulsor.
+                \item Si $\mu = -2$, entonces $|f_{-2}'(l_1)| = 1$ y $|f_2'(l_2)| = 3>1$, luego $l_2$ es hiperbólico, inestable y repulsor, mientras que $l_1$ es no hiperbólico. Si se prueba a ejecutar el programa \texttt{web\_diagram.py} con varias semillas, parece ser que $l_1$ es asintóticamente estable.
+                \item Si $\mu < -2$, entonces $|f_\mu'(l_1)| = -1-\mu>-1+2=1$ y $|f_\mu'(l_2)| = 1-\mu > 1$, luego $l_1$ y $l_2$ son hiperbólicos, inestables y repulsores.
+            \end{itemize}
+            \item Supóngase que $\mu = 0$, de manera que el único equilibrio del sistema es $l_1 = 0$. Como $|f_0'(l_1)| = 1$, este equilibrio es no hiperbólico. En la gráfica de $f_0$ se observa que existe $\varepsilon > 0$ tal que $f_0$ es esctrictamente creciente en $(l_1-\varepsilon,l_1+\varepsilon)$ y $f_0(x) < x$ para todo $x \in (l_1-\varepsilon,l_1+\varepsilon)\setminus\{l_1\}$. En consecuencia, $l_1$ es inestable.
+        \end{itemize}
+        \item Se tiene que
+        \[\textup{n.º de órbitas } 2 \textup{-periódicas } = \frac{1}{2}(\textup{ n.º de ptos. fijos de } f^2 - \textup{n.º de ptos. fijos de } f).\]
+        Para hallar el número de puntos fijos de $f^2$, se estudia con ayuda de Python el número de puntos de corte de la gráfica de $f^2$ con la recta $y = x$.
+        \begin{itemize}
+            \item Si $\mu = -2$, se observa que los puntos fijos de $f^2$ son $l_1 = 0$ y $l_2 = -2$, que también son puntos fijos de $f$. Por tanto, no hay órbitas $2$-periódicas.
+            \item Si $\mu = 0$, se observa que el único punto fijo de $f^2$ es $l_1 = 0$, que también es punto fijo de $f$. Por tanto, no hay órbitas $2$-periódicas.
+            \item Si $\mu = 4$, se observa que $f^2$ tiene cuatro puntos fijos. Dos de ellos son $l_1=0$ y $l_2 = 4$, también puntos fijos de $f$, y los otros dos son $p_1 \approx 1'27$ y $p_2 \approx 4'73$. Por tanto, la única órbita $2$-periódica es $\{p_1,p_2\}$. Como
+            \[|f'(p_1)f'(p_2)| = |(1+4-2p_1)(1+4-2p_2)| > 1,\]
+            entonces la órbita es inestable.
+        \end{itemize}
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2022]
+    Una población sigue el modelo
+    \[\frac{dy}{ds} = \frac{by^2}{a^2+y^2}-ky,\]
+    siendo $y$ el tamaño de la población medido en miles de individuos, $s$ el tiempo medido en días, y $k$, $a$, $b$ constantes positivas.
+    \begin{enumerate}
+        \item Comentar las hipótesis en las que se basa el modelo.
+        \item Comprobar que un cambio de variables adecuado permite reescribir el modelo en la siguiente forma adimensional:
+        \[\frac{dx}{dt} = \frac{x^2}{1+x^2}-\mu x.\]
+        \item Determinar los equilibrios del modelo adimensionalizado.
+        \item Estudiar gráficamente la estabilidad de los equilibrios.
+        \item Dibujar los diferentes diagramas de fases que pueden darse y proponer significados para los equilibrios en cada uno de los casos.
+        \item Considerando $\mu$ como parámetro, dibujar el diagrama de bifurcación correspondiente.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item El modelo del enunciado consiste en un sistema dinámico continuo de una variable. La ecuación es de la forma $y' = k_N(y)-k_M(y)$, donde $k_N(y) = \frac{by^2}{a^2+y^2}$ es la tasa de natalidad de la especie y $k_M(y) = ky$ es la tasa de mortalidad de la especie. 
+        \item Se trata de buscar un cambio de variable de la forma
+        \[x = Cy, \qquad t = C's.\]
+        Con un cambio de este estilo, se tendría
+        \begin{align*}
+            \frac{dx}{dt} &= \frac{C}{C'}\frac{dy}{ds} = \frac{C}{C'}\bigl(\frac{by^2}{a^2+y^2}-ky\bigr) =  \frac{C}{C'}\bigl(\frac{b\frac{x^2}{C^2}}{a^2+\frac{x^2}{C^2}}-k\frac{x}{C}\bigr) =  \frac{b\frac{x^2}{C}}{C'a^2+\frac{C'x^2}{C^2}}-k\frac{x}{C'} \\
+            &= \frac{x^2}{\frac{CC'a^2}{b}+\frac{C'x^2}{Cb}}-k\frac{x}{C'}.
+        \end{align*}
+        Debe tenerse
+        \[\begin{cases}
+            \frac{CC'a^2}{b} = 1 \\
+            \frac{C'}{Cb} = 1 
+        \end{cases} \iff \begin{cases}
+            C^2a^2 = 1 \\
+            C' = Cb
+        \end{cases}\]
+        Basta tomar $C = \frac{1}{a}$ y $C' = \frac{b}{a}$. El cambio de variables sería entonces
+        \[x = \frac{y}{a}, \qquad t = \frac{b}{a}s.\]
+        Como $[y] = [a]$ (en la ecuación de partida se suman $a^2$ e $y^2$), entonces $x$ es adimensional. Y como $[\frac{by^2}{a^2+y^2}] = [\frac{dy}{ds}] = \frac{[y]}{[s]}$, entonces $[b] = \frac{[y]}{[s]}\frac{[a^2+y^2]}{[y^2]} = \frac{[y]}{[s]}\frac{[y^2]}{[y^2]} = \frac{[y]}{[s]} = \frac{[a]}{[s]}$, de donde se deduce que $t$ es adimensional.
+
+        El modelo adimansionalizado sería entonces
+        \[\frac{dx}{dt} = \frac{x^2}{1+x^2}-\mu x,\]
+        con $\mu = \frac{k}{C'} = \frac{ak}{b}$.
+        \item Los equilibrios del sistema son los ceros de la función $f(\mu,x) = \frac{x^2}{1+x^2}-\mu x$. Se tiene que
+        \[f(\mu,x) = 0 \iff \mu x = \frac{x^2}{1+x^2} \iff x = 0 \textup{ ó } \mu = \frac{x}{1+x^2}.\]
+        El conjunto de los equilibrios del sistema es entonces
+        \[\{(\mu,0) \in\R^2\colon\mu\in\R\} \cup \bigl\{(\frac{x}{1+x^2},x) \in\R^2 \colon x \neq 0\bigr\}.\]
+        \item Se tiene que
+        \[\frac{\partial f}{\partial x}(\mu,x) = \frac{2x(1+x^2)-2x^3}{(1+x^2)^2}-\mu = \frac{2x}{(1+x^2)^2}-\mu,\]
+        luego
+        \begin{align*}
+            \frac{\partial f}{\partial x}(\mu, 0) &= -\mu, \\
+            \frac{\partial f}{\partial x}\bigl(\frac{x}{1+x^2},x\bigr) &= \frac{2x}{(1+x^2)^2}-\frac{x}{1+x^2} = \frac{2x-x(1+x^2)}{(1+x^2)^2} = \frac{x-x^3}{(1+x^2)^2} = \frac{x(1-x^2)}{(1+x^2)^2}. 
+        \end{align*}
+        En consecuencia, el conjunto de los equilibrios hiperbólicos e asintóticamente estables es
+        \[\{(\mu,0)\colon \mu > 0\} \cup \bigl\{(\frac{x}{1+x^2},x)\in\R^2 \colon x > 1 \bigr\} \cup \bigl\{(\frac{x}{1+x^2},x)\in\R^2 \colon -1<x<0 \bigr\},\]
+        mientras que el conjunto de los equilibrios hiperbólicos, inestables y repulsores es
+        \[\{(\mu,0)\colon \mu < 0\} \cup \bigl\{(\frac{x}{1+x^2},x)\in\R^2 \colon x < -1 \bigr\} \cup \bigl\{(\frac{x}{1+x^2},x)\in\R^2 \colon 0 < x < 1 \bigr\}.\]
+        Los equilibrios $(0,0)$, $(-\frac{1}{2},-1)$ y $(\frac{1}{2},1)$ son no hiperbólicos. Observando las gráficas de $f(0,x)$, $f(-\frac{1}{2},x)$ y $f(\frac{1}{2},x)$, se observa que $(0,0)$ es inestable (semiestable por la izquierda), $(-\frac{1}{2},-1)$ es inestable (semiestable por la derecha) y $(\frac{1}{2},1)$ es inestable (semiestable por las derecha).
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2022]
+    Supóngase que la población de dos especies, cuyos números de individuos medidos en millares se designarán por $x$ e $y$, interactúan siguiendo el modelo
+    \[\left\{\begin{alignedat}{1}
+        \frac{dx}{dt} &= -\frac{x}{20}+\frac{xy}{10}, \\[10pt]
+        \frac{dy}{dt} &= \frac{2y^2}{3+y^2}-\frac{y}{2}-\frac{xy}{10}.
+    \end{alignedat}\right.\]
+    \begin{enumerate}
+        \item Explicar brevemente las hipótesis en las que se basa el modelo y el tipo de relación que hay entre las especies.
+        \item Estudiar analíticamente los equilibrios y su estabilidad.
+        \item Dibujar de forma aproximada el diagrama de fases. ¿Qué puede concluirse sobre la evolución de ambas poblaciones a largo plazo, en función de las condiciones iniciales?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item El término $\frac{xy}{10}$ indica que existe una relación de competencia entre las especies.  Esta relación de competencia es beneficiosa para la especie $x$ y perjudicial para la especie $y$, así que puede tratarse de un modelo depredador-presa, siendo $x$ el depredador e $y$ la presa. En ausencia de la especie $y$, la especie $x$ tiende a extinguirse, y en ausencia de la especie $x$, la especie $y$ se reproduce indefinidamente.
+        \item Se tiene que
+        \begin{align*}
+            \begin{cases}
+                -\frac{x}{20}+\frac{xy}{10} = 0 \\[10pt]
+                \frac{2y^2}{3+y^2}-\frac{y}{2}-\frac{xy}{10}
+            \end{cases} \iff \begin{cases}
+                x(-\frac{1}{20}+\frac{y}{10}) = 0 \\[10pt]
+                y(\frac{2y}{3+y^2}-\frac{1}{2}-\frac{x}{10}) = 0
+            \end{cases} \iff \begin{cases}
+                \begin{cases}
+                    x = 0 \\
+                    y = 0
+                \end{cases} \\[20pt]
+                \begin{cases}
+                    x = 0 \\
+                    y = 1
+                \end{cases} \\[20pt]
+                \begin{cases}
+                    x = 0 \\
+                    y = 3
+                \end{cases}
+            \end{cases}
+        \end{align*}
+        En consecuencia, los equilibrios del sistema son $(0,0)$, $(0,1)$ y $(0,3)$. La matriz jacobiana del sistema es
+        \[J(x,y) = \left(\begin{array}{cc}
+            -\frac{1}{20}+\frac{y}{10} & \frac{x}{10} \\[10pt]
+            -\frac{y}{10} & \frac{12y}{(3+y^2)^2}-\frac{1}{2}-\frac{x}{10}
+        \end{array}\right)\]
+        \begin{itemize}
+            \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+            \[J(0,0) = \left(\begin{array}{cc}
+                -\frac{1}{20} & 0 \\[10pt]
+                0 & -\frac{1}{2}
+            \end{array}\right)\]
+            Los autovalores de esta matriz son $\lambda_1 = -\frac{1}{20}$ y $\lambda_2 = -\frac{1}{2}$. Como ambos tienen parte real no nula, entonces puede aplicarse el teorema de Hartman-Grobamn. Se tiene que $\textup{det}(J(0,0)) > 0$ y $\textup{tr}(J(0,0)) < 0$, así que la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo estable. Por el teorema de Hartman-Grobman, la configuración del diagrama de fases del sistema del enunciado en un entorno de $(0,0)$ también es un nodo estable, así que $(0,0)$ es asintóticamente estable.
+            \item \underline{Estabilidad de $(0,1)$}. Se tiene que        
+            \[J(0,1) = \left(\begin{array}{cc}
+                \frac{1}{20} & 0 \\[10pt]
+                -\frac{1}{10} &\frac{1}{4}
+            \end{array}\right)\]
+            Los autovalores de esta matriz son reales y distintos. Como ambos tienen parte real no nula, entonces puede aplicarse el teorema de Hartman-Grobamn. Se tiene que $\textup{det}(J(0,0)) > 0$ y $\textup{tr}(J(0,0)) > 0$, así que la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo inestable. Por el teorema de Hartman-Grobman, la configuración del diagrama de fases del sistema del enunciado en un entorno de $(0,1)$ también es un nodo inestable, así que $(0,1)$ es inestable y repulsor.
+            \item \underline{Estabilidad de $(0,3)$}. Se tiene que
+            \[J(0,3) = \left(\begin{array}{cc}
+                \frac{5}{20} & 0 \\[10pt]
+                -\frac{3}{10} & -\frac{1}{4}
+            \end{array}\right)\]
+            Los autovalores de esta matriz son reales y distintos. Como ambos tienen parte real no nula, entonces puede aplicarse el teorema de Hartman-Grobamn. Se tiene que $\textup{det}(J(0,0)) < 0$, así que la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un punto de silla. Por el teorema de Hartman-Grobman, la configuración del diagrama de fases del sistema del enunciado en un entorno de $(0,3)$ también es un punto de silla, así que $(0,3)$ es inestable.
+        \end{itemize}
+
+        \item Úsese \texttt{pplane} para representar el diagrama de fases. Se concluye que si la condición inicial es de la forma $(x_0,y_0)$ con $x_0>0$ e $y_0>0$, ambas poblaciones tienden a extinguirse.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2022]
+    Se considera el sistema de ecuaciones diferenciales
+    \[\begin{cases}
+        x' = ax-y-x(x^2+y^2), \\
+        y' = x+ay-y(x^2+y^2),
+    \end{cases}\]
+    donde $a\in\R$. Determinar las posibles configuraciones del diagrama de fases en función del parámetro $a$. Estudiar la existencia de órbitas periódicas. ¿Se produce algún tipo de bifurcación?
+\end{exercise}
+
+\begin{solution}
+    Se estudian primero los equilibrios del sistema. Se tiene que
+    \begin{align*}
+        \begin{cases}
+            ax-y-x(x^2+y^2) = 0 \\
+            x+ay-y(x^2+y^2) = 0
+        \end{cases} \iff \begin{cases}
+            y = ax-x(x^2+y^2) \\
+            x = y(x^2+y^2)-ay
+        \end{cases}
+    \end{align*}
+    Si $x = 0$, entonces $y = 0$, y si $y = 0$, entonces $x = 0$. Si $x \neq 0$ e $y \neq 0$, despejando $x^2+y^2$ en ambas ecuaciones, 
+    \[x^2+y^2 = \frac{ax-y}{x}, \qquad x^2+y^2 = \frac{ay+x}{y}.\]
+    Pero
+    \[\frac{ax-y}{x} = \frac{ay+x}{y} \iff axy-y^2 = axy+x^2 \iff x^2+y^2 = 0,\]
+    que es imposible porque $x \neq0$ e $y \neq 0$. En consecuencia, el único equilibrio del sistema es $(0,0)$. La matriz jacobiana del sistema es
+    \[J(x,y) = \left(\begin{array}{cc}
+        a-3x^2-y^2 & -1-2xy \\
+        1-2xy & a -x^2-3y^2
+    \end{array}\right).\]
+    Por tanto,
+    \[J(0,0) = \left(\begin{array}{cc}
+        a & -1 \\
+        1 & a
+    \end{array}\right).\]
+    Se tiene que
+    \[\textup{det}(J(0,0)-\lambda I) = 0 \iff  \lambda^2-2a\lambda+1+a^2= 0 \iff \lambda = \frac{2a\pm \sqrt{4a^2-4(1+a^2)}}{2} = a\pm i.\]
+    Se distinguen tres casos:
+    \begin{enumerate}
+        \item Si $a>0$, los autovalores de $J(0,0)$ tienen parte real no nula y puede aplicarse el teorema de Hartman-Grobman. Como estos autovalores son complejos (con parte imaginaria no nula) y $\textup{tr}(A) = 2a > 0$, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un foco inestable. Por el teorema de Hartman-Grobman, la configuración del diagrama de fases del sistema del enunciado en un entorno de $(0,0)$ también es un foco inestable.
+        \item Si $a<0$, los autovalores de $J(0,0)$ tienen parte real no nula y puede aplicarse el teorema de Hartman-Grobman. Como estos autovalores son complejos (con parte imaginaria no nula) y $\textup{tr}(A) = 2a < 0$, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un foco estable. Por el teorema de Hartman-Grobman, la configuración del diagrama de fases del sistema del enunciado en un entorno de $(0,0)$ también es un foco estable.
+        \item Si $a = 0$, entonces $(0,0)$ es un equilibrio no hiperbólico. Representando el diagrama de fases con \texttt{pplane}, se observa que $(0,0)$ es un foco estable.
+    \end{enumerate}
+    La única bifurcación se produce en $a = 0$, pues el equilibrio del sistema pasa de ser inestable y repulsor universal a ser asintóticamente estable y atractor universal.
+
+    Para estudiar la existencia de órbitas periódicas, se introduce un cambio de variables a coordenadas polares: $ x = r\cos\theta$, $y = r\sen\theta$. Se tiene que
+    \[x' =r'\cos\theta -r\theta'\sen\theta, \qquad y' = r'\sen\theta+r\theta'\cos\theta, \]
+    luego
+    \[xx'+yy' = rr'.\]
+    Ahora bien, usando que $x^2+y^2= r^2$,
+    \[rr' = xx' + yy' = ax^2-yx-x^2(x^2+y^2)+xy+ay^2-y^2(x^2+y^2) = ar^2-r^4,\]
+    luego $r' = ar-r^3$. Por otra parte,
+    \[xy'-yx' = r^2\theta',\]
+    así que
+    \[\theta' = \frac{1}{r^2}(x^2+axy-xy(x^2+y^2)-axy+y^2+xy(x^2+y^2)) = 1.\]
+    El sistema en coordenas polares queda
+    \[\begin{cases}
+        r' = r(a-r^2), \\
+        \theta' = 1,
+    \end{cases}\]
+    De esto se deduce que las circunferencias de centro $0$ y radio $\sqrt{a}$ son órbitas periódicas.
+\end{solution}
+
+\addtocounter{exercise}{-5}
+
+\begin{exercise}[Junio de 2023]
+    Se considera el problema
+    \[\left\{\begin{alignedat}{4}
+        \frac{\partial \rho}{\partial t}-\mu\frac{\partial^2\rho}{\partial x^2} &= 0, & \qquad & x \in (0,1), \ & t \in (0,\infty), \\
+        \rho(x,0) &= \rho_0(x), & \qquad & x \in [0,1], & \\
+        \frac{\partial\rho}{\partial x}(0,t) &= 0, & \qquad & \ & t \in (0,\infty), \\
+        \frac{\partial\rho}{\partial x}(1,t) &= 0, & \qquad & \ & t \in (0,\infty),
+    \end{alignedat}\right.\]
+    siendo $\mu > 0$ constante y $\rho_0\colon[0,1]\to\R$ una función conocida.
+    \begin{enumerate}
+        \item Si $\rho$ representa la temperatura en una barra de longitud unidad, interpretar la ecuación, la condición inicial y las condiciones de contorno.
+        \item Determinar una familia numerable de soluciones del problema.
+        \item Expresar la solución en términos de un desarrollo de Fourier adecuado de la condición inicial. ¿A qué tienden las soluciones cuando el tiempo tiende a infinito?
+        \item Suponiendo que $\rho_0(x) = x$, encontrar la expresión de la solución del problema y escribir un programa para visualizarla en función del número de sumandos de la serie de Fourier, el coeficiente de difusión y el tiempo transcurrido.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item La ecuación del problema es la ecuación de un modelo continuo de advección-difusión, pues es de la forma
+        \[\frac{\partial \rho}{\partial t}(x,t)+\frac{\partial F}{\partial x}(x,t) = G(x,t),\]
+        donde $F(x) = -\mu\frac{\partial \rho}{\partial x}(x,t)$ es el flujo de temperatura en la barra, y $G(x,t) = 0$. En particular, esta expresión del flujo corresponde a un modelo continuo de difusión, con coeficiente de difusión $\mu$.
+        
+        La condición inicial indica que la temperatura en la barra en el instante inicial viene dada por la función $\rho_0$. Las condiciones de contorno quieren decir que la variación de temperatura en los extremos de la barra es nula, es decir, los extremos se encuentran aislados.
+        \item Se trata de buscar soluciones nulas de la ecuación que sean de la forma $\rho(x,t) = f(x)g(t)$. Si se pide que $f$ y $g$ no se anulen en ningún punto, se tiene
+        \begin{align*}
+            \frac{\partial\rho}{\partial t}(x,t)- \mu\frac{\partial^2\rho}{\partial x^2}(x,t) = 0 &\iff f(x)g'(t)-\mu f''(x)g(t) = 0 \\
+            &\iff f(x)g'(t) = \mu f''(x)g(t) \\
+            &\iff \frac{g'(t)}{g(t)} = \frac{\mu f''(x)}{f(x)} \\
+            &\iff \exists \ \lambda\in\R \colon \lambda = \frac{g'(t)}{g(t)} = \frac{\mu f''(x)}{f(x)} \\
+            &\iff \exists \ \lambda\in\R \colon \begin{cases}
+                g'(t)-\lambda g(t) = 0, \\
+                \mu f''(x) - \lambda f(x) = 0.
+            \end{cases} \\
+        \end{align*}
+        Se impondrán también las condiciones de contorno:
+        \[\frac{\partial \rho}{\partial x}(0,t) = f'(0)g(t) = 0, \qquad \frac{\partial \rho}{\partial x} = f'(1)g(t) = 0.\]
+        Como $g$ no es idénticamente nula, tendrá que tenerse $f'(0) = 0$ y $f'(1) = 0$. Hay que resolver entonces el problema
+        \[\begin{cases}
+            \mu f''(x) - \lambda f(x) = 0, \\
+            f'(0) = f'(1) = 0.
+        \end{cases}\]
+        Se tiene que
+        \[\mu z^2-\lambda = 0 \iff z = \pm \sqrt{\frac{\lambda}{\mu}}.\]
+        Se distinguen tres casos:
+        \begin{itemize}
+            \item Si $\lambda > 0$, entonces la solución del problema para $f$ es
+            \[f(x) = Ae^{\sqrt{\frac{\lambda}{\mu}}x}+Be^{-\sqrt{\frac{\lambda}{\mu}} x},\]
+            con $A,B\in\R$ constantes. Se tiene que $f'(x) = \sqrt{\frac{\lambda}{\mu}}Ae^{\sqrt{\frac{\lambda}{\mu}}x}-\sqrt{\frac{\lambda}{\mu}}Be^{-\sqrt{\frac{\lambda}{\mu}}x}$, luego
+            \begin{align*}
+                \begin{cases}
+                    f'(0)=0 \\
+                    f'(1)=0
+                \end{cases} &\iff \begin{cases}
+                    \sqrt{\frac{\lambda}{\mu}}(A-B)=0 \\
+                    \sqrt{\frac{\lambda}{\mu}}Ae^{\sqrt{\frac{\lambda}{\mu}}}-\sqrt{\frac{\lambda}{\mu}}Be^{-\sqrt{\frac{\lambda}{\mu}}} = 0
+                \end{cases} \iff \begin{cases}
+                    A=B \\
+                    \sqrt{\frac{\lambda}{\mu}}A(e^{\sqrt{\frac{\lambda}{\mu}}}-e^{-\sqrt{\frac{\lambda}{\mu}}})=0
+                \end{cases} \\ &\iff A = B = 0.
+            \end{align*}
+            Por tanto, $f \equiv 0$.
+            \item Si $\lambda = 0$, entonces la solución del problema para $f$ es
+            \[f(x) = A+Bx,\]
+            con $A,B\in\R$ constantes. Se tiene que
+            \[\begin{cases}
+                f'(0)=0\\
+                f'(1)=0
+            \end{cases} \iff B = 0.\]
+            Por tanto, $f \equiv A$.
+            \item Si $\lambda < 0$, entonces la solución del problema para $f$ es
+            \[f(x) = A\sen\bigl(\sqrt{-\frac{\lambda}{\mu}}x\bigr)+B\cos\bigl(\sqrt{-\frac{\lambda}{\mu}}x\bigr),\]
+            con $A,B\in\R$ constantes. Se tiene que $f'(x) = \sqrt{-\frac{\lambda}{\mu}} A \cos(\sqrt{-\frac{\lambda}{\mu}}x)-\sqrt{-\frac{\lambda}{\mu}}B\sen(\sqrt{-\frac{\lambda}{\mu}}x)$, luego
+            \begin{align*}
+                \begin{cases}
+                    f'(0)=0\\
+                    f'(1)=0
+                \end{cases} &\iff \begin{cases}
+                    \sqrt{-\frac{\lambda}{\mu}}A = 0 \\
+                    \sqrt{-\frac{\lambda}{\mu}} A \cos(\sqrt{-\frac{\lambda}{\mu}})-\sqrt{-\frac{\lambda}{\mu}}B\sen(\sqrt{-\frac{\lambda}{\mu}}) = 0
+                \end{cases}
+                \\
+                &\iff \begin{cases}
+                    A = 0 \\
+                    B\sen\bigl(\sqrt{-\frac{\lambda}{\mu}}\bigr) = 0
+                \end{cases}
+            \end{align*}
+            Como se busca que $f$ sea no idénticamente nula, se escoge $B \neq 0$. Así,
+            \begin{align*}
+                \sen\bigl(\sqrt{-\frac{\lambda}{\mu}}\bigr) = 0 &\iff \sqrt{-\frac{\lambda}{\mu}} = k\pi, \qquad k \in \Z, \\
+                &\iff \lambda = -\mu k^2\pi^2, \qquad k \in \N.
+            \end{align*}
+            Nótese que, escogiendo $\lambda$ de esta manera, se tiene $\lambda < 0$ y la solución quedaría
+            \[f(x) = B\cos\bigl(k\pi x\bigr),\]
+            con $B \in \R$ constante.
+        \end{itemize}
+        Se ha obtenido entonces que existe una sucesión $\{\lambda_k\}_{k=0}^\infty$ tal que el problema 
+        \[\begin{cases}
+            \mu f''(x) - \lambda_k f(x) = 0, \\
+            f'(0) = f'(1) = 0,
+        \end{cases}\]
+        tiene solución no trivial. Ahora hay que resolver la familia de ecuaciones
+        \[g'(t) -\lambda_k g(t) = 0, \qquad k \in \N\cup\{0\}.\]
+        Para cada $k \in \N\cup\{0\}$, la solución general de la ecuación es
+        \[g_k(t) = C_ke^{\lambda_kt} = C_ke^{-\mu k^2\pi^2 t},\]
+        con $C_k\in\R$ constante. Se obtiene entonces la siguiente familia de soluciones para la ecuación de partida:
+        \[\rho_k(x,t) = f(x)g(t) =  C_ke^{-\mu k^2\pi^2 t}\cos(k\pi x), \qquad k \in \N\cup\{0\}.\]
+        Además, estas funciones satisfacen las condiciones de contorno.
+        \item Se busca una solución del problema que sea una combinación lineal infinita de las funciones anteriores, es decir,
+        \[\rho(x,t) = \sum_{k=0}^\infty C_ke^{-\mu k^2\pi^2 t}\cos(k\pi x).\]
+        Solo falta escoger $C_k$ adecuadamente para que se satisfaga la condición inicial. Se tiene que
+        \[\rho(x,0) = \rho_0(x) \iff \sum_{k=0}^\infty C_k\cos(k\pi x) = \rho_0(x).\]
+        Ahora se considera el desarrollo de Fourier de $\rho_0$ en serie de cosenos,
+        \[\rho_0(x) = \frac{a_0(\rho_0)}{2}+\sum_{k=1}^\infty a_k(\rho_0)\cos(k\pi x),\]
+        donde, para cada $k\in\N\cup\{0\}$,
+        \[a_k(\rho_0) = 2\int_0^1\rho_0(x)\cos(k\pi x)\, dx.\]
+        Hay que escoger entonces $C_0 = \frac{a_0(\rho_0)}{2}$ y $C_k = a_k(\rho_0)$ para $k\geq 1$. Así, la candidata a solución del problema es
+        \[\rho(x,t) =\frac{a_0(\rho_0)}{2}+ \sum_{k=1}^\infty a_k(\rho_0)e^{-\mu k^2\pi^2 t}\cos(k\pi x).\]
+        Se supondrá que la convergencia de la serie es lo suficientemente buena como para que se puedan intercambiar límite y suma. Como $-\mu k^2\pi^2<0$ para todo $k \in \N$, entonces
+        \[\lim_{t\to\infty}\rho(x,t) = \frac{a_0(\rho_0)}{2}+ \sum_{k=1}^\infty a_k(\rho_0)\lim_{t\to\infty}e^{-\mu k^2\pi^2 t}\cos(k\pi x) = \frac{a_0(\rho_0)}{2}.\]
+        \item Sea $\rho_0\colon[0,1]\to\R$ la función dada por $\rho_0(x) = x$. Para cada $k\in \N$,
+        \begin{align*}
+            a_k(\rho_0) &= 2\int_0^1x\cos(k\pi x)\, dx = 2\left[\frac{x\sen(k\pi x)}{k\pi}\right]_{x=0}^{x=1}-2\int_0^1\frac{\sen(k\pi x)}{k\pi}\, dx = 2\left[\frac{\cos(k\pi x)}{k^2\pi^2}\right]_{x=0}^{x=1} \\
+            &= \frac{2}{k^2\pi^2}((-1)^k-1) = \begin{cases}
+                0 & $ si $ k = 2n, n \in \N, \\
+                - \frac{4}{k^2\pi^2} & $ si $ k = 2n-1, n \in \N. 
+            \end{cases}
+        \end{align*} 
+        Por otra parte,
+        \[a_0(\rho_0) = 2\int_0^1x\, dx = 1.\]
+        La solución del problema sería entonces
+        \[\rho(x,t) = \frac{1}{2}-\frac{4}{\pi^2} \sum_{n=1}^\infty\frac{e^{-\mu (2n-1)^2\pi^2 t}\cos((2n-1)\pi x)}{n^2}.\]
+    \end{enumerate}
+
+
+\end{solution}
+
+\begin{exercise}[Junio de 2023]
+    Se considera el sistema dinámico discreto
+    \[\begin{cases}
+        x_0\in\R, \\
+        x_{n+1} = \mu + x_n-x_n^2, \qquad n \geq 0.
+    \end{cases}\]
+    \begin{enumerate}
+        \item Estudiar los equilibrios y su estabilidad.
+        \item Para los valores $\mu = -1$, $\mu = \frac{1}{2}$ y $\mu = 2$, estudiar la existencia de órbitas $2$-periódicas, así como su estabilidad.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Para cada $\mu\in\R$, considérese la función $f_\mu\colon\R\to\R$ dada por $f_\mu(x) = \mu+x-x^2$. Se tiene que $f$ es continua y $f(\R)\subset\R$, así que el sistema dinámico del enunciado tiene sentido. Los equilibrios del sistema son los puntos fijos de $f$:
+        \[f_\mu(x) = x \iff \mu-x^2 = 0 \iff x = \pm\sqrt{\mu}.\]
+        Por otra parte, $f_\mu'(x) = 1-2x$. Se distinguen tres casos:
+        \begin{itemize}
+            \item Supóngase que $\mu > 0$. El sistema tiene dos equilibrios: $l_1 = \sqrt{\mu}$ y $l_2 = -\sqrt{\mu}$. Además, $|f_\mu'(l_1)| = |1-2\sqrt{\mu}|$ y $|f_\mu'(l_2)| = |1+2\sqrt{\mu}| = 1+2\sqrt{\mu} > 1$. Por tanto, $l_2$ es hiperbólico, inestable y repulsor, mientras que la estabilidad de $l_1$ depende de $\mu$.
+            \begin{itemize}
+                \item Si $0 < \mu \leq \frac{1}{4}$, entonces $1-2\sqrt{\mu} \geq 0$ y por tanto $|f_\mu'(l_1)| = 1-2\sqrt{\mu} < 1$, luego $l_1$ es hiperbólico y asintóticamente estable.
+                \item Si $\mu > \frac{1}{4}$, entonces $1-2\sqrt{\mu} < 0$ y por tanto $|f_\mu'(l_1)| = 2\sqrt{\mu} -1$.
+                \begin{itemize}
+                    \item Si $\frac{1}{4}<\mu < 1$, entonces $2\sqrt{\mu}-1 < 2-1 = 1$ y por tanto $l_1$ es hiperbólico y asintóticamente estable.
+                    \item Si $\mu = 1$, entonces $2\sqrt{\mu}-1 = 1$ y por tanto $l_1$ es no hiperbólico. Ejecutando el programa \texttt{web\_diagram.py} con distintas semillas se observa que $l_1$ es asintóticamente estable.
+                    \item Si $\mu > 1$, entonces $2\sqrt{\mu}-1 > 2-1 = 1$ y por tanto $l_1$ es hiperbólico, inestable y repulsor.
+                \end{itemize}
+            \end{itemize}
+            \item Supóngase que $\mu = 0$. El único equilibrio del sistema es $l = 0$, que es no hiperbólico porque $|f_0'(l)| = 1$. En la gráfica de $f_0$ se observa que existe $\varepsilon>0$ tal que $f_0$ es estrictamente creciente en $(l-\varepsilon,l+\varepsilon)$ y $f_0(x) < x$ para todo $x \in (l-\varepsilon,l+\varepsilon) \setminus \{l\}$. Por tanto, $l$ es inestable.
+            \item Si $\mu < 0$, el sistema no tiene equilibrios.
+        \end{itemize}
+        \item Se conoce que
+        \[\textup{n.º de órbitas } 2 \textup{-periódicas } = \frac{1}{2}(\textup{ n.º de ptos. fijos de } f^2 - \textup{n.º de ptos. fijos de } f).\]
+        Para hallar el número de puntos fijos de $f^2$, se estudiarán los puntos de corte de la recta $y = x$ con la gráfica de $f^2$.
+        \begin{itemize}
+            \item Si $\mu = -1$, ni $f$ ni $f^2$ tienen puntos fijos, así que no hay órbitas $2$-periódicas.
+            \item Si $\mu = \frac{1}{2}$, $f$ y $f^2$ tienen los mismos puntos fijos, así que no hay órbitas $2$-periódicas.
+            \item Si $\mu = 2$, los puntos fijos de $f^2$ son $l_1 = \sqrt{2}$, $l_2 = -\sqrt{2}$, $p_1  =0$y $p_2 = 2$. Como $l_1$ y $l_2$ son también puntos fijos de $f$, la única órbita $2$-periódica es $\{p_1,p_2\}$. Además,
+            \[|f'(p_1)f'(p_2)| = |(1-2\cdot 0)(1-2\cdot 2)| = 3 > 1,\]
+            así que la órbita es inestable.
+        \end{itemize}
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2023]
+    Se considera la ecuación diferencial
+    \[x' = x-\frac{2\mu x}{1+\mu x},\]
+    donde $\mu\in\R$.
+    \begin{enumerate}
+        \item Determinar los equilibrios del sistema y estudiar su estabilidad, en función del parámetro $\mu$. En cada caso, representar el diagrama de fases correspondiente.
+        \item Dibujar el diagrama de bifurcación del sistema.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Para cada $\mu\in\R$, considérese la función $f_\mu\colon\R\to\R$ dada por $f_\mu(x) = x-\frac{2\mu x}{1+\mu x}$. Los equilibrios del sistema son los ceros de $f$:
+        \begin{align*}
+            f_\mu(x) = 0 \iff x = \frac{2\mu x}{1+\mu x} \iff x= 0 \textup{ ó } x = 2-\frac{1}{\mu}.
+        \end{align*}
+        Por otro lado, $f_\mu'(x) = 1-\frac{2\mu}{(1+\mu x)^2}$. Se distinguen los siguientes casos:
+        \begin{itemize}
+            \item Supóngase que $\mu \neq 0$ y $\mu \neq \frac{1}{2}$. Los equilibrios del sistema son $l_1 = 0$ y $l_2 = 2-\frac{1}{\mu}$. Además,
+            \[f_\mu'(l_1) = 1-2\mu, \qquad f_\mu'(l_2) = 1-\frac{1}{2\mu}.\]
+            \begin{itemize}
+                \item Si $\mu < 0$, entonces $1-2\mu > 0$ y $1-\frac{1}{2\mu} > 0$, así que $l_1$ y $l_2$ son hiperbólicos, inestables y repulsores.
+                \item Si $0 < \mu < \frac{1}{2}$, entonces $1-2\mu > 0$ y $1-\frac{1}{2\mu} < 0$, así que $l_1$ es hiperbólico, inestable y repulsor, mientras que $l_2$ es hiperbólico y asintóticamente estable.
+                \item Si $\mu > \frac{1}{2}$, entonces $1-2\mu < 0$ y $1-\frac{1}{2\mu} > 0$, así que $l_1$ es hiperbólico y asintóticamente estable, mientras que $l_2$ es hiperbólico, inestable y repulsor.
+            \end{itemize} 
+            \item Supóngase que $\mu = 0$. El único equilibrio del sistema es $l = 0$. Como $f_0'(l) = 1 > 0$, este equilibrio es hiperbólico, inestable y repulsor.
+            \item Supóngase que $\mu = \frac{1}{2}$. El único equilibrio del sistema es $l = 0$. Como $f_{\frac{1}{2}}'(l) = 0$, este equilibrio es no hiperbólico. En la gráfica de $f_{\frac{1}{2}}$ se observa que existe $\varepsilon > 0$ tal que $f(x) > 0$ para todo $x \in (l-\varepsilon,l+\varepsilon)\setminus\{l\}$. Por tanto, $l$ es inestable (semiestable por la izquierda).
+        \end{itemize}
+        \item Realícese con Python.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2023]
+    \hfill
+    \begin{enumerate}
+        \item Sea $\Omega \subset \R^2$ abierto y sea $H \in \mathcal{C}^2(\Omega)$. Un sistema de la forma
+        \begin{equation}
+            x' = \frac{\partial H}{\partial y}, \qquad y' = -\frac{\partial H}{\partial x}
+        \end{equation}
+        se denomina \emph{sistema hamiltoniano}. Probar que la función $H$ permanece constante a lo largo de las órbitas de $(1)$.
+        \item Sea $\Omega\subset\R^2$ abierto y sea $V\in\mathcal{C}^2(\Omega)$. Un sistema de la forma
+        \begin{equation}
+            x' = -\frac{\partial V}{\partial x}, \qquad y' = -\frac{\partial V}{\partial y}
+        \end{equation}
+        se denomina \emph{sistema gradiente}. Probar que si $(x_0,y_0)$ es un mínimo local estricto de $V$, entonces $V(x,y)-V(x_0,y_0)$ es una función de Lyapunov para $(2)$. ¿Qué se puede decir sobre el punto $(x_0,y_0)$?
+        \item Se dirá que los sistemas
+        \[x' = P(x,y), \qquad y' = Q(x,y) \qquad \textup{y} \qquad x' = Q(x,y), \qquad y' = -P(x,y)\]
+        son \emph{ortogonales}. Probar que un sistema es hamiltoniano si y solo si su sistema ortogonal es un sistema gradiente.
+        \item Dada la función $V(x,y) = x^2(x-1)^2+y^2$, escribir los sistemas gradiente y hamiltoniano asociados. En cada caso, determinar los puntos de equilibrio y estudiar su estabilidad analíticamente. Con ayuda del programa \texttt{pplane}, dibujar los diagramas de fases correspondientes. ¿Qué relación se observa entre las órbitas de ambos sistemas?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Sea $(x,y)$ una solución de $(1)$ en un intervalo $I \subset \R$, y sea $\varphi \colon I \to \R$ la función dada por $\varphi(t) = H(x(t),y(t))$. Hay que probar que $\varphi$ es constante. Para todo $t \in I$ se tiene que
+        \[\varphi'(t) = x'(t)\frac{\partial H}{\partial x}(x(t),y(t))+y'(t)\frac{\partial H}{\partial y}(x(t),y(t)) = -x'(t)y'(t)+y'(t)x'(t) = 0,\]
+        así que $\varphi$ es constante.
+        \item Sea $(x_0,y_0) \in \Omega$ un mínimo local estricto de $V$. Entonces:
+        \begin{itemize}
+            \item $\frac{\partial V}{\partial x}(x_0,y_0) = \frac{\partial V}{\partial y}(x_0,y_0) = 0$, lo que permite afirmar que $(x_0,y_0)$ es un equilibrio del sistema.
+            \item Existe un entorno $\mathcal{O}$ de $(x_0,y_0)$ de manera que $V(x,y)-V(x_0,y_0) > 0$ para todo $(x,y)\in \mathcal{O}\setminus\{(x_0,y_0)\}$, lo que permite afirmar que la función $U \colon \Omega \to\R$ dada por $U(x,y) = V(x,y)-V(x_0,y_0)$ es definida positiva en $(x_0,y_0)$.
+        \end{itemize}  
+        Además, la derivada total de $U$ respecto del sistema $(2)$ es
+        \[\dot{U}(x,y) = -\left(\frac{\partial V}{\partial x}(x,y)\right)^2-\left(\frac{\partial V}{\partial y}(x,y)\right)^2.\]
+        Como $\dot{U}(x,y) \leq 0$ para todo $(x,y)\in \mathcal{O}\setminus\{(x_0,y_0)\}$, se tiene que $U$ es una función de Lyapunov para el sistema $(2)$ en el punto $(x_0,y_0)$. Además, $(x_0,y_0)$ es un equilibrio estable.
+        \item Sea
+        \[x' = \frac{\partial H}{\partial y}, \qquad y' = -\frac{\partial H}{\partial x}\]
+        un sistema hamiltoniano. Por definición, el sistema ortogonal de este sistema es
+        \[x' = -\frac{\partial H}{\partial x}, \qquad y' = -\frac{\partial H}{\partial y},\]
+        que se trata de un sistema gradiente.
+
+        Recíprocamente, considérese un sistema
+        \[x' = P(x,y), \qquad y' = Q(x,y)\]
+        tal que su sistema ortogonal es un sistema gradiente, es decir, existe una función $V$ de clase $2$ en un abierto de $\R^2$ tal que
+        \[x' = Q(x,y) = -\frac{\partial V}{\partial x}, \qquad y' = -P(x,y) = -\frac{\partial V}{\partial y}.\]
+        Entonces el sistema original es
+        \[x' = P(x,y) = \frac{\partial V}{\partial y}, \qquad y' = Q(x,y) = -\frac{\partial V}{\partial x},\]
+        que es un sistema hamiltoniano.
+        \item Sea $V \colon \R^2\to\R$ la función dada por $V(x,y) = x^2(x-1)^2+y^2$, que satisface $V\in\mathcal{C}^2(\R)$. Se tiene que
+        \[\frac{\partial V}{\partial x}(x,y) = 2x(x-1)^2+2x^2(x-1) = 2x(x-1)(2x-1), \qquad \frac{\partial V}{\partial y}(x,y) =2y.\]
+        Por tanto, el sistema hamiltoniano es
+        \[x' = 2y, \qquad y' = -2x(x-1)(2x-1).\]
+        Los equilibrios de este sistema son $(0,0)$, $(\frac{1}{2},0)$ y $(1,0)$, y la matriz jacobiana,
+        \[J_H(x,y) = \left(\begin{array}{cc}
+            0 & 2 \\
+            -12x^2+12x-2 & 0
+        \end{array}\right).\]
+        \begin{itemize}
+            \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+            \[J_H(0,0) = \left(\begin{array}{cc}
+                0 & 2 \\
+                -2 & 0
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = 2i$ y $\lambda_2 = -2i$. Por tanto, este equilibrio es no hiperbólico. Usando \texttt{pplane} se observa que la configuración del diagarama de fases del sistema en torno a $(0,0)$ es un centro, luego $(0,0)$ es estable.
+            \item \underline{Estabilidad de $(\frac{1}{2},0)$}. Se tiene que
+            \[J_H(\frac{1}{2},0) = \left(\begin{array}{cc}
+                0 & 2 \\
+                1 & 0
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = \sqrt{2}$ y $\lambda_2 = -\sqrt{2}$. Por tanto, este equilibrio es hiperbólico. Como $\textup{det}(J_H(0,0)) < 0$, por el teorema de Hartman-Grobman, la configuración del diagarama de fases del sistema en torno a $(\frac{1}{2},0)$ es un punto de silla, luego $(\frac{1}{2},0)$ es inestable.
+            \item \underline{Estabilidad de $(\frac{1}{2},0)$}. Se tiene que
+            \[J_H(1,0) = \left(\begin{array}{cc}
+                0 & 2 \\
+                -2 & 0
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = 2i$ y $\lambda_2 = -2i$. Por tanto, este equilibrio es no hiperbólico. Usando \texttt{pplane} se observa que la configuración del diagarama de fases del sistema en torno a $(1,0)$ es un centro, luego $(1,0)$ es estable.
+        \end{itemize}
+        Por otra parte, el sistema gradiente es
+        \[x' = -2x(x-1)(2x-1), \qquad y' = -2y,\]
+        que tiene los mismos equilibrios que el sistema hamiltoniano: $(0,0)$, $(\frac{1}{2},0)$ y $(1,0)$. La matriz jacobiana ahora es,
+        \[J_H(x,y) = \left(\begin{array}{cc}
+            -12x^2+12x-2 & 0 \\
+            0 & -2
+        \end{array}\right).\]
+        \begin{itemize}
+            \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+            \[J_H(0,0) = \left(\begin{array}{cc}
+                -2 & 0 \\
+                0 & -2
+            \end{array}\right).\]
+            El único autovalor de esta matriz es $\lambda = -2$. Por tanto, este equilibrio es hiperbólico. Como $J_H(0,0)$ es diagonalizable y de traza negativa, por el teorema de Hartman-Grobman, la configuración del diagarama de fases del sistema en torno a $(0,0)$ es un nodo estrella estable, luego $(0,0)$ es asintóticamente estable.
+            \item \underline{Estabilidad de $(\frac{1}{2},0)$}. Se tiene que
+            \[J_H(\frac{1}{2},0) = \left(\begin{array}{cc}
+                1 & 0 \\
+                0 & -2
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = 1$ y $\lambda_2 = -2$. Por tanto, este equilibrio es hiperbólico. Como $\textup{det}(J_H(0,0)) < 0$, por el teorema de Hartman-Grobman, la configuración del diagarama de fases del sistema en torno a $(\frac{1}{2},0)$ es un punto de silla, luego $(\frac{1}{2},0)$ es inestable.
+            \item \underline{Estabilidad de $(\frac{1}{2},0)$}. Se tiene que
+            \[J_H(1,0) = \left(\begin{array}{cc}
+                -2 & 0 \\
+                0 & -2
+            \end{array}\right).\]
+            El único autovalor de esta matriz es $\lambda = -2$. Por tanto, este equilibrio es hiperbólico. Como $J_H(1,0)$ es diagonalizable y de traza negativa, por el teorema de Hartman-Grobman, la configuración del diagarama de fases del sistema en torno a $(1,0)$ es un nodo estrella estable, luego $(1,0)$ es asintóticamente estable.
+        \end{itemize}
+        En los diagramas de fases se observa que las órbitas de los sistemas son ortogonales.
+    \end{enumerate}
+\end{solution}
+
+\addtocounter{exercise}{-4}
+
+\begin{exercise}[Junio de 2024]
+    Se considera el siguiente problema:
+    \[(P) \ \left\{\begin{alignedat}{4}
+    \frac{\partial u}{\partial t}-\mu\frac{\partial^2u^2}{\partial x^2}+\alpha u &= 0, & \qquad & x \in (0,1), \ & t \in (0,\infty), \\
+    u(x,0) &= u_0(x), & \qquad & x \in [0,1], & \\
+    u(0,t) &= 0, & \qquad & \ & t \in (0,\infty), \\
+    u(1,t) &= 0, & \qquad & \ & t \in (0,\infty),
+    \end{alignedat}\right.\]
+    siendo $\mu >0$ y $\alpha\in\R$ constantes, y $u_0\colon[0,1]\to\R$ una función conocida.
+    \begin{enumerate}
+    \item Si $u$ representa la temperatura, medida en $\textup{ºC}$, de una barra cilíndrica de longitud 1 $\textup{m}$, interpretar la ecuación, las constantes, la condición inicial y las condiciones de contorno. ¿Qué unidades han de tener las constantes?
+    \item Probar que si $u$ es solución de $(P)$, entnces la función
+    \[v(x,t) = e^{\alpha t}u(x,t)\]
+    es solución de
+    \[(\widetilde{P}) \ \left\{\begin{alignedat}{4}
+    \frac{\partial v}{\partial t}-\mu\frac{\partial^2v^2}{\partial x^2} &= 0, & \qquad & x \in (0,1), \ & t \in (0,\infty), \\
+    v(x,0) &= u_0(x), & \qquad & x \in [0,1], & \\
+    v(0,t) &= 0, & \qquad & \ & t \in (0,\infty), \\
+    v(1,t) &= 0, & \qquad & \ & t \in (0,\infty).
+    \end{alignedat}\right.\]
+    \item Supóngase que la condición inicial es
+    \[u_0(x) = 4x(x-1).\]
+    Con ayuda del apartado anterior, encontrar la expresión de la solución de $(P)$ en desarrollo de senos.
+    \item ¿A qué tiende la solución hallada en el apartado anterior cuando $t$ tiende a infinito?
+\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item La ecuación del problema consiste en un modelo continuo de advección-difusión, pues de la forma
+        \[\frac{\partial u}{\partial t}(x,t)+\frac{\partial F}{\partial x}(x,t) = G(x,t),\]
+        siendo $F(x,t) = -\mu\frac{\partial u}{\partial x}(x,t)$ el flujo de calor en la barra y $G(x,t) = -\alpha u(x,t)$ el término fuente. Concretamente, esta expresión del flujo corresponde a un modelo de difusión con coeficiente de difusión $\mu$.
+        
+        La condición inicial $u(x,0) = u_0(x)$ indica que la temperatura inicial de la barra viene dada por la función $u_0$. Las condiciones de contorno quieren decir que la temperatura en los extremos de la barra es nula.
+
+        Supóngase que el tiempo se mide, por ejemplo, en segundos. Se tiene que $[\frac{\partial u}{\partial t}] = \frac{\textup{ºC}}{s}$, luego $[\alpha u] = [\frac{\partial u}{\partial t}] = \frac{\textup{ºC}}{s}$. Por otra parte, $[\alpha u] = [\alpha][u] = [\alpha]\textup{ºC}$. De esto se deduce que $[\alpha] = \frac{1}{s}$. Y como $[\mu\frac{\partial^2u}{\partial x^2}] = [\mu]\frac{\textup{ºC}}{m^2}$ y también $[\mu\frac{\partial^2u}{\partial x^2}] = [\frac{\partial u}{\partial t}] = \frac{\textup{ºC}}{s}$, entonces $[\mu] = \frac{\textup{m}^2}{\textup{s}}$.
+        \item Sea $u \colon [0,1]\times(0,\infty)\to\R$ una solución de $(P)$, y sea $v \colon [0,1]\to\R$ la función dada por $v(x,t) = e^{\alpha t}u(x,t)$. Usando que $u$ es solución de $(P)$, se tiene
+        \begin{align*}
+            \frac{\partial v}{\partial t} - \mu\frac{\partial^2v}{\partial x^2} &= \alpha e^{\alpha t}u(x,t) + e^{\alpha t}\frac{\partial u}{\partial t}(x,t)-\mu e^{\alpha t}\frac{\partial^2u}{\partial x^2}(x,t) \\
+            &= e^{\alpha t}\left(\alpha u(x,t)+\frac{\partial u}{\partial t}(x,t) -\mu\frac{\partial^2u}{\partial x^2}(x,t)\right) \\
+            &= 0, \\
+            v(x,0) &= u(x,0) = u_0(x), \\
+            v(0,t) &= e^{\alpha t}u(0,t) = 0,\\
+            v(1,t) &= e^{\alpha t}u(1,t) = 0.
+        \end{align*}
+        En consecuencia, $v$ es solución de $(\widetilde{P})$. 
+        \item Sea $u_0\colon[0,1]\to\R$ la función dada por $4x(x-1)$. Se conoce que la solución formal del problema $(\widetilde{P})$ es
+        \[v(x,t) = \sum_{n=1}^\infty b_n(u_0)e^{-\mu n^2\pi^2 t}\sen(n\pi x),\]
+        donde
+        \begin{align*}
+            b_n(u_0) &= 2\int_0^1 u_0(x)\sen(n\pi x)\, dx = 8\int_0^1x^2\sen(n\pi x)\, dx-8\int_0^1x\sen(n\pi x)\, dx. \\
+        \end{align*}
+        Por un lado,
+        \begin{align*}
+            \int_0^1x^2\sen(n\pi x)\, dx &= \left[-\frac{x^2\cos(n\pi x)}{n\pi}\right]_{x=0}^{x=1}+\frac{2}{n\pi}\int_0^1x\cos(n\pi x)\, dx \\
+            &= -\frac{(-1)^n}{n\pi} + \frac{2}{n\pi}\left(\left[\frac{x\sen(n\pi x)}{n\pi}\right]_{x=0}^{x=1}-\frac{1}{n\pi}\int_0^1\sen(n\pi x)\, dx\right) \\
+            &= -\frac{(-1)^n}{n\pi} - \frac{2}{n^2\pi^2}\left[-\frac{\cos(n\pi x)}{n\pi}\right]_{x=0}^{x=1}  \\
+            &= -\frac{(-1)^n}{n\pi} + \frac{2}{n^3\pi^3}((-1)^n-1).
+        \end{align*}
+        Por otro,
+        \begin{align*}
+            \int_0^1x\sen(n\pi x)\, dx &= \left[-\frac{x\cos(n\pi x)}{n\pi}\right]_{x=0}^{x=1}+\frac{1}{n\pi}\int_0^1\cos(n\pi x)\, dx = -\frac{(-1)^n}{n\pi}.
+        \end{align*}
+        En consecuencia,
+        \[b_n(u_0) = \frac{16}{n^3\pi^3}((-1)^n-1) = \begin{cases}
+            0 & $ si $ n = 2k, \ k \in \N, \\
+            -\frac{32}{(2k-1)^3\pi^3} & $ si $ n = 2k-1, \ k \in \N.
+        \end{cases}\]
+        Por tanto, la solución formal de $(P)$ será
+        \begin{align*}
+            u(x,t) &= e^{-\alpha t}v(x,t) = \sum_{n=1}^\infty b_n(u_0)e^{-(\alpha+\mu n^2\pi^2) t}\sen(n\pi x) \\ 
+            &= -\sum_{k=1}^\infty\frac{32}{(2k-1)^3\pi^3}e^{-(\alpha+\mu(2k-1)^2\pi^2)t}\sen((2k-1)\pi x).
+        \end{align*}
+        \item Se tiene que
+        \begin{align*}
+            |u(x,t)| &\leq \sum_{k=1}^\infty\frac{32}{(2k-1)^3\pi^3}e^{-(\alpha+\mu(2k-1)^2\pi^2)t}|\!\sen((2k-1)\pi x)| \leq C\sum_{k=1}^\infty e^{-(\alpha+\mu(2k-1)^2\pi^2)t} \\
+            &= Ce^{-\alpha t}\sum_{k=1}^\infty e^{-\mu(2k-1)^2\pi^2t}
+        \end{align*}
+        para una cierta constante $C>0$. Como esta última serie converge uniformemente en $(0,\infty)$, existe otra constante $C'>0$ tal que
+        \[|u(x,t)| \leq C'e^{-\alpha t}.\]
+        En consecuencia, si $\alpha > 0$, se tiene
+        \[\lim_{t\to\infty} u(x,t) = 0. \]
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2024]
+    Se considera el modelo discreto
+    \[\begin{cases}
+        x_0\in\R, \\
+        x_{n+1} = x_n+x_n^2-\mu, \qquad n = 0,1,\mathellipsis
+    \end{cases}\]
+    \begin{enumerate}
+        \item Estudiar los equilibrios y su estabilidad.
+        \item Para los valores $\mu = -1$, $\mu = 0'5$ y $\mu = 1'3$, estudiar la existencia de órbitas $2$-periódicas y su estabilidad.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \begin{enumerate}
+        \item Dado $\mu\in\R$, considérese la función $f_\mu\colon\R\to\R$ dada por $f_\mu(x) = x+x^2-\mu$. Se tiene que $f_\mu$ es continua y $f_\mu(\R)\subset\R$, así que el sistema dinámico considerado tiene sentido. Los equilibrios del sistema son los puntos fijos de $f$:
+        \begin{align*}
+            f_\mu(x) = x \iff x^2-\mu = 0 \iff x = \pm\sqrt{\mu}.
+        \end{align*}
+        Por otro lado, $f_\mu'(x) = 1+2x$. Se distinguen los siguientes casos:
+        \begin{itemize}
+            \item Si $\mu > 0$, los equilibrios del sistema son $l_1 = \sqrt{\mu}$ y $l_2 = -\sqrt{\mu}$. Además, \[|f_\mu'(l_1)| = |1+2\sqrt{\mu}| = 1+2\sqrt{\mu} > 1, \qquad |f_\mu'(l_2)| = |1-2\sqrt{\mu}|.\] Por tanto, $l_1$ es hiperbólico, inestable y repulsor. Para estudiar la estabilidad de $l_2$, se distinguen, a su vez, los casos que siguen:
+            \begin{itemize}
+                \item Si $0<\mu<1$, entonces $0<2\sqrt{\mu}<2$ y por tanto $|1-2\sqrt{\mu}|<1$, luego $l_2$ es hiperbólico y asintóticamente estable.
+                \item Si $\mu=1$, entonces $|1-2\sqrt{\mu}|=1$, luego $l_2$ es no hiperbólico. Ejecutando el programa \texttt{web\_diagram.py} con distintas semillas, se observa que $l_2$ es asintóticamente estable.
+                \item Si $\mu > 1$, entonces $2\sqrt{\mu}>2$ y por tanto $|1-2\sqrt{\mu}|>1$, luego $l_2$ es hiperbólico, inestable y repulsor.
+            \end{itemize} 
+            \item Si $\mu = 0$, el único equilibrio del sistema es $l = 0$. Como $|f_0'(l)| = 1$, este equilibrio es no hiperbólico. En la gráfica de $f_0$ se observa que existe $\varepsilon>0$ tal que $f_0$ es estrictamente creciente en $(l-\varepsilon,l+\varepsilon)$ y $f(x)>x$ para todo $x \in (l-\varepsilon,l+\varepsilon)\setminus\{l\}$, luego $l$ es inestable.
+            \item Si $\mu < 0$, el sistema no tiene equilibrios.
+        \end{itemize}
+        \item Se conoce que
+        \[\textup{n.º de órbitas } 2 \textup{-periódicas } = \frac{1}{2}(\textup{ n.º de ptos. fijos de } f^2 - \textup{n.º de ptos. fijos de } f).\]
+        Para hallar el número de puntos fijos de $f^2$, se estudiarán los puntos de corte de la recta $y = x$ con la gráfica de $f^2$.
+        \begin{itemize}
+            \item Si $\mu = -1$, ni $f$ ni $f^2$ tienen puntos fijos, así que no hay órbitas $2$-periódicas.
+            \item Si $\mu = 0'5$, $f$ y $f^2$ tienen los mismos puntos fijos, así que no hay órbitas $2$-periódicas.
+            \item Si $\mu = 1'3$, los puntos fijos de $f^2$ son $l_1 = \sqrt{1'3}$, $l_2 = -\sqrt{1'3}$, $p_1  \approx 0'45$ y $p_2 \approx -1'55$. Como $l_1$ y $l_2$ son también puntos fijos de $f$, la única órbita $2$-periódica es $\{p_1,p_2\}$. Además,
+            \[|f'(p_1)f'(p_2)| \approx |(1+2\cdot 0'45)(1-2\cdot 1'55)| = 3'99 > 1,\]
+            así que la órbita es inestable.
+        \end{itemize}
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2024]
+    Se considera la cuación diferencial
+    \[x' = \frac{x^2}{1+x^2}-\mu x,\]
+    donde $\mu\in\R$.
+    \begin{enumerate}
+        \item Determinar los posibles equilibrios del sistema y su estabilidad, en función del parámetro $\mu$. En cada caso, representar el diagrama de fases correspondiente.
+        \item Dibujar el diagarama de bifurcación del sistema.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    Este ejercicio resulta muy familiar.
+\end{solution}
+
+\begin{exercise}[Junio de 2024]
+    Una rueda hidráulica situada en una corriente de agua con velocidad $U$ (que se supondrá constante) produce energía por rotación. La potencia que genera $P$, puede ser modelada mediante el sistema
+    \[\begin{cases}
+        P' = -\alpha P + \gamma PV, \\
+        V' = \delta U-\beta V-\mu P^2,
+    \end{cases}\]
+    siendo $V$ la velocidad de giro de la rueda y $\alpha$, $\beta$, $\gamma$, $\delta$ y $\mu$ constantes positivas.
+    \begin{enumerate}
+        \item Encontrar dos constantes positivas $V^*$ y $P^*$ tales que el cambio de variables
+        \[x = \frac{P}{P^*}, \qquad y = \frac{V}{V^*},\]
+        permita reescribir el sistema en la forma
+        \[(S) \ \begin{cases}
+            x' = -\alpha x + xy, \\
+            y' = u-\beta y-x^2,
+        \end{cases}\]
+        siendo $u$ una constante.
+        \item En el contexto del problema, solo tienen sentido valores de $P$ (y por tanto de $x$) mayores o iguales que $0$. Supóngase también que $u > 0$. Encontrar los equilibrios del sistema $(S)$ que tengan sentido en el modelo y estudiar su estabilidad en los casos hiperbólicos.
+        \item Con ayuda del ordenador, representar diagramas de fases que ilustren cada uno de los casos obtenidos en el apartado anterior. ¿Qué valores de la velocidad de la corriente hacen que la rueda hidráulica tienda a producir energía de forma estable?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Considérese el cambio de variables $x = \frac{P}{P^*}$, $y = \frac{V}{V^*}$, con $V^*,P^*>0$ constantes. Se tiene que
+        \begin{align*}
+            x' &= \frac{P'}{P^*} = \frac{-\alpha P + \gamma PV}{P^*} = -\alpha x+\gamma xV = -\alpha x+\gamma V^*xy, \\
+            y' &= \frac{V'}{V^*} = \frac{\delta U -\beta V-\mu P^2}{V^*} = \frac{\delta U}{V^*} -\beta y -\mu\frac{P^2}{V^*} = \frac{\delta U}{V^*}-\beta y -\mu \frac{{(P^*)}^2x^2}{V^*}.
+        \end{align*}
+        Tomando $V^* = \frac{1}{\delta}$, $P^* = \sqrt{\frac{V^*}{\mu}} = \sqrt{\frac{1}{\delta\mu}}$ y $u = \frac{\delta U}{V^*} = \delta^2U$, el sistema obtenido es
+        \[\begin{cases}
+            x' = -\alpha x + xy, \\
+            y' = u-\beta y -x^2.
+        \end{cases}\]
+        Como $\delta,\mu>0$, se tiene que $V^*,P^*>0$.
+        \item Se hallan los equilibrios del sistema:
+        \begin{align*}
+            \begin{cases}
+                -\alpha x + xy = 0 \\
+                u-\beta y - x^2 = 0
+            \end{cases} \iff \begin{cases}
+                \begin{cases}
+                x = 0 \\
+                u-\beta y - x^2 = 0
+                \end{cases} \\[20pt]
+                \begin{cases}
+                y = \alpha \\
+                u-\beta y -x^2 = 0
+                \end{cases}
+            \end{cases}
+            \iff 
+            \begin{cases}
+                \begin{cases}
+                x = 0 \\
+                y = \frac{u}{\beta}
+                \end{cases} \\[20pt]
+                \begin{cases}
+                y = \alpha \\
+                x = \pm\sqrt{u-\beta\alpha}
+                \end{cases}
+            \end{cases}
+        \end{align*}
+        Por otra parte, la matriz jacobiana del sistema es
+        \[J(x,y) = \left(\begin{array}{cc}
+            -\alpha+y & x \\
+            -2x & -\beta
+        \end{array}\right).\]
+        Se distinguen tres casos:
+        \begin{itemize}
+            \item Supóngase que $u-\beta\alpha > 0$. Los equilibrios del sistema son entonces $(0,\frac{u}{\beta})$ y $(\sqrt{u-\beta\alpha},\alpha)$; no se considera $(-\sqrt{u-\beta\alpha},\alpha)$ porque $x$ toma valores no negativos en el modelo. En primer lugar,
+            \[J\bigl(0,\frac{u}{\beta}\bigr) = \left(\begin{array}{cc}
+            -\alpha+\frac{u}{\beta} & 0 \\
+            0 & -\beta
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_ 1= -\alpha+\frac{u}{\beta}$ y $\lambda_2 = -\beta$, reales y distintos. Además, tienen parte real no nula ($-\alpha+\frac{u}{\beta} >0$ porque $u-\beta\alpha>0$), así que puede utilizarse el teorema de Hartman-Groban. Como $\textup{det}(J(0,\frac{u}{\beta})) < 0$, por el teorema de Hartman-Grobman, la configuración del diagrama de fases en un entorno de $(0,\frac{u}{\beta})$ es un punto de silla, luego $(0,\frac{u}{\beta})$ es inestable.
+
+            En segundo lugar,
+            \[J\bigl(\sqrt{u-\beta\alpha},\alpha\bigr) = \left(\begin{array}{cc}
+            0 & \sqrt{u-\beta\alpha} \\
+            -2\sqrt{u-\beta\alpha} & -\beta
+            \end{array}\right).\]
+            Se tiene que
+            \begin{align*}
+                \textup{det}(J(\sqrt{u-\beta\alpha},\alpha)-\lambda I) = 0 &\iff \lambda^2+\beta\lambda+2(u-\beta\alpha) = 0 \\
+                &\iff \lambda = \frac{-\beta\pm\sqrt{\beta^2-8u+8\beta\alpha}}{2}.
+            \end{align*}
+            Se vuelven a distinguir tres casos:
+            \begin{itemize}
+                \item Si $\beta^2-8u+8\beta\alpha >0$, entonces $J(\sqrt{u-\beta\alpha},\alpha)$ tiene dos autovalores reales y distintos. Además, tienen parte real no nula, así que puede utilizarse el teorema de Hartman-Groban. Como $\textup{det}(J(\sqrt{u-\beta\alpha},\alpha)) > 0$ y $\textup{tr}(J(\sqrt{u-\beta\alpha},\alpha)) < 0$, por el teorema de Hartman-Grobman, la configuración del diagrama de fases en un entorno de $(\sqrt{u-\beta\alpha},\alpha)$ es un nodo estable, luego $(\sqrt{u-\beta\alpha},\alpha)$ es asintóticamente estable.
+                \item Si $\beta^2-8u+8\beta\alpha =0$, entonces $J(\sqrt{u-\beta\alpha},\alpha)$ tiene un autovalor real doble. Como tiene parte real no nula, puede utilizarse el teorema de Hartman-Groban. En este caso se tiene $u = \frac{\beta^2}{8}+\beta\alpha$, luego $\sqrt{u-\beta\alpha} = \frac{\beta}{2\sqrt{2}}$ y por tanto
+                \[J\bigl(\sqrt{u-\beta\alpha},\alpha\bigr) = \left(\begin{array}{cc}
+                0 &  \frac{\beta}{2\sqrt{2}} \\
+                -\frac{\beta}{\sqrt{2}} & -\beta
+                \end{array}\right).\]
+                Se observa que $J(\sqrt{u-\beta\alpha},\alpha)$ no es diagonalizable y $\textup{tr}(J(\sqrt{u-\beta\alpha},\alpha)) < 0$. Por el teorema de Hartman-Grobman, la configuración del diagrama de fases en un entorno de $(\sqrt{u-\beta\alpha},\alpha)$ es un nodo degenerado estable, luego $(\sqrt{u-\beta\alpha},\alpha)$ es asintóticamente estable.
+                \item Si $\beta^2-8u+8\beta\alpha <0$, entonces $J(\sqrt{u-\beta\alpha},\alpha)$ tiene dos autovalores complejos con parte real y parte imaginaria no nula. Por tanto, puede utilizarse el teorema de Hartman-Groban. Como $\textup{tr}(J(\sqrt{u-\beta\alpha},\alpha)) < 0$, por el teorema de Hartman-Grobman, la configuración del diagrama de fases en un entorno de $(\sqrt{u-\beta\alpha},\alpha)$ es un foco estable, luego $(\sqrt{u-\beta\alpha},\alpha)$ es asintóticamente estable.
+            \end{itemize}
+            En cualquier caso se obtiene que $(\sqrt{u-\beta\alpha},\alpha)$ es asintóticamente estable.
+            \item Supóngase que $u-\beta\alpha = 0$, esto es, $u = \beta\alpha$. El único equilibrio del sistema es entonces $(0,\alpha)$. Se tiene que
+            \[J\bigl(0,\alpha\bigr) = \left(\begin{array}{cc}
+            0 & 0 \\
+            0 & -\beta
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = 0$ y $\lambda_2= -\beta$. Como uno de ellos tiene parte real nula, el equilibrio $(0,\alpha)$ es no hiperbólico.
+            \item Supóngase que $u-\beta\alpha < 0$. El único equilibrio del sistema es entonces $(0,\frac{u}{\beta})$. Se tiene que
+            \[J\bigl(0,\frac{u}{\beta}\bigr) = \left(\begin{array}{cc}
+            -\alpha+\frac{u}{\beta} & 0 \\
+            0 & -\beta
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = -\alpha+\frac{u}{\beta}$ y $\lambda_2= -\beta$. Además, tienen parte real no nula ($-\alpha+\frac{u}{\beta} <0$ porque $u-\beta\alpha<0$), así que puede utilizarse el teorema de Hartman-Groban. Como $\textup{det}(J(0,\frac{u}{\beta})) >0$ y $\textup{tr}J(0,\frac{u}{\beta}) < 0$, por el teorema de Hartman-Grobman, la configuración del diagrama de fases en un entorno de $(0,\frac{u}{\beta})$ es un nodo estable, luego $(0,\frac{u}{\beta})$ es asintóticamente estable.
+        \end{itemize}
+        \item La representación de los diagramas de fases se encomienda a \texttt{pplane}. 
+        
+        La rueda hidráulica tiende a producir energía de forma estable cuando $u-\beta\alpha > 0$, es decir, cuando la velocidad de corriente satisface $U = \frac{u}{\delta^2} > \frac{\beta\alpha}{\delta^2}$, pues solo en ese caso existe un equilibrio de la forma $(x,y)$ con $x >0$ que además es asintóticamente estable. Concretamente, este equilibrio es $(\sqrt{u-\beta\alpha},\alpha)$.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}[Junio de 2024]
+    Se considera el sistema
+    \[\begin{cases}
+        x' = -y^3, \\
+        y' = x^3.
+    \end{cases}\]
+    Determinar una función de Lyapunov para estudiar la estabilidad del equilibrio $(0,0)$. Demostrar que dicho equilibrio no puede ser asintóticamente estable.
+\end{exercise}
+
+\begin{solution}
+    Sea $V \colon \R^2\to\R^2$ la función dada por $V(x,y) = x^4+y^4$. Es claro que $V$ es definida positiva en $(0,0)$, pues $V(x,y) >0$ para todo $(x,y)\neq(0,0)$. La derivada total de $V$ respecto del sistema considerado es
+    \[\dot{V}(x,y) = -4x^3y^3+4x^3y^3 = 0,\]
+    luego $V$ es una función de Lyapunov y además el equilibrio $(0,0)$ es estable. Sea $(x,y)$ una órbita del sistema. Se tiene que
+    \begin{itemize}
+        \item $x > 0$, $y > 0$ $\implies$ $x$ decrece e $y$ crece.
+        \item $x < 0$, $y > 0$ $\implies$ $x$ decrece e $y$ decrece.
+        \item $x > 0$, $y < 0$ $\implies$ $x$ crece e $y$ crece.
+        \item $x < 0$, $y < 0$ $\implies$ $x$ crece e $y$ decrece.
+    \end{itemize}
+    Por tanto, no puede tenerse $\lim_{t\to\infty}(x(t),y(t)) = (0,0)$, así que el equilibrio $(0,0)$ no es atractor.
+\end{solution}
+
+
+
+
+\end{document}

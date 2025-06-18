@@ -1,0 +1,111 @@
+\documentclass[a4paper, 10pt, oneside]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\noindent \textbf{Práctica 11} \hfill \textbf{David López del Pino}
+
+\hfill
+
+En esta práctica se implementa un programa que resuelve mediante el método de elementos finitos la ecuación diferencial siguiente:
+\[-u''+c(x)u'+d(x)u = f(x), \qquad x \in [a,b],\]
+con condiciones de contorno de Dirichlet ($u(a) = \alpha$, $u(b)= \beta$) o de Neumann ($u'(a) = \alpha$, $u'(b)= \beta$). Multiplicamos la ecuación por una función test suficientemente regular e integramos, quedando
+\[
+    \int_a^b (-u''v+c(x)u'v+d(x)uv) \, dx = \int_a^bf(x)v\, dx.
+\]
+Integrando por partes,
+\[\int_a^b u''v \, dx = [u'v]_{x=a}^{x=b}-\int_a^bu'v'\, dx.\]
+Para que se tenga $ [u'v]_{x=a}^{x=b} = 0$, le pediremos a la función test que verifique $v(a) = v(b) = 0$. Por tanto, sustituyendo en la ecuación,
+\[\int_a^b (u'v'+c(x)u'v+d(x)uv) \, dx = \int_a^bf(x)v\, dx,\]
+es decir,
+\[\int_a^b u'(v'+c(x)v)\, dx+\int_a^bd(x)uv \, dx = \int_a^bf(x)v\, dx.\]
+Consideramos una partición equiespaciada $x_0 = a < x_1 < x_2 < \cdots < x_{n} = b$ del intervalo $[a,b]$. Sea $h = x_i-x_{i-1}$ y consideramos el espacio vectorial
+\[W_h = \{w_h \in \mathcal{C}^0( [0,1]) \colon w_h\!\mid_{[x_{i-1},x_i]} \ \in \mathcal{P}_1, \ i = 1,2,\mathellipsis,n\},\]
+que es de dimensión $n+1$. Sea $\{\varphi_0,\varphi_1,\mathellipsis,\varphi_n\}$ la base canónica de este espacio vectorial, y consideremos el subespacio vectorial
+\[V_h = \{v_h \in W_h \colon v(a)=v(b)=0\},\]
+que es de dimensión $n-1$. Una base de este subespacio es $\{\varphi_1,\varphi_2,\mathellipsis,\varphi_{n-1}\}$. Por tanto, la solución aproximada del problema debe ser de la forma
+\[u_h = \alpha \varphi_0 + \sum_{i=1}^{n-1}v_h(x_i)\varphi_i + \beta \varphi_n.\]
+Esta función debe verificar
+\[\int_a^b u_h'(v'+c(x)v)\, dx+\int_a^bd(x)u_hv \, dx = \int_a^bf(x)v\, dx.\]
+para toda $v \in V_h$. Como $\{\varphi_1,\varphi_2,\mathellipsis,\varphi_{n-1}\}$ es base de $V_h$, debe tenerse
+\[
+    \int_a^b u_h'(\varphi_i'+c(x)\varphi_i)\, dx+\int_a^bd(x)u_h\varphi_i \, dx = \int_a^bf(x)\varphi_i\, dx. \tag{$\ast$}
+\]
+para todo $i = 1,2,\mathellipsis,n-1$. Llamemos $v_h(x_j) = v_j$ para cada $j = 1,2,\mathellipsis,n-1$. Se tiene que
+\begin{align*}
+    \int_a^b u'_h(\varphi_i'+c(x)\varphi_i) \, dx &=\int_a^b \Bigl(\alpha\varphi_0'+\sum_{j=1}^{n-1}v_j\varphi_j'+\beta\varphi_n'\Bigr)(\varphi_i'+c(x)\varphi_i) \, dx \\
+    &= \sum_{j=1}^{n-1}v_j\int_a^b\varphi_j'(\varphi_i'+c(x)\varphi_i) \, dx +\int_a^b (\alpha\varphi_0'+\beta\varphi_n')(\varphi_i'+c(x)\varphi_i)\, dx.
+\end{align*}
+Por otro lado,
+\begin{align*}
+    \int_a^b d(x)u_h\varphi_i \, dx &= \int_a^b d(x)\Bigl(\alpha \varphi_0 + \sum_{j=1}^{n-1}v_j\varphi_j + \beta \varphi_n\Bigr)\varphi_i \, dx \\
+    &= \sum_{j=1}^n v_j\int_a^b d(x)\varphi_j\varphi_i\, dx + \int_a^bd(x)(\alpha\varphi_0+\beta\varphi_n)\varphi_i \, dx.
+\end{align*}
+Sustituyendo todo esto en $(\ast)$ y reagrupando,
+\begin{align*}
+    &\sum_{j=1}^n v_j \Bigl(\int_a^b (\varphi_j'\varphi_i'+c(x)\varphi_j'\varphi_i+d(x)\varphi_j\varphi_i) \, dx \Bigr) = \\
+    &= \int_a^b \Bigl(f(x)\varphi_i-\alpha\varphi_0'\varphi_i'-\alpha c(x)\varphi_0'\varphi_i-\beta\varphi_n'\varphi_i'-\beta c(x)\varphi_n' \varphi_i - \alpha d(x)\varphi_0\varphi_i- \beta d(x)\varphi_n\varphi_i\, dx\Bigr).
+\end{align*}
+Obtenemos un sistema lineal de la forma $AV = B$. Hallemos la matriz $A$ y el término independiente $B$. En primer lugar, $\varphi_j'\varphi_i' \neq 0$ si y solo si $i-1 \leq j \leq i+1$, y lo mismo para $\varphi_j'\varphi_i$ y $\varphi_j\varphi_i$, ya que
+\[
+\begin{alignedat}{5}
+    \varphi_i(x) &=\frac{x-x_{i-1}}{h}, \qquad &\varphi_i'(x) &= \frac{1}{h}, &\qquad &\textup{ si } x_{i-1} < x < x_i, \\
+    \varphi_i(x) &=\frac{x_{i+1}-x}{h}, \qquad &\varphi_i'(x) &= -\frac{1}{h}, &\qquad &\textup{ si } x_{i} < x < x_{i+1}, \\
+    \varphi_i(x) &= 0, \qquad &\varphi_i'(x) &= 0\vphantom{\frac{1}{h}}, &\qquad &\textup{ si } x \leq x_{i-1} \textup{ o } x \geq x_{i+1}. \\
+\end{alignedat}
+\]
+Por tanto, $a_{i,j} = 0$ para $j < i-1$ o $j > i+1$. Para cada $i = 1,2,\mathellipsis,n-1$, aproximaremos $c(x)$, $d(x)$ y $f(x)$ en el intervalo $[x_{i-1},x_{i+1}]$ mediante $c(x) \approx c(x_i) = c_i$, $d(x) \approx d(x_i) = d_i$ y $f(x) \approx f(x_i) = f_i$, respectivamente. Se tiene que
+\allowdisplaybreaks
+\begin{align*}
+    a_{i,i} &= \int_a^b (\varphi_i'\varphi_i'+c(x)\varphi_i'\varphi_i+d(x)\varphi_i\varphi_i) \, dx \\
+    &\approx \int_{x_{i-1}}^{x_{i}} \Bigl(\frac{1}{h^2}+c_i\frac{x-x_{i-1}}{h^2}+d_i\frac{(x-x_{i-1})^2}{h^2}\Bigr) \, dx + \int_{x_i}^{x_{i+1}} \Bigl(\frac{1}{h^2}-c_i\frac{x_{i+1}-x}{h^2}+d_i\frac{(x_{i+1}-x)^2}{h^2}\Bigr) \, dx \\
+    &= \begin{aligned}[t]
+        &\frac{2h}{h^2}+\frac{c_i}{h^2}\int_{x_{i-1}}^{x_i}(x-x_{i-1})\, dx + \frac{d_i}{h^2}\int_{x_{i-1}}^{x_i}(x-x_{i-1})^2\, dx \\
+        &-\frac{c_i}{h^2}\int_{x_i}^{x_{i+1}}(x_{i+1}-x)\, dx + \frac{d_i}{h^2}\int_{x_i}^{x_{i+1}}(x_{i+1}-x)^2 \, dx
+    \end{aligned} \\
+    &= \begin{aligned}[t]
+        &\frac{2}{h}+\frac{c_i}{h^2}\Bigl[\frac{(x-x_{i-1})^2}{2}\Bigr]_{x=x_{i-1}}^{x=x_i} + \frac{d_i}{h^2}\Bigl[\frac{(x-x_{i-1})^3}{3}\Bigr]_{x=x_{i-1}}^{x=x_i} \\
+        &-\frac{c_i}{h^2}\Bigl[-\frac{(x_{i+1}-x)^2}{2}\Bigr]_{x=x_i}^{x=x_{i+1}} + \frac{d_i}{h^2}\Bigl[-\frac{(x_{i+1}-x)^3}{3}\Bigr]_{x=x_i}^{x=x_{i+1}}
+    \end{aligned} \\
+    &= \frac{2}{h}+\cancel{\frac{c_i}{h^2}\frac{h^2}{2}} + \frac{d_i}{h^2}\frac{h^3}{3} -\cancel{\frac{c_i}{h^2}\frac{h^2}{2}} + \frac{d_i}{h^2}\frac{h^3}{3} = \frac{2}{h}+\frac{2d_ih}{3}.\\
+    a_{i,i+1} &= \int_a^b (\varphi_{i+1}'\varphi_i'+c(x)\varphi_{i+1}'\varphi_i+d(x)\varphi_{i+1}\varphi_i) \, dx \\
+    &= \int_{x_i}^{x_{i+1}} (\varphi_{i+1}'\varphi_i'+c(x)\varphi_{i+1}'\varphi_i+d(x)\varphi_{i+1}\varphi_i) \, dx \\
+    &\approx \int_{x_i}^{x_{i+1}} \Bigl(-\frac{1}{h^2}-c_i\frac{x_{i+1}-x}{h^2}+d_i\frac{(x-x_i)(x_{i+1}-x)}{h^2}\Bigr) \, dx \\
+    &= -\frac{h}{h^2}-\frac{c_i}{h^2}\int_{x_i}^{x_{i+1}}(x_{i+1}-x)\, dx+\frac{d_i}{h^2}\Bigl(x_{i+1}\int_{x_i}^{x_{i+1}}x\, dx -x_{i+1}x_ih -\int_{x_i}^{x_{i+1}}x^2\, dx+x_i\int_{x_i}^{x_{i+1}}x\, dx\Bigr) \\
+    &= -\frac{1}{h}-\frac{c_i}{h^2}\Bigl[-\frac{(x_{i+1}-x)^2}{2}\Bigr]_{x=x_i}^{x=x_{i+1}}+\frac{d_i}{h^2}\Bigl(x_{i+1}\Bigl[\frac{x^2}{2}\Bigr]_{x=x_i}^{x=x_{i+1}} -x_{i+1}x_ih -\Bigl[\frac{x^3}{3}\Bigr]_{x=x_i}^{x=x_{i+1}}+x_i\Bigl[\frac{x^2}{2}\Bigr]_{x=x_i}^{x=x_{i+1}}\Bigr) \\
+    &= -\frac{1}{h}-\frac{c_i}{h^2}\frac{h^2}{2}+\frac{d_i}{h^2}\Bigl(x_{i+1}\frac{x_{i+1}^2-x_i^2}{2}-x_{i+1}x_ih -\frac{x_{i+1}^3-x_i^3}{3}+x_i\frac{x_{i+1}^2-x_i^2}{2}\Bigr) \\
+    &= -\frac{1}{h}-\frac{c_i}{2}+\frac{d_i}{h^2}\Bigl(x_{i+1}\frac{x_{i+1}^2-x_i^2}{2}-x_{i+1}x_ih -\frac{x_{i+1}^3-x_i^3}{3}+x_i\frac{x_{i+1}^2-x_i^2}{2}\Bigr). \\
+    a_{i,i-1} &= \int_a^b (\varphi_{i-1}'\varphi_i'+c(x)\varphi_{i-1}'\varphi_i+d(x)\varphi_{i-1}\varphi_i) \, dx \\
+    &= \int_{x_{i-1}}^{x_{i}} (\varphi_{i-1}'\varphi_i'+c(x)\varphi_{i-1}'\varphi_i+d(x)\varphi_{i-1}\varphi_i) \, dx \\
+    &\approx \int_{x_{i-1}}^{x_{i}} \Bigl(-\frac{1}{h^2}+c_i\frac{x-x_{i-1}}{h^2}+d_i\frac{(x_i-x)(x-x_{i-1})}{h^2}\Bigr) \, dx \\
+    &= -\frac{h}{h^2}+\frac{c_i}{h^2}\int_{x_{i-1}}^{x_i}(x-x_{i-1})\, dx+\frac{d_i}{h^2}\Bigl(x_{i}\int_{x_{i-1}}^{x_i}x\, dx -x_{i-1}x_ih -\int_{x_{i-1}}^{x_i}x^2\, dx+x_{i-1}\int_{x_{i-1}}^{x_i}x\, dx\Bigr) \\
+    &= -\frac{1}{h}+\frac{c_i}{h^2}\Bigl[\frac{(x-x_{i-1})^2}{2}\Bigr]_{x=x_{i-1}}^{x=x_i}+\frac{d_i}{h^2}\Bigl(x_{i}\Bigl[\frac{x^2}{2}\Bigr]_{x=x_{i-1}}^{x=x_i} -x_{i-1}x_ih -\Bigl[\frac{x^3}{3}\Bigr]_{x=x_{i-1}}^{x=x_i}+x_{i-1}\Bigl[\frac{x^2}{2}\Bigr]_{x=x_{i-1}}^{x=x_i}\Bigr) \\
+    &= -\frac{1}{h}+\frac{c_i}{h^2}\frac{h^2}{2}+\frac{d_i}{h^2}\Bigl(x_{i}\frac{x_{i}^2-x_{i-1}^2}{2}-x_{i-1}x_ih -\frac{x_{i}^3-x_{i-1}^3}{3}+x_{i-1}\frac{x_{i}^2-x_{i-1}^2}{2}\Bigr) \\
+    &= -\frac{1}{h}+\frac{c_i}{2}+\frac{d_i}{h^2}\Bigl(x_{i}\frac{x_{i}^2-x_{i-1}^2}{2}-x_{i-1}x_ih -\frac{x_{i}^3-x_{i-1}^3}{3}+x_{i-1}\frac{x_{i}^2-x_{i-1}^2}{2}\Bigr).
+\end{align*}
+Con esto finaliza el cálculo de la matriz $A$. Respecto al segundo miembro, si $1 < i$, entonces $\varphi_0'\varphi_i' = 0$, $\varphi_0'\varphi_i = 0$ y $\varphi_0\varphi_i = 0$, mientras que si $i < n-1$, entonces $\varphi_n'\varphi_i' = 0$, $\varphi_n'\varphi_i = 0$ y $\varphi_n\varphi_i = 0$. Teniendo esto en cuenta, si $1<i<n-1$,
+\begin{align*}
+    b_i &= \int_a^bf(x)\varphi_i\, dx = f_i\Bigl(\int_{x_{i-1}}^{x_{i}} \frac{x-x_{i-1}}{h}\, dx+\int_{x_i}^{x_{i+1}}\frac{x_{i+1}-x}{h}\, dx\Bigr) \\
+    &\approx \frac{f_i}{h}\Bigl(\Bigl[\frac{(x-x_{i-1})^2}{2}\Bigr]_{x=x_{i-1}}^{x=x_i}+\Bigl[-\frac{(x_{i+1}-x)^2}{2}\Bigr]_{x=x_{i}}^{x=x_{i+1}}\Bigr) =\frac{f_i}{h}\Bigl(\frac{h^2}{2}+\frac{h^2}{2}\Bigr) =f_ih.
+\end{align*}
+Por otro lado,
+\begin{align*}
+    b_1 &= \int_a^b\Bigl(f(x)\varphi_1-\alpha\varphi_0'\varphi_1'-\alpha c(x)\varphi_0'\varphi_1-\alpha d(x)\varphi_0\varphi_1\Bigr)\, dx \\
+    &\approx f_1h-\alpha\int_{x_0}^{x_1}\varphi_0'\varphi_1'\, dx -\alpha c_1\int_{x_0}^{x_1}\varphi_0'\varphi_1 \, dx - \alpha d_1 \int_{x_0}^{x_1}\varphi_0\varphi_1\, dx \\
+    &= f_1h-\alpha\int_{x_0}^{x_1}-\frac{1}{h^2} \, dx -\alpha c_1 \int_{x_0}^{x_1}-\frac{x-x_0}{h^2} \, dx -\alpha d_1 \int_{x_0}^{x_1} \frac{(x_1-x)(x-x_0)}{h^2}\, dx \\
+    &= f_1h+\frac{\alpha h}{h^2} +\frac{\alpha c_1}{h^2}\Bigl[\frac{(x-x_0)^2}{2}\Bigr]_{x=x_0}^{x=x_1} -\frac{\alpha d_1}{h^2}\Bigl(x_1\int_{x_0}^{x_1}x\, dx -x_0x_1h-\int_{x_0}^{x_1}x^2\,dx +x_0\int_{x_0}^{x_1}x\, dx\Bigr) \\
+    &= f_1h+\frac{\alpha }{h} +\frac{\alpha c_1}{h^2}\frac{h^2}{2} -\frac{\alpha d_1}{h^2}\Bigl(x_1\frac{x_1^2-x_0^2}{2} -x_0x_1h-\frac{x_1^3-x_0^3}{3} +x_0\frac{x_1^2-x_0^2}{2}\Bigr). \\
+    &= f_1h+\frac{\alpha }{h} +\frac{\alpha c_1}{2} -\frac{\alpha d_1}{h^2}\Bigl(x_1\frac{x_1^2-x_0^2}{2} -x_0x_1h-\frac{x_1^3-x_0^3}{3} +x_0\frac{x_1^2-x_0^2}{2}\Bigr). \\
+    b_{n-1} &= \int_a^b\Bigl(f(x)\varphi_{n-1}-\beta\varphi_n'\varphi_{n-1}'-\beta c(x)\varphi_n'\varphi_{n-1}-\beta d(x)\varphi_n\varphi_{n-1}\Bigr)\, dx\\
+    &\approx f_{n-1}h - \beta\int_{x_{n-1}}^{x_n}\varphi_n'\varphi_{n-1}'\, dx - \beta c_{n-1}\int_{x_{n-1}}^{x_n}\varphi_n'\varphi_{n-1}\, dx - \beta d_{n-1} \int_{x_{n-1}}^{x_n}\varphi_n\varphi_{n-1}\, dx \\
+    &= f_{n-1}h - \beta\int_{x_{n-1}}^{x_n}-\frac{1}{h^2}\, dx - \beta c_{n-1}\int_{x_{n-1}}^{x_n}\frac{x_{n}-x}{h^2}\, dx - \beta d_{n-1} \int_{x_{n-1}}^{x_n}\frac{(x-x_{n-1})(x_n-x)}{h^2}\, dx \\
+    &=  \begin{aligned}[t]
+        &f_{n-1}h +\frac{\beta h}{h^2} - \frac{\beta c_{n-1}}{h^2}\Bigl[-\frac{(x_n-x)^2}{2}\Bigr]_{x=x_{n-1}}^{x=x_n} \\
+        &- \frac{\beta d_{n-1}}{h^2} \Bigl(x_n\int_{x_{n-1}}^{x_n}x \, dx -x_{n-1}x_n h -\int_{x_{n-1}}^{x_n}x^2 \, dx +x_{n-1}\int_{x_{n-1}}^{x_n}x \, dx\Bigr)
+    \end{aligned}\\
+    &= f_{n-1}h +\frac{\beta}{h} - \frac{\beta c_{n-1}}{h^2}\frac{h^2}{2}- \frac{\beta d_{n-1}}{h^2} \Bigl(x_n\frac{x_n^2-x_{n-1}^2}{2} -x_{n-1}x_n h -\frac{x_n^3-x_{n-1}^3}{3}+x_{n-1}\frac{x_n^2-x_{n-1}^2}{2}\Bigr) \\
+    &= f_{n-1}h +\frac{\beta}{h} - \frac{\beta c_{n-1}}{2}- \frac{\beta d_{n-1}}{h^2} \Bigl(x_n\frac{x_n^2-x_{n-1}^2}{2} -x_{n-1}x_n h -\frac{x_n^3-x_{n-1}^3}{3}+x_{n-1}\frac{x_n^2-x_{n-1}^2}{2}\Bigr).
+\end{align*}
+
+\end{document}

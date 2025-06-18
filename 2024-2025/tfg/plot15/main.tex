@@ -1,0 +1,77 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        unit vector ratio* = 1 1 1,
+        axis lines* = middle,
+        xmin = -5,
+        xmax = 5,
+        ymin = 0,
+        ymax = 2,
+        samples = 300, % si pongo más o menos salen picos
+        xtick={-5, -4, -3, -2, -1, 1, 2, 3, 4, 5},
+        ytick={1},
+        xticklabels={$-5$, $-4$, $-3$, $-2$, $-1$, $1$, $2$, $3$, $4$, $5$},
+        yticklabels={$1$},
+        scale=1.3,
+        legend cell align={left},
+        grid = major,
+        x tick label style = below,
+        y tick label style = above left,
+        extra x ticks = {0},
+        extra x tick labels = {$0$},
+        extra x tick style = {xticklabel style = {below}},
+        extra y ticks = {}, % por algún motivo, en los ticks normales no funciona
+        extra y tick labels = {},
+        extra y tick style = {yticklabel style = {above left}},
+        ticklabel style = {font = \tiny},
+    ]
+    \addplot[domain=0:1, color=c3, line width=2pt]{x-floor(x)};
+    \addplot[domain=1:2, color=c3, line width=2pt]{x-floor(x)};
+    \addplot[domain=2:3, color=c3, line width=2pt]{x-floor(x)};
+    \addplot[domain=3:4, color=c3, line width=2pt]{x-floor(x)};
+    \addplot[domain=4:5, color=c3, line width=2pt]{x-floor(x)};
+    \addplot[domain=-0.99:-0.01, color=c3, line width=2pt]{-x-floor(-x)};
+    \addplot[domain=-1.99:-1, color=c3, line width=2pt]{-x-floor(-x)};
+    \addplot[domain=-2.99:-2, color=c3, line width=2pt]{-x-floor(-x)};
+    \addplot[domain=-3.99:-3, color=c3, line width=2pt]{-x-floor(-x)};
+    \addplot[domain=-4.99:-4, color=c3, line width=2pt]{-x-floor(-x)};
+    \end{axis}
+    \begin{axis}[
+        unit vector ratio* = 1 1 1,
+        ticks = none,
+        xmin = -5,
+        xmax = 5,
+        ymin = 0,
+        ymax = 2,
+        samples = 300,
+        scale = 1.3
+    ]
+    \addplot[excl, c3] coordinates {(0, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(1, 1)};
+    \addplot[excl, c3] coordinates {(1, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(2, 1)};
+    \addplot[excl, c3] coordinates {(2, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(3, 1)};
+    \addplot[excl, c3] coordinates {(3, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(4, 1)};
+    \addplot[excl, c3] coordinates {(4, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(5, 1)};
+    \addplot[excl, c3] coordinates {(0, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(-1, 1)};
+    \addplot[excl, c3] coordinates {(-1, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(-2, 1)};
+    \addplot[excl, c3] coordinates {(-2, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(-3, 1)};
+    \addplot[excl, c3] coordinates {(-3, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(-4, 1)};
+    \addplot[excl, c3] coordinates {(-4, 0)};
+    \addplot[excl, c3, fill=white] coordinates {(-5, 1)};
+    \end{axis}
+    \end{tikzpicture}
+
+\end{document}

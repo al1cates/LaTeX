@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.5.20)  2 JUN 2025 21:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.5.20)  7 JUN 2025 13:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -214,7 +214,9 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 Package color Info: Driver file: pdftex.def on input line 149.
  (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
-) (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)) (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+) (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)) (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/emptypage\emptypage.sty
+Package: emptypage 2010/05/30 v1.2 Suppress page numbers and headings on empty pages
+) (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \labelindent=\skip60
 \enit@outerparindent=\dimen169
@@ -474,8 +476,8 @@ File: svgnam.def 2023/11/15 v3.01 Predefined colors according to SVG 1.1 (UK)
 ) (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\x11nam.def
 File: x11nam.def 2023/11/15 v3.01 Predefined colors according to Unix/X11 (UK)
 )
-LaTeX Info: Redefining \stars on input line 88.
-Package hyperref Info: Option `colorlinks' set `true' on input line 126.
+LaTeX Info: Redefining \stars on input line 89.
+Package hyperref Info: Option `colorlinks' set `true' on input line 127.
 )
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 5.
  (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
@@ -485,20 +487,20 @@ LaTeX Info: Redefining \. on input line 9.
 LaTeX Info: Redefining \% on input line 9.
 LaTeX Info: Redefining \. on input line 10.
 LaTeX Info: Redefining \% on input line 10.
-LaTeX Info: Redefining \. on input line 96.
-LaTeX Info: Redefining \% on input line 96.
-LaTeX Info: Redefining \. on input line 98.
-LaTeX Info: Redefining \% on input line 98.
-LaTeX Info: Redefining \. on input line 100.
-LaTeX Info: Redefining \% on input line 100.
-LaTeX Info: Redefining \. on input line 102.
-LaTeX Info: Redefining \% on input line 102.
-LaTeX Info: Redefining \. on input line 104.
-LaTeX Info: Redefining \% on input line 104.
-LaTeX Info: Redefining \. on input line 106.
-LaTeX Info: Redefining \% on input line 106.
+LaTeX Info: Redefining \. on input line 101.
+LaTeX Info: Redefining \% on input line 101.
+LaTeX Info: Redefining \. on input line 103.
+LaTeX Info: Redefining \% on input line 103.
+LaTeX Info: Redefining \. on input line 105.
+LaTeX Info: Redefining \% on input line 105.
 LaTeX Info: Redefining \. on input line 107.
 LaTeX Info: Redefining \% on input line 107.
+LaTeX Info: Redefining \. on input line 109.
+LaTeX Info: Redefining \% on input line 109.
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
+LaTeX Info: Redefining \. on input line 112.
+LaTeX Info: Redefining \% on input line 112.
 )
 \openout1 = `main.aux'.
 
@@ -571,7 +573,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
+* modes: twoside 
 * h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
 * v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
 * \paperwidth=597.50787pt
@@ -585,7 +587,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \headsep=19.8738pt
 * \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=38.0pt
+* \marginparwidth=88.0pt
 * \marginparsep=7.0pt
 * \columnsep=10.0pt
 * \skip\footins=10.8pt plus 4.0pt minus 2.0pt
@@ -593,8 +595,8 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \voffset=0.0pt
 * \mag=1000
 * \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
+* \@twosidetrue
+* \@mparswitchtrue
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
@@ -664,12 +666,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--54
 [1
 
 
-{C:/Users/lopez/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./logo.jpg>]
-pdfTeX warning (ext4): destination with the same identifier (name{page.I}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.67 \begin{titlepage}
-                       [1]
+{C:/Users/lopez/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./logo.jpg>] [2
+
+]
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/12'.
 (microtype)             Ignoring protrusion settings for this character.
@@ -677,21 +676,16 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/17.28'.
 (microtype)             Ignoring protrusion settings for this character.
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--80
+Underfull \hbox (badness 10000) in paragraph at lines 76--78
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--88
+Underfull \hbox (badness 10000) in paragraph at lines 85--86
 
  []
 
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.I}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.93 \end{titlepage}
-                     [1
+[3] [4
 
 ] (main.toc
 LaTeX Info: Redefining \. on input line 1.
@@ -755,260 +749,290 @@ LaTeX Info: Redefining \% on input line 29.
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
+ [5
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.I}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.99 
-      [1
-
-{C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 107--108
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
-
- []
-
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 128--129
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 137--138
-
- []
-
-[3] [4
+{C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}] [6
 
 ]
-LaTeX Info: Redefining \. on input line 167.
-LaTeX Info: Redefining \% on input line 167.
- [5]
+Underfull \hbox (badness 10000) in paragraph at lines 105--106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
+
+ []
+
+[7] [8
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+
+ []
+
+[9] [10
+
+] [11]
+LaTeX Info: Redefining \. on input line 165.
+LaTeX Info: Redefining \% on input line 165.
+ [12]
 Cap\'{\i }tulo 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 174.
+(Font)              <17.28> on input line 172.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 174.
+(Font)              <10> on input line 172.
 [1
 
 {C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
-LaTeX Info: Redefining \. on input line 232.
-LaTeX Info: Redefining \% on input line 232.
+LaTeX Info: Redefining \. on input line 230.
+LaTeX Info: Redefining \% on input line 230.
  [2]
-LaTeX Info: Redefining \. on input line 268.
-LaTeX Info: Redefining \% on input line 268.
+<./plot13/main.pdf, id=166, 280.13959pt x 210.98926pt>
+File: ./plot13/main.pdf Graphic file (type pdf)
+<use ./plot13/main.pdf>
+Package pdftex.def Info: ./plot13/main.pdf  used on input line 259.
+(pdftex.def)             Requested size: 280.13889pt x 210.98872pt.
+LaTeX Info: Redefining \. on input line 262.
+LaTeX Info: Redefining \% on input line 262.
  [3]
-LaTeX Info: Redefining \. on input line 304.
-LaTeX Info: Redefining \% on input line 304.
- [4]
-LaTeX Info: Redefining \. on input line 360.
-LaTeX Info: Redefining \% on input line 360.
- [5]
-LaTeX Info: Redefining \. on input line 396.
-LaTeX Info: Redefining \% on input line 396.
+<./plot14/main.pdf, id=172, 280.13959pt x 210.99829pt>
+File: ./plot14/main.pdf Graphic file (type pdf)
+<use ./plot14/main.pdf>
+Package pdftex.def Info: ./plot14/main.pdf  used on input line 291.
+(pdftex.def)             Requested size: 280.13889pt x 210.99777pt.
+LaTeX Info: Redefining \. on input line 294.
+LaTeX Info: Redefining \% on input line 294.
+ [4 <./plot13/main.pdf>]
+LaTeX Info: Redefining \. on input line 327.
+LaTeX Info: Redefining \% on input line 327.
+ [5 <./plot14/main.pdf>]
+LaTeX Info: Redefining \. on input line 374.
+LaTeX Info: Redefining \% on input line 374.
  [6]
-Cap\'{\i }tulo 2.
-[7
+LaTeX Info: Redefining \. on input line 406.
+LaTeX Info: Redefining \% on input line 406.
+ [7] [8
 
 ]
-LaTeX Info: Redefining \. on input line 459.
-LaTeX Info: Redefining \% on input line 459.
- [8]
-LaTeX Info: Redefining \. on input line 496.
-LaTeX Info: Redefining \% on input line 496.
- [9]
-LaTeX Info: Redefining \. on input line 538.
-LaTeX Info: Redefining \% on input line 538.
+Cap\'{\i }tulo 2.
+[9]
+LaTeX Info: Redefining \. on input line 469.
+LaTeX Info: Redefining \% on input line 469.
  [10]
-<./plot9/main.pdf, id=223, 207.77425pt x 43.23753pt>
+<./plot15/main.pdf, id=268, 267.36386pt x 63.10074pt>
+File: ./plot15/main.pdf Graphic file (type pdf)
+<use ./plot15/main.pdf>
+Package pdftex.def Info: ./plot15/main.pdf  used on input line 507.
+(pdftex.def)             Requested size: 267.36319pt x 63.10057pt.
+LaTeX Info: Redefining \. on input line 510.
+LaTeX Info: Redefining \% on input line 510.
+ [11]
+LaTeX Info: Redefining \. on input line 550.
+LaTeX Info: Redefining \% on input line 550.
+ [12 <./plot15/main.pdf>]
+<./plot9/main.pdf, id=302, 207.77425pt x 43.23753pt>
 File: ./plot9/main.pdf Graphic file (type pdf)
 <use ./plot9/main.pdf>
-Package pdftex.def Info: ./plot9/main.pdf  used on input line 567.
+Package pdftex.def Info: ./plot9/main.pdf  used on input line 583.
 (pdftex.def)             Requested size: 207.77373pt x 43.23741pt.
-<./plot10/main.pdf, id=224, 207.77425pt x 43.23753pt>
+<./plot10/main.pdf, id=303, 207.77425pt x 43.23753pt>
 File: ./plot10/main.pdf Graphic file (type pdf)
 <use ./plot10/main.pdf>
-Package pdftex.def Info: ./plot10/main.pdf  used on input line 571.
+Package pdftex.def Info: ./plot10/main.pdf  used on input line 587.
 (pdftex.def)             Requested size: 207.77373pt x 43.23741pt.
-<./plot11/main.pdf, id=225, 207.77425pt x 43.23753pt>
+<./plot11/main.pdf, id=304, 207.77425pt x 43.23753pt>
 File: ./plot11/main.pdf Graphic file (type pdf)
 <use ./plot11/main.pdf>
-Package pdftex.def Info: ./plot11/main.pdf  used on input line 576.
+Package pdftex.def Info: ./plot11/main.pdf  used on input line 592.
 (pdftex.def)             Requested size: 207.77373pt x 43.23741pt.
-<./plot12/main.pdf, id=226, 207.77425pt x 43.23753pt>
+<./plot12/main.pdf, id=305, 207.77425pt x 43.23753pt>
 File: ./plot12/main.pdf Graphic file (type pdf)
 <use ./plot12/main.pdf>
-Package pdftex.def Info: ./plot12/main.pdf  used on input line 580.
+Package pdftex.def Info: ./plot12/main.pdf  used on input line 596.
 (pdftex.def)             Requested size: 207.77373pt x 43.23741pt.
-LaTeX Info: Redefining \. on input line 584.
-LaTeX Info: Redefining \% on input line 584.
- [11]
-LaTeX Info: Redefining \. on input line 623.
-LaTeX Info: Redefining \% on input line 623.
- [12 <./plot9/main.pdf> <./plot10/main.pdf> <./plot11/main.pdf> <./plot12/main.pdf>]
-LaTeX Info: Redefining \. on input line 648.
-LaTeX Info: Redefining \% on input line 648.
+LaTeX Info: Redefining \. on input line 600.
+LaTeX Info: Redefining \% on input line 600.
  [13]
-LaTeX Info: Redefining \. on input line 682.
-LaTeX Info: Redefining \% on input line 682.
- [14]
-LaTeX Info: Redefining \. on input line 705.
-LaTeX Info: Redefining \% on input line 705.
+LaTeX Info: Redefining \. on input line 633.
+LaTeX Info: Redefining \% on input line 633.
+ [14 <./plot9/main.pdf> <./plot10/main.pdf> <./plot11/main.pdf> <./plot12/main.pdf>]
+LaTeX Info: Redefining \. on input line 659.
+LaTeX Info: Redefining \% on input line 659.
  [15]
-LaTeX Info: Redefining \. on input line 738.
-LaTeX Info: Redefining \% on input line 738.
+LaTeX Info: Redefining \. on input line 694.
+LaTeX Info: Redefining \% on input line 694.
  [16]
-LaTeX Info: Redefining \. on input line 769.
-LaTeX Info: Redefining \% on input line 769.
+LaTeX Info: Redefining \. on input line 724.
+LaTeX Info: Redefining \% on input line 724.
  [17]
-LaTeX Info: Redefining \. on input line 797.
-LaTeX Info: Redefining \% on input line 797.
+LaTeX Info: Redefining \. on input line 757.
+LaTeX Info: Redefining \% on input line 757.
  [18]
-LaTeX Info: Redefining \. on input line 830.
-LaTeX Info: Redefining \% on input line 830.
- [19]
+<./plot16/main.pdf, id=387, 390.39151pt x 36.71115pt>
+File: ./plot16/main.pdf Graphic file (type pdf)
+<use ./plot16/main.pdf>
+Package pdftex.def Info: ./plot16/main.pdf  used on input line 777.
+(pdftex.def)             Requested size: 390.39055pt x 36.71104pt.
+LaTeX Info: Redefining \. on input line 788.
+LaTeX Info: Redefining \% on input line 788.
+ [19 <./plot16/main.pdf>]
+LaTeX Info: Redefining \. on input line 820.
+LaTeX Info: Redefining \% on input line 820.
+ [20]
 LaTeX Info: Redefining \. on input line 857.
 LaTeX Info: Redefining \% on input line 857.
- [20]
-LaTeX Info: Redefining \. on input line 887.
-LaTeX Info: Redefining \% on input line 887.
  [21]
+LaTeX Info: Redefining \. on input line 884.
+LaTeX Info: Redefining \% on input line 884.
+ [22]
 LaTeX Info: Redefining \. on input line 920.
 LaTeX Info: Redefining \% on input line 920.
- [22]
-LaTeX Info: Redefining \. on input line 954.
-LaTeX Info: Redefining \% on input line 954.
  [23]
-LaTeX Info: Redefining \. on input line 979.
-LaTeX Info: Redefining \% on input line 979.
+LaTeX Info: Redefining \. on input line 949.
+LaTeX Info: Redefining \% on input line 949.
  [24]
-LaTeX Info: Redefining \. on input line 1018.
-LaTeX Info: Redefining \% on input line 1018.
+LaTeX Info: Redefining \. on input line 973.
+LaTeX Info: Redefining \% on input line 973.
  [25]
-LaTeX Info: Redefining \. on input line 1046.
-LaTeX Info: Redefining \% on input line 1046.
+LaTeX Info: Redefining \. on input line 1005.
+LaTeX Info: Redefining \% on input line 1005.
  [26]
-LaTeX Info: Redefining \. on input line 1081.
-LaTeX Info: Redefining \% on input line 1081.
+LaTeX Info: Redefining \. on input line 1043.
+LaTeX Info: Redefining \% on input line 1043.
  [27]
-<./plot1/main.pdf, id=396, 214.89885pt x 178.59824pt>
+LaTeX Info: Redefining \. on input line 1063.
+LaTeX Info: Redefining \% on input line 1063.
+ [28]
+LaTeX Info: Redefining \. on input line 1095.
+LaTeX Info: Redefining \% on input line 1095.
+ [29]
+<./plot1/main.pdf, id=501, 214.89885pt x 178.59824pt>
 File: ./plot1/main.pdf Graphic file (type pdf)
 <use ./plot1/main.pdf>
-Package pdftex.def Info: ./plot1/main.pdf  used on input line 1091.
+Package pdftex.def Info: ./plot1/main.pdf  used on input line 1126.
 (pdftex.def)             Requested size: 214.89832pt x 178.5978pt.
-<./plot2/main.pdf, id=397, 214.89885pt x 178.59824pt>
+<./plot2/main.pdf, id=502, 214.89885pt x 178.59824pt>
 File: ./plot2/main.pdf Graphic file (type pdf)
 <use ./plot2/main.pdf>
-Package pdftex.def Info: ./plot2/main.pdf  used on input line 1095.
+Package pdftex.def Info: ./plot2/main.pdf  used on input line 1130.
 (pdftex.def)             Requested size: 214.89832pt x 178.5978pt.
-<./plot3/main.pdf, id=398, 214.89885pt x 178.59824pt>
+<./plot3/main.pdf, id=503, 214.89885pt x 178.59824pt>
 File: ./plot3/main.pdf Graphic file (type pdf)
 <use ./plot3/main.pdf>
-Package pdftex.def Info: ./plot3/main.pdf  used on input line 1100.
+Package pdftex.def Info: ./plot3/main.pdf  used on input line 1135.
 (pdftex.def)             Requested size: 214.89832pt x 178.5978pt.
-<./plot4/main.pdf, id=399, 214.89885pt x 178.59824pt>
+<./plot4/main.pdf, id=504, 214.89885pt x 178.59824pt>
 File: ./plot4/main.pdf Graphic file (type pdf)
 <use ./plot4/main.pdf>
-Package pdftex.def Info: ./plot4/main.pdf  used on input line 1104.
+Package pdftex.def Info: ./plot4/main.pdf  used on input line 1139.
 (pdftex.def)             Requested size: 214.89832pt x 178.5978pt.
-LaTeX Info: Redefining \. on input line 1110.
-LaTeX Info: Redefining \% on input line 1110.
- [28 <./plot1/main.pdf> <./plot2/main.pdf> <./plot3/main.pdf> <./plot4/main.pdf>]
-LaTeX Info: Redefining \. on input line 1134.
-LaTeX Info: Redefining \% on input line 1134.
- [29]
-<./plot5/main.pdf, id=468, 216.87926pt x 179.0178pt>
+LaTeX Info: Redefining \. on input line 1143.
+LaTeX Info: Redefining \% on input line 1143.
+ [30]
+LaTeX Info: Redefining \. on input line 1156.
+LaTeX Info: Redefining \% on input line 1156.
+ [31 <./plot1/main.pdf> <./plot2/main.pdf> <./plot3/main.pdf> <./plot4/main.pdf>]
+<./plot5/main.pdf, id=573, 216.87926pt x 179.0178pt>
 File: ./plot5/main.pdf Graphic file (type pdf)
 <use ./plot5/main.pdf>
-Package pdftex.def Info: ./plot5/main.pdf  used on input line 1148.
+Package pdftex.def Info: ./plot5/main.pdf  used on input line 1183.
 (pdftex.def)             Requested size: 216.87871pt x 179.01735pt.
-<./plot6/main.pdf, id=469, 216.87926pt x 179.0178pt>
+<./plot6/main.pdf, id=574, 216.87926pt x 179.0178pt>
 File: ./plot6/main.pdf Graphic file (type pdf)
 <use ./plot6/main.pdf>
-Package pdftex.def Info: ./plot6/main.pdf  used on input line 1152.
+Package pdftex.def Info: ./plot6/main.pdf  used on input line 1187.
 (pdftex.def)             Requested size: 216.87871pt x 179.01735pt.
-<./plot7/main.pdf, id=470, 216.87926pt x 179.0178pt>
+<./plot7/main.pdf, id=575, 216.87926pt x 179.0178pt>
 File: ./plot7/main.pdf Graphic file (type pdf)
 <use ./plot7/main.pdf>
-Package pdftex.def Info: ./plot7/main.pdf  used on input line 1157.
+Package pdftex.def Info: ./plot7/main.pdf  used on input line 1192.
 (pdftex.def)             Requested size: 216.87871pt x 179.01735pt.
-<./plot8/main.pdf, id=471, 216.87926pt x 179.0178pt>
+<./plot8/main.pdf, id=576, 216.87926pt x 179.0178pt>
 File: ./plot8/main.pdf Graphic file (type pdf)
 <use ./plot8/main.pdf>
-Package pdftex.def Info: ./plot8/main.pdf  used on input line 1161.
+Package pdftex.def Info: ./plot8/main.pdf  used on input line 1196.
 (pdftex.def)             Requested size: 216.87871pt x 179.01735pt.
-LaTeX Info: Redefining \. on input line 1166.
-LaTeX Info: Redefining \% on input line 1166.
- [30 <./plot5/main.pdf> <./plot6/main.pdf> <./plot7/main.pdf> <./plot8/main.pdf>]
-Cap\'{\i }tulo 3.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <24.88> on input line 1166.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <20.74> on input line 1166.
-[31
+LaTeX Info: Redefining \. on input line 1200.
+LaTeX Info: Redefining \% on input line 1200.
+ [32]
+LaTeX Info: Redefining \. on input line 1201.
+LaTeX Info: Redefining \% on input line 1201.
+ [33 <./plot5/main.pdf> <./plot6/main.pdf> <./plot7/main.pdf> <./plot8/main.pdf>] [34
 
 ]
-LaTeX Info: Redefining \. on input line 1243.
-LaTeX Info: Redefining \% on input line 1243.
- [32]
-LaTeX Info: Redefining \. on input line 1287.
-LaTeX Info: Redefining \% on input line 1287.
- [33]
-LaTeX Info: Redefining \. on input line 1314.
-LaTeX Info: Redefining \% on input line 1314.
- [34]
-LaTeX Info: Redefining \. on input line 1356.
-LaTeX Info: Redefining \% on input line 1356.
- [35]
-LaTeX Info: Redefining \. on input line 1398.
-LaTeX Info: Redefining \% on input line 1398.
+Cap\'{\i }tulo 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <24.88> on input line 1201.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <20.74> on input line 1201.
+[35]
+LaTeX Info: Redefining \. on input line 1278.
+LaTeX Info: Redefining \% on input line 1278.
  [36]
-LaTeX Info: Redefining \. on input line 1423.
-LaTeX Info: Redefining \% on input line 1423.
+LaTeX Info: Redefining \. on input line 1320.
+LaTeX Info: Redefining \% on input line 1320.
  [37]
-LaTeX Info: Redefining \. on input line 1455.
-LaTeX Info: Redefining \% on input line 1455.
+LaTeX Info: Redefining \. on input line 1355.
+LaTeX Info: Redefining \% on input line 1355.
  [38]
-LaTeX Info: Redefining \. on input line 1486.
-LaTeX Info: Redefining \% on input line 1486.
- [39]
-LaTeX Info: Redefining \. on input line 1507.
-LaTeX Info: Redefining \% on input line 1507.
+<./plot17/main.pdf, id=700, 253.89153pt x 211.0013pt>
+File: ./plot17/main.pdf Graphic file (type pdf)
+<use ./plot17/main.pdf>
+Package pdftex.def Info: ./plot17/main.pdf  used on input line 1379.
+(pdftex.def)             Requested size: 253.8909pt x 211.00076pt.
+LaTeX Info: Redefining \. on input line 1392.
+LaTeX Info: Redefining \% on input line 1392.
+ [39 <./plot17/main.pdf>]
+LaTeX Info: Redefining \. on input line 1427.
+LaTeX Info: Redefining \% on input line 1427.
  [40]
-LaTeX Info: Redefining \. on input line 1552.
-LaTeX Info: Redefining \% on input line 1552.
+LaTeX Info: Redefining \. on input line 1458.
+LaTeX Info: Redefining \% on input line 1458.
  [41]
-LaTeX Info: Redefining \. on input line 1580.
-LaTeX Info: Redefining \% on input line 1580.
+LaTeX Info: Redefining \. on input line 1494.
+LaTeX Info: Redefining \% on input line 1494.
  [42]
-LaTeX Info: Redefining \. on input line 1610.
-LaTeX Info: Redefining \% on input line 1610.
+LaTeX Info: Redefining \. on input line 1525.
+LaTeX Info: Redefining \% on input line 1525.
  [43]
-LaTeX Info: Redefining \. on input line 1634.
-LaTeX Info: Redefining \% on input line 1634.
+LaTeX Info: Redefining \. on input line 1546.
+LaTeX Info: Redefining \% on input line 1546.
  [44]
+LaTeX Info: Redefining \. on input line 1588.
+LaTeX Info: Redefining \% on input line 1588.
+ [45]
+LaTeX Info: Redefining \. on input line 1616.
+LaTeX Info: Redefining \% on input line 1616.
+ [46]
+LaTeX Info: Redefining \. on input line 1646.
+LaTeX Info: Redefining \% on input line 1646.
+ [47]
 LaTeX Info: Redefining \. on input line 1670.
 LaTeX Info: Redefining \% on input line 1670.
- [45]
-LaTeX Info: Redefining \. on input line 1710.
-LaTeX Info: Redefining \% on input line 1710.
- [46]
-LaTeX Info: Redefining \. on input line 1743.
-LaTeX Info: Redefining \% on input line 1743.
- [47]
-LaTeX Info: Redefining \. on input line 1786.
-LaTeX Info: Redefining \% on input line 1786.
  [48]
+LaTeX Info: Redefining \. on input line 1706.
+LaTeX Info: Redefining \% on input line 1706.
+ [49]
+LaTeX Info: Redefining \. on input line 1746.
+LaTeX Info: Redefining \% on input line 1746.
+ [50]
+LaTeX Info: Redefining \. on input line 1779.
+LaTeX Info: Redefining \% on input line 1779.
+ [51]
 LaTeX Info: Redefining \. on input line 1815.
 LaTeX Info: Redefining \% on input line 1815.
- [49] (main.bbl
+ [52]
+LaTeX Info: Redefining \. on input line 1851.
+LaTeX Info: Redefining \% on input line 1851.
+ [53] (main.bbl
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
- [50]
+ [54]
 babelbib: Using the BibTeX style's default font for `name'.
 babelbib: Using the BibTeX style's default font for `lastname'.
 babelbib: Using the BibTeX style's default font for `title'.
@@ -1091,27 +1115,27 @@ LaTeX Info: Redefining \. on input line 112.
 LaTeX Info: Redefining \% on input line 112.
 LaTeX Info: Redefining \. on input line 112.
 LaTeX Info: Redefining \% on input line 112.
-) [51
+) [55
 
 ] (main.aux
 LaTeX Info: Redefining \. on input line 9.
 LaTeX Info: Redefining \% on input line 9.
 LaTeX Info: Redefining \. on input line 10.
 LaTeX Info: Redefining \% on input line 10.
-LaTeX Info: Redefining \. on input line 96.
-LaTeX Info: Redefining \% on input line 96.
-LaTeX Info: Redefining \. on input line 98.
-LaTeX Info: Redefining \% on input line 98.
-LaTeX Info: Redefining \. on input line 100.
-LaTeX Info: Redefining \% on input line 100.
-LaTeX Info: Redefining \. on input line 102.
-LaTeX Info: Redefining \% on input line 102.
-LaTeX Info: Redefining \. on input line 104.
-LaTeX Info: Redefining \% on input line 104.
-LaTeX Info: Redefining \. on input line 106.
-LaTeX Info: Redefining \% on input line 106.
+LaTeX Info: Redefining \. on input line 101.
+LaTeX Info: Redefining \% on input line 101.
+LaTeX Info: Redefining \. on input line 103.
+LaTeX Info: Redefining \% on input line 103.
+LaTeX Info: Redefining \. on input line 105.
+LaTeX Info: Redefining \% on input line 105.
 LaTeX Info: Redefining \. on input line 107.
 LaTeX Info: Redefining \% on input line 107.
+LaTeX Info: Redefining \. on input line 109.
+LaTeX Info: Redefining \% on input line 109.
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
+LaTeX Info: Redefining \. on input line 112.
+LaTeX Info: Redefining \% on input line 112.
 )
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -1122,20 +1146,20 @@ L3 programming layer <2024-04-11>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 2E7E56AA05767CEA5C572BA01B91E234;2871.
+(rerunfilecheck)             Checksum: 4AF8842CE524B94A4265CB8E9687C602;2872.
  ) 
 Here is how much of TeX's memory you used:
- 18843 strings out of 474370
- 308749 string characters out of 5740535
- 1954754 words of memory out of 5000000
- 40454 multiletter control sequences out of 15000+600000
- 683587 words of font info for 264 fonts, out of 8000000 for 9000
+ 18910 strings out of 474370
+ 310455 string characters out of 5740535
+ 1953754 words of memory out of 5000000
+ 40505 multiletter control sequences out of 15000+600000
+ 683351 words of font info for 262 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,24n,93p,1092b,1080s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbsy10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (59 pages, 905570 bytes).
+ 90i,24n,93p,1157b,1080s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbsy10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (67 pages, 1020189 bytes).
 PDF statistics:
- 859 PDF objects out of 1000 (max. 8388607)
- 170 named destinations out of 1000 (max. 500000)
- 62146 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 999 PDF objects out of 1000 (max. 8388607)
+ 186 named destinations out of 1000 (max. 500000)
+ 62171 words of extra memory for PDF output out of 74296 (max. 10000000)
 

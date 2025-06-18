@@ -1,0 +1,51 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        axis lines* = middle,
+        xmin = -pi,
+        xmax = pi,
+        ymin = -2,
+        ymax = 12,
+        samples = 300, % si pongo más o menos salen picos
+        xtick={-pi, 0, -3*pi/4, -pi/2, -pi/4, pi/4, pi/2, 3*pi/4},
+        ytick={2, 4, 6, 8, 10},
+        xticklabels={-$\pi$, $0$},
+        yticklabels={$2$, $4$, $6$, $8$, $10$},
+        scale=1.3,
+        legend cell align={left},
+        grid = major,
+        x tick label style = below left,
+        y tick label style = above left,
+        extra x ticks = {pi},
+        extra x tick labels = {$\pi$},
+        extra x tick style = {xticklabel style = {below right}},
+        extra y ticks = {0}, % por algún motivo, en los ticks normales no funciona
+        extra y tick labels = {$0$},
+        extra y tick style = {yticklabel style = {above left}},
+        ticklabel style = {font = \tiny},
+    ]
+    \addplot[domain=-pi:pi, color=c2!33, line width=2pt]{(1/(1+1))*(sin(deg((1+1)/2*x))^2)/(sin(deg(x/2))^2)};
+    \addlegendentry{\footnotesize $K_{1}$};
+    \addplot[domain=-pi:pi, color=c2!66, line width=2pt]{(1/(5+1))*(sin(deg((5+1)/2*x))^2)/(sin(deg(x/2))^2)};
+    \addlegendentry{\footnotesize $K_{5}$};
+    \addplot[domain=-pi:pi, color=c2, line width=2pt]{(1/(10+1))*(sin(deg((10+1)/2*x))^2)/(sin(deg(x/2))^2)};
+    \addlegendentry{\footnotesize $K_{10}$};
+    \end{axis}
+    \begin{axis}[
+        ticks = none,
+        xmin = -pi,
+        xmax = pi,
+        ymin = -2,
+        ymax = 12,
+        samples = 300,
+        scale = 1.3
+    ]
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

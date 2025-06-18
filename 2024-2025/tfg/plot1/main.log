@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.5.20)  17 MAY 2025 12:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.5.20)  3 JUN 2025 18:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/lopez/Documents/Proyectos/LaTeX/2024-2025/tfg/plot1/main.tex
-(c:/Users/lopez/Documents/Proyectos/LaTeX/2024-2025/tfg/plot1/main.tex
+**c:/Users/lopez/Documents/Proyectos/latex/2024-2025/tfg/plot1/main.tex
+(c:/Users/lopez/Documents/Proyectos/latex/2024-2025/tfg/plot1/main.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
 (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
@@ -539,8 +539,7 @@ Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 Preview: Fontsize 10.95pt
 Preview: PDFoutput 1
-Package pgfplots info on input line 16: Overriding colorspace to rgb due to xcolor configuration.
-Package pgfplots info on input line 42: Overriding colorspace to rgb due to xcolor configuration.
+Package pgfplots info on input line 32: Overriding colorspace to rgb due to xcolor configuration.
 Missing character: There is no ; in font nullfont!
 Missing character: There is no . in font nullfont!
 Missing character: There is no 0 in font nullfont!
@@ -553,14 +552,16 @@ Missing character: There is no 1 in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no ; in font nullfont!
-LaTeX Font Info:    Trying to load font information for U+msa on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 40.
 (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 40.
  (C:\Users\lopez\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Package pgfplots info on input line 49: Overriding colorspace to rgb due to xcolor configuration.
+
 Preview: Tightpage 0 0 0 0
 [1{C:/Users/lopez/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (main.aux)
  ***********
@@ -571,13 +572,13 @@ L3 programming layer <2024-04-11>
 Here is how much of TeX's memory you used:
  28366 strings out of 474370
  703801 string characters out of 5740535
- 1942754 words of memory out of 5000000
+ 1941754 words of memory out of 5000000
  50336 multiletter control sequences out of 15000+600000
  562116 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 117i,18n,121p,867b,2163s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 117i,18n,121p,867b,2172s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb>
-Output written on main.pdf (1 page, 43813 bytes).
+Output written on main.pdf (1 page, 43858 bytes).
 PDF statistics:
  24 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

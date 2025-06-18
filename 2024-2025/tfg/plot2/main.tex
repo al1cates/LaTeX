@@ -6,16 +6,6 @@
 
 \begin{tikzpicture}
     \begin{axis}[
-        ticks = none,
-        xmin = -pi,
-        xmax = pi,
-        ymin = -1.5,
-        ymax = 1.5,
-        samples = 800,
-        scale = 1.1
-    ]
-    \end{axis}
-    \begin{axis}[
         axis lines* = middle,
         xmin = -pi,
         xmax = pi,
@@ -47,6 +37,16 @@
     \addplot[forget plot, excl, c3!50, fill = white] coordinates {(0,-1)};
     \addplot[domain=-pi:pi, color=c3, line width=1.5pt] {\RepeatFunction{1}{\pgfkeysvalueof{/pgfplots/fun terms}}};
     \addlegendentry{\footnotesize $ S_{20}f$};
+    \end{axis}
+    \begin{axis}[
+        ticks = none,
+        xmin = -pi,
+        xmax = pi,
+        ymin = -1.5,
+        ymax = 1.5,
+        samples = 800,
+        scale = 1.1
+    ]
     \end{axis}
 \end{tikzpicture}
 

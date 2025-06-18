@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt, oneside]{book}
+\documentclass[a4paper, 12pt]{book}
 
 \usepackage{preamble}
 
@@ -50,21 +50,19 @@
 
 {\bf Modalidad:} {Individual} \\
 
-{\bf Número de páginas (sin incluir introducción, bibliografía ni anexos):} 50 \\
+{\bf Número de páginas (sin incluir introducción, bibliografía ni anexos):} 54 \\
 
 \end{titlepage}
 
 %--------------------------------------------------------------------------------------------------------%
 
-\newpage
-\mbox{}
-\thispagestyle{empty}
+\cleardoublepage
 
 %--------------------------------------------------------------------------------------------------------%
 
 % DECLARACIÓN DE ORIGINALIDAD
 
-\begin{titlepage}
+\thispagestyle{empty}
 
 \begin{center}
 
@@ -84,59 +82,59 @@ Que he realizado el Trabajo Fin de Grado titulado ``\textit{Resultados sobre con
 De no cumplir con este compromiso, soy consciente de que, de acuerdo con la normativa reguladora de los procesos de evaluación de los aprendizajes del estudiantado de la Universidad de Málaga de 23 de julio de 2019, esto podrá conllevar la calificación de suspenso en la asignatura, sin perjuicio de las responsabilidades disciplinarias en las que pudiera incurrir en caso de plagio.
 \bigskip
 
-Para que así conste, firmo la presente en Málaga, el \textit{(fecha)}\\
+Para que así conste, firmo la presente en Málaga, el 7 de junio de 2025.\\
 
 \vskip.3truecm
 
 \qquad\qquad\qquad {Fdo:..............................................................}
 
-\end{titlepage}
+\cleardoublepage
 
 %--------------------------------------------------------------------------------------------------------%
 
 \tableofcontents
-\pagebreak  
 
 %--------------------------------------------------------------------------------------------------------%
 
 % RESUMEN
 
 { 
-\let\clearpage\relax
+\cleardoublepage
+\let\cleardoublepage\relax
 
 {\Large \textbf{Resultados sobre convergencia de series de Fourier}}\\
 
 \chapter*{Resumen}}
 \addcontentsline{toc}{chapter}{Resumen} 
 
-Este trabajo aborda el estudio de la convergencia y divergencia de series de Fourier, con especial énfasis en resultados sobre convergencia puntual y convergencia en $L^p$. En relación con la convergencia puntual, se demuestran dos resultados clásicos sobre funciones con series de Fourier divergentes: la existencia de una función continua con serie de Fourier divergente en un punto, y la existencia de una función de $L^1$ con serie de Fourier divergente en todos los puntos. También se menciona el teorema de Carleson-Hunt y se estudia el fenómeno de Gibbs. Respecto a la convergencia en $L^p$, utilizaremos herramientas del Análisis Funcional para probar la convergencia en norma de las series de Fourier de funciones de $L^p$, además de demostrar que esto no sucede en $L^1$ ni en $L^\infty$.
+Este trabajo aborda el estudio de la convergencia y divergencia de series de Fourier, con especial énfasis en resultados sobre convergencia puntual y convergencia en $L^p(\T)$ que se han mencionado en algunas asignaturas del grado, pero que no han podido explorarse con detalle. En relación con la convergencia puntual, se demuestran dos resultados clásicos sobre funciones con series de Fourier divergentes: la existencia de una función continua con serie de Fourier divergente en un punto, y la existencia de una función de $L^1(\T)$ con serie de Fourier divergente en todos los puntos. También se estudia el fenómeno de Gibbs y se menciona el teorema de Carleson-Hunt. Respecto a la convergencia en $L^p(\T)$, utilizaremos herramientas del Análisis Funcional para probar la convergencia en norma de las series de Fourier de funciones de $L^p(\T)$, además de demostrar que esto no sucede en $L^1(\T)$ ni en $L^\infty(\T)$.
 
 \vfill
 
 \textbf{Palabras clave:}\\
 
-\textsc{Espacios $L^p$, series de Fourier, coeficientes de Fourier, convergencia puntual, convergencia en $L^p$, polinomios trigonométricos}.
-
-\pagebreak
+\textsc{Espacios $L^p(\T)$, series de Fourier, coeficientes de Fourier, convergencia en $L^p(\T)$, convergencia puntual, polinomios trigonométricos}.
 
 %--------------------------------------------------------------------------------------------------------%
 
 % ABSTRACT
 
-{\let\clearpage\relax
+{
+\cleardoublepage    
+\let\cleardoublepage\relax
 
 {\Large \textbf{Results on convergence of Fourier series}}\\
 
 \chapter*{Abstract}}
 \addcontentsline{toc}{chapter}{Abstract} 
 
-This project addresses the study of convergence and divergence of Fourier series, with special emphasis on results about pointwise convergence and convergence in $L^p$. In relation to pointwise convergence, two classic ressults about functions with divergent Fourier series are proven: the existence of a continuous function with divergent Fourier series at a point, and the existence of a function in $L^1$ whose Fourier series diverges at every point. We also mention the Carleson-Hunt theorem and study the Gibbs phenomenon. Regarding $L^p$ convergence, we will use Functional Analysis tools to show the convergence in norm of Fourier series of functions in $L^p$, as well as proving that this does not occur in $L^1$ or in $L^\infty$.
+This project addresses the study of convergence and divergence of Fourier series, with special emphasis on results about pointwise convergence and convergence in $L^p(\T)$ which have been mentioned in some subjects of the degree, but have not been explored in detail. Regarding pointwise convergence, two classic ressults about functions with divergent Fourier series are proven: the existence of a continuous function with divergent Fourier series at a point, and the existence of a function in $L^1(\T)$ whose Fourier series diverges at every point. We also study the Gibbs phenomenon and mention the Carleson-Hunt theorem. In relation to $L^p(\T)$ convergence, we will use Functional Analysis tools to show the convergence in norm of Fourier series of functions in $L^p(\T)$, as well as proving that this does not occur in $L^1(\T)$ or in $L^\infty(\T)$.
 
 \vfill
 
 \textbf{Key words:}\\
 
-\textsc{$L^p$ spaces, Fourier series, Fourier coefficients, pointwise convergence, $L^p$ convergence, trigonometric polynomials}.
+\textsc{$L^p(\T)$ spaces, Fourier series, Fourier coefficients, $L^p(\T)$ convergence, pointwise convergence, trigonometric polynomials}.
 
 %--------------------------------------------------------------------------------------------------------%
 
@@ -148,17 +146,17 @@ This project addresses the study of convergence and divergence of Fourier series
 
 Las series de Fourier y el estudio de su convergencia han constituido un tema central en el desarrollo del Análisis Matemático de los siglos XIX y XX. El interés por representar una función arbitraria mediante una serie trigonométrica aparece a finales del siglo XVIII e inicios del siglo XIX, cuando se estudiaban fenómenos físicos como la vibración en una cuerda o la propagación del calor en un cuerpo. Joseph Fourier fue el primero que trató de probar que toda función admite una representación en serie trigonométrica, pero la falta de precisión formal en sus resultados publicados en 1807 y 1811 provocó cierto escepticismo en los matemáticos de la época. Aun así, este problema de representar funciones mediante series trigonométricas tuvo una influencia considerable en la evolución de los conceptos fundamentales del Análisis Matemático, poniendo de manifiesto la necesidad de definir con precisión las ideas de función, convergencia, integral o suma de series, entre otras.
 
-En un principio, se pensaba que la continuidad de una función era suficiente para que su serie de Fourier convergiese puntualmente a dicha función. Sin embargo, en 1873, Paul du Bois-Reymond consiguió demostrar que existe una función continua cuya serie de Fourier diverge en un punto. Más adelante, en 1913, Nikolai Lusin conjeturó que la serie de Fourier de una función de $L^2$ converge en casi todo punto. Esta cuestión se mantuvo abierta durante más de cuarenta años. En 1923, Andrei Kolmogorov consiguió resolverla para los espacios $L^1$, probando que existe una función de $L^1$ cuya serie de Fourier diverge en casi todo punto. Tres años después, el propio Kolmogorov consiguió llevar la divergencia a todo punto. La conjetura de Lusin no obtuvo respuesta hasta 1966, cuando Lennart Carleson demostró que la conjetura era cierta. Poco después, Richard Hunt extendió el resultado de Carleson a los espacios $L^p$ con $1 < p < \infty$.
+En un principio, se pensaba que la continuidad de una función era suficiente para que su serie de Fourier convergiese puntualmente a dicha función. Sin embargo, en 1873, Paul du Bois-Reymond consiguió demostrar que existe una función continua cuya serie de Fourier diverge en un punto. Más adelante, en 1913, Nikolai Lusin conjeturó que la serie de Fourier de una función de $L^2(\T)$ converge en casi todo punto. Esta cuestión se mantuvo abierta durante más de cuarenta años. En 1923, Andrei Kolmogorov consiguió resolverla para el espacio $L^1(\T)$, probando que existe una función de $L^1(\T)$ cuya serie de Fourier diverge en casi todo punto. Tres años después, el propio Kolmogorov consiguió llevar la divergencia a todo punto. La conjetura de Lusin no obtuvo respuesta hasta 1966, cuando Lennart Carleson demostró que la conjetura era cierta: la serie de Fourier de una función de $L^2(\T)$ converge a dicha función en casi todo punto. Poco después, Richard Hunt extendió el resultado de Carleson a los espacios $L^p(\T)$ con $1 < p \leq \infty$.
 
-A principios del siglo XX también comenzó a desarrollarse la teoría de los espacios de Hilbert, obteniéndose resultados sobre los espacios $L^2$ y $l^2$ que condujeron a la prueba de que la serie de Fourier de una función de $L^2$ converge en norma a dicha función. Esto motivó el estudio del problema análogo en los espacios $L^p$ para $p < \infty$. En 1918, Stefan Banach y Hugo Steinhaus probaron que para $p = 1$, la respuesta al problema de la convergencia en norma de las series de Fourier es negativa. Posteriormente, en 1923, Marcel Riesz consiguió demostrar que para $1 <p < \infty$, la respuesta es afirmativa.
+A principios del siglo XX también comenzó a desarrollarse la teoría de los espacios de Hilbert, obteniéndose resultados sobre los espacios $L^2(\T)$ y $\ell^2$ que condujeron a la prueba de que la serie de Fourier de una función de $L^2(\T)$ converge en norma a dicha función. Esto motivó el estudio del problema análogo en los espacios $L^p(\T)$ para $p < \infty$. En 1918, Stefan Banach y Hugo Steinhaus probaron que para $p = 1$, la respuesta al problema de la convergencia en norma de las series de Fourier es negativa. Posteriormente, en 1923, Marcel Riesz consiguió demostrar que para $1 <p < \infty$, la respuesta es afirmativa.
 
-Este trabajo se centra en el estudio riguroso de los dos tipos de convergencia de series de Fourier mencionados anteriormente: la convergencia puntual y la convergencia en $L^p$. El objetivo principal del trabajo es demostrar resultados sobre convergencia de series de Fourier que se han mencionado en varias asignaturas del grado, pero que no han podido estudiarse en profundidad.
+Este trabajo se centra en el estudio riguroso de los dos tipos de convergencia de series de Fourier mencionados anteriormente: la convergencia puntual y la convergencia en $L^p(\T)$. 
 
-En el capítulo 1 se establecen los preliminares necesarios para el desarrollo del trabajo. En concreto, se introducen brevemente los conceptos necesarios para definir las series de Fourier, como los espacios $L^p$, los coeficientes de Fourier o los núcleos de Dirichlet. También se enuncian varios resultados conocidos que son utilizados en capítulos posteriores. Entre ellos se encuentran la desigualdad de Hölder, el teorema de Riesz-Fischer o el principio del módulo máximo para funciones holomorfas. Además, se repasan herramientas del Análisis Funcional como la norma de aplicaciones lineales y continuas, los espacios duales o el teorema de la acotación uniforme.
+En el capítulo 1 se establecen los preliminares necesarios para el desarrollo del trabajo. En concreto, se introducen brevemente conceptos esenciales para definir las series de Fourier, como los espacios $L^p(\T)$, los coeficientes de Fourier o los núcleos de Dirichlet. También se enuncian varios resultados conocidos que son utilizados en capítulos posteriores. Entre ellos se encuentran la desigualdad de Hölder, el teorema de Riesz-Fischer o el principio del módulo máximo para funciones holomorfas. Además, se repasan herramientas del Análisis Funcional como la norma de aplicaciones lineales y continuas, los espacios duales o el teorema de la acotación uniforme.
 
-El capítulo 2 trata sobre la convergencia puntual de las series de Fourier, y consta de dos resultados principales. Primero se prueba que existe una función continua cuya serie de Fourier diverge en un punto. Para ello, no seguiremos el mismo camino que originalmente siguió Du Bois-Reymond, sino que damos una demostración no constructiva que se basa en el teorema de la acotación uniforme. En segundo lugar, demostramos que existe una función de $L^1$ cuya serie de Fourier diverge en todos los puntos. Esta demostración requiere el desarrollo previo de varios lemas que ocupan el grueso del capítulo. Finalmente, se estudia el fenómeno de Gibbs, relacionado con el comportamiento oscilatorio de las series de Fourier para funciones suficientemente regulares que presentan una discontinuidad.
+El capítulo 2 trata sobre la convergencia puntual de las series de Fourier, y consta de dos resultados principales. Primero se prueba que existe una función continua cuya serie de Fourier diverge en un punto. Para ello, no seguiremos el mismo camino que originalmente siguió Du Bois-Reymond, sino que damos una demostración no constructiva que se basa en el teorema de la acotación uniforme. En segundo lugar, demostramos que existe una función de $L^1(\T)$ cuya serie de Fourier diverge en todos los puntos. Esta demostración requiere el desarrollo previo de varios lemas que ocupan el grueso del capítulo. Finalmente, se estudia el fenómeno de Gibbs, relacionado con el comportamiento oscilatorio de las series de Fourier para funciones suficientemente regulares que presentan una discontinuidad.
 
-El capítulo 3 aborda la convergencia en $L^p$ de las series de Fourier. Se estudian por separado los casos $p = 1$, $p = \infty$ y $1<p<\infty$. El caso $p = 1$ se deduce del teorema de la acotación uniforme, y el caso $p = \infty$, de la relación entre la norma de $L^\infty$ y la convergencia uniforme. El caso $1<p<\infty$ se demuestra en tres pasos: primero se prueba para $p$ par, luego se prueba para $p > 2$ usando el teorema de interpolación de Riesz-Thorin, y finalmente se prueba para $1<p<2$ mediante un argumento de dualidad.
+El capítulo 3 aborda la convergencia en $L^p(\T)$ de las series de Fourier. Se estudian por separado los casos $p = 1$, $p = \infty$ y $1<p<\infty$. El caso $p = 1$ se deduce del teorema de la acotación uniforme, y el caso $p = \infty$, de la relación entre la norma de $L^\infty(\T)$ y la convergencia uniforme. El caso $1<p<\infty$ se demuestra en tres pasos: primero se prueba para $p$ par, luego se prueba para $p > 2$ usando el teorema de interpolación de Riesz-Thorin, y finalmente se prueba para $1<p<2$ mediante un argumento de dualidad.
 
 %--------------------------------------------------------------------------------------------------------%
 
@@ -173,7 +171,7 @@ Este capítulo recoge definiciones y resultados básicos relacionados con las se
 
 \section[Espacios \texorpdfstring{$L^p$}{Lp}]{Espacios \texorpdfstring{\boldmath$L^p$}{Lp}}
 
-En esta sección introducimos brevemente los espacios $L^p(\T)$ y $l^p$. En primer lugar, si $1 \leq p < \infty$, se define
+En esta sección introducimos brevemente los espacios $L^p(\T)$ y $\ell^p$. En primer lugar, si $1 \leq p < \infty$, se define
 \[\mathcal{L}^p(\T) = \Bigl\{f \colon \R \to \C \mid f \textup{ es medible, } 2\pi\textup{-periódica y tal que } \integral{-\pi}{\pi}{|f(t)|^p} < \infty \Bigr\}.\]
 En este conjunto, se define la relación $\sim$ como sigue: si $f,g \in \mathcal{L}^p(\T)$, $f \sim g$ si y solo si $f = g$ en casi todo punto. Esta relación resulta ser de equivalencia, y el conjunto cociente se denota
 \[L^p(\T) = \faktor{\mathcal{L}^p(\T)}{\sim}.\]
@@ -213,16 +211,16 @@ Recordamos la desigualdad de Hölder y un resultado que relaciona la convergenci
     Sea $p\in\R$ con $1\leq p < \infty$. Sea $f\in L^p(\T)$ y sea $\{f_n\}_{n=1}^\infty$ una sucesión de funciones de $L^p(\T)$ que converge a $f$ en $L^p(\T)$. Entonces existe una subsucesión $\{f_{n_k}\}_{k=1}^\infty$ de $\{f_n\}_{n=1}^\infty$ que converge a $f$ en casi todo punto.
 \end{theorem}
 
-Introducimos ahora los espacios $l^p$. Todas las sucesiones consideradas en estos espacios tendrán índices en $\Z$. En primer lugar, si $1\leq p<\infty$, se define
-\[l^p=\Bigl\{\{a_k\}_{k\in \Z} \colon a_k \in \C \textup{ para todo } k \in \Z \textup{ y } \sum_{k\in\Z}|a_k|^p < \infty\Bigr\}.\]
-Resulta que $l^p$ es un espacio vectorial sobre $\R$ y sobre $\C$, y la aplicación $\|\cdot\|_{l^p} \colon l^p \to \R$ dada por
-\[\|\{a_k\}_{k\in\Z}\|_{l^p} = \Bigl(\,\sum_{k\in\Z}|a_k|^p\Bigr)^{\frac{1}{p}}\]
-es una norma sobre $l^p$. En particular, para $p = 2$, esta norma proviene del producto escalar $\langle \cdot, \cdot \rangle_{l^2} \colon l^2 \times l^2 \to \C$ definido por
-\[\langle \{a_k\}_{k\in\Z}, \{b_k\}_{k\in\Z} \rangle_{l^2} = \Bigl(\,\sum_{k\in\Z}a_k\overline{b_k}\Bigr)^{\frac{1}{2}}.\] 
+Introducimos ahora los espacios $\ell^p$. Todas las sucesiones consideradas en estos espacios tendrán índices en $\Z$. En primer lugar, si $1\leq p<\infty$, se define
+\[\ell^p=\Bigl\{\{a_k\}_{k\in \Z} \colon a_k \in \C \textup{ para todo } k \in \Z \textup{ y } \sum_{k\in\Z}|a_k|^p < \infty\Bigr\}.\]
+Resulta que $\ell^p$ es un espacio vectorial sobre $\R$ y sobre $\C$, y la aplicación $\|\cdot\|_{\ell^p} \colon \ell^p \to \R$ dada por
+\[\|\{a_k\}_{k\in\Z}\|_{\ell^p} = \Bigl(\,\sum_{k\in\Z}|a_k|^p\Bigr)^{\frac{1}{p}}\]
+es una norma sobre $\ell^p$. En particular, para $p = 2$, esta norma proviene del producto escalar $\langle \cdot, \cdot \rangle_{\ell^2} \colon \ell^2 \times \ell^2 \to \C$ definido por
+\[\langle \{a_k\}_{k\in\Z}, \{b_k\}_{k\in\Z} \rangle_{\ell^2} = \Bigl(\,\sum_{k\in\Z}a_k\overline{b_k}\Bigr)^{\frac{1}{2}}.\] 
 
-Por otro lado, definimos $l^\infty$ como el conjunto de las sucesiones de números complejos que son acotadas. También se tiene que $l^\infty$ es un espacio vectorial sobre $\R$ y sobre $\C$, y que la aplicación $\|\cdot\|_{l^\infty} \colon l^\infty \to \R$ dada por
-\[\|\{a_k\}_{k\in\Z}\|_{l^\infty} = \sup_{k\in\Z} |a_k|\]
-es una norma sobre $l^\infty$.
+Por otro lado, definimos $\ell^\infty$ como el conjunto de las sucesiones de números complejos que son acotadas. También se tiene que $\ell^\infty$ es un espacio vectorial sobre $\R$ y sobre $\C$, y que la aplicación $\|\cdot\|_{\ell^\infty} \colon \ell^\infty \to \R$ dada por
+\[\|\{a_k\}_{k\in\Z}\|_{\ell^\infty} = \sup_{k\in\Z} |a_k|\]
+es una norma sobre $\ell^\infty$.
 
 \section{Series de Fourier}
 
@@ -244,17 +242,23 @@ y la suma parcial $n$-ésima, como
 Se demuestra que
 \begin{align*}
     a_k(f) &= \frac{1}{\pi}\integral{-\pi}{\pi}{f(t)\cos(kt)}, \qquad k \in \N\cup\{0\}, \\
-    b_k(f) &= \frac{1}{\pi}\integral{-\pi}{\pi}{f(t)\sen(kt)}, \qquad k \in \N,
+    b_k(f) &= \frac{1}{\pi}\integral{-\pi}{\pi}{f(t)\sen(kt)}, \qquad k \in \N.
 \end{align*}
 En general, una función $F \colon \R \to \C$ de la forma
-\[F(x) = \sum_{k=-n}^n c_ke^{ikx},\]
-con $c_n \neq 0$ o $c_{-n}\neq 0$, se dice que es un \emph{polinomio trigonométrico de grado $n$}. Denotamos por $\mathcal{P}$ al conjunto de todos los polinomios trigonométricos.
+\[F(x) = \sum_{k=-n}^n c_ke^{ikx}\]
+se dice que es un \emph{polinomio trigonométrico de grado $n$}, donde $c_k \in \C$ para todo $k \in \Z$ con $|k| \leq n$ (se entiende que o bien $c_n \neq 0$, o bien $c_{-n}\neq 0$). Denotamos por $\mathcal{P}$ al conjunto de todos los polinomios trigonométricos.
 
 \begin{definition}
     Dado $n \in \N \cup \{0\}$, a la función $D_n \colon \R \to \C$ definida por
     \[D_n(t) = \sum_{k=-n}^n e^{ikt}\]
     se le denomina \emph{núcleo de Dirichlet de orden $n$}.
 \end{definition}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{./plot13/main.pdf}
+  \caption{Gráficas de algunos núcleos de Dirichlet en $[-\pi,\pi]$.}
+\end{figure}
 
 Se sabe que los núcleos de Dirichlet son funciones pares, continuas y $2\pi$-periódicas, así que están en $L^1(\T)$. Además, toman valores reales y para todo $t \in [-\pi,\pi]$ se verifica
 \[D_n(t) = 1+2\sum_{k=1}^n \cos(kt) = \begin{cases}
@@ -272,8 +276,8 @@ y también como
 \end{equation}
 es decir, $S_nf = f \ast D_n$.
 
-Respecto a la convolución de funciones de $L^1(\T)$, se sabe que si $f \in L^1(\T)$ y $g \in L^p(\T)$, con $1 \leq p \leq \infty$, entonces $f \ast g$ está definida en casi todo punto de $\R$. Tras extenderla a todo $\R$, se tiene que $f \ast g \in L^1(\T)$ y que
-\[\|f \ast g\|_1 \leq \|f\|_1\|g\|_p.\]
+Respecto a la convolución de funciones de $L^1(\T)$, se sabe que si $f \in L^1(\T)$ y $g \in L^p(\T)$, con $1 \leq p \leq \infty$, entonces $f \ast g$ está definida en casi todo punto de $\R$. Tras extenderla a todo $\R$, se tiene que $f \ast g \in L^p(\T)$ y que
+\[\|f \ast g\|_p \leq \|f\|_1\|g\|_p.\]
 También se conoce que si $f \in L^p(\T)$ y $g \in \mathcal{C}^k(\T)$, entonces $f \ast g \in \mathcal{C}^k(\T)$. Por tanto, si $f \in L^p(\T)$ y $g \in \mathcal{C}^\infty(\T)$, se tiene que $f \ast g \in \mathcal{C}^\infty(\T)$.
 
 \begin{definition}\label{1.2.5}
@@ -281,6 +285,12 @@ También se conoce que si $f \in L^p(\T)$ y $g \in \mathcal{C}^k(\T)$, entonces 
     \[K_n(t) = \frac{1}{n+1}\sum_{k=0}^n D_k(t)\]
     se le denomina \emph{núcleo de Fejér de orden $n$}.
 \end{definition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{./plot14/main.pdf}
+  \caption{Gráficas de algunos núcleos de Fejér en $[-\pi,\pi]$.}
+\end{figure}
 
 Los núcleos de Fejér poseen propiedades similares a los de Dirichlet. Son funciones pares, continuas y $2\pi$-periódicas que toman valores reales no negativos y que verifican, para $t \in [-\pi,\pi]$,
 \[K_n(t) = \begin{cases}
@@ -295,7 +305,7 @@ Tomemos $f \in L^1(\T)$ y consideremos la sucesión de medias de Cesàro de $f$,
 \[\sigma_nf(x) = \frac{1}{n+1}\sum_{k=0}^nS_kf(x).\]
 Entonces
 \[\sigma_nf(x) = f \ast K_n(x) = \frac{1}{2\pi}\integral{-\pi}{\pi}{f(t)K_n(x-t)},\]
-y se tiene el resultado siguiente.
+y se tiene el resultado que sigue.
 
 \begin{theorem}\label{1.2.6}
     Sea $p \in \overline{\R}$ con $1 \leq p \leq \infty$ y sea $f \in L^p(\T)$.
@@ -312,14 +322,14 @@ Enunciamos a continuación algunos resultados relacionados con las series de Fou
 \begin{theorem}[Teorema de Riesz-Fischer]
     La aplicación
     \begin{align*}
-        \Phi \colon L^2(\T) &\longrightarrow l^2 \\
+        \Phi \colon L^2(\T) &\longrightarrow \ell^2 \\
         f &\longmapsto \Phi(f) = \{c_k(f)\}_{k\in\Z}
     \end{align*}
     es un isomorfismo isométrico.
 \end{theorem}
 
 Por tanto, si $f,g \in L^2(\T)$, como los isomorfismos isométricos preservan el producto escalar, tenemos
-\[\langle f,g \rangle = \langle \{c_k(f)\}_{k\in\Z}, \{c_k(g)\}_{k\in\Z} \rangle,\]
+\[\langle f,g \rangle = \langle \{c_k(f)\}_{k\in\Z}, \{c_k(g)\}_{k\in\Z} \rangle_{\ell^2},\]
 es decir,
 \[\Bigl(\frac{1}{2\pi}\integral{-\pi}{\pi}{f(t)\overline{g(t)}}\Bigr)^{\frac{1}{2}} = \Bigl(\,\sum_{k\in\Z} c_k(f)\overline{c_k(g)}\Bigr)^{\frac{1}{2}},\]
 luego
@@ -347,10 +357,10 @@ Recordamos varios criterios básicos relacionados con la convergencia puntual de
     para todo $x \in \R$.
 \end{theorem}
 
-Por último, enunciamos la siguiente versión del principio del módulo máximo para funciones holomorfas, estudiado en la asignatura de Variable Compleja.
+Por último, enunciamos una versión del principio del módulo máximo para funciones holomorfas, estudiado en la asignatura de Variable Compleja.
 
 \begin{theorem}[Principio del módulo máximo]\label{1.2.12}
-    Sea $D$ un dominio acotado y sea $f \colon \overline{D} \to \C$ una función continua en $\overline{D}$ y holomorfa en $D$. Entonces
+    Sea $D\subset\C$ un dominio acotado y sea $f \colon \overline{D} \to \C$ una función continua en $\overline{D}$ y holomorfa en $D$. Entonces
     \[\max_{z\in\overline{D}}|f(z)| = \max_{z \in \partial D}|f(z)|.\]
 \end{theorem}
 
@@ -371,7 +381,7 @@ Si en lugar de un espacio normado cualquiera $(Y,\|\cdot\|_Y)$ consideramos $(\K
 y para toda $f \in X^*$,
 \[\|f\| = \sup_{\|x\|_X=1}|f(x)|.\]
 
-Otros resultados de Análisis Funcional de los que se hará uso son el teorema de la acotación uniforme y un resultado básico sobre extensión de aplicaciones lineales y continuas.
+Otros resultados de los que se hará uso son el teorema de la acotación uniforme y un resultado básico sobre extensión de aplicaciones lineales y continuas.
 
 \begin{theorem}[Teorema de la acotación uniforme]\label{1.3.1}
     Sean $(X, \|\cdot\|_X)$ e $(Y,\|\cdot\|_Y)$ dos espacios normados y sea $\{T_j\}_{j \in I}$ una familia de aplicaciones lineales y continuas de $X$ en $Y$. Supongamos que
@@ -388,7 +398,7 @@ Otros resultados de Análisis Funcional de los que se hará uso son el teorema d
     siendo $\{x_n\}_{n=1}^\infty$ una sucesión cualquiera en $M$ con $\lim_{n\to\infty} \|x-x_n\|_X = 0$. Entonces $F$ está bien definida, es lineal, es continua y verifica $F\! \mid_M \ = f$ y $\|F\| = \|f\|$.
 \end{theorem}
 
-Como consecuencia del resultado anterior se obtiene que si $(X,\|\cdot\|_X)$ e $(Y,\|\cdot\|_Y)$ son dos espacios normados con $(Y,\|\cdot\|_Y)$ de Banach, $F \colon X \to Y$ es lineal y continua y $M$ es un subespacio vectorial denso en $X$, entonces $\|F\! \mid_M \!\! \| = \|F\|$, es decir,
+Como consecuencia del resultado anterior se obtiene que si $(X,\|\cdot\|_X)$ e $(Y,\|\cdot\|_Y)$ son dos espacios normados con $(Y,\|\cdot\|_Y)$ de Banach, $F \colon X \to Y$ es lineal y continua y $M$ es un subespacio vectorial denso en $X$, entonces $\|F\| = \|F\! \mid_M \!\! \|$, es decir,
 \begin{equation}\label{1.3.3}
     \sup_{\|x\|_X = 1} \|F(x)\|_Y = \sup_{\substack{\|x\|_X = 1 \\ x \in M}} \|F(x)\|_Y.
 \end{equation}
@@ -431,7 +441,7 @@ y como $\lim_{n\to\infty} \sum_{k=1}^n \frac{1}{k} = \infty$, entonces $\lim_{n 
 \end{theorem}
 
 \begin{proof}
-    En el espacio de Banach $(\mathcal{C}([-\pi,\pi]),\|\cdot\|_\infty)$, consideremos la familia de aplicaciones $\{T_n\}_{n\in \N}$, donde $T_n \colon \mathcal{C}([-\pi,\pi]) \to \R$, $T_n(g) = S_ng(0)$. Utilizando \hyperref[1.2.4]{(1.2.4)} y teniendo en cuenta que $D_n$ es par,
+    En el espacio de Banach $(\mathcal{C}([-\pi,\pi]),\|\cdot\|_\infty)$, consideremos la familia de aplicaciones $\{T_n\}_{n\in \N}$, donde $T_n \colon \mathcal{C}([-\pi,\pi]) \to \R$ se define como $T_n(g) = S_ng(0)$. Utilizando \hyperref[1.2.4]{(1.2.4)} y teniendo en cuenta que $D_n$ es par,
     \[T_n(g) = \frac{1}{2\pi}\integral{-\pi}{\pi}{g(t)D_n(-t)} = \frac{1}{2\pi}\integral{-\pi}{\pi}{g(t)D_n(t)}.\]
     Sea $n \in \N$. La linealidad de $T_n$ se deduce inmediatamente de la linealidad de la integral. Si $g \in \mathcal{C}([-\pi,\pi])$,
     \begin{align*}
@@ -442,20 +452,20 @@ y como $\lim_{n\to\infty} \sum_{k=1}^n \frac{1}{k} = \infty$, entonces $\lim_{n 
         \phantom{-}1 & $ si $ D_n(t) \geq 0, \\
         -1 & $ si $ D_n(t) < 0.
     \end{cases}\]
-    Para todo $t \neq 0$ se tiene que $D_n(t) = \frac{\sen((n+\frac{1}{2})t)}{\sen(\frac{t}{2})}$, luego
+    Para todo $t \in [-\pi,\pi]$ con $t \neq 0$ se tiene que $D_n(t) = \frac{\sen((n+\frac{1}{2})t)}{\sen(\frac{t}{2})}$, luego
     \[D_n(t) = 0 \iff \bigl(n+\frac{1}{2}\bigr)t = k \pi, \ k \in \Z \iff t = \frac{k\pi}{n+\frac{1}{2}}, \ k \in \Z.\]
-    De esto se deduce que $D_n$ se anula un número finito de veces en el intervalo $[-\pi,\pi]$, así que $f_n$ tiene un número finito de discontinuidades. Modificándola en un entorno de cada discontinuidad, puede obtenerse una sucesión $\{g_{n,m}\}_{m=1}^\infty$ de funciones continuas en $[-\pi,\pi]$ tales que $\lim_{m \to \infty}g_{n,m}(t) = f_n(t)$ para todo $t \in [-\pi,\pi]$ y $\|g_{n,m}\|_\infty = 1$ para todo $m \in \N$. Se tiene que
+    De esto se deduce que $D_n$ se anula un número finito de veces en el intervalo $[-\pi,\pi]$, así que $f_n$ tiene un número finito de discontinuidades. Modificándola en un entorno de cada discontinuidad, puede obtenerse una sucesión $\{g_{n,m}\}_{m=1}^\infty$ de funciones continuas en $[-\pi,\pi]$ tal que $\lim_{m \to \infty}g_{n,m}(t) = f_n(t)$ para todo $t \in [-\pi,\pi]$ y $\|g_{n,m}\|_\infty = 1$ para todo $m \in \N$. Se tiene que
     \begin{align*}
         \lim_{m \to \infty} T_n(g_{n,m}) &= \lim_{m \to \infty} \frac{1}{2\pi}\integral{-\pi}{\pi}{g_{n,m}(t)D_n(t)} =\frac{1}{2\pi}\integral{-\pi}{\pi}{\lim_{m \to \infty} g_{n,m}(t) D_n(t)} \\
         &= \frac{1}{2\pi}\integral{-\pi}{\pi}{f_n(t) D_n(t)} = \frac{1}{2\pi}\integral{-\pi}{\pi}{|D_n(t)|} = \|D_n\|_1,
     \end{align*}
     donde en la segunda igualdad el intercambio del límite con la integral está justificado por el teorema de la convergencia dominada: si $m \in \N$ y $t \in [-\pi,\pi]$,
-    \[|g_{n,m}(t) D_n(t)| \leq |D_n(t)|,\]
+    \[|g_{n,m}(t) D_n(t)| \le \|g_{n,m}\|_\infty |D_n(t)| = |D_n(t)|,\]
     y $\integral{-\pi}{\pi}{|D_n(t)|} < \infty$. Tenemos entonces que para todo $\varepsilon >0$ existe $m_0 \in \N$ tal que para todo $m \geq m_0$ se verifica
     \[\|D_n\|_1 - |T_n(g_{n,m})| \leq  |T_n(g_{n,m}) - \|D_n\|_1| < \varepsilon,\]
-    luego, usando que $\|g_{n,m}\|_\infty = 1$,
+    luego, usando que $\|g_{n,m}\|_\infty = 1$ y que $g_{n,m}\in\mathcal{C}([-\pi,\pi])$,
     \[\|D_n\|_1 \leq |T_n(g_{n,m})| + \varepsilon \leq \sup_{\|g\|_\infty = 1} |T_n(g)| + \varepsilon = \|T_n\| + \varepsilon.\]
-    Como esto es cierto para todo $\varepsilon > 0$, entonces $\|D_n\|_1 \leq \|T_n\|$ y queda probado que $\|D_n\|_1 = \|T_n\|$. Por tanto, $\lim_{n \to \infty} \|T_n\| = \lim_{n \to \infty} \|D_n\|_1 = \infty$. Como el conjunto de números reales $\{\|T_n\| \colon n \in \N\}$ no es acotado, el contrarrecíproco del \hyperref[1.3.1]{teorema de la acotación uniforme} permite afirmar que existe $g \in \mathcal{C}([-\pi,\pi])$ tal que el conjunto $\{T_n(g) \colon n \in \N\}$ no es acotado en $\R$, es decir,
+    Como esto es cierto para todo $\varepsilon > 0$, entonces $\|D_n\|_1 \leq \|T_n\|$ y queda probado que $\|D_n\|_1 = \|T_n\|$. Por el lema anterior, $\lim_{n \to \infty} \|T_n\| = \lim_{n \to \infty} \|D_n\|_1 = \infty$. Como el conjunto de números reales $\{\|T_n\| \colon n \in \N\}$ no es acotado, el contrarrecíproco del \hyperref[1.3.1]{teorema de la acotación uniforme} permite afirmar que existe $g \in \mathcal{C}([-\pi,\pi])$ tal que el conjunto $\{T_n(g) \colon n \in \N\}$ no es acotado en $\R$, es decir,
     \[\sup_{n \in \N} |T_n(g)| = \sup_{n \in \N} |S_ng(0)|= \infty.\]
     Se concluye que existe una función continua, $g$, cuya serie de Fourier en $0$ no converge.
 \end{proof}
@@ -491,6 +501,12 @@ Antes de enunciar el próximo lema, introducimos la noción de parte fraccionari
         \item Si $\alpha < 0$, se define la \emph{parte fraccionaria de $\alpha$} como $\angles{\alpha} = \angles{-\alpha}$.
     \end{itemize} 
 \end{definition}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{./plot15/main.pdf}
+  \caption{Gráfica de la función parte fraccionaria.}
+\end{figure}
 
 Estudiemos algunas propiedades elementales de la parte fraccionaria que se usarán en resultados posteriores.
 
@@ -543,18 +559,18 @@ El resultado que sigue fue demostrado por Leopold Kronecker, y para probarlo se 
     
     Ya estamos en condiciones de demostrar \hyperref[2.2.4]{(2.2.4)}. Sea $x \in [0,1)$ y sea $\varepsilon > 0$. Si $x = 0$, tomamos $m \in \N$ con $\frac{1}{m}<\varepsilon$ y por lo probado anteriormente, existe $k \in \N$ tal que $|\angles{k\alpha}-x| = \angles{k\alpha}  \leq \frac{1}{m}< \varepsilon$.
     
-    Supongamos entonces que $x > 0$. Sea $m \in \N$ tal que $\frac{1}{m} < \min\{\varepsilon,x\}$. Por lo probado anteriormente, existe $k \in \N$ tal que $\angles{k\alpha} \leq \frac{1}{m}< \varepsilon$.
+    Supongamos entonces que $x \in (0,1)$. Sea $m \in \N$ tal que $\frac{1}{m} < \min\{\varepsilon,x\}$. Por lo probado anteriormente, existe $k \in \N$ tal que $\angles{k\alpha} \leq \frac{1}{m}< \varepsilon$.
     Sea $n$ el mayor número natural tal que $n \angles{k\alpha} \leq x$ (existe porque $\angles{k\alpha} \leq \frac{1}{m} < x$). Entonces $n \angles{k\alpha} \leq x \leq (n+1)\angles{k\alpha}$, y como
     \[(n+1)\angles{k\alpha} - n\angles{k\alpha} = \angles{k\alpha} < \varepsilon,\]
     entonces
     \[|n\angles{k\alpha}-x| < \varepsilon.\]
-    Veamos que $n\angles{k\alpha} = \angles{nk\alpha}$, lo que finalizará la prueba de \hyperref[2.2.4]{(2.2.4)}. Por definición de la parte fraccionaria,
+    Veamos que $n\angles{k\alpha} = \angles{nk\alpha}$, lo que finalizará la prueba de \hyperref[2.2.4]{(2.2.4)}. Por definición de parte fraccionaria,
     \[n\angles{k\alpha} = nk\alpha-nE( k\alpha ),\]
     luego 
     \[\angles{n\angles{k\alpha}} = \angles{nk\alpha-nE( k\alpha)}.\]
     Se tiene que
     \begin{itemize}
-        \item $\angles{n\angles{k\alpha}} = n\angles{k\alpha}$ por la propiedad (b) de la parte fraccionaria, teniendo en cuenta que $0 \leq n\angles{k\alpha} \leq x < 1$.
+        \item $\angles{n\angles{k\alpha}} = |n\angles{k\alpha}| = n\angles{k\alpha}$ por la propiedad (b) de la parte fraccionaria, teniendo en cuenta que $0 \leq n\angles{k\alpha} \leq x < 1$.
         \item $\angles{nk\alpha-nE( k\alpha )} = \angles{nk\alpha}$ por la propiedad (c) de la parte fraccionaria.
     \end{itemize}
     Por tanto, $n\angles{k\alpha} = \angles{nk\alpha}$ y concluimos que $|n\angles{k\alpha}-x| = |\angles{nk\alpha}-x|<\varepsilon$.
@@ -590,19 +606,19 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
 
 \begin{proof}
     Al igual que en el lema anterior, basta probar el resultado para $\alpha > 0$. Sea $\varepsilon > 0$, sea $x \in [0,1)$ y veamos que existe $k \in \I$ tal que $|\angles{k\alpha}-x|<\varepsilon$. Para todo $n \in \N$,
-    \begin{align}\label{2.2.8}
+    \begin{align}\label{2.2.7}
         |\angles{(2n+1)\alpha} - x| &= |\angles{2n\alpha+\alpha}-x| \overset{(\asts{1})}{=} |\angles{\angles{2n\alpha} + \angles{\alpha}} - x| \notag\\
         &= |\angles{2n\alpha}+\angles{\alpha}-E(\angles{2n\alpha}+\angles{\alpha}) - x| \notag\\
         &\leq |\angles{2n\alpha}-(x-\angles{\alpha})|+|E(\angles{2n\alpha}+\angles{\alpha})|,
     \end{align}
-    donde en (\asts{1}) se ha usado la propiedad (d) de la parte fraccionaria. Como $2\alpha \in \R\setminus\Q$, entonces $\{\angles{2n\alpha}\colon n \in \N\}$ es denso en $[0,1]$, y como $x-\angles{\alpha} \in [0,1)$, existe $n_0 \in \N$ tal que
+    donde en (\asts{1}) se ha usado la propiedad (d) de la parte fraccionaria. Como $2\alpha \in \R\setminus\Q$, entonces $\{\angles{2n\alpha}\colon n \in \N\}$ es denso en $[0,1)$, y como $x-\angles{\alpha} \in [0,1)$, existe $n_0 \in \N$ tal que
     \[|\angles{2n_0\alpha} - (x-\angles{\alpha})| < \widetilde{\varepsilon},\]
-    donde $\widetilde{\varepsilon} = \min\{\varepsilon,1-x\} > 0$. Tenemos entonces $\angles{2n_0\alpha} - (x-\angles{\alpha}) <\widetilde{\varepsilon} \leq 1-x$, luego $0 \leq \angles{2n_0\alpha}+\angles{\alpha} < 1$ y por tanto $E(\angles{2n_0\alpha}+\angles{\alpha}) = 0$. Llevando esto a \hyperref[2.2.8]{(2.2.8)}, concluimos
+    donde $\widetilde{\varepsilon} = \min\{\varepsilon,1-x\} > 0$. Tenemos entonces $\angles{2n_0\alpha} - (x-\angles{\alpha}) <\widetilde{\varepsilon} \leq 1-x$, luego $0 \leq \angles{2n_0\alpha}+\angles{\alpha} < 1$ y por tanto $E(\angles{2n_0\alpha}+\angles{\alpha}) = 0$. Llevando esto a \hyperref[2.2.7]{(2.2.7)}, concluimos
     \[|\angles{(2n_0+1)\alpha} - x| \leq |\angles{2n_0\alpha}-(x-\angles{\alpha})| < \widetilde{\varepsilon} \leq \varepsilon. \qedhere\]
 \end{proof}
 
 \begin{lemma}
-    Sea $\rho \in \N$ y sea $\theta \in (0,1)$ con $\theta\neq\frac{1}{2}$. Entonces existe $\rho_\theta \in \I$ con $\rho_\theta\geq \rho$ y tal que
+    Sea $\rho \in \I$ y sea $\theta \in (0,1)$ con $\theta\neq\frac{1}{2}$. Entonces existe $\rho_\theta \in \I$ con $\rho_\theta\geq \rho$ y tal que
     \[\sen(2\pi\rho_\theta\theta) > \frac{1}{2}.\]
 \end{lemma}
 
@@ -642,7 +658,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     Supongamos ahora que $\theta \in \R\setminus\Q$. Por el lema anterior, el conjunto $\{\angles{k\theta} \colon k \in \I\}$ es denso en $[0,1)$, y como $J \subset [0,1)$, existen infinitos $k \in \I$ tales que $\angles{k\theta} \in J$. Por tanto, existe $\rho_\theta \in \I$ con $\rho_\theta \geq \rho$ y tal que $\angles{\rho_\theta\theta} \in J$. Llamando $s = E( \rho_\theta\theta)$, concluimos que $s \in \Z$ y que $\rho_\theta\theta = s + \angles{\rho_\theta\theta} \in (s +\frac{1}{12},s +\frac{5}{12})$.
 \end{proof}
 
-\begin{lemma}\label{2.2.10}
+\begin{lemma}\label{2.2.9}
     Sea $n \in \N$ y sea $\delta \in (0,\frac{\pi}{2n+1})$. Para cada $j \in \{0,1,\mathellipsis,2n\}$, sea
     \[x_j = \frac{2\pi j}{2n+1},\]
     y para cada $j \in \{0,1,\mathellipsis,2n-1\}$, sea \[I_j = (x_j+\delta,x_{j+1}-\delta).\]
@@ -659,13 +675,13 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     \[x_{j+1}-\delta -(x_j+\delta) = \frac{2\pi(j+1)}{2n+1}-\frac{2\pi j}{2n+1} -2\delta = \frac{2\pi}{2n+1}-2\delta > \frac{2\pi}{2n+1}-\frac{2\pi}{2n+1} = 0,\]
     utilizándose en la desigualdad que $\delta < \frac{\pi}{2n+1}$.
 
-    La definición de los números naturales $m_0,m_1,\mathellipsis,m_n$ se realizará más adelante. Por ahora, fijemos $j \in \{0,1,\mathellipsis,n-1\}$ y $N \in \N$. Para cada $\rho \in \I$, sea \[k_\rho = \frac{\rho(2n+1)-1}{2},\]
+    La elección de los números naturales $m_0,m_1,\mathellipsis,m_n$ se realizará más adelante. Por ahora, fijemos $j \in \{0,1,\mathellipsis,n-1\}$ y $N \in \I$. Para cada $\rho \in \I$, sea \[k_\rho = \frac{\rho(2n+1)-1}{2},\]
     y para cada $x \in I_{2j} \cup I_{2j+1}$ sea
     \[\theta_x = \frac{2n+1}{4\pi}(x_{2j+2}-x).\]
     Nótese que $\rho(2n+1) \in \I$ por ser producto de números impares, luego $\rho(2n+1)-1 \in \mathbb{P}$ y por tanto $k_\rho \in \N$. Además, $2k_\rho+1=\rho(2n+1)$, luego $2k_\rho+1$ es múltiplo de $2n+1$. Por otra parte,
     \[\sen\Bigl(\Bigl(k_\rho+\frac{1}{2}\Bigr)x\Bigr) = \sen\Bigl(\Bigl(\frac{\rho(2n+1)-1}{2}+\frac{1}{2}\Bigr)x\Bigr) = \sen\Bigl(\frac{\rho(2n+1)}{2}x\Bigr).\]
-    Como $(2n+1)x_{2j+2} = 2\pi(2j+2)$ y $\frac{\rho}{2} \in \N$, entonces $\frac{\rho(2n+1)}{2}x_{2j+2}$ es un múltiplo de $2\pi$, y por tanto, usando que el seno es una función impar y $2\pi$-periódica,
-    \begin{align}\label{2.2.11}
+    Como $(2n+1)x_{2j+2} = 2\pi(2j+2)$, entonces $\frac{\rho(2n+1)}{2}x_{2j+2} = 2\pi\rho(j+1)$, luego $\frac{\rho(2n+1)}{2}x_{2j+2}$ es un múltiplo de $2\pi$. Usando que el seno es una función impar y $2\pi$-periódica,
+    \begin{align}\label{2.2.10}
         -\sen\Bigl(\Bigl(k_\rho+\frac{1}{2}\Bigr)x\Bigr) &= \sen\Bigl(-\frac{\rho(2n+1)}{2}x\Bigr) = \sen\Bigl(\frac{\rho(2n+1)}{2}(x_{2j+2}-x)\Bigr) \notag \\ 
         &= \sen(2\pi \rho\theta_x).
     \end{align}
@@ -690,16 +706,19 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \[\theta_x = \frac{2n+1}{4\pi}(x_{2j+2}-x) < \frac{1}{2}-\frac{2n+1}{4\pi}\delta = \frac{1}{2}-\eta.\]
     \end{itemize}
 
-    Sea $S = (\eta,\frac{1}{2}-\eta) \cup (\frac{1}{2}+\eta,1-\eta)$, que por ser $\eta \in (0,\frac{1}{4})$ verifica $S \subset (0,1)$ y $\frac{1}{2}\not\in S$. Los razonamientos anteriores prueban que
+    Sea $S = (\eta,\frac{1}{2}-\eta) \cup (\frac{1}{2}+\eta,1-\eta)$, que por ser $\eta \in (0,\frac{1}{4})$, tiene perfecto sentido y verifica $S \subset (0,1)$ y $\frac{1}{2}\not\in S$. Los razonamientos anteriores prueban que si $x \in I_{2j}\cup I_{2j+1}$, entonces $\theta_x \in S$. De forma similar se prueba que si $\theta_x \in S$, entonces $x \in I_{2j}\cup I_{2j+1}$. Así,
     \[x \in I_{2j} \cup I_{2j+1} \iff \theta_x \in S.\]
-    Para cada $\theta \in S$, sea $\rho_\theta$ el menor número natural impar con $\rho_\theta \geq N$ y $\sen(2\pi\rho_\theta\theta) > \frac{1}{2}$, que existe por el lema anterior. De hecho, como $\overline{S} = [\eta,\frac{1}{2}-\eta] \cup [\frac{1}{2}+\eta,1-\eta] \subset (0,1)$ y $\frac{1}{2}\not\in\overline{S}$, esto también tiene sentido para $\theta \in \overline{S}$. Por \hyperref[2.2.11]{(2.2.11)}, para todo $x \in I_{2j} \cup I_{2j+1}$ se tiene
-    \[-\sen\Bigl(\Bigl(k_{\rho_{\theta_x}}+\frac{1}{2}\Bigr)x\Bigr) > \frac{1}{2}.\]
-    Para cada $x \in I_{2j} \cup I_{2j+1}$, sea
+
+    Para cada $\theta \in S$, sea $\rho_\theta$ el menor número natural impar con $\rho_\theta \geq N$ y $\sen(2\pi\rho_\theta\theta) > \frac{1}{2}$, que existe por el lema anterior. De hecho, como se cumple $\overline{S} = [\eta,\frac{1}{2}-\eta] \cup [\frac{1}{2}+\eta,1-\eta] \subset (0,1)$ y $\frac{1}{2}\not\in\overline{S}$, esto también tiene sentido para $\theta \in \overline{S}$ (se usará más adelante). 
+    
+    Para cada $x \in I_{2j} \cup I_{2j+1}$, aplicando lo anterior a $\theta_x \in S$ y utilizando \hyperref[2.2.10]{(2.2.10)}, se obtiene que
+    \[-\sen\Bigl(\Bigl(k_{\rho_{\theta_x}}+\frac{1}{2}\Bigr)x\Bigr) = \sen(2\pi\rho_{\theta_x}\theta_x) > \frac{1}{2}.\]
+    Sea
     \[k_x = k_{\rho_{\theta_x}} = \frac{\rho_{\theta_x}(2n+1)-1}{2}.\] Como $\rho_{\theta_x} \geq N$, entonces $k_x \geq \frac{N(2n+1)-1}{2}$. Además, $k_x$ verifica (a) y (c). 
 
-    Recapitulando, hemos probado que si $j \in \{0,1,\mathellipsis,n-1\}$ y $N \in \N$, entonces para todo $x \in I_{2j}\cup I_{2j+1}$ existe $k_x \in \N$ con $k_x \geq \frac{N(2n+1)-1}{2}$ y tal que se verifican (a) y (c).
+    Recapitulando, hemos probado que si $j \in \{0,1,\mathellipsis,n-1\}$ y $N \in \I$, entonces para todo $x \in I_{2j}\cup I_{2j+1}$ existe $k_x \in \N$ con $k_x \geq \frac{N(2n+1)-1}{2}$ y verificando (a) y (c).
     
-    Finalmente, definamos $m_0,m_1,\mathellipsis,m_n\in \N$. Tomemos como $m_0$ cualquier número natural y definamos $m_1$. Aplicando lo que se acaba de probar con $j = 0$ y cualquier $N \in \N$ verificando $N \geq \frac{2m_0+1}{2n+1}$, obtenemos que para todo $x \in I_0 \cup I_1$ existe $k_x \in \N$ con $k_x \geq \frac{N(2n+1)-1}{2} \geq \frac{2m_0+1-1}{2}= m_0$ y verificando (a) y (c). Veamos que existe $m_1 \in \N$ con $m_0 < m_1$ y tal que para todo $x \in I_0\cup I_1$ se tiene que $k_x < \frac{1}{2} m_1$.
+    Finalmente, definamos $m_0,m_1,\mathellipsis,m_n\in \N$. Tomemos como $m_0$ cualquier número natural y definamos $m_1$. Aplicando lo que se acaba de probar con $j = 0$ y cualquier $N \in \I$ tal que $N \geq \frac{2m_0+1}{2n+1}$, obtenemos que para todo $x \in I_0 \cup I_1$ existe $k_x \in \N$ con $k_x \geq \frac{N(2n+1)-1}{2} \geq \frac{2m_0+1-1}{2}= m_0$ y verificando (a) y (c). Veamos que existe $m_1 \in \N$ con $m_0 < m_1$ y tal que para todo $x \in I_0\cup I_1$ se tiene que $k_x < \frac{1}{2} m_1$.
 
     Sea $\theta \in \overline{S}$. Como $\sen(2\pi\rho_\theta\theta) > \frac{1}{2}$ y el seno es una función continua, existe $\delta_\theta > 0$ tal que para todo ${\xi} \in (\theta-\delta_\theta,\theta+\delta_\theta)$ se tiene que $\sen(2\pi\rho_{\theta}{\xi}) > \frac{1}{2}$. Como $\rho_\theta \in \I$, $\rho_\theta \geq N$ y $\sen(2\pi\rho_\theta\xi)> \frac{1}{2}$, entonces $\rho_\xi \leq \rho_\theta$, ya que $\rho_\xi$ es el menor número natural impar con $\rho_\xi \geq N$ y $\sen(2\pi \rho_\xi\xi) > \frac{1}{2}$. Y como
     \[\overline{S} \subset \bigcup_{\theta \in \overline{S}}(\theta - \delta_\theta, \theta + \delta_\theta)\]
@@ -707,16 +726,16 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     \[S \subset \overline{S} \subset \bigcup_{i=1}^k (\theta_i-\delta_{\theta_i},\theta_i+\delta_{\theta_i}).\]
     Por tanto, para todo $\theta \in S$ se tiene que $\rho_\theta \leq \max\{\rho_{\theta_1},\rho_{\theta_2},\mathellipsis,\rho_{\theta_n}\}$. Tomando
     \[m_0' > \max \{\rho_{\theta_1},\rho_{\theta_2},\mathellipsis,\rho_{\theta_n}\},\]
-    tenemos que $\rho_\theta < m_0'$ para todo $\theta \in S$. Así,, para todo $x \in I_0 \cup I_1$ se tiene
+    tenemos que $\rho_\theta < m_0'$ para todo $\theta \in S$. Así, para todo $x \in I_0 \cup I_1$ se tiene
     \[k_x = \frac{\rho_{\theta_x}(2n+1)-1}{2} < \frac{m_0'(2n+1)-1}{2}.\]
     Llamando $m_1 = m_0'(2n+1)-1$, tenemos que $m_0 \leq k_x < \frac{1}{2}m_1$ para todo $x \in I_0 \cup I_1$. Además, $m_0 < \frac{1}{2}m_1 < m_1$.
 
-    Razonando de forma análoga, hallamos $m_2 \in \N$ con $m_0 < m_1 < m_2$ y tal que para todo $x \in I_{2} \cup I_3$ existe $k_x \in \N$ satisfaciendo (a) y (c) y tal que $m_1 \leq k_x < \frac{1}{2}m_2$. 
+    Razonando de forma análoga, hallamos $m_2 \in \N$ con $m_0 < m_1 < m_2$ y tal que para todo $x \in I_{2} \cup I_3$ existe $k_x \in \N$ satisfaciendo (a) y (c) y tal que $m_1 \leq k_x < \frac{1}{2}m_2$. También se ha probado que para todo $x \in I_0 \cup I_1$ existe $k_x \in \N$ satisfaciendo (a) y (c) y tal que $m_0 \leq k_x < \frac{1}{2}m_1$.
     
     Reiterando este proceso, encontramos $m_0,m_1,\mathellipsis,m_n\in\N$ con $m_0 < m_1 < \cdots < m_n$ y tales que para todo $j \in \{0,1,\mathellipsis,n-1\}$ y todo $x \in I_{2j}\cup I_{2j+1}$, existe $k_x \in \N$ cumpliendo las propiedades (a), (b) y (c).
 \end{proof}
 
-\begin{lemma}\label{2.2.12}
+\begin{lemma}\label{2.2.11}
     Para cada $n \in \N$, sea $H_n = \sum_{i=1}^n \frac{1}{i}$. Entonces
     \[\lim_{n \to \infty} \frac{H_n}{\log(n)} = 1.\]
 \end{lemma}
@@ -752,38 +771,44 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     \[x_j = \frac{2\pi j}{2n+1}, \qquad I_j' = [x_j-\delta,x_j+\delta],\]
     y para cada $j \in \{0,1,\mathellipsis,2n-1\}$, sea
     \[I_j = (x_j+\delta, x_{j+1}-\delta).\]
-    Para que el intervalo $I_j$ tenga sentido, tomamos $\delta < \frac{\pi}{2n+1}$, tal y como se vio en el \hyperref[2.2.10]{Lema 2.2.10}. Se observa que
+    Para que el intervalo $I_j$ tenga sentido, tomamos $\delta < \frac{\pi}{2n+1}$, tal y como se vio en el \hyperref[2.2.9]{Lema 2.2.9}.
+    \begin{figure}[H]
+      \centering
+      \includegraphics{./plot16/main.pdf}
+      \caption{Representación de $x_j$, $I_j$ e $I_j'$ para $n = 3$ y $\delta = \frac{\pi}{14}$.}
+    \end{figure}
+    \noindent Se observa que
     \[\Bigl(\,\bigcup_{j=0}^{2n}I_j'\Bigr) \cup\Bigl(\,\bigcup_{j=0}^{2n-1}I_j\Bigr) = [x_0-\delta,x_{2n}+\delta].\]
     Definimos $F_n = \phi_n+f_n$, donde
     \begin{itemize}
         \item $\phi_n(x) = \frac{1}{2}K_{m_0}((2n+1)x)$, siendo $m_0 \in \N$ tal que $K_{m_0}(0) > 2n$ (se recuerda que $K_{m_0}$ es el \hyperref[1.2.5]{núcleo de Fejér de orden $m_0$}). Esta elección de $m_0$ es posible porque \[\lim_{m \to \infty} K_m(0) = \lim_{m \to \infty} (m+1) = \infty.\]
-        Nótese que $K_{m_0}(0)=2m_0+1 > 2n$ y por tanto $m_0 > \frac{2n-1}{2}$. Por otra parte, si $j \in \{0,1,\mathellipsis,2n\}$, entonces
+        Nótese que $K_{m_0}(0)=m_0+1 > 2n$ y por tanto $m_0 > 2n-1> \frac{2n-1}{2}$. Por otra parte, si $j \in \{0,1,\mathellipsis,2n\}$, entonces
         \[\phi_n(x_j) = \frac{1}{2}K_{m_0}((2n+1)x_j) = \frac{1}{2}K_{m_0}(2\pi j) = \frac{1}{2}K_{m_0}(0) > \frac{1}{2}2n = n,\] 
         utilizándose en la tercera igualdad que $K_{m_0}$ es $2\pi$-periódica. Como $\phi_n$ es continua (pues $K_{m_0}$ lo es), existe $\delta' > 0$ tal que para todo $x \in (x_j-\delta',x_j+\delta')$ se verifica $\phi_n(x) \geq n$. Tomando $\delta < \min\{\delta',\frac{\pi}{2n+1}\}$, se tiene que
-        \begin{equation}\label{2.2.14}
+        \begin{equation}\label{2.2.13}
             \phi_n(x) \geq n \textup{ para todo } x \in [x_j-\delta,x_j+\delta] = I_j'.
         \end{equation}
         Por ser $K_{m_0}$ un polinomio trigonométrico no negativo de término constante $1$ y grado $m_0$, se tiene que $\phi_n$ es un polinomio trigonométrico no negativo de término constante $\frac{1}{2}$ y grado $m_0$. 
         
         Además, como $D_{m_0}(0) = 2m_0+1 > 0$ y $D_{m_0}$ es continua, existe $\delta'' > 0$ tal que $D_{m_0}(x) \geq 0$ para todo $x \in (-\delta'',\delta'')$. Tomando $\delta < \min\{\delta',\delta'',\frac{\pi}{2n+1}\}$, se tiene que
-        \begin{equation}\label{2.2.15}
+        \begin{equation}\label{2.2.14}
             D_{m_0}(x) \geq 0 \textup{ para todo } x \in [-\delta,\delta] = I_0'.
         \end{equation}
-        \item $f_n(x) = \frac{1}{2n}\sum_{i=1}^n g_i(x)$, donde $g_i(x)= K_{m_i}(x-x_{2i})$ y $m_1,m_2,\mathellipsis,m_n$ son los números naturales proporcionados por el \hyperref[2.2.10]{Lema 2.2.10} (en la demostración de dicho lema se vio que puede tomarse como $m_0$ cualquier número natural; en este caso, se escoge como $m_0$ el grado de $\phi_n$). Como $g_i$ es un polinomio trigonométrico no negativo de término constante 1, entonces $f_n$ es un polinomio trigonométrico no negativo de término constante $\frac{1}{2}$.
+        \item $f_n(x) = \frac{1}{2n}\sum_{i=1}^n g_i(x)$, donde $g_i(x)= K_{m_i}(x-x_{2i})$ y $m_1,m_2,\mathellipsis,m_n$ son los números naturales proporcionados por el \hyperref[2.2.9]{Lema 2.2.9} (en la demostración de dicho lema se vio que puede tomarse como $m_0$ cualquier número natural; en este caso, se escoge como $m_0$ el grado de $\phi_n$). Como $g_i$ es un polinomio trigonométrico no negativo de término constante 1, entonces $f_n$ es un polinomio trigonométrico no negativo de término constante $\frac{1}{2}$.
     \end{itemize}
 
     De esta manera, tenemos que $F_n$ es un polinomio trigonométrico no negativo de término constante 1, pues $f_n$ y $\phi_n$ son polinomios trigonométricos no negativos de término constante $\frac{1}{2}$.
 
-    Antes de definir las otras tres sucesiones que aparecen en el enunciado, se van a probar las tres afirmaciones que siguen.
+    Antes de definir las otras tres sucesiones que aparecen en el enunciado, se van a probar las tres afirmaciones que siguen, válidas para $n \in \N$ suficientemente grande.
 
     \begin{itemize}
         \item \textit{Si $j \in \{0,1,\mathellipsis,n-1\}$ y $k \in \N$ son tales que $m_j \leq k < \frac{1}{2}m_{j+1}$, entonces
-        \begin{equation}\label{2.2.16}
+        \begin{equation}\label{2.2.15}
             S_kf_n(x) \geq \frac{1}{2n}\sum_{i=j+1}^n \frac{m_i-k}{m_i+1}D_k(x-x_{2i})
         \end{equation}
-        para todo $x \in \bigcup_{l=0}^{n-1}I_{2l}\cup I_{2l+1}$.}
+        para todo $x \in \R$.}
 
-        Sea $x \in \bigcup_{l=0}^{n-1}I_{2l}\cup I_{2l+1}$ y supongamos que existen $j \in \{0,1,\mathellipsis,n-1\}$ y $k \in \N$ tales que $m_j \leq k < \frac{1}{2}m_{j+1}$. Para todo $i \in \{1,2,\mathellipsis,n\}$,
+        Sea $x \in \R$ y supongamos que existen $j \in \{0,1,\mathellipsis,n-1\}$ y $k \in \N$ tales que $m_j \leq k < \frac{1}{2}m_{j+1}$. Para todo $i \in \{1,2,\mathellipsis,n\}$,
         \begin{align*}
             g_i(x) &= K_{m_i}(x-x_{2i}) = \frac{1}{m_i+1}\sum_{l=0}^{m_i}D_l(x-x_{2i}) = \frac{1}{m_i+1}\Bigl(1+\sum_{l=1}^{m_i}D_l(x-x_{2i})\Bigr)  \\
             &= \frac{1}{m_i+1}\Bigl(1+\sum_{l=1}^{m_i}\Bigl(1+2\sum_{m=1}^l \cos(m(x-x_{2i}))\Bigr)\Bigr) \\
@@ -802,7 +827,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \begin{align*}
             S_{k}f_n(x) \geq \frac{1}{2n}\sum_{i=j+1}^n \Bigl(1+2\sum_{m=1}^{k}\frac{m_i-m+1}{m_i+1}\cos(m(x-x_{2i}))\Bigr).
         \end{align*}
-        Y como $m_i-m+1 = (m_i-k)+(k-m+1) \geq m_i-k$,
+        Y como $m_i-m+1 = (m_i-k)+(k-m+1) \geq m_i-k$ si $m \leq k$, entonces
         \begin{align*}
             S_{k}f_n(x) &\geq \frac{1}{2n}\sum_{i=j+1}^n \Bigl(1+2\sum_{m=1}^{k}\frac{m_i-k}{m_i+1}\cos(m(x-x_{2i}))\Bigr).
         \end{align*}
@@ -812,50 +837,52 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
             &= \frac{1}{2n}\sum_{i=j+1}^n \frac{m_i-k}{m_i+1}\Bigl(1+2\sum_{m=1}^{k} \cos(m(x-x_{2i}))\Bigr) \\
             &= \frac{1}{2n}\sum_{i=j+1}^n \frac{m_i-k}{m_i+1}D_{k}(x-x_{2i}).
         \end{align*}
-        Esto completa la prueba de \hyperref[2.2.16]{(2.2.16)}.
+        Esto completa la prueba de \hyperref[2.2.15]{(2.2.15)}.
         \item \textit{Existe $C > 0$ tal que para todo $j \in \{0,1,\mathellipsis,E(n-\sqrt{n})\}$ y todo $x \in I_{2j}\cup I_{2j+1}$, se verifica
-        \begin{equation}\label{2.2.17}
+        \begin{equation}\label{2.2.16}
             S_{k_x}F_n(x) \geq C\log(n)
         \end{equation}
         para algún $k_x \in \N$ con $m_j \leq k_x < \frac{1}{2}m_{j+1}$.
         }
 
-        Sea $j \in \{0,1,\mathellipsis,E(n-\sqrt{n})\}$ y sea $x \in I_{2j} \cup I_{2j+1}$. El \hyperref[2.2.10]{Lema 2.2.10} permite afirmar que existe $k_x \in \N$ tal que $2k_x+1$ es múltiplo de $2n+1$, $m_{j} \leq k_x < \frac{1}{2}m_{j+1}$ y $\sen((k_x+\frac{1}{2})x) < -\frac{1}{2}$.
+        Sea $j \in \{0,1,\mathellipsis,E(n-\sqrt{n})\}$ y sea $x \in I_{2j} \cup I_{2j+1}$. El \hyperref[2.2.9]{Lema 2.2.9} permite afirmar que existe $k_x \in \N$ tal que $2k_x+1$ es múltiplo de $2n+1$, $m_{j} \leq k_x < \frac{1}{2}m_{j+1}$ y $\sen((k_x+\frac{1}{2})x) < -\frac{1}{2}$. Sea $N \in \N$ tal que $2k_x+1 = N(2n+1)$.
 
-        Sea $\alpha \in \N$ tal que $2k_x+1 = \alpha(2n+1)$. Como $x \in I_{2j} \cup I_{2j+1}$, entonces $x < x_{2j+2}$. De esto se obtiene que si $i \geq j+1$, entonces $x \neq x_{2i}$, luego
+        Veamos que si $j+1 \leq i \leq n$, entonces $\sen(\frac{1}{2}(x-x_{2i})) < 0$. Como $x \in I_{2j} \cup I_{2j+1}$, entonces $x < x_{2j+2} = x_{2(j+1)} \leq x_{2i}$, lo que prueba que $x - x_{2i} < 0$. Además, usando que $x >x_{2j}$,
+        \[x_{2i}-x <x_{2j}-x_{2j} = \frac{4\pi}{2n+1}(i-j) \leq \frac{4\pi n}{2n+1} \leq \frac{4\pi n}{2n}\pi = 2\pi,\]
+        luego $\frac{1}{2}(x-x_{2i}) > -\pi$. Como $\frac{1}{2}(x-x_{2i}) \in (-\pi,0)$, tenemos que $\sen(\frac{1}{2}(x-x_{2i})) < 0$. En consecuencia
         \begin{align*}
             D_{k_x}(x-x_{2i}) &= \frac{\sen((k_x+\frac{1}{2})(x-x_{2i}))}{\sen(\frac{1}{2}(x-x_{2i}))} = \frac{\sen((k_x+\frac{1}{2})x-(k_x+\frac{1}{2})x_{2i})}{\sen(\frac{1}{2}(x-x_{2i}))} \\
-            &= \frac{\sen((k_x+\frac{1}{2})x-\frac{\alpha}{2}(2n+1)x_{2i})}{\sen(\frac{1}{2}(x-x_{2i}))} = \frac{\sen((k_x+\frac{1}{2})x-\frac{\alpha}{2}(2n+1)\frac{4\pi i}{2n+1})}{\sen(\frac{1}{2}(x-x_{2i}))} \\
-            &= \frac{\sen((k_x+\frac{1}{2})x-2\pi\alpha i)}{\sen(\frac{1}{2}(x-x_{2i}))} = \frac{\sen((k_x+\frac{1}{2})x)}{\sen(\frac{1}{2}(x-x_{2i}))}.
+            &= \frac{\sen((k_x+\frac{1}{2})x-\frac{N}{2}(2n+1)x_{2i})}{\sen(\frac{1}{2}(x-x_{2i}))} = \frac{\sen((k_x+\frac{1}{2})x-\frac{N}{2}(2n+1)\frac{4\pi i}{2n+1})}{\sen(\frac{1}{2}(x-x_{2i}))} \\
+            &= \frac{\sen((k_x+\frac{1}{2})x-2\pi N i)}{\sen(\frac{1}{2}(x-x_{2i}))} = \frac{\sen((k_x+\frac{1}{2})x)}{\sen(\frac{1}{2}(x-x_{2i}))}.
         \end{align*}
-        Usando esto y \hyperref[2.2.16]{(2.2.16)},
+        Utilizando esto y \hyperref[2.2.15]{(2.2.15)},
         \begin{align*}
             S_{k_x}f_n(x) &\geq \frac{1}{2n}\sum_{i=j+1}^n \frac{m_i-k_x}{m_i+1}D_{k_x}(x-x_{2i}) \\
             &= \frac{\sen((k_x+\frac{1}{2})x)}{2n}\sum_{i=j+1}^n \frac{m_i-k_x}{m_i+1}\frac{1}{\sen(\frac{1}{2}(x-x_{2i}))},
         \end{align*}
         y usando que el seno es una función impar,
         \[S_{k_x}f_n(x) \geq -\frac{\sen((k_x+\frac{1}{2})x)}{2n}\sum_{i=j+1}^n \frac{m_i-k_x}{m_i+1}\frac{1}{\sen(\frac{1}{2}(x_{2i}-x))}.\]
-        Como $\sen((k_x+\frac{1}{2})x) < -\frac{1}{2}$,
+        En las desigualdades siguientes debe tenerse en cuenta que $\sen(\frac{1}{2}(x_{2i}-x)) > 0$ si $j+1 \leq i \leq n$. Como $\sen((k_x+\frac{1}{2})x) < -\frac{1}{2}$,
         \begin{align*}
             S_{k_x}f_n(x) &\geq \frac{1}{4n}\sum_{i=j+1}^n \frac{m_i-k_x}{m_i+1}\frac{1}{\sen(\frac{1}{2}(x_{2i}-x))}.
         \end{align*}
        Si $j+1 \leq i \leq n$, entonces $k_x < \frac{1}{2}m_{j+1} \leq \frac{1}{2}m_i$, luego $\frac{k_x}{m_i} \leq \frac{1}{2}$ y por tanto
-            \[\frac{m_i-k_x}{m_i+1} \geq \frac{m_i-k_x}{m_i+m_i} = \frac{1}{2}-\frac{k_x}{2m_i} > \frac{1}{2}-\frac{1}{4} = \frac{1}{4},\]
+            \[\frac{m_i-k_x}{m_i+1} \geq \frac{m_i-k_x}{m_i+m_i} = \frac{1}{2}-\frac{k_x}{2m_i} \geq \frac{1}{2}-\frac{1}{4} = \frac{1}{4},\]
         así que
         \[S_{k_x}f_n(x) \geq \frac{1}{4n}\sum_{i=j+1}^n \frac{1}{4}\frac{1}{\sen(\frac{1}{2}(x_{2i}-x))}.\]
-        Como $x \in I_{2j} \cup I_{2j+1} \subset (x_{2j}+\delta,x_{2j+2}-\delta)$ y $x_{2j+2}\leq x_{2i}$ siempre que $j+1 \leq i \leq n$, entonces $x < x_{2j+2} \leq x_{2i}$, luego
-        \[\sen\Bigl(\frac{1}{2}(x_{2i}-x)\Bigr) \leq \Bigl|\sen\Bigl(\frac{1}{2}(x_{2i}-x)\Bigr)\Bigr| \leq \frac{1}{2}|x_{2i}-x| = \frac{1}{2}(x_{2i}-x).\]
+        Si $j+1 \leq i \leq n$, también se tiene
+        \[0 < \sen\Bigl(\frac{1}{2}(x_{2i}-x)\Bigr) = \Bigl|\sen\Bigl(\frac{1}{2}(x_{2i}-x)\Bigr)\Bigr| \leq \frac{1}{2}|x_{2i}-x| = \frac{1}{2}(x_{2i}-x).\]
         Llevando esto a la desigualdad anterior,
-        \[S_{k_x}f_n(x) \geq \frac{1}{4n}\sum_{i=j+1}^n\frac{1}{4} \frac{1}{\frac{1}{2}(x_{2i}-x)} = \frac{1}{16n}\sum_{i=j+1}^n \frac{1}{x_{2i}-x}.\]
-        Usando de nuevo que $x \in (x_{2j}+\delta,x_{2j+2}-\delta)$,
-        \[x_{2i}-x < x_{2i}-x_{2j} = \frac{4\pi i}{2n+1}-\frac{4\pi j}{2n+1} = \frac{4\pi}{2n+1}(i-j),\]
-        y por tanto
+        \[S_{k_x}f_n(x) \geq \frac{1}{4n}\sum_{i=j+1}^n\frac{1}{4} \frac{1}{\frac{1}{2}(x_{2i}-x)} = \frac{1}{8n}\sum_{i=j+1}^n \frac{1}{x_{2i}-x}.\]
+        Se ha razonado antes que si $j+1 \leq i \leq n$, entonces
+        \[0 < x_{2i}-x < \frac{4\pi}{2n+1}(i-j),\]
+        y por tanto,
         \[\begin{aligned}[t]
-            S_{k_x}f_n(x) &\geq \frac{2n+1}{4\pi} \frac{1}{16n}\sum_{i=j+1}^n \frac{1}{i-j} = \frac{2n+1}{64\pi n}\sum_{i=1}^{n-j} \frac{1}{i} =  \frac{2n+1}{64\pi n}H_{n-j} \\ &= \frac{2n+1}{64\pi n}\log(n-j)\frac{H_{n-j}}{\log(n-j)}.
+            S_{k_x}f_n(x) &\geq \frac{2n+1}{4\pi} \frac{1}{8n}\sum_{i=j+1}^n \frac{1}{i-j} = \frac{2n+1}{32\pi n}\sum_{i=1}^{n-j} \frac{1}{i} =  \frac{2n+1}{32\pi n}H_{n-j} \\ &= \frac{2n+1}{32\pi n}\log(n-j)\frac{H_{n-j}}{\log(n-j)}.
         \end{aligned}\]
-        Como $j \leq n-\sqrt{n}$, entonces $n-j \geq \sqrt{n}$ y por tanto $\lim_{n\to\infty}(n-j) = \infty$. Usando esto y el \hyperref[2.2.12]{Lema 2.2.12}, 
-        \[\lim_{n\to\infty} \frac{2n+1}{64\pi n}\frac{H_{n-j}}{\log(n-j)} = \frac{1}{32\pi} > 0,\]
-        luego existe $C>0$ tal que $\frac{2n+1}{64\pi n}\frac{H_{n-j}}{\log(n-j)} > 2C$ para $n$ suficientemente grande. En consecuencia,
+        Como $j \leq n-\sqrt{n}$, entonces $n-j \geq \sqrt{n}$ y por tanto $\lim_{n\to\infty}(n-j) = \infty$. Usando esto y el \hyperref[2.2.11]{Lema 2.2.11}, 
+        \[\lim_{n\to\infty} \frac{2n+1}{32\pi n}\frac{H_{n-j}}{\log(n-j)} = \frac{1}{16\pi} > 0,\]
+        luego existe $C>0$ tal que $\frac{2n+1}{32\pi n}\frac{H_{n-j}}{\log(n-j)} > 2C$ para $n$ suficientemente grande. En consecuencia,
         \[S_{k_x}f_n(x)  \geq 2C\log(n-j)\]
         Como $n-j \geq \sqrt{n}$ y el logaritmo natural es estrictamente creciente,
         \[S_{k_x}f_n(x)  \geq 2C\log(\sqrt{n}) = C\log(n).\]
@@ -863,29 +890,39 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \[
             S_{k_x}F_n(x) = S_{k_x}f_n(x) + S_{k_x}\phi_n(x) = S_{k_x}f_n(x) + \phi_n(x)\geq S_{k_x}f_n(x) \geq C\log(n),
         \]
-        utilizándose que $\phi_n$ es un polinomio trigonométrico no negativo de grado $m_0 \leq k_x$. Con esto queda probado \hyperref[2.2.17]{(2.2.17)}.
-        \item \textit{Si $n$ es suficientemente grande, para todo $x \in \bigcup_{j=0}^{2n}I_j'$ se verifica \begin{equation}\label{2.2.18}
+        utilizándose que $\phi_n$ es un polinomio trigonométrico no negativo de grado $m_0 \leq k_x$. Con esto queda probado \hyperref[2.2.16]{(2.2.16)}.
+        \item \textit{Para todo $x \in \bigcup_{j=0}^{2n}I_j'$ se verifica \begin{equation}\label{2.2.17}
             S_{m_0}F_n(x) > \frac{n}{2}.
         \end{equation}
         }
 
-        Sea $x \in \bigcup_{j=0}^{2n}I_j'$, y sea $l \in \{0,1,\mathellipsis,2n\}$ tal que $x \in I_l'$. Veamos primero que para todo $i \in \{1,2,\mathellipsis,n\}$ se tiene
-        \[|x-x_{2i}| \geq \frac{\pi |l -2i|}{2n+1}.\]
-        Si $l -2i = 0$, la desigualdad se verifica trivialmente. Si $l - 2i > 0$, entonces $l - 2i \geq 1$, luego
+        Sea $x \in \bigcup_{j=0}^{2n}I_j'$, y sea $l \in \{0,1,\mathellipsis,2n\}$ tal que $x \in I_l' = [x_l-\delta,x_l+\delta]$. Veamos primero que para todo $i \in \{1,2,\mathellipsis,n\}$ se tiene
+        \[\frac{\pi |l -2i|}{2n+1} \leq |x-x_{2i}| < 2\pi .\]
+        Si $l -2i = 0$, las desigualdades se verifican trivialmente. Si $l - 2i > 0$, entonces $l - 2i \geq 1$, luego
         \begin{align*}
-            |x-x_{2i}| &\geq x-x_{2i} > x_l-\delta-x_{2i} = \frac{2\pi l}{2n+1}-\delta-\frac{4\pi i}{2n+1} \\ &> \frac{2\pi l}{2n+1}-\frac{\pi}{2n+1}-\frac{4\pi i}{2n+1}
+            |x-x_{2i}| &\geq x-x_{2i} \geq x_l-\delta-x_{2i} = \frac{2\pi l}{2n+1}-\delta-\frac{4\pi i}{2n+1} \\ &> \frac{2\pi l}{2n+1}-\frac{\pi}{2n+1}-\frac{4\pi i}{2n+1}
             = \frac{\pi(2l-1-4i)}{2n+1} \geq \frac{\pi(l-2i)}{2n+1} = \frac{\pi|l-2i|}{2n+1}.
         \end{align*}
-        Si $l - 2i < 0$, entonces $2i - l \geq 1$, luego
+        Además, usando que $x \geq x_l-\delta \geq x_{l-1} \geq x_{2i}$, que $x \leq x_l+\delta$ y que $l \leq 2n$, tenemos
         \begin{align*}
-            |x-x_{2i}| &\geq x_{2i}-x > x_{2i} - (x_l+\delta) = \frac{4\pi i}{2n+1} - \frac{2\pi l}{2n+1} - \delta \\ &>\frac{4\pi i}{2n+1} - \frac{2\pi l}{2n+1} -\frac{\pi}{2n+1}
+            |x-x_{2i}| &= x-x_{2i} \leq x_l+\delta-x_{2i} = \frac{2\pi(l-2i)}{2n+1}+\delta < \frac{2\pi(l-2i)}{2n+1}+\frac{\pi}{2n+1} \\
+            &= \pi\frac{2l-4i+1}{2n+1} \leq \pi\frac{4n+1}{2n+1} < \pi\frac{4n+2}{2n+1} = 2\pi.
+        \end{align*}
+        Por otro lado, si $l - 2i < 0$, entonces $2i - l \geq 1$, luego
+        \begin{align*}
+            |x-x_{2i}| &\geq x_{2i}-x \geq x_{2i} - (x_l+\delta) = \frac{4\pi i}{2n+1} - \frac{2\pi l}{2n+1} - \delta \\ &>\frac{4\pi i}{2n+1} - \frac{2\pi l}{2n+1} -\frac{\pi}{2n+1}
             = \frac{\pi(4i-2l-1)}{2n+1} \geq \frac{\pi(2i-l)}{2n+1} = \frac{\pi|l-2i|}{2n+1}.
         \end{align*}
-        En cualquier caso,
-        \[|x-x_{2i}| \geq \frac{\pi |l -2i|}{2n+1}.\]
-        Poniendo $k = m_0$ y $j = 0$ en la desigualdad \hyperref[2.2.16]{(2.2.16)} (es claro que $m_j \leq k < m_{j+1}$ y por tanto dicha desigualdad es válida), tenemos
+        Además, usando que $x \leq x_l+\delta \leq x_{l+1} \leq x_{2i}$, que $x \geq x_l-\delta$ y que $i \leq n$, tenemos
+        \begin{align*}
+            |x-x_{2i}| &= x_{2i}-x \leq x_{2i}-(x_l-\delta) = \frac{2\pi(2i-l)}{2n+1}+\delta < \frac{2\pi(2i-l)}{2n+1}+\frac{\pi}{2n+1} \\
+            &= \pi\frac{4i-2l+1}{2n+1} \leq \pi\frac{4n+1}{2n+1} < \pi\frac{4n+2}{2n+1} = 2\pi.
+        \end{align*}
+        En cualquier caso, queda probado que
+        \[\frac{\pi |l -2i|}{2n+1} \leq |x-x_{2i}| < 2\pi .\]
+        Poniendo $k = m_0$ y $j = 0$ en la desigualdad \hyperref[2.2.15]{(2.2.15)} (es claro que $m_j \leq k < m_{j+1}$ y por tanto dicha desigualdad es válida), tenemos
         \[S_{m_0}f_n(x) \geq \frac{1}{2n}\sum_{i=1}^n \frac{m_i - m_0}{m_i + 1}D_{m_0}(x-x_{2i}).\]
-        Si $l$ es impar, entonces $x-x_{2i} \neq 0$ (pues $|x-x_{2i}| \geq \frac{\pi |l-2i|}{2n+1} > 0$), luego
+        Supongamos primero que $l$ es impar. Para todo $i \in \{1,2,\mathellipsis,n\}$ se tiene que $0 < \frac{\pi |l-2i|}{2n+1} \leq |x-x_{2i}|< 2\pi $, luego $\sen(\frac{1}{2}(x-x_{2i})) \neq 0$. Por tanto,
         \begin{align*}
             S_{m_0}f_n(x) &\geq \frac{1}{2n}\sum_{i=1}^n \frac{m_i-m_0}{m_i+1}\frac{\sen((m_0+\frac{1}{2})(x-x_{2i}))}{\sen(\frac{1}{2}(x-x_{2i}))}.
         \end{align*}
@@ -918,37 +955,37 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \begin{align*}
             S_{m_0}f_n(x) &\geq -\frac{2n+1}{4\pi n}(H_n+H_n) = -\frac{2n+1}{2\pi n}H_n =-\frac{2n+1}{2\pi n}\log(n)\frac{H_n}{\log(n)} .
         \end{align*}
-        Usando de nuevo el \hyperref[2.2.12]{Lema 2.2.12},
+        Usando de nuevo el \hyperref[2.2.11]{Lema 2.2.11},
         \[\lim_{n\to\infty} \frac{2n+1}{2\pi n}\frac{H_n}{\log(n)} = \frac{1}{\pi} > 0,\]
         luego existe una constante $C'>0$ de manera que para $n$ suficientemente grande, se verifica $C' > \frac{2n+1}{2\pi n}\frac{H_n}{\log(n)}$ y por tanto
         \[S_{m_0}f_n(x) \geq -C'\log(n).\]
     
-        Supongamos ahora que $l$ es par, es decir, que existe $i_0 \in \{0,1,\mathellipsis,n\}$ tal que $l = 2i_0$. En tal caso, volviendo a usar \hyperref[2.2.16]{(2.2.16)} con $k = m_0$ y $j = 0$,
+        Supongamos ahora que $l$ es par, es decir, que existe $i_0 \in \{0,1,\mathellipsis,n\}$ tal que $l = 2i_0$. En tal caso, volviendo a usar \hyperref[2.2.15]{(2.2.15)} con $k = m_0$ y $j = 0$,
         \begin{align*}
             S_{m_0}f_n(x) &\geq \frac{1}{2n}\sum_{i=1}^n \frac{m_i-m_0}{m_i+1}D_{m_0}(x-x_{2i}) \\
             &=\frac{1}{2n}\sum_{\substack{1 \leq i \leq n \\ i \neq i_0}} \frac{m_i-m_0}{m_i+1}D_{m_0}(x-x_{2i})+\frac{1}{2n}\frac{m_{i_0}-m_0}{m_{i_0}+1}D_{m_0}(x-x_l).
         \end{align*}
-        Utilizando \hyperref[2.2.15]{(2.2.15)} y que $x-x_l \in I_0'$ por ser $x \in I_l'$, se obtiene $D_{m_0}(x-x_l) \geq 0$, y en consecuencia,
+        Utilizando \hyperref[2.2.14]{(2.2.14)} y que $x-x_l \in I_0'$ por ser $x \in I_l'$, se obtiene $D_{m_0}(x-x_l) \geq 0$, y en consecuencia,
         \[S_{m_0}f_n(x) \geq \frac{1}{2n}\sum_{\substack{1 \leq i \leq n \\ i \neq i_0}} \frac{m_i-m_0}{m_i+1}D_{m_0}(x-x_{2i}).\]
-        Como $x-x_{2i} \neq 0$ para todo $i \in \{1,2,\mathellipsis,n\}$ con $i \neq i_0$, pueden repetirse los razonamientos anteriores para obtener que existe una constante $C'' > 0$ tal que
+        Como $0 < \frac{\pi |l-2i|}{2n+1} \leq |x-x_{2i}|< 2\pi $ para todo $i \in \{1,2,\mathellipsis,n\}$ con $i \neq i_0$, pueden repetirse los razonamientos anteriores para obtener que existe una constante $C'' > 0$ tal que
         \begin{align*}
             S_{m_0}f_n(x) &\geq -\frac{2n+1}{4\pi n}\sum_{\substack{1 \leq i \leq n \\ i \neq i_0}} \frac{1}{|l-2i|} > -C''\log(n),
         \end{align*}
         siempre que se tome $n$ suficientemente grande.
 
-        Definiendo $C''' = \max\{C',C''\}$, se tiene que 
+        Definiendo $C''' = \max\{C',C''\} > 0$, se tiene que 
         \[S_{m_0}f_n(x) > -C'''\log(n)\] tanto si $l$ es par como impar. Como $\lim_{n \to \infty} \frac{n}{\log(n)} = \infty$, para $n$ suficientemente grande se verifica $\frac{n}{\log(n)}>2C'''$,
         luego $\frac{n}{2} > C'''\log(n)$ y por tanto 
         \begin{align*}
             S_{m_0}F_n(x) &= S_{m_0}f_n(x)+S_{m_0}\phi_n(x) = S_{m_0}f_n(x)+\phi_n(x) \geq S_{m_0}f_n(x)+n \\
             &> -C'''\log(n)+n > -\frac{n}{2}+n = \frac{n}{2},
         \end{align*}
-        obteniéndose así \hyperref[2.2.18]{(2.2.18)}. En la segunda igualdad se ha usado que $\phi_n$ es un polinomio trigonométrico de grado $m_0$, y en la primera desigualdad se ha usado \hyperref[2.2.14]{(2.2.14)}.
+        obteniéndose así \hyperref[2.2.17]{(2.2.17)}. En la segunda igualdad se ha usado que $\phi_n$ es un polinomio trigonométrico de grado $m_0$, y en la primera desigualdad se ha usado \hyperref[2.2.13]{(2.2.13)}.
     \end{itemize}
 
     Con todo lo anterior finaliza la definición de la sucesión $\{F_n\}_{n=n_0}^\infty$ para cierto $n_0\in\N$. Para cada $n \geq n_0$, sean
-    \[E_n = \Bigl[0, \frac{4\pi E(n-\sqrt{n})}{2n+1}\Bigr], \qquad A_n = C\log(n), \qquad \lambda_n = m_0,\]
-    donde $C$ es la constante que aparece en \hyperref[2.2.17]{(2.2.17)}. Es claro que $A_n > 0$ (podemos suponer $n>1$) y que $\lim_{n \to \infty} A_n = \infty$.
+    \[E_n = \Bigl[0, \frac{4\pi E(n-\sqrt{n})}{2n+1}\Bigr], \qquad A_n = M\log(n), \qquad \lambda_n = m_0,\]
+    donde $M = \min\{C,C'''\} > 0$, siendo $C$ la constante que aparece en \hyperref[2.2.16]{(2.2.16)} y $C'''$ la constante que aparece al final de la prueba de \hyperref[2.2.17]{(2.2.17)}. Es claro que $A_n > 0$ (podemos suponer $n>1$) y que $\lim_{n \to \infty} A_n = \infty$.
     
     Obsérvese que $m_0$ depende de $n$, y como se razonó que $\lambda_n = m_0 > \frac{2n-1}{2}$, entonces $\lim_{n\to\infty}\lambda_n = \infty$. 
     
@@ -957,19 +994,19 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         f'(x) &= \frac{(1-\frac{1}{2\sqrt{x}})(2x+1)-2(x-\sqrt{x})}{(2x+1)^2} = \frac{2x-\sqrt{x}+1-\frac{1}{2\sqrt{x}}-2x+2\sqrt{x}}{(2x+1)^2} \\
         &= \frac{\sqrt{x}+1-\frac{1}{2\sqrt{x}}}{(2x+1)^2} = \frac{2x+2\sqrt{x}-1}{2\sqrt{x}(2x+1)^2} \geq \frac{3}{2\sqrt{x}(2x+1)^2} > 0,
     \end{align*}
-    utilizándose en la penúltima desigualdad que $x \geq 1$ y que $\sqrt{x}\geq 1$. En consecuencia, la sucesión $\{\frac{4\pi E(n-\sqrt{n})}{2n+1}\}_{n=1}^\infty$ es estrictamente creciente, de donde se obtiene que $E_n \subset E_{n+1}$ para todo $n \geq n_0$. Como además
+    utilizándose en la penúltima desigualdad que $x \geq 1$ y que $\sqrt{x}\geq 1$. En consecuencia, la sucesión $\{\frac{4\pi E(n-\sqrt{n})}{2n+1}\}_{n=n_0}^\infty$ es creciente, de donde se obtiene que $E_n \subset E_{n+1}$ para todo $n \geq n_0$. Como además
     \[\frac{4\pi (n-\sqrt{n}-1)}{2n+1} \leq \frac{4\pi E(n-\sqrt{n})}{2n+1} \leq \frac{4\pi (n-\sqrt{n})}{2n+1} \]
     y los extremos de la desigualdad tienden a $\frac{4\pi}{2}$, entonces \[\lim_{n \to \infty}\frac{4\pi E(n-\sqrt{n})}{2n+1} = \frac{4\pi}{2} = 2\pi,\]
-    de donde se obtiene que $E_n \subset [0,2\pi]$ para todo $n \geq n_0$ y $\bigcup_{n=1}^\infty E_n = [0,2\pi)$. 
+    de donde se obtiene que $E_n \subset [0,2\pi]$ para todo $n \geq n_0$ y $\bigcup_{n=n_0}^\infty E_n = [0,2\pi)$. 
     
-    Solo queda por probar el apartado (g). Sea $n \in \N$ y sea $x \in E_n=[x_0,x_{2E(n-\sqrt{n})}]$. Se distinguen los siguientes casos.
+    Solo queda por probar el apartado (g). Sea $n \geq n_0$ y sea $x \in E_n=[x_0,x_{2E(n-\sqrt{n})}]$. Se distinguen los siguientes casos.
     \begin{itemize}
-        \item Supongamos que $x\in\bigcup_{j=0}^{2n}I_j'$. Llamando $k = m_0$, se tiene $\lambda_n = m_0 = k < m_n = \nu_n$. Por \hyperref[2.2.18]{(2.2.18)}, también se verifica 
+        \item Supongamos que $x\in\bigcup_{j=0}^{2n}I_j'$. Llamando $k = m_0$, se tiene $\lambda_n = m_0 = k < m_n = \nu_n$. Por \hyperref[2.2.17]{(2.2.17)}, también se verifica 
         \[S_{k}F_n(x) = S_{m_0}F_n(x) > \frac{n}{2}.\]
-        Como $\lim_{n\to\infty} \frac{n}{\log(n)} = 1$, tomando $n$ suficientemente grande, se cumple $\frac{n}{\log(n)} > 2C$, obteniéndose $\frac{n}{2} > C\log(n) = A_n$ y por tanto $S_kF_n(x) > C\log(n) = A_n$.
-        \item Supongamos que $x \in \bigcup_{j=0}^{n-1}(I_{2j}\cup I_{2j+1})$. Sea $j \in \{0,1,\mathellipsis,n-1\}$ con $x \in I_{2j} \cup I_{2j+1}$. Como $x \leq x_{2E(n-\sqrt{n})}$ (porque $x \in E_n$) y $x > x_{2j}$ (porque $x \in I_{2j} \cup I_{2j+1}$), tiene que ser $2j < 2(n-\sqrt{n})$, así que $j < n-\sqrt{n}$ y puede usarse \hyperref[2.2.17]{(2.2.17)} para obtener que existe $k \in \N$ con 
-        \[m_0 \leq m_j \leq k < \frac{1}{2}m_{j+1} < \frac{1}{2}m_n < m_n\]
-        y tal que $S_{k}F_n(x) >  C\log(n)$. Como $\nu_n = m_n$, $m_0 = \lambda_n$ y $C\log(n) = A_n$, se tiene que $\lambda_n \leq k < \nu_n$ y que $S_{k}F_n(x) > A_n$.
+        Como se probó que $\frac{n}{\log(n)} > 2C''' \geq 2M$, entonces $\frac{n}{2} > M\log(n) = A_n$ y por tanto $S_kF_n(x) > A_n$.
+        \item Supongamos que $x \in \bigcup_{j=0}^{n-1}(I_{2j}\cup I_{2j+1})$. Sea $j \in \{0,1,\mathellipsis,n-1\}$ con $x \in I_{2j} \cup I_{2j+1}$. Como $x \leq x_{2E(n-\sqrt{n})}$ (porque $x \in E_n$) y $x > x_{2j}$ (porque $x \in I_{2j} \cup I_{2j+1}$), tiene que ser $2j < 2E(n-\sqrt{n}) \leq 2(n-\sqrt{n})$, así que $j < n-\sqrt{n}$ y puede usarse \hyperref[2.2.16]{(2.2.16)} para obtener que existe $k \in \N$ con 
+        \[m_0 \leq m_j \leq k < \frac{1}{2}m_{j+1} \leq \frac{1}{2}m_n < m_n\]
+        y tal que $S_{k}F_n(x) >  C\log(n) \geq M\log(n)$. Como $\nu_n = m_n$, $m_0 = \lambda_n$ y $M\log(n) = A_n$, se tiene que $\lambda_n \leq k < \nu_n$ y que $S_{k}F_n(x) > A_n$.
     \end{itemize}
     Nótese que es imposible que se tenga $x\not\in \bigcup_{j=0}^{2n}I_j'$ y $x \not\in \bigcup_{j=0}^{n-1}(I_{2j}\cup I_{2j+1})$, pues en ese caso,
     \[x\not\in \Bigl(\,\bigcup_{j=0}^{2n}I_j'\Bigr) \cup\Bigl(\,\bigcup_{j=0}^{2n-1}I_j\Bigr) = [x_0-\delta,x_{2n}+\delta],\]
@@ -983,7 +1020,7 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
 \end{theorem}
 
 \begin{proof}
-    Sean $\{F_n\}_{n=1}^\infty$, $\{A_n\}_{n=1}^\infty$, $\{E_n\}_{n=1}^\infty$ y $\{\lambda_n\}_{n=1}^\infty$ las cuatro sucesiones del lema anterior. Consideramos la sucesión $\{n_i\}_{i=1}^\infty$ definida por inducción de la siguiente manera.
+    Sean $\{F_n\}_{n=1}^\infty$, $\{A_n\}_{n=1}^\infty$, $\{E_n\}_{n=1}^\infty$ y $\{\lambda_n\}_{n=1}^\infty$ las cuatro sucesiones del lema anterior. Consideramos la sucesión $\{n_i\}_{i=1}^\infty$ definida por inducción como sigue.
     \begin{itemize}
         \item $n_1 = 1$.
         \item Sea $i \in \N$ tal que $n_i$ está definido. Escogemos $n_{i+1} \in \N$ tal que
@@ -993,11 +1030,11 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
             \item $A_{n_{i+1}} > 4A_{n_{i}}$.
             \item $\sqrt{A_{n_{i+1}}} > \nu_{n_{i}}$.
         \end{enumerate}
-        Esto es posible porque $\lim_{n \to \infty} A_n = \infty$ y $\lim_{n \to \infty} \lambda_n = \infty$.
+        Esto es posible porque $\lim_{n \to \infty} A_n = \infty$ y $\lim_{n \to \infty} \lambda_n = \infty$. Se recuerda que $\nu_{n_i}$ es el grado del polinomio trigonométrico $F_{n_i}$.
     \end{itemize}
-    Ahora consideramos la función $f \colon \R \to \overline{\R}$ dada por
+    Ahora consideramos la función $f \colon \R \to [0,\infty]$ dada por
     \[f(t) = \sum_{k=1}^\infty \frac{1}{\sqrt{A_{n_k}}}F_{n_k}(t).\]
-    Veamos en primer lugar que $f \in L^1(\T)$. Es claro que $f$ es medible y $2\pi$-periódica, pues las funciones $F_{n_k}$ lo son. Además,
+    En primer lugar, la serie anterior tiene sentido y toma valores no negativos porque sus términos son no negativos. Veamos que $f \in L^1(\T)$. Es claro que $f$ es medible y $2\pi$-periódica, pues las funciones $F_{n_k}$ lo son. Además,
     \begin{align*}
         \integral{-\pi}{\pi}{|f(t)|} &= \integral{-\pi}{\pi}{\sum_{k=1}^\infty \frac{1}{\sqrt{A_{n_k}}}F_{n_k}(t)}
         \overset{(\asts{1})}{=}\sum_{k=1}^\infty  \integral{-\pi}{\pi}{\frac{1}{\sqrt{A_{n_k}}}F_{n_k}(t)} \\
@@ -1016,28 +1053,28 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
     \end{itemize}
     Veamos entonces que $\sum_{k=1}^\infty \frac{1}{\sqrt{A_{n_k}}} < \infty$. Para todo $k \in \N$ se tiene que $A_{n_{k+1}} > 4A_{n_{k}}$ y por tanto $\sqrt{A_{n_{k+1}}} > 2\sqrt{A_{n_{k}}}$, luego
     \[\frac{\sqrt{A_{n_k}}}{\sqrt{A_{n_{k+1}}}} < \frac{\sqrt{A_{n_k}}}{2\sqrt{A_{n_k}}} = \frac{1}{2} \kconv \frac{1}{2} < 1.\]
-    Por el criterio del cociente, $\sum_{k=1}^\infty \frac{1}{\sqrt{A_{n_k}}} < \infty$, lo que prueba que $f \in L^1(\T)$. 
+    Por el criterio del cociente, \[\sum_{k=1}^\infty \frac{1}{\sqrt{A_{n_k}}} < \infty,\] lo que prueba que $f \in L^1(\T)$. 
     
-    Como la serie de Fourier de $f$ es $2\pi$-periódica, basta probar que diverge en todos los puntos de $[0,2\pi)$. Sea $x \in [0,2\pi)$ y veamos que la sucesión de sumas parciales $\{S_nf(x)\}_{n=1}^\infty$ no converge. Como $\bigcup_{n=1}^\infty E_n = [0,2\pi)$, existe $i_0 \in \N$ tal que $x \in E_{n_{i_0}}$. Y como $E_n \subset E_{n+1}$ para todo $n \in \N$, entonces $x \in E_{n_i}$ para todo $i \geq i_0$. Sea $i \in \N$ con $i \geq i_0$. Se tiene que $f = u+v+w$, donde
+    Como la serie de Fourier de $f$ es $2\pi$-periódica, basta probar que diverge en todos los puntos de $[0,2\pi)$. Sea $x \in [0,2\pi)$ y veamos que la sucesión de sumas parciales $\{S_nf(x)\}_{n=1}^\infty$ no converge. Como $\bigcup_{n=1}^\infty E_n = [0,2\pi)$, existe $i_0 \in \N$ tal que $x \in E_{n_{i_0}}$. Y como $E_n \subset E_{n+1}$ para todo $n \in \N$, entonces $x \in E_{n_i}$ para todo $i \geq i_0$. Sea $i \in \N$ con $i > i_0$. Se tiene que $f = u+v+w$, donde
     \[v = \frac{1}{\sqrt{A_{n_i}}}F_{n_i}, \qquad u = \sum_{j=1}^{i-1}\frac{1}{\sqrt{A_{n_j}}}F_{n_j}, \qquad w = \sum_{j=i+1}^{\infty}\frac{1}{\sqrt{A_{n_j}}}F_{n_j}.\]
     Además, para cada $n \in \N$, 
     \[S_nf(x) = S_nu(x)+S_nv(x)+S_nw(x).\]
     Por el lema anterior, existe $k \in \N$ (que depende de $i$ y de $x$) con $\lambda_{n_i} \leq k \leq \nu_{n_i}$ y tal que $S_kF_{n_i}(x) > A_{n_i}$. Acotemos inferiormente $S_kf(x)$. En primer lugar,
     \[S_kv(x) = \frac{1}{\sqrt{A_{n_i}}}S_kF_{n_i}(x) > \frac{A_{n_i}}{\sqrt{A_{n_i}}} = \sqrt{A_{n_i}}.\]
-    Además,
-    \[S_ku(x) = \sum_{j=1}^{i-1}\frac{1}{\sqrt{A_{n_j}}}S_kF_{n_j}(x) > \sum_{j=1}^{i-1}\frac{A_{n_j}}{\sqrt{A_{n_j}}} = \sum_{j=1}^{i-1} \sqrt{A_{n_j}} \geq 0.\]
+    Además, como $u$ es un polinomio trigonométrico no negativo de grado $\nu_{n_{i-1}} < \lambda_{n_i} \leq k$ (se usa (b) en la primera desigualdad), entonces
+    \[S_ku(x) = u(x)\geq 0.\]
     Por otro lado, usando el \hyperref[2.2.1]{Lema 2.2.1},
     \begin{align*}
         |S_kw(x)| &\leq (4k+1)\|w\|_{1}
-        = \frac{4k+1}{\pi}\integral{-\pi}{\pi}{\Bigl|\sum_{j=i+1}^\infty \frac{1}{\sqrt{A_{n_j}}}F_{n_j}(t)\Bigr|} \\
-        &= \frac{4k+1}{\pi}\integral{-\pi}{\pi}{\sum_{j=i+1}^\infty\frac{1}{\sqrt{A_{n_j}}}F_{n_j}(t)}
-        \overset{(\asts{1})}{=} \frac{4k+1}{\pi}{\sum_{j=i+1}^\infty}\frac{1}{\sqrt{A_{n_j}}}\integral{-\pi}{\pi}{F_{n_j}(t)} \\
-        &= \frac{4k+1}{\pi}\sum_{j=i+1}^\infty\frac{2\pi}{\sqrt{A_{n_j}}} 
-        = 2(4k+1)\sum_{j=i+1}^\infty \frac{1}{\sqrt{A_{n_j}}}
-        \overset{(\asts{2})}{\leq} \frac{2(4k+1)}{\sqrt{A_{n_{i+1}}}}\sum_{j=0}^\infty \frac{1}{2^j} \\
-        &=\frac{16k+4}{\sqrt{A_{n_{i+1}}}} \leq \frac{16\nu_{n_i}+4}{\sqrt{A_{n_{i+1}}}} \overset{(\textup{c})}{\leq} \frac{16\nu_{n_i}+4}{\nu_{n_i}} \leq \frac{16\nu_{n_i}+4\nu_{n_i}}{\nu_{n_i}} = 20,
+        = \frac{4k+1}{2\pi}\integral{-\pi}{\pi}{\Bigl|\sum_{j=i+1}^\infty \frac{1}{\sqrt{A_{n_j}}}F_{n_j}(t)\Bigr|} \\
+        &= \frac{4k+1}{2\pi}\integral{-\pi}{\pi}{\sum_{j=i+1}^\infty\frac{1}{\sqrt{A_{n_j}}}F_{n_j}(t)}
+        \overset{(\asts{1})}{=} \frac{4k+1}{2\pi}{\sum_{j=i+1}^\infty}\frac{1}{\sqrt{A_{n_j}}}\integral{-\pi}{\pi}{F_{n_j}(t)} \\
+        &= \frac{4k+1}{2\pi}\sum_{j=i+1}^\infty\frac{2\pi}{\sqrt{A_{n_j}}} 
+        = (4k+1)\sum_{j=i+1}^\infty \frac{1}{\sqrt{A_{n_j}}}
+        \overset{(\asts{2})}{\leq} \frac{4k+1}{\sqrt{A_{n_{i+1}}}}\sum_{j=0}^\infty \frac{1}{2^j} \\
+        &=\frac{8k+2}{\sqrt{A_{n_{i+1}}}} \leq \frac{8\nu_{n_i}+2}{\sqrt{A_{n_{i+1}}}} \overset{(\textup{d})}{\leq} \frac{8\nu_{n_i}+2}{\nu_{n_i}} \leq \frac{8\nu_{n_i}+2\nu_{n_i}}{\nu_{n_i}} = 10,
     \end{align*}
-    de donde se obtiene que $S_kw(x) > -20$. Se aclara que
+    de donde se obtiene que $S_kw(x) > -10$. Se aclara que
     \begin{itemize}
         \item[(\asts{1})] Se intercambia la integral con la suma por el teorema de la convergencia monótona, teniendo en cuenta que las funciones $\frac{1}{\sqrt{A_{n_j}}}F_{n_j}$, $j \in \N$, son no negativas.
         \item[(\asts{2})] Se usa que, por (c), para todo $j \in \N$ con $j \geq i+1$ se tiene que $A_{n_i} > 4A_{n_{i-1}}$ y por tanto
@@ -1048,15 +1085,13 @@ Para ahorrar escritura en los próximos resultados, denotaremos $\I = \{2n-1 \co
         \[\sum_{j=i+1}^\infty \frac{1}{\sqrt{A_{n_j}}} \leq \sum_{j=i+1}^\infty \frac{1}{2^{j-i-1}\sqrt{A_{n_{i+1}}}} = \frac{1}{\sqrt{A_{n_{i+1}}}}\sum_{j=0}^\infty \frac{1}{2^j}.\]
     \end{itemize}
     Reuniendo todo lo anterior,
-    \[S_kf(x) = S_ku(x)+S_kv(x)+S_kw(x)> \sqrt{A_{n_i}}-20.\]
-    Como $k \leq \nu_{n_i}$, entonces
-    \[S_{\nu_{n_i}}f(x) \geq S_kf(x) > \sqrt{A_{n_i}}-20,\]
-    y esto es válido para todo $i \in \N$ con $i \geq i_0$. Como $\lim_{i \to \infty} n_i = \infty$ (pues $\{n_i\}_{i=1}^\infty$ es una sucesión estrictamente creciente de números naturales) y $\lim_{n \to \infty} A_n = \infty$, entonces $\lim_{i \to \infty} \sqrt{A_{n_i}} = \infty$. Llevando esto a la desigualdad anterior, se obtiene
-    \[\lim_{i \to \infty} S_{\nu_{n_i}}f(x) = \infty.\]
-    Como $\{S_{\nu_{n_i}}f(x)\}_{i=1}^\infty$ es una subsucesión de $\{S_nf(x)\}_{n=1}^\infty$ que no converge, entonces la serie de Fourier de $f$ en $x$ no converge.
+    \[S_kf(x) = S_ku(x)+S_kv(x)+S_kw(x)> \sqrt{A_{n_i}}-10,\]
+    y esto es válido para todo $i \in \N$ con $i > i_0$. Como $k$ depende de $i$, podemos escribir $k = k_i$. Además, como $\lim_{i \to \infty} n_i = \infty$ (pues $\{n_i\}_{i=1}^\infty$ es una sucesión estrictamente creciente de números naturales) y $\lim_{n \to \infty} A_n = \infty$, entonces \[\lim_{i \to \infty} \sqrt{A_{n_i}} = \infty.\] Llevando esto a la desigualdad anterior,
+    \[\lim_{i \to \infty} S_{k_i}f(x) = \infty.\]
+    Obtenemos una subsucesión $\{S_{k_i}f(x)\}_{i=1}^\infty$ de $\{S_nf(x)\}_{n=1}^\infty$ que no converge, lo que permite concluir que la serie de Fourier de $f$ en $x$ no converge.
 \end{proof}
 
-Todo lo probado hasta ahora indica que la convergencia en casi todo punto para series de Fourier de funciones de $L^1(\T)$ falla por completo. El siguiente resultado muestra que no ocurre lo mismo en los demás espacios $L^p(\T)$, con $1 < p \leq \infty$. Primero Carleson lo demostró $p = 2$, y luego Hunt lo extendió al caso $1<p\leq\infty$. Estas demostraciones escapan al alcance de este trabajo, y pueden encontrarse en \cite{carleson} y en \cite{hunt}.
+Todo lo probado hasta ahora indica que la convergencia en casi todo punto para series de Fourier de funciones de $L^1(\T)$ falla por completo. El siguiente resultado muestra que no ocurre lo mismo en los demás espacios $L^p(\T)$, con $1 < p \leq \infty$. Primero Carleson lo demostró para $p = 2$, y luego Hunt lo extendió al caso $1<p\leq\infty$. Estas demostraciones escapan al alcance de este trabajo, y pueden encontrarse en \cite{carleson} y en \cite{hunt}.
 
 \begin{theorem}[Teorema de Carleson-Hunt]
     Sea $f \in L^p(\T)$, con $1 < p \leq \infty$. Entonces $\{S_nf\}_{n=1}^\infty$ converge a $f$ en casi todo punto.
@@ -1106,14 +1141,14 @@ donde $m = E(\frac{n+1}{2})$. Como la serie de Fourier de $f$ converge puntualme
 \caption{Gráficas de $f$ y $S_nf$ ($n = 10,20,30,40$).}
 \end{figure}
 
-Se observa que a medida que aumenta $n$, la gráfica de $S_nf$ se acerca a la de $f$ en la zona central de los intervalos $(0,\pi)$ y $(-\pi,0)$. Sin embargo, cerca de $0$, $\pi$ y $-\pi$, la gráfica de $S_nf$ presenta un pico que parece acentuarse para valores grandes de $n$.
+Se observa que a medida que aumenta $n$, la gráfica de $S_nf$ se aproxima a la de $f$ en la zona central de los intervalos $(0,\pi)$ y $(-\pi,0)$. Sin embargo, cerca de $0$, $\pi$ y $-\pi$, la gráfica de $S_nf$ presenta un pico que parece acentuarse para valores grandes de $n$.
 
 Para estudiar este comportamiento, vamos a hallar el primer máximo local de $S_nf$ en $(0,\frac{\pi}{2})$ y tomar límite cuando $n \to \infty$. Sea $n \in \N$ con $n \geq 7$, de forma que $m = E(\frac{n+1}{2}) \geq 4$. Se tiene que
 \begin{align*}
     (S_nf)'(x) &= \frac{4}{\pi}\sum_{k=1}^m \cos((2k-1)x) = \frac{4}{\pi}\real\Bigl(\,\sum_{k=1}^m e^{i(2k-1)x}\Bigr) = \frac{4}{\pi}\real\Bigl(e^{-ix}\sum_{k=1}^m e^{2ikx}\Bigr) \\
     &= \frac{4}{\pi}\real\Bigl(e^{-ix}\frac{e^{2ix}-e^{2i(m+1)x}}{1-e^{2ix}}\Bigr) = \frac{4}{\pi}\real\Bigl(\frac{e^{ix}-e^{2imx+ix}}{1-e^{2ix}}\Bigr) \\ 
     &= \frac{4}{\pi}\real\Bigl(\frac{e^{ix}(1-e^{2imx})}{e^{ix}(e^{-ix}-e^{ix})}\Bigr) = \frac{4}{\pi}\real\Bigl(\frac{e^{2imx}-1}{e^{ix}-e^{-ix}}\Bigr) = \frac{4}{\pi}\real\Bigl(\frac{e^{2imx}-1}{2i\sen(x)}\Bigr) \\
-    &= \frac{4}{\pi\sen(x)}\real\Bigl(\frac{\cos(2mx)+i\sen(2mx)-1}{2i}\Bigr) =  \frac{2\sen(2mx)}{\pi\sen(x)}.\\
+    &= \frac{4}{\pi\sen(x)}\real\Bigl(\frac{\cos(2mx)+i\sen(2mx)-1}{2i}\Bigr) =  \frac{2\sen(2mx)}{\pi\sen(x)}.
 \end{align*}
 Por tanto,
 \[(S_nf)'(x) = 0 \iff \sen(2mx) = 0 \iff 2mx = k\pi, \ k \in \Z \iff x = \frac{k\pi}{2m}, \ k \in \Z.\]
@@ -1123,7 +1158,7 @@ luego
 \begin{align*}
     (S_nf)''(x_k) &= \frac{4m\cos(k\pi)\sen(x_k)-2\sen(k\pi)\cos(x_k)}{\pi\sen^2(x_k)} = \frac{4m(-1)^k}{\pi\sen(x_k)}.
 \end{align*}
-Nótese que $\sen(x_k) > 0$ para todo $k \in \{1,2,\mathellipsis,m-1\}$, pues $x_k \in (0,\frac{\pi}{2})$. Por tanto, $(S_nf)''(x_k) > 0$ si y solo si $k$ es par, mientras que $(S_nf)''(x_k) < 0$ si y solo si $k$ es impar. Así, $x_k$ es un máximo local de $S_nf$ si $k$ es par, y $x_k$ es un mínimo local de $S_nf$ si $k$ es impar. El primer máximo local de $S_nf$ en $(0,\frac{\pi}{2})$ es entonces $x_1 = \frac{\pi}{2m}$. Estudiemos el límite de la sucesión $\{S_nf(x_1)\}_{n=1}^\infty$. Para todo $n \in \N$,
+Nótese que $\sen(x_k) > 0$ para todo $k \in \{1,2,\mathellipsis,m-1\}$, pues $x_k \in (0,\frac{\pi}{2})$. Por tanto, $(S_nf)''(x_k) > 0$ si y solo si $k$ es par, mientras que $(S_nf)''(x_k) < 0$ si y solo si $k$ es impar. Así, $x_k$ es un mínimo local de $S_nf$ si $k$ es par, y $x_k$ es un máximo local de $S_nf$ si $k$ es impar. El primer máximo local de $S_nf$ en $(0,\frac{\pi}{2})$ es entonces $x_1 = \frac{\pi}{2m}$. Estudiemos el límite de la sucesión $\{S_nf(x_1)\}_{n=1}^\infty$. Para todo $n \in \N$, usando la regla de Barrow,
 \[S_nf(x_1) = \frac{2}{\pi}\integral{0}{\frac{\pi}{2m}}{\frac{\sen(2mt)}{\sen(t)}} = \frac{2}{\pi}\integral[s]{0}{\pi}{\frac{\sen(s)}{2m\sen(\frac{s}{2m})}},\]
 donde en la última igualdad se realiza el cambio de variable $2mt = s$, $dt = \frac{1}{2m}\, ds$. Por tanto,
 \begin{align*}
@@ -1257,11 +1292,9 @@ En esta sección se probará que existe $f \in L^1(\T)$ tal que la serie de Four
 \end{theorem}
 
 \begin{proof}
-    Por el \hyperref[3.0.2]{Lema 3.0.2}, hay que probar que para todo $C > 0$ existen $n \in \N$ y $f \in L^p(\T)$ tales que
-    \[\|S_nf\|_1 > C\|f\|_1.\]
-    Sea $C>0$. Usando el lema anterior y el \hyperref[2.1.1]{Lema 2.1.1}, obtenemos
+    Por el \hyperref[3.0.2]{Lema 3.0.2}, hay que probar que para todo $C > 0$ existen $n \in \N$ y $f \in L^1(\T)$ tales que $\|S_nf\|_1 > C\|f\|_1$. Sea $C>0$. Usando el lema anterior y el \hyperref[2.1.1]{Lema 2.1.1}, obtenemos
     \[\lim_{n\to\infty} \|T_n\| = \lim_{n\to\infty}\|D_n\|_1 = \infty,\]
-    siendo $T_n \colon L^1(\T) \to L^1(\T)$ la aplicación dada por $T_n(f) = S_nf$. Por el contrarrecíproco del \hyperref[1.3.1]{teorema de la acotación uniforme}, existe $f \in L^1(\T)$ tal que el conjunto $\{T_n(f) \colon n \in \N\}$ no es acotado en $L^1(\T)$. En consecuencia,
+    siendo $T_n \colon L^1(\T) \to L^1(\T)$ la aplicación dada por $T_n(f) = S_nf$. Por el contrarrecíproco del \hyperref[1.3.1]{teorema de la acotación uniforme}, existe $f \in L^1(\T)$ tal que el conjunto $\{T_n(f) \colon n \in \N\}$ no es acotado en $L^1(\T)$. En consecuencia, existe $n \in \N$ tal que
     \[\|T_n(f)\|_1 = \|S_nf\|_1 > C\|f\|_1. \qedhere\]
 \end{proof}
 
@@ -1295,7 +1328,7 @@ Probamos en primer lugar un resultado relacionado con el espacio dual de $L^p(\T
     \end{align*}
     luego $\Phi(\alpha g + \beta h) = \alpha \Phi(g) + \beta \Phi(h)$.
 
-    Probemos por último que $\|g\|_{p'} = \|\Phi(g)\|$ para toda $g \in L^{p'}(\T)$. Sea $g \in L^{p'}(\T)$ y veamos que $\|g\|_{p'} \leq \|\Phi(g)\|$. Si $g = 0$, la desigualdad es trivial. Si $g \neq 0$, tomamos
+    Demostremos por último que $\|g\|_{p'} = \|\Phi(g)\|$ para toda $g \in L^{p'}(\T)$, lo que también probará que $\Phi$ es continua. Sea $g \in L^{p'}(\T)$ y veamos que $\|g\|_{p'} \leq \|\Phi(g)\|$. Si $g = 0$, la desigualdad es trivial. Si $g \neq 0$, tomamos
     \[f = \frac{|g|^{p'-1}\overline{\sgn(g)}}{\|g\|^{p'-1}_{p'}},\]
     donde, para cada $z \in \C$,
     \[\sgn(z) = \begin{cases}
@@ -1313,7 +1346,7 @@ Probamos en primer lugar un resultado relacionado con el espacio dual de $L^p(\T
         \\ &= \frac{1}{\|g\|_{p'}^{p'-1}} \frac{1}{2\pi}\integral{-\pi}{\pi}{|g(t)|^{p'}} = \|g\|_{p'}^{p'-(p'-1)} = \|g\|_{p'}.
     \end{aligned}\]
 
-    Como la desigualdad $\|g\|_{p'} \geq \|\Phi(g)\|$ se demostró junto con la continuidad de $\Phi(g)$, tenemos que $\|g\|_{p'} = \|\Phi(g)\|$.
+    Como la desigualdad $\|g\|_{p'} \geq \|\Phi(g)\|$ se demostró junto con la continuidad de $\Phi(g)$, concluimos que $\|g\|_{p'} = \|\Phi(g)\|$.
 \end{proof}
 
 En \cite{folland} también se demuestra que $\Phi$ es biyectiva, y por tanto se trata de un isomorfismo isométrico. Aquí no usaremos la biyectividad de $\Phi$; lo importante es que si $g \in L^{p'}(\T)$, entonces
@@ -1340,6 +1373,12 @@ Análogamente, si $g\in L^p(\T)$, entonces
     Si $0 < t < 1$, entonces para todo $z \in \C$ con $\real(z) = t$ se tiene que
     \[|\varphi(z)| \leq M_0^{1-t}M_1^t.\]
 \end{lemma}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics{./plot17/main.pdf}
+  \caption{Representación del conjunto $A = \{z \in \C \colon 0 \leq \real(z) \leq 1\}$.}
+\end{figure}
 
 \begin{proof}
     Para cada $\varepsilon > 0$, sea $\varphi_\varepsilon \colon A \to \C$ la función dada por
@@ -1397,19 +1436,19 @@ Análogamente, si $g\in L^p(\T)$, entonces
         \|T(f)\|_r = \sup_{\substack{\|g\|_{r'}=1 \\ g \in S}}\frac{1}{2\pi}\Bigl|\integral[s]{-\pi}{\pi}{T(f)(s)g(s)}\Bigr|,
     \end{equation}
     siendo $r'$ el exponente conjugado de $r$. Sean $f,g \in S$ con $\|f\|_r = 1$ y $\|g\|_{r'} = 1$. Al ser funciones simples, $f$ y $g$ pueden escribirse como
-    \[f = \sum_{k=1}^m c_k\chi_{E_k}, \qquad \qquad g = \sum_{k=1}^n d_k \chi_{F_k},\]
+    \[f = \sum_{k=1}^m c_k\chi_{E_k}, \qquad \qquad g = \sum_{j=1}^n d_j \chi_{F_j},\]
     donde
     \begin{itemize}
-        \item Para cada $k \in\{1,2,\mathellipsis,m\}$ se tiene $c_k \in \C\setminus \{0\}$, y además $E_i \cap E_j = \emptyset$ para $i,j\in\{1,2,\mathellipsis,m\}$ con $i\neq j$.
-        \item Para cada $k \in\{1,2,\mathellipsis,n\}$ se tiene $c_k \in \C\setminus \{0\}$, y además $F_i \cap F_j = \emptyset$ para $i,j\in\{1,2,\mathellipsis,n\}$ con $i\neq j$.
+        \item Para cada $k \in\{1,2,\mathellipsis,m\}$ se tiene $c_k \in \C\setminus \{0\}$, y además $E_i \cap E_{i'} = \emptyset$ para $i,i'\in\{1,2,\mathellipsis,m\}$ con $i\neq i'$.
+        \item Para cada $j \in\{1,2,\mathellipsis,n\}$ se tiene $d_j \in \C\setminus \{0\}$, y además $F_i \cap F_{i'} = \emptyset$ para $i,i'\in\{1,2,\mathellipsis,n\}$ con $i\neq i'$.
     \end{itemize}
-    Dado $k\in \{1,2,\mathellipsis,m\}$, escribamos $c_k$ y $d_k$ en forma polar: $c_k = |c_k|e^{i\theta_k}$, $d_k = |d_k|e^{i\psi_k}$. Consideremos la función $\phi \colon \C \to \C$ dada por
+    Escribamos $c_k$ y $d_j$ en forma polar: $c_k = |c_k|e^{i\theta_k}$, $d_j = |d_j|e^{i\psi_j}$. Consideremos la función $\phi \colon \C \to \C$ dada por
     \[\phi(z) = \frac{1-z}{p}+\frac{z}{q},\]
     y para cada $z \in \C$, sean
     \[f_z = \sum_{k=1}^m |c_k|^{r\phi(z)}e^{i\theta_k}\chi_{E_k}, \qquad \qquad g_z =  \sum_{j=1}^n |d_j|^{\frac{r(1-\phi(z))}{r-1}}e^{i\psi_j}\chi_{F_j}.\]
     Como $f_z,g_z \in S \subset L^p(\T)$ para todo $z \in \C$, podemos definir la función $\varphi \colon \C \to \C$ mediante
     \[\varphi(z) = \frac{1}{2\pi}\integral[s]{-\pi}{\pi}{T(f_z)(s)g_z(s)}.\]
-    El objetivo es aplicar a $\varphi$ el \hyperref[3.2.3]{lema de las tres líneas}. En primer lugar, usando la linealidad de $T$ y de la integral, para todo $z\in\C$ se tiene
+    Se tratará de aplicar a $\varphi$ el \hyperref[3.2.3]{lema de las tres líneas}. En primer lugar, usando la linealidad de $T$ y de la integral, para todo $z\in\C$ se tiene
     \begin{align}\label{3.2.7}
         \varphi(z) &= \frac{1}{2\pi}\integral[s]{-\pi}{\pi}{T\Bigl(\,\sum_{k=1}^m |c_k|^{r\phi(z)}e^{i\theta_k}\chi_{E_k}\Bigr)(s)\sum_{j=1}^n |d_j|^{\frac{r(1-\phi(z))}{r-1}}e^{i\psi_j}\chi_{F_j}(s)} \notag \\
         &= \sum_{k=1}^m \sum_{j=1}^n |c_k|^{r\phi(z)}|d_j|^{\frac{r(1-\phi(z))}{r-1}}e^{i(\theta_k+\psi_j)}\frac{1}{2\pi}\integral[s]{-\pi}{\pi}{T(\chi_{E_k})(s)\chi_{F_j}(s)} \notag \\
@@ -1434,29 +1473,29 @@ Análogamente, si $g\in L^p(\T)$, entonces
     \begin{itemize}
         \item Sea $z \in A$ con $\real(z) = 0$, es decir, $z = iy$ con $y \in \R$. Entonces
         \[\real(\phi(iy)) = \real\Bigl(\frac{1-iy}{p}+\frac{iy}{q}\Bigr) = \frac{1}{p}.\]
-        Para cada $t \in \R$ existe un único $k_0 \in \{1,2,\mathellipsis,m\}$ con $\chi_{E_{k_0}} =1$, luego
+        Para cada $t \in \R$ existe un único $k_0 \in \{1,2,\mathellipsis,m\}$ con $\chi_{E_{k_0}}(t) =1$, luego
         \begin{align*}
             |f_{iy}(t)| = \Bigl|\sum_{k=1}^m |c_k|^{r\phi(iy)}e^{i\theta_k}\chi_{E_k}(t)\Bigr| = \Bigl||c_{k_0}|^{r\phi(iy)}e^{i\theta_{k_0}}\Bigr| = |c_{k_0}|^{r\real(\phi(iy))} = |c_{k_0}|^{\frac{r}{p}},
         \end{align*} 
         mientras que
-        \[|f(t)| =  \Bigl|\sum_{k=1}^m |c_k|e^{i\theta_k}\chi_{E_k}\Bigr| = \Bigl||c_{k_0}|e^{i\theta_{k_0}}\Bigr| = |c_{k_0}|.\]
-        Vemos que $|f_{iy}|^p = |f|^r$, así que $\|f_{iy}\|_p^p = \|f\|_r^r$. Razonamos análogamente con $g$: para cada $t \in \R$ existe un único $j_0 \in \{1,2,\mathellipsis,n\}$ con $\chi_{F_{j_0}} =1$, luego
+        \[|f(t)| =  \Bigl|\sum_{k=1}^m |c_k|e^{i\theta_k}\chi_{E_k}(t)\Bigr| = \Bigl||c_{k_0}|e^{i\theta_{k_0}}\Bigr| = |c_{k_0}|.\]
+        Vemos que $|f_{iy}|^p = |f|^r$, así que $\|f_{iy}\|_p^p = \|f\|_r^r$. Razonamos análogamente con $g$: para cada $t \in \R$ existe un único $j_0 \in \{1,2,\mathellipsis,n\}$ con $\chi_{F_{j_0}}(t) =1$, luego
         \begin{align*}
             |g_{iy}(t)| &= \Bigl|\sum_{j=1}^n |d_j|^{\frac{r(1-\phi(iy))}{r-1}}e^{i\psi_j}\chi_{F_j}(t)\Bigr| = \Bigl||d_{j_0}|^{\frac{r(1-\phi(iy))}{r-1}}e^{i\psi_{j_0}}\Bigr| = |d_{j_0}|^{\frac{r(1-\real(\phi(iy)))}{r-1}} \\ 
             &= |d_{j_0}|^{\frac{r(1-\frac{1}{p})}{r-1}} = |d_{j_0}|^{\frac{1-\frac{1}{p}}{1-\frac{1}{r}}} = |d_{j_0}|^{\frac{r'}{p'}},
         \end{align*} 
         donde $r'$ y $p'$ son los exponentes conjugados de $r$ y $p$, respectivamente. Por otra parte,
-        \[|g(t)| =  \Bigl|\sum_{j=1}^n |d_j|e^{i\psi_j}\chi_{F_j}\Bigr| = \Bigl||d_{j_0}|e^{i\psi_{j_0}}\Bigr| = |d_{j_0}|.\]
+        \[|g(t)| =  \Bigl|\sum_{j=1}^n |d_j|e^{i\psi_j}\chi_{F_j}(t)\Bigr| = \Bigl||d_{j_0}|e^{i\psi_{j_0}}\Bigr| = |d_{j_0}|.\]
         Vemos que $|g_{iy}|^{p'} = |g|^{r'}$, así que $\|g_{iy}\|_{p'}^{p'} = \|g\|_{r'}^{r'}$. Usando todo esto, se obtiene
         \begin{align*}
             |\varphi(iy)| &= \frac{1}{2\pi}\Bigl|\integral{-\pi}{\pi}{T(f_{iy})(t)g_{iy}(t)}\Bigr| \leq \frac{1}{2\pi}\integral{-\pi}{\pi}{|T(f_{iy})(t)||g_{iy}(t)|} = \|T(f_{iy})g_{iy}\|_1 \\ \overset{(\asts{1})}&{\leq} \|T(f_{iy})\|_{p}\|g_{iy}\|_{p'} \overset{(\asts{2})}{\leq} M_p\|f_{iy}\|_p \|g_{iy}\|_{p'} = M_p\|f\|_r^{r/p}\|g\|_{r'}^{r'/p'} \overset{(\asts{3})}{=} M_p,
         \end{align*}
         donde en (\asts{1}) se usa la \hyperref[1.1.1]{desigualdad de Hölder}, en (\asts{2}) se usa una de las hipótesis del enunciado y en (\asts{3}) se recuerda que $\|f\|_r = 1 = \|g\|_{r'}$.
         \item Sea $z \in A$ con $\real(z) = 1$, es decir, $z = 1+iy$ con $y \in \R$. Entonces
-        \[\real(\phi(1+iy)) = \real\Bigl(\frac{iy}{p}+\frac{1+iy}{q}\Bigr) = \frac{1}{q}.\]
+        \[\real(\phi(1+iy)) = \real\Bigl(-\frac{iy}{p}+\frac{1+iy}{q}\Bigr) = \frac{1}{q}.\]
         Razonando como en el caso anterior se obtiene $\|f_{1+iy}\|_q^q = \|f\|_r^r$ y $\|g_{1+iy}\|_{q'}^{q'} = \|g\|_{r'}^{r'}$, luego
         \begin{align*}
-            |\varphi(1+iy)| &= \frac{1}{2\pi}\Bigl|\integral{-\pi}{\pi}{T(f_{1+iy})(t)g_{1+iy}(t)}\Bigr| \leq \frac{1}{2\pi}\integral{-\pi}{\pi}{|T(f_{1+iy})(t)||g_{1+iy}(t)|} \\ &\leq \|T(f_{1+iy})g_{1+iy}\|_1 \overset{(\asts{1})}{\leq} \|T(f_{1+iy})\|_{q}\|g_{1+iy}\|_{q'} \overset{(\asts{2})}{\leq} M_q\|f_{1+iy}\|_q \|g_{1+iy}\|_{q'} \\ &= M_q\|f\|_r^{r/q}\|g\|_{r'}^{r'/q'} \overset{(\asts{3})}{=} M_q,
+            |\varphi(1+iy)| &= \frac{1}{2\pi}\Bigl|\integral{-\pi}{\pi}{T(f_{1+iy})(t)g_{1+iy}(t)}\Bigr| \leq \frac{1}{2\pi}\integral{-\pi}{\pi}{|T(f_{1+iy})(t)||g_{1+iy}(t)|} \\ &= \|T(f_{1+iy})g_{1+iy}\|_1 \overset{(\asts{1})}{\leq} \|T(f_{1+iy})\|_{q}\|g_{1+iy}\|_{q'} \overset{(\asts{2})}{\leq} M_q\|f_{1+iy}\|_q \|g_{1+iy}\|_{q'} \\ &= M_q\|f\|_r^{r/q}\|g\|_{r'}^{r'/q'} \overset{(\asts{3})}{=} M_q,
         \end{align*}
         donde en (\asts{1}) se usa la \hyperref[1.1.1]{desigualdad de Hölder}, en (\asts{2}) se usa otra de las hipótesis del enunciado y en (\asts{3}) se recuerda que $\|f\|_r = 1 = \|g\|_{r'}$.
     \end{itemize}
@@ -1469,7 +1508,7 @@ Análogamente, si $g\in L^p(\T)$, entonces
     \[\begin{aligned}
         t < 1 &\iff q(p-r) > r(p-q) \iff qp > rp \iff q > r,
     \end{aligned}\]
-    y esto último es cierto por hipótesis. Por tanto, $0 < t < 1$. Por el \hyperref[3.2.3]{lema de las tres líneas}, para todo $z\in\C$ con $\real(z)=t$ se tiene que $|\varphi(z)| \leq M_0^{1-t}M_1^t$. En particular, $|\varphi(t)| \leq M_0^{1-t}M_1^t$. Hallemos $|\varphi(t)|$. Como $r\phi(t) = 1$, se tiene que
+    y esto último es cierto por hipótesis. Por tanto, $0 < t < 1$. Por el \hyperref[3.2.3]{lema de las tres líneas}, para todo $z\in\C$ con $\real(z)=t$ se tiene que $|\varphi(z)| \leq M_p^{1-t}M_q^t$. En particular, $|\varphi(t)| \leq M_p^{1-t}M_q^t$. Hallemos $|\varphi(t)|$. Como $r\phi(t) = 1$, se tiene que
     \begin{align*}
         f_t = \sum_{k=1}^m |c_k|^{r\phi(t)}e^{i\theta_k}\chi_{E_k} = \sum_{k=1}^m |c_k|e^{i\theta_k}\chi_{E_k} = f,
     \end{align*}
@@ -1478,20 +1517,20 @@ Análogamente, si $g\in L^p(\T)$, entonces
         g_t = \sum_{j=1}^n |d_j|^{\frac{r(1-\phi(t))}{r-1}}e^{i\psi_j}\chi_{F_j} =  \sum_{j=1}^n |d_j|^{\frac{r-r\phi(t)}{r-1}}e^{i\psi_j}\chi_{F_j}=  \sum_{j=1}^n |d_j|e^{i\psi_j}\chi_{F_j} = g.
     \end{align*}
     En consecuencia,
-    \[|\varphi(t)| = \frac{1}{2\pi}\Bigl|\integral[s]{-\pi}{\pi}{T(f_t)(s)g_t(s)}\Bigr| =  \frac{1}{2\pi}\Bigl|\integral[s]{-\pi}{\pi}{T(f)(s)g(s)}\Bigr| \leq M_0^{1-t}M_1^t.\]
-    Como $M_0$, $M_1$ y $t$ no dependen de $f$ ni de $g$, tenemos que
-    \[\sup_{\substack{\|g\|_{r'}=1 \\ g \in S}}\frac{1}{2\pi}\Bigl|\integral[s]{-\pi}{\pi}{T(f)(s)g(s)}\Bigr| \leq M_0^{1-t}M_1^t.\]
-    Llamando $M_r = M_0^{1-t}M_1^t$ y usando \hyperref[3.2.6]{(3.2.6)}, obtenemos que $\|T(f)\|_r \leq M_r$ para toda $f \in S$ con $\|f\|_r = 1$. Por ser $T$ lineal, esto implica,, que $\|T(f)\|_r \leq M_r\|f\|_r$ para toda $f \in S$.
+    \[|\varphi(t)| = \frac{1}{2\pi}\Bigl|\integral[s]{-\pi}{\pi}{T(f_t)(s)g_t(s)}\Bigr| =  \frac{1}{2\pi}\Bigl|\integral[s]{-\pi}{\pi}{T(f)(s)g(s)}\Bigr| \leq M_p^{1-t}M_q^t.\]
+    Como $M_p$, $M_q$ y $t$ no dependen de $f$ ni de $g$, tenemos que
+    \[\sup_{\substack{\|g\|_{r'}=1 \\ g \in S}}\frac{1}{2\pi}\Bigl|\integral[s]{-\pi}{\pi}{T(f)(s)g(s)}\Bigr| \leq M_p^{1-t}M_q^t.\]
+    Llamando $M_r = M_p^{1-t}M_q^t$ y usando \hyperref[3.2.6]{(3.2.6)}, obtenemos que $\|T(f)\|_r \leq M_r$ para toda $f \in S$ con $\|f\|_r = 1$. Por ser $T$ lineal, esto implica que $\|T(f)\|_r \leq M_r\|f\|_r$ para toda $f \in S$.
 
-    Finalmente, veamos que $\|T(f)\|_r \leq M_r\|f\|_r$ para toda $f \in L^r(\T)$. Sea $f \in L^r(\T)$. Como $f\!\mid_{[-\pi,\pi]}$ es medible, existe una sucesión $\{f_n\}_{n=1}^\infty$ de funciones medibles y simples que converge puntualmente a $f$ en $[-\pi,\pi]$ y tal que $|f_n(s)|\leq |f(s)|$ para todo $s \in [-\pi,\pi]$. Para cada $n \in \N$, extendemos $f_n$ a todo $\R$ de forma $2\pi$-periódica, y seguimos llamando $f_n$ a dicha extensión. Se obtiene así una sucesión $\{f_n\}_{n=1}^\infty$ en $S$ que converge puntualmente a $f$ y tal que $|f_n(s)| \leq |f(s)|$ para todo $s \in \R$. Sea
+    Finalmente, veamos que $\|T(f)\|_r \leq M_r\|f\|_r$ para toda $f \in L^r(\T)$. Sea $f \in L^r(\T)$. Como $f\!\mid_{[-\pi,\pi]}$ es medible, existe una sucesión $\{f_n\}_{n=1}^\infty$ de funciones medibles y simples que converge puntualmente a $f$ en $[-\pi,\pi]$ y tal que $|f_n(s)|\leq |f(s)|$ para todo $s \in [-\pi,\pi]$ y todo $n \in \N$. Para cada $n \in \N$, extendemos $f_n$ a todo $\R$ de forma $2\pi$-periódica, y seguimos llamando $f_n$ a dicha extensión. Se obtiene así una sucesión $\{f_n\}_{n=1}^\infty$ en $S$ que converge puntualmente a $f$ y tal que $|f_n(s)| \leq |f(s)|$ para todo $s \in \R$ y todo $n \in \N$. Sea
     \[E = \{x \in \R \colon |f(x)| > 1\},\]
     y sean $g = f\chi_E$, $g_n = f_n\chi_E$, $h = f-g$ y $h_n = f_n-g_n$. Como $f \in L^r(\T) \subset L^p(\T)$, tenemos que $g \in L^p(\T)$. Por otra parte, $h_n = f_n-f_n\chi_{E} = f_n\chi_{E^c}$, con $E^c=\{x \in \R \colon |f(x)|\leq 1\}$. En consecuencia, $|h_n| =|f_n|\chi_{E^c} \leq |f|\chi_{E^c} \leq 1$, luego $h_n \in L^q(\T)$.
 
-    Por otro lado, como $|f_n-f|^r \leq (|f_n|+|f|)^r \leq 2^r|f|^r$ para todo $n \in \N$ y $f^r\in L^1(\T)$, puede utilizarse el teorema de la convergencia dominada para obtener
+    Por otro lado, como $|f_n-f|^r \leq (|f_n|+|f|)^r \leq 2^r|f|^r$ para todo $n \in \N$ y se tiene que $f^r\in L^1(\T)$, puede utilizarse el teorema de la convergencia dominada para obtener
     \[\lim_{n\to\infty} \|f_n-f\|_r^r = \frac{1}{2\pi}\lim_{n\to\infty}\integral{-\pi}{\pi}{|f_n(s)-f(s)|^r} =\frac{1}{2\pi}\integral{-\pi}{\pi}{\lim_{n\to\infty}|f_n(s)-f(s)|^r} = 0.\]
-    Como $|g_n-g|^p =|f_n\chi_E - f\chi_E|^p = |f_n-f|^p \chi_E \leq |f_n-f|^r \leq 2^r|f|^r$ para todo $n \in \N$ y $f^r\in L^1(\T)$, de nuevo por el teorema de la convergencia dominada, se tiene
+    Como $|g_n-g|^p =|f_n\chi_E - f\chi_E|^p = |f_n-f|^p \chi_E \leq |f_n-f|^r \leq 2^r|f|^r$ para todo $n \in \N$ y se tiene que $f^r\in L^1(\T)$, de nuevo por el teorema de la convergencia dominada,
     \[\lim_{n\to\infty} \|g_n-g\|_p^p =\frac{1}{2\pi}\integral{-\pi}{\pi}{\lim_{n\to\infty}|g_n(s)-g(s)|^p} = 0.\]
-    Y como $|h_n-h|^q = |f_n-f_n\chi_E - f + f\chi_E|^q = |f_n\chi_{E^c} - f \chi_{E^c}|^q \leq 2^q|f|^q \chi_{E^c} \leq 1$, también por el teorema de la convergencia dominada, obtenemos
+    Y como $|h_n-h|^q = |f_n-f_n\chi_E - f + f\chi_E|^q = |f_n\chi_{E^c} - f \chi_{E^c}|^q \leq 2^q|f|^q \chi_{E^c} \leq 2^q$, también por el teorema de la convergencia dominada, obtenemos
     \[\lim_{n\to\infty} \|h_n-h\|_q^q =\frac{1}{2\pi}\integral{-\pi}{\pi}{\lim_{n\to\infty}|h_n(s)-h(s)|^q} = 0.\]
     Como $T$ es lineal y continua, 
     \[\lim_{n\to\infty}\|T(g_n)-T(g)\|_p = 0, \qquad \qquad \lim_{n\to\infty}\|T(h_n)-T(h)\|_p = 0.\]
@@ -1509,10 +1548,7 @@ Análogamente, si $g\in L^p(\T)$, entonces
 \section[Convergencia en \texorpdfstring{$L^p$}{Lp} para \texorpdfstring{$1<p<\infty$}{1<p<oo}]{Convergencia en \texorpdfstring{\boldmath$L^p$}{Lp} para \texorpdfstring{\boldmath$1<p<\infty$}{1<p<oo}}
 
 La referencia principal de esta sección es \cite{miao}. Además de los resultados de la sección anterior, también necesitaremos demostrar dos lemas previos. Primero se introducen las series formales siguientes: si $f\in L^1(\T)$, denotamos
-\begin{itemize}
-    \item $\displaystyle f^+(t) = \sum_{k=1}^\infty c_k(f)e^{ikt}$,
-    \item $\displaystyle \widetilde{f}(t) = -i\sum_{k\in\Z} \sgn(k)c_k(f)e^{ikt}$,
-\end{itemize}
+\[f^+(t) = \sum_{k=1}^\infty c_k(f)e^{ikt}, \qquad \qquad \widetilde{f}(t) = -i\sum_{k\in\Z} \sgn(k)c_k(f)e^{ikt},\]
 donde
 \[\sgn(k) = \begin{cases}
     \phantom{-}1 & $ si $ k > 0, \\
@@ -1568,7 +1604,7 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
         \end{align*}
         Por tanto, $c_k(F+i\widetilde{F}) = 0$ para todo $k \leq 0$. Probemos que
         \[\integral{-\pi}{\pi}{(F(t)+i\widetilde{F}(t))^{2m}} = 0\]
-        para todo $m \in \N$. La función $G = (F+i\widetilde{F})^{2m}$ es suma y producto de polinomios trigonométricos, así que es un polinomio trigonométrico. Y como $c_k(F+i\widetilde{F}) = 0$ para todo $k \leq 0$, entonces $c_k(G) = 0$ para todo $k \leq 0$. En particular, $c_0(G) = 0$, luego
+        para todo $m \in \N$. La función $G = (F+i\widetilde{F})^{2m}$ es suma y producto de polinomios trigonométricos, así que es un polinomio trigonométrico. Y como $c_0(F+i\widetilde{F}) = 0$, entonces $c_0(G) = 0$. Así,
         \[ \integral{-\pi}{\pi}{(F(t)+i\widetilde{F}(t))^{2m}} = \integral{-\pi}{\pi}{G(t)} = 2\pi c_0(G) = 0.\]
         Por otro lado,
         \[(F(t)+i\widetilde{F}(t))^{2m} = \sum_{k=0}^{2m}\binom{2m}{k}F(t)^ki^{2m-k}\widetilde{F}(t)^{2m-k}.\]Como $F$ y $\widetilde{F}$ toman valores reales, tenemos que
@@ -1590,7 +1626,7 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
         Por tanto,
         \begin{align*}
             \integral{-\pi}{\pi}{\widetilde{F}(t)^{2m}} &= (-1)^{m+1}\sum_{k=1}^{m}(-1)^{m-k}\binom{2m}{2k}\integral{-\pi}{\pi}{F(t)^{2k}\widetilde{F}(t)^{2m-2k}} \\
-            &= \sum_{k=1}^{m}(-1)^{2m-k+1}\binom{2m}{2k}\integral{-\pi}{\pi}{F(t)^{2k}\widetilde{F}(t)^{2m-2k}},
+            &= \sum_{k=1}^{m}(-1)^{2m-k+1}\binom{2m}{2k}\integral{-\pi}{\pi}{F(t)^{2k}\widetilde{F}(t)^{2m-2k}}.
         \end{align*}
         Utilizando esto y que $\widetilde{F}^{2m}$, $F^{2k}$ y $\widetilde{F}^{2m-2k}$ toman valores reales no negativos,
         \begin{align*}
@@ -1600,15 +1636,15 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
             &=\sum_{k=1}^{m}(-1)^{2m-k+1}\binom{2m}{2k}\|F^{2k}\widetilde{F}^{2m-2k}\|_1 \\
             &\leq \sum_{k=1}^{m}\binom{2m}{2k}\|F^{2k}\widetilde{F}^{2m-2k}\|_1.
         \end{align*}
-        Para $k\in\{1,2,\mathellipsis,m-1\}$, aplicamos la \hyperref[1.1.1]{desigualdad de Hölder} con exponentes conjugados $\frac{2m}{2m-2k}$ y $\frac{2m}{2k}$, obteniendo
+        Para $k\in\{1,2,\mathellipsis,m-1\}$, aplicamos la \hyperref[1.1.1]{desigualdad de Hölder} con exponentes conjugados $\frac{2m}{2m-2k}$ y $\frac{2m}{2k}$, obteniéndose
         \begin{align*}
             \|F^{2k}\widetilde{F}^{2m-2k}\|_1 &\leq \|F^{2k}\|_{\frac{2m}{2k}}\|\widetilde{F}^{2m-2k}\|_{\frac{2m}{2m-2k}} \\
-            &=\Bigl( \frac{1}{2\pi}\integral{-\pi}{\pi}{F(t)^{2k\frac{2m}{2k}}}\Bigr)^{\frac{2k}{2m}}\Bigl( \frac{1}{2\pi}\integral{-\pi}{\pi}{\widetilde{F}(t)^{{2m-2k}\frac{2m}{2m-2k}}}\Bigr)^{\frac{2m-2k}{2m}} \\
+            &=\Bigl( \frac{1}{2\pi}\integral{-\pi}{\pi}{F(t)^{2k\frac{2m}{2k}}}\Bigr)^{\frac{2k}{2m}}\Bigl( \frac{1}{2\pi}\integral{-\pi}{\pi}{\widetilde{F}(t)^{(2m-2k)\frac{2m}{2m-2k}}}\Bigr)^{\frac{2m-2k}{2m}} \\
             &= \|F\|_{2m}^{2k}\|\widetilde{F}\|_{2m}^{2m-2k}.
         \end{align*}
-        Si $k = m$, sigue siendo cierta la desigualdad $\|F^{2k}\widetilde{F}^{2m-2k}\|_1 \leq \|F\|_{2m}^{2k}\|\widetilde{F}\|_{2m}^{2m-2k}$.  Tenemos entonces
+        Si $k = m$, sigue siendo cierta la desigualdad $\|F^{2k}\widetilde{F}^{2m-2k}\|_1 \leq \|F\|_{2m}^{2k}\|\widetilde{F}\|_{2m}^{2m-2k}$. Tenemos entonces
         \[\|\widetilde{F}\|_{2m}^{2m} \leq \sum_{k=1}^m \binom{2m}{2k}\|F\|_{2m}^{2k}\|\widetilde{F}\|_{2m}^{2m-2k}.\]
-        Dividiendo por $\|\widetilde{F}\|_{2m}^{2m}$ (si fuese $\widetilde{F} = 0$ no hay nada que probar),
+        Dividiendo por $\|\widetilde{F}\|_{2m}^{2m}$ (si fuese $\widetilde{F} = 0$ en casi todo punto no hay nada que probar),
         \[1 \leq \sum_{k=1}^m \binom{2m}{2k}\Bigl(\frac{\|F\|_{2m}}{\|\widetilde{F}\|_{2m}}\Bigr)^{2k}.\]
         Sea $R = \frac{\|F\|_{2m}}{\|\widetilde{F}\|_{2m}}$ y consideremos la función $\varphi \colon [0,\infty)\to\R$ dada por
         \[\varphi(t) = \sum_{k=1}^m \binom{2m}{2k}t^{2k}.\]
@@ -1650,7 +1686,7 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
         utilizando en la última desigualdad que $|\real(F(t))|\leq |F(t)|$ y $|\imag(F(t))| \leq |F(t)|$ para todo $t \in \R$, lo que implica $\|\real(F)\|_{2m} \leq \|F\|_{2m}$ y $\|\imag(F)\|_{2m}\leq\|F\|_{2m}$.
     \end{itemize}
 
-    Con esto concluye la demostración del lema para $p \in 2\N$. Probémoslo ahora para $p > 2$. Sea $p>2$ y sea $m\in\N$ tal que $2m\leq p \leq 2m+2$. Entonces $L^{2m+2}(\T) \subset L^p(\T) \subset L^{2m}(\T)$. Las aplicaciones
+    Con esto concluye la demostración del lema para $p \in 2\N$. Probémoslo ahora para $p > 2$ con $p \not\in 2\N$. Sea $p>2$ con $p \not\in 2\N$ y sea $m\in\N$ tal que $2m < p < 2m+2$. Entonces $L^{2m+2}(\T) \subset L^p(\T) \subset L^{2m}(\T)$. Las aplicaciones
     \[
     \begin{aligned}[t]
         T_{1} \colon \mathcal{P} &\longrightarrow L^{2m}(\T) \\
@@ -1669,11 +1705,11 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
         \item Para toda $f \in L^{2m}(\T)$, \[\|T(f)\|_{2m} = \|T_{1}(f)\|_{2m} \leq \|T_{1}\| \|f\|_{2m}.\]
         \item Para toda $f \in L^{2m+2}(\T)$, \[\|T(f)\|_{2m+2} = \|T_1(f)\|_{2m+2} = \|T_2(f)\|_{2m+2} \leq \|T_2\|\|f\|_{2m+2}.\]
     \end{itemize}
-    Como $2m<p<2m+2$, por el \hyperref[3.2.5]{teorema de interpolación de Riesz-Thorin}, existe $M_p>0$ tal que
+    Como $1<2m<p<2m+2<\infty$, por el \hyperref[3.2.5]{teorema de interpolación de Riesz-Thorin}, existe $M_p>0$ tal que
     \[\|T(f)\|_p  \leq M_p\|f\|_p\]
     para toda $f \in L^p(\T)$. En particular,
     \[\|T(F)\|_{p} = \|\widetilde{F}\|_{p} \leq M_p \|F\|_p\]
-    para todo $F \in \mathcal{P}$. 
+    para todo $F \in \mathcal{P}$. Con esto finaliza la prueba del lema para $p > 2$ con $p\not\in 2\N$.
     
     Antes de estudiar el caso restante, resultará útil demostrar que para todo $k \in \Z$ y toda $f \in L^p(\T)$ se tiene
     \[c_k(T(f)) = -i\sgn(k)c_k(f).\]
@@ -1684,7 +1720,7 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
     \end{align*}
     es lineal (por la linealidad de los coeficientes de Fourier) y es continua, pues para toda $f\in L^{1}(\T)$ se tiene
     \[|c_k(f)| = \frac{1}{2\pi}\Bigl|\integral{-\pi}{\pi}{f(t)}\Bigr| \leq \frac{1}{2\pi}\integral{-\pi}{\pi}{|f(t)|} = \|f\|_1.\]
-    Sea $f \in L^{p}(\T)$ y sea $\{F_n\}_{n=1}^\infty$ una sucesión en $\mathcal{P}$ que converge a $f$ en $L^{p}(\T)$. Como $L^p(\T) \subset L^{2m}(T)$, entonces
+    Sea $f \in L^{p}(\T)$ y sea $\{F_n\}_{n=1}^\infty$ una sucesión en $\mathcal{P}$ convergente a $f$ en $L^{p}(\T)$. Como $L^p(\T) \subset L^{2m}(T)$, entonces
     \[T(f) = T_1(f) = \lim_{n\to\infty} T_1(F_n) = \lim_{n\to\infty} \widetilde{F_n}.\]
     En consecuencia,
     \begin{align*}
@@ -1739,9 +1775,9 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
     aplicando en la última desigualdad la \hyperref[1.1.1]{desigualdad de Hölder} a la función $F$ y la función constante 1. Reuniendo todo lo anterior,
     \begin{align*}
         \|F^+\|_p &= \Bigl\|\frac{1}{2}(F+i\widetilde{F})-\frac{1}{2}c_0(F)\Bigr\|_p \leq \frac{1}{2}(\|F\|_p+\|\widetilde{F}\|_p+\|c_0(F)\|_p) \\ 
-        &\leq \frac{1}{2}(\|F\|_p+C_p\|F\|_p+\|F\|_p) = \Bigl(\frac{C_p}{2}+1\Bigr)\|F\|_p
+        &\leq \frac{1}{2}(\|F\|_p+C_p'\|F\|_p+\|F\|_p) = \Bigl(\frac{C_p'}{2}+1\Bigr)\|F\|_p,
     \end{align*}
-    para todo $F\in\mathcal{P}$.
+    y esto es válido para todo $F\in\mathcal{P}$.
 \end{proof}
 
 \begin{theorem}
@@ -1763,9 +1799,9 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
     \begin{align*}
         \sum_{k=0}^{2n}c_k(G)e^{ikx} &= c_0(G)+ \sum_{k=1}^{2n} c_k(G)e^{ikx} = c_0(G)+\sum_{k=1}^{\infty} c_k(G)e^{ikx} - \sum_{k=2n+1}^{\infty} c_k(G)e^{ikx} \\
         &= c_0(G) + \sum_{k=1}^{\infty} c_k(G)e^{ikx} - \sum_{k=1}^{\infty} c_{2n+k}(G)e^{i(2n+k)x} \\
-        &= c_0(G) + \sum_{k=1}^{\infty} c_k(G)e^{ikx} - e^{2inx}\sum_{k=1}^{\infty} c_{2n+k}(G)e^{ikx}. \\
+        &= c_0(G) + \sum_{k=1}^{\infty} c_k(G)e^{ikx} - e^{2inx}\sum_{k=1}^{\infty} c_{2n+k}(G)e^{ikx}.
     \end{align*}
-    Ahora bien,
+    Nótese que todas las series anteriores tienen un número finito de términos no nulos, pues $G$ es un polinomio trigonométrico y por tanto $c_k(G) = 0$ para todo $k \in \Z$ tal que $|k|$ es mayor que el grado de $G$. Por otra parte,
     \begin{align*}
         c_{2n+k}(G) &= \frac{1}{2\pi}\integral{-\pi}{\pi}{G(t)e^{-i(2n+k)t}} = \frac{1}{2\pi}\integral{-\pi}{\pi}{e^{-2int}G(t)e^{-ikt}} \\
         &=  \frac{1}{2\pi}\integral{-\pi}{\pi}{e^{-2int}e^{int}F(t)e^{-ikt}} = \frac{1}{2\pi}\integral{-\pi}{\pi}{e^{-int}F(t)e^{-ikt}} = c_k(H),
@@ -1775,13 +1811,13 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
         \sum_{k=0}^{2n}c_k(G)e^{ikx} &= c_0(G) + \sum_{k=1}^{\infty} c_k(G)e^{ikx} - e^{2inx}\sum_{k=1}^{\infty} c_k(H)e^{ikx} \\
         &= c_0(G) + G^+(x) - e^{2inx}H^+(x).
     \end{align*}
-    Nótese que $G,H\in\mathcal{P}$ y por tanto $G^+$ y $H^+$ tienen sentido. Usando esto junto con \hyperref[3.3.5]{(3.3.5)},
+    Nótese que $G,H\in\mathcal{P}$ y por tanto $G^+$ y $H^+$ tienen sentido. Utilizando esto junto con \hyperref[3.3.5]{(3.3.5)} y teniendo en cuenta que $|a+b|^p \leq 2^p(|a|^p+|b|^p)$ para todos $a,b\in\R$, llegamos a
     \begin{equation}\label{3.3.6}
     \begin{aligned}[b]
         \|S_nF\|_p^p &= \frac{1}{2\pi}\integral[x]{-\pi}{\pi}{|S_nF(x)|^p} = \frac{1}{2\pi}\integral[x]{-\pi}{\pi}{\Bigl|\sum_{k=0}^{2n}c_k(G)e^{ikx}\Bigr|^p} \\ 
         &=\frac{1}{2\pi}\integral[x]{-\pi}{\pi}{|c_0(G)+G^+(x)-e^{2inx}H^+(x)|^p} \\
-        &\leq \frac{1}{2\pi}\integral[x]{-\pi}{\pi}{\Bigl(|c_0(G)|^p+|G^+(x)|^p+|e^{2inx}H^+(x)|^p\Bigr)} \\
-        &= |c_0(G)|^p + \|G^+\|_p^p + \|H^+\|_p^p
+        &\leq \frac{2^p}{2\pi}\integral[x]{-\pi}{\pi}{\Bigl(|c_0(G)|^p+|G^+(x)|^p+|e^{2inx}H^+(x)|^p\Bigr)} \\
+        &= 2^p(|c_0(G)|^p + \|G^+\|_p^p + \|H^+\|_p^p).
     \end{aligned}
     \end{equation}
     Acotemos cada uno de los sumandos.
@@ -1789,28 +1825,26 @@ En general, no se sabe para qué puntos estas dos series tienen sentido. Ahora b
         \item Como $G,H \in \mathcal{P}$, entonces $\|G^+\|_p \leq C_p \|G\|_p$ y $\|H^+\|_p \leq C_p\|H\|_p$. Y como para todo $t \in \R$ se verifica $|F(t)| = |G(t)| = |H(t)|$, entonces $\|F\|_p=\|G\|_p=\|H\|_p$. Por tanto,
         \[\|G^+\|_p^p + \|H^+\|_p^p \leq C_p^p(\|G\|_p^p+\|H\|_p^p) = 2C_p^p\|F\|_p^p.\]
         \item Se tiene que
-        \[|c_0(G)| = \Bigl|\frac{1}{2\pi}\integral{-\pi}{\pi}{G(t)}\Bigr| \leq \frac{1}{2\pi}\integral{-\pi}{\pi}{|G(t)|} = \frac{1}{2\pi}\integral{-\pi}{\pi}{|F(t)|}.\]
-        Por la \hyperref[1.1.1]{desigualdad de Hölder},
-        \[\frac{1}{2\pi}\integral{-\pi}{\pi}{|F(t)|} \leq \Bigl(\frac{1}{2\pi}\integral{-\pi}{\pi}{|F(t)|^p}\Bigr)^{\frac{1}{p}}\Bigl(\frac{1}{2\pi}\integral{-\pi}{\pi}{1}\Bigr)^{\frac{1}{p'}} = \|F\|_p,\]
-        luego $|c_0(G)|^p \leq \|F\|_p^p$.
+        \[|c_0(G)| = \Bigl|\frac{1}{2\pi}\integral{-\pi}{\pi}{G(t)}\Bigr| \leq \frac{1}{2\pi}\integral{-\pi}{\pi}{|G(t)|} = \frac{1}{2\pi}\integral{-\pi}{\pi}{|F(t)|} = \|F\|_1 \leq \|F\|_p,\]
+        aplicándose en la última desigualdad la \hyperref[1.1.1]{desigualdad de Hölder}.
     \end{itemize}
     Llevando esto a \hyperref[3.3.6]{(3.3.6)},
-    \[\|S_nF\|_p^p \leq \|F\|_p^p + 2C_p^p\|F\|_p^p = (2C_p^p+1)\|F\|_p^p.\]
-    Llamando $C_p' = (2C_p^p+1)^{\frac{1}{p}}$, se tiene
+    \[\|S_nF\|_p^p \leq 2^p(\|F\|_p^p + 2C_p^p\|F\|_p^p) = 2^p(1+2C_p^p)\|F\|_p^p.\]
+    Llamando $C_p' = 2(1+2C_p^p)^{\frac{1}{p}}$, se tiene
     \[\|S_nF\|_p \leq C_p'\|F\|_p.\]
     Esta desigualdad es válida para todo $F \in \mathcal{P}$ y todo $n \in \N$.
 
     Sea $n \in \N$ y sea $f \in L^p(\T)$. Por la densidad de $\mathcal{P}$ en $L^p(\T)$, existe una sucesión $\{F_k\}_{k=1}^\infty$ en $\mathcal{P}$ tal que
-    \[\|f-F_k\|_p \kconv 0.\]
+    \[\lim_{k\to\infty}\|f-F_k\|_p = 0.\]
     Por un lado, por la continuidad de la norma,
-    \[\|F_k\|_p \kconv \|f\|_p.\]
+    \[\lim_{k\to\infty}\|F_k\|_p = \|f\|_p.\]
     Por otro lado, como la aplicación
     \begin{align*}
         T_n \colon L^p(\T) &\longrightarrow L^p(\T) \\
         f &\longmapsto S_nf
     \end{align*}
     es continua (se razonó en la demostración del \hyperref[3.0.2]{Lema 3.0.2}), entonces 
-    \[\|S_n(f-F_k)\|_p \kconv 0.\]
+    \[\lim_{k\to\infty}\|S_n(f-F_k)\|_p = 0.\]
     Por tanto, para todo $k \in \N$,
     \[\|S_nf\|_p = \|S_nf-S_nF_k+S_nF_k\|_p = \|S_n(f-F_k)+S_nF_k\|_p  \leq \|S_n(f-F_k)\|_p + \|S_nF_k\|_p.\]
     Por lo probado anteriormente,

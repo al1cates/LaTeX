@@ -1,0 +1,46 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        axis on top,
+        axis x line = middle,
+        axis y line = middle,
+        xtick=\empty,
+        ytick=\empty,
+        xmin = -2,
+        xmax = 2,
+        ymin = -5,
+        ymax = 5,
+        samples = 300, % si pongo más o menos salen picos
+        scale = 1.3,
+        legend cell align = {left},
+        x tick label style = below,
+        y tick label style = left,
+        extra x ticks = {0, 0.25, 1},
+        extra x tick labels = {$0$, $t\vphantom{0}$, $1\vphantom{0}$},
+        extra x tick style = {xticklabel style = {below left}, major tick length=0pt},
+        % extra y ticks = {0},
+        % extra y tick labels = {$0$},
+        % extra y tick style = {yticklabel style = {below left}, major tick length=0pt},
+        ticklabel style = {font = \footnotesize},
+    ]
+    \addplot[mark = none, c1, dashed] coordinates {(0.25, -5) (0.25, 5)};
+    \addplot[mark = none, c1] coordinates {(1, -5) (1, 5)};
+    \path[name path = A] (0, 5) -- (1, 5);
+    \path[name path = B] (0, 0) -- (1, 0);
+    \path[name path = C] (0, -5) -- (1, -5);
+    \addplot[top color = c1!0, bottom color =  c2!30] fill between [
+        of = A and B,
+    ];
+    \addplot[top color = c1!30, bottom color =  c2!0] fill between [
+        of = B and C,
+    ];
+    \node at (0.5, 1.5) {\Large $A$};
+    \end{axis}
+    \end{tikzpicture}
+
+\end{document}

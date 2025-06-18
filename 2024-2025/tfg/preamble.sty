@@ -9,8 +9,9 @@
 \usepackage[english, spanish, es-noshorthands, activeacute]{babel} % es-noshorthands para que no haya problemas con tikz
 \usepackage{babelbib}
 \usepackage{cancel}
-\usepackage[labelfont = bf, labelsep = period]{caption}
+\usepackage[labelfont = it, labelsep = period]{caption}
 \usepackage{color}
+\usepackage{emptypage} % solo con añadirlo se eliminan los encabezados de las páginas vacías
 \usepackage{enumitem}
 \usepackage{faktor}
 \usepackage{fancyhdr}
@@ -115,14 +116,14 @@
 % COLORES DE HYPERREF
 
 \definecolor{c1}{HTML}{3878C1}
-\definecolor{c2}{HTML}{3878C1}
+\definecolor{c2}{HTML}{7BC950}
 \definecolor{c3}{HTML}{3878C1}
 
 \hypersetup{
     colorlinks = true,
-    linkcolor = {blue},
-    citecolor = {green},
-    urlcolor = {red},
+    linkcolor = {c1},
+    citecolor = {c2},
+    urlcolor = {c1},
 }
 
 %---------------------------------------------------------------------------------------------------------%
@@ -148,9 +149,9 @@
 
 \nocite{*}
 
-%\renewcommand{\thefigure}{\hspace{-1.5mm}}
+\renewcommand{\thefigure}{\hspace{-.333333em}}
 
-\makeatletter
-\let\c@figure\c@equation
-\let\thefigure\theequation
-\makeatother
+% \makeatletter
+% \let\c@figure\c@equation
+% \let\thefigure\theequation
+% \makeatother

@@ -1,0 +1,1287 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\noindent \textit{Modelización} \hfill \textit{Curso 2024-2025}
+
+\vspace{-6mm}
+
+\begin{center}
+
+	\rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt} % Thick horizontal rule
+	\rule{\textwidth}{0.4pt} % Thin horizontal rule
+	
+    \vspace{3mm}
+
+	{\LARGE \textbf{Ejercicios del Tema 5}} % Title
+
+    \vspace{2mm}
+	
+	\rule[0.66\baselineskip]{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt} % Thin horizontal rule
+	\rule[0.66\baselineskip]{\textwidth}{1.6pt} % Thick horizontal rule
+
+\end{center}
+
+\addtocounter{exercise}{10}
+
+\begin{exercise}
+    Considérese el sistema
+    \[\begin{cases}
+        x' = x, \\
+        y' = \mu - y^2.
+    \end{cases}\]
+    Estudiar los equilibrios y su estabilidad. Dibujar los diagramas de fases correspondientes a los casos $\mu < 0$, $\mu = 0$ y $\mu > 0$.
+\end{exercise}
+
+\begin{solution}
+    El dibujo de los diagramas de fases debe realizarse con el programa \texttt{pplane}. En primer lugar,
+    \[\left(\begin{array}{c}
+        x \\
+        \mu-y^2
+    \end{array}\right) = \left(\begin{array}{c}
+        0 \\
+        0
+    \end{array}\right) \iff x = 0, \ y=\pm \sqrt{\mu}.\]
+    Por tanto, el sistema tiene equilibrios si y solo si $\mu \geq 0$. Si $\mu > 0$, los equilibrios son $(0,\sqrt\mu)$ y $(0,-\sqrt{\mu})$, y si $\mu = 0$, el único equilibrio es $(0,0)$. La matriz jacobiana del sistema es
+    \[J(x,y) = \left(\begin{array}{cc}
+        1 & 0 \\
+        0 & -2y
+    \end{array}\right).\]
+    Supóngase primero que $\mu > 0$, de manera que los equilibrios del sistema son son $(0,\sqrt{\mu})$ y $(0,-\sqrt{\mu})$.
+    \begin{itemize}
+        \item \underline{Estabilidad de $(0,\sqrt{\mu})$}. Se tiene que
+        \[J(0,\sqrt{\mu}) = \left(\begin{array}{cc}
+        1 & 0 \\
+        0 & -2\sqrt{\mu}
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = 1$ y $\lambda_2 = -2\sqrt{\mu}$. Como los autovalores son reales y el determinante es negativo, la configuración del diagrama de fases del sistema linealizado en torno a $(0,0)$ es un punto de silla, luego $(0,0)$ es inestable y no repulsor para el sistema linealizado. Además, los autovalores tienen parte real no nula, así que puede utilizarse el teorema de Hartman-Grobman para afirmar que $(0,\sqrt{\mu})$ es inestable y no repulsor para el sistema del enunciado.
+        \item \underline{Estabilidad de $(0,-\sqrt{\mu})$}. Se tiene que
+        \[J(0,-\sqrt{\mu}) = \left(\begin{array}{cc}
+        1 & 0 \\
+        0 & 2\sqrt{\mu}
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = 1$ y $\lambda_2 = 2\sqrt{\mu}$. Como los autovalores son reales, el determinante es positivo y la traza es positiva, la configuración del diagrama de fases del sistema linealizado en torno a $(0,0)$ es un nodo inestable, luego $(0,0)$ es inestable y repulsor para el sistema linealizado. Además, los autovalores tienen parte real no nula, así que puede utilizarse el teorema de Hartman-Grobman para afirmar que $(0,\sqrt{\mu})$ es inestable y repulsor para el sistema del enunciado.
+    \end{itemize}
+    Si $\mu = 0$, el único equilibrio del sistema es $(0,0)$. Se tiene que
+    \[J(x,y) = \left(\begin{array}{cc}
+        1 & 0 \\
+        0 & 0
+    \end{array}\right).\]
+    Los autovalores de esta matriz son $\lambda_1 = 1$ y $\lambda_2 = 0$. Como $\real(\lambda_2) = 0$, el equilibrio $(0,0)$ es no hiperbólico.
+\end{solution}
+
+\begin{exercise}
+    Dado el oscilador armónico
+    \[
+        \begin{cases}
+            x' = v, \\
+            v' = -\omega^2x,
+        \end{cases}
+    \]
+    probar que todas las órbitas son elipses de la forma $\omega^2x^2+v^2 = C$.
+\end{exercise}
+
+\begin{solution}
+    La ecuación diferencial de segundo orden equivalente al sistema considerado es $x'' = -\omega^2x$. El polinomio característico de esta ecuación es $p(\lambda) = \lambda^2+\omega^2$, y sus raíces, $\lambda_1 = i\omega$ y $\lambda_2 = -i\omega$. Por tanto, la solución de la ecuación es
+    \[x(t) = C_1\sen(\omega t) + C_2\cos(\omega t),\]
+    con $C_1,C_2\in\R$ constantes. En consecuencia, la solución del sistema es
+    \[x(t) = C_1\sen(\omega t) + C_2\cos(\omega t), \qquad v(t) = C_1\omega\cos(\omega t)-C_2\omega\sen(\omega t),\]
+    con $C_1,C_2\in\R$ constantes. Se tiene que
+    \begin{align*}
+        x(t)^2 &= C_1^2\sen^2(\omega t)+C_2^2\cos(\omega t)+2C_1C_2\sen(\omega t)\cos(\omega t), \\
+        \omega^2x(t)^2 &= C_1^2\omega^2\sen^2(\omega t)+C_2^2\omega^2\cos(\omega t)+2C_1C_2\omega^2\sen(\omega t)\cos(\omega t), \\
+        v(t)^2 &= C_1^2\omega^2\cos^2(\omega t) + C_2^2\omega^2\sen^2(\omega t) -2C_1C_2\omega^2\cos(\omega t)\sen(\omega),
+    \end{align*}
+    luego
+    \[\omega^2x(t)^2+v(t)^2 = \omega^2\sen^2(\omega t)(C_1^2+C_2^2) + \omega^2\cos^2(\omega t)(C_1^2+C_2^2) = \omega^2(C_1^2+C_2^2),\]
+    concluyéndose que las órbitas son de la forma $\omega^2x^2+v^2=C$, con $C = \omega^2(C_1^2+C_2^2)$.
+\end{solution}
+
+\begin{exercise}
+    Una población dependiente de la edad puede modelarse usando el siguiente sistema:
+    \[\begin{cases}
+        p' = \beta+p(a-bp), \\
+        \beta' =\beta(c+(a-bp)),
+    \end{cases}\]
+    donde $p$ es la población, $\beta$ es la tasa de nacimientos y $a$, $b$ y $c$ son constantes positivas. Encontrar los puntos críticos del sistema y determinar su comportamiento a largo plazo.
+\end{exercise}
+
+\begin{solution}
+    Se tiene que
+    \[\begin{cases}
+        \beta+p(a-bp) = 0 \\
+        \beta(c+(a-bp)) = 0
+    \end{cases}\iff \begin{cases}
+        \begin{cases}
+            \beta = 0 \\
+            p(a-bp) = 0
+        \end{cases} \\[20pt]
+        \begin{cases}
+            a-bp = -c \\
+            \beta-pc = 0
+        \end{cases}
+    \end{cases} \iff \begin{cases}
+        \begin{cases}
+            \beta = 0 \\
+            p = 0
+        \end{cases} \\[20pt]
+        \begin{cases}
+            \beta = 0 \\
+            p = \frac{a}{b}
+        \end{cases} \\[20pt]
+        \begin{cases}
+            p = \frac{a+c}{b} \\
+            \beta = \frac{c(a+c)}{b}
+        \end{cases}
+    \end{cases}\]
+    Los puntos críticos del sistema son entonces $(0,0)$, $(\frac{a}{b},0)$ y $(\frac{a+c}{b},\frac{c(a+c)}{b})$. La matriz jacobiana del sistema sería
+    \[J(p,\beta) = \left(\begin{array}{cc}
+        a-2bp & 1 \\
+        -b\beta & c+a-bp
+    \end{array}\right).\]
+    \begin{itemize}
+        \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+        \[J(0,0) = \left(\begin{array}{cc}
+            a & 1 \\
+            0 & c+a
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = a$ y $\lambda_2 = c+a$. Como los autovalores son reales, el determinante es positivo y la traza es positiva, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo inestable, luego $(0,0)$ es un equilibrio inestable y repulsor del sistema linealizado. Como además $\real(\lambda_1)\neq0$ y $\real(\lambda_2)\neq0$, puede aplicarse el teorema de Hartman-Grobman para afirmar que $(0,0)$ es inestable y repulsor para el sistema del enunciado.
+        \item \underline{Estabilidad de $(\frac{a}{b},0)$}. Se tiene que
+        \[J\bigl(\frac{a}{b},0\bigr) = \left(\begin{array}{cc}
+            -a & 1 \\
+            0 & c
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = -a$ y $\lambda_2 = c$. Como los autovalores son reales y el determinante es negativo, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un punto de silla, luego $(0,0)$ es un equilibrio inestable y no repulsor del sistema linealizado. Como además $\real(\lambda_1)\neq0$ y $\real(\lambda_2)\neq0$, puede aplicarse el teorema de Hartman-Grobman para afirmar que $(\frac{a}{b},0)$ es inestable y no repulsor para el sistema del enunciado.
+        \item \underline{Estabilidad de $(\frac{a+c}{b},\frac{c(a+c)}{b})$}. Se tiene que
+        \[J\bigl(\frac{a+c}{b},\frac{c(a+c)}{b}\bigr) = \left(\begin{array}{cc}
+            -a-2c & 1 \\
+            -c(a+c) & 0
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = -c$ y $\lambda_2 = -a-c$. Como los autovalores son reales, el determinante es positivo y la traza es negativa, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo estable, luego $(0,0)$ es un equilibrio asintóticamente estable del sistema linealizado. Como además $\real(\lambda_1)\neq0$ y $\real(\lambda_2)\neq0$, puede aplicarse el teorema de Hartman-Grobman para afirmar que $(\frac{a+c}{b},\frac{c(a+c)}{b})$ es asintóticamente estable para el sistema del enunciado.
+    \end{itemize}
+\end{solution}
+
+\begin{exercise}
+    Dibujar el diagrama de fases para el modelo de competencia de especies dado por
+    \[\begin{cases}
+        x'=2x-x^2-xy, \\
+        y'=3y-y^2-2xy.
+    \end{cases}\]
+    Describir qué sucede en términos del comportamiento de las especies.
+\end{exercise}
+
+\begin{solution}
+    El dibujo del diagrama de fases del modelo se delega al programa \texttt{pplane}. Se hallan los equilibrios del sistema:
+    \[\begin{cases}
+        2x-x^2-xy = 0 \\
+        3y-y^2-2xy = 0
+    \end{cases} \iff \begin{cases}
+        \begin{cases}
+            x = 0 \\
+            3y-y^2 = 0
+        \end{cases} \\[20pt]
+        \begin{cases}
+            2-x-y = 0 \\
+            3y-y^2-2xy = 0
+        \end{cases}
+    \end{cases} \iff \begin{cases}
+        \begin{cases}
+            x = 0 \\
+            y = 0
+        \end{cases} \\[20pt]
+        \begin{cases}
+            x = 0 \\
+            y = 3
+        \end{cases} \\[20pt]
+        \begin{cases}
+            x = 2-y \\
+            y = 0
+        \end{cases} \\[20pt]
+        \begin{cases}
+            x = 2-y \\
+            3-y-2x = 0
+        \end{cases}
+    \end{cases} \]
+    Los equilibrios del sistema son $(0,0)$, $(0,3)$, $(2,0)$ y $(1,1)$, y la matriz jacobiana,
+    \[
+        J(x,y) = \left(\begin{array}{cc}
+            2-2x-y & -x \\
+            -2y & 3-2y-2x
+        \end{array}\right).
+    \]
+    \begin{itemize}
+        \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+        \[J\bigl(0,0\bigr) = \left(\begin{array}{cc}
+            2 & 0 \\
+            0 & 3
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = 2$ y $\lambda_2 = 3$. Como los autovalores son reales, el determinante es positivo y la traza es positiva, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo inestable, luego $(0,0)$ es un equilibrio inestable y repulsor del sistema linealizado. Como además $\real(\lambda_1)\neq0$ y $\real(\lambda_2)\neq0$, puede aplicarse el teorema de Hartman-Grobman para afirmar que $(0,0)$ es inestable y repulsor para el sistema del enunciado.
+        \item \underline{Estabilidad de $(0,3)$}. Se tiene que
+        \[J\bigl(0,3\bigr) = \left(\begin{array}{cc}
+            -1 & 0 \\
+            -6 & -3
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = -1$ y $\lambda_2 = -3$. Como los autovalores son reales, el determinante es positivo y la traza es negativa, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo estable, luego $(0,0)$ es un equilibrio asintóticamente estable del sistema linealizado. Como además $\real(\lambda_1)\neq0$ y $\real(\lambda_2)\neq0$, puede aplicarse el teorema de Hartman-Grobman para afirmar que $(0,3)$ es asintóticamente estable para el sistema del enunciado.
+        \item \underline{Estabilidad de $(2,0)$}. Se tiene que
+        \[J\bigl(2,0\bigr) = \left(\begin{array}{cc}
+            -2 & -2 \\
+            0 & -1
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = -2$ y $\lambda_2 = -1$. Como los autovalores son reales, el determinante es positivo y la traza es negativa, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo estable, luego $(0,0)$ es un equilibrio asintóticamente estable del sistema linealizado. Como además $\real(\lambda_1)\neq0$ y $\real(\lambda_2)\neq0$, puede aplicarse el teorema de Hartman-Grobman para afirmar que $(2,0)$ es asintóticamente estable para el sistema del enunciado.
+        \item \underline{Estabilidad de $(1,1)$}. Se tiene que
+        \[J\bigl(1,1\bigr) = \left(\begin{array}{cc}
+            -1 & -1 \\
+            -2 & -1
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 =\sqrt{2}+1$ y $\lambda_2 = \sqrt{2}-1$. Como los autovalores son reales y el determinante es negativo, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un punto de silla, luego $(0,0)$ es un equilibrio inestable y no repulsor del sistema linealizado. Como además $\real(\lambda_1)\neq0$ y $\real(\lambda_2)\neq0$, puede aplicarse el teorema de Hartman-Grobman para afirmar que $(1,1)$ es inestable y no repulsor para el sistema del enunciado.
+    \end{itemize}
+
+    En términos del comportamiento de las especies, parece que si la población inicial se encuentra cerca de $(0,3)$, la especie $x$ se acabará extinguiendo y la especie $y$ tenderá a un equilibrio de $3$ unidades de población. Además, si la población inicial se encuentra cerca de $(2,0)$, la especie $y$ se acabará extinguiendo y la especie $x$ tenderá a un equilibrio de $2$ unidades de población. 
+\end{solution}
+
+\begin{exercise}
+    Dibujar el diagrama de fases del siguiente modelo depredador-presa e interpretar las soluciones en términos ecológicos:
+    \[\begin{cases}
+        x' = 2x-xy, \\
+        y' = -3y+xy.
+    \end{cases}\]
+\end{exercise}
+
+\begin{solution}
+    El dibujo del diagrama de fases del modelo se delega al programa \texttt{pplane}. Se hallan los equilibrios del sistema:
+    \[\begin{cases}
+        2x-xy = 0 \\
+        -3y+xy = 0
+    \end{cases} \iff \begin{cases}
+        \begin{cases}
+            x = 0 \\
+            -3y = 0
+        \end{cases} \\[20pt]
+        \begin{cases}
+            y=2 \\
+            -6+2x = 0
+        \end{cases}
+    \end{cases} \iff \begin{cases}
+        \begin{cases}
+            x = 0 \\
+            y = 0
+        \end{cases} \\[20pt]
+        \begin{cases}
+            y = 2 \\
+            x = 3
+        \end{cases}
+    \end{cases} \]
+    Los equilibrios del sistema son $(0,0)$ y $(3,2)$, y la matriz jacobiana,
+    \[
+        J(x,y) = \left(\begin{array}{cc}
+            2-y & -x \\
+            y & -3+x
+        \end{array}\right).
+    \]
+    \begin{itemize}
+        \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+        \[J\bigl(0,0\bigr) = \left(\begin{array}{cc}
+            2 & 0 \\
+            0 & -3
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = 2$ y $\lambda_2 = -3$. Como los autovalores son reales y el determinante es negativo, la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un punto de silla, luego $(0,0)$ es un equilibrio inestable y no repulsor del sistema linealizado. Como además $\real(\lambda_1)\neq0$ y $\real(\lambda_2)\neq0$, puede aplicarse el teorema de Hartman-Grobman para afirmar que $(0,0)$ es inestable y no repulsor para el sistema del enunciado.
+        \item \underline{Estabilidad de $(3,2)$}. Se tiene que
+        \[J\bigl(3,2\bigr) = \left(\begin{array}{cc}
+            0 & -3 \\
+            2 & 0
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = \sqrt{6}i$ y $\lambda_2 = -\sqrt{6}i$. Como $\real(\lambda_1)= 0$ y $\real(\lambda_2) = 0$, $(3,2)$ es un equilibrio no hiperbólico. En el diagrama de fases del modelo se observa que $(3,2)$ es un centro.
+    \end{itemize}
+
+    Como el equilibrio $(3,2)$ es un centro, si la población inicial de presas y depredadores es próxima a $(3,2)$, la población de presas y depredadores seguirá un patrón periódico.  
+\end{solution}
+
+\addtocounter{exercise}{1}
+
+\begin{exercise}
+    Se considera el sistema de ecuaciones diferenciales
+    \[\begin{cases}
+        x' = 5x-y, \\
+        y' = 2x+8y.
+    \end{cases}\]
+    \begin{enumerate}
+        \item Hallar la solución general del sistema.
+        \item Calcular la solución particular correspondiente a las condiciones iniciales
+        \[x(0) = 15000, \qquad y(0)=10.\]
+        Dibujar las gráficas de $x$ e $y$ en función del tiempo.
+        \item Supóngase que las ecuaciones modelan la relación entre dos entre dos especies, cuyos números de individuos respectivos vienen dados por las incógnitas $x$ e $y$. ¿Qué tipo de relación hay entre las especies?
+        \item Si en la solución particular hallada en el segundo apartado, $x$ o $y$ toman valores negativos, corregir dicha solución para que tenga sentido como una posible evolución de las dos especies. Dibujar las gráficas de las funciones $x$ e $y$ modificadas en fnunción del tiempo.
+        \item Calcular los autovalores y autovectores de la matriz del sistema. Utilizarlos para dibujar aproximadamente el diagrama de fases en el primer cuadrante.
+        \item Utilizando el programa \texttt{pplane}, dibujar el diagrama de fases y compararlo con el dibujado en el apartado anterior.
+        \item Describir cómo evolucionan las especies cuando se parte de una condición inicial cualquiera,
+        \[x(0) = x_0, \qquad y(0) = y_0.\]
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item La ecuación diferencial de segundo orden equivalente al sistema es
+        \[2x+8(5x-x') = 5x'-x'',\]
+        es decir,
+        \[x'' - 13x' + 42x = 0.\]
+        Se tiene que
+        \[\lambda^2-13\lambda +42 = 0 \iff \lambda = \frac{13\pm\sqrt{169-168}}{2} = \frac{13\pm 1}{2},\]
+        así que la solución general de la ecuación es
+        \[x(t) = C_1e^{7t}+C_2e^{6t},\]
+        con $C_1,C_2\in\R$ constantes. Por tanto, la solución general del sistema es
+        \begin{align*}
+            x(t) &= C_1e^{7t}+C_2e^{6t}, \\
+            y(t) &= 5C_1e^{7t}+5C_2e^{6t}-7C_1e^{7t}-6C_2e^{6t} = -2C_1e^{7t}-C_2e^{6t},
+        \end{align*}
+        con $C_1,C_2\in\R$ constantes.
+        \item Se tiene que
+        \[\begin{cases}
+            x(0)=15000 \\
+            y(0) = 10
+        \end{cases} \iff \begin{cases}
+            C_1+C_2 = 15000 \\
+            -2C_1-C_2 = 10 
+        \end{cases} \iff \begin{cases}
+            C_1 = -15010 \\
+            C_2 = 30010
+        \end{cases}\]
+        La solución del problema con las condiciones iniciales dadas es
+        \[x(t) = -15010e^{7t} + 30010e^{6t}, \qquad y(t) = 30020e^{7t}-30010e^{6t}.\]
+        Se va a omitir la representación de las gráficas de $x$ e $y$.
+        \item Entre las dos especies del modelo considerado existe una relación de depredador-presa, pues en ausencia de la especie $y$, la especie $x$ crece indefinidamente, mientras que en ausencia de la especie $x$, el crecimiento de la especie $y$ se ralentiza. Se tiene entonces que $x$ es la presa e $y$ el depredador.
+        \item 
+        \item La matriz del sistema es
+        \[A = \left(\begin{array}{cc}
+            5 & -1 \\
+            2 & 8
+        \end{array}\right).\]
+        Se tiene que
+        \[(5-\lambda)(8-\lambda)+2=0 \iff \lambda^2-13\lambda +42 = 0 \iff \lambda = \frac{13\pm 1}{2},\]
+        así que los autovalores de $A$ son $\lambda_1 = 7$ y $\lambda_2 = 6$. Por un lado,
+        \[(A-\lambda_1I)\left(\begin{array}{c}
+            x \\
+            y
+        \end{array}\right) = 0 \iff \begin{cases}
+            -2x-y&= 0, \\
+            \phantom{-}2x+y&= 0
+        \end{cases} \iff y = -2x.\]
+        Por otro lado,
+        \[(A-\lambda_2I)\left(\begin{array}{c}
+            x \\
+            y
+        \end{array}\right) = 0 \iff \begin{cases}
+            -x-y&= 0, \\
+            \phantom{-}2x+2y&= 0
+        \end{cases} \iff y = -x.\]
+        Por tanto, $(1,2)$ es un autovector asociado a $\lambda_1$ y $(1,-1)$ es un autovector asociado a $\lambda_2$. El dibujo del diagrama de fases se deja para los artistas. 
+        \item De este apartado se encarga \texttt{pplane}.
+        \item Se tiene que
+        \[\begin{cases}
+            x(0)=x_0 \\
+            y(0) = y_0
+        \end{cases} \iff \begin{cases}
+            C_1+C_2 = x_0 \\
+            -2C_1-C_2 = y_0
+        \end{cases} \iff \begin{cases}
+            C_1 = -x_0-y_0 \\
+            C_2 = 2x_0+y_0
+        \end{cases}\]
+        La solución del problema con estas condiciones iniciales es
+        \[x(t) = -(x_0+y_0)e^{7t} + (2x_0+y_0)e^{6t}, \qquad y(t) = 2(x_0+y_0)e^{7t}-(2x_0+y_0)e^{6t}.\]
+        La evolución de las poblaciones depende de $x_0+y_0$. Como se trata de un modelo de poblaciones, hay que asumir $x_0 \geq 0$ e $y_0\geq 0$. Si $x_0+y_0>0$, entonces
+        \[\lim_{t\to\infty}x(t) = -\infty, \qquad \lim_{t\to\infty}y(t) = \infty,\]
+        es decir, la población de depredadores aumenta indefinidamente y las presas se extinguen. El caso $x_0+y_0=0$ es trivial.
+    \end{enumerate} 
+\end{solution}
+
+\addtocounter{exercise}{1}
+
+\begin{exercise}
+    Responder a las mismas cuestiones que en el ejercicio $17$, para el sistema
+    \[\begin{cases}
+        x' = 3x-y, \\
+        y' = -2x+2y,
+    \end{cases}\]
+    con las condiciones iniciales
+    \[x(0)=10, \qquad y(0) = 80.\]
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Al tratarse de un sistema lineal, su solución general es
+        \[\left(\begin{array}{c}
+            x(t) \\
+            y(t)
+        \end{array}\right) = e^{tA}\left(\begin{array}{c}
+            C_1 \\
+            C_2
+        \end{array}\right),\]
+        con $C_1,C_2\in\R$ constantes y
+        \[A = \left(\begin{array}{cc}
+            3 & -1 \\
+            -2 & 2
+        \end{array}\right).\]
+        Se tiene que
+        \[\textup{det}(A-\lambda I) = 0 \iff (3-\lambda)(2-\lambda)-2 = 0 \iff \lambda^2-5\lambda+4 = 0 \iff \lambda = \frac{5\pm 3}{2},\]
+        así que los autovalores de $A$ son $\lambda_1 = 4$ y $\lambda_2 = 1$. Como los autovalores de $A$ son reales y distintos, entonces $A$ es diagonalizable. La matriz de paso está formada por autovectores asociados a los autovalores $\lambda_1$ y $\lambda_2$. Se tiene que
+        \begin{align*}
+            (A-4I)\left(\begin{array}{c}
+                x \\
+                y
+            \end{array}\right) = \left(\begin{array}{c}
+                0 \\
+                0
+            \end{array}\right) \iff \begin{cases}
+                -x-y = 0 \\
+                -2x-2y = 0
+            \end{cases} \iff y = -x.
+        \end{align*}
+        Por otro lado,
+        \begin{align*}
+            (A-I)\left(\begin{array}{c}
+                x \\
+                y
+            \end{array}\right) = \left(\begin{array}{c}
+                0 \\
+                0
+            \end{array}\right) \iff \begin{cases}
+                2x-y = 0 \\
+                -2x+y = 0
+            \end{cases} \iff y = 2x.
+        \end{align*}
+        Por tanto,
+        \[V_1 = \left(\begin{array}{c}
+            1 \\
+            -1
+        \end{array}\right) \qquad \textup{y} \qquad V_2 = \left(\begin{array}{c}
+            1 \\
+            2
+        \end{array}\right)\]
+        son autovectores asociados a $\lambda_1$ y $\lambda_2$, respectivamente. Sean
+        \[P = \left(\begin{array}{cc}
+            1 & 1 \\
+            -1 & 2
+        \end{array}\right), \qquad \qquad \Lambda = \left(\begin{array}{cc}
+            4 & 0 \\
+            0 & 1
+        \end{array}\right).\]
+        Entonces
+        \begin{align*}
+        e^{tA} &= Pe^{t\Lambda}P^{-1} = \frac{1}{3}\left(\begin{array}{cc}
+            1 & 1 \\
+            -1 & 2
+        \end{array}\right)\left(\begin{array}{cc}
+            e^{4t} & 0 \\
+            0 & e^{t}
+        \end{array}\right)\left(\begin{array}{cc}
+            2 & -1 \\
+            1 & 1
+        \end{array}\right) = \frac{1}{3}\left(\begin{array}{cc}
+            e^{4t} & e^t \\
+            -e^{4t} & 2e^t
+        \end{array}\right)\left(\begin{array}{cc}
+            2 & -1 \\
+            1 & 1
+        \end{array}\right) \\
+        &= \frac{1}{3}\left(\begin{array}{cc}
+            2e^{4t}+e^t & -e^{4t}+e^t \\
+            -2e^{4t}+2e^t & e^{4t}+2e^t
+        \end{array}\right).
+        \end{align*}
+        La solución general del sistema es
+        \begin{align*}
+        \left(\begin{array}{c}
+            x(t) \\
+            y(t)
+        \end{array}\right) = \frac{1}{3}\left(\begin{array}{cc}
+            2e^{4t}+e^t & -e^{4t}+e^t \\
+            -2e^{4t}+2e^t & e^{4t}+2e^t
+        \end{array}\right)\left(\begin{array}{c}
+            C_1 \\
+            C_2
+        \end{array}\right) = \frac{1}{3}\left(\begin{array}{cc}
+            (2C_1-C_2)e^{4t}+(C_1+C_2)e^t \\
+            (-2C_1+C_2)e^{4t}+(2C_1+2C_2)e^t
+        \end{array}\right),
+        \end{align*}
+        o lo que es lo mismo, renombrando las constantes,
+        \begin{align*}
+        \left(\begin{array}{c}
+            x(t) \\
+            y(t)
+        \end{array}\right) = \left(\begin{array}{cc}
+            Ae^{4t}+Be^t \\
+            -Ae^{4t}+2Be^t
+        \end{array}\right).
+        \end{align*}
+        \item Se tiene que
+        \[\begin{cases}
+            x(0) = 10 \\
+            y(0) = 80
+        \end{cases} \iff \begin{cases}
+            A+B=10 \\
+            -A+2B = 80
+        \end{cases} \iff \begin{cases}
+            A = -20 \\
+            B = 30
+        \end{cases}\]
+        La solución del problema con las condiciones iniciales dadas sería
+        \begin{align*}
+        \left(\begin{array}{c}
+            x(t) \\
+            y(t)
+        \end{array}\right) = \left(\begin{array}{cc}
+            -20e^{4t}+30e^t \\
+            20e^{4t}+60e^t
+        \end{array}\right).
+        \end{align*}
+        Se va a omitir la representación de las gráficas de $x$ e $y$.
+        \item Se observa en las ecuaciones del sistema que en ausencia de la especie $y$, la especie $x$ se reproduce infinitamente, mientras que en ausencia de la especie $x$, la población de especie $y$ crece sin límites. Existe una relación de competencia entre las especies: la existencia de una de las especies causa una disminución del ritmo de crecimiento de la población de la otra.
+        \item En la gráfica de $x$ se observa que existe un único $t^* > 0$ tal que $x(t^*) = 0$ y $x(t) < 0$ para todo $t > t^*$. Se tiene que
+        \[x(t^*) = 0 \iff 20e^{3t} = 30 \iff 3t^* = \log\bigl(\frac{3}{2}\bigr) \iff t^* = \frac{1}{3}\log\bigl(\frac{3}{2}\bigr).\]
+        Basta redefinir $x$ de la siguiente manera:
+        \[x(t) = \begin{cases}
+            -20e^{4t}+30e^t & $ si $ t < t^*, \\
+            0 & $ si $ t \geq t^*.
+        \end{cases}\]
+        También hay que modificar la función $y$ para que se tenga $y'(t) = -2x(t)+2y(t) = 2y(t)$ para todo $t \geq t^*$. Como $y$ debe ser solución de $y' = 2y$ en $(t^*,\infty)$, debe existir $C\in\R$ tal que $y(t) = Ce^{2t}$ para todo $t > t^*$. Para que $y$ siga siendo continua en $t^*$, debe tenerse
+        \[20e^{4t^*}+60e^{t^*} = Ce^{2t^*},\]
+        es decir,
+        \[C = 20e^{2t^*}+60e^{-t^*} = 20e^{\frac{2}{3}\log(\frac{3}{2})} + 60e^{-\frac{1}{3}\log(\frac{3}{2})} = 20\sqrt[3]{\frac{9}{4}}+60\sqrt[3]{\frac{2}{3}}.\]
+        De esta manera,
+        \[y(t) = \begin{cases}
+            -20e^{4t}+30e^t & $ si $ t < t^*, \\
+            Ce^{2t} & $ si $ t \geq t^*.
+        \end{cases}\]
+        Se vuelve a omitir la representación de las gráficas de $x$ e $y$.
+        \item El cálculo de autovalores y autovectores se ha realizado en el primer apartado. Se va a omitir el esbozo del diagrama de fases; solamente se observa que
+        \[x(t)+y(t) = 90e^t, \qquad 2x(t)-y(t) = -60e^{4t},\]
+        y por tanto las órbitas son rectas de la forma $x+y = C$ y $2x-y = C'$, con $C > 0$ y $C'<0$.
+        \item De este apartado se encarga \texttt{pplane}.
+        \item Se tiene que
+        \[\begin{cases}
+            x(0) = x_0 \\
+            y(0) = y_0
+        \end{cases} \iff \begin{cases}
+            A+B = x_0 \\
+            -A+2B = y_0
+        \end{cases} \iff \begin{cases}
+            A = \frac{2}{3}x_0-\frac{1}{3}y_0 \\
+            B =\frac{1}{3}(x_0+y_0)
+        \end{cases}\]
+        La solución del problema con las condiciones iniciales dadas sería
+        \begin{align*}
+        \left(\begin{array}{c}
+            x(t) \\
+            y(t)
+        \end{array}\right) = \frac{1}{3}\left(\begin{array}{cc}
+            (2x_0-y_0)e^{4t}+(x_0+y_0)e^t \\
+            (y_0-2x_0)e^{4t}+2(x_0+y_0)e^t
+        \end{array}\right).
+        \end{align*}
+        La evolución de las poblaciones depende del signo de $2x_0-y_0$. Como se trata de un modelo de poblaciones, hay que asumir $x_0 > 0$ e $y_0 > 0$.
+        \begin{itemize}
+            \item Si $2x_0-y_0 > 0$, es decir, si $y_0 < 2x_0$, entonces
+            \[\lim_{t\to\infty}x(t) = \infty, \qquad \lim_{t\to\infty}y(t) = -\infty,\]
+            es decir, la población $x$ crece indefinidamente y la población $y$ se extingue.
+            \item Si $2x_0-y_0 < 0$, es decir, si $y_0 > 2x_0$, entonces
+            \[\lim_{t\to\infty}x(t) = -\infty, \qquad \lim_{t\to\infty}y(t) = \infty,\]
+            es decir, la población $y$ crece indefinidamente y la población $x$ se extingue.
+            \item Si $2x_0-y_0 = 0$, es decir, si $y_0 = 2x_0$, entonces
+            \[x(t)=3x_0e^t, \qquad y(t) = 6x_0e^t,\]
+            luego
+            \[\lim_{t\to\infty}x(t) = \infty, \qquad \lim_{t\to\infty}y(t) = \infty,\]
+            es decir, ambas poblaciones crecen indefinidamente.
+        \end{itemize}
+    \end{enumerate} 
+\end{solution}
+
+\begin{exercise}
+    Dada una función $F \colon [0,\infty) \to \R$ de clase $1$ y tal que $F'(0)=0$, se considera el sistema
+    \[\begin{cases}
+        x' = -2yF'(x^2+y^2), \\
+        y' = 2xF'(x^2+y^2).
+    \end{cases}\] 
+    \begin{enumerate}
+        \item Probar que todas las órbitas están incluidas en circunferencias con centro en el origen.
+        \item Estudiar los equilibrios y su estabilidad.
+        \item Dibujar, en particular, el diagrama de fases correspondiente a la elección
+        \[F(s) = \cos(s).\]
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Sean $x$ e $y$ dos soluciones no triviales del sistema del enunciado. Considérese la función $\varphi \colon \R \to [0,\infty)$ dada por $\varphi(t) = x(t)^2+y(t)^2$. Se tiene que $\varphi$ es derivable y
+        \begin{align*}
+            \varphi'(t) &= 2x(t)x'(t)+2y(t)y'(t) = -2x(t)y(t)F'(x(t)^2+y(t)^2)+2x(y)y(t)F'(x(t)^2+y(t)^2) = 0
+        \end{align*}
+        para todo $t \in \R$, luego $\varphi$ es constante: existe $K > 0$ tal que $\varphi(t)=x(t)^2+y(t)^2=K$ para todo $t \in \R$ (no puede ser $K=0$ porque $x$ e $y$ no son idénticamente nulas). En consecuencia, $x^2+y^2=K$, es decir, la órbita que definen $x$ e $y$ está contenida en la circunferencia de centro $0$ y radio $K$.
+        \item Como consecuencia del apartado anterior, el sistema del enunciado es equivalente a
+        \[\begin{cases}
+            x' = -2yF'(K), \\
+            y' = 2xF'(K),
+        \end{cases}\] 
+        para cualquier constante $K\in\R$. Nótese que este sistema es lineal. Se tiene que
+        \[\begin{cases}
+            -2yF'(K) = 0 \\
+            2xF'(K) = 0
+        \end{cases} \iff 
+        (x,y)=(0,0) \textup{ ó } F'(K) = 0.
+        \]
+        Si fuese $F'(K) = 0$, todos los puntos de $\R^2$ son equilibrios del sistema. Supóngase entonces que $F'(K)\neq0$, de manera que el único equilibrio del sistema es $(0,0)$. La matriz de coeficientes del sistema es
+        \[A = \left(\begin{array}{cc}
+            0 & -2F'(K) \\
+            2F'(K) & 0
+        \end{array}\right),\]
+        cuyos autovalores son $\lambda_1 = 2F'(K)i$ y $\lambda_2 = -2F'(K)i$. Como ambos autovalores son complejos y la traza de la matriz es nula, la configuración del diagrama de fases en un entorno de $(0,0)$ es un centro. En consecuencia, $(0,0)$ es estable pero no asintóticamente estable.
+        \item La función $F\colon[0,\infty)\to\R$ dada por $F(s)=\cos(s)$ se encuentra en las condiciones de los apartados anteriores. Considérese una órbita del sistema, es decir, una circunferencia de ecuación $x^2+y^2=r^2$.
+        \begin{itemize}
+            \item Si $r = \sqrt{k\pi}$ para algún $k\in \Z$, entonces $F'(x^2+y^2) = F'(r^2) = -\sen(r^2) = 0$ y por tanto la órbita es estacionaria. 
+            \item Si $\sqrt{k\pi} < r < \sqrt{(k+1)\pi}$ para algún $k \in \Z$ par, entonces $k\pi < r^2 <(k+1)\pi$ y por tanto $F'(x^2+y^2) = F'(r^2) = -\sen(r^2) < 0$. Si $(x,y)$ está en el primer cuadrante, entonces $x' = 2y\sen(r^2) < 0$ e $y' = -2x\sen(r^2) < 0$. En consecuencia, la órbita se orienta en el sentido de las agujas del reloj.
+            \item Si $\sqrt{k\pi} < r < \sqrt{(k+1)\pi}$ para algún $k \in \Z$ impar, entonces $k\pi < r^2 <(k+1)\pi$ y por tanto $F'(x^2+y^2) = F'(r^2) = -\sen(r^2) > 0$. Si $(x,y)$ está en el primer cuadrante, entonces $x' = 2y\sen(r^2) < 0$ e $y' = -2x\sen(r^2) > 0$. En consecuencia, la órbita se orienta en el sentido contrario a las agujas del reloj.
+        \end{itemize}
+        Disponiendo de esta información, el dibujo del diagrama de fases es trivial.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    Se considera el siguiente modelo de dos especies:
+    \[\begin{cases}
+        x' = (1-0'01x+0'005y)x, \\
+        y' = (1-0'01y+0'005x)y.
+    \end{cases}\]
+    \begin{enumerate}
+        \item Interpretar el significado de cada término de las ecuaciones. ¿Qué relación hay entre las especies?
+        \item Estudiar los puntos de equilibrio y su estabilidad.
+        \item Si se ha encontrado alguna solución de equilibrio en el que ambas especies coexisten, dibujar aproximadamente el diagrama de fases en las proximidades de dicha solución (es decir, dibujar el diagrama de fases del sistema linealizado).
+        \item Usando \texttt{pplane}, dibujar el diagrama de fases. Interpretarlo en términos de las posibles evoluciones de las dos especies en función de la condición inicial.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item El sistema puede escribirse como 
+        \[\begin{cases}
+            x' = x-0'01x^2+0'005yx, \\
+            y' = y-0'01y^2+0'005xy.
+        \end{cases}\]
+        El término $-0'01x^2$ indica la competencia entre miembros de la misma especie, $x$. El término $0'005yx$ indica que la presencia de la especie $y$ ejerce una influencia positiva en la población de la especie $x$. La interpretación de los términos de la segunda ecuación es análoga. Se observa que hay competencia entre individuos de la misma especie pero la existencia de una de las especies favorece a la otra.
+        \item Se tiene que
+        \begin{align*}
+            \begin{cases}
+                (1-0'01x+0'005y)x = 0 \\
+                (1-0'01y+0'005x)y = 0 
+            \end{cases} \!\iff \begin{cases}
+                \begin{cases}
+                    x = 0 \\
+                    y = 0
+                \end{cases} \\[20pt]
+                \begin{cases}
+                    x = 0 \\
+                    1-0'01y = 0
+                \end{cases} \\[20pt]
+                \begin{cases}
+                    1-0'01x = 0 \\
+                    y = 0
+                \end{cases} \\[20pt]
+                \begin{cases}
+                    1-0'01x+0'005y = 0 \\
+                    1-0'01y+0'005x = 0
+                \end{cases}
+            \end{cases} \!\iff \begin{cases}
+                \begin{cases}
+                    x = 0 \\
+                    y = 0
+                \end{cases} \\[20pt]
+                \begin{cases}
+                    x = 0 \\
+                    y = 100
+                \end{cases} \\[20pt]
+                \begin{cases}
+                    x = 100 \\
+                    y = 0
+                \end{cases} \\[20pt]
+                \begin{cases}
+                    x = 200 \\
+                    y = 200
+                \end{cases}
+            \end{cases}
+        \end{align*}
+        Los equilibrios del sistema son $(0,0)$, $(0,100)$, $(100,0)$ y $(200,200)$. La matriz jacobiana del sistema es
+        \[J(x,y)=\left(\begin{array}{cc}
+            1-0'02x+0'005y & 0'005x \\
+            0'005y & 1-0'02y+0'005x
+        \end{array}\right)\]
+        \begin{itemize}
+            \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+            \[J(0,0)=\left(\begin{array}{cc}
+                1 & 0 \\
+                0 & 1
+            \end{array}\right).\]
+            Esta matriz tiene un único autovalor, $\lambda = 1$. La traza es positiva y la matriz es diagonalizable, así que la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo estrella inestable, luego $(0,0)$ es inestable y repulsor universal para el sistema linealizado. Como $\real(\lambda) \neq 0$, puede aplicarse el teorema de Hartman-Grobman para obtener que $(0,0)$ es inestable y repulsor universal para el sistema del enunciado.
+            \item \underline{Estabilidad de $(0,100)$}. Se tiene que
+            \[J(0,100)=\left(\begin{array}{cc}
+                1'5 & 0 \\
+                0'5 & -1
+            \end{array}\right).\]
+            Esta matriz tiene dos autovalores, $\lambda_1 = 1'5$ y $\lambda_2 = -1$. Los autovalores son reales y el determinante es negativo, así que la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un punto de silla, luego $(0,0)$ es inestable y no repulsor para el sistema linealizado. Como $\real(\lambda_1) \neq 0$ y $\real(\lambda_2)\neq 0$, puede aplicarse el teorema de Hartman-Grobman para obtener que $(0,100)$ es inestable y no repulsor para el sistema del enunciado.
+            \item \underline{Estabilidad de $(100,0)$}. La situación es la misma del punto anterior.
+            \item \underline{Estabilidad de $(200,200)$}. Se tiene que
+            \[J(200,200)=\left(\begin{array}{cc}
+                -2 & 1 \\
+                1 & -2
+            \end{array}\right).\]
+            Esta matriz tiene dos autovalores, $\lambda_1 = -1$ y $\lambda_2 = -3$. Los autovalores son reales, el determinante es positivo y la traza es negativa, así que la configuración del diagrama de fases del sistema linealizado en un entorno de $(0,0)$ es un nodo estable, luego $(0,0)$ es asintóticamente estable para el sistema linealizado. Como $\real(\lambda_1) \neq 0$ y $\real(\lambda_2)\neq 0$, puede aplicarse el teorema de Hartman-Grobman para obtener que $(200,200)$ es asintóticamente estable para el sistema del enunciado.
+        \end{itemize}
+        \item Como $(200,200)$ es asintóticamente estable, si la condición inicial es cercana a este punto, ambas especies tenderán a un equilibrio de $200$ unidades de población. 
+        
+        Para esbozar el diagrama de fases, se hallan autovectores asociados a los autovalores $\lambda_1 = -1$ y $\lambda_2 = -3$ de la matriz $J(200,200)$. Por un lado,
+        \begin{align*}
+            (J(200,200)+I)\left(\begin{array}{c}
+                x \\
+                y
+            \end{array}\right) = \left(\begin{array}{c}
+                0 \\
+                0
+            \end{array}\right) \iff \begin{cases}
+                -x+y = 0 \\
+                x-y = 0
+            \end{cases} \iff y = x.
+        \end{align*}
+        Por otro lado,
+        \begin{align*}
+            (J(200,200)+3I)\left(\begin{array}{c}
+                x \\
+                y
+            \end{array}\right) = \left(\begin{array}{c}
+                0 \\
+                0
+            \end{array}\right) \iff \begin{cases}
+                x+y = 0 \\
+                x+y = 0
+            \end{cases} \iff y = -x.
+        \end{align*}
+        Por tanto,
+        \[V_1 = \left(\begin{array}{c}
+            1 \\
+            1
+        \end{array}\right) \qquad \textup{y} \qquad V_2 = \left(\begin{array}{c}
+            1 \\
+            -1
+        \end{array}\right)\]
+        son autovectores asociados a $\lambda_1$ y $\lambda_2$, respectivamente. Como el diagrama de fases del sistema linealizado en $(0,0)$ es un nodo estable y se tiene $\lambda_2 < \lambda_1 < 0$, las órbitas serán curvas que tienden a $0$ y cuyos vectores tangentes tienden a $V_1$. Con esta información se puede esbozar el diagrama de fases.
+        \item En el diagrama de fases aportado por \texttt{pplane} se observa que si la población inicial es de la forma $(x_0,y_0)$ con $x_0 > 0$ e $y_0 > 0$, entonces las poblaciones tienden al equilibrio $(200,200)$. Si la condición inicial es de la forma $(0,y_0)$ con $y_0 > 0$, la población de especie $x$ es nula y la población de especie $y$ tiende hacia $100$ unidades de población. Sucede lo análogo para condiciones iniciales de la forma $(x_0,0)$ con $x_0>0$.  
+    \end{enumerate}
+\end{solution}
+
+\addtocounter{exercise}{1}
+
+\begin{exercise}
+    El siguiente modelo surge en neurobiología:
+    \[\begin{cases}
+        x' = f(x,y), \\
+        y' = g(x,y),
+    \end{cases}\]
+    con $x,y\in\R$, siendo
+    \[f(x,y) = y-\frac{5x^3}{8}+\frac{9x}{4} \qquad\textup{y}\qquad g(x,y)=\begin{cases}
+        -y & $ si $ x < 0, \\
+        -y+\frac{x^3}{8+x^3} & $ en otro caso$.
+    \end{cases}\]
+    \begin{enumerate}
+        \item Comprobar que $(0,0)$ y $(2,0'5)$ son equilibrios y estudiar su estabilidad.
+        \item Dibujar las nulclinas y deducir si hay algún equilibrio más. En ese caso, extraer conclusiones sobre su estabilidad a partir de las nulclinas. \emph{(En este apartado se pide hacer el dibujo de las nulclinas a mano, justificando lo que se dibuja)}.
+        \item Dibujar el diagrama de fases con \texttt{pplane}. Comprobar si las conclusiones obtenidas en los apartados anteriores se confirman y extraer conclusiones generales sobre el comportamiento de las variables $x$ e $y$ cuando el tiempo tiende a infinito.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Se tiene que:
+        \begin{itemize}
+            \item $f(0,0) = 0$.
+            \item $g(0,0) = 0$.
+            \item $f(2,0'5) = 0'5-5+4'5 = 0$.
+            \item $g(2,0'5) = -0'5+0'5 = 0$
+        \end{itemize}
+        Esto confirma que $(0,0)$ y $(2,0'5)$ son equilibrios del sistema. Si $x \geq 0$, la matriz jacobiana del sistema es
+        \[J(x,y) = \left(\begin{array}{cc}
+            -\frac{15}{8}x^2+\frac{9}{4} & 1 \\
+            \frac{24x^2}{(8+x^3)^2} & -1
+        \end{array}\right).\]
+        \begin{itemize}
+            \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+            \[J(0,0) = \left(\begin{array}{cc}
+                \frac{9}{4} & 1 \\
+                0 & -1
+            \end{array}\right).\]
+            Los autovalores de esta matriz son $\lambda_1 = \frac{9}{4}$ y $\lambda_ 2 = -1$. Como los autovalores son reales y el determinante es negativo, la configuración del diagrama de fases del sistema linealizado en torno a $(0,0)$ es un punto de silla, así que $(0,0)$ es inestable y repulsor para el sistema linealizado. Y como $\real(\lambda_1)\neq 0$ y $\real(\lambda_2)\neq 0$, puede aplicarse el teorema de Hartman-Grobman para obtener que $(0,0)$ es un equilibrio inestable y repulsor para el sistema del enunciado.
+            \item \underline{Estabilidad de $(2,0'5)$}. Se tiene que
+            \[J(2,0'5) = \left(\begin{array}{cc}
+                -\frac{21}{4} & 1 \\
+                \frac{3}{8} & -1
+            \end{array}\right)\]
+            Los autovalores de esta matriz son $\lambda_1 = \frac{\sqrt{313}-25}{8}$ y $\lambda_2 = -\frac{\sqrt{313}+25}{8}$. Como los autovalores son reales, el determinante es positivo y la traza es negativa, la configuración del diagrama de fases del sistema linealizado en torno a $(0,0)$ es un nodo estable, así que $(0,0)$ es asintóticamente estable para el sistema linealizado. Y como $\real(\lambda_1)\neq 0$ y $\real(\lambda_2)\neq 0$, puede aplicarse el teorema de Hartman-Grobman para obtener que $(200,0'5)$ es un equilibrio asintóticamente estable para el sistema del enunciado.
+        \end{itemize}
+    \item El conjunto de nulclinas horizontales es la gráfica de la función $x \mapsto \frac{5}{8}x^3-\frac{9}{4}x$, $x \in \R$, mientras que el conjunto de las nulclinas verticales es la unión del eje $x$ negativo con la gráfica de la función $x \mapsto \frac{x^3}{8+x^3}$, $x \in [0,\infty)$. Con esta información se pueden representar las nulclinas.
+    \item En el diagrama de fases que representa el programa \textup{pplane} se observa que para condiciones iniciales de la forma $(x_0,y_0)$ con $x_0\geq 0$, $y_0\geq0$ y $(x_0,y_0)\neq (0,0)$, las poblaciones tienden al equilibrio $(2,0'5)$.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    Considérese el sistema
+    \[\begin{cases}
+        x' = -y, \\
+        y' = -x.
+    \end{cases}\]
+    \begin{enumerate}
+        \item Dibujar el campo de vectores.
+        \item Probar que las trayectorias del sistema son hipérbolas de la forma $x^2-y^2 = C$. Para ello, probar que $xx'-yy'=0$ e integrar ambos miembros.
+        \item El origen es un punto de silla; encontrar las ecuaciones que definen sus variedades estable e inestable.
+        \item Introducir nuevas variables $u = x+y$, $v = x-y$; escribir el sistema en términos de $u$ y $v$, y entonces resolverlo. 
+        \item ¿Cuáles son las ecuaciones para las variedades estable e inestable en términos de $u$ y $v$?
+        \item Escribir la solución del sistema en términos de $x$ e $y$, con condición inicial $(x_0,y_0)$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item El sistema del enunciado es un sistema lineal, y su matriz es
+        \[A = \left(\begin{array}{cc}
+            0 & -1 \\
+            -1 & 0
+        \end{array}\right).\]
+        El único equilibrio del sistema es $(0,0)$. Los autovalores de la matriz son $\lambda_1 = 1$ y $\lambda_2 = -1$. Además,
+        \[V_1=\left(\begin{array}{c}
+            1 \\
+            -1
+        \end{array}\right) \qquad \textup{y} \qquad V_2=\left(\begin{array}{c}
+            1 \\
+            1
+        \end{array}\right)\]
+        son autovectores asociados a $\lambda_1$ y $\lambda_2$.
+        
+        Por otra parte, como los autovalores de la matriz son reales y el determinante es negativo, se tiene que $(0,0)$ es un punto de silla. Y como $\lambda_1$ es el mayor autovalor, los vectores tangentes de las órbitas tenderán a la recta que genera el vector $V_1$, es decir, la recta $y=-x$. Conociendo todo esto se puede representar el campo de vectores del sistema.
+        \item Es claro que si $x$ e $y$ son soluciones del sistema, entonces $xx'-yy'=0$. En consecuencia,
+        \[\int(x(t)x'(t)-y(t)y'(t)) \, dt = \frac{x(t)^2}{2}-\frac{y(t)^2}{2} + K = 0\]
+        para cualquier constante $K \in \R$. Renombrando la constante, se obtiene que $x^2-y^2 = C$ para cualquier constante $C\in\R$.
+        \item La variedad estable es la recta generada por un autovector cualquiera del autovalor negativo, es decir, la recta, $y = x$. Asimismo, la variedad inestable es la recta generada por un autovector cualquiera del autovalor positivo, es decir, la recta, $y = -x$.
+        \item Llamando $u = x+y$ y $v = x-y$, se tiene que \[u' = x'+y' = -y-x = -u, \qquad v' = x'-y' = -y+x = v,\] así que el nuevo sistema es
+        \[\begin{cases}
+        u' = -u, \\
+        v' = v.
+        \end{cases}\]
+        La solución de este sistema es
+        \[u(t) = C_1e^{-t}, \qquad v(t) = C_2e^t,\]
+        con $C_1,C_2\in\R$ constantes cualesquiera.
+        \item La matriz del nuevo sistema es
+        \[B = \left(\begin{array}{cc}
+            -1 & 0 \\
+            0 & 1
+        \end{array}\right),\]
+        cuyos autovalores son $\lambda_1 = -1$ y $\lambda_2 = 1$. Las columnas de $B$ son autovectores asociados a estos autovalores, así que la variedad estable ahora es la recta $v = 0$, y la variedad inestable, la recta $u = 0$. Como $u = x+y$ y $v = x-y$, esto concuerda con lo que se obtuvo anteriormente.
+        \item La solución del sistema es partida es
+        \[\left(\begin{array}{c}
+            x(t) \\
+            y(t)
+        \end{array}\right) = C_1e^{-t}\left(\begin{array}{c}
+            1 \\
+            1
+        \end{array}\right)+C_2e^{t}\left(\begin{array}{c}
+            1 \\
+            -1
+        \end{array}\right) = \left(\begin{array}{c}
+            C_1e^{-t}+C_2e^{t} \\
+            C_1e^{-t}-C_2e^t
+        \end{array}\right).\]
+        Se tiene que
+        \[\begin{cases}
+            x(0)=x_0 \\
+            y(0)=y_0
+        \end{cases} \iff \begin{cases}
+            C_1+C_2=x_0 \\
+            C_1-C_2=y_0
+        \end{cases} \iff \begin{cases}
+            C_1 = \frac{1}{2}(x_0+y_0)\\
+            C_2 = \frac{1}{2}(x_0-y_0)
+        \end{cases}\]
+        En consecuencia, la solución del problema con estas condiciones iniciales es
+        \[\left(\begin{array}{c}
+            x(t) \\
+            y(t)
+        \end{array}\right) = \frac{1}{2}\left(\begin{array}{c}
+            (x_0+y_0)e^{-t}+(x_0-y_0)e^{t} \\
+            (x_0+y_0)e^{-t}+(y_0-x_0)e^t
+        \end{array}\right).\]
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    El movimiento de un oscilador armónico amortiguado está determinado por la ecuación
+    \[mx'' + bx' + kx = 0,\]
+    donde $b>0$ es la constante de amortiguación.
+    \begin{enumerate}
+        \item Escribir la ecuación en forma de sistema.
+        \item Clasificar los puntos de equilibrio y dibujar el diagrama de fases correspondiente, en función del tamaño relativo de los parámetros.
+        \item ¿Cómo se interpretan físicamente, en función de los parámetros $b$ y $k$, los resultados obtenidos?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Llamando $y = x'$, la ecuación quedaría $my'+by +kx = 0$, es decir, $y' = -\frac{k}{m}x -\frac{b}{m}y$. El sistema resultante es
+        \[\begin{cases}
+            x' = y, \\
+            y' = -\frac{k}{m}x-\frac{b}{m}y.
+        \end{cases}\]
+        \item Se tiene que
+        \[\begin{cases}
+            y = 0 \\
+            -\frac{k}{m}x-\frac{b}{m}y = 0
+        \end{cases} \iff x=y=0,\]
+        así que el único equilibrio del sistema es $(0,0)$ (se está suponiendo $k \neq 0$). La matriz del sistema es
+        \[A = \left(\begin{array}{cc}
+            0 & 1 \\
+            -\frac{k}{m} & -\frac{b}{m}
+        \end{array}\right),\]
+        Se tiene que
+        \begin{align*}
+            \textup{det}(A-\lambda I) = 0 &\iff \lambda^2+\frac{b}{m}\lambda+\frac{k}{m} = 0 \\
+            &\iff \lambda = \frac{-\frac{b}{m}\pm\sqrt{\frac{b^2}{m^2}-\frac{4k}{m}}}{2} = \frac{-\frac{b}{m}\pm\frac{\sqrt{b^2-4mk}}{m}}{2} = \frac{-b\pm\sqrt{b^2-4mk}}{2m}.
+        \end{align*}
+        Se distinguen tres casos:
+        \begin{itemize}
+            \item Si $b ^2-4mk > 0$, entonces los autovalores de $A$ son $\lambda_1 = \frac{\sqrt{b^2-4mk}-b}{2m}$ y $\lambda_2 = -\frac{\sqrt{b^2-4mk}+b}{2m}$. Como los autovalores de la matriz son reales, el determinante es positivo y la traza es negativa, entonces el diagrama de fases del sistema es un nodo estable, luego $(0,0)$ es asintóticamente estable.
+            \item Si $b^2-4mk = 0$, entonces el único autovalor de $A$ es $\lambda = -\frac{b}{2m} = -\frac{2\sqrt{mk}}{2m} = -\sqrt{\frac{k}{m}}$. Hay que estudiar en este caso si la matriz $A$ es diagonalizable. Para ello, se estudian los autovectores asociados a $\lambda$. Se tiene que
+            \begin{align*}
+                \bigl(A+\sqrt{\frac{k}{m}}I\bigr)\left(\begin{array}{c}
+                    x \\
+                    y
+                \end{array}\right) = \left(\begin{array}{c}
+                    0 \\
+                    0
+                \end{array}\right) &\iff \left(\begin{array}{cc}
+                    \sqrt{\frac{k}{m}} & 1 \\
+                    -\frac{k}{m} & -\sqrt{\frac{k}{m}}
+                \end{array}\right)\left(\begin{array}{c}
+                    x \\
+                    y
+                \end{array}\right) = \left(\begin{array}{c}
+                    0 \\
+                    0
+                \end{array}\right) \\ 
+                &\iff \left(\begin{array}{cc}
+                    \frac{k}{m} & \sqrt{\frac{k}{m}} \\
+                    -\frac{k}{m} & -\sqrt{\frac{k}{m}}
+                \end{array}\right)\left(\begin{array}{c}
+                    x \\
+                    y
+                \end{array}\right) = \left(\begin{array}{c}
+                    0 \\
+                    0
+                \end{array}\right)
+            \end{align*}
+            De esto se deduce que $A$ no es diagonalizable, pues el espacio vectorial generado por los autovectores es de dimensión $1$. Como $A$ no es diagonalizable y su traza es negativa, entonces el diagrama de fases del sistema es un nodo degenerado estable.
+            \item Si $b^2-4mk < 0$, entonces los autovalores de $A$ son complejos: $\lambda_1 = -\frac{b}{2m}+\frac{\sqrt{4mk-b^2}}{2m}i$ y $\lambda_2 = -\frac{b}{2m}-\frac{\sqrt{4mk-b^2}}{2m}i$. Como la traza de la matriz es negativa, el diagrama de fases del sistema es un foco estable.
+        \end{itemize}
+        \item En cualquiera de los tres casos anteriores, el oscilador armónico tiende a una posición de equilibrio independientemende de la condición inicial. La diferencia radica en que en el caso $b^2-4mk$ tienen lugar oscilaciones en torno a la posición de equilibrio.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    Construir un sistema no lineal que tenga cuatro puntos de equilibrio: dos puntos de silla, un foco estable y un foco inestable.
+\end{exercise}
+
+\begin{solution}
+    Se va a tratar de buscar un sistema de la forma
+    \[\begin{cases}
+        x' = ax+by+cxy+dx^2+ey^2, \\
+        y' = fx+gy+hxy+ix^2+jy^2,
+    \end{cases}\]
+    que tenga por equilibrios a $(0,0)$, $(0,1)$, $(1,0)$, $(1,1)$, y ya se verá si también puede pedirse que haya entre ellos dos puntos de silla, un foco estable y un foco inestable.
+    
+    En primer lugar, para que $(0,1)$ sea equilibrio, debe tenerse $b+e = 0$ y $g+j = 0$, es decir, $e = -b$ y $j = -g$. Y para que $(1,0)$ sea equilibrio, se necesita que $a+d = 0$ y $f+i = 0$, o sea, $d = -a$ y $i = -f$. El sistema por ahora quedaría 
+    \[\begin{cases}
+        x' = ax+by+cxy-ax^2-by^2, \\
+        y' = fx+gy+hxy-fx^2-gy^2.
+    \end{cases}\]
+    Para que $(1,1)$ sea equilibrio, debe tenerse
+    \[a+b+c-a-b = 0, \qquad f+g+h-f-g = 0,\]
+    es decir, $c = 0$ y $h = 0$. La cosa por ahora va tal que así:
+    \[\begin{cases}
+        x' = ax+by-ax^2-by^2, \\
+        y' = fx+gy-fx^2-gy^2.
+    \end{cases}\]
+    La matriz jacobiana de este sistema es
+    \[J(x,y) = \left(\begin{array}{cc}
+        a-2ax & b-2by \\
+        f-2fx & g-2gy
+    \end{array}\right).\]
+    En particular,
+    \[
+        J(0,0) = \left(\begin{array}{cc}
+            a & b \\
+            f & g
+        \end{array}\right), \quad J(1,1) = \left(\begin{array}{cc}
+            -a & -b \\
+            -f & -g
+        \end{array}\right), \quad
+        J(0,1) = \left(\begin{array}{cc}
+            a & -b \\
+            f & -g
+        \end{array}\right), \quad J(1,0) = \left(\begin{array}{cc}
+            -a & b \\
+            -f & g
+        \end{array}\right). 
+    \]
+    Los autovalores de estas matrices son
+    \[\begin{alignedat}{3}
+        \lambda_1^{(0,0)} &= \frac{a+g+ \sqrt{(a+g)^2-4(ag-bf)}}{2}, &\qquad \lambda_2^{(0,0)} &= \frac{a+g-\sqrt{(a+g)^2-4(ag-bf)}}{2}, \\
+        \lambda_1^{(1,1)} &= \frac{-a-g+ \sqrt{(a+g)^2-4(ag-bf)}}{2}, &\qquad \lambda_2^{(1,1)} &= \frac{-a-g-\sqrt{(a+g)^2-4(ag-bf)}}{2}, \\
+        \lambda_1^{(0,1)} &= \frac{a-g+ \sqrt{(a-g)^2-4(bf-ag)}}{2}, &\qquad \lambda_2^{(0,1)} &= \frac{a-g-\sqrt{(a-g)^2-4(bf-ag)}}{2}, \\
+        \lambda_1^{(1,0)} &= \frac{-a+g+ \sqrt{(a-g)^2-4(bf-ag)}}{2}, &\qquad \lambda_2^{(1,0)} &= \frac{-a+g-\sqrt{(a-g)^2-4(bf-ag)}}{2}. \\
+    \end{alignedat}\]
+    Se buscará que $(0,0)$ y $(1,1)$ sean puntos de silla, que $(0,1)$ sea un foco estable, y que $(1,0)$ sea un foco inestable. Debe tenerse entonces $\lambda_1^{(0,0)},\lambda_2^{(0,0)},\lambda_1^{(1,1)},\lambda_2^{(1,1)}\in\R$ y $\lambda_1^{(0,1)},\lambda_2^{(0,1)},\lambda_1^{(0,1)},\lambda_2^{(0,1)}\in\C\setminus\R$. Esto equivale a tomar $a,b,f,g\in\R$ de manera que
+    \[(a+g)^2-4(ag-bf) > 0 \qquad \textup{y} \qquad (a-g)^2-4(bf-ag) < 0.\]
+    Es menester que $\textup{det}(J(0,0)) < 0$ y $\textup{det}(J(1,1)) < 0$. Esto equivale a tomar $a,b,f,g\in\R$ de manera que
+    \[ag-bf < 0.\]
+    Nótese que esto implica $(a+g)^2-4(ag-bf) > 0$. También hace falta que $\textup{tr}(J(0,1))<0$ y que  $\textup{tr}(J(0,1))>0$, es decir, debe cumplirse $a-g < 0$. 
+
+    Todos estos razonamientos han conseguido reducir el problema del enunciado a encontrar $a,b,f,g\in\R$ tales que
+    \[(a-g)^2-4(bf-ag) < 0, \qquad ag-bf < 0, \qquad a-g < 0.\]
+    Tomando $a = 1$, $g = 2$, $b = 2$ y $f = 2$, se tiene que
+    \[(a-g)^2-4(bf-ag) = 1-4(4-2) =-7 < 0, \quad ag-bf = 2-4 =-2< 0, \quad a-g = -1 < 0.\]
+    La conclusión es que el sistema
+    \[\begin{cases}
+        x' = x+2y-x^2-2y^2, \\ 
+        y' = 2x+2y-2x^2-2y^2,
+    \end{cases}\]
+    complace las demandas del enunciado.
+\end{solution}
+
+\addtocounter{exercise}{3}
+
+\begin{exercise}
+    Un circuito eléctrico con resistencia y condensador puede ser modelado mediante las ecuaciones
+    \[\begin{cases}
+        x' = y, \\
+        y' = -x+x^3-(a_0+x)y,
+    \end{cases}\]
+    donde $a_0$ es una constante no nula y $x(t)$ representa la corriente en el circuito en el instante de tiempo $t$. Calcular los equilibrios y estudiar su estabilidad. Dibujar los diagramas de fases correspondientes a los distintos casos estudiados.
+\end{exercise}
+
+\begin{solution}
+    Lo de siempre:
+    \[
+    \begin{cases}
+        y = 0 \\
+        -x+x^3-(a_0+x)y = 0
+    \end{cases} \iff \begin{cases}
+        y = 0 \\
+        -x(1-x^2) = 0
+    \end{cases}
+    \]
+    De esto se deduce que los equilibrios son $(0,0)$, $(-1,0)$ y $(1,0)$. La matriz jacobiana del sistema es
+    \[J(x,y)=\left(\begin{array}{cc}
+        0 & 1 \\
+        -1+3x^2-y & -a_0-x
+    \end{array}\right).\]
+    \begin{itemize}
+        \item \underline{Estabilidad de $(0,0)$}. Se tiene que
+    \[J(0,0)=\left(\begin{array}{cc}
+        0 & 1 \\
+        -1 & -a_0
+    \end{array}\right).\]
+    Se hallan los autovalores de esta matriz:
+    \[\textup{det}(J(0,0)-\lambda I) = 0 \iff \lambda^2+a_0\lambda+1=0 \iff \lambda = \frac{-a_0\pm\sqrt{a_0^2-4}}{2}.\]
+    Se distinguen los siguientes casos:
+    \begin{itemize}
+        \item Si $|a_0|>2$, los autovalores de $J(0,0)$ son $\lambda_1 = \frac{-a_0+\sqrt{a_0^2-4}}{2}$ y $\lambda_1 = \frac{-a_0-\sqrt{a_0^2-4}}{2}$. Como $\textup{det}(J(0,0))>0$ y $\textup{tr}(J(0,0)) = -a_0$, se tiene que el diagrama de fases cerca de $(0,0)$ es un nodo estable si $a_0 > 2$, y un nodo inestable si $a_0 < -2$. Por tanto, $(0,0)$ es asintóticamente estable si $a_0\in(0,2)$, e inestable y repulsor si $a_0<-2$.
+        \item Si $|a_0| < 2$, los autovalores de $J(0,0)$ son $\lambda_1 = -\frac{a_0}{2}+\frac{\sqrt{4-a_0^2}}{2}i$ y $\lambda_2 = -\frac{a_0}{2}-\frac{\sqrt{4-a_0^2}}{2}i$. Como $\textup{tr}(J(0,0)) = -a_0$, se tendrá que el diagrama de fases cerca de $(0,0)$ es un foco estable si $a_0 \in (0,2)$, y un foco inestable si $a_0\in (-2,0)$. Por tanto, $(0,0)$ es asintóticamente estable si $a_0\in(0,2)$, e inestable y repulsor si $a_0 \in (-2,0)$.
+        \item Si $a_0 = 2$, el único autovalor de $J(0,0)$ es $\lambda = -1$. Se tiene que
+        \[\left(\begin{array}{cc}
+            1 & 1 \\
+            -1 & -1
+        \end{array}\right)\left(\begin{array}{c}
+            x \\
+            y
+        \end{array}\right) = \left(\begin{array}{c}
+            0 \\
+            0
+        \end{array}\right).\]
+        De esto se deduce que $J(0,0)$ no es diagonalizable, pues no existe una base de $\R^2$ autovectores de $J(0,0)$. Como $\textup{tr}(J(0,0)) = -2 < 0$, se tiene el diagrama de fases cerca de $(0,0)$ es un nodo degenerado estable, luego $(0,0)$ es asintóticamente estable y atractor universal.
+        \item Si $a_0 = -2$, el único autovalor de $J(0,0)$ es $\lambda = 1$. Se tiene que
+        \[\left(\begin{array}{cc}
+            -1 & 1 \\
+            -1 & 1
+        \end{array}\right)\left(\begin{array}{c}
+            x \\
+            y
+        \end{array}\right) = \left(\begin{array}{c}
+            0 \\
+            0
+        \end{array}\right).\]
+        De esto se deduce que $J(0,0)$ no es diagonalizable, pues no existe una base de $\R^2$ autovectores de $J(0,0)$. Como $\textup{tr}(J(0,0)) = 2 > 0$, se tiene que el diagrama de fases cerca de $(0,0)$ es un nodo degenerado inestable, luego $(0,0)$ es inestable y repulsor universal.
+    \end{itemize}
+    \item Estabilidad de $(-1,0)$. Se tiene que
+    \[J(-1,0)=\left(\begin{array}{cc}
+        0 & 1 \\
+        2 & 1-a_0
+    \end{array}\right).\]
+    Se hallan los autovalores de esta matriz:
+    \[\textup{det}(J(-1,0)-\lambda I) = 0 \iff \lambda^2+(a_0-1)\lambda-2=0 \iff \lambda = \frac{1-a_0\pm\sqrt{(a_0-1)^2+8}}{2}.\]
+    Por tanto, $J(-1,0)$ tiene dos autovalores reales y distintos. Además, $\textup{det}(J(-1,0)) = -2 < 0$, así que $(-1,0)$ es un punto de silla.
+    \item Estabilidad de $(1,0)$. Se tiene que
+    \[J(1,0)=\left(\begin{array}{cc}
+        0 & 1 \\
+        2 & -a_0-1
+    \end{array}\right).\]
+    Se hallan los autovalores de esta matriz:
+    \[\textup{det}(J(1,0)-\lambda I) = 0 \iff \lambda^2+(a_0+1)\lambda-2=0 \iff \lambda = \frac{1+a_0\pm\sqrt{(a_0+1)^2+8}}{2}.\]
+    Por tanto, $J(1,0)$ tiene dos autovalores reales y distintos. Además, $\textup{det}(J(1,0)) = -2 < 0$, así que $(1,0)$ es un punto de silla.
+    \end{itemize}
+    El dibujo del diagrama de fases es tarea de \texttt{pplane}.
+\end{solution}
+
+\begin{exercise}
+    Un modelo simple para la propagación de una epidemia en una ciudad es el siguiente:
+    \[\begin{cases}
+        S' =-\tau SI, \\
+        I' = \tau SI-rI,
+    \end{cases}\]
+    donde $S$ representa el número de individuos susceptibles de contraer la enfermedad e $I(t)$ el de individuos infectados, en una escala de $1$ por $1000$; $\tau$ y $r$ son, respectivamente, la tasa específica de contagios y la tasa de recuperación de los enfermos (se supone que aquellos que se sanan se vuelven inmunes). El tiempo se mide en días.
+    \begin{enumerate}
+        \item Probar que los máximos del número de infectados en cada órbita se dan necesariamente en puntos donde $ S = \frac{r}{\tau}$. A este valor del número de individuos susceptibles se le denomina \emph{valor umbral}.
+        \item Dibujar el diagrama de fases del sistema. Interpretar los resultados obtenidos.
+        \item Supóngase que $\tau = 0'003$ y $r = 0'5$. Dibujar las trayectorias que corresponden a los puntos iniciales $(1000,1)$, $(700,1)$ y $(500,1)$. Comprobar que, en cada caso, el valor umbral corresponde al obtenido en el primer apartado.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item Sea $t^* \geq 0$ tal que $I$ alcanza un máximo en $t^*$. Entonces $I'(t^*) = \tau S(t^*)I(t^*)-rI(t^*) = 0$, es decir, $\tau S(t^*)I(t^*) = rI(t^*)$. Y como $I(t^*) \neq 0$, entonces $S(t^*) = \frac{r}{\tau}$.
+        \item Primero se calculan los equilibrios del sistema. Se va a cambiar el nombre a las variables por comodidad.
+        \[\begin{cases}
+            -\tau xy = 0 \\
+            \tau xy - ry = 0 
+        \end{cases} \iff 
+        \begin{cases}
+            xy = 0 \\
+            ry = 0
+        \end{cases} \iff y = 0.\]
+        Todos los puntos de la forma $(x,0)$ con $x \geq 0$ son equilibrios del sistema. La matriz jacobiana del sistema es
+        \[J(x,y) = \left(\begin{array}{cc}
+            -\tau y & -\tau x \\
+            \tau y & \tau x -r
+        \end{array}\right),\]
+        luego 
+        \[J(x,0) = \left(\begin{array}{cc}
+            0 & -\tau x \\
+            0 & \tau x -r
+        \end{array}\right).\]
+        Los autovalores de esta matriz son $\lambda_1 = 0$ y $\lambda_2 = \tau x -r$. Como $\real(\lambda_1) = 0$, el equilibrio $(x,0)$ es no hiperbólico.
+
+        Representando el diagrama de fases del sistema con \texttt{pplane} se observa que las órbitas del sistema tienden a puntos de la forma $(x,0)$, es decir, con el paso del tiempo, desaparece por completo la epidemia.
+        \item De este apartado se encarga \texttt{pplane}.
+    \end{enumerate}
+\end{solution}
+
+\begin{exercise}
+    El siguiente sistema de ecuaciones modela la evolución de una especie:
+    \[\begin{cases}
+        x' = \beta + kx(1-\frac{x}{N}), \\
+        \beta' = c(1-\frac{x}{N}),
+    \end{cases}\]
+    donde $k$, $N$ y $c$ son constantes positivas, $x$ es la población y $\beta$ es la tasa de migración (cantidad de población que entra o sale por unidad de tiempo debido a movimientos migratorios).
+    \begin{enumerate}
+        \item Interpretar las ecuaciones y proponer un significado para las constantes.
+        \item Estudiar los equilibrios y su estabilidad.
+        \item Dibujar los diagramas de fases correspondientes a los diferentes casos hallados y deducir cuál es, en cada caso, la posible evolución de la especie en función de su condición inicial.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    \hfill
+    \begin{enumerate}
+        \item El término $1-\frac{x}{N}$ de la primera ecuación indica que existe un límite para el número de individuos de la población $x$. En concreto, la capacidad máxima de individuos de esta especie vendrá dada por la constante $N$, mientras que la constante $k$ puede indicar la tasa de natalidad de la especie $x$. El término $\beta$ de la primera ecuación también indica que la tasa de migración $\beta$ favorece la aparición de miembros de la especie $x$. 
+        
+        La segunda ecuación indica que el ritmo de crecimiento de la tasa de migración es proporcional al porcentaje de ocupación de la especie $x$ en el ambiente, siendo $c$ esta constante de proporcionalidad.
+        \item Se hallan los equilibrios del sistema:
+        \begin{align*}
+            \begin{cases}
+                \beta + kx(1-\frac{x}{N}) = 0 \\
+                c(1-\frac{x}{N}) = 0
+            \end{cases} \iff
+            \begin{cases}
+                \beta = 0 \\
+                x = N
+            \end{cases}
+        \end{align*}
+        El único equilibrio del sistema es $(N,0)$. La matriz jacobiana sería
+        \[J(x,\beta)=\left(\begin{array}{cc}
+            k-\frac{2kx}{N} & 1 \\
+            -\frac{c}{N} & 0
+        \end{array}\right).\]
+        Consecuentemente,
+        \[J(N,0)=\left(\begin{array}{cc}
+            -k & 1 \\
+            -\frac{c}{N} & 0
+        \end{array}\right).\]
+        Los autovalores de $J(N,0)$ son las soluciones de la ecuación
+        \[\lambda^2+k\lambda+\frac{c}{N}=0,\]
+        que son
+        \[\lambda = \frac{-k\pm\sqrt{k^2-\frac{4c}{N}}}{2}.\]
+        Se distinguen tres casos:
+        \begin{itemize}
+            \item Si $k^2-\frac{4c}{N} > 0$, entonces $J(N,0)$ tiene dos autovalores reales y distintos de parte real no nula, así que puede aplicarse el teorema de Hartman-Grobman. Como además $\textup{det}(J(N,0)) = \frac{c}{N} > 0$ y $\textup{tr}(J(N,0)) = -k < 0$, entonces el diagrama de fases cerca de $(N,0)$ es un nodo estable. En consecuencia, $(N,0)$ es asintóticamente estable.
+            \item Si $k^2-\frac{4c}{N} < 0$, entonces $J(N,0)$ tiene dos autovalores complejos de parte real no nula, así que puede aplicarse el teorema de Hartman-Grobman. Como además $\textup{tr}(J(N,0)) = -k < 0$, entonces el diagrama de fases cerca de $(N,0)$ es un foco estable. En consecuencia, $(N,0)$ es asintóticamente estable.
+            \item Si $k^2-\frac{4c}{N} = 0$, entonces $J(N,0)$ tiene un único autovalor real, $\lambda = -\frac{k}{2}$, que es no nulo y por tanto también puede aplicarse el teorema de Hartman-Grobman. Se trata de estudiar si $J(N,0)$ es diagonalizable. En primer lugar, como $N = \frac{4c}{k^2}$, entonces
+            \[J(N,0) = \left(\begin{array}{cc}
+                -k & 1 \\
+                -\frac{k^2}{4} & 0
+            \end{array}\right),\] luego
+            \begin{align*}
+                \textup{det}(J(N,0)-\lambda I)\left(\begin{array}{c}
+                x \\
+                y
+                \end{array}\right) = \left(\begin{array}{c}
+                    0 \\
+                    0
+                \end{array}\right) &\iff  \left(\begin{array}{cc}
+                    -\frac{k}{2} & 1 \\
+                    -\frac{k^2}{4} & \frac{k}{2}
+                \end{array}\right)\left(\begin{array}{c}
+                    x \\
+                    y
+                \end{array}\right) = \left(\begin{array}{c}
+                    0 \\
+                    0
+                \end{array}\right) \\ &\iff  \left(\begin{array}{cc}
+                    -\frac{k}{2} & 1 \\
+                    -\frac{k}{2} & 1
+                \end{array}\right)\left(\begin{array}{c}
+                    x \\
+                    y
+                \end{array}\right) = \left(\begin{array}{c}
+                    0 \\
+                    0
+                \end{array}\right).
+            \end{align*}
+            Como no existe una base de $\R^2$ de autovectores de $J(N,0)$, se obtiene que $J(N,0)$ no es diagonalizable. Y como $\textup{tr}(J(N,0)) = -k < 0$, entonces el diagrama de fases cerca de $(N,0)$ es un nodo degenerado estable. En consecuencia, $(N,0)$ es asintóticamente estable.
+        \end{itemize}
+        \item Tras representar el diagrama de fases con \texttt{pplane}., se observa que con independencia de la condición inicial, la población de $\beta$ tiende a extinguirse y la población de $x$ tiende a estabilizarse en las $N$ unidades de población.
+    \end{enumerate}
+
+\end{solution}
+
+\end{document}

@@ -1,0 +1,33 @@
+\documentclass[11pt]{report}
+
+\usepackage{preamble}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+        axis on top,
+        axis x line = middle,
+        axis y line = middle,
+        xtick=\empty,
+        ytick=\empty,
+        xmin = -2,
+        xmax = 2,
+        ymin = -2,
+        ymax = 2,
+        samples = 200,
+        scale=1.5,
+        extra x ticks = {-1, 1},
+        extra x tick labels = {$-1$, $1$},
+        extra x tick style = {xticklabel style = {below right}, major tick length=0pt},
+        extra y ticks = {0},
+        extra y tick labels = {$0$},
+        extra y tick style = {yticklabel style = {below left}, major tick length=0pt},
+        tick label style={font=\scriptsize}
+    ]
+    \addplot[domain=-2:2, color=c2, line width=2pt]{x*(x-1)};
+    \addplot[mark = none, gray, dashed] coordinates {(-1,-3) (-1,3)};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

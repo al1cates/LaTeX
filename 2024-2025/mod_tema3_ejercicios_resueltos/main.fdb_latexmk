@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1748876710.2345 "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/mod_tema3_ejercicios_resueltos/main.tex" "main.pdf" "main" 1748876713.48786 0
-  "C:/Users/lopez/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1748700671 465129 d9e9914855bee88e13ca75eac3fa0a9e ""
+["pdflatex"] 1749802866.52769 "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/mod_tema3_ejercicios_resueltos/main.tex" "main.pdf" "main" 1749802869.69915 0
+  "C:/Users/lopez/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1749119408 465670 5917c1899e4823f2689a85870491b44d ""
   "C:/Users/lopez/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1716209786 24240354 39248efaa9d72d3d5e429154a4aa6b9a ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/newpx/px-lms.enc" 1735294428 3877 2ca811886181a05a861d20a35de75e06 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/newpx/zpl_TOsF.enc" 1735294428 2688 c4453cc5ea1d5eadb4ed2ca5fa23d7e7 ""
@@ -167,7 +167,7 @@
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/xpatch/xpatch.sty" 1585221260 8510 7803f78066c4f9d008405191a4b43073 ""
   "C:/Users/lopez/AppData/Local/Programs/MiKTeX/tex/latex/xstring/xstring.sty" 1693735632 123 a302f2c651a95033260db60e51527ae8 ""
-  "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/mod_tema3_ejercicios_resueltos/main.tex" 1748876705 46447 2f057139ba6672dc960fdc0ca0d11294 ""
+  "c:/Users/lopez/Documents/Proyectos/latex/2024-2025/mod_tema3_ejercicios_resueltos/main.tex" 1749802865 46447 2f057139ba6672dc960fdc0ca0d11294 ""
   "img/Figure_1.png" 1748700941 24805 a86f7bdb6fefaa6e7fbade1e6b118c8f ""
   "img/Figure_10.png" 1748859785 11026 36054192ca9be6b5840d77177825c292 ""
   "img/Figure_2.png" 1748704832 25142 2f9d91e7cf1829baffb7e8440b3097ef ""
@@ -178,9 +178,9 @@
   "img/Figure_7.png" 1748859581 11262 418358c2084abd0e6d15a7722f692b5f ""
   "img/Figure_8.png" 1748859652 11118 946d8fa78a3ecb0ec4643871eef1660f ""
   "img/Figure_9.png" 1748859714 11076 643617f3401aa45ffe115fdb296cc452 ""
-  "main.aux" 1748876713 325 96ec927d9615ce3ebca8b07f1a1c8991 "pdflatex"
-  "main.out" 1748876712 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.tex" 1748876705 46447 2f057139ba6672dc960fdc0ca0d11294 ""
+  "main.aux" 1749802869 325 96ec927d9615ce3ebca8b07f1a1c8991 "pdflatex"
+  "main.out" 1749802868 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.tex" 1749802865 46447 2f057139ba6672dc960fdc0ca0d11294 ""
   "plot1/main.pdf" 1748605693 66280 479f6a607ee1ab3386f1af571fc72aa5 ""
   "plot2/main.pdf" 1748614802 72583 2d8b1fd6cc8ea33a1fc657c2e12676ec ""
   "plot3/main.pdf" 1748785753 53404 5e223e18462496fd472ddf6bec091cfc ""
